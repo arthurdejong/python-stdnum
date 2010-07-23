@@ -62,35 +62,18 @@ def isbn_type(number):
     number = compact(number)
     if len(number) == 10:
         if not number[:-1].isdigit():
-            #raise ValueError('ISBN should be numeric')
             return None
         if _calc_isbn10_check_digit(number[:-1]) != number[-1]:
-            #raise ValueError('ISBN check digit incorrect')
             return None
         return 'ISBN10'
     elif len(number) == 13:
         if not number.isdigit():
-            #raise ValueError('ISBN should be numeric')
             return None
         if _calc_isbn13_check_digit(number[:-1]) != number[-1]:
-            #raise ValueError('ISBN check digit incorrect')
             return None
         return 'ISBN13'
     else:
-        #raise ValueError('ISBN has invalid length')
         return None
-
-
-    '''
-    try:
-        number = compact(number)
-    except ValueError:
-        return None
-    if len(number) == 10:
-        return 'ISBN10'
-    else:
-        return 'ISBN13'
-    '''
 
 def validate(number):
     """Checks to see if the number provided is a valid ISBN (either a legacy
