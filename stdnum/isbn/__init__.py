@@ -33,7 +33,7 @@ False
 >>> isbn_type('978-0-471-11709-4')
 'ISBN13'
 >>> to_isbn13('1-85798-218-5')
-'978-1-85798-218-X') ******************************************
+'978-1-85798-218-3'
 """
 
 
@@ -89,7 +89,7 @@ def to_isbn13(number):
     if len(min_number) == 13:
         return number # nothing to do, already ISBN13
     # put new check digit in place
-    number = number[:-1] + _calc_isbn13_check_digit('978' + min_number)
+    number = number[:-1] + _calc_isbn13_check_digit('978' + min_number[:-1])
     # add prefix
     if ' ' in number:
         return '978 ' + number
