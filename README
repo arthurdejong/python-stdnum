@@ -1,0 +1,9 @@
+
+The goal of this project is to make a library to parse number formats and
+codes in different formats.
+
+Most notably this starts with ISBN and SSBN numbers.
+
+
+
+
