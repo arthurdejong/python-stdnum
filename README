@@ -1,9 +1,67 @@
+python-stdnum
+=============
 
-The goal of this project is to make a library to parse number formats and
-codes in different formats.
+A Python module to parse, validate and reformat standard numbers and codes
+in different formats.
 
-Most notably this starts with ISBN and SSBN numbers.
+Available formats
+-----------------
 
+Currently this module supports the following formats:
 
+- ISBN (International Standard Book Number)
+- ISSN (International Standard Serial Number)
+- BSN (Burgerservicenummer, the Dutch national identification number)
 
+Basically any number or code that has some validation mechanism available
+or some common formatting is eligible for inclusion into this library.
 
+Interface
+---------
+
+Most of these modules implement the following functions:
+
+validate() - returns either True or False depending on whether the
+             passed number is in any supported and valid form
+compact() - return a compact representation of the number or code
+            this function generally does not do validation but may raise
+            exceptions for wildly incorrect numbers
+format() - return a formatted version of the number in the preferred format
+           this function generally expects to be passed a valid number or code
+
+Apart from the above, the module may add extra parsing, validation or conversion functions.
+
+Requirements
+------------
+
+The modules should not require any external Python modules and should be
+pure Python. The modules are developed and tested with Python 2.6 but may
+also work with older versions of Python.
+
+Copyright
+---------
+
+Copyright (C) 2010 Arthur de Jong
+
+This library is free software; you can redistribute it and/or
+modify it under the terms of the GNU Lesser General Public
+License as published by the Free Software Foundation; either
+version 2.1 of the License, or (at your option) any later version.
+
+This library is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+Lesser General Public License for more details.
+
+You should have received a copy of the GNU Lesser General Public
+License along with this library; if not, write to the Free Software
+Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
+02110-1301 USA
+
+Feedback and bug reports
+------------------------
+
+If you have any questions regarding python-stdnum, would like to report a bug
+or request addition of a format please send an email to
+  <python-stdnum-users@lists.arthurdejong.org>
+Patches and code contributions are more than welcome.
