@@ -1,0 +1,24 @@
+Source: python-stdnum
+Section: python
+Priority: optional
+Maintainer: Arthur de Jong <adejong@debian.org>
+Standards-Version: 3.9.0
+Build-Depends: debhelper (>= 7.0.50~), python-setuptools
+Build-Depends-Indep: python, python-support (>= 0.6.4)
+XS-Python-Version: >= 2.5
+Homepage: http://arthurdejong.org/python-stdnum/
+Vcs-Svn: http://arthurdejong.org/svn/python-stdnum/python-stdnum/
+Vcs-Browser: http://arthurdejong.org/viewcvs/python-stdnum/python-stdnum/
+
+Package: python-stdnum
+Architecture: all
+Depends: ${python:Depends}, ${misc:Depends}
+Description: Python module to handle standardized numbers and codes
+ A Python module to parse, validate and reformat standard numbers and codes
+ in different formats.
+ .
+ Currently this module supports the following formats:
+ .
+  * ISBN (International Standard Book Number)
+  * ISSN (International Standard Serial Number)
+  * BSN (Burgerservicenummer, the Ducth national identification number)
