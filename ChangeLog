@@ -1,0 +1,56 @@
+2010-07-25 12:53  arthur
+
+	* [r11] debian, debian/changelog, debian/compat, debian/control,
+	  debian/copyright, debian/docs, debian/rules, debian/source,
+	  debian/source/format: add Debian packaging
+
+2010-07-25 11:27  arthur
+
+	* [r10] COPYING, ChangeLog, MANIFEST.in, NEWS: include some more
+	  files in the source distribution
+
+2010-07-25 10:42  arthur
+
+	* [r9] ., setup.cfg: use nose for testing and ignore generated
+	  files and directories
+
+2010-07-25 09:24  arthur
+
+	* [r8] setup.py: add a setup.py script for use of setuptools
+
+2010-07-25 09:21  arthur
+
+	* [r7] README: add documentation to the README
+
+2010-07-25 09:21  arthur
+
+	* [r6] stdnum/bsn.py, stdnum/isbn/__init__.py,
+	  stdnum/isbn/ranges.py, stdnum/issn.py: spelling check an extra
+	  doctest and a simplification
+
+2010-07-23 19:13  arthur
+
+	* [r5] stdnum/bsn.py: add BSN (Burgerservicenummer, the Ducth
+	  national identification number) module
+
+2010-07-23 14:46  arthur
+
+	* [r4] stdnum/issn.py: add an ISSN (International Standard Serial
+	  Number) module
+
+2010-07-23 14:34  arthur
+
+	* [r3] stdnum/isbn/__init__.py: fix example and fix ISBN13
+	  conversion
+
+2010-07-23 13:51  arthur
+
+	* [r2] stdnum/isbn/__init__.py: get rid of remainders of old code
+	  that used exceptions
+
+2010-07-23 13:40  arthur
+
+	* [r1] ., README, stdnum, stdnum/__init__.py, stdnum/isbn,
+	  stdnum/isbn/__init__.py, stdnum/isbn/ranges.py: make a initial
+	  repository layout with an implementation of the isbn module
+
