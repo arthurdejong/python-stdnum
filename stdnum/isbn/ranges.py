@@ -301,7 +301,7 @@ def lookup(prefix, number):
 def load(fp):
     """Loads the data from the specified file descriptor. The provided file
     should match the format of the RangeMessage.xml file."""
-    # this is inline to avoid importing xml.sax for normal use
+    # this is in-line to avoid importing xml.sax for normal use
     import xml.sax
     # initialise data
     global _prefixes
@@ -379,10 +379,9 @@ def output(fp=None):
     except NameError:
         headerprinted = False
     # print the actual prefixes
-    prefixes = _prefixes.keys()
+    prefixes = _prefixes.items()
     prefixes.sort()
-    for prefix in prefixes:
-        ranges = _prefixes[prefix]
+    for prefix, ragnes in prefixes:
         for line in _wrap(' '.join(r[1] + '-' + r[2] for r in ranges), 77 - len(prefix)):
             fp.write('%s %s\n' % ( prefix, line ) )
     # print the footer if the header was printed

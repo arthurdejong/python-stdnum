@@ -17,8 +17,9 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 # 02110-1301 USA
 
-"""Module for handling ISBNs. This module handles both numbers in ISBN10
-(10-digit) and ISB13 (13-digit) format.
+"""Module for handling ISBNs (International Standard Book Number). This
+module handles both numbers in ISBN10 (10-digit) and ISBN13 (13-digit)
+format.
 
 >>> validate('978-9024538270')
 True
@@ -28,6 +29,8 @@ False
 '1857982185'
 >>> format('9780471117094')
 '978-0-471-11709-4'
+>>> format('1857982185')
+'1-85798-218-5'
 >>> isbn_type('1-85798-218-5')
 'ISBN10'
 >>> isbn_type('978-0-471-11709-4')
@@ -100,7 +103,7 @@ def to_isbn13(number):
 
 def split(number):
     """Split the specified ISBN into an EAN.UCC prefix, a group prefix, a
-    registrant, an item number and a check-digit. If the number is in ISNB10
+    registrant, an item number and a check-digit. If the number is in ISBN10
     format the returned EAN.UCC prefix is '978'."""
     import ranges
     # clean up number

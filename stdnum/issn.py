@@ -18,7 +18,7 @@
 # 02110-1301 USA
 
 """Module for handling ISSNs (International Standard Serial Number), the
-standard internation code to identify serial publications.
+standard code to identify serial publications.
 
 >>> validate('0024-9319')
 True

@@ -18,7 +18,7 @@
 # 02110-1301 USA
 
 """Module for handling BSNs (Burgerservicenummer), the
-Ducth national identification number.
+Dutch national identification number.
 
 >>> validate('111222333')
 True
