@@ -1,3 +1,10 @@
+python-stdnum (0.1-1) unstable; urgency=low
+
+  * Re-upload as non-native package.
+  * Add debian/watch file.
+
+ -- Arthur de Jong <adejong@debian.org>  Mon, 26 Jul 2010 22:00:00 +0200
+
 python-stdnum (0.1) unstable; urgency=low
 
   * Initial release.
