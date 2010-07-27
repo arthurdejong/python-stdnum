@@ -296,7 +296,7 @@ def lookup(prefix, number):
                 return number[:length], number[length:]
     except KeyError:
         pass
-    return ( number, )
+    return ( '', number )
 
 def load(fp):
     """Loads the data from the specified file descriptor. The provided file
