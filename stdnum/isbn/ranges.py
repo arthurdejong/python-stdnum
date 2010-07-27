@@ -381,7 +381,7 @@ def output(fp=None):
     # print the actual prefixes
     prefixes = _prefixes.items()
     prefixes.sort()
-    for prefix, ragnes in prefixes:
+    for prefix, ranges in prefixes:
         for line in _wrap(' '.join(r[1] + '-' + r[2] for r in ranges), 77 - len(prefix)):
             fp.write('%s %s\n' % ( prefix, line ) )
     # print the footer if the header was printed
