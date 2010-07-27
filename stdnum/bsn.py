@@ -20,9 +20,9 @@
 """Module for handling BSNs (Burgerservicenummer), the
 Dutch national identification number.
 
->>> validate('111222333')
+>>> is_valid('111222333')
 True
->>> validate('111252333')
+>>> is_valid('111252333')
 False
 >>> compact('1234.56.782')
 '123456782'
@@ -42,7 +42,7 @@ def _calc_checksum(number):
     """Calculate the checksum over the number."""
     return sum( (9-i) * int(number[i]) for i in range(8) ) - int(number[8])
 
-def validate(number):
+def is_valid(number):
     """Checks to see if the number provided is a valid BSN. This checks
     the length and whether the check digit is correct."""
     try:

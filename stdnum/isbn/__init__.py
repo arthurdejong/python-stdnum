@@ -21,9 +21,9 @@
 module handles both numbers in ISBN10 (10-digit) and ISBN13 (13-digit)
 format.
 
->>> validate('978-9024538270')
+>>> is_valid('978-9024538270')
 True
->>> validate('978-9024538271') # incorrect check digit
+>>> is_valid('978-9024538271') # incorrect check digit
 False
 >>> compact('1-85798-218-5')
 '1857982185'
@@ -81,7 +81,7 @@ def isbn_type(number):
     else:
         return None
 
-def validate(number):
+def is_valid(number):
     """Checks to see if the number provided is a valid ISBN (either a legacy
     10-digit one or a 13-digit one). This checks the length and the check
     bit but does not check if the group and publisher are valid (use split()

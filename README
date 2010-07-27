@@ -21,7 +21,7 @@ Interface
 
 Most of these modules implement the following functions:
 
-validate() - returns either True or False depending on whether the
+is_valid() - returns either True or False depending on whether the
              passed number is in any supported and valid form
 compact() - return a compact representation of the number or code
             this function generally does not do validation but may raise

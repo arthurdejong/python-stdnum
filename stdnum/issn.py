@@ -20,9 +20,9 @@
 """Module for handling ISSNs (International Standard Serial Number), the
 standard code to identify serial publications.
 
->>> validate('0024-9319')
+>>> is_valid('0024-9319')
 True
->>> validate('0032147X') # incorrect check digit
+>>> is_valid('0032147X') # incorrect check digit
 False
 >>> compact('0032-1478')
 '00321478'
@@ -43,7 +43,7 @@ def _calc_check_digit(number):
     check = (11 - sum( (8 - i) * int(number[i]) for i in range(len(number)) ) ) % 11
     return 'X' if check == 10 else str(check)
 
-def validate(number):
+def is_valid(number):
     """Checks to see if the number provided is a valid ISSN. This checks
     the length and whether the check digit is correct."""
     try:
