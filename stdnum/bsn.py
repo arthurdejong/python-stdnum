@@ -45,7 +45,10 @@ def _calc_checksum(number):
 def validate(number):
     """Checks to see if the number provided is a valid BSN. This checks
     the length and whether the check digit is correct."""
-    number = compact(number)
+    try:
+        number = compact(number)
+    except:
+        return False
     return len(number) == 9 and \
            number.isdigit() and \
            int(number) > 0 and \

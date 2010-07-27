@@ -46,7 +46,10 @@ def _calc_check_digit(number):
 def validate(number):
     """Checks to see if the number provided is a valid ISSN. This checks
     the length and whether the check digit is correct."""
-    number = compact(number)
+    try:
+        number = compact(number)
+    except:
+        return False
     return len(number) == 8 and \
            number[:-1].isdigit() and \
            _calc_check_digit(number[:-1]) == number[-1]

@@ -62,7 +62,10 @@ def _calc_isbn13_check_digit(number):
 def isbn_type(number):
     """Check the passed number and returns 'ISBN13', 'ISBN10' or None (for
     invalid) for checking the type of number passed."""
-    number = compact(number)
+    try:
+        number = compact(number)
+    except:
+        return None
     if len(number) == 10:
         if not number[:-1].isdigit():
             return None
