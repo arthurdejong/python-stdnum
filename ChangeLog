@@ -1,3 +1,42 @@
+2010-08-16 19:45  arthur
+
+	* [r20] debian: debian package configuration is now available at
+	  http://svn.debian.org/viewsvn/python-modules/packages/python-stdnum/trunk/
+
+2010-08-14 20:47  arthur
+
+	* [r19] setup.cfg, tests, tests/test_bsn.doctest,
+	  tests/test_isbn.doctest: add more doctests that are not part of
+	  the module documentation
+
+2010-07-27 20:19  arthur
+
+	* [r18] README, stdnum/bsn.py, stdnum/isbn/__init__.py,
+	  stdnum/issn.py: rename validate() function to is_valid()
+
+2010-07-27 20:14  arthur
+
+	* [r17] stdnum/isbn/ranges.py: fix typo in output() function
+
+2010-07-27 20:14  arthur
+
+	* [r16] stdnum/isbn/ranges.py: fix range detection to handle lookup
+	  errors more gracefully
+
+2010-07-27 20:13  arthur
+
+	* [r15] stdnum/bsn.py, stdnum/isbn/__init__.py, stdnum/issn.py:
+	  handle wrong types passed to validate() more gracefully
+
+2010-07-26 20:46  arthur
+
+	* [r14] debian/changelog, debian/source/format, debian/watch: make
+	  release 0.1-1
+
+2010-07-25 12:54  arthur
+
+	* [r12] ChangeLog: get files ready for 0.1 release
+
 2010-07-25 12:53  arthur
 
 	* [r11] debian, debian/changelog, debian/compat, debian/control,

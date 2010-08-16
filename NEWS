@@ -1,1 +1,6 @@
-Initial release.
+changes from 0.1 to 0.2
+-----------------------
+
+* rename validate() function to is_valid() for all modules
+* handle wrong types passed to is_valid() more gracefully
+* add more tests and fix some minor bugs
