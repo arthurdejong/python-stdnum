@@ -29,6 +29,8 @@ False
 '3568680000414120'
 >>> format('354178036859789')
 '35-417803-685978-9'
+>>> format('35686800-004141', add_check_digit=True)
+'35-686800-004141-8'
 >>> imei_type('35686800-004141-20')
 'IMEISV'
 """
@@ -62,8 +64,11 @@ def is_valid(number):
     number."""
     return imei_type(number) is not None
 
-def format(number, separator='-'):
+def format(number, separator='-', add_check_digit=False):
     """Reformat the passed number to the standard format."""
     number = compact(number)
+    if len(number) == 14 and add_check_digit:
+        from stdnum import luhn
+        number += luhn.calc_check_digit(number)
     number = ( number[:2], number[2:8], number[8:14], number[14:] )
     return separator.join(x for x in number if x)

@@ -63,3 +63,21 @@ False
 False
 >>> imei.is_valid('3abc6800-0041X1-20')
 False
+
+
+The format() function can add the check digit if needed. It should leave
+alone existing check digits (even invalid ones) and only add them to the
+14 digit format.
+
+>>> imei.format('354178036859789')
+'35-417803-685978-9'
+>>> imei.format('35417803685978')
+'35-417803-685978'
+>>> imei.format('354178036859786', add_check_digit=True)
+'35-417803-685978-6'
+>>> imei.format('35417803685978', add_check_digit=True)
+'35-417803-685978-9'
+>>> imei.format('35686800-004141', add_check_digit=True)
+'35-686800-004141-8'
+>>> imei.format('35686800-004141-20', add_check_digit=True)
+'35-686800-004141-20'
