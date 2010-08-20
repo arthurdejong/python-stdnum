@@ -48,9 +48,9 @@ def checksum(number, alphabet='0123456789'):
     """Calculate the Luhn checksum over the provided number. The checksum
     is returned as an int. Valid numbers should have a checksum of 0."""
     n = len(alphabet)
-    number = tuple( alphabet.index(i) for i in str(number) )
-    return ( sum(number[::-2]) +
-             sum( sum(divmod(i * 2, n)) for i in number[-2::-2] ) ) % n
+    number = tuple( alphabet.index(i) for i in reversed(str(number)) )
+    return ( sum(number[::2]) +
+             sum( sum(divmod(i * 2, n)) for i in number[1::2] ) ) % n
 
 def is_valid(number, alphabet='0123456789'):
     """Checks to see if the number provided passes the Luhn checksum."""
