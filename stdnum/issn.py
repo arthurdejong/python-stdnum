@@ -38,7 +38,7 @@ def compact(number):
     return number
 
 def _calc_check_digit(number):
-    """Calculate the ISBN check digit for 10-digit numbers. The number passed
+    """Calculate the ISSN check digit for 10-digit numbers. The number passed
     should not have the check bit included."""
     check = (11 - sum( (8 - i) * int(number[i]) for i in range(len(number)) ) ) % 11
     return 'X' if check == 10 else str(check)
