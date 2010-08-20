@@ -1,0 +1,76 @@
+test_verhoeff.doctest - more detailed doctests for stdnum.verhoeff module
+
+Copyright (C) 2010 Arthur de Jong
+
+This library is free software; you can redistribute it and/or
+modify it under the terms of the GNU Lesser General Public
+License as published by the Free Software Foundation; either
+version 2.1 of the License, or (at your option) any later version.
+
+This library is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+Lesser General Public License for more details.
+
+You should have received a copy of the GNU Lesser General Public
+License along with this library; if not, write to the Free Software
+Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
+02110-1301 USA
+
+
+This file contains more detailed doctests for the stdnum.verhoeff module. It
+tries to test more corner cases and detailed functionality that is not
+really useful as module documentation.
+
+>>> from stdnum import verhoeff
+
+
+These are normal variations that should just work. Calculating checksums:
+
+>>> verhoeff.checksum('654')
+1
+>>> verhoeff.checksum('1428570')
+0
+>>> verhoeff.checksum('398438246238642378648236487236482734')
+3
+
+
+The same numbers but now simply ask for validation:
+
+>>> verhoeff.is_valid('654')
+False
+>>> verhoeff.is_valid('1428570')
+True
+>>> verhoeff.is_valid('398438246238642378648236487236482734')
+False
+
+
+Adding a check digit to the numbers so they are all valid:
+
+>>> verhoeff.calc_check_digit('654')
+'8'
+>>> verhoeff.is_valid('6548')
+True
+>>> verhoeff.calc_check_digit('1428570')
+'8'
+>>> verhoeff.is_valid('1428570')
+True
+>>> verhoeff.calc_check_digit('398438246238642378648236487236482734')
+'7'
+>>> verhoeff.is_valid('3984382462386423786482364872364827347')
+True
+
+
+Furthermore the is_valid() method should be fairly robust against invalid
+junk passed:
+
+>>> verhoeff.is_valid(None)
+False
+>>> verhoeff.is_valid('')
+False
+>>> verhoeff.is_valid(0)
+False
+>>> verhoeff.is_valid(object())
+False
+>>> verhoeff.is_valid('65a4')
+False

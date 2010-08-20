@@ -12,6 +12,7 @@ Currently this module supports the following formats:
 - ISBN (International Standard Book Number)
 - ISSN (International Standard Serial Number)
 - BSN (Burgerservicenummer, the Dutch national identification number)
+- Verhoeff (generic functions for the Verhoeff algorithm)
 
 Basically any number or code that has some validation mechanism available
 or some common formatting is eligible for inclusion into this library.
