@@ -7,11 +7,12 @@ in different formats.
 Available formats
 -----------------
 
-Currently this module supports the following formats:
+Currently this package supports the following formats:
 
 - ISBN (International Standard Book Number)
 - ISSN (International Standard Serial Number)
 - BSN (Burgerservicenummer, the Dutch national identification number)
+- IMEI (International Mobile Equipment Identity)
 - Verhoeff (generic functions for the Verhoeff algorithm)
 - Luhn (generic functions for the Luhn and Luhn mod N algorithms)
 

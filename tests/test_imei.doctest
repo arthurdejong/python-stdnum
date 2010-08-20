@@ -1,0 +1,65 @@
+test_imei.doctest - more detailed doctests for stdnum.imei module
+
+Copyright (C) 2010 Arthur de Jong
+
+This library is free software; you can redistribute it and/or
+modify it under the terms of the GNU Lesser General Public
+License as published by the Free Software Foundation; either
+version 2.1 of the License, or (at your option) any later version.
+
+This library is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+Lesser General Public License for more details.
+
+You should have received a copy of the GNU Lesser General Public
+License along with this library; if not, write to the Free Software
+Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
+02110-1301 USA
+
+
+This file contains more detailed doctests for the stdnum.imei module. It
+tries to test more corner cases and detailed functionality that is not
+really useful as module documentation.
+
+>>> from stdnum import imei
+
+
+Should be valid numbers:
+
+>>> imei.is_valid('49-015420-323751')
+True
+>>> imei.is_valid('35-209900-176148-1')
+True
+>>> imei.is_valid('35-209900-176148-23')
+True
+>>> imei.is_valid('350077-52-323751-3')
+True
+>>> imei.is_valid('354178036859789')
+True
+
+
+These are normal variations that should just work. Getting the type:
+
+>>> imei.imei_type('35686800-004141-20')
+'IMEISV'
+>>> imei.imei_type('35-417803-685978-9')
+'IMEI'
+>>> imei.imei_type('35-417803-685978-2') is None # invalid check digit
+True
+>>> imei.imei_type('3568680000414120')
+'IMEISV'
+
+
+The is_valid() method should be fairly robust against invalid junk passed:
+
+>>> imei.is_valid(None)
+False
+>>> imei.is_valid('')
+False
+>>> imei.is_valid(0)
+False
+>>> imei.is_valid(object())
+False
+>>> imei.is_valid('3abc6800-0041X1-20')
+False
