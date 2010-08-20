@@ -1,0 +1,163 @@
+test_meid.doctest - more detailed doctests for stdnum.meid module
+
+Copyright (C) 2010 Arthur de Jong
+
+This library is free software; you can redistribute it and/or
+modify it under the terms of the GNU Lesser General Public
+License as published by the Free Software Foundation; either
+version 2.1 of the License, or (at your option) any later version.
+
+This library is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+Lesser General Public License for more details.
+
+You should have received a copy of the GNU Lesser General Public
+License along with this library; if not, write to the Free Software
+Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
+02110-1301 USA
+
+
+This file contains more detailed doctests for the stdnum.meid module. It
+tries to test more corner cases and detailed functionality that is not
+really useful as module documentation.
+
+>>> from stdnum import meid
+
+
+IMEI numbers without the software version (but optionally with a check
+digit) should be valid numbers:
+
+>>> meid.is_valid('49-015420-323751')
+True
+>>> meid.is_valid('35-209900-176148-1')
+True
+>>> meid.is_valid('35-209900-176148-2')
+False
+
+
+MEIDs can be represented as HEX strings (with and without check digit):
+
+>>> meid.is_valid('AF 01 23 45 0A BC DE')
+True
+>>> meid.is_valid('AF 01 23 45 0A BC DE C')
+True
+>>> meid.is_valid('AF 01 23 45 0A BC DE D')
+False
+
+
+Also, MEIDs can be represented in decimal format (with and without check digit):
+
+>>> meid.is_valid('29360 87365 0070 3710')
+True
+>>> meid.is_valid('29360 87365 0070 3710 0')
+True
+>>> meid.is_valid('29360 87365 0070 3710 1')
+False
+
+
+The is_valid() method should be fairly robust against invalid junk passed:
+
+>>> meid.is_valid(None)
+False
+>>> meid.is_valid('')
+False
+>>> meid.is_valid(0)
+False
+>>> meid.is_valid(object())
+False
+>>> meid.is_valid('29360 ABCDE 0070 3710')
+False
+>>> meid.is_valid('GF 01 23 45 0A BC DE')
+False
+
+The compact method should convert to HEX if needed and can optionally leave
+the check digit intact.
+
+>>> meid.compact('49-015420-323751')
+'49015420323751'
+>>> meid.compact('35-209900-176148-2')
+'35209900176148'
+>>> meid.compact('35-209900-176148-2', strip_check_digit=False)
+'352099001761482'
+>>> meid.compact('af 01 23 45 0a bc de')
+'AF0123450ABCDE'
+>>> meid.compact('AF 01 23 45 0A BC DE C')
+'AF0123450ABCDE'
+>>> meid.compact('AF 01 23 45 0A BC DE C', strip_check_digit=False)
+'AF0123450ABCDEC'
+>>> meid.compact('29360 87365 0070 3710')
+'AF0123450ABCDE'
+>>> meid.compact('29360 87365 0070 3710 0')
+'AF0123450ABCDE'
+>>> meid.compact('29360 87365 0070 3710 0', strip_check_digit=False)
+'AF0123450ABCDEC'
+
+
+The format() function can add the check digit if needed. It should leave
+alone existing check digits (even invalid ones).
+
+>>> meid.format('35-209900-176148-2')
+'35 20 99 00 17 61 48 2'
+>>> meid.format('35-209900-176148')
+'35 20 99 00 17 61 48'
+>>> meid.format('35-209900-176148', add_check_digit=True)
+'35 20 99 00 17 61 48 1'
+>>> meid.format('af0123450abcDE')
+'AF 01 23 45 0A BC DE'
+>>> meid.format('af0123450abcDEC', add_check_digit=True)
+'AF 01 23 45 0A BC DE C'
+
+
+The format() function can also convert to decimal, recalculating the check
+digit if needed (conversion will silently correct incorrect check digits):
+
+>>> meid.format('35-209900-176148', format='dec')
+'08913 28768 0153 2232'
+>>> meid.format('35-209900-176148', format='dec', add_check_digit=True)
+'08913 28768 0153 2232 3'
+>>> meid.format('35-209900-176148-9', format='dec')
+'08913 28768 0153 2232 3'
+>>> meid.format('af0123450abcDE', format='dec')
+'29360 87365 0070 3710'
+>>> meid.format('af0123450abcDE', format='dec', add_check_digit=True)
+'29360 87365 0070 3710 0'
+>>> meid.format('af0123450abcDEC', format='dec')
+'29360 87365 0070 3710 0'
+>>> meid.format('293608736500703710', format='dec')
+'29360 87365 0070 3710'
+>>> meid.format('293608736500703710', format='dec', add_check_digit=True)
+'29360 87365 0070 3710 0'
+>>> meid.format('2936087365007037106', format='dec')
+'29360 87365 0070 3710 6'
+
+
+The format() function can also convert to hex, recalculating the check
+digit if needed (conversion will silently correct incorrect check digits):
+
+>>> meid.format('35-209900-176148', format='hex')
+'35 20 99 00 17 61 48'
+>>> meid.format('35-209900-176148', format='hex', add_check_digit=True)
+'35 20 99 00 17 61 48 1'
+>>> meid.format('35-209900-176148-9', format='hex')
+'35 20 99 00 17 61 48 9'
+>>> meid.format('af0123450abcDE', format='hex')
+'AF 01 23 45 0A BC DE'
+>>> meid.format('af0123450abcDE', format='hex', add_check_digit=True)
+'AF 01 23 45 0A BC DE C'
+>>> meid.format('af0123450abcDEF', format='hex')
+'AF 01 23 45 0A BC DE F'
+>>> meid.format('293608736500703710', format='hex')
+'AF 01 23 45 0A BC DE'
+>>> meid.format('293608736500703710', format='hex', add_check_digit=True)
+'AF 01 23 45 0A BC DE C'
+>>> meid.format('2936087365007037106', format='hex')
+'AF 01 23 45 0A BC DE C'
+
+The conversion function should work regardless of the check digit and
+whether decimal or hex representation is used.
+
+>>> meid.to_pseudo_esn('AF 01 23 45 0A BC DE C')
+'8016B128'
+>>> meid.to_pseudo_esn('29360 87365 0070 3710')
+'8016B128'
