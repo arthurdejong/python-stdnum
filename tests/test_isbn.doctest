@@ -97,3 +97,61 @@ current _prefixes list.
 >>> k = set( x.split(' ')[0] for x in StringIO.StringIO(output.getvalue()).readlines() )
 >>> k == set(ranges._prefixes.keys())
 True
+
+
+Make an XML file with somre prefix definitions and load that into the
+ranges module.
+
+First save the current ranges so we can restore later.
+
+>>> save_prefixes = ranges._prefixes
+
+Write the XML to a file.
+
+>>> import tempfile
+>>> xmlfile = tempfile.NamedTemporaryFile(delete=False)
+>>> xmlfile.write("""<?xml version='1.0' encoding='utf-8'?>
+... <ISBNRangeMessage>
+... <MessageSerialNumber>0aad2b046ddd9b30e080cb2b24afc868</MessageSerialNumber>
+... <MessageDate>Thu, 20 May 2010 18:36:55 GMT</MessageDate>
+...  <EAN.UCCPrefixes><EAN.UCC>
+...   <Prefix>978</Prefix>
+...   <Rules>
+...    <Rule><Range>0000000-5999999</Range><Length>1</Length></Rule>
+...    <Rule><Range>6000000-6499999</Range><Length>3</Length></Rule>
+...    <Rule><Range>6500000-6999999</Range><Length>0</Length></Rule>
+...   </Rules>
+...  </EAN.UCC></EAN.UCCPrefixes>
+...  <RegistrationGroups>
+...   <Group>
+...    <Prefix>978-0</Prefix>
+...    <Rules>
+...     <Rule><Range>0000000-1999999</Range><Length>2</Length></Rule>
+...     <Rule><Range>2000000-6999999</Range><Length>3</Length></Rule>
+...    </Rules>
+...   </Group>
+...  </RegistrationGroups>
+... </ISBNRangeMessage>
+... """)
+>>> xmlfile.close()
+
+Load the XML file by URL and output it to another string. Check if the
+content of the XML has been
+
+>>> import urllib
+>>> ranges.download('file://' + urllib.pathname2url(xmlfile.name))
+>>> import sys
+>>> output = StringIO.StringIO()
+>>> save_stdout = sys.stdout
+>>> sys.stdout = output
+>>> ranges.output()
+>>> sys.stdout = save_stdout
+>>> output = output.getvalue()
+>>> '\n978 0-5 600-649\n' in output and '\n978-0 00-19 200-699\n' in output
+True
+
+Restore the original ranges and clean up.
+
+>>> ranges._prefixes = save_prefixes
+>>> import os
+>>> os.unlink(xmlfile.name)
