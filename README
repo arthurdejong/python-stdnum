@@ -13,6 +13,7 @@ Currently this module supports the following formats:
 - ISSN (International Standard Serial Number)
 - BSN (Burgerservicenummer, the Dutch national identification number)
 - Verhoeff (generic functions for the Verhoeff algorithm)
+- Luhn (generic functions for the Luhn and Luhn mod N algorithms)
 
 Basically any number or code that has some validation mechanism available
 or some common formatting is eligible for inclusion into this library.

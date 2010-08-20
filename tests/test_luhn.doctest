@@ -1,0 +1,75 @@
+test_luhn.doctest - more detailed doctests for stdnum.luhn module
+
+Copyright (C) 2010 Arthur de Jong
+
+This library is free software; you can redistribute it and/or
+modify it under the terms of the GNU Lesser General Public
+License as published by the Free Software Foundation; either
+version 2.1 of the License, or (at your option) any later version.
+
+This library is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+Lesser General Public License for more details.
+
+You should have received a copy of the GNU Lesser General Public
+License along with this library; if not, write to the Free Software
+Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
+02110-1301 USA
+
+
+This file contains more detailed doctests for the stdnum.luhn module. It
+tries to test more corner cases and detailed functionality that is not
+really useful as module documentation.
+
+>>> from stdnum import luhn
+
+
+These are normal variations that should just work. Calculating checksums:
+
+>>> luhn.checksum('4992739871')
+9
+>>> luhn.checksum('490154203237518')
+0
+>>> luhn.checksum('abcdefe', alphabet='abcdef')
+0
+
+
+The same numbers but now simply ask for validation:
+
+>>> luhn.is_valid('4992739871')
+False
+>>> luhn.is_valid('490154203237518')
+True
+>>> luhn.is_valid('abcdefe', alphabet='abcdef')
+True
+
+Adding a check digit to the numbers so they are all valid:
+
+>>> luhn.calc_check_digit('4992739871')
+'6'
+>>> luhn.is_valid('49927398716')
+True
+>>> luhn.calc_check_digit('142857')
+'2'
+>>> luhn.is_valid('1428572')
+True
+>>> luhn.calc_check_digit('398438246238642378648236487236482734')
+'7'
+>>> luhn.is_valid('3984382462386423786482364872364827347')
+True
+
+
+Furthermore the is_valid() method should be fairly robust against invalid
+junk passed:
+
+>>> luhn.is_valid(None)
+False
+>>> luhn.is_valid('')
+False
+>>> luhn.is_valid(0)
+False
+>>> luhn.is_valid(object())
+False
+>>> luhn.is_valid('65a4')
+False
