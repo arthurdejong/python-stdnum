@@ -11,6 +11,7 @@ Currently this package supports the following formats:
 
 - ISBN (International Standard Book Number)
 - ISSN (International Standard Serial Number)
+- ISMN (International Standard Music Number)
 - BSN (Burgerservicenummer, the Dutch national identification number)
 - IMEI (International Mobile Equipment Identity)
 - MEID (Mobile Equipment Identifier)

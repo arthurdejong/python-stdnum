@@ -1,0 +1,79 @@
+test_ismn.doctest - more detailed doctests for stdnum.ismn module
+
+Copyright (C) 2010 Arthur de Jong
+
+This library is free software; you can redistribute it and/or
+modify it under the terms of the GNU Lesser General Public
+License as published by the Free Software Foundation; either
+version 2.1 of the License, or (at your option) any later version.
+
+This library is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+Lesser General Public License for more details.
+
+You should have received a copy of the GNU Lesser General Public
+License along with this library; if not, write to the Free Software
+Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
+02110-1301 USA
+
+
+This file contains more detailed doctests for the stdnum.ismn module. It
+tries to test more corner cases and detailed functionality that is not
+really useful as module documentation.
+
+>>> from stdnum import ismn
+
+
+These are normal variations that should just work.
+
+>>> ismn.is_valid('979-0-3217-6543-6')
+True
+>>> ismn.is_valid(u'979-0-3217-6544-3')
+True
+>>> ismn.is_valid('9790321765450')
+True
+>>> ismn.is_valid('M-3217-6546-7')
+True
+>>> ismn.is_valid('M321765474')
+True
+>>> ismn.is_valid('979-0-260000438')
+True
+
+
+These are tests to check what happes when a wrong type is passed.
+
+>>> ismn.is_valid(1857982185) # integer, not string
+False
+>>> ismn.is_valid(None)
+False
+>>> ismn.is_valid('')
+False
+
+
+Tests for mangling and incorect check digits.
+
+>>> ismn.is_valid('979-0-3217-6543-x')
+False
+>>> ismn.is_valid('M-3217-6546-8')
+False
+>>> ismn.is_valid('979M321765450')
+False
+
+
+See if 10 to 13 digit conversion works.
+
+>>> ismn.to_ismn13('979-0-32176544-3') # ismn13 should stay ismn13
+'979-0-32176544-3'
+>>> ismn.to_ismn13('M-32176546-7')
+'979-0-32176546-7'
+>>> ismn.to_ismn13('M 3217 65504')
+'979 0 3217 65504'
+
+
+Regrouping tests.
+
+>>> ismn.format('M-3217-6546-7')
+'979-0-3217-6546-7'
+>>> ismn.format('9790321765450')
+'979-0-3217-6545-0'
