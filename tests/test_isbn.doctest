@@ -141,14 +141,15 @@ content of the XML has been
 >>> import urllib
 >>> ranges.download('file://' + urllib.pathname2url(xmlfile.name))
 >>> import sys
->>> output = StringIO.StringIO()
->>> save_stdout = sys.stdout
->>> sys.stdout = output
 >>> ranges.output()
->>> sys.stdout = save_stdout
->>> output = output.getvalue()
->>> '\n978 0-5 600-649\n' in output and '\n978-0 00-19 200-699\n' in output
-True
+# generated from RangeMessage.xml, downloaded from
+# http://www.isbn-international.org/agency?rmxml=1
+# serial 0aad2b046ddd9b30e080cb2b24afc868
+# date Thu, 20 May 2010 18:36:55 GMT
+_prefixes = """
+978 0-5 600-649
+978-0 00-19 200-699
+"""
 
 Restore the original ranges and clean up.
 
