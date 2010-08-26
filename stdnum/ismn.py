@@ -48,7 +48,7 @@ def compact(number):
 def _calc_check_digit(number):
     """Calculate the ISMN check digit. The number passed should not have
     the check bit included and should be in the 13-digit form."""
-    return str((10 - sum( (2 * (i % 2) + 1) * int(number[i]) for i in range(len(number)))) % 10)
+    return str((10 - sum( (2 * (i % 2) + 1) * int(n) for i, n in enumerate(number))) % 10)
 
 def is_valid(number):
     """Checks to see if the number provided is a valid ISMN (either a legacy

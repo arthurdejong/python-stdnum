@@ -66,8 +66,8 @@ def checksum(number):
     number = tuple( int(n) for n in reversed(str(number)) )
     # calculate checksum
     check = 0
-    for i in range(len(number)):
-        check = _multiplication_table[check][_permutation_table[i % 8][number[i]]]
+    for i, n in enumerate(number):
+        check = _multiplication_table[check][_permutation_table[i % 8][n]]
     return check
 
 def is_valid(number):

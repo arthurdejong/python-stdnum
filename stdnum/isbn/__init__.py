@@ -51,13 +51,13 @@ def compact(number):
 def _calc_isbn10_check_digit(number):
     """Calculate the ISBN check digit for 10-digit numbers. The number passed
     should not have the check bit included."""
-    check = sum( (i + 1) * int(number[i]) for i in range(len(number)) ) % 11
+    check = sum( (i + 1) * int(n) for i, n in enumerate(number) ) % 11
     return 'X' if check == 10 else str(check)
 
 def _calc_isbn13_check_digit(number):
     """Calculate the ISBN check digit for 13-digit numbers. The number passed
     should not have the check bit included."""
-    return str((10 - sum( (2 * (i % 2) + 1) * int(number[i]) for i in range(len(number)))) % 10)
+    return str((10 - sum( (2 * (i % 2) + 1) * int(n) for i, n in enumerate(number))) % 10)
 
 def isbn_type(number):
     """Check the passed number and returns 'ISBN13', 'ISBN10' or None (for
