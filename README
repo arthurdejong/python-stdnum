@@ -15,8 +15,13 @@ Currently this package supports the following formats:
 - BSN (Burgerservicenummer, the Dutch national identification number)
 - IMEI (International Mobile Equipment Identity)
 - MEID (Mobile Equipment Identifier)
-- Verhoeff (generic functions for the Verhoeff algorithm)
-- Luhn (generic functions for the Luhn and Luhn mod N algorithms)
+
+Furthermore a number of generic check digit algorithms are available:
+
+- the Verhoeff algorithm
+- the Luhn and Luhn mod N algorithms
+- some algorithms described in ISO/IEC 7064: Mod 11, 2, Mod 37, 2, Mod 97, 10,
+  Mod 11, 10 and Mod 37, 36
 
 Basically any number or code that has some validation mechanism available
 or some common formatting is eligible for inclusion into this library.

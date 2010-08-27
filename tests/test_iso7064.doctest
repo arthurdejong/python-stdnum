@@ -1,0 +1,84 @@
+test_iso7064.doctest - more detailed doctests for the stdnum.iso7064 package
+
+Copyright (C) 2010 Arthur de Jong
+
+This library is free software; you can redistribute it and/or
+modify it under the terms of the GNU Lesser General Public
+License as published by the Free Software Foundation; either
+version 2.1 of the License, or (at your option) any later version.
+
+This library is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+Lesser General Public License for more details.
+
+You should have received a copy of the GNU Lesser General Public
+License along with this library; if not, write to the Free Software
+Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
+02110-1301 USA
+
+
+This file contains more detailed doctests for the stdnum.iso7064 package. It
+tries to test more corner cases and detailed functionality that is not
+really useful as module documentation.
+
+>>> from stdnum import iso7064
+
+
+These are normal variations of Mod 11, 10 that should just work.
+
+>>> iso7064.mod_11_10.is_valid('12323')
+True
+>>> iso7064.mod_11_10.is_valid('546794')
+True
+>>> iso7064.mod_11_10.calc_check_digit('0794')
+'5'
+>>> iso7064.mod_11_10.is_valid('07945')
+True
+>>> iso7064.mod_11_10.calc_check_digit('00200667308')
+'5'
+>>> iso7064.mod_11_10.is_valid('002006673085')
+True
+>>> iso7064.mod_11_10.is_valid('002006673084')
+False
+>>> iso7064.mod_11_10.calc_check_digit('00200667309')
+'3'
+>>> iso7064.mod_11_10.calc_check_digit('00200667310')
+'8'
+>>> iso7064.mod_11_10.calc_check_digit('00200667311')
+'6'
+>>> iso7064.mod_11_10.calc_check_digit('00200667312')
+'4'
+
+
+These normal tests of Mod 11, 2 should just work.
+
+>>> iso7064.mod_11_2.calc_check_digit('0794')
+'0'
+>>> iso7064.mod_11_2.is_valid('07940')
+True
+>>> iso7064.mod_11_2.calc_check_digit('079')
+'X'
+>>> iso7064.mod_11_2.is_valid('079')
+True
+
+These normal tests of Mod 37, 2 should just work
+
+>>> iso7064.mod_37_2.calc_check_digit('G123498654321')
+'H'
+
+
+Furthermore the is_valid() method should be fairly robust against invalid
+junk passed:
+
+>>> testvalues = ( None, '*&^%$', False, object() )
+>>> [ x for x in testvalues if iso7064.mod_11_10.is_valid(x) ]
+[]
+>>> [ x for x in testvalues if iso7064.mod_11_2.is_valid(x) ]
+[]
+>>> [ x for x in testvalues if iso7064.mod_37_2.is_valid(x) ]
+[]
+>>> [ x for x in testvalues if iso7064.mod_37_36.is_valid(x) ]
+[]
+>>> [ x for x in testvalues if iso7064.mod_97_10.is_valid(x) ]
+[]
