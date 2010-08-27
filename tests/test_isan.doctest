@@ -1,0 +1,99 @@
+test_isan.doctest - more detailed doctests for stdnum.isan module
+
+Copyright (C) 2010 Arthur de Jong
+
+This library is free software; you can redistribute it and/or
+modify it under the terms of the GNU Lesser General Public
+License as published by the Free Software Foundation; either
+version 2.1 of the License, or (at your option) any later version.
+
+This library is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+Lesser General Public License for more details.
+
+You should have received a copy of the GNU Lesser General Public
+License along with this library; if not, write to the Free Software
+Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
+02110-1301 USA
+
+
+This file contains more detailed doctests for the stdnum.isan module. It
+tries to test more corner cases and detailed functionality that is not
+really useful as module documentation.
+
+>>> from stdnum import isan
+
+
+This is how numbers should be split (possible with and without
+episode number):
+
+>>> isan.split('000000018947000000000000')
+('000000018947', '0000', '', '00000000', '')
+>>> isan.split('0000-0000-D07A-0090-Q-0000-0000-X')
+('00000000D07A', '0090', 'Q', '00000000', 'X')
+>>> isan.split('000000018947000000000000')
+('000000018947', '0000', '', '00000000', '')
+>>> isan.split('1881-66C7-3420-6541-Y')
+('188166C73420', '6541', 'Y', '', '')
+>>> isan.split('1881-66C7-3420-6541')
+('188166C73420', '6541', '', '', '')
+
+Compacting should also work:
+
+>>> isan.compact('000000018947000000000000')
+'000000018947000000000000'
+>>> isan.compact('0000-0000-D07A-0090-Q-0000-0000-X')
+'00000000D07A009000000000'
+>>> isan.compact('000000018947000000000000')
+'000000018947000000000000'
+>>> isan.compact('1881-66C7-3420-6541-Y')
+'188166C734206541'
+>>> isan.compact('1881-66C7-3420-6541')
+'188166C734206541'
+
+
+These should be valid numbers:
+
+>>> isan.is_valid('0000-0000-D07A-0090-Q-0000-0000-X')
+True
+>>> isan.is_valid('1881-66C7-3420-6541-Y-9F3A-0245-O')
+True
+>>> isan.is_valid('0000-0000-D07A-0090-Q-0000-0000-X')
+True
+>>> isan.is_valid('0000-0000-D07A-0090-Q')
+True
+>>> isan.is_valid('00000000D07A0090-Z') # wrong check digit
+False
+
+
+The is_valid() method should be fairly robust against invalid junk passed:
+
+>>> isan.is_valid(None)
+False
+>>> isan.is_valid('')
+False
+>>> isan.is_valid(0)
+False
+>>> isan.is_valid(object())
+False
+>>> isan.is_valid('3abc6800-0041X1-20')
+False
+
+
+The format() function can add the check digit if needed. It should leave
+alone existing check digits (even invalid ones) and respect the presence
+or absence of a version number.
+
+>>> isan.format('00000000D07A0090')
+'0000-0000-D07A-0090-Q'
+>>> isan.format('1881-66C734206541-9F3A-0245')
+'1881-66C7-3420-6541-Y-9F3A-0245-O'
+>>> isan.format('1881-66C7-3420-6541-?-9F3A-0245-?', strip_check_digits=True, add_check_digits=True)
+'1881-66C7-3420-6541-Y-9F3A-0245-O'
+
+
+A simple test for the to_binary() function.
+
+>>> isan.to_binary('0000-0000-D07A-0090-Q').encode('hex')
+'00000000d07a0090'
