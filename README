@@ -16,6 +16,7 @@ Currently this package supports the following formats:
 - BSN (Burgerservicenummer, the Dutch national identification number)
 - IMEI (International Mobile Equipment Identity)
 - MEID (Mobile Equipment Identifier)
+- GRid (Global Release Identifier)
 
 Furthermore a number of generic check digit algorithms are available:
 
