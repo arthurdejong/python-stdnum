@@ -35,7 +35,7 @@ def compact(number):
     """Convert the number to the minimal representation. This strips the
     number of any valid separators and removes surrounding whitespace."""
     number = number.replace(' ','').replace('-','').replace('.','').strip()
-    # padd with leading zeroes
+    # pad with leading zeroes
     return (9 - len(number)) * '0' + number
 
 def _calc_checksum(number):

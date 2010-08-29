@@ -31,7 +31,7 @@ True
 1
 
 By changing the alphabet this can be turned into any Mod x, 2
-algorith. For example Mod 10, 2:
+algorithm. For example Mod 10, 2:
 
 >>> calc_check_digit('079', alphabet='0123456789X')
 'X'

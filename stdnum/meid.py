@@ -72,7 +72,7 @@ def _calc_check_digit(number):
         return luhn.calc_check_digit(number, alphabet=_hex_alphabet)
 
 def compact(number, strip_check_digit=True):
-    """Convert the MEID number to the minimal (hexadicimal) representation.
+    """Convert the MEID number to the minimal (hexadecimal) representation.
     This strips grouping information, removes surrounding whitespace and
     converts to hexadecimal if needed. If the check digit is to be preserved
     and conversion is done a new check digit is recalculated."""
@@ -108,7 +108,7 @@ def is_valid(number):
     return not cd or luhn.is_valid(number + cd, alphabet=_hex_alphabet)
 
 def format(number, separator=' ', format=None, add_check_digit=False):
-    """Reformat the passed number to the standard format. The separater
+    """Reformat the passed number to the standard format. The separator
     used can be provided. If the format is specified (either 'hex' or
     'dec') the number is reformatted in that format, otherwise the current
     representation is kept. If add_check_digit is True a check digit will

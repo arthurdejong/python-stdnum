@@ -20,7 +20,7 @@
 """Module for calculation and verifying the checksum of a number
 using the Verhoeff algorithm.
 
-Validation can be done with is_valid() which validates thet the
+Validation can be done with is_valid() which validates that the
 calculated checksum is 0. A valid number can be made by calculating
 the check digit and appending it.
 

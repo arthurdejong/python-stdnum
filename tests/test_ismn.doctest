@@ -41,7 +41,7 @@ True
 True
 
 
-These are tests to check what happes when a wrong type is passed.
+These are tests to check what happens when a wrong type is passed.
 
 >>> ismn.is_valid(1857982185) # integer, not string
 False

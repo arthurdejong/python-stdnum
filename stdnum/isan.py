@@ -55,9 +55,9 @@ def split(number):
         return ( number[0:12], number[12:16], number[16:], '', '' )
 
 def compact(number, strip_check_digits=True):
-    """Convert the ISAN to the minimal (hexadicimal) representation.
-    digits. This strips the number of any valid separators and removes
-    surrounding whitespace. The check digits are also removed by default."""
+    """Convert the ISAN to the minimal representation. This strips the number
+    of any valid separators and removes surrounding whitespace. The check
+    digits are also removed by default."""
     number = list(split(number))
     number[2] = number[4] = ''
     return ''.join(number)

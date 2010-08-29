@@ -32,7 +32,7 @@ True
 >>> bsn.is_valid('111252333')
 False
 
-These are tests to check what happes when a wrong type is passed.
+These are tests to check what happens when a wrong type is passed.
 
 >>> bsn.is_valid(111222333) # integer, not string
 False

@@ -31,7 +31,7 @@ calculating the check digit and appending it.
 True
 
 By changing the alphabet this can be turned into any Mod x+1, x
-algorith. For example Mod 11, 10:
+algorithm. For example Mod 11, 10:
 
 >>> calc_check_digit('00200667308', alphabet='0123456789')
 '5'
