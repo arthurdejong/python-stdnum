@@ -22,7 +22,13 @@
 """python-stdnum installation script."""
 
 import os
+import sys
 from setuptools import setup, find_packages
+
+# fix permissions for sdist
+if 'sdist' in sys.argv:
+    os.system('chmod -R a+rX .')
+    os.umask(022)
 
 setup(name='python-stdnum',
       version='0.2',
