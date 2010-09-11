@@ -1,3 +1,20 @@
+changes from 0.2 to 0.3
+-----------------------
+
+* add modules for the following number formats:
+  - ISMN (International Standard Music Number)
+  - ISAN (International Standard Audiovisual Number)
+  - IMEI (International Mobile Equipment Identity)
+  - MEID (Mobile Equipment Identifier)
+  - GRid (Global Release Identifier)
+* add modules for handling the following check digit algorithms:
+  - the Verhoeff algorithm
+  - the Luhn and Luhn mod N algorithms
+  - some algorithms described in ISO/IEC 7064: Mod 11, 2, Mod 37, 2,
+    Mod 97, 10, Mod 11, 10 and Mod 37, 36
+* added more unit tests
+
+
 changes from 0.1 to 0.2
 -----------------------
 

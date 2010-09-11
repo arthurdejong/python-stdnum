@@ -1,3 +1,97 @@
+2010-09-05 17:53  arthur
+
+	* [r39] setup.py: have sdist target create a tarball with
+	  reasonable permissions
+
+2010-08-29 19:27  arthur
+
+	* [r38] stdnum/bsn.py, stdnum/isan.py, stdnum/iso7064/mod_37_2.py,
+	  stdnum/iso7064/mod_37_36.py, stdnum/meid.py, stdnum/verhoeff.py,
+	  tests/test_bsn.doctest, tests/test_ismn.doctest: spelling check
+
+2010-08-28 16:12  arthur
+
+	* [r37] README, stdnum/grid.py: add a GRid (Global Release
+	  Identifier) module
+
+2010-08-27 14:44  arthur
+
+	* [r36] README, stdnum/isan.py, tests/test_isan.doctest: add ISAN
+	  (International Standard Audiovisual Number) module
+
+2010-08-27 11:36  arthur
+
+	* [r35] README, stdnum/iso7064, stdnum/iso7064/__init__.py,
+	  stdnum/iso7064/mod_11_10.py, stdnum/iso7064/mod_11_2.py,
+	  stdnum/iso7064/mod_37_2.py, stdnum/iso7064/mod_37_36.py,
+	  stdnum/iso7064/mod_97_10.py, tests/test_iso7064.doctest:
+	  implement some ISO/IEC 7064 check digit schemes
+
+2010-08-26 21:03  arthur
+
+	* [r34] stdnum/isbn/__init__.py, stdnum/ismn.py, stdnum/issn.py,
+	  stdnum/verhoeff.py: switch to using enumerate() for looping over
+	  numbers where needed
+
+2010-08-21 15:37  arthur
+
+	* [r33] README, stdnum/ismn.py, tests/test_ismn.doctest: add an
+	  ISMN (International Standard Music Number) module
+
+2010-08-21 12:41  arthur
+
+	* [r32] tests/test_isbn.doctest: simplify ranges tests a bit
+
+2010-08-21 12:40  arthur
+
+	* [r31] stdnum/isbn/ranges.py: update ranges from newly downloaded
+	  file
+
+2010-08-20 19:47  arthur
+
+	* [r30] README, stdnum/meid.py, tests/test_meid.doctest: add a MEID
+	  (Mobile Equipment Identifier) module
+
+2010-08-20 19:41  arthur
+
+	* [r29] setup.cfg, tests/test_isbn.doctest,
+	  tests/test_issn.doctest: write some more tests (some of which are
+	  a bit of a hack) to get coverage to 100%
+
+2010-08-20 16:25  arthur
+
+	* [r28] stdnum/imei.py, tests/test_imei.doctest: add an
+	  add_check_digit option to the format() function to add a check
+	  digit if needed and possible
+
+2010-08-20 14:44  arthur
+
+	* [r27] stdnum/luhn.py: make checksum calculation a little more
+	  readable
+
+2010-08-20 14:16  arthur
+
+	* [r26] README, stdnum/imei.py, tests/test_imei.doctest: add an
+	  IMEI (International Mobile Equipment Identity) module
+
+2010-08-20 12:16  arthur
+
+	* [r25] README, stdnum/luhn.py, tests/test_luhn.doctest: add
+	  functions for handling the Luhn and Luhn mod N algorithms
+
+2010-08-20 11:56  arthur
+
+	* [r24] stdnum/issn.py: fix typo
+
+2010-08-20 09:37  arthur
+
+	* [r23] README, stdnum/verhoeff.py, tests/test_verhoeff.doctest:
+	  add functions for handling the Verhoeff algorithm
+
+2010-08-16 19:50  arthur
+
+	* [r21] ChangeLog, NEWS, setup.py: get files ready for 0.2 release
+
 2010-08-16 19:45  arthur
 
 	* [r20] debian: debian package configuration is now available at

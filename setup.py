@@ -31,7 +31,7 @@ if 'sdist' in sys.argv:
     os.umask(022)
 
 setup(name='python-stdnum',
-      version='0.2',
+      version='0.3',
       packages=find_packages(),
       author='Arthur de Jong',
       author_email='arthur@arthurdejong.org',
@@ -46,7 +46,19 @@ setup(name='python-stdnum',
 
            * ISBN (International Standard Book Number)
            * ISSN (International Standard Serial Number)
+           * ISMN (International Standard Music Number)
+           * ISAN (International Standard Audiovisual Number)
            * BSN (Burgerservicenummer, the Dutch national identification number)
+           * IMEI (International Mobile Equipment Identity)
+           * MEID (Mobile Equipment Identifier)
+           * GRid (Global Release Identifier)
+
+          Furthermore a number of generic check digit algorithms are available:
+
+           * the Verhoeff algorithm
+           * the Luhn and Luhn mod N algorithms
+           * some algorithms described in ISO/IEC 7064: Mod 11, 2, Mod 37, 2,
+             Mod 97, 10, Mod 11, 10 and Mod 37, 36
           """,
       classifiers=[
           'Development Status :: 4 - Beta',

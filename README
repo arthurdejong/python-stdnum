@@ -28,6 +28,9 @@ Furthermore a number of generic check digit algorithms are available:
 Basically any number or code that has some validation mechanism available
 or some common formatting is eligible for inclusion into this library.
 
+These modules generally do not provide background information on the meaning
+and use of the specified numbers, only parsing and handling functions.
+
 Interface
 ---------
 
