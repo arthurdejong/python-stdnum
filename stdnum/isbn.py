@@ -108,7 +108,7 @@ def split(number):
     """Split the specified ISBN into an EAN.UCC prefix, a group prefix, a
     registrant, an item number and a check-digit. If the number is in ISBN10
     format the returned EAN.UCC prefix is '978'."""
-    import ranges
+    from stdnum import numdb
     # clean up number
     number = compact(number)
     # get Bookland prefix if any
@@ -118,12 +118,13 @@ def split(number):
     else:
         oprefix = prefix = number[:3]
         number = number[3:]
-    # get group
-    group, number = ranges.lookup(prefix, number)
-    publisher, number = ranges.lookup('%s-%s' % (prefix, group), number)
-    itemnr = number[:-1]
-    check = number[-1]
-    return ( oprefix, group, publisher, itemnr, check )
+    # split the number
+    result = numdb.get('isbn').split(prefix+number[:-1])[1:]
+    itemnr = result.pop()
+    group = result.pop(0) if result else ''
+    publisher = result.pop(0) if result else ''
+    # return results
+    return ( oprefix, group, publisher, itemnr, number[-1] )
 
 def format(number, separator='-'):
     """Reformat the passed number to the standard format with the EAN.UCC
