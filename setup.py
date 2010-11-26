@@ -24,6 +24,7 @@
 import os
 import sys
 from setuptools import setup, find_packages
+import stdnum
 
 # fix permissions for sdist
 if 'sdist' in sys.argv:
@@ -38,28 +39,7 @@ setup(name='python-stdnum',
       url='http://arthurdejong.org/python-stdnum',
       license='LGPL',
       description='Python module to handle standardized numbers and codes',
-      long_description= \
-          """A Python module to parse, validate and reformat standard numbers
-          and codes in different formats.
-
-          Currently this module supports the following formats:
-
-           * ISBN (International Standard Book Number)
-           * ISSN (International Standard Serial Number)
-           * ISMN (International Standard Music Number)
-           * ISAN (International Standard Audiovisual Number)
-           * BSN (Burgerservicenummer, the Dutch national identification number)
-           * IMEI (International Mobile Equipment Identity)
-           * MEID (Mobile Equipment Identifier)
-           * GRid (Global Release Identifier)
-
-          Furthermore a number of generic check digit algorithms are available:
-
-           * the Verhoeff algorithm
-           * the Luhn and Luhn mod N algorithms
-           * some algorithms described in ISO/IEC 7064: Mod 11, 2, Mod 37, 2,
-             Mod 97, 10, Mod 11, 10 and Mod 37, 36
-          """,
+      long_description=stdnum.__doc__,
       classifiers=[
           'Development Status :: 4 - Beta',
           'Intended Audience :: Developers',
