@@ -1,0 +1,42 @@
+test_br_cpf.doctest - more detailed doctests for stdnum.br.cpf module
+
+Copyright (C) 2011 Arthur de Jong
+
+This library is free software; you can redistribute it and/or
+modify it under the terms of the GNU Lesser General Public
+License as published by the Free Software Foundation; either
+version 2.1 of the License, or (at your option) any later version.
+
+This library is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+Lesser General Public License for more details.
+
+You should have received a copy of the GNU Lesser General Public
+License along with this library; if not, write to the Free Software
+Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
+02110-1301 USA
+
+
+This file contains more detailed doctests for the stdnum.nl.cpf module. It
+tries to test more corner cases and detailed functionality that is not
+really useful as module documentation.
+
+>>> from stdnum.br import cpf
+
+
+These are normal variations that should just work.
+
+>>> cpf.is_valid('39053344705')
+True
+>>> cpf.is_valid('23100299900')
+False
+
+These are tests to check what happens when a wrong type is passed.
+
+>>> cpf.is_valid(39053344705) # integer, not string
+False
+>>> cpf.is_valid(None)
+False
+>>> cpf.is_valid('')
+False
