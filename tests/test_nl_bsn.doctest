@@ -22,7 +22,7 @@ This file contains more detailed doctests for the stdnum.bsn module. It
 tries to test more corner cases and detailed functionality that is not
 really useful as module documentation.
 
->>> from stdnum import bsn
+>>> from stdnum.nl import bsn
 
 
 These are normal variations that should just work.
