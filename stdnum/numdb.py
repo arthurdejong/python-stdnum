@@ -49,6 +49,9 @@ To split the number and get properties for each part:
 [('90', {'prop1': 'booz'}), ('985', {'prop2': 'fooz'}), ('6', {})]
 >>> dbfile.info('9889')
 [('98', {'prop1': 'booz'}), ('89', {'prop2': 'foo'})]
+>>> dbfile.info('633322')
+[('6', {'prop1': 'boo'}), ('333', {'prop2': 'bar', 'prop3': 'baz'}), ('22', {})]
+
 """
 
 import re
