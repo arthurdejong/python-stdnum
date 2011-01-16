@@ -50,5 +50,4 @@ setup(name='python-stdnum',
           'Topic :: Software Development :: Libraries :: Python Modules',
           'Topic :: Text Processing :: General',
           ],
-      use_2to3 = True,
       )
