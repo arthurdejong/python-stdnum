@@ -39,7 +39,7 @@ False
 """
 
 
-from stdnum import iso7064
+from stdnum.iso7064 import mod_37_36
 
 
 def split(number):
@@ -76,8 +76,8 @@ def is_valid(number):
     try:
         ( root, episode, check1, version, check2 ) = split(number)
         return _check(root, 12) and _check(episode, 4) and _check(version, 8, False) \
-           and ( not check1 or iso7064.mod_37_36.is_valid(root+episode+check1) ) \
-           and ( not check2 or iso7064.mod_37_36.is_valid(root+episode+version+check2) )
+           and ( not check1 or mod_37_36.is_valid(root+episode+check1) ) \
+           and ( not check2 or mod_37_36.is_valid(root+episode+version+check2) )
     except:
         return False
 
@@ -90,9 +90,9 @@ def format(number, separator='-', strip_check_digits=False, add_check_digits=Tru
     if strip_check_digits:
         check1 = check2 = ''
     if add_check_digits and not check1:
-        check1 = iso7064.mod_37_36.calc_check_digit(root+episode)
+        check1 = mod_37_36.calc_check_digit(root+episode)
     if add_check_digits and not check2 and version:
-        check2 = iso7064.mod_37_36.calc_check_digit(root+episode+version)
+        check2 = mod_37_36.calc_check_digit(root+episode+version)
     number = [ root[i:i+4] for i in range(0, 12, 4) ] + [ episode ]
     if check1:
         number.append(check1)

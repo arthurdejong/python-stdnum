@@ -44,12 +44,12 @@ def compact(number):
 
 def is_valid(number):
     """Checks to see if the number provided is a valid GRid."""
-    from stdnum import iso7064
+    from stdnum.iso7064 import mod_37_36
     try:
         number = compact(number)
     except:
         return False
-    return len(number) == 18 and iso7064.mod_37_36.is_valid(number)
+    return len(number) == 18 and mod_37_36.is_valid(number)
 
 def format(number, separator='-', add_check_digit=False):
     """Reformat the passed number to the standard format."""
