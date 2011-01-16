@@ -1,7 +1,7 @@
 
 # numdb.py - module for handling hierarchically organised numbers
 #
-# Copyright (C) 2010 Arthur de Jong
+# Copyright (C) 2010, 2011 Arthur de Jong
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -30,8 +30,8 @@ To split a number:
 
 >>> dbfile.split('01006')
 ['0', '100', '6']
->>> dbfile.split('902006')
-['90', '20', '06']
+>>> dbfile.split('902006', False)
+['90', '20']
 >>> dbfile.split('909856')
 ['90', '985', '6']
 
@@ -92,9 +92,11 @@ class NumDB(object):
             yield part, props
 
     @staticmethod
-    def _find(number, prefixes):
+    def _find(number, prefixes, full):
         """Lookup the specified number in the list of prefixes, this will
-        return basically what info() should return but works recursively."""
+        return basically what info() should return but works recursively.
+        If full is True, the full number is split, otherwise only the parts
+        found in the database are split."""
         if not number:
             return []
         results = []
@@ -102,24 +104,34 @@ class NumDB(object):
             for length, low, high, props, children in prefixes:
                 if low <= number[:length] <= high:
                     results.append([ (number[:length], props) ] +
-                                   NumDB._find(number[length:], children))
+                                   NumDB._find(number[length:], children, full))
         # not-found fallback
         if not results:
-            return [ ( number, {} ) ]
+            if full:
+                return [ ( number, {} ) ]
+            else:
+                return []
         # merge the results into a single result
         return list(NumDB._merge(results))
 
-    def info(self, number):
+    def info(self, number, full=True):
         """Split the provided number in components and associate properties
         with each component. This returns a tuple of tuples. Each tuple
         consists of a string (a part of the number) and a dict of properties.
+        If full is False, only the parts of the number that can be found in
+        the database are returned, by default the remaining parts are returned
+        without properties.
         """
-        return NumDB._find(number, self.prefixes)
+        return NumDB._find(number, self.prefixes, full)
 
-    def split(self, number):
+    def split(self, number, full=True):
         """Split the provided number in components. This returns a tuple with
-        the number of components identified."""
-        return [part for part, props in self.info(number)]
+        the number of components identified.
+        If full is False, only the parts of the number that can be found in
+        the database are returned, by default the remaining parts are returned
+        as last component.
+        """
+        return [part for part, props in self.info(number, full)]
 
 
 def _parse(fp):
