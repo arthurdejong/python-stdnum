@@ -17,6 +17,7 @@ Currently this package supports the following formats:
 - IMEI (International Mobile Equipment Identity)
 - MEID (Mobile Equipment Identifier)
 - GRid (Global Release Identifier)
+- IBAN (International Bank Account Number)
 
 Furthermore a number of generic check digit algorithms are available:
 

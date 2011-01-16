@@ -1,0 +1,198 @@
+test_iban.doctest - more detailed doctests for the stdnum.iban module
+
+Copyright (C) 2011 Arthur de Jong
+
+This library is free software; you can redistribute it and/or
+modify it under the terms of the GNU Lesser General Public
+License as published by the Free Software Foundation; either
+version 2.1 of the License, or (at your option) any later version.
+
+This library is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+Lesser General Public License for more details.
+
+You should have received a copy of the GNU Lesser General Public
+License along with this library; if not, write to the Free Software
+Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
+02110-1301 USA
+
+
+This file contains more detailed doctests for the stdnum.iban module. It
+tries to test more corner cases and detailed functionality that is not
+really useful as module documentation.
+
+>>> from stdnum import iban
+
+
+These should all be valid numbers and are from the IBAN REGISTRY as sample
+numbers:
+
+>>> numbers = '''
+... AL47212110090000000235698741
+... AD1200012030200359100100
+... AT611904300234573201
+... BE68539007547034
+... BA391290079401028494
+... BG80BNBG96611020345678
+... HR1210010051863000160
+... CY17002001280000001200527600
+... CZ6508000000192000145399
+... CZ9455000000001011038930
+... DK5000400440116243
+... FO6264600001631634
+... GL8964710001000206
+... EE382200221020145685
+... FI2112345600000785
+... FI5542345670000081
+... FR1420041010050500013M02606
+... DE89370400440532013000
+... GE29NB0000000101904917
+... GI75NWBK000000007099453
+... GR1601101250000000012300695
+... HU42117730161111101800000000
+... IS140159260076545510730339
+... IE29AIBK93115212345678
+... IL620108000000099999999
+... IT60X0542811101000000123456
+... LV80BANK0000435195001
+... LB62099900000001001901229114
+... LI21088100002324013AA
+... LT121000011101001000
+... LU280019400644750000
+... MK07250120000058984
+... MT84MALT011000012345MTLCAST001S
+... MR1300020001010000123456753
+... MU17 BOMM0101101030300200000MUR
+... MC1112739000700011111000h79
+... ME25505000012345678951
+... NL91ABNA0417164300
+... NO9386011117947
+... PL61109010140000071219812874
+... PT50000201231234567890154
+... RO49AAAA1B31007593840000
+... SM86U0322509800000000270100
+... SA0380000000608010167519
+... RS35260005601001611379
+... SK3112000000198742637541
+... SI56191000000123438
+... ES9121000418450200051332
+... SE4550000000058398257466
+... CH9300762011623852957
+... TN5910006035183598478831
+... TR330006100519786457841326
+... GB29NWBK60161331926819
+... AL47 2121 1009 0000 0002 3569 8741
+... AD12 0001 2030 2003 5910 0100
+... AT61 1904 3002 3457 3201
+... BE68 5390 0754 7034
+... BA39 1290 0794 0102 8494
+... BG80 BNBG 9661 1020 3456 78
+... HR12 1001 0051 8630 0016 0
+... CY17 0020 0128 0000 0012 0052 7600
+... CZ65 0800 0000 1920 0014 5399
+... CZ94 5500 0000 0010 1103 8930
+... DK50 0040 0440 1162 43
+... FO62 6460 0001 6316 34
+... GL89 6471 0001 0002 06
+... EE38 2200 2210 2014 5685
+... FI21 1234 5600 0007 85
+... FR14 2004 1010 0505 0001 3M02 606
+... DE89 3704 0044 0532 0130 00
+... GE29 NB00 0000 0101 9049 17
+... GI75 NWBK 0000 0000 7099 453
+... GR16 0110 1250 0000 0001 2300 695
+... HU42 1177 3016 1111 1018 0000 0000
+... IS14 0159 2600 7654 5510 7303 39
+... IE29 AIBK 9311 5212 3456 78
+... IL62 0108 0000 0009 9999 999
+... IT60 X054 2811 1010 0000 0123 456
+... LV80 BANK 0000 4351 9500 1
+... LB62 0999 0000 0001 0019 0122 9114
+... LI21 0881 0000 2324 013A A
+... LT12 1000 0111 0100 1000
+... LU28 0019 4006 4475 0000
+... MK072 5012 0000 0589 84
+... MT84 MALT 0110 0001 2345 MTLC AST0 01S
+... MR13 0002 0001 0100 0012 3456 753
+... MU17 BOMM 0101 1010 3030 0200 000M UR
+... MC11 1273 9000 7000 1111 1000 h79
+... ME25 5050 0001 2345 6789 51
+... NL91 ABNA 0417 1643 00
+... NO93 8601 1117 947
+... PL61 1090 1014 0000 0712 1981 2874
+... PT50 0002 0123 1234 5678 9015 4
+... RO49 AAAA 1B31 0075 9384 0000
+... SM86 U032 2509 8000 0000 0270 100
+... SA03 8000 0000 6080 1016 7519
+... RS35 2600 0560 1001 6113 79
+... SK31 1200 0000 1987 4263 7541
+... SI56 1910 0000 0123 438
+... ES91 2100 0418 4502 0005 1332
+... SE45 5000 0000 0583 9825 7466
+... CH93 0076 2011 6238 5295 7
+... TN59 1000 6035 1835 9847 8831
+... TR33 0006 1005 1978 6457 8413 26
+... GB29 NWBK 6016 1331 9268 19
+... '''
+>>> [ x for x in numbers.splitlines() if x and not iban.is_valid(x) ]
+[]
+
+
+These all have broken checksums or are mangled:
+
+>>> numbers = '''
+... AL48212110090000000235698741
+... AD1210012030200359100100
+... AT611804300234573201
+... BE68530907547034
+... BA391290709401028494
+... BG80BNBG99611020345678
+... HR1210010052863000160
+... CY17002001281000001200527600
+... CZ6508000000129000145399
+... CZ9455000000000101038930
+... DK5000400440116342
+... '''
+>>> [ x for x in numbers.splitlines() if x and iban.is_valid(x) ]
+[]
+
+
+These are the wrong length but otherwise have valid checksums:
+
+>>> numbers = '''
+... AD48 0001 2030 2003 5910 01
+... AT93 1904 3002 3457 3201 99
+... BE36 5390 0754 7034 1234
+... BA30 1290 0794 0102 84
+... '''
+>>> [ x for x in numbers.splitlines() if x and iban.is_valid(x) ]
+[]
+
+
+These are mostly valid except that they have alphabetic characters where
+they are not allowed or numbers where alphabetic characters are expected
+or have an unknown country code:
+
+>>> numbers = '''
+... BG93 BNBG 9661 1A20 3456 78
+... GI22 NW3K 0000 0000 7099 453
+... NL56 3003 0A17 1643 00
+... QQ93 1234 5678
+... '''
+>>> [ x for x in numbers.splitlines() if x and iban.is_valid(x) ]
+[]
+
+
+The is_valid() method should be fairly robust against invalid junk passed:
+
+>>> iban.is_valid(None)
+False
+>>> iban.is_valid('')
+False
+>>> iban.is_valid(0)
+False
+>>> iban.is_valid(object())
+False
+>>> iban.is_valid('3abc6800-0041X1-20')
+False
