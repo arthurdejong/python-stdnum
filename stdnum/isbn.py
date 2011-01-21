@@ -1,6 +1,6 @@
 # __init__.py - functions for handling ISBNs
 #
-# Copyright (C) 2010 Arthur de Jong
+# Copyright (C) 2010, 2011 Arthur de Jong
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -18,7 +18,7 @@
 # 02110-1301 USA
 
 """Module for handling ISBNs (International Standard Book Number). This
-module handles both numbers in ISBN10 (10-digit) and ISBN13 (13-digit)
+module handles both numbers in ISBN-10 (10-digit) and ISBN-13 (13-digit)
 format.
 
 >>> is_valid('978-9024538270')
@@ -40,12 +40,16 @@ False
 """
 
 
-def compact(number):
+def compact(number, convert=False):
     """Convert the ISBN to the minimal representation. This strips the number
-    of any valid ISBN separators and removes surrounding whitespace."""
+    of any valid ISBN separators and removes surrounding whitespace. If the
+    covert parameter is True the number is also converted to ISBN-13
+    format."""
     number = number.replace(' ','').replace('-','').strip().upper()
     if len(number) == 9:
         number = '0' + number
+    if convert:
+        return to_isbn13(numer)
     return number
 
 def _calc_isbn10_check_digit(number):
@@ -89,11 +93,11 @@ def is_valid(number):
     return isbn_type(number) is not None
 
 def to_isbn13(number):
-    """Convert the number to ISBN13 format."""
+    """Convert the number to ISBN-13 format."""
     number = number.strip()
     min_number = compact(number)
     if len(min_number) == 13:
-        return number # nothing to do, already ISBN13
+        return number # nothing to do, already ISBN-13
     # put new check digit in place
     number = number[:-1] + _calc_isbn13_check_digit('978' + min_number[:-1])
     # add prefix
@@ -104,13 +108,14 @@ def to_isbn13(number):
     else:
         return '978' + number
 
-def split(number):
+def split(number, convert=False):
     """Split the specified ISBN into an EAN.UCC prefix, a group prefix, a
-    registrant, an item number and a check-digit. If the number is in ISBN10
-    format the returned EAN.UCC prefix is '978'."""
+    registrant, an item number and a check-digit. If the number is in ISBN-10
+    format the returned EAN.UCC prefix is '978'. If the covert parameter is
+    True the number is converted to ISBN-13 format first."""
     from stdnum import numdb
     # clean up number
-    number = compact(number)
+    number = compact(number, convert)
     # get Bookland prefix if any
     if len(number) == 10:
         oprefix = ''
@@ -126,10 +131,11 @@ def split(number):
     # return results
     return ( oprefix, group, publisher, itemnr, number[-1] )
 
-def format(number, separator='-'):
+def format(number, separator='-', convert=False):
     """Reformat the passed number to the standard format with the EAN.UCC
     prefix (if any), the group prefix, the registrant, the item number and
     the check-digit separated (if possible) by the specified separator.
     Passing an empty separator should equal compact() though this is less
-    efficient."""
-    return separator.join(x for x in split(number) if x)
+    efficient. If the covert parameter is True the number is converted to
+    ISBN-13 format first."""
+    return separator.join(x for x in split(number, convert) if x)
