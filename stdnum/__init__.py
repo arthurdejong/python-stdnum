@@ -27,9 +27,12 @@ Currently this module supports the following formats:
  * ISMN (International Standard Music Number)
  * ISAN (International Standard Audiovisual Number)
  * BSN (Burgerservicenummer, the Dutch national identification number)
+ * CPF (Cadastro de Pessoas Físicas, the Brazillian national identification
+   number)
  * IMEI (International Mobile Equipment Identity)
  * MEID (Mobile Equipment Identifier)
  * GRid (Global Release Identifier)
+ * IBAN (International Bank Account Number)
 
 Furthermore a number of generic check digit algorithms are available:
 
