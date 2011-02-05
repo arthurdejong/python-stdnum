@@ -57,7 +57,7 @@ To split the number and get properties for each part:
 import re
 from pkg_resources import resource_stream
 
-_line_re = re.compile('^(?P<indent> *)(?P<ranges>([0-9a-zA-Z]+(-[0-9a-zA-Z]+)?)(,[0-9a-zA-Z]+(-[0-9a-zA-Z]+)?)*) *(?P<props>.*)$')
+_line_re = re.compile('^(?P<indent> *)(?P<ranges>([^-,\s]+(-[^-,\s]+)?)(,[^-,\s]+(-[^-,\s]+)?)*)\s*(?P<props>.*)$')
 _prop_re = re.compile('(?P<prop>[0-9a-zA-Z-_]+)="(?P<value>[^"]*)"')
 
 # this is a cache of open databases
