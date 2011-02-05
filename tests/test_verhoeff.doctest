@@ -59,18 +59,3 @@ True
 '7'
 >>> verhoeff.is_valid('3984382462386423786482364872364827347')
 True
-
-
-Furthermore the is_valid() method should be fairly robust against invalid
-junk passed:
-
->>> verhoeff.is_valid(None)
-False
->>> verhoeff.is_valid('')
-False
->>> verhoeff.is_valid(0)
-False
->>> verhoeff.is_valid(object())
-False
->>> verhoeff.is_valid('65a4')
-False

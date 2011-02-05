@@ -51,20 +51,6 @@ True
 'IMEISV'
 
 
-The is_valid() method should be fairly robust against invalid junk passed:
-
->>> imei.is_valid(None)
-False
->>> imei.is_valid('')
-False
->>> imei.is_valid(0)
-False
->>> imei.is_valid(object())
-False
->>> imei.is_valid('3abc6800-0041X1-20')
-False
-
-
 The format() function can add the check digit if needed. It should leave
 alone existing check digits (even invalid ones) and only add them to the
 14 digit format.

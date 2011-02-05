@@ -41,16 +41,6 @@ True
 True
 
 
-These are tests to check what happens when a wrong type is passed.
-
->>> ismn.is_valid(1857982185) # integer, not string
-False
->>> ismn.is_valid(None)
-False
->>> ismn.is_valid('')
-False
-
-
 Tests for mangling and incorect check digits.
 
 >>> ismn.is_valid('979-0-3217-6543-x')

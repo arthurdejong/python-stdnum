@@ -58,18 +58,11 @@ False
 
 The is_valid() method should be fairly robust against invalid junk passed:
 
->>> meid.is_valid(None)
-False
->>> meid.is_valid('')
-False
->>> meid.is_valid(0)
-False
->>> meid.is_valid(object())
-False
 >>> meid.is_valid('29360 ABCDE 0070 3710')
 False
 >>> meid.is_valid('GF 01 23 45 0A BC DE')
 False
+
 
 The compact method should convert to HEX if needed and can optionally leave
 the check digit intact.

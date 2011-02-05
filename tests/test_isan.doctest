@@ -63,21 +63,13 @@ True
 True
 >>> isan.is_valid('0000-0000-D07A-0090-Q')
 True
+
+
+And these should be invalid:
+
 >>> isan.is_valid('00000000D07A0090-Z') # wrong check digit
 False
-
-
-The is_valid() method should be fairly robust against invalid junk passed:
-
->>> isan.is_valid(None)
-False
->>> isan.is_valid('')
-False
->>> isan.is_valid(0)
-False
->>> isan.is_valid(object())
-False
->>> isan.is_valid('3abc6800-0041X1-20')
+>>> isan.is_valid('3abc6800-0041X1-20') # illegal character
 False
 
 

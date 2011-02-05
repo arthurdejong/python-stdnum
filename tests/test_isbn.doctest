@@ -25,26 +25,6 @@ really useful as module documentation.
 >>> from stdnum import isbn
 
 
-These are normal variations that should just work.
-
->>> isbn.is_valid('978-9024538270')
-True
->>> isbn.is_valid(u'1857982185')
-True
->>> isbn.is_valid('85152-629-2') # 9-digit SBN (silently converted to ISBN10)
-True
-
-
-These are tests to check what happes when a wrong type is passed.
-
->>> isbn.is_valid(1857982185) # integer, not string
-False
->>> isbn.is_valid(None)
-False
->>> isbn.is_valid('')
-False
-
-
 Tests for mangling and incorect check digits.
 
 >>> isbn.is_valid('08515x-629-2') # added X in the middle

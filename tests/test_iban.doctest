@@ -182,17 +182,3 @@ or have an unknown country code:
 ... '''
 >>> [ x for x in numbers.splitlines() if x and iban.is_valid(x) ]
 []
-
-
-The is_valid() method should be fairly robust against invalid junk passed:
-
->>> iban.is_valid(None)
-False
->>> iban.is_valid('')
-False
->>> iban.is_valid(0)
-False
->>> iban.is_valid(object())
-False
->>> iban.is_valid('3abc6800-0041X1-20')
-False
