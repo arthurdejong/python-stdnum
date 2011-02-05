@@ -24,7 +24,7 @@ invalid junk.
 
 >>> testvalues = ( None, '*&^%$', '', 0, False, object(),  )
 
->>> from stdnum import grid, iban, imei, isan, isbn, ismn, issn
+>>> from stdnum import grid, iban, imei, isan, isbn, isil, ismn, issn
 >>> from stdnum import luhn, meid, verhoeff
 >>> from stdnum.iso7064 import mod_11_10, mod_11_2, mod_37_2, mod_37_36, mod_97_10
 >>> from stdnum.nl import bsn
