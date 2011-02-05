@@ -1,7 +1,7 @@
 # __init__.py - main module
 # coding: utf-8
 #
-# Copyright (C) 2010 Arthur de Jong
+# Copyright (C) 2010, 2011 Arthur de Jong
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -34,6 +34,8 @@ Currently this module supports the following formats:
  * MEID (Mobile Equipment Identifier)
  * GRid (Global Release Identifier)
  * IBAN (International Bank Account Number)
+ * ISIL (International Standard Identifier for Libraries and Related
+   Organizations)
 
 Furthermore a number of generic check digit algorithms are available:
 
