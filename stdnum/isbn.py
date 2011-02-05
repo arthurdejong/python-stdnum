@@ -49,7 +49,7 @@ def compact(number, convert=False):
     if len(number) == 9:
         number = '0' + number
     if convert:
-        return to_isbn13(numer)
+        return to_isbn13(number)
     return number
 
 def _calc_isbn10_check_digit(number):
