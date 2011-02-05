@@ -75,10 +75,10 @@ def is_valid(number):
     """Checks to see if the number provided is a valid IBAN."""
     try:
         number = compact(number)
+        # ensure that checksum is valid
+        if not mod_97_10.is_valid(_convert(number)):
+            return False
     except:
-        return False
-    # ensure that checksum is valid
-    if not mod_97_10.is_valid(_convert(number)):
         return False
     # look up the number
     info = _ibandb.info(number)
