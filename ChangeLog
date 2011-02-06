@@ -1,3 +1,132 @@
+2011-02-06 15:21  arthur
+
+	* [r64] stdnum/isbn.dat: include an updated version
+
+2011-02-06 14:00  arthur
+
+	* [r63] README, stdnum/__init__.py, stdnum/us,
+	  stdnum/us/__init__.py, stdnum/us/ssn.py,
+	  tests/test_robustness.doctest: add an SSN (U.S. Social Security
+	  Number) module
+
+2011-02-05 22:48  arthur
+
+	* [r62] README, stdnum/__init__.py: add ISIL to the documentation
+
+2011-02-05 22:43  arthur
+
+	* [r61] getisil.py, stdnum/isil.dat, stdnum/isil.py,
+	  tests/test_robustness.doctest: add an ISIL (International
+	  Standard Identifier for Libraries and Related Organizations)
+	  module
+
+2011-02-05 22:32  arthur
+
+	* [r60] stdnum/numdb.py: allow most kind of characters in number
+	  ranges
+
+2011-02-05 22:08  arthur
+
+	* [r59] stdnum/iban.py: move more validation into try/except
+	  (specifically the _convert() call)
+
+2011-02-05 22:03  arthur
+
+	* [r58] tests/test_br_cpf.doctest, tests/test_iban.doctest,
+	  tests/test_imei.doctest, tests/test_isan.doctest,
+	  tests/test_isbn.doctest, tests/test_ismn.doctest,
+	  tests/test_issn.doctest, tests/test_luhn.doctest,
+	  tests/test_meid.doctest, tests/test_nl_bsn.doctest,
+	  tests/test_robustness.doctest, tests/test_verhoeff.doctest: move
+	  all robustness tests into one test file
+
+2011-02-05 21:57  arthur
+
+	* [r57] tests/test_iso7064.doctest: fix imports of iso7064.mod_*_*
+	  modules
+
+2011-02-05 21:55  arthur
+
+	* [r56] stdnum/isbn.py: fix typo in r53
+
+2011-02-05 21:55  arthur
+
+	* [r55] stdnum/__init__.py: add encoding header
+
+2011-01-31 21:59  arthur
+
+	* [r54] README, stdnum/__init__.py: get README and package
+	  docstring in sync
+
+2011-01-21 10:49  arthur
+
+	* [r53] stdnum/isbn.py, tests/test_isbn.doctest: add a convert
+	  parameter to most isbn functions to automatically convert to
+	  ISBN-13
+
+2011-01-17 21:15  arthur
+
+	* [r52] README: add note about CPF and update copyright year
+
+2011-01-16 21:48  arthur
+
+	* [r51] README, getiban.py, stdnum/iban.dat, stdnum/iban.py,
+	  tests/test_iban.doctest: add an IBAN (International Bank Account
+	  Number) module
+
+2011-01-16 21:23  arthur
+
+	* [r50] setup.py, stdnum/numdb.py: revert r49 because it wasn't
+	  needed after all
+
+2011-01-16 20:36  arthur
+
+	* [r49] setup.py, stdnum/numdb.py: introduce a full parameter that
+	  can be used to only return the part that is in the database
+
+2011-01-16 19:13  arthur
+
+	* [r48] stdnum/grid.py, stdnum/isan.py: fix import of iso7064
+	  modules
+
+2011-01-16 08:49  arthur
+
+	* [r47] stdnum/numdb.py, test.dat: add test for partial match
+
+2011-01-15 20:27  arthur
+
+	* [r46] tests/test_nl_bsn.doctest: fix comments to refer to the new
+	  path of the module
+
+2011-01-15 20:26  arthur
+
+	* [r45] stdnum/br, stdnum/br/__init__.py, stdnum/br/cpf.py,
+	  tests/test_br_cpf.doctest: add a CPF (Cadastro de Pessoas
+	  Físicas) module
+
+2011-01-15 19:05  arthur
+
+	* [r44] stdnum/bsn.py, stdnum/nl, stdnum/nl/__init__.py,
+	  stdnum/nl/bsn.py, tests/test_bsn.doctest,
+	  tests/test_nl_bsn.doctest: move bsn module inside nl package
+
+2010-11-26 22:25  arthur
+
+	* [r43] setup.py, stdnum/__init__.py: move general description to
+	  package __init__.py file
+
+2010-11-24 22:09  arthur
+
+	* [r42] getisbn.py, stdnum/isbn, stdnum/isbn.dat, stdnum/isbn.py,
+	  stdnum/numdb.py, test.dat, tests/test_isbn.doctest: implement a
+	  new numdb module to hold information on hierarchically organised
+	  numbers and switch the isbn module to use this format instead
+
+2010-09-11 09:13  arthur
+
+	* [r40] ChangeLog, NEWS, README, setup.py: get files ready for 0.3
+	  release
+
 2010-09-05 17:53  arthur
 
 	* [r39] setup.py: have sdist target create a tarball with

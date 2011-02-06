@@ -1,3 +1,21 @@
+changes from 0.3 to 0.4
+-----------------------
+
+* add modules for the following number formats:
+  - CPF (Cadastro de Pessoas Físicas, the Brazillian national identification
+    number)
+  - IBAN (International Bank Account Number)
+  - ISIL (International Standard Identifier for Libraries and Related
+    Organizations)
+  - SSN (U.S. Social Security Number)
+* implement an internal module to store and handle hierarchically organised
+  data structures efficiently
+* regional-specific numbers are now in ISO 3166 packages (the BSN module
+  is now in stdnum.nl.bsn)
+* ISBN module functions now have a convert flag to convert to ISBN-13 on
+  the fly
+
+
 changes from 0.2 to 0.3
 -----------------------
 

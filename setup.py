@@ -2,7 +2,7 @@
 
 # setup.py - python-stdnum installation script
 #
-# Copyright (C) 2010 Arthur de Jong
+# Copyright (C) 2010, 2011 Arthur de Jong
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -32,7 +32,7 @@ if 'sdist' in sys.argv:
     os.umask(022)
 
 setup(name='python-stdnum',
-      version='0.3',
+      version='0.4',
       packages=find_packages(),
       author='Arthur de Jong',
       author_email='arthur@arthurdejong.org',
