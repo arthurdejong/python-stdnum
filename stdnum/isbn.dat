@@ -1,7 +1,7 @@
 # generated from RangeMessage.xml, downloaded from
 # http://www.isbn-international.org/agency?rmxml=1
-# file serial 7a5c26a5-62dc-463d-adab-2e214f2a1316
-# file date Tue, 16 Nov 2010 10:49:43 GMT
+# file serial 12a8b922-1e15-415c-8ef5-74b913ca408c
+# file date Mon, 31 Jan 2011 15:43:34 GMT
 978
  0-5,600-649,7-7,80-94,950-989,9900-9989,99900-99999
  0 agency="English language"
@@ -173,7 +173,7 @@
  987 agency="Argentina"
   00-09,1000-1999,20000-29999,30-49,500-899,9000-9499,95000-99999
  988 agency="Hong Kong, China"
-  00-16,17000-19999,200-799,8000-9699,97000-99999
+  00-14,15000-16999,17000-19999,200-799,8000-9699,97000-99999
  989 agency="Portugal"
   0-1,20-54,550-799,8000-9499,95000-99999
  9927 agency="Qatar"
