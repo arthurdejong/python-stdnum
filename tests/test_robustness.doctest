@@ -29,6 +29,7 @@ invalid junk.
 >>> from stdnum.iso7064 import mod_11_10, mod_11_2, mod_37_2, mod_37_36, mod_97_10
 >>> from stdnum.nl import bsn
 >>> from stdnum.br import cpf
+>>> from stdnum.us import ssn
 
 Go over each imported module and try every value.
 

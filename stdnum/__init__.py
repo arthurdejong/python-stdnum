@@ -30,6 +30,7 @@ Currently this module supports the following formats:
  * BSN (Burgerservicenummer, the Dutch national identification number)
  * CPF (Cadastro de Pessoas Físicas, the Brazillian national identification
    number)
+ * SSN (U.S. Social Security Number)
  * IMEI (International Mobile Equipment Identity)
  * MEID (Mobile Equipment Identifier)
  * GRid (Global Release Identifier)
