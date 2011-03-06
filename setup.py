@@ -29,7 +29,7 @@ import stdnum
 # fix permissions for sdist
 if 'sdist' in sys.argv:
     os.system('chmod -R a+rX .')
-    os.umask(022)
+    os.umask(int('022', 8))
 
 setup(name='python-stdnum',
       version='0.4',

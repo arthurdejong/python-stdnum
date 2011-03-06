@@ -1,7 +1,7 @@
 
 # numdb.py - module for handling hierarchically organised numbers
 #
-# Copyright (C) 2010 Arthur de Jong
+# Copyright (C) 2010, 2011 Arthur de Jong
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -81,10 +81,13 @@ class NumDB(object):
     def _merge(results):
         """Merge the provided list of possible results into a single result
         list (this is a generator)."""
-        results.append([])
-        for parts in map(None, *results):
+        # expand the results to all have the same length
+        ml = max(len(x) for x in results)
+        results = [ x + (ml - len(x)) * [None] for x in results ]
+        # go over each part
+        for parts in zip(*results):
             # regroup parts into parts list and properties list
-            partlist, proplist = zip(*(x for x in parts if x))
+            partlist, proplist = list(zip(*(x for x in parts if x)))
             part = min(partlist, key=len)
             props = {}
             for p in proplist:
@@ -125,7 +128,7 @@ class NumDB(object):
 def _parse(fp):
     """Read lines of text from the file pointer and generate indent, length,
     low, high, properties tuples."""
-    for line in fp.xreadlines():
+    for line in fp:
         # ignore comments
         if line[0] == '#' or line.strip() == '':
             continue
@@ -159,5 +162,7 @@ def read(fp):
 def get(name):
     """Opens a database with the specified name to perform queries on."""
     if name not in _open_databases:
-        _open_databases[name] = read(resource_stream(__name__, name + '.dat'))
+        import codecs
+        reader = codecs.getreader('utf-8')
+        _open_databases[name] = read(reader(resource_stream(__name__, name + '.dat')))
     return _open_databases[name]
