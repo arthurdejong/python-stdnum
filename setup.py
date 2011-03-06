@@ -34,6 +34,7 @@ if 'sdist' in sys.argv:
 setup(name='python-stdnum',
       version='0.4',
       packages=find_packages(),
+      package_data={ 'stdnum': ['*.dat'] },
       author='Arthur de Jong',
       author_email='arthur@arthurdejong.org',
       url='http://arthurdejong.org/python-stdnum',
