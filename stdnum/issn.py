@@ -28,7 +28,11 @@ False
 '00321478'
 >>> format('00249319')
 '0024-9319'
+>>> to_ean('0264-3596')
+'9770264359008'
 """
+
+from stdnum import ean
 
 
 def compact(number):
@@ -58,3 +62,9 @@ def format(number):
     """Reformat the passed number to the standard format."""
     number = compact(number)
     return number[:4] + '-' + number[4:]
+
+def to_ean(number, issue_code='00'):
+    """Convert the number to EAN-13 format. The number is assumed to be a
+    valid ISSN."""
+    number = '977' + compact(number)[:-1] + issue_code
+    return number + ean.calc_check_digit(number)
