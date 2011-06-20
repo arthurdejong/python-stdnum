@@ -27,6 +27,7 @@ Currently this module supports the following formats:
  * ISSN (International Standard Serial Number)
  * ISMN (International Standard Music Number)
  * ISAN (International Standard Audiovisual Number)
+ * EAN (International Article Number)
  * BSN (Burgerservicenummer, the Dutch national identification number)
  * CPF (Cadastro de Pessoas Físicas, the Brazillian national identification
    number)
