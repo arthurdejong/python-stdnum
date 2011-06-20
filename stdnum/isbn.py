@@ -1,4 +1,4 @@
-# __init__.py - functions for handling ISBNs
+# isbn.py - functions for handling ISBNs
 #
 # Copyright (C) 2010, 2011 Arthur de Jong
 #
@@ -39,6 +39,8 @@ False
 '978-1-85798-218-3'
 """
 
+from stdnum import ean
+
 
 def compact(number, convert=False):
     """Convert the ISBN to the minimal representation. This strips the number
@@ -58,11 +60,6 @@ def _calc_isbn10_check_digit(number):
     check = sum( (i + 1) * int(n) for i, n in enumerate(number) ) % 11
     return 'X' if check == 10 else str(check)
 
-def _calc_isbn13_check_digit(number):
-    """Calculate the ISBN check digit for 13-digit numbers. The number passed
-    should not have the check bit included."""
-    return str((10 - sum( (2 * (i % 2) + 1) * int(n) for i, n in enumerate(number))) % 10)
-
 def isbn_type(number):
     """Check the passed number and returns 'ISBN13', 'ISBN10' or None (for
     invalid) for checking the type of number passed."""
@@ -79,7 +76,7 @@ def isbn_type(number):
     elif len(number) == 13:
         if not number.isdigit():
             return None
-        if _calc_isbn13_check_digit(number[:-1]) != number[-1]:
+        if ean.calc_check_digit(number[:-1]) != number[-1]:
             return None
         return 'ISBN13'
     else:
@@ -99,7 +96,7 @@ def to_isbn13(number):
     if len(min_number) == 13:
         return number # nothing to do, already ISBN-13
     # put new check digit in place
-    number = number[:-1] + _calc_isbn13_check_digit('978' + min_number[:-1])
+    number = number[:-1] + ean.calc_check_digit('978' + min_number[:-1])
     # add prefix
     if ' ' in number:
         return '978 ' + number

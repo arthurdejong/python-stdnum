@@ -1,6 +1,6 @@
-# __init__.py - functions for handling ISMNs
+# ismn.py - functions for handling ISMNs
 #
-# Copyright (C) 2010 Arthur de Jong
+# Copyright (C) 2010, 2011 Arthur de Jong
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -38,17 +38,14 @@ False
 '9790230671187'
 """
 
+from stdnum import ean
+
 
 def compact(number):
     """Convert the ISMN to the minimal representation. This strips the number
     of any valid ISMN separators and removes surrounding whitespace."""
     number = number.replace(' ','').replace('-','').replace('.','').strip().upper()
     return number
-
-def _calc_check_digit(number):
-    """Calculate the ISMN check digit. The number passed should not have
-    the check bit included and should be in the 13-digit form."""
-    return str((10 - sum( (2 * (i % 2) + 1) * int(n) for i, n in enumerate(number))) % 10)
 
 def is_valid(number):
     """Checks to see if the number provided is a valid ISMN (either a legacy
@@ -59,10 +56,10 @@ def is_valid(number):
     except:
         return False
     if len(number) == 10 and number[0] == 'M' and number[1:].isdigit():
-        if _calc_check_digit('9790' + number[1:-1]) == number[-1]:
+        if ean.calc_check_digit('9790' + number[1:-1]) == number[-1]:
             return True
     elif len(number) == 13 and number.isdigit():
-        if _calc_check_digit(number[:-1]) == number[-1]:
+        if ean.calc_check_digit(number[:-1]) == number[-1]:
             return True
     return False
 
