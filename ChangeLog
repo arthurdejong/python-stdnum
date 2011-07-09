@@ -1,3 +1,41 @@
+2011-07-09 15:12  arthur
+
+	* [r73] stdnum/iban.dat, stdnum/isbn.dat, stdnum/isil.dat: update
+	  data files
+
+2011-06-20 20:56  arthur
+
+	* [r72] stdnum/issn.py: implement a conversion function from ISSN
+	  to EAN
+
+2011-06-20 20:55  arthur
+
+	* [r71] stdnum/isbn.py, stdnum/ismn.py: use the ean module for
+	  calculating the check digit
+
+2011-06-20 20:53  arthur
+
+	* [r70] README, stdnum/__init__.py, stdnum/ean.py,
+	  tests/test_robustness.doctest: add an EAN (International Article
+	  Number) module
+
+2011-03-06 21:56  arthur
+
+	* [r69] setup.py, stdnum/numdb.py: also support Python3 with the
+	  same codebase (see #3)
+
+2011-03-06 19:54  arthur
+
+	* [r68] setup.py: ensure that data files are always included
+
+2011-03-02 19:30  arthur
+
+	* [r67] stdnum/verhoeff.py: Python 2.5 compatibility improvement
+
+2011-02-06 15:23  arthur
+
+	* [r65] ChangeLog, NEWS, setup.py: get files ready for 0.4 release
+
 2011-02-06 15:21  arthur
 
 	* [r64] stdnum/isbn.dat: include an updated version

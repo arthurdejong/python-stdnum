@@ -1,3 +1,14 @@
+changes from 0.4 to 0.5
+-----------------------
+
+* add modules for the following number formats:
+  - EAN (International Article Number)
+* refactoring to use the EAN check digit code for ISBN and ISMN checks
+* implement a conversion function from ISSN to EAN
+* support Python3 with the same codebase
+* Python 2.5 compatibility improvement
+
+
 changes from 0.3 to 0.4
 -----------------------
 
