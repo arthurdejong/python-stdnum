@@ -47,18 +47,21 @@ def compact(number, convert=False):
     of any valid ISBN separators and removes surrounding whitespace. If the
     covert parameter is True the number is also converted to ISBN-13
     format."""
-    number = number.replace(' ','').replace('-','').strip().upper()
+    number = number.replace(' ', '').replace('-', '').strip().upper()
     if len(number) == 9:
         number = '0' + number
     if convert:
         return to_isbn13(number)
     return number
 
+
 def _calc_isbn10_check_digit(number):
     """Calculate the ISBN check digit for 10-digit numbers. The number passed
     should not have the check bit included."""
-    check = sum( (i + 1) * int(n) for i, n in enumerate(number) ) % 11
+    check = sum((i + 1) * int(n)
+                for i, n in enumerate(number)) % 11
     return 'X' if check == 10 else str(check)
+
 
 def isbn_type(number):
     """Check the passed number and returns 'ISBN13', 'ISBN10' or None (for
@@ -82,6 +85,7 @@ def isbn_type(number):
     else:
         return None
 
+
 def is_valid(number):
     """Checks to see if the number provided is a valid ISBN (either a legacy
     10-digit one or a 13-digit one). This checks the length and the check
@@ -89,12 +93,13 @@ def is_valid(number):
     for that)."""
     return isbn_type(number) is not None
 
+
 def to_isbn13(number):
     """Convert the number to ISBN-13 format."""
     number = number.strip()
     min_number = compact(number)
     if len(min_number) == 13:
-        return number # nothing to do, already ISBN-13
+        return number  # nothing to do, already ISBN-13
     # put new check digit in place
     number = number[:-1] + ean.calc_check_digit('978' + min_number[:-1])
     # add prefix
@@ -104,6 +109,7 @@ def to_isbn13(number):
         return '978-' + number
     else:
         return '978' + number
+
 
 def split(number, convert=False):
     """Split the specified ISBN into an EAN.UCC prefix, a group prefix, a
@@ -121,12 +127,13 @@ def split(number, convert=False):
         oprefix = prefix = number[:3]
         number = number[3:]
     # split the number
-    result = numdb.get('isbn').split(prefix+number[:-1])[1:]
+    result = numdb.get('isbn').split(prefix + number[:-1])[1:]
     itemnr = result.pop()
     group = result.pop(0) if result else ''
     publisher = result.pop(0) if result else ''
     # return results
-    return ( oprefix, group, publisher, itemnr, number[-1] )
+    return (oprefix, group, publisher, itemnr, number[-1])
+
 
 def format(number, separator='-', convert=False):
     """Reformat the passed number to the standard format with the EAN.UCC

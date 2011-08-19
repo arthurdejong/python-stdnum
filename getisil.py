@@ -32,9 +32,11 @@ spaces_re = re.compile('\s+', re.UNICODE)
 # the web page that holds information on the ISIL authorities
 download_url = 'http://biblstandard.dk/isil/'
 
+
 def clean(s):
     """Cleans up the string removing unneeded stuff from it."""
     return spaces_re.sub(' ', s.replace(u'\u0096', '')).strip().encode('utf-8')
+
 
 def parse(f):
     """Parse the specified file."""
@@ -57,8 +59,11 @@ def parse(f):
             elif tds[2].string:
                 props['ra'] = clean(tds[2].string)
             # we could also get the search urls from tds[3].findAll('a')
-            print '%s$ %s' % ( cc,
-                  ' '.join([ '%s="%s"' % (x, y) for x, y in props.iteritems() ]) )
+            print '%s$ %s' % (
+                      cc,
+                      ' '.join(['%s="%s"' % (x, y)
+                                for x, y in props.iteritems()]))
+
 
 if __name__ == '__main__':
     #f = open('isil.html', 'r')

@@ -39,12 +39,18 @@ import re
 # our open copy of the IBAN database
 _ibandb = numdb.get('iban')
 
+# the valid characters we have
+_alphabet = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ'
+
+# regular expression to check IBAN structure
+_struct_re = re.compile('([1-9][0-9]*)!([nac])')
+
+
 def compact(number):
     """Convert the iban number to the minimal representation. This strips the
     number of any valid separators and removes surrounding whitespace."""
-    return number.replace(' ','').replace('-','').strip().upper()
+    return number.replace(' ', '').replace('-', '').strip().upper()
 
-_alphabet = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ'
 
 def _convert(number):
     """Prepare the number to it's base10 representation (also moving the
@@ -53,8 +59,6 @@ def _convert(number):
     # TODO: find out whether this should be in the mod_97_10 module
     return ''.join(str(_alphabet.index(x)) for x in number[4:] + number[:4])
 
-# regular expression to check IBAN structure
-_struct_re = re.compile('([1-9][0-9]*)!([nac])')
 
 def _matches_structure(number, structure):
     """Check the supplied number against the supplied structure."""
@@ -66,10 +70,11 @@ def _matches_structure(number, structure):
         elif code == 'a' and not number[start:start + length].isalpha():
             return False
         elif code == 'c' and not number[start:start + length].isalnum():
-            return False # should not happen due to checksum check
+            return False  # should not happen due to checksum check
         start += length
     # the whole number should be parsed now
     return start == len(number)
+
 
 def is_valid(number):
     """Checks to see if the number provided is a valid IBAN."""
@@ -85,7 +90,8 @@ def is_valid(number):
     # check if the number has the correct structure
     return _matches_structure(number[4:], info[0][1].get('bban', ''))
 
+
 def format(number, separator=' '):
     """Reformat the passed number to the space-separated format."""
     number = compact(number)
-    return separator.join(number[i:i+4] for i in range(0,len(number),4))
+    return separator.join(number[i:i + 4] for i in range(0, len(number), 4))

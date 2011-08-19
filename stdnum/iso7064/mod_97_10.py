@@ -1,6 +1,6 @@
 # mod_97_10.py - functions for performing the ISO 7064 Mod 97, 10 algorithm
 #
-# Copyright (C) 2010 Arthur de Jong
+# Copyright (C) 2010, 2011 Arthur de Jong
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -36,14 +36,17 @@ True
 '35'
 """
 
+
 def checksum(number):
     """Calculate the checksum."""
     return int(number) % 97
 
+
 def calc_check_digits(number):
     """With the provided number, calculate the extra digit that should be
     appended to make it a valid number."""
-    return '%02d' % (( 98 - 100 * checksum(number)) % 97)
+    return '%02d' % ((98 - 100 * checksum(number)) % 97)
+
 
 def is_valid(number):
     """Determines whether the number has a valid checksum."""

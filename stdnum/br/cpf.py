@@ -35,17 +35,17 @@ False
 def compact(number):
     """Convert the number to the minimal representation. This strips the
     number of any valid separators and removes surrounding whitespace."""
-    number = number.replace(' ','').replace('-','').replace('.','').strip()
-    # pad with leading zeroes
-    return number
+    return number.replace(' ', '').replace('-', '').replace('.', '').strip()
+
 
 def _calc_check_digits(number):
     """Calculate the check digits for the number."""
-    d1 = sum( (10-i) * int(number[i]) for i in range(9) )
-    d1 = ( 11 - d1 ) % 11 % 10
-    d2 = sum( (11-i) * int(number[i]) for i in range(9) ) + 2 * d1
-    d2 = ( 11 - d2 ) % 11 % 10
+    d1 = sum((10 - i) * int(number[i]) for i in range(9))
+    d1 = (11 - d1) % 11 % 10
+    d2 = sum((11 - i) * int(number[i]) for i in range(9)) + 2 * d1
+    d2 = (11 - d2) % 11 % 10
     return '%d%d' % (d1, d2)
+
 
 def is_valid(number):
     """Checks to see if the number provided is a valid BSN. This checks
@@ -58,6 +58,7 @@ def is_valid(number):
            number.isdigit() and \
            int(number) > 0 and \
            _calc_check_digits(number) == number[-2:]
+
 
 def format(number):
     """Reformat the passed number to the standard format."""

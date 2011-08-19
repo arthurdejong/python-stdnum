@@ -44,8 +44,9 @@ from stdnum import ean
 def compact(number):
     """Convert the ISMN to the minimal representation. This strips the number
     of any valid ISMN separators and removes surrounding whitespace."""
-    number = number.replace(' ','').replace('-','').replace('.','').strip().upper()
-    return number
+    number = number.replace(' ', '').replace('-', '').replace('.', '')
+    return number.strip().upper()
+
 
 def is_valid(number):
     """Checks to see if the number provided is a valid ISMN (either a legacy
@@ -63,12 +64,13 @@ def is_valid(number):
             return True
     return False
 
+
 def to_ismn13(number):
     """Convert the number to ISMN13 format."""
     number = number.strip()
     min_number = compact(number)
     if len(min_number) == 13:
-        return number # nothing to do, already 13 digit format
+        return number  # nothing to do, already 13 digit format
     # add prefix and strip the M
     if ' ' in number:
         return '979 0' + number[1:]
@@ -78,8 +80,10 @@ def to_ismn13(number):
         return '9790' + number[1:]
 
 # these are the ranges allocated to publisher codes
-_ranges = ( (3, '000', '099'), (4, '1000', '3999'), (5, '40000', '69999'),
-            (6, '700000', '899999'), (7, '9000000', '9999999') )
+_ranges = (
+    (3, '000', '099'), (4, '1000', '3999'), (5, '40000', '69999'),
+    (6, '700000', '899999'), (7, '9000000', '9999999'))
+
 
 def split(number):
     """Split the specified ISMN into a bookland prefix (979), an ISMN
@@ -89,8 +93,10 @@ def split(number):
     number = to_ismn13(compact(number))
     # rind the correct range and split the number
     for length, low, high in _ranges:
-        if low <= number[4:4+length] <= high:
-            return number[:3], number[3], number[4:4+length], number[4+length:-1], number[-1]
+        if low <= number[4:4 + length] <= high:
+            return (number[:3], number[3], number[4:4 + length],
+                    number[4 + length:-1], number[-1])
+
 
 def format(number, separator='-'):
     """Reformat the passed number to the standard format with the

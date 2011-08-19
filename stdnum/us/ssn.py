@@ -38,12 +38,14 @@ import re
 _ssn_re = re.compile('^(?P<area>[0-9]{3})-?(?P<group>[0-9]{2})-?(?P<serial>[0-9]{4})$')
 
 # blacklist of SSNs
-_ssn_blacklist = set(( '078-05-1120', '457-55-5462', '219-09-9999' ))
+_ssn_blacklist = set(('078-05-1120', '457-55-5462', '219-09-9999'))
+
 
 def compact(number):
     """Convert the number to the minimal representation. This strips the
     number of any valid separators and removes surrounding whitespace."""
     return number.replace('-', '').strip()
+
 
 def is_valid(number):
     """Checks to see if the number provided is a valid SSN. This checks
@@ -64,6 +66,7 @@ def is_valid(number):
         return False
     # check blacklists
     return format(number) not in _ssn_blacklist
+
 
 def format(number):
     """Reformat the passed number to the standard format."""

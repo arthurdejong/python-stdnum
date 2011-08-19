@@ -34,10 +34,12 @@ False
 # the valid characters in an ISIL
 _alphabet = set('0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz-:/')
 
+
 def compact(number):
     """Convert the ISIL to the minimal representation. This strips
     surrounding whitespace."""
     return number.strip()
+
 
 def _known_agency(agency):
     """Checks whether the specified agency is valid."""
@@ -46,6 +48,7 @@ def _known_agency(agency):
     results = numdb.get('isil').info(agency.upper() + '$')
     # there should be only one part and it should have properties
     return len(results) == 1 and bool(results[0][1])
+
 
 def is_valid(number):
     """Checks to see if the number provided is a valid isil (or isilSV)
@@ -58,6 +61,7 @@ def is_valid(number):
         if n not in _alphabet:
             return False
     return len(number) <= 15 and _known_agency(number.split('-')[0])
+
 
 def format(number):
     """Reformat the passed number to the standard format."""

@@ -26,15 +26,19 @@ True
 True
 """
 
+
 def compact(number):
     """Convert the EAN to the minimal representation. This strips the number
     of any valid separators and removes surrounding whitespace."""
-    return number.replace(' ','').replace('-','').strip()
+    return number.replace(' ', '').replace('-', '').strip()
+
 
 def calc_check_digit(number):
     """Calculate the EAN check digit for 13-digit numbers. The number passed
     should not have the check bit included."""
-    return str((10 - sum( (3 - 2 * (i % 2)) * int(n) for i, n in enumerate(reversed(number)))) % 10)
+    return str((10 - sum((3 - 2 * (i % 2)) * int(n)
+                         for i, n in enumerate(reversed(number)))) % 10)
+
 
 def is_valid(number):
     """Checks to see if the number provided is a valid EAN-13. This checks
@@ -47,4 +51,3 @@ def is_valid(number):
     return len(number) in (13, 12, 8) and \
            number.isdigit() and \
            calc_check_digit(number[:-1]) == number[-1]
-

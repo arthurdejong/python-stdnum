@@ -1,6 +1,6 @@
 # mod_11_2.py - functions for performing the ISO 7064 Mod 11, 2 algorithm
 #
-# Copyright (C) 2010 Arthur de Jong
+# Copyright (C) 2010, 2011 Arthur de Jong
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -40,14 +40,16 @@ def checksum(number):
     """Calculate the checksum."""
     check = 0
     for n in number:
-        check = ( 2 * check + int(10 if n == 'X' else n) ) % 11
+        check = (2 * check + int(10 if n == 'X' else n)) % 11
     return check
+
 
 def calc_check_digit(number):
     """With the provided number, calculate the extra digit that should be
     appended to make it a valid number."""
-    c = (1 - 2 * checksum(number) ) % 11
+    c = (1 - 2 * checksum(number)) % 11
     return 'X' if c == 10 else str(c)
+
 
 def is_valid(number):
     """Checks whether the check digit is valid."""
@@ -55,4 +57,3 @@ def is_valid(number):
         return bool(number) and checksum(number) == 1
     except:
         return False
-

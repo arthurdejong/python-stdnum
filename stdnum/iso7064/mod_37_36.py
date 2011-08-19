@@ -1,6 +1,6 @@
 # mod_37_36.py - functions for performing the ISO 7064 Mod 37, 36 algorithm
 #
-# Copyright (C) 2010 Arthur de Jong
+# Copyright (C) 2010, 2011 Arthur de Jong
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -45,14 +45,16 @@ def checksum(number, alphabet='0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ'):
     modulus = len(alphabet)
     check = modulus / 2
     for n in number:
-        check = ( ((check or modulus) * 2) % (modulus + 1) + alphabet.index(n) ) % modulus
+        check = (((check or modulus) * 2) % (modulus + 1) + alphabet.index(n)) % modulus
     return check
+
 
 def calc_check_digit(number, alphabet='0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ'):
     """With the provided number, calculate the extra digit that should be
     appended to make it a valid number."""
     modulus = len(alphabet)
-    return alphabet[(1 - ( (checksum(number, alphabet) or modulus) * 2) % (modulus + 1) ) % modulus]
+    return alphabet[(1 - ((checksum(number, alphabet) or modulus) * 2) % (modulus + 1)) % modulus]
+
 
 def is_valid(number, alphabet='0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ'):
     """Checks whether the check digit is valid."""

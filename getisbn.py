@@ -2,7 +2,7 @@
 
 # getisbn.py - script to get ISBN prefix data
 #
-# Copyright (C) 2010 Arthur de Jong
+# Copyright (C) 2010, 2011 Arthur de Jong
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -32,6 +32,7 @@ import urllib
 # The place where the current version of RangeMessage.xml can be downloaded.
 download_url = 'http://www.isbn-international.org/agency?rmxml=1'
 
+
 def _wrap(text):
     """Generator that returns lines of text that are no longer than
     max_len."""
@@ -40,7 +41,7 @@ def _wrap(text):
         if i > 73:
             i = text.rindex(',', 20, 73)
         yield text[:i]
-        text = text[i+1:]
+        text = text[i + 1:]
 
 
 class RangeHandler(xml.sax.ContentHandler):
@@ -56,8 +57,8 @@ class RangeHandler(xml.sax.ContentHandler):
         self._topranges = {}
 
     def startElement(self, name, attrs):
-        if name in ( 'MessageSerialNumber', 'MessageDate', 'Prefix',
-                     'Agency', 'Range', 'Length',  ):
+        if name in ('MessageSerialNumber', 'MessageDate', 'Prefix',
+                    'Agency', 'Range', 'Length'):
             self._gather = ''
 
     def characters(self, content):
@@ -78,18 +79,21 @@ class RangeHandler(xml.sax.ContentHandler):
         elif name == 'Length':
             self._length = int(self._gather.strip())
         elif name == 'Rule' and self._length:
-            self._ranges.append(tuple( x[:self._length] for x in self._range.split('-') ))
+            self._ranges.append(tuple(x[:self._length]
+                                      for x in self._range.split('-')))
         elif name == 'Rules':
             if '-' in self._prefix:
                 p, a = self._prefix.split('-')
                 if p != self._last:
                     print p
                     self._last = p
-                    for line in _wrap(','.join(r[0] + '-' + r[1] for r in self._topranges[p])):
-                        print ' %s' % ( line )
-                print ' %s agency="%s"' % ( a, self._agency )
-                for line in _wrap(','.join(r[0] + '-' + r[1] for r in self._ranges)):
-                    print '  %s' % ( line )
+                    for line in _wrap(','.join(r[0] + '-' + r[1]
+                                               for r in self._topranges[p])):
+                        print ' %s' % line
+                print ' %s agency="%s"' % (a, self._agency)
+                for line in _wrap(','.join(r[0] + '-' + r[1]
+                                           for r in self._ranges)):
+                    print '  %s' % line
             else:
                 self._topranges[self._prefix] = self._ranges
             self._ranges = []

@@ -1,6 +1,6 @@
 # issn.py - functions for handling ISSNs
 #
-# Copyright (C) 2010 Arthur de Jong
+# Copyright (C) 2010, 2011 Arthur de Jong
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -38,14 +38,16 @@ from stdnum import ean
 def compact(number):
     """Convert the ISSN to the minimal representation. This strips the number
     of any valid ISSN separators and removes surrounding whitespace."""
-    number = number.replace(' ','').replace('-','').strip().upper()
-    return number
+    return number.replace(' ', '').replace('-', '').strip().upper()
+
 
 def _calc_check_digit(number):
     """Calculate the ISSN check digit for 10-digit numbers. The number passed
     should not have the check bit included."""
-    check = (11 - sum( (8 - i) * int(n) for i, n in enumerate(number) ) ) % 11
+    check = (11 - sum((8 - i) * int(n)
+                      for i, n in enumerate(number))) % 11
     return 'X' if check == 10 else str(check)
+
 
 def is_valid(number):
     """Checks to see if the number provided is a valid ISSN. This checks
@@ -58,10 +60,12 @@ def is_valid(number):
            number[:-1].isdigit() and \
            _calc_check_digit(number[:-1]) == number[-1]
 
+
 def format(number):
     """Reformat the passed number to the standard format."""
     number = compact(number)
     return number[:4] + '-' + number[4:]
+
 
 def to_ean(number, issue_code='00'):
     """Convert the number to EAN-13 format. The number is assumed to be a

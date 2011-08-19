@@ -83,7 +83,8 @@ class NumDB(object):
         list (this is a generator)."""
         # expand the results to all have the same length
         ml = max(len(x) for x in results)
-        results = [ x + (ml - len(x)) * [None] for x in results ]
+        results = [x + (ml - len(x)) * [None]
+                   for x in results]
         # go over each part
         for parts in zip(*results):
             # regroup parts into parts list and properties list
@@ -104,11 +105,11 @@ class NumDB(object):
         if prefixes:
             for length, low, high, props, children in prefixes:
                 if low <= number[:length] <= high and len(number) >= length:
-                    results.append([ (number[:length], props) ] +
+                    results.append([(number[:length], props)] +
                                    NumDB._find(number[length:], children))
         # not-found fallback
         if not results:
-            return [ ( number, {} ) ]
+            return [(number, {})]
         # merge the results into a single result
         return list(NumDB._merge(results))
 
@@ -142,13 +143,14 @@ def _parse(fp):
                 low, high = rnge.split('-')
             else:
                 low, high = rnge, rnge
-            yield ( indent, len(low), low, high, props )
+            yield indent, len(low), low, high, props
+
 
 def read(fp):
     """Return a new database with the data read from the specified file."""
     last_indent = 0
     db = NumDB()
-    stack = { 0: db.prefixes }
+    stack = {0: db.prefixes}
     for indent, length, low, high, props in _parse(fp):
         if indent > last_indent:
             # populate the children field of the last indent
@@ -158,6 +160,7 @@ def read(fp):
         stack[indent].append([length, low, high, props, None])
         last_indent = indent
     return db
+
 
 def get(name):
     """Opens a database with the specified name to perform queries on."""
