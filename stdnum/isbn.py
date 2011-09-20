@@ -37,6 +37,8 @@ False
 'ISBN13'
 >>> to_isbn13('1-85798-218-5')
 '978-1-85798-218-3'
+>>> to_isbn10('978-1-85798-218-3')
+'1-85798-218-5'
 """
 
 from stdnum import ean
@@ -109,6 +111,28 @@ def to_isbn13(number):
         return '978-' + number
     else:
         return '978' + number
+
+
+def to_isbn10(number):
+    """Convert the number to ISBN-13 format."""
+    number = number.strip()
+    min_number = compact(number)
+    if len(min_number) == 10:
+        return number  # nothing to do, already ISBN-13
+    elif isbn_type(min_number) != 'ISBN13':
+        raise ValueError('Not a valid ISBN13.')
+    elif not number.startswith('978'):
+        raise ValueError('Does not use 978 Bookland prefix.')
+    # strip EAN prefix
+    number = number[3:-1].strip().strip('-')
+    digit = _calc_isbn10_check_digit(min_number[3:-1])
+    # append the new check digit
+    if ' ' in number:
+        return number + ' ' + digit
+    elif '-' in number:
+        return number + '-' + digit
+    else:
+        return number + digit
 
 
 def split(number, convert=False):

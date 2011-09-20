@@ -51,6 +51,26 @@ True
 '9781857982183'
 
 
+See if ISBN13 to 10 conversion works.
+
+>>> isbn.to_isbn10('1-85798-218-5')  # ISBN10 should stay ISBN10
+'1-85798-218-5'
+>>> isbn.to_isbn10('978 1 85798218 3')
+'1 85798218 5'
+>>> isbn.to_isbn10('9781857982183')
+'1857982185'
+>>> isbn.to_isbn10('978-1-85798-218-3')
+'1-85798-218-5'
+>>> isbn.to_isbn10('979-20-1234567-8')  # incorrect check digit
+Traceback (most recent call last):
+    ...
+ValueError: Not a valid ISBN13.
+>>> isbn.to_isbn10('9791843123391')
+Traceback (most recent call last):
+    ...
+ValueError: Does not use 978 Bookland prefix.
+
+
 Regrouping tests.
 
 >>> isbn.split('9024538270')  # normal ISBN10
