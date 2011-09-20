@@ -53,7 +53,7 @@ False
 
 See if 10 to 13 digit conversion works.
 
->>> ismn.to_ismn13('979-0-32176544-3') # ismn13 should stay ismn13
+>>> ismn.to_ismn13('979-0-32176544-3')  # ismn13 should stay ismn13
 '979-0-32176544-3'
 >>> ismn.to_ismn13('M-32176546-7')
 '979-0-32176546-7'

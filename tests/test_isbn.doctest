@@ -27,17 +27,17 @@ really useful as module documentation.
 
 Tests for mangling and incorect check digits.
 
->>> isbn.is_valid('08515x-629-2') # added X in the middle
+>>> isbn.is_valid('08515x-629-2')  # added X in the middle
 False
->>> isbn.is_valid('85152-629-1') # incorrect check digit
+>>> isbn.is_valid('85152-629-1')  # incorrect check digit
 False
->>> isbn.is_valid('978-902453827X') # ISBN with X check digit
+>>> isbn.is_valid('978-902453827X')  # ISBN with X check digit
 False
 
 
 See if ISBN10 to 13 conversion works.
 
->>> isbn.to_isbn13('978-9024538270') # ISBN13 should stay ISBN13
+>>> isbn.to_isbn13('978-9024538270')  # ISBN13 should stay ISBN13
 '978-9024538270'
 >>> isbn.to_isbn13('1 85798218 5')
 '978 1 85798218 3'
@@ -53,9 +53,9 @@ True
 
 Regrouping tests.
 
->>> isbn.split('9024538270') # normal ISBN10
+>>> isbn.split('9024538270')  # normal ISBN10
 ('', '90', '245', '3827', '0')
->>> isbn.split('9999678270') # ISBN10, unknown publisher in group
+>>> isbn.split('9999678270')  # ISBN10, unknown publisher in group
 ('', '99996', '', '7827', '0')
 >>> isbn.split('979-20-1234567-8')
 ('979', '', '', '201234567', '8')

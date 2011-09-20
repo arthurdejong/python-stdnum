@@ -45,7 +45,7 @@ These are normal variations that should just work. Getting the type:
 'IMEISV'
 >>> imei.imei_type('35-417803-685978-9')
 'IMEI'
->>> imei.imei_type('35-417803-685978-2') is None # invalid check digit
+>>> imei.imei_type('35-417803-685978-2') is None  # invalid check digit
 True
 >>> imei.imei_type('3568680000414120')
 'IMEISV'

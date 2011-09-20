@@ -67,9 +67,9 @@ True
 
 And these should be invalid:
 
->>> isan.is_valid('00000000D07A0090-Z') # wrong check digit
+>>> isan.is_valid('00000000D07A0090-Z')  # wrong check digit
 False
->>> isan.is_valid('3abc6800-0041X1-20') # illegal character
+>>> isan.is_valid('3abc6800-0041X1-20')  # illegal character
 False
 
 
