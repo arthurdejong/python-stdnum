@@ -120,19 +120,18 @@ def split(number, convert=False):
     # clean up number
     number = compact(number, convert)
     # get Bookland prefix if any
+    delprefix = False
     if len(number) == 10:
-        oprefix = ''
-        prefix = '978'
-    else:
-        oprefix = prefix = number[:3]
-        number = number[3:]
+        number = '978' + number
+        delprefix = True
     # split the number
-    result = numdb.get('isbn').split(prefix + number[:-1])[1:]
-    itemnr = result.pop()
+    result = numdb.get('isbn').split(number[:-1])
+    itemnr = result.pop() if result else ''
+    prefix = result.pop(0) if result else ''
     group = result.pop(0) if result else ''
     publisher = result.pop(0) if result else ''
     # return results
-    return (oprefix, group, publisher, itemnr, number[-1])
+    return ('' if delprefix else prefix, group, publisher, itemnr, number[-1])
 
 
 def format(number, separator='-', convert=False):
