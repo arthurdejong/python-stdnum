@@ -24,7 +24,6 @@ Financial Telecommunication which is the official IBAN registrar) to get
 the data needed to correctly parse and validate IBANs."""
 
 import urllib
-import re
 
 
 # The place where the current version of IBAN_Registry.txt can be downloaded.
