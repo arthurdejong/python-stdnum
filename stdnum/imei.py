@@ -33,6 +33,8 @@ False
 '35-686800-004141-8'
 >>> imei_type('35686800-004141-20')
 'IMEISV'
+>>> split('35686800-004141')
+('35686800', '004141', '')
 """
 
 
@@ -64,6 +66,14 @@ def is_valid(number):
     """Checks to see if the number provided is a valid IMEI (or IMEISV)
     number."""
     return imei_type(number) is not None
+
+
+def split(number):
+    """Split the number into a Type Allocation Code (TAC), serial number
+    and either the checksum (for IMEI) or the software version number (for
+    IMEISV)."""
+    number = compact(number)
+    return (number[:8], number[8:14], number[14:])
 
 
 def format(number, separator='-', add_check_digit=False):
