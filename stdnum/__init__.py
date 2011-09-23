@@ -33,6 +33,7 @@ Currently this module supports the following formats:
    number)
  * SSN (U.S. Social Security Number)
  * IMEI (International Mobile Equipment Identity)
+ * IMSI (International Mobile Subscriber Identity)
  * MEID (Mobile Equipment Identifier)
  * GRid (Global Release Identifier)
  * IBAN (International Bank Account Number)
