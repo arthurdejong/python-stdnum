@@ -24,8 +24,8 @@ module handles both numbers in the 10-digit 13-digit format.
 True
 >>> is_valid('9790060115615')
 True
->>> is_valid(' M-2306-7118-7')
-True
+>>> ismn_type(' M-2306-7118-7')
+'ISMN10'
 >>> is_valid('9790060115614') # incorrect check digit
 False
 >>> compact('  979-0-3452-4680-5')
@@ -48,25 +48,31 @@ def compact(number):
     return number.strip().upper()
 
 
-def is_valid(number):
-    """Checks to see if the number provided is a valid ISMN (either a legacy
-    10-digit one or a 13-digit one). This checks the length and the check
-    bit but does not check if the publisher is valid."""
+def ismn_type(number):
+    """Check the type of ISMN number passed and return 'ISMN13', 'ISMN10' or None (for
+    invalid)."""
     try:
         number = compact(number)
     except:
-        return False
+        return None
     if len(number) == 10 and number[0] == 'M' and number[1:].isdigit():
         if ean.calc_check_digit('9790' + number[1:-1]) == number[-1]:
-            return True
+            return 'ISMN10'
     elif len(number) == 13 and number.isdigit():
         if ean.calc_check_digit(number[:-1]) == number[-1]:
-            return True
-    return False
+            return 'ISMN13'
+    return None
+
+
+def is_valid(number):
+    """Checks to see if the number provided is a valid ISMN (either a legacy
+    10-digit one or a 13-digit one). This checks the length and the check
+    bit but does not check if the publisher is known."""
+    return ismn_type(number) is not None
 
 
 def to_ismn13(number):
-    """Convert the number to ISMN13 format."""
+    """Convert the number to ISMN13 (EAN) format."""
     number = number.strip()
     min_number = compact(number)
     if len(min_number) == 13:
@@ -78,6 +84,7 @@ def to_ismn13(number):
         return '979-0' + number[1:]
     else:
         return '9790' + number[1:]
+
 
 # these are the ranges allocated to publisher codes
 _ranges = (
