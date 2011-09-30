@@ -79,7 +79,8 @@
  26 operator="Lleida Networks Serveis Telemátics, SL"
  00-99
 216 cc="hu" country="Hungary"
- 01 bands="GSM 900 / GSM 1800 / UMTS 2100" brand="Telenor" operator="Telenor Magyarország Zrt." status="Operational"
+ 01 operator="Pannon GSM"
+ 20 bands="GSM 900 / GSM 1800 / UMTS 2100" brand="Telenor" operator="Telenor Magyarország Zrt." status="Operational"
  30 bands="GSM 900 / GSM 1800 / UMTS 2100" brand="T-Mobile" operator="Magyar Telekom Plc" status="Operational"
  70 bands="GSM 900 / GSM 1800 / UMTS 2100" brand="Vodafone" operator="Vodafone Magyarország Zrt." status="Operational"
  00-99
@@ -762,7 +763,7 @@
  011 bands="iDEN 800" operator="Southern Communications Services" status="Operational"
  000-999
 330 cc="pr" country="Puerto Rico"
- 00 bands="700 / PCS 1900 / AWS 1700" brand="OpenMobile" operator="PR Wireless" status="Operational"
+ 00 bands="700 / PCS 1900 / AWS 1700" brand="Open Mobile" operator="PR Wireless" status="Operational"
  110 bands="GSM 850 / GSM 1900 / UMTS 850" brand="Claro" operator="Puerto Rico Telephone Company" status="Operational"
  00-99
 332 cc="vi" country="United States Virgin Islands"
@@ -1388,7 +1389,7 @@
  02 operator="KT Freetel"
  03 bands="CDMA2000 800" brand="Power 017" operator="Shinsegi Telecom, Inc." status="Not operational"
  05 bands="CDMA2000 800 / UMTS 2100" brand="SKT" operator="SK Telecom" status="Operational"
- 06 bands="CDMA2000 1700" brand="LGT" operator="LG Telecom" status="Operational"
+ 06 bands="CDMA2000 1700" brand="LGU+" operator="LG Telecom" status="Operational"
  00-99
 452 cc="vn" country="Vietnam"
  01 country="Viet Nam" operator="Mobifone"
@@ -1590,8 +1591,8 @@
  88 operator="Digicel (Tonga) Ltd"
  00-99
 540 cc="sb" country="Solomon Islands"
- 1 bands="GSM 900" brand="BREEZE" operator="Solomon Telekom Co Ltd" status="Operational"
- 0-9
+ 01 bands="GSM 900" brand="BREEZE" operator="Solomon Telekom Co Ltd" status="Operational"
+ 00-99
 541 cc="vu" country="Vanuatu"
  01 bands="GSM 900" brand="SMILE" operator="Telecom Vanuatu Ltd" status="Operational"
  05 operator="Digicel Vanuatu"
@@ -1966,6 +1967,7 @@
  01 bands="GSM 1800" brand="ICE" operator="Instituto Costarricense de Electricidad" status="Operational"
  02 bands="GSM 1800" brand="ICE" operator="Instituto Costarricense de Electricidad" status="Operational"
  03 bands="UMTS 850" brand="ICE" operator="Grupo ICE" status="Operational"
+ 04 bands="GSM 1800, UMTS/HSPA 850/2100" brand="movistar" operator="Telefonica Móviles Costa Rica" status="Operational"
  00-99
 714 cc="pa" country="Panama"
  01 bands="GSM 850" brand="Cable & Wireless" operator="Cable & Wireless Panama S.A." status="Operational"
@@ -2041,7 +2043,7 @@
  05 operator="Multikom S.A."
  06 operator="Blue Two Chile SA"
  07 operator="Telefónica Móviles Chile S.A."
- 08 bands="UMTS 1700 / UMTS 2100" brand="VTR Móvil" operator="VTR S.A." status="Not operational"
+ 08 bands="UMTS 1700 / UMTS 2100" brand="VTR Móvil" operator="VTR S.A." status="Operational"
  09 bands="UMTS 1700 / UMTS 2100" brand="Nextel" operator="Centennial Cayman Corp. Chile" status="Operational"
  10 bands="GSM 1900 / UMTS 1900" brand="entel" operator="Entel Telefonía Móvil S.A." status="Operational"
  99 bands="GSM 1900 / UMTS 1900 (Residential)." brand="Will" operator="WILL Telefonía" status="Operational"

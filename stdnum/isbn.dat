@@ -1,7 +1,7 @@
 # generated from RangeMessage.xml, downloaded from
 # http://www.isbn-international.org/agency?rmxml=1
-# file serial 082c4471-be03-45d8-bdde-76ab2e10eeed
-# file date Tue, 21 Jun 2011 10:46:46 GMT
+# file serial fb9a9433-c76d-4454-923b-cc0f2a52feb1
+# file date Wed, 21 Sep 2011 14:57:39 GMT
 978
  0-5,600-649,7-7,80-94,950-989,9900-9989,99900-99999
  0 agency="English language"
@@ -26,7 +26,7 @@
  601 agency="Kazakhstan"
   00-19,200-699,7000-7999,80000-84999,85-99
  602 agency="Indonesia"
-  00-19,200-799,8000-9499,95000-99999
+  00-18,19000-19999,200-749,7500-7999,8000-9499,95000-99999
  603 agency="Saudi Arabia"
   00-04,05-49,500-799,8000-8999,90000-99999
  604 agency="Vietnam"
@@ -338,7 +338,7 @@
  99918 agency="Faroe Islands"
   0-3,40-79,800-999
  99919 agency="Benin"
-  0-2,300-399,40-69,900-999
+  0-2,300-399,40-69,850-899,900-999
  99920 agency="Andorra"
   0-4,50-89,900-999
  99921 agency="Qatar"
