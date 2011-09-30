@@ -32,7 +32,7 @@ if 'sdist' in sys.argv:
     os.umask(int('022', 8))
 
 setup(name='python-stdnum',
-      version=stdnum.__version,
+      version=stdnum.__version__,
       packages=find_packages(),
       package_data={'stdnum': ['*.dat']},
       author='Arthur de Jong',
