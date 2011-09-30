@@ -47,3 +47,6 @@ Furthermore a number of generic check digit algorithms are available:
  * some algorithms described in ISO/IEC 7064: Mod 11, 2, Mod 37, 2,
    Mod 97, 10, Mod 11, 10 and Mod 37, 36
 """
+
+# the version number of the library
+__version__ = '0.5'
