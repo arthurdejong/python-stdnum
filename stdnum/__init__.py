@@ -21,7 +21,7 @@
 """A Python module to parse, validate and reformat standard numbers
 and codes in different formats.
 
-Currently this module supports the following formats:
+Currently this package supports the following formats:
 
  * ISBN (International Standard Book Number)
  * ISSN (International Standard Serial Number)
@@ -49,4 +49,4 @@ Furthermore a number of generic check digit algorithms are available:
 """
 
 # the version number of the library
-__version__ = '0.5'
+__version__ = '0.6'

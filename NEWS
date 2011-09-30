@@ -1,3 +1,16 @@
+changes from 0.5 to 0.6
+-----------------------
+
+* fix a problem with handling an ISBN13 with a valid check digit but with an
+  unknown bookland prefix
+* add an IMSI (International Mobile Subscriber Identity) module
+* implement a conversion function from ISBN13 to ISBN10
+* implement an ismn.ismn_type() function
+* implement an imei.split() function that splits the number into a TAC, serial
+  number and checksum or software version
+* source code layout changes to better follow PEP8
+
+
 changes from 0.4 to 0.5
 -----------------------
 

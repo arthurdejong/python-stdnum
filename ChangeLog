@@ -1,3 +1,75 @@
+2011-09-30 08:36  arthur
+
+	* [r87] stdnum/imsi.dat, stdnum/isbn.dat, stdnum/isil.dat: update
+	  data files
+
+2011-09-30 08:22  arthur
+
+	* [r86] setup.py, stdnum/__init__.py: move the version number
+	  definition to the stdnum package
+
+2011-09-25 07:45  arthur
+
+	* [r85] stdnum/ismn.py: implement an ismn_type() function
+
+2011-09-23 19:07  arthur
+
+	* [r84] ., stdnum, stdnum/br, stdnum/iso7064, stdnum/nl, stdnum/us,
+	  tests: ignore __pycache__ directories
+
+2011-09-23 18:35  arthur
+
+	* [r83] README, getimsi.py, stdnum/__init__.py, stdnum/imsi.dat,
+	  stdnum/imsi.py, tests/test_robustness.doctest: add an IMSI
+	  (International Mobile Subscriber Identity) module
+
+2011-09-23 18:29  arthur
+
+	* [r82] stdnum/imei.py: implement an imei.split() function that
+	  splits the number into a TAC, serial number and checksum or
+	  software version
+
+2011-09-23 14:52  arthur
+
+	* [r81] getiban.py: remove unneeded import
+
+2011-09-20 21:14  arthur
+
+	* [r80] stdnum/isbn.py, tests/test_isbn.doctest: implement a
+	  conversion function from ISBN13 to ISBN10
+
+2011-09-20 20:53  arthur
+
+	* [r79] tests/test_imei.doctest, tests/test_isan.doctest,
+	  tests/test_isbn.doctest, tests/test_ismn.doctest: fix space
+	  before inline comments
+
+2011-09-20 20:52  arthur
+
+	* [r78] stdnum/isbn.py, tests/test_isbn.doctest: fix a problem with
+	  an ISBN13 with a valid check digit but with an unknown bookland
+	  prefix
+
+2011-09-04 09:23  arthur
+
+	* [r77] setup.py: fix homepage URL
+
+2011-08-19 08:22  arthur
+
+	* [r76] getiban.py, getisbn.py, getisil.py, setup.py,
+	  stdnum/br/cpf.py, stdnum/ean.py, stdnum/grid.py, stdnum/iban.py,
+	  stdnum/imei.py, stdnum/isan.py, stdnum/isbn.py, stdnum/isil.py,
+	  stdnum/ismn.py, stdnum/iso7064/mod_11_10.py,
+	  stdnum/iso7064/mod_11_2.py, stdnum/iso7064/mod_37_2.py,
+	  stdnum/iso7064/mod_37_36.py, stdnum/iso7064/mod_97_10.py,
+	  stdnum/issn.py, stdnum/luhn.py, stdnum/meid.py, stdnum/nl/bsn.py,
+	  stdnum/numdb.py, stdnum/us/ssn.py, stdnum/verhoeff.py: make
+	  source code layout follow PEP8 more
+
+2011-07-09 15:15  arthur
+
+	* [r74] ChangeLog, NEWS, setup.py: get files ready for 0.5 release
+
 2011-07-09 15:12  arthur
 
 	* [r73] stdnum/iban.dat, stdnum/isbn.dat, stdnum/isil.dat: update
