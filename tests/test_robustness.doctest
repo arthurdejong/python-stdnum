@@ -30,6 +30,7 @@ invalid junk.
 >>> from stdnum.nl import bsn
 >>> from stdnum.br import cpf
 >>> from stdnum.us import ssn
+>>> from stdnum.fi import hetu
 
 Go over each imported module and try every value.
 
