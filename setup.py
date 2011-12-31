@@ -23,7 +23,7 @@
 
 import os
 import sys
-from distutils.core import setup
+from setuptools import setup, find_packages
 
 import stdnum
 
@@ -50,6 +50,6 @@ setup(name='python-stdnum',
           'Topic :: Software Development :: Libraries :: Python Modules',
           'Topic :: Text Processing :: General',
           ],
-      packages=['stdnum'],
+      packages=find_packages(),
       package_data={'stdnum': ['*.dat']},
       )
