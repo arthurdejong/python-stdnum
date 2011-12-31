@@ -23,7 +23,8 @@
 
 import os
 import sys
-from setuptools import setup, find_packages
+from distutils.core import setup
+
 import stdnum
 
 # fix permissions for sdist
@@ -33,14 +34,12 @@ if 'sdist' in sys.argv:
 
 setup(name='python-stdnum',
       version=stdnum.__version__,
-      packages=find_packages(),
-      package_data={'stdnum': ['*.dat']},
+      description='Python module to handle standardized numbers and codes',
+      long_description=stdnum.__doc__,
       author='Arthur de Jong',
       author_email='arthur@arthurdejong.org',
       url='http://arthurdejong.org/python-stdnum/',
       license='LGPL',
-      description='Python module to handle standardized numbers and codes',
-      long_description=stdnum.__doc__,
       classifiers=[
           'Development Status :: 4 - Beta',
           'Intended Audience :: Developers',
@@ -51,4 +50,6 @@ setup(name='python-stdnum',
           'Topic :: Software Development :: Libraries :: Python Modules',
           'Topic :: Text Processing :: General',
           ],
+      packages=['stdnum'],
+      package_data={'stdnum': ['*.dat']},
       )
