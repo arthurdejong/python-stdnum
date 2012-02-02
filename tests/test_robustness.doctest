@@ -1,6 +1,6 @@
 test_robustness.doctest - test is_valid() fcuntions to not break
 
-Copyright (C) 2011 Arthur de Jong
+Copyright (C) 2011, 2012 Arthur de Jong
 
 This library is free software; you can redistribute it and/or
 modify it under the terms of the GNU Lesser General Public
@@ -27,7 +27,7 @@ invalid junk.
 >>> from stdnum import grid, iban, imei, imsi, isan, isbn, isil, ismn, issn, ean
 >>> from stdnum import luhn, meid, verhoeff
 >>> from stdnum.iso7064 import mod_11_10, mod_11_2, mod_37_2, mod_37_36, mod_97_10
->>> from stdnum.nl import bsn
+>>> from stdnum.nl import bsn, onderwijsnummer
 >>> from stdnum.br import cpf
 >>> from stdnum.us import ssn
 >>> from stdnum.fi import hetu

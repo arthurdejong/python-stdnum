@@ -1,7 +1,7 @@
 # __init__.py - main module
 # coding: utf-8
 #
-# Copyright (C) 2010, 2011 Arthur de Jong
+# Copyright (C) 2010, 2011, 2012 Arthur de Jong
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -29,6 +29,7 @@ Currently this package supports the following formats:
  * ISAN (International Standard Audiovisual Number)
  * EAN (International Article Number)
  * BSN (Burgerservicenummer, the Dutch national identification number)
+ * Onderwijsnummer (Dutch school number)
  * CPF (Cadastro de Pessoas Físicas, the Brazillian national identification
    number)
  * SSN (U.S. Social Security Number)

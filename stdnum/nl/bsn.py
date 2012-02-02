@@ -1,6 +1,6 @@
 # bsn.py - functions for handling BSNs
 #
-# Copyright (C) 2010, 2011 Arthur de Jong
+# Copyright (C) 2010, 2011, 2012 Arthur de Jong
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -39,9 +39,10 @@ def compact(number):
     return (9 - len(number)) * '0' + number
 
 
-def _calc_checksum(number):
+def calc_checksum(number):
     """Calculate the checksum over the number."""
-    return sum((9 - i) * int(number[i]) for i in range(8)) - int(number[8])
+    return (sum((9 - i) * int(number[i]) for i in range(8)) -
+            int(number[8])) % 11
 
 
 def is_valid(number):
@@ -54,7 +55,7 @@ def is_valid(number):
     return len(number) == 9 and \
            number.isdigit() and \
            int(number) > 0 and \
-           _calc_checksum(number) % 11 == 0
+           calc_checksum(number) == 0
 
 
 def format(number):
