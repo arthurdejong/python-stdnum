@@ -43,7 +43,7 @@ True
 def checksum(number, alphabet='0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ'):
     """Calculate the checksum."""
     modulus = len(alphabet)
-    check = modulus / 2
+    check = modulus // 2
     for n in number:
         check = (((check or modulus) * 2) % (modulus + 1) + alphabet.index(n)) % modulus
     return check
