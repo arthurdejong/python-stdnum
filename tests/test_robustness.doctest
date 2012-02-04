@@ -22,15 +22,15 @@ This file contains some tests for modules in the stdnum package to
 check whether all provided is_valid() functions can handle clearly
 invalid junk.
 
->>> testvalues = ( None, '*&^%$', '', 0, False, object(),  )
+>>> testvalues = ( None, '*&^%$', '', 0, False, object(), 'Q', 'QQ', '3')
 
 >>> from stdnum import grid, iban, imei, imsi, isan, isbn, isil, ismn, issn, ean
 >>> from stdnum import luhn, meid, verhoeff
+>>> from stdnum.br import cpf
+>>> from stdnum.fi import hetu
 >>> from stdnum.iso7064 import mod_11_10, mod_11_2, mod_37_2, mod_37_36, mod_97_10
 >>> from stdnum.nl import bsn, onderwijsnummer, btw
->>> from stdnum.br import cpf
 >>> from stdnum.us import ssn
->>> from stdnum.fi import hetu
 
 Go over each imported module and try every value.
 
