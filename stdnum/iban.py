@@ -1,6 +1,6 @@
 # iban.py - functions for handling International Bank Account Numbers (IBANs)
 #
-# Copyright (C) 2011 Arthur de Jong
+# Copyright (C) 2011, 2012 Arthur de Jong
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -31,9 +31,11 @@ True
 'GR16 0110 1050 0000 1054 7023 795'
 """
 
+import re
+
 from stdnum import numdb
 from stdnum.iso7064 import mod_97_10
-import re
+from stdnum.util import clean
 
 
 # our open copy of the IBAN database
@@ -49,7 +51,7 @@ _struct_re = re.compile('([1-9][0-9]*)!([nac])')
 def compact(number):
     """Convert the iban number to the minimal representation. This strips the
     number of any valid separators and removes surrounding whitespace."""
-    return number.replace(' ', '').replace('-', '').strip().upper()
+    return clean(number, ' -').strip().upper()
 
 
 def _convert(number):

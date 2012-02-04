@@ -1,6 +1,6 @@
 # ssn.py - functions for handling SSNs
 #
-# Copyright (C) 2011 Arthur de Jong
+# Copyright (C) 2011, 2012 Arthur de Jong
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -34,6 +34,9 @@ False
 
 import re
 
+from stdnum.util import clean
+
+
 # regular expression for matching SSN
 _ssn_re = re.compile('^(?P<area>[0-9]{3})-?(?P<group>[0-9]{2})-?(?P<serial>[0-9]{4})$')
 
@@ -44,7 +47,7 @@ _ssn_blacklist = set(('078-05-1120', '457-55-5462', '219-09-9999'))
 def compact(number):
     """Convert the number to the minimal representation. This strips the
     number of any valid separators and removes surrounding whitespace."""
-    return number.replace('-', '').strip()
+    return clean(number, '-').strip()
 
 
 def is_valid(number):

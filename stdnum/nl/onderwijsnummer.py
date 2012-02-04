@@ -17,8 +17,9 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 # 02110-1301 USA
 
-"""Module for handling onderwijsnummers (school number), very similar to the BSN
-(Dutch national identification number) but for students without a BSN.
+"""Module for handling onderwijsnummers (school number), very similar to
+the BSN (Dutch national identification number) but for students without a
+BSN.
 
 >>> is_valid('101222331')
 True

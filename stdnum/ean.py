@@ -1,6 +1,6 @@
 # ean.py - functions for handling EANs
 #
-# Copyright (C) 2011 Arthur de Jong
+# Copyright (C) 2011, 2012 Arthur de Jong
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -26,11 +26,13 @@ True
 True
 """
 
+from stdnum.util import clean
+
 
 def compact(number):
     """Convert the EAN to the minimal representation. This strips the number
     of any valid separators and removes surrounding whitespace."""
-    return number.replace(' ', '').replace('-', '').strip()
+    return clean(number, ' -').strip()
 
 
 def calc_check_digit(number):

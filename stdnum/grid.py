@@ -1,6 +1,6 @@
 # grid.py - functions for handling Global Release Identifier (GRid) numbers
 #
-# Copyright (C) 2010, 2011 Arthur de Jong
+# Copyright (C) 2010, 2011, 2012 Arthur de Jong
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -34,11 +34,13 @@ False
 'A1-2425G-ABC1234002-M'
 """
 
+from stdnum.util import clean
+
 
 def compact(number):
     """Convert the GRid to the minimal representation. This strips the
     number of any valid separators and removes surrounding whitespace."""
-    number = number.replace(' ', '').replace('-', '').strip().upper()
+    number = clean(number, ' -').strip().upper()
     if number.startswith('GRID:'):
         number = number[5:]
     return number

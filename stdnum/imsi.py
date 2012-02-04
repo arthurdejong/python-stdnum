@@ -1,7 +1,7 @@
 # imsi.py - functions for handling International Mobile Subscriber Identity
 #           (IMSI) numbers
 #
-# Copyright (C) 2011 Arthur de Jong
+# Copyright (C) 2011, 2012 Arthur de Jong
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -35,11 +35,13 @@ False
 'China'
 """
 
+from stdnum.util import clean
+
 
 def compact(number):
     """Convert the IMSI number to the minimal representation. This strips the
     number of any valid separators and removes surrounding whitespace."""
-    return number.replace(' ', '').replace('-', '').strip().upper()
+    return clean(number, ' -').strip().upper()
 
 
 def split(number):

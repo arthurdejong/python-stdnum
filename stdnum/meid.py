@@ -1,6 +1,6 @@
 # meid.py - functions for handling Mobile Equipment Identifiers (MEIDs)
 #
-# Copyright (C) 2010, 2011 Arthur de Jong
+# Copyright (C) 2010, 2011, 2012 Arthur de Jong
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -32,13 +32,16 @@ True
 'AF 01 23 45 0A BC DE C'
 """
 
+from stdnum.util import clean
+
+
 _hex_alphabet = '0123456789ABCDEF'
 
 
 def _cleanup(number):
     """Remove any grouping information from the number and removes surrounding
     whitespace."""
-    return str(number).replace(' ', '').replace('-', '').strip().upper()
+    return clean(str(number), ' -').strip().upper()
 
 
 def _ishex(number):

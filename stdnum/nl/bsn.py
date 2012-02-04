@@ -30,11 +30,13 @@ False
 '1112.22.333'
 """
 
+from stdnum.util import clean
+
 
 def compact(number):
     """Convert the number to the minimal representation. This strips the
     number of any valid separators and removes surrounding whitespace."""
-    number = number.replace(' ', '').replace('-', '').replace('.', '').strip()
+    number = clean(number, ' -.').strip()
     # pad with leading zeroes
     return (9 - len(number)) * '0' + number
 

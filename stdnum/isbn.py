@@ -1,6 +1,6 @@
 # isbn.py - functions for handling ISBNs
 #
-# Copyright (C) 2010, 2011 Arthur de Jong
+# Copyright (C) 2010, 2011, 2012 Arthur de Jong
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -42,6 +42,7 @@ False
 """
 
 from stdnum import ean
+from stdnum.util import clean
 
 
 def compact(number, convert=False):
@@ -49,7 +50,7 @@ def compact(number, convert=False):
     of any valid ISBN separators and removes surrounding whitespace. If the
     covert parameter is True the number is also converted to ISBN-13
     format."""
-    number = number.replace(' ', '').replace('-', '').strip().upper()
+    number = clean(number, ' -').strip().upper()
     if len(number) == 9:
         number = '0' + number
     if convert:

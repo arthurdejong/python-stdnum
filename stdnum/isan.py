@@ -1,7 +1,7 @@
 # isan.py - functions for handling International Standard Audiovisual Numbers
 #           (ISANs)
 #
-# Copyright (C) 2010, 2011 Arthur de Jong
+# Copyright (C) 2010, 2011, 2012 Arthur de Jong
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -40,13 +40,14 @@ False
 
 
 from stdnum.iso7064 import mod_37_36
+from stdnum.util import clean
 
 
 def split(number):
     """Splits the number into a root, an episode or part, a check digit a
     version and another check digit. If any of the parts are missing an
     empty string is returned."""
-    number = number.replace(' ', '').replace('-', '').strip().upper()
+    number = clean(number, ' -').strip().upper()
     if len(number) == 17 or len(number) == 26:
         return number[0:12], number[12:16], number[16], number[17:25], number[25:]
     elif len(number) > 16:

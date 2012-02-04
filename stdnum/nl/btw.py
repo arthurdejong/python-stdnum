@@ -28,12 +28,13 @@ False
 """
 
 from stdnum.nl import bsn
+from stdnum.util import clean
 
 
 def compact(number):
     """Convert the number to the minimal representation. This strips the
     number of any valid separators and removes surrounding whitespace."""
-    number = number.replace(' ', '').replace('-', '').replace('.', '').upper().strip()
+    number = clean(number, ' -.').upper().strip()
     if number.startswith('NL'):
         number = number[2:]
     return bsn.compact(number[:-3]) + number[-3:]

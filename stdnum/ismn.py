@@ -1,6 +1,6 @@
 # ismn.py - functions for handling ISMNs
 #
-# Copyright (C) 2010, 2011 Arthur de Jong
+# Copyright (C) 2010, 2011, 2012 Arthur de Jong
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -39,13 +39,13 @@ False
 """
 
 from stdnum import ean
+from stdnum.util import clean
 
 
 def compact(number):
     """Convert the ISMN to the minimal representation. This strips the number
     of any valid ISMN separators and removes surrounding whitespace."""
-    number = number.replace(' ', '').replace('-', '').replace('.', '')
-    return number.strip().upper()
+    return clean(number, ' -.').strip().upper()
 
 
 def ismn_type(number):
