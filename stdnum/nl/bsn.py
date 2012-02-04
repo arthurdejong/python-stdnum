@@ -39,7 +39,7 @@ def compact(number):
     return (9 - len(number)) * '0' + number
 
 
-def calc_checksum(number):
+def checksum(number):
     """Calculate the checksum over the number."""
     return (sum((9 - i) * int(number[i]) for i in range(8)) -
             int(number[8])) % 11
@@ -55,7 +55,7 @@ def is_valid(number):
     return len(number) == 9 and \
            number.isdigit() and \
            int(number) > 0 and \
-           calc_checksum(number) == 0
+           checksum(number) == 0
 
 
 def format(number):

@@ -28,7 +28,7 @@ False
 '123456782'
 """
 
-from stdnum.nl.bsn import compact, calc_checksum
+from stdnum.nl.bsn import compact, checksum
 
 
 def is_valid(number):
@@ -42,5 +42,5 @@ def is_valid(number):
     return len(number) == 9 and \
            number.isdigit() and \
            int(number) > 0 and \
-           calc_checksum(number) == 5 and \
+           checksum(number) == 5 and \
            number.startswith('10')
