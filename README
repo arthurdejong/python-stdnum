@@ -20,6 +20,8 @@ Currently this package supports the following formats:
  * CPF (Cadastro de Pessoas Físicas, the Brazillian national identification
    number)
  * RČ (Rodné číslo, the Czech birth numbers)
+ * SIREN (Système d'Identification du Répertoire des Entreprises, a French
+   company identification number)
  * SSN (U.S. Social Security Number)
  * HETU (Finnish personal identity code)
  * IMEI (International Mobile Equipment Identity)
