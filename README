@@ -19,6 +19,7 @@ Currently this package supports the following formats:
  * BTW (the Dutch VAT number)
  * CPF (Cadastro de Pessoas Físicas, the Brazillian national identification
    number)
+ * RČ (Rodné číslo, the Czech birth numbers)
  * SSN (U.S. Social Security Number)
  * HETU (Finnish personal identity code)
  * IMEI (International Mobile Equipment Identity)

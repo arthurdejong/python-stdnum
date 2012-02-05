@@ -27,6 +27,7 @@ invalid junk.
 >>> from stdnum import grid, iban, imei, imsi, isan, isbn, isil, ismn, issn, ean
 >>> from stdnum import luhn, meid, verhoeff
 >>> from stdnum.br import cpf
+>>> from stdnum.cz import rc
 >>> from stdnum.fi import hetu
 >>> from stdnum.iso7064 import mod_11_10, mod_11_2, mod_37_2, mod_37_36, mod_97_10
 >>> from stdnum.nl import bsn, onderwijsnummer, btw
