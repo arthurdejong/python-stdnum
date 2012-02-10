@@ -38,6 +38,7 @@ Currently this package supports the following formats:
    company identification number)
  * SSN (U.S. Social Security Number)
  * HETU (Finnish personal identity code)
+ * FPA, ΦΠΑ (Foros Prostithemenis Aksias, the Greek VAT number)
  * IMEI (International Mobile Equipment Identity)
  * IMSI (International Mobile Subscriber Identity)
  * MEID (Mobile Equipment Identifier)
