@@ -38,6 +38,7 @@ Currently this package supports the following formats:
    company identification number)
  * SSN (U.S. Social Security Number)
  * HETU (Finnish personal identity code)
+ * DNI (Documento nacional de identidad, Spanish personal identity codes)
  * FPA, ΦΠΑ (Foros Prostithemenis Aksias, the Greek VAT number)
  * Ust ID Nr. (Umsatzsteur Identifikationnummer, the German VAT number)
  * BTW, TVA, NWSt (Belgian VAT number)
