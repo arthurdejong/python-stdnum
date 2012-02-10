@@ -28,6 +28,7 @@ invalid junk.
 >>> from stdnum import luhn, meid, verhoeff
 >>> from stdnum.br import cpf
 >>> from stdnum.cz import rc
+>>> from stdnum.de import vat as de_vat
 >>> from stdnum.fi import hetu
 >>> from stdnum.fr import siren
 >>> from stdnum.gr import vat as gr_vat
