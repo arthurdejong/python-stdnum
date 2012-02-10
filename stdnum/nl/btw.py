@@ -19,9 +19,9 @@
 
 """Module for handling Dutch VAT (BTW) numbers.
 
->>> is_valid('00449544B01')
+>>> is_valid('004495445B01')
 True
->>> is_valid('NL449544B01')
+>>> is_valid('NL4495445B01')
 True
 >>> is_valid('123456789B90')
 False
@@ -49,5 +49,5 @@ def is_valid(number):
         return False
     return len(number) == 12 and \
            number[9] == 'B' and \
-           number[10:].isdigit() and \
+           number[10:].isdigit() and int(number[10:]) > 0 and \
            bsn.is_valid(number[0:9])
