@@ -38,6 +38,8 @@ Currently this package supports the following formats:
    company identification number)
  * SSN (U.S. Social Security Number)
  * HETU (Finnish personal identity code)
+ * CIF (Certificado de Identificación Fiscal, Spanish tax identification
+   number)
  * DNI (Documento nacional de identidad, Spanish personal identity codes)
  * NIE (Número de Identificación de Extranjeros, Spanish identification number
    for foreigners)
