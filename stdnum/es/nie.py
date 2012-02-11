@@ -20,7 +20,8 @@
 
 """Module for handling Spanish tax identification number (Número de
 Identificación de Extranjeros) for foreigners. The NIE is a 9 digit number
-where the fir digit is either X, Y or Z and last digit is a checksum letter.
+where the first digit is either X, Y or Z and last digit is a checksum
+letter.
 
 >>> compact('x-2482300w')
 'X2482300W'
@@ -31,7 +32,6 @@ False
 """
 
 from stdnum.es import dni
-from stdnum.util import clean
 
 
 __all__ = ['compact', 'is_valid']
