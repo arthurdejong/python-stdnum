@@ -17,13 +17,23 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 # 02110-1301 USA
 
-"""Common functions for other stdnum modules.
-
->>> clean('123-456:78 9', ' -:')
-'123456789'
-"""
+"""Common functions for other stdnum modules."""
 
 
 def clean(number, deletechars):
-    """Remove the specified characters from the supplied number."""
+    """Remove the specified characters from the supplied number.
+
+    >>> clean('123-456:78 9', ' -:')
+    '123456789'
+    """
     return ''.join(x for x in number if x not in deletechars)
+
+
+def digitsum(numbers):
+    """Returns the sum of the individual digits of the provided numbers.
+
+    >>> digitsum([12, 55])
+    13
+    """
+    # note: this only works for two-digit numbers
+    return sum((x // 10) + (x % 10) for x in numbers)
