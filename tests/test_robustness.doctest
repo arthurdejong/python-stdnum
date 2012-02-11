@@ -35,6 +35,7 @@ invalid junk.
 >>> from stdnum.fr import siren
 >>> from stdnum.gr import vat as gr_vat
 >>> from stdnum.iso7064 import mod_11_10, mod_11_2, mod_37_2, mod_37_36, mod_97_10
+>>> from stdnum.lv import pvn
 >>> from stdnum.nl import bsn, onderwijsnummer, btw
 >>> from stdnum.us import ssn
 

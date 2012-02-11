@@ -47,6 +47,7 @@ Currently this package supports the following formats:
  * FPA, ΦΠΑ (Foros Prostithemenis Aksias, the Greek VAT number)
  * Ust ID Nr. (Umsatzsteur Identifikationnummer, the German VAT number)
  * BTW, TVA, NWSt (Belgian VAT number)
+ * PVN (Pievienotās vērtības nodokļa, Latvian VAT number)
  * IMEI (International Mobile Equipment Identity)
  * IMSI (International Mobile Subscriber Identity)
  * MEID (Mobile Equipment Identifier)
