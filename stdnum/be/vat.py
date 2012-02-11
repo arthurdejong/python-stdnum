@@ -36,6 +36,8 @@ def compact(number):
     number = clean(number, ' -./').upper().strip()
     if number.startswith('BE'):
         number = number[2:]
+    if number.startswith('(0)'):
+        number = '0' + number[3:]
     if len(number) == 9:
         number = '0' + number  # old format had 9 digits
     return number
