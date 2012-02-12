@@ -37,8 +37,8 @@ False
 ('A', '13', '58562', '5')
 """
 
+from stdnum import luhn
 from stdnum.es import dni
-from stdnum.util import digitsum
 
 
 __all__ = ['compact', 'is_valid', 'split']
@@ -52,11 +52,8 @@ def calc_check_digits(number):
     """Calculate the check digits for the specified number. The number
     passed should not have the check digit included. This function returns
     both the number and character check digit candidates."""
-    check = (10 - digitsum(
-                (2 - (i % 2)) * int(n)
-                for i, n in enumerate(number[1:])
-            )) % 10
-    return str(check) + 'JABCDEFGHI'[check]
+    check = luhn.calc_check_digit(number[1:])
+    return check + 'JABCDEFGHI'[int(check)]
 
 
 def is_valid(number):

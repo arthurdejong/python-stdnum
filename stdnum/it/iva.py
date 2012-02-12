@@ -35,7 +35,8 @@ True
 False
 """
 
-from stdnum.util import clean, digitsum
+from stdnum import luhn
+from stdnum.util import clean
 
 
 def compact(number):
@@ -45,13 +46,6 @@ def compact(number):
     if number.startswith('IT'):
         number = number[2:]
     return number
-
-
-def checksum(number):
-    """Calculate the checksum."""
-    return digitsum(
-            (1 + (i % 2)) * int(n)
-            for i, n in enumerate(number)) % 10
 
 
 def is_valid(number):
@@ -65,4 +59,4 @@ def is_valid(number):
            int(number[0:7]) > 0 and (
               '001' <= number[7:10] <= '100' or
               number[7:10] in ('120', '121', '888', '999')
-           ) and checksum(number) == 0
+           ) and luhn.is_valid(number)

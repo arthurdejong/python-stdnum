@@ -27,13 +27,3 @@ def clean(number, deletechars):
     '123456789'
     """
     return ''.join(x for x in number if x not in deletechars)
-
-
-def digitsum(numbers):
-    """Returns the sum of the individual digits of the provided numbers.
-
-    >>> digitsum([12, 55])
-    13
-    """
-    # note: this only works for two-digit numbers
-    return sum((x // 10) + (x % 10) for x in numbers)
