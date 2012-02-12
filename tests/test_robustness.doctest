@@ -1,4 +1,4 @@
-test_robustness.doctest - test is_valid() fcuntions to not break
+test_robustness.doctest - test is_valid() functions to not break
 
 Copyright (C) 2011, 2012 Arthur de Jong
 
