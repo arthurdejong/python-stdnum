@@ -39,7 +39,7 @@ invalid junk.
 >>> from stdnum.lu import tva
 >>> from stdnum.lv import pvn
 >>> from stdnum.nl import bsn, onderwijsnummer, btw
->>> from stdnum.ro import cnp
+>>> from stdnum.ro import cf, cnp
 >>> from stdnum.us import ssn
 
 Go over each imported module and try every value.
