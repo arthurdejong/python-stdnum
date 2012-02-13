@@ -26,6 +26,7 @@ invalid junk.
 
 >>> from stdnum import grid, iban, imei, imsi, isan, isbn, isil, ismn, issn, ean
 >>> from stdnum import luhn, meid, verhoeff
+>>> from stdnum.at import uid
 >>> from stdnum.be import vat as be_vat
 >>> from stdnum.br import cpf
 >>> from stdnum.cy import vat as cy_vat

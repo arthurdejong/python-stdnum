@@ -55,6 +55,7 @@ Currently this package supports the following formats:
  * CF (Cod de înregistrare în scopuri de TVA, Romanian VAT number)
  * Partita IVA (Italian VAT number)
  * Αριθμός Εγγραφής Φ.Π.Α. (Cypriot VAT number)
+ * UID (Umsatzsteuer-Identifikationsnummer, Austrian VAT number)
  * IMEI (International Mobile Equipment Identity)
  * IMSI (International Mobile Subscriber Identity)
  * MEID (Mobile Equipment Identifier)
