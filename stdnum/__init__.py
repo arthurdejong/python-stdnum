@@ -56,6 +56,7 @@ Currently this package supports the following formats:
  * Partita IVA (Italian VAT number)
  * Αριθμός Εγγραφής Φ.Π.Α. (Cypriot VAT number)
  * UID (Umsatzsteuer-Identifikationsnummer, Austrian VAT number)
+ * NIF (Número de identificação fiscal, Portuguese VAT number)
  * IMEI (International Mobile Equipment Identity)
  * IMSI (International Mobile Subscriber Identity)
  * MEID (Mobile Equipment Identifier)
@@ -63,6 +64,7 @@ Currently this package supports the following formats:
  * IBAN (International Bank Account Number)
  * ISIL (International Standard Identifier for Libraries and Related
    Organizations)
+
 
 Furthermore a number of generic check digit algorithms are available:
 

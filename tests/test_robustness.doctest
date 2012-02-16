@@ -33,7 +33,7 @@ invalid junk.
 >>> from stdnum.cz import rc
 >>> from stdnum.de import vat as de_vat
 >>> from stdnum.dk import cvr
->>> from stdnum.es import cif, dni, nie, nif
+>>> from stdnum.es import cif, dni, nie, nif as es_nif
 >>> from stdnum.fi import hetu
 >>> from stdnum.fr import siren
 >>> from stdnum.gr import vat as gr_vat
@@ -42,6 +42,7 @@ invalid junk.
 >>> from stdnum.lu import tva
 >>> from stdnum.lv import pvn
 >>> from stdnum.nl import bsn, onderwijsnummer, btw
+>>> from stdnum.pt import nif as pt_nif
 >>> from stdnum.ro import cf, cnp
 >>> from stdnum.us import ssn
 
