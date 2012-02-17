@@ -58,6 +58,7 @@ Currently this package supports the following formats:
  * UID (Umsatzsteuer-Identifikationsnummer, Austrian VAT number)
  * NIF (Número de identificação fiscal, Portuguese VAT number)
  * IČ DPH (Identifikačné číslo pre daň z pridanej hodnoty, Slovak VAT number)
+ * ALV nro (Arvonlisäveronumero, Finnish VAT number)
  * IMEI (International Mobile Equipment Identity)
  * IMSI (International Mobile Subscriber Identity)
  * MEID (Mobile Equipment Identifier)
