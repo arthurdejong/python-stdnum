@@ -63,6 +63,7 @@ Currently this package supports the following formats:
  * VAT (Irish VAT number)
  * ANUM (Közösségi adószám, Hungarian VAT number)
  * KMKR (Käibemaksukohuslase, Estonian VAT number)
+ * PVM (Pridėtinės vertės mokestis mokėtojo kodas, Lithuanian VAT number)
  * IMEI (International Mobile Equipment Identity)
  * IMSI (International Mobile Subscriber Identity)
  * MEID (Mobile Equipment Identifier)

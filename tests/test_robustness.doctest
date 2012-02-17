@@ -42,6 +42,7 @@ invalid junk.
 >>> from stdnum.ie import vat as ie_vat
 >>> from stdnum.iso7064 import mod_11_10, mod_11_2, mod_37_2, mod_37_36, mod_97_10
 >>> from stdnum.it import iva
+>>> from stdnum.lt import pvm
 >>> from stdnum.lu import tva
 >>> from stdnum.lv import pvn
 >>> from stdnum.nl import bsn, onderwijsnummer, btw
