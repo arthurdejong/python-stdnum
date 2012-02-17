@@ -42,7 +42,7 @@ from stdnum.util import clean
 def compact(number):
     """Convert the number to the minimal representation. This strips the
     number of any valid separators and removes surrounding whitespace."""
-    number = clean(number, ' ').upper().strip()
+    number = clean(number, ' -:').upper().strip()
     if number.startswith('IT'):
         number = number[2:]
     return number
