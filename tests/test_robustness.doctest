@@ -30,7 +30,7 @@ invalid junk.
 >>> from stdnum.be import vat as be_vat
 >>> from stdnum.br import cpf
 >>> from stdnum.cy import vat as cy_vat
->>> from stdnum.cz import rc
+>>> from stdnum.cz import dic, rc
 >>> from stdnum.de import vat as de_vat
 >>> from stdnum.dk import cvr
 >>> from stdnum.es import cif, dni, nie, nif as es_nif
