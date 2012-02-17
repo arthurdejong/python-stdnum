@@ -44,6 +44,7 @@ invalid junk.
 >>> from stdnum.nl import bsn, onderwijsnummer, btw
 >>> from stdnum.pt import nif as pt_nif
 >>> from stdnum.ro import cf, cnp
+>>> from stdnum.sk import dph
 >>> from stdnum.us import ssn
 
 Go over each imported module and try every value.
