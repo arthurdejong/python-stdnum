@@ -60,6 +60,7 @@ Currently this package supports the following formats:
  * IČ DPH (Identifikačné číslo pre daň z pridanej hodnoty, Slovak VAT number)
  * ALV nro (Arvonlisäveronumero, Finnish VAT number)
  * DIČ (Daňové identifikační číslo, Czech VAT number)
+ * ANUM (Közösségi adószám, Hungarian VAT number)
  * IMEI (International Mobile Equipment Identity)
  * IMSI (International Mobile Subscriber Identity)
  * MEID (Mobile Equipment Identifier)

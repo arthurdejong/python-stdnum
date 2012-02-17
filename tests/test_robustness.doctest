@@ -37,6 +37,7 @@ invalid junk.
 >>> from stdnum.fi import hetu, alv
 >>> from stdnum.fr import siren
 >>> from stdnum.gr import vat as gr_vat
+>>> from stdnum.hu import anum
 >>> from stdnum.iso7064 import mod_11_10, mod_11_2, mod_37_2, mod_37_36, mod_97_10
 >>> from stdnum.it import iva
 >>> from stdnum.lu import tva
