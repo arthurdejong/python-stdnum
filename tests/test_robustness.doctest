@@ -36,14 +36,14 @@ invalid junk.
 >>> from stdnum.ee import kmkr
 >>> from stdnum.es import cif, dni, nie, nif as es_nif
 >>> from stdnum.fi import hetu, alv
->>> from stdnum.fr import siren
+>>> from stdnum.fr import siren, tva as fr_tva
 >>> from stdnum.gr import vat as gr_vat
 >>> from stdnum.hu import anum
 >>> from stdnum.ie import vat as ie_vat
 >>> from stdnum.iso7064 import mod_11_10, mod_11_2, mod_37_2, mod_37_36, mod_97_10
 >>> from stdnum.it import iva
 >>> from stdnum.lt import pvm
->>> from stdnum.lu import tva
+>>> from stdnum.lu import tva as lu_tva
 >>> from stdnum.lv import pvn
 >>> from stdnum.nl import bsn, onderwijsnummer, btw
 >>> from stdnum.pt import nif as pt_nif
