@@ -73,6 +73,7 @@ Currently this package supports the following formats:
  * ID za DDV (Davčna številka, Slovenian VAT number)
  * VAT (Moms, Mervärdesskatt, Swedish VAT number)
  * VAT (United Kingdom (and Isle of Man) VAT registration number)
+ * VAT (Идентификационен номер по ДДС, Bulgarian VAT numbers)
  * IMEI (International Mobile Equipment Identity)
  * IMSI (International Mobile Subscriber Identity)
  * MEID (Mobile Equipment Identifier)

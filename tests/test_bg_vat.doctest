@@ -1,0 +1,49 @@
+test_bg_vat.doctest - more detailed doctests for stdnum.bg.vat module
+
+Copyright (C) 2012 Arthur de Jong
+
+This library is free software; you can redistribute it and/or
+modify it under the terms of the GNU Lesser General Public
+License as published by the Free Software Foundation; either
+version 2.1 of the License, or (at your option) any later version.
+
+This library is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+Lesser General Public License for more details.
+
+You should have received a copy of the GNU Lesser General Public
+License along with this library; if not, write to the Free Software
+Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
+02110-1301 USA
+
+
+This file contains more detailed doctests for the stdnum.bg.vat module. It
+tries to cover more corner cases and detailed functionality that is not
+really useful as module documentation.
+
+>>> from stdnum.bg import vat
+
+
+Normal values that should just work.
+
+>>> vat.is_valid('103873594')  # 9-digit legal entity
+True
+>>> vat.is_valid('131272009')  # legal entity with fallback checksum
+True
+>>> vat.is_valid('7501020018')  # physical person
+True
+>>> vat.is_valid('8001010008')  # physical person
+True
+>>> vat.is_valid('8032056031')  # physical person
+True
+>>> vat.is_valid('7111042925')  # foreigners
+True
+>>> vat.is_valid('7153849522')  # others
+True
+
+
+Invalid checksum:
+
+>>> vat.is_valid('175074751')  # invalid check digit
+False
