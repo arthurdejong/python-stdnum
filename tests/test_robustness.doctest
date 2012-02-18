@@ -60,6 +60,6 @@ Go over each imported module and try every value.
 
 >>> for mod in locals().values():
 ...     if hasattr(mod, 'is_valid'):
-...         results = [ x for x in testvalues if mod.is_valid(x) ]
+...         results = [ x for x in testvalues if mod.is_valid(x) != False ]
 ...         if results:
 ...             print mod.__name__, results
