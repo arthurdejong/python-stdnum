@@ -47,6 +47,7 @@ invalid junk.
 >>> from stdnum.lv import pvn
 >>> from stdnum.mt import vat as mt_vat
 >>> from stdnum.nl import bsn, onderwijsnummer, btw
+>>> from stdnum.pl import nip
 >>> from stdnum.pt import nif as pt_nif
 >>> from stdnum.ro import cf, cnp
 >>> from stdnum.sk import dph

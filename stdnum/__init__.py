@@ -67,6 +67,7 @@ Currently this package supports the following formats:
  * TVA (Numéro d'identification à la taxe sur la valeur ajoutée, French
    VAT number)
  * VAT (Maltese VAT number)
+ * NIP (Numer Identyfikacji Podatkowej, Polish VAT number)
  * IMEI (International Mobile Equipment Identity)
  * IMSI (International Mobile Subscriber Identity)
  * MEID (Mobile Equipment Identifier)
