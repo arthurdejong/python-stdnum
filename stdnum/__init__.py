@@ -44,6 +44,7 @@ Currently this package supports the following formats:
  * NIE (Número de Identificación de Extranjeros, Spanish identification number
    for foreigners)
  * CNP (Cod Numeric Personal, Romanian Numerical Personal Code)
+ * EGN (ЕГН, Единен граждански номер, Bulgarian personal identity codes)
  * NIF (Número de Identificación Fiscal, Spanish VAT number)
  * FPA, ΦΠΑ (Foros Prostithemenis Aksias, the Greek VAT number)
  * Ust ID Nr. (Umsatzsteur Identifikationnummer, the German VAT number)
