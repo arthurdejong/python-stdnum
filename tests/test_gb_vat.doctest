@@ -1,0 +1,53 @@
+test_gb_vat.doctest - more detailed doctests for stdnum.gb.vat module
+
+Copyright (C) 2012 Arthur de Jong
+
+This library is free software; you can redistribute it and/or
+modify it under the terms of the GNU Lesser General Public
+License as published by the Free Software Foundation; either
+version 2.1 of the License, or (at your option) any later version.
+
+This library is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+Lesser General Public License for more details.
+
+You should have received a copy of the GNU Lesser General Public
+License along with this library; if not, write to the Free Software
+Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
+02110-1301 USA
+
+
+This file contains more detailed doctests for the stdnum.gb.vat. It
+tries to cover more corner cases and detailed functionality that is not
+really useful as module documentation.
+
+>>> from stdnum.gb import vat
+
+
+Normal values that should just work.
+
+>>> vat.is_valid('980780684')  # standard number
+True
+>>> vat.is_valid('242338087388')  # branch trader
+True
+>>> vat.is_valid('GD100')  # government department
+True
+>>> vat.is_valid('HA501')  # health authority
+True
+
+
+Invalid checksum:
+
+>>> vat.is_valid('802311781')  # invalid check digit
+False
+
+
+Formatting tests:
+
+>>> vat.format('980780684')  # standard number
+'980 7806 84'
+>>> vat.format('HA501')  # health authority
+'HA501'
+>>> vat.format('242338087388')  # branch trader
+'242 3380 87 388'

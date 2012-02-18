@@ -37,6 +37,7 @@ invalid junk.
 >>> from stdnum.es import cif, dni, nie, nif as es_nif
 >>> from stdnum.fi import hetu, alv
 >>> from stdnum.fr import siren, tva as fr_tva
+>>> from stdnum.gb import vat as gb_vat
 >>> from stdnum.gr import vat as gr_vat
 >>> from stdnum.hu import anum
 >>> from stdnum.ie import vat as ie_vat
