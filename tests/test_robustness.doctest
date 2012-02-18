@@ -28,7 +28,7 @@ invalid junk.
 >>> from stdnum import luhn, meid, verhoeff
 >>> from stdnum.at import uid
 >>> from stdnum.be import vat as be_vat
->>> from stdnum.bg import egn
+>>> from stdnum.bg import egn, pnf
 >>> from stdnum.br import cpf
 >>> from stdnum.cy import vat as cy_vat
 >>> from stdnum.cz import dic, rc
