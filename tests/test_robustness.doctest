@@ -50,6 +50,7 @@ invalid junk.
 >>> from stdnum.pl import nip
 >>> from stdnum.pt import nif as pt_nif
 >>> from stdnum.ro import cf, cnp
+>>> from stdnum.si import ddv
 >>> from stdnum.sk import dph
 >>> from stdnum.us import ssn
 
