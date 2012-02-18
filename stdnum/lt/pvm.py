@@ -75,3 +75,4 @@ def is_valid(number):
         # temporary tax payers and natural persons
         return number[10] == '1' and \
                calc_check_digit(number[:-1]) == number[-1]
+    return False
