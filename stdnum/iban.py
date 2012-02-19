@@ -72,7 +72,7 @@ def _matches_structure(number, structure):
         elif code == 'a' and not number[start:start + length].isalpha():
             return False
         elif code == 'c' and not number[start:start + length].isalnum():
-            return False  # should not happen due to checksum check
+            return False  # pragma: no cover (due to checksum check)
         start += length
     # the whole number should be parsed now
     return start == len(number)

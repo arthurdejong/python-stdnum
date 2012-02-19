@@ -132,7 +132,7 @@ def _parse(fp):
     for line in fp:
         # ignore comments
         if line[0] == '#' or line.strip() == '':
-            continue
+            continue  # pragma: no cover (optimisation takes it out)
         # any other line should parse
         match = _line_re.search(line)
         indent = len(match.group('indent'))
