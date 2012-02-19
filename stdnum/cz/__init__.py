@@ -19,3 +19,6 @@
 # 02110-1301 USA
 
 """Collection of Czech numbers."""
+
+# provide vat as an alias
+from stdnum.cz import dic as vat

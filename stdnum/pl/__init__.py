@@ -19,3 +19,6 @@
 # 02110-1301 USA
 
 """Collection of Polish numbers."""
+
+# provide vat as an alias
+from stdnum.pl import nip as vat

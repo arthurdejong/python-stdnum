@@ -19,3 +19,6 @@
 # 02110-1301 USA
 
 """Collection of Portuguese numbers."""
+
+# provide vat as an alias
+from stdnum.pt import nif as vat

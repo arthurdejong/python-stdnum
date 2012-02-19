@@ -19,3 +19,6 @@
 # 02110-1301 USA
 
 """Collection of Dutch numbers."""
+
+# provide vat as an alias
+from stdnum.nl import btw as vat

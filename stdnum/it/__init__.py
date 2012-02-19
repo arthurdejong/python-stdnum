@@ -19,3 +19,6 @@
 # 02110-1301 USA
 
 """Collection of Italian numbers."""
+
+# provide vat as an alias
+from stdnum.it import iva as vat

@@ -19,3 +19,6 @@
 # 02110-1301 USA
 
 """Collection of French numbers."""
+
+# provide vat as an alias
+from stdnum.fr import tva as vat

@@ -19,3 +19,6 @@
 # 02110-1301 USA
 
 """Collection of Luxembourgian numbers."""
+
+# provide vat as an alias
+from stdnum.lu import tva as vat

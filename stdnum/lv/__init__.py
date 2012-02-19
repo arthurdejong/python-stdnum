@@ -19,3 +19,6 @@
 # 02110-1301 USA
 
 """Collection of Latvian numbers."""
+
+# provide vat as an alias
+from stdnum.lv import pvn as vat

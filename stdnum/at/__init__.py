@@ -19,3 +19,6 @@
 # 02110-1301 USA
 
 """Collection of Austrian numbers."""
+
+# provide vat as an alias
+from stdnum.at import uid as vat

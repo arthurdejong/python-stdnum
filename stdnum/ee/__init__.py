@@ -19,3 +19,6 @@
 # 02110-1301 USA
 
 """Collection of Estonian numbers."""
+
+# provide vat as an alias
+from stdnum.ee import kmkr as vat

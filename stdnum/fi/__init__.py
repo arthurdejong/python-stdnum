@@ -19,3 +19,6 @@
 # 02110-1301 USA
 
 """Collection of Finnish numbers."""
+
+# provide vat as an alias
+from stdnum.fi import alv as vat

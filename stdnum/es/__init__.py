@@ -19,3 +19,6 @@
 # 02110-1301 USA
 
 """Collection of Spanish numbers."""
+
+# provide vat as an alias
+from stdnum.es import nif as vat

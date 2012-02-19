@@ -19,3 +19,6 @@
 # 02110-1301 USA
 
 """Collection of Romanian numbers."""
+
+# provide vat as an alias
+from stdnum.ro import cf as vat

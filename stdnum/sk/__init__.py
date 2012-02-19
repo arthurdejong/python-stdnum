@@ -19,3 +19,6 @@
 # 02110-1301 USA
 
 """Collection of Slovak numbers."""
+
+# provide vat as an alias
+from stdnum.sk import dph as vat

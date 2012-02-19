@@ -19,3 +19,6 @@
 # 02110-1301 USA
 
 """Collection of Slovenian numbers."""
+
+# provide vat as an alias
+from stdnum.si import ddv as vat
