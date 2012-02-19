@@ -33,7 +33,7 @@ Currently this package supports the following formats:
  * BTW (the Dutch VAT number)
  * CPF (Cadastro de Pessoas Físicas, the Brazillian national identification
    number)
- * RČ (Rodné číslo, the Slovak and Czech birth numbers)
+ * RČ (Rodné číslo, the Slovak and Czech birth number)
  * SIREN (Système d'Identification du Répertoire des Entreprises, a French
    company identification number)
  * SSN (U.S. Social Security Number)
@@ -73,7 +73,7 @@ Currently this package supports the following formats:
  * ID za DDV (Davčna številka, Slovenian VAT number)
  * VAT (Moms, Mervärdesskatt, Swedish VAT number)
  * VAT (United Kingdom (and Isle of Man) VAT registration number)
- * VAT (Идентификационен номер по ДДС, Bulgarian VAT numbers)
+ * VAT (Идентификационен номер по ДДС, Bulgarian VAT number)
  * IMEI (International Mobile Equipment Identity)
  * IMSI (International Mobile Subscriber Identity)
  * MEID (Mobile Equipment Identifier)
