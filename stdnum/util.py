@@ -19,6 +19,8 @@
 
 """Common functions for other stdnum modules."""
 
+import pkgutil
+
 
 def clean(number, deletechars):
     """Remove the specified characters from the supplied number.
@@ -27,3 +29,15 @@ def clean(number, deletechars):
     '123456789'
     """
     return ''.join(x for x in number if x not in deletechars)
+
+
+def get_number_modules(base='stdnum'):
+    """Yield all the module and package names under the specified module."""
+    module = __import__(base, globals(), locals(), [base])
+    for loader, name, is_pkg in pkgutil.walk_packages(
+                    module.__path__, module.__name__ + '.',
+                    onerror=lambda x: None
+                ):
+        module = __import__(name, globals(), locals(), [name])
+        if hasattr(module, 'is_valid'):
+            yield module
