@@ -40,6 +40,12 @@ country_codes = set([
 
 _country_modules = dict()
 
+vies_wsdl = 'http://ec.europa.eu/taxation_customs/vies/checkVatService.wsdl'
+"""The WSDL URL of the VAT Information Exchange System (VIES) """
+
+# a cached version of the suds client for VIES
+_vies_client = None
+
 
 def _get_cc_module(cc):
     """Get the VAT number module based on the country code."""
@@ -83,3 +89,18 @@ def guess_country(number):
     return [cc
             for cc in country_codes
             if _get_cc_module(cc).is_valid(number)]
+
+
+def check_vies(number):  # pragma: no cover (no tests for this function)
+    """Queries the online European Commission VAT Information Exchange
+    System (VIES) for validity of the provided number. Note that the
+    service has usage limitations (see the VIES website for details).
+    This returns a dict-like object."""
+    # this function isn't automatically tested because it would require
+    # network access for the tests and unnecessarily load the VIES website
+    global _vies_client
+    if not _vies_client:
+        from suds.client import Client
+        _vies_client = Client(vies_wsdl)
+    number = compact(number)
+    return _vies_client.service.checkVat(number[:2], number[2:])
