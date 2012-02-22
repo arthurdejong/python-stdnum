@@ -46,6 +46,7 @@ Currently this package supports the following formats:
  * CNP (Cod Numeric Personal, Romanian Numerical Personal Code)
  * EGN (ЕГН, Единен граждански номер, Bulgarian personal identity codes)
  * PNF (ЛНЧ, Личен номер на чужденец, Bulgarian personal number of a foreigner)
+ * OIB (Osobni identifikacijski broj, Croatian personal identification number)
  * NIF (Número de Identificación Fiscal, Spanish VAT number)
  * FPA, ΦΠΑ (Foros Prostithemenis Aksias, the Greek VAT number)
  * Ust ID Nr. (Umsatzsteur Identifikationnummer, the German VAT number)
