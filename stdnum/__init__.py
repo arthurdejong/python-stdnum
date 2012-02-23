@@ -48,6 +48,7 @@ Currently this package supports the following formats:
  * PNF (ЛНЧ, Личен номер на чужденец, Bulgarian personal number of a foreigner)
  * OIB (Osobni identifikacijski broj, Croatian personal identification number)
  * PPS No (Personal Public Service Number, Irish personal number)
+ * CPR (personnummer, the Danish citizen number)
  * NIF (Número de Identificación Fiscal, Spanish VAT number)
  * FPA, ΦΠΑ (Foros Prostithemenis Aksias, the Greek VAT number)
  * Ust ID Nr. (Umsatzsteur Identifikationnummer, the German VAT number)
