@@ -50,7 +50,7 @@ def compact(number):
     return clean(number, ' /').upper().strip()
 
 
-def _get_birth_date(number):
+def get_birth_date(number):
     """Split the date parts from the number and return the birth date."""
     year = 1900 + int(number[0:2])
     # females have 50 added to the month value, 20 is added when the serial
@@ -79,7 +79,7 @@ def is_valid(number):
         return False
     # check if birth date is valid
     try:
-        birth_date = _get_birth_date(number)
+        birth_date = get_birth_date(number)
         # TODO: check that the birth date is not in the future
     except ValueError, e:
         return False
