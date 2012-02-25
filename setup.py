@@ -52,4 +52,8 @@ setup(name='python-stdnum',
           ],
       packages=find_packages(),
       package_data={'stdnum': ['*.dat']},
+      install_requires=['distribute'],
+      extras_require={
+          'VIES':  ['suds'],
+          },
       )
