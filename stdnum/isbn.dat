@@ -1,7 +1,7 @@
 # generated from RangeMessage.xml, downloaded from
 # http://www.isbn-international.org/agency?rmxml=1
-# file serial fb9a9433-c76d-4454-923b-cc0f2a52feb1
-# file date Wed, 21 Sep 2011 14:57:39 GMT
+# file serial f56828e6-d700-4fcb-9fc3-d243227c4b50
+# file date Tue, 06 Dec 2011 18:38:30 GMT
 978
  0-5,600-649,7-7,80-94,950-989,9900-9989,99900-99999
  0 agency="English language"
@@ -58,6 +58,8 @@
   00-19,200-499,5000-7999,80000-99999
  619 agency="Bulgaria"
   00-14,150-699,7000-8999,90000-99999
+ 620 agency="Mauritius"
+  0-9
  7 agency="China, People's Republic"
   00-09,100-499,5000-7999,80000-89999,900000-999999
  80 agency="Czech Republic and Slovakia"
@@ -100,7 +102,7 @@
   00-19,200-499,5000-5999,60-65,6600-6699,67000-69999,7000-7999,80-94
   9500-9899,99000-99999
  953 agency="Croatia"
-  0-0,10-14,150-549,55000-59999,6000-9499,95000-99999
+  0-0,10-14,150-509,51-54,55000-59999,6000-9499,95000-99999
  954 agency="Bulgaria"
   00-28,2900-2999,300-799,8000-8999,90000-92999,9300-9999
  955 agency="Sri Lanka"
@@ -243,7 +245,7 @@
  9957 agency="Jordan"
   00-39,400-699,70-84,8500-8799,88-99
  9958 agency="Bosnia and Herzegovina"
-  0-0,10-18,1900-1999,20-49,500-899,9000-9999
+  00-03,040-089,0900-0999,10-18,1900-1999,20-49,500-899,9000-9999
  9959 agency="Libya"
   0-1,20-79,800-949,9500-9999
  9960 agency="Saudi Arabia"
@@ -401,7 +403,7 @@
   0-1,20-89,900-999
  99950 agency="Cambodia"
   0-4,50-79,800-999
- 99951 agency="Congo"
+ 99951 agency="Congo, The Democratic Republic"
  99952 agency="Mali"
   0-4,50-79,800-999
  99953 agency="Paraguay"
