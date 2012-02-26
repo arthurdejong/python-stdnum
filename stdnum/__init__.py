@@ -91,4 +91,4 @@ Furthermore a number of generic check digit algorithms are available:
 """
 
 # the version number of the library
-__version__ = '0.6'
+__version__ = '0.7'

@@ -1,3 +1,54 @@
+changes from 0.6 to 0.7
+-----------------------
+
+* add modules for the following number formats:
+  - Onderwijsnummer (Dutch school number)
+  - BTW-nummer (Omzetbelastingnummer, the Dutch VAT number)
+  - HETU (Finnish personal identity code) as provided by Jussi Judin (#5)
+  - RČ (Rodné číslo, the Czech and Slovak birth numbers)
+  - SIREN (a French company identification number)
+  - FPA, ΦΠΑ (Foros Prostithemenis Aksias, the Greek VAT number)
+  - Ust ID Nr. (Umsatzsteur Identifikationnummer, the German VAT number)
+  - BTW, TVA, NWSt (Belgian VAT number)
+  - DNI (Documento nacional de identidad, Spanish personal identity codes)
+  - NIE (Número de Identificación de Extranjeros, Spanish foreigner number)
+  - CIF (Certificado de Identificación Fiscal, Spanish company tax number)
+  - NIF (Número de Identificación Fiscal, Spanish VAT number)
+  - PVN (Pievienotās vērtības nodokļa, Latvian VAT number)
+  - CVR (Momsregistreringsnummer, Danish VAT number)
+  - TVA (taxe sur la valeur ajoutée, Luxembourgian VAT number)
+  - CNP (Cod Numeric Personal, Romanian Numerical Personal Code)
+  - CF (Cod de înregistrare în scopuri de TVA, Romanian VAT number)
+  - Partita IVA (Italian VAT number)
+  - Αριθμός Εγγραφής Φ.Π.Α. (Cypriot VAT number)
+  - UID (Umsatzsteuer-Identifikationsnummer, Austrian VAT number)
+  - NIF (Número de identificação fiscal, Portuguese VAT number)
+  - IČ DPH (IČ pre daň z pridanej hodnoty, Slovak VAT number)
+  - ALV nro (Arvonlisäveronumero, Finnish VAT number)
+  - DIČ (Daňové identifikační číslo, Czech VAT number)
+  - ANUM (Közösségi adószám, Hungarian VAT number)
+  - VAT (Irish VAT number)
+  - KMKR (Käibemaksukohuslase, Estonian VAT number)
+  - PVM (Pridėtinės vertės mokestis mokėtojo kodas, Lithuanian VAT number)
+  - n° TVA (taxe sur la valeur ajoutée, French VAT number)
+  - VAT (Maltese VAT number)
+  - NIP (Numer Identyfikacji Podatkowej, Polish VAT number)
+  - ID za DDV (Davčna številka, Slovenian VAT number)
+  - VAT (Moms, Mervärdesskatt, Swedish VAT number)
+  - VAT (United Kingdom (and Isle of Man) VAT registration number)
+  - EGN (ЕГН, Единен граждански номер, Bulgarian personal identity codes)
+  - PNF (ЛНЧ, Личен номер на чужденец, Bulgarian number of a foreigner)
+  - VAT (Идентификационен номер по ДДС, Bulgarian VAT number)
+  - VAT (European Union VAT number)
+  - OIB (Osobni identifikacijski broj, Croatian identification number)
+  - PPS No (Personal Public Service Number, Irish personal number)
+  - CPR (personnummer, the Danish citizen number)
+* additional tests for robustness and use introspection to test all modules
+* some code refactoring with the introduction of an internal utility module
+* improvements to the docstring documentation
+* generate API documentation using Sphinx
+
+
 changes from 0.5 to 0.6
 -----------------------
 
