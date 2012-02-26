@@ -88,7 +88,7 @@ def is_valid(number):
     try:
         birth_date = get_birth_date(number)
         # TODO: check that the birth date is not in the future
-    except ValueError, e:
+    except ValueError:
         return False
     return True
 

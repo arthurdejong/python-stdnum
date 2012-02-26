@@ -82,7 +82,7 @@ def is_valid(number):
     try:
         birth_date = get_birth_date(number)
         # TODO: check that the birth date is not in the future
-    except ValueError, e:
+    except ValueError:
         return False
     # number[7:9] is the county, we ignore it for now, just check last digit
     return calc_check_digit(number[:-1]) == number[-1]

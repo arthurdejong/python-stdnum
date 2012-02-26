@@ -150,12 +150,22 @@ def format(number, separator=' ', format=None, add_check_digit=False):
     return separator.join(x for x in number if x)
 
 
+def to_binary(number):
+    """Convert the number to it's binary representation (without the check
+    digit)."""
+    import sys
+    import binascii
+    number = compact(number, strip_check_digit=True)
+    if sys.version > '3':  # pragma: no cover (Python 2/3 specific code)
+        return bytes.fromhex(number)
+    else:
+        return number.decode('hex')
+
+
 def to_pseudo_esn(number):
     """Convert the provided MEID to a pseudo ESN (pESN). The ESN is returned
     in compact HEX representation."""
     import hashlib
-    # get the SHA1 of the binary representation of the number
-    s = hashlib.sha1(compact(number, strip_check_digit=True).decode('hex'))
-    # return the last 6 digits of the hash prefixed with the reserved
+    # return the last 6 digits of the SHA1  hash prefixed with the reserved
     # manufacturer code
-    return '80' + s.hexdigest()[-6:].upper()
+    return '80' + hashlib.sha1(to_binary(number)).hexdigest()[-6:].upper()

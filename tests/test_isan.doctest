@@ -87,5 +87,10 @@ or absence of a version number.
 
 A simple test for the to_binary() function.
 
->>> isan.to_binary('0000-0000-D07A-0090-Q').encode('hex')
+>>> import binascii
+>>> import sys
+>>> x = binascii.b2a_hex(isan.to_binary('0000-0000-D07A-0090-Q'))
+>>> if sys.version > '3':
+...     x = str(x, encoding='ascii')
+>>> x
 '00000000d07a0090'

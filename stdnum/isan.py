@@ -119,7 +119,12 @@ def format(number, separator='-', strip_check_digits=False, add_check_digits=Tru
 def to_binary(number):
     """Convert the number to it's binary representation (without the check
     digits)."""
-    return compact(number, strip_check_digits=True).decode('hex')
+    import sys
+    number = compact(number, strip_check_digits=True)
+    if sys.version > '3':  # pragma: no cover (Python 2/3 specific code)
+        return bytes.fromhex(number)
+    else:
+        return number.decode('hex')
 
 
 def to_xml(number):

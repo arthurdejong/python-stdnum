@@ -29,7 +29,7 @@ These are normal variations that should just work.
 
 >>> ismn.is_valid('979-0-3217-6543-6')
 True
->>> ismn.is_valid(u'979-0-3217-6544-3')
+>>> ismn.is_valid('979-0-3217-6544-3')
 True
 >>> ismn.is_valid('9790321765450')
 True

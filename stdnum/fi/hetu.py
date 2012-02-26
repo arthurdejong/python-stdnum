@@ -81,7 +81,7 @@ def is_valid(number):
     # check if birth date is valid
     try:
         datetime.date(century + year, month, day)
-    except ValueError, e:
+    except ValueError:
         return False
     # for historical reasons individual IDs start from 002
     if individual < 2:
