@@ -17,8 +17,10 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 # 02110-1301 USA
 
-"""Module for handling ISMNs (International Standard Music Number). This
-module handles both numbers in the 10-digit 13-digit format.
+"""ISMN (International Standard Music Number).
+
+The ISMN (International Standard Music Number) is used to identify sheet
+music. This module handles both numbers in the 10-digit 13-digit format.
 
 >>> is_valid('979-0-3452-4680-5')
 True
@@ -49,8 +51,8 @@ def compact(number):
 
 
 def ismn_type(number):
-    """Check the type of ISMN number passed and return 'ISMN13', 'ISMN10' or None (for
-    invalid)."""
+    """Check the type of ISMN number passed and return 'ISMN13', 'ISMN10'
+    or None (for invalid)."""
     try:
         number = compact(number)
     except:

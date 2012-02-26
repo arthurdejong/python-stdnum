@@ -18,7 +18,7 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 # 02110-1301 USA
 
-"""Module for handling Estonian KMKR (Käibemaksukohuslase, VAT) numbers.
+"""KMKR (Käibemaksukohuslase, Estonian VAT number).
 
 >>> compact('EE 100 931 558')
 '100931558'

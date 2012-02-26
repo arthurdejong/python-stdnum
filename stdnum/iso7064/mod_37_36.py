@@ -17,8 +17,10 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 # 02110-1301 USA
 
-"""Module for calculation and verifying the checksum of a number
-using the ISO 7064 Mod 37, 36 algorithm.
+"""The ISO 7064 Mod 37, 36 algorithm.
+
+The Mod 37, 36 algorithm uses an alphanumeric check digit and the number
+itself may also contain letters.
 
 Validation can be done with is_valid(). A valid number can be made by
 calculating the check digit and appending it.
@@ -41,7 +43,7 @@ True
 
 
 def checksum(number, alphabet='0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ'):
-    """Calculate the checksum."""
+    """Calculate the checksum. A valid number should have a checksum of 1."""
     modulus = len(alphabet)
     check = modulus // 2
     for n in number:

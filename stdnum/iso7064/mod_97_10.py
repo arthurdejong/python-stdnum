@@ -17,8 +17,10 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 # 02110-1301 USA
 
-"""Module for calculation and verifying the check digits of a number
-using the ISO 7064 Mod 97, 10 algorithm.
+"""The ISO 7064 Mod 97, 10 algorithm.
+
+The Mod 97, 10 algorithm evaluates the whole number as an integer which is
+valid if the number modulo 97 is 1. As such it has two check digits.
 
 Validation can be done with is_valid(). A valid number can be made by
 calculating the check digits and appending them.
@@ -38,12 +40,12 @@ True
 
 
 def checksum(number):
-    """Calculate the checksum."""
+    """Calculate the checksum. A valid number should have a checksum of 1."""
     return int(number) % 97
 
 
 def calc_check_digits(number):
-    """With the provided number, calculate the extra digit that should be
+    """With the provided number, calculate the extra digits that should be
     appended to make it a valid number."""
     return '%02d' % ((98 - 100 * checksum(number)) % 97)
 

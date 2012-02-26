@@ -17,17 +17,19 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 # 02110-1301 USA
 
-"""Module for handling MEID (Mobile Equipment Identifier) numbers, used
-to identify physical piece of CDMA mobile station equipment.
+"""MEID (Mobile Equipment Identifier).
 
+The MEID (Mobile Equipment Identifier) is used to identify a physical piece
+of CDMA mobile station equipment.
+
+>>> compact('AF 01 23 45 0A BC DE C')
+'AF0123450ABCDE'
 >>> is_valid('AF 01 23 45 0A BC DE')
 True
 >>> is_valid('AF 01 23 45 0A BC DE C')
 True
 >>> is_valid('29360 87365 0070 3710 0')
 True
->>> compact('AF 01 23 45 0A BC DE C')
-'AF0123450ABCDE'
 >>> format('af0123450abcDEC', add_check_digit=True)
 'AF 01 23 45 0A BC DE C'
 """

@@ -18,8 +18,9 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 # 02110-1301 USA
 
-"""Module for handling Spanish tax identification number (Número de
-Identificación de Extranjeros) for foreigners. The NIE is a 9 digit number
+"""NIE (Número de Identificación de Extranjeros, Spanish foreigner number).
+
+The NIE is an identification number for foreigners. It is a 9 digit number
 where the first digit is either X, Y or Z and last digit is a checksum
 letter.
 

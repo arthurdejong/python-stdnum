@@ -17,7 +17,7 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 # 02110-1301 USA
 
-"""Module for handling Belgian VAT (BTW TVA NWSt) numbers.
+"""BTW, TVA, NWSt (Belgian VAT number).
 
 >>> compact('BE403019261')
 '0403019261'

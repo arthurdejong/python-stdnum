@@ -17,10 +17,10 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 # 02110-1301 USA
 
-"""Module for handling Polish NIP (Numer Identyfikacji Podatkowej, VAT)
-numbers.
+"""NIP (Numer Identyfikacji Podatkowej, Polish VAT number).
 
-The number consists of 10 digit with a straightforward weighted checksum.
+The NIP (Numer Identyfikacji Podatkowej) number consists of 10 digit with
+a straightforward weighted checksum.
 
 >>> compact('PL 8567346215')
 '8567346215'

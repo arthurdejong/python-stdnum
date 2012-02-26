@@ -18,8 +18,9 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 # 02110-1301 USA
 
-"""Module for handling Finnish personal identity codes (HETU, Henkilötunnus).
+"""HETU (Henkilötunnus, Finnish personal identity code).
 
+Module for handling Finnish personal identity codes (HETU, Henkilötunnus).
 See http://www.vaestorekisterikeskus.fi/default.aspx?id=45 for checksum
 calculation details and http://tarkistusmerkit.teppovuori.fi/tarkmerk.htm#hetu1
 for historical details.

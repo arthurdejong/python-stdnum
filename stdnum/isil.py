@@ -18,8 +18,10 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 # 02110-1301 USA
 
-"""Module for handling ISIL (International Standard Identifier for
-Libraries and Related Organizations).
+"""ISIL (International Standard Identifier for Libraries).
+
+The ISIL is the International Standard Identifier for
+Libraries and Related Organizations.
 
 >>> is_valid('IT-RM0267')
 True

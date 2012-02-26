@@ -17,13 +17,12 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 # 02110-1301 USA
 
-"""Module for handling United Kingdom (and Isle of Man) VAT registration
-numbers.
+"""VAT (United Kingdom (and Isle of Man) VAT registration number).
 
-The number can either be a 9-digit standard number, a 12-digit standard
-number followed by a 3-digit branch identifyier, a 5-digit number for
+The VAT number can either be a 9-digit standard number, a 12-digit standard
+number followed by a 3-digit branch identifier, a 5-digit number for
 government departments (first two digits are GD) or a 5-digit number for
-health authorities (first two digits are HA). The 9-digit part contains a
+health authorities (first two digits are HA). The 9-digit variants use a
 weighted checksum.
 
 >>> compact('GB 980 7806 84')

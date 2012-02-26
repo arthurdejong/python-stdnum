@@ -18,8 +18,10 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 # 02110-1301 USA
 
-"""Module for handling IMEI (International Mobile Equipment Identity)
-numbers, used to identify mobile phones.
+"""IMEI (International Mobile Equipment Identity).
+
+The  IMEI (International Mobile Equipment Identity) is used to identify
+mobile phones.
 
 >>> is_valid('35686800-004141-20')
 True

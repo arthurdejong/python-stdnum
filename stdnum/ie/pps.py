@@ -17,12 +17,12 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 # 02110-1301 USA
 
-"""Module for handling Irish PPS (Personal Public Service) numbers.
+"""PPS No (Personal Public Service Number, Irish personal number).
 
-The number consists of 8 digits. The first seven are numeric and the last
-is the check character. The number is sometimes be followed by an extra
-letter, which is ignored for the check algorithm, and can be a 'W', 'T' or
-an 'X'.
+The PPS (Personal Public Service) number consists of 8 digits. The first
+seven are numeric and the last is the check character. The number is
+sometimes be followed by an extra letter, which is ignored for the check
+algorithm, and can be a 'W', 'T' or an 'X'.
 
 >>> compact('6433435F')
 '6433435F'

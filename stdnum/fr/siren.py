@@ -18,8 +18,11 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 # 02110-1301 USA
 
-"""Module for handling French SIREN (Système d’Identification du
-Répertoire des Entreprises) numbers, used to identify French companies.
+"""SIREN (a French company identification number).
+
+The SIREN (Système d'Identification du Répertoire des Entreprises) is a 9
+digit number used to identify French companies. The Luhn checksum is used
+to validate the numbers.
 
 >>> compact('552 008 443')
 '552008443'

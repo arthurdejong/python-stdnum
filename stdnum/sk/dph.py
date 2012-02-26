@@ -18,11 +18,10 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 # 02110-1301 USA
 
-"""Module for handling Slovak IČ DPH (Identifikačné číslo pre daň z
-pridanej hodnoty, VAT) numbers.
+"""IČ DPH (IČ pre daň z pridanej hodnoty, Slovak VAT number).
 
-The DPH is a 10-digit number used for VAT purposes. It has a
-straightforward checksum.
+The IČ DPH (Identifikačné číslo pre daň z pridanej hodnoty) is a 10-digit
+number used for VAT purposes. It has a straightforward checksum.
 
 >>> compact('SK 202 274 96 19')
 '2022749619'

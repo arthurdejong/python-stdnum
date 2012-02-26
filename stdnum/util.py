@@ -17,7 +17,12 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 # 02110-1301 USA
 
-"""Common functions for other stdnum modules."""
+"""Common utility functions for other stdnum modules.
+
+This module is meant for internal use by stdnum modules and is not
+guaranteed to remain stable and as such not part of the public API of
+stdnum.
+"""
 
 import pkgutil
 

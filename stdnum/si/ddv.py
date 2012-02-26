@@ -18,8 +18,7 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 # 02110-1301 USA
 
-"""Module for handling Slovenian ID za DDV (Davčna številka, Davek na
-dodano vrednost, VAT) numbers.
+"""ID za DDV (Davčna številka, Slovenian VAT number).
 
 The DDV number (Davčna številka) is used for VAT (DDV, Davek na dodano
 vrednost) purposes and consist of 8 digits of which the last is a check

@@ -18,12 +18,11 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 # 02110-1301 USA
 
-"""Module for handling Croatian OIB numbers (Osobni identifikacijski broj,
-personal identification number).
+"""OIB (Osobni identifikacijski broj, Croatian identification number).
 
-The number is used to identify persons and legal entities and has 11
-digits (sometimes prefixed by HR), contains no personal information and
-uses the ISO 7064 Mod 11, 10 checksum algorithm.
+The personal identification number is used to identify persons and legal
+entities and has 11 digits (sometimes prefixed by HR), contains no
+personal information and uses the ISO 7064 Mod 11, 10 checksum algorithm.
 
 >>> compact('HR 33392005961')
 '33392005961'

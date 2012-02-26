@@ -18,12 +18,12 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 # 02110-1301 USA
 
-"""Module for handling French TVA (Numéro d'identification à la taxe sur
-la valeur ajoutée, VAT) numbers.
+"""n° TVA (taxe sur la valeur ajoutée, French VAT number).
 
-The number is the SIREN (Système d’Identification du Répertoire des
-Entreprises) prefixed by two digits. In old style numbers the two digits
-are numeric, with new style numbers at least one is a alphabetic.
+The n° TVA (Numéro d'identification à la taxe sur la valeur ajoutée) is the
+SIREN (Système d’Identification du Répertoire des Entreprises) prefixed by
+two digits. In old style numbers the two digits are numeric, with new
+style numbers at least one is a alphabetic.
 
 >>> compact('Fr 40 303 265 045')
 '40303265045'

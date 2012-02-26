@@ -18,8 +18,10 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 # 02110-1301 USA
 
-"""A Python module to parse, validate and reformat standard numbers
-and codes in different formats.
+"""Parse, validate and reformat standard numbers and codes.
+
+This library offers functions for parsing, validating and reformatting
+standard numbers and codes in various formats.
 
 Currently this package supports the following formats:
 

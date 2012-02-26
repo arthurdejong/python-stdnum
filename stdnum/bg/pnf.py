@@ -18,7 +18,7 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 # 02110-1301 USA
 
-"""Module for handling Bulgarian PNF (ЛНЧ, Личен номер на чужденец) numbers.
+"""PNF (ЛНЧ, Личен номер на чужденец, Bulgarian number of a foreigner).
 
 The personal number of a foreigner is a 10-digit number where the last digit
 is the result of a weighted checksum.

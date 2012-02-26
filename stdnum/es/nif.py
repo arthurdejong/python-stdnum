@@ -18,9 +18,10 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 # 02110-1301 USA
 
-"""Module for handling Spanish VAT (NIF, Número de Identificación Fiscal)
-numbers. It is a 9 digit number where either the first, last digits or
-both can be letters.
+"""NIF (Número de Identificación Fiscal, Spanish VAT number).
+
+The Spanish VAT number is a 9-digit number where either the first, last
+digits or both can be letters.
 
 The number is either a DNI (Documento nacional de identidad, for
 Spaniards), a NIE (Número de Identificación de Extranjeros, for

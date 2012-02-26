@@ -18,8 +18,10 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 # 02110-1301 USA
 
-"""Module for handling IMSI (International Mobile Subscriber Identity)
-numbers, used to identify mobile phone users (the SIM).
+"""IMSI (International Mobile Subscriber Identity).
+
+The IMSI (International Mobile Subscriber Identity) is used to identify
+mobile phone users (the SIM).
 
 >>> is_valid('429011234567890')
 True

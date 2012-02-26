@@ -17,7 +17,9 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 # 02110-1301 USA
 
-"""Module for handling EAN (International Article Number) codes. This
+"""EAN (International Article Number).
+
+Module for handling EAN (International Article Number) codes. This
 module handles numbers EAN-13, EAN-8 and UPC (12-digit) format.
 
 >>> is_valid('73513537')

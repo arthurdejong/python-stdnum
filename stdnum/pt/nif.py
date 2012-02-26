@@ -18,8 +18,11 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 # 02110-1301 USA
 
-"""Module for handling Portuguese NIF (Número de identificação fiscal,
-NIPC, Número de Identificação de Pessoa Colectiva, VAT) numbers.
+"""NIF (Número de identificação fiscal, Portuguese VAT number).
+
+The NIF (Número de identificação fiscal, NIPC, Número de Identificação de
+Pessoa Colectiva) is used for VAT purposes. It is a 9-digit number with a
+simple checksum.
 
 >>> compact('PT 501 964 843')
 '501964843'

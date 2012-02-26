@@ -18,8 +18,10 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 # 02110-1301 USA
 
-"""Module for handling ISANs (International Standard Audiovisual Numbers),
-used to identify audiovisual works.
+"""ISAN (International Standard Audiovisual Number).
+
+The ISAN (International Standard Audiovisual Number) is used to identify
+audiovisual works.
 
 >>> is_valid('000000018947000000000000')
 True

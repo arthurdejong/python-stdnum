@@ -17,9 +17,10 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 # 02110-1301 USA
 
+"""Ust ID Nr. (Umsatzsteur Identifikationnummer, the German VAT number).
 
-"""Module for handling German VAT (Umsatzsteur Identifikationnummer, Ust
-ID Nr.) numbers.
+The number is 10 digits long and uses the ISO 7064 Mod 11, 10 check digit
+algorithm.
 
 >>> compact('DE 136,695 976')
 '136695976'

@@ -17,8 +17,10 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 # 02110-1301 USA
 
-"""Module for handling GRid (Global Release Identifier) numbers, used to
-identify releases of digital sound recordings.
+"""GRid (Global Release Identifier).
+
+The GRid (Global Release Identifier) is used to identify releases of
+digital sound recordings.
 
 >>> is_valid('A12425GABC1234002M')
 True

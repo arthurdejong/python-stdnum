@@ -18,8 +18,10 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 # 02110-1301 USA
 
-"""This module contains functions for reading and querying a database for
-storing numbers that use a hierarchical format (e.g. ISBN, IBAN, phone
+"""Query structured number format files with number properties.
+
+This module contains functions for reading and querying a database that
+stores numbers that use a hierarchical format (e.g. ISBN, IBAN, phone
 numbers, etc).
 
 To read a database from a file:

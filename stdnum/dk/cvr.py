@@ -17,10 +17,10 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 # 02110-1301 USA
 
+"""CVR (Momsregistreringsnummer, Danish VAT number).
 
-"""Module for handling Danish CVR (Momsregistreringsnummer, VAT) numbers.
-
-It is an 8 digit number with a straightforward check mechanism.
+The CVR (Momsregistreringsnummer, VAT) is an 8 digit number with a
+straightforward check mechanism.
 
 >>> compact('DK 13585628')
 '13585628'

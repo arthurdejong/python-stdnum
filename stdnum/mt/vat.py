@@ -17,7 +17,7 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 # 02110-1301 USA
 
-"""Module for handling Maltese VAT numbers.
+"""VAT (Maltese VAT number).
 
 The Maltese VAT registration number contains 8 digits and uses a simple
 weigted checksum.

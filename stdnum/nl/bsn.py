@@ -17,8 +17,10 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 # 02110-1301 USA
 
-"""Module for handling BSNs (Burgerservicenummer), the
-Dutch national identification number.
+"""BSN (Burgerservicenummer, the Dutch national identification number).
+
+The BSN is a number with up to 9 digits (the leading 0's are commonly left
+out) which is used as the Dutch national identification number.
 
 >>> is_valid('111222333')
 True
@@ -42,9 +44,10 @@ def compact(number):
 
 
 def checksum(number):
-    """Calculate the checksum over the number."""
-    return (sum((9 - i) * int(number[i]) for i in range(8)) -
-            int(number[8])) % 11
+    """Calculate the checksum over the number. A valid number should have
+    a check digit of 0."""
+    return (sum((9 - i) * int(n) for i, n in enumerate(number[:-1])) -
+            int(number[-1])) % 11
 
 
 def is_valid(number):
@@ -54,10 +57,8 @@ def is_valid(number):
         number = compact(number)
     except:
         return False
-    return len(number) == 9 and \
-           number.isdigit() and \
-           int(number) > 0 and \
-           checksum(number) == 0
+    return len(number) == 9 and number.isdigit() and \
+           int(number) > 0 and checksum(number) == 0
 
 
 def format(number):

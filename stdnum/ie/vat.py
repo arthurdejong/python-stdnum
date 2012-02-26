@@ -17,10 +17,10 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 # 02110-1301 USA
 
-"""Module for handling Irish VAT numbers.
+"""VAT (Irish VAT number).
 
-The number consists of 8 digits. The last digit is a check letter, the
-second may be a number, letter, "+" or "*".
+The Irish VAT number consists of 8 digits. The last digit is a check
+letter, the second may be a number, letter, "+" or "*".
 
 >>> compact('IE 6433435F')
 '6433435F'

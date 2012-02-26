@@ -18,7 +18,11 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 # 02110-1301 USA
 
-"""Module for handling various European VAT numbers.
+"""VAT (European Union VAT number).
+
+The European Union VAT number consists of a 2 letter country code (ISO
+3166-1, except Greece which uses EL) followed by a number that is
+allocated per country. The format varies per country.
 
 >>> is_valid('ATU 57194903')
 True

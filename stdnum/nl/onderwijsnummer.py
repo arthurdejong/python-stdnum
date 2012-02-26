@@ -17,9 +17,11 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 # 02110-1301 USA
 
-"""Module for handling onderwijsnummers (school number), very similar to
-the BSN (Dutch national identification number) but for students without a
-BSN.
+"""Onderwijsnummer (Dutch school number).
+
+The onderwijsnummers (school number) is very similar to the BSN (Dutch
+national identification number) but for students without a BSN. It uses a
+small variation of the BSN checksum.
 
 >>> is_valid('101222331')
 True
@@ -30,6 +32,9 @@ False
 """
 
 from stdnum.nl.bsn import compact, checksum
+
+
+__all__ = ['compact', 'is_valid']
 
 
 def is_valid(number):

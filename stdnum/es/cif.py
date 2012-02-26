@@ -18,8 +18,9 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 # 02110-1301 USA
 
-"""Module for handling Spanish tax identification number (Certificado de
-Identificación Fiscal) for legal entities. The CIF is a 9 digit number
+"""CIF (Certificado de Identificación Fiscal, Spanish company tax number).
+
+The CIF is a tax identification number for legal entities. It has 9 digits
 where the first digit is a letter (denoting the type of entity) and the
 last is a check digit (which may also be a letter).
 

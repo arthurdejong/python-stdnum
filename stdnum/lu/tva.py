@@ -18,10 +18,11 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 # 02110-1301 USA
 
-"""Module for handling Luxembourgian No. TVA (Numéro d'identification à la
-taxe sur la valeur ajoutée, VAT) numbers.
+"""TVA (taxe sur la valeur ajoutée, Luxembourgian VAT number).
 
-The number consists of 8 digits of which the last two are check digits.
+The n° TVA (Numéro d'identification à la taxe sur la valeur ajoutée) is
+used for tax purposes in Luxembourg. The number consists of 8 digits of
+which the last two are check digits.
 
 >>> compact('LU 150 274 42')
 '15027442'

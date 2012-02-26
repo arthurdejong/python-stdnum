@@ -17,8 +17,10 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 # 02110-1301 USA
 
-"""Package containing modules for calculation and verification using a
-number of the ISO 7064 algorithms.
+"""Collection of the ISO 7064 algorithms.
+
+This package provides a number of modules for calculation and verification
+of numbers using collection of ISO 7064 algorithms.
 
 Note that these functions were not implemented using the ISO text itself
 because the text is not available for free. These functions were

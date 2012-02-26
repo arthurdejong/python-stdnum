@@ -17,7 +17,11 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 # 02110-1301 USA
 
-"""Module for handling Dutch VAT (BTW) numbers.
+"""BTW-nummer (Omzetbelastingnummer, the Dutch VAT number).
+
+The BTW-nummer is the Dutch number for VAT. It consists of a RSIN or BSN
+followed by a B and two digits that identify the unit within the
+organisation (usually 01).
 
 >>> is_valid('004495445B01')
 True

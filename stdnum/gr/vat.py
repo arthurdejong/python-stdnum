@@ -18,8 +18,10 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 # 02110-1301 USA
 
-"""Module for handling Greek VAT (Foros Prostithemenis Aksias, FPA, ΦΠΑ)
-numbers.
+"""FPA, ΦΠΑ (Foros Prostithemenis Aksias, the Greek VAT number).
+
+The FPA (Foros Prostithemenis Aksias, ΦΠΑ) is used for VAT purposes. It is
+a 9-digit number with a simple checksum.
 
 >>> compact('GR 23456783')
 '023456783'

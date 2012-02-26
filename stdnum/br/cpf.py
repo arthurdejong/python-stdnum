@@ -18,8 +18,7 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 # 02110-1301 USA
 
-"""Module for handling CPF (Cadastro de Pessoas Físicas) numbers, the
-Brazillian national identification number.
+"""CPF (Cadastro de Pessoas Físicas, Brazillian national identifier).
 
 >>> is_valid('390.533.447-05')
 True

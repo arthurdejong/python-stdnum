@@ -18,10 +18,11 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 # 02110-1301 USA
 
-"""Module for handling Swedish VAT (Moms, Mervärdesskatt) numbers.
+"""VAT (Moms, Mervärdesskatt, Swedish VAT number).
 
-The Momsregistreringsnummer consists of 12 digits of which the last two
-should be 01. The first 10 digits should have a valid Luhn checksum.
+The Momsregistreringsnummer is used for VAT (Moms, Mervärdesskatt)
+purposes and consists of 12 digits of which the last two should be 01. The
+first 10 digits should have a valid Luhn checksum.
 
 >>> compact('SE 123456789701')
 '123456789701'

@@ -18,10 +18,10 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 # 02110-1301 USA
 
-"""Module for handling Cypriot Αριθμός Εγγραφής Φ.Π.Α. (VAT) numbers.
+"""Αριθμός Εγγραφής Φ.Π.Α. (Cypriot VAT number).
 
-The number consists of 9 digits where the last one is a is a letter and
-functions as a check digit.
+The Cypriot Αριθμός Εγγραφής Φ.Π.Α. (VAT) number consists of 9 digits
+where the last one is a is a letter and functions as a check digit.
 
 >>> compact('CY-10259033P')
 '10259033P'

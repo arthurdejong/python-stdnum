@@ -17,12 +17,14 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 # 02110-1301 USA
 
-"""Module for calculation and verifying the checksum of a number
-using the Verhoeff algorithm.
+"""The Verhoeff algorithm.
 
-Validation can be done with is_valid() which validates that the
-calculated checksum is 0. A valid number can be made by calculating
-the check digit and appending it.
+The Verhoeff algorithm uses two tables for permutations and
+multiplications to calculate a checksum.
+
+Validation can be done with is_valid() which validates that the calculated
+checksum is 0. A valid number can be made by calculating the check digit
+and appending it.
 
 >>> is_valid('1234')
 False

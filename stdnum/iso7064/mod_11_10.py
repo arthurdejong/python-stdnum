@@ -17,11 +17,16 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 # 02110-1301 USA
 
-"""Module for calculation and verifying the checksum of a number
-using the ISO 7064 Mod 11, 10 algorithm.
+"""The ISO 7064 Mod 11, 10 algorithm.
+
+The Mod 11, 10 algorithm uses a number of calculations modulo 11 and 10 to
+determine a checksum.
 
 Validation can be done with is_valid(). A valid number can be made by
 calculating the check digit and appending it.
+
+For an module that can do generic Mod x+1, x calculations see the
+stdnum.iso7064.mod_37_36 module.
 
 >>> calc_check_digit('79462')
 '3'
@@ -35,7 +40,7 @@ True
 
 
 def checksum(number):
-    """Calculate the checksum."""
+    """Calculate the checksum. A valid number should have a checksum of 1."""
     check = 5
     for n in number:
         check = (((check or 10) * 2) % 11 + int(n)) % 10

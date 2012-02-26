@@ -18,12 +18,12 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 # 02110-1301 USA
 
-"""Module for handling Czech DIČ (Daňové identifikační číslo, VAT) numbers.
+"""DIČ (Daňové identifikační číslo, Czech VAT number).
 
-It is an 8, 9 or 10 digit code that includes a check digit and is used to
-uniquely identify taxpayers for VAT (DPH in Czech). The number can refer
-to legal entities (8 digit numbers), individuals with a RČ (the 9 or 10
-digit Czech birth number) or individuals without a RČ (9 digit numbers
+The number is an 8, 9 or 10 digit code that includes a check digit and is
+used to uniquely identify taxpayers for VAT (DPH in Czech). The number can
+refer to legal entities (8 digit numbers), individuals with a RČ (the 9 or
+10 digit Czech birth number) or individuals without a RČ (9 digit numbers
 that begin with a 6).
 
 >>> compact('CZ 25123891')

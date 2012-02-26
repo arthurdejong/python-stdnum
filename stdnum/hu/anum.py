@@ -18,10 +18,10 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 # 02110-1301 USA
 
-"""Module for handling Hungarian ANUM (Közösségi adószám, VAT) numbers.
+"""ANUM (Közösségi adószám, Hungarian VAT number).
 
-It is an 8-digit taxpayer registration number that includes a weighted
-checksum.
+The ANUM is the Hungarian VAT (Közösségi adószám) number. It is an 8-digit
+taxpayer registration number that includes a weighted checksum.
 
 >>> compact('HU-12892312')
 '12892312'

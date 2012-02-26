@@ -17,9 +17,9 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 # 02110-1301 USA
 
-"""Module for handling IBANs (International Bank Account Numbers)
-numbers, used to identify bank accounts across national borders.
+"""IBAN (International Bank Account Number).
 
+The IBAN is used to identify bank accounts across national borders.
 
 >>> is_valid('GR16 0110 1050 0000 1054 7023 795')
 True

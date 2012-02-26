@@ -18,7 +18,7 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 # 02110-1301 USA
 
-"""Module for handling Finnish ALV nro (Arvonlisäveronumero, VAT) numbers.
+"""ALV nro (Arvonlisäveronumero, Finnish VAT number).
 
 The number is an 8-digit code with a weighted checksum.
 

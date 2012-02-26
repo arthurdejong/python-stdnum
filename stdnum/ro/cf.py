@@ -18,10 +18,9 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 # 02110-1301 USA
 
-"""Module for handling Romanian CF (Cod de înregistrare în scopuri de TVA)
-numbers.
+"""CF (Cod de înregistrare în scopuri de TVA, Romanian VAT number).
 
-These numbers can be from 2 to 10 digits long.
+The Romanian CF is used for VAT purposes and can be from 2 to 10 digits long.
 
 >>> compact('RO 185 472 90')
 '18547290'

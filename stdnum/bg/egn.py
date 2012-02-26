@@ -18,7 +18,7 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 # 02110-1301 USA
 
-"""Module for handling Bulgarian EGN (ЕГН, Единен граждански номер) numbers.
+"""EGN (ЕГН, Единен граждански номер, Bulgarian personal identity codes).
 
 It is a 10-digit number of which the first 6 digits denote the person's
 birth date, the next three digits represent a birth order number from

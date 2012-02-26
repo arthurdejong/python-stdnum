@@ -18,7 +18,7 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 # 02110-1301 USA
 
-"""Module for handling Bulgarian VAT (Идентификационен номер по ДДС) numbers.
+"""VAT (Идентификационен номер по ДДС, Bulgarian VAT number).
 
 The Bulgarian VAT (Данък върху добавената стойност) number is either 9
 (for legal entities) or 10 digits (for physical persons, foreigners and

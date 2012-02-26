@@ -17,10 +17,9 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 # 02110-1301 USA
 
-"""Module for handling Austrian UID (Umsatzsteuer-Identifikationsnummer,
-VAT) numbers.
+"""UID (Umsatzsteuer-Identifikationsnummer, Austrian VAT number).
 
-The number is a 9-digit number that always starts with a U (optionally
+The Austrian UID is a 9-digit number that starts with a U (optionally
 preceded with AT). The last digit is a check digit.
 
 >>> compact('AT U13585627')

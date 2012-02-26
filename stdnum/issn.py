@@ -17,8 +17,10 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 # 02110-1301 USA
 
-"""Module for handling ISSNs (International Standard Serial Number), the
-standard code to identify serial publications.
+"""ISSN (International Standard Serial Number).
+
+The ISSN (International Standard Serial Number) is the standard code to
+identify periodical publications. It has a checksum similar to ISBN-10.
 
 >>> is_valid('0024-9319')
 True
@@ -42,7 +44,7 @@ def compact(number):
     return clean(number, ' -').strip().upper()
 
 
-def _calc_check_digit(number):
+def calc_check_digit(number):
     """Calculate the ISSN check digit for 10-digit numbers. The number passed
     should not have the check bit included."""
     check = (11 - sum((8 - i) * int(n)
@@ -59,7 +61,7 @@ def is_valid(number):
         return False
     return len(number) == 8 and \
            number[:-1].isdigit() and \
-           _calc_check_digit(number[:-1]) == number[-1]
+           calc_check_digit(number[:-1]) == number[-1]
 
 
 def format(number):

@@ -17,12 +17,14 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 # 02110-1301 USA
 
-"""Module for calculation and verifying the checksum of a number
-using the Luhn algorithm.
+"""The Luhn and Luhn mod N algorithms.
 
-Validation can be done with is_valid() which validates that the
-calculated checksum is 0. A valid number can be made by calculating
-the check digit and appending it.
+The Luhn algorithm to detect most accidental errors in various
+identification numbers.
+
+Validation can be done with is_valid() which validates that the calculated
+checksum is 0. A valid number can be made by calculating the check digit
+and appending it.
 
 >>> is_valid('7894')
 False
@@ -40,7 +42,6 @@ The default alphabet is '0123456789'.
 False
 >>> checksum('1234', alphabet='0123456789abcdef')
 14
-
 """
 
 

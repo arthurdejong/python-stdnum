@@ -17,8 +17,10 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 # 02110-1301 USA
 
-"""Module for calculation and verifying the checksum of a number
-using the ISO 7064 Mod 37, 2 algorithm.
+"""The ISO 7064 Mod 37, 2 algorithm.
+
+The Mod 37, 2 checksum can be used for alphanumeric numbers and the check
+digit may also be numeric, a letter or '*'.
 
 Validation can be done with is_valid(). A valid number can be made by
 calculating the check digit and appending it.
@@ -31,7 +33,7 @@ True
 1
 
 By changing the alphabet this can be turned into any Mod x, 2
-algorithm. For example Mod 10, 2:
+algorithm. For example Mod 11, 2:
 
 >>> calc_check_digit('079', alphabet='0123456789X')
 'X'
@@ -43,7 +45,7 @@ True
 
 
 def checksum(number, alphabet='0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ*'):
-    """Calculate the checksum."""
+    """Calculate the checksum. A valid number should have a checksum of 1."""
     modulus = len(alphabet)
     check = 0
     for n in number:

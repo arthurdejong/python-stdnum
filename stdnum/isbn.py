@@ -17,9 +17,11 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 # 02110-1301 USA
 
-"""Module for handling ISBNs (International Standard Book Number). This
-module handles both numbers in ISBN-10 (10-digit) and ISBN-13 (13-digit)
-format.
+"""ISBN (International Standard Book Number).
+
+The ISBN is the International Standard Book Number, used to identify
+publications. This module supports both numbers in ISBN-10 (10-digit) and
+ISBN-13 (13-digit) format.
 
 >>> is_valid('978-9024538270')
 True
@@ -85,8 +87,6 @@ def isbn_type(number):
         if ean.calc_check_digit(number[:-1]) != number[-1]:
             return None
         return 'ISBN13'
-    else:
-        return None
 
 
 def is_valid(number):
@@ -115,7 +115,7 @@ def to_isbn13(number):
 
 
 def to_isbn10(number):
-    """Convert the number to ISBN-13 format."""
+    """Convert the number to ISBN-10 format."""
     number = number.strip()
     min_number = compact(number)
     if len(min_number) == 10:

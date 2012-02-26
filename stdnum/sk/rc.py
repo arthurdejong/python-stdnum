@@ -18,10 +18,14 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 # 02110-1301 USA
 
-"""Module for handling Slovak birth numbers (RČ, Rodné číslo), the Slovak
-national identifier. The number can be 9 or 10 digits long. Numbers given
-out after January 1st 1954 should have 10 digits. The number includes the
-birth date of the person and their gender.
+"""RČ (Rodné číslo, the Slovak birth number).
+
+The birth number (RČ, Rodné číslo) is the Slovak national identifier. The
+number can be 9 or 10 digits long. Numbers given out after January 1st
+1954 should have 10 digits. The number includes the birth date of the
+person and their gender.
+
+This number is identical to the Czech counterpart.
 
 >>> compact('710319/2745')
 '7103192745'

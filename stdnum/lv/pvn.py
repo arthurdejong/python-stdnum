@@ -18,13 +18,12 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 # 02110-1301 USA
 
-"""Module for handling Latvian PVN (Pievienotās vērtības nodokļa, VAT)
-numbers.
+"""PVN (Pievienotās vērtības nodokļa, Latvian VAT number).
 
-It is a 11 digit number that can either be a reference to a legal entity
-(in which case the first digit > 3) or a natural person (in which case it
-should be the same as the personal code (personas kods)). Personal codes
-start with 6 digits to denote the birth date in the form ddmmyy.
+The PVN is a 11-digit number that can either be a reference to a legal
+entity (in which case the first digit > 3) or a natural person (in which
+case it should be the same as the personal code (personas kods)). Personal
+codes start with 6 digits to denote the birth date in the form ddmmyy.
 
 >>> compact('LV 4000 3521 600')
 '40003521600'

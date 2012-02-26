@@ -17,11 +17,11 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 # 02110-1301 USA
 
-"""Module for handling Danish CPR-number (or personnummer, the Danish
-citizen number).
+"""CPR (personnummer, the Danish citizen number).
 
-The number consists of 10 digits in the format DDMMYY-SSSS where the first
-part represents the birth date and the second a sequence number. The first
+The CPR is the national number to identify Danish citizens. The number
+consists of 10 digits in the format DDMMYY-SSSS where the first part
+represents the birth date and the second a sequence number. The first
 digit of the sequence number indicates the century.
 
 The numbers used to validate using a checksum but since the sequence
@@ -56,7 +56,7 @@ def compact(number):
 
 def checksum(number):
     """Calculate the checksum. Note that the checksum isn't actually used
-    any more."""
+    any more. Valid numbers used to have a checksum of 0."""
     weights = (4, 3, 2, 7, 6, 5, 4, 3, 2, 1)
     return sum(weights[i] * int(n) for i, n in enumerate(number)) % 11
 

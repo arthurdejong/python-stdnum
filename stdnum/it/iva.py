@@ -17,15 +17,14 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 # 02110-1301 USA
 
-"""Module for handling Italian IVA (Partita IVA (Imposta sul valore
-aggiunto), VAT) numbers.
+"""Partita IVA (Italian VAT number).
 
-The number consists of 11 digits. The first 7 digits are a company
-identifier, tge next 3 refer to the province of residence and the last is
-a check digit.
+The Partita IVA (Imposta sul valore aggiunto) consists of 11 digits. The
+first 7 digits are a company identifier, the next 3 refer to the province
+of residence and the last is a check digit.
 
-Note that the fiscal code for individuals is not accepted as valid code
-for intracommunity VAT related operations so it is ignored here.
+The fiscal code for individuals is not accepted as valid code for
+intracommunity VAT related operations so it is ignored here.
 
 >>> compact('IT 00743110157')
 '00743110157'

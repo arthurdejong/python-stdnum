@@ -17,8 +17,10 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 # 02110-1301 USA
 
-"""Module for handling U.S. Social Security Numbers (SSN), the number
-to identify individuals for taxation purposes.
+"""SSN (U.S. Social Security Number).
+
+The Social Security Number is used to identify individuals for taxation
+purposes.
 
 >>> is_valid('111-22-3333')
 True

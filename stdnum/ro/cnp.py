@@ -18,11 +18,10 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 # 02110-1301 USA
 
-"""Module for handling Romanian CNP (Cod Numeric Personal, Numerical
-Personal Code) numbers.
+"""CNP (Cod Numeric Personal, Romanian Numerical Personal Code).
 
-It is a 13 digit number that includes information on the person's gender,
-birth date and country zone.
+The CNP is a 13 digit number that includes information on the person's
+gender, birth date and country zone.
 
 >>> compact('1630615123457')
 '1630615123457'
