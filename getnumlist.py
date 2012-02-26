@@ -31,6 +31,13 @@ from stdnum import util
 algortihms = ('stdnum.verhoeff', 'stdnum.luhn', 'stdnum.iso7064')
 
 
+def get_number_modules():
+    """Provides the number modules that are not algorithms."""
+    for module in util.get_number_modules():
+        if module.__name__ not in algortihms and \
+           not module.__name__.startswith('stdnum.iso7064'):
+             yield module
+
 def get_number_name(module):
     """Return the short description of the number module."""
     return pydoc.splitdoc(pydoc.getdoc(module))[0]
@@ -39,7 +46,10 @@ def get_number_name(module):
 if __name__ == '__main__':
     print 'Currently this package supports the following formats:'
     print ''
-    for module in util.get_number_modules():
-        if module.__name__ not in algortihms and \
-           not module.__name__.startswith('stdnum.iso7064'):
-             print ' * %s' % get_number_name(module)
+    for module in get_number_modules():
+        print ' * %s' % get_number_name(module)
+    print ''
+    print 'For use in Spinx documentation:'
+    print ''
+    for module in get_number_modules():
+        print '   %s' % module.__name__.replace('stdnum.', '')
