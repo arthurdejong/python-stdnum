@@ -19,8 +19,9 @@
 
 """GRid (Global Release Identifier).
 
-The GRid (Global Release Identifier) is used to identify releases of
-digital sound recordings.
+The Global Release Identifier is used to identify releases of digital
+sound recordings and uses the ISO 7064 Mod 37, 36 algorithm to verify the
+correctness of the number.
 
 >>> is_valid('A12425GABC1234002M')
 True

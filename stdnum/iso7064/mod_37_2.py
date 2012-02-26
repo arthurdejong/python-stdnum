@@ -1,6 +1,6 @@
 # mod_37_2.py - functions for performing the ISO 7064 Mod 37, 2 algorithm
 #
-# Copyright (C) 2010, 2011 Arthur de Jong
+# Copyright (C) 2010, 2011, 2012 Arthur de Jong
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -21,9 +21,6 @@
 
 The Mod 37, 2 checksum can be used for alphanumeric numbers and the check
 digit may also be numeric, a letter or '*'.
-
-Validation can be done with is_valid(). A valid number can be made by
-calculating the check digit and appending it.
 
 >>> calc_check_digit('G123489654321')
 'Y'

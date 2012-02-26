@@ -1,6 +1,6 @@
 # mod_97_10.py - functions for performing the ISO 7064 Mod 97, 10 algorithm
 #
-# Copyright (C) 2010, 2011 Arthur de Jong
+# Copyright (C) 2010, 2011, 2012 Arthur de Jong
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -21,10 +21,6 @@
 
 The Mod 97, 10 algorithm evaluates the whole number as an integer which is
 valid if the number modulo 97 is 1. As such it has two check digits.
-
-Validation can be done with is_valid(). A valid number can be made by
-calculating the check digits and appending them.
-
 
 >>> calc_check_digits('99991234567890121414')
 '90'

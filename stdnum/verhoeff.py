@@ -1,6 +1,6 @@
 # verhoeff.py - functions for performing the Verhoeff checksum
 #
-# Copyright (C) 2010, 2011 Arthur de Jong
+# Copyright (C) 2010, 2011, 2012 Arthur de Jong
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -21,10 +21,6 @@
 
 The Verhoeff algorithm uses two tables for permutations and
 multiplications to calculate a checksum.
-
-Validation can be done with is_valid() which validates that the calculated
-checksum is 0. A valid number can be made by calculating the check digit
-and appending it.
 
 >>> is_valid('1234')
 False

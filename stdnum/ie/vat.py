@@ -20,7 +20,7 @@
 """VAT (Irish VAT number).
 
 The Irish VAT number consists of 8 digits. The last digit is a check
-letter, the second may be a number, letter, "+" or "*".
+letter, the second digit may be a number, a letter, "+" or "*".
 
 >>> compact('IE 6433435F')
 '6433435F'

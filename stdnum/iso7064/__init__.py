@@ -1,6 +1,6 @@
 # __init__.py - functions for performing the ISO 7064 algorithms
 #
-# Copyright (C) 2010 Arthur de Jong
+# Copyright (C) 2010, 2012 Arthur de Jong
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -20,11 +20,11 @@
 """Collection of the ISO 7064 algorithms.
 
 This package provides a number of modules for calculation and verification
-of numbers using collection of ISO 7064 algorithms.
+of numbers using one of the ISO 7064 algorithms.
 
 Note that these functions were not implemented using the ISO text itself
 because the text is not available for free. These functions were
 implemented based on information on the algorithms found online and some
 reverse engineering. If anyone can provide a legal copy of the ISO/IEC
-7064 standard these functions can be validated and maybe improved.
+7064 standard these functions can be validated and perhaps improved.
 """

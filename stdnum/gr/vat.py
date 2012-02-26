@@ -20,8 +20,7 @@
 
 """FPA, ΦΠΑ (Foros Prostithemenis Aksias, the Greek VAT number).
 
-The FPA (Foros Prostithemenis Aksias, ΦΠΑ) is used for VAT purposes. It is
-a 9-digit number with a simple checksum.
+The FPA is a 9-digit number with a simple checksum.
 
 >>> compact('GR 23456783')
 '023456783'

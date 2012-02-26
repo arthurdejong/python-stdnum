@@ -1,6 +1,6 @@
 # mod_11_2.py - functions for performing the ISO 7064 Mod 11, 2 algorithm
 #
-# Copyright (C) 2010, 2011 Arthur de Jong
+# Copyright (C) 2010, 2011, 2012 Arthur de Jong
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -22,8 +22,8 @@
 The Mod 11, 2 algorithm is a simple module 11 checksum where the check
 digit can be an X to make the number valid.
 
-Validation can be done with is_valid(). A valid number can be made by
-calculating the check digit and appending it.
+For a module that can do generic Mod x, 2 calculations see the
+:mod:`stdnum.iso7064.mod_37_2` module.
 
 >>> calc_check_digit('0794')
 '0'

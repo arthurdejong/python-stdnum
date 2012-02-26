@@ -19,10 +19,10 @@
 
 """PPS No (Personal Public Service Number, Irish personal number).
 
-The PPS (Personal Public Service) number consists of 8 digits. The first
-seven are numeric and the last is the check character. The number is
-sometimes be followed by an extra letter, which is ignored for the check
-algorithm, and can be a 'W', 'T' or an 'X'.
+The Personal Public Service number consists of 8 digits. The first seven
+are numeric and the last is the check character. The number is sometimes
+be followed by an extra letter that can be a 'W', 'T' or an 'X' and is
+ignored for the check algorithm.
 
 >>> compact('6433435F')
 '6433435F'

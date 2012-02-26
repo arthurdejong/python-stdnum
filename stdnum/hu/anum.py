@@ -44,7 +44,7 @@ def compact(number):
 
 
 def checksum(number):
-    """Calculate the checksum."""
+    """Calculate the checksum. Valid numbers should have a checksum of 0."""
     weights = (9, 7, 3, 1, 9, 7, 3, 1)
     return sum(weights[i] * int(n) for i, n in enumerate(number)) % 10
 

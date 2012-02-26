@@ -48,7 +48,8 @@ def compact(number):
 
 
 def checksum(number):
-    """Calculate the checksum."""
+    """Calculate the checksum. The checksum is only used for the 9 digits
+    of the number and the result can either be 0 or 42."""
     weights = (8, 7, 6, 5, 4, 3, 2, 10, 1)
     return sum(weights[i] * int(n) for i, n in enumerate(number)) % 97
 

@@ -1,6 +1,6 @@
 # luhn.py - functions for performing the Luhn and Luhn mod N algorithms
 #
-# Copyright (C) 2010, 2011 Arthur de Jong
+# Copyright (C) 2010, 2011, 2012 Arthur de Jong
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -19,12 +19,8 @@
 
 """The Luhn and Luhn mod N algorithms.
 
-The Luhn algorithm to detect most accidental errors in various
+The Luhn algorithm is used to detect most accidental errors in various
 identification numbers.
-
-Validation can be done with is_valid() which validates that the calculated
-checksum is 0. A valid number can be made by calculating the check digit
-and appending it.
 
 >>> is_valid('7894')
 False

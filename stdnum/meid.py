@@ -19,8 +19,8 @@
 
 """MEID (Mobile Equipment Identifier).
 
-The MEID (Mobile Equipment Identifier) is used to identify a physical piece
-of CDMA mobile station equipment.
+The Mobile Equipment Identifier is used to identify a physical piece of
+CDMA mobile station equipment.
 
 >>> compact('AF 01 23 45 0A BC DE C')
 'AF0123450ABCDE'

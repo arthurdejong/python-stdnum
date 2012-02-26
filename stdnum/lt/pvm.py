@@ -20,10 +20,10 @@
 
 """PVM (Pridėtinės vertės mokestis mokėtojo kodas, Lithuanian VAT number).
 
-The PVM (Pridėtinės vertės mokestis mokėtojo kodas) is used for VAT
-purposes in Lithuania. Itis 9 digits (for legal entities) or 12 digits
-long (for temporarily registered taxpayers). This module does not check
-the format of Lithuanian personal codes (Asmens kodas).
+The PVM is used for VAT purposes in Lithuania. It is 9 digits (for legal
+entities) or 12 digits long (for temporarily registered taxpayers). This
+module does not check the format of Lithuanian personal codes (Asmens
+kodas).
 
 >>> compact('LT 100001919017')
 '100001919017'

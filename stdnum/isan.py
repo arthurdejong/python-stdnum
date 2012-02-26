@@ -23,6 +23,12 @@
 The ISAN (International Standard Audiovisual Number) is used to identify
 audiovisual works.
 
+The number is hexadecimal and can consists of at least a root identifier,
+and an episode or part. After that an optional check digit, optional
+version and optionally another check digit can be provided. The check
+digits are validated using the ISO 7064 Mod 37, 36 algorithm.
+
+
 >>> is_valid('000000018947000000000000')
 True
 >>> compact('0000-0000-D07A-0090-Q-0000-0000-X')

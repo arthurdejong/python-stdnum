@@ -21,8 +21,8 @@
 """OIB (Osobni identifikacijski broj, Croatian identification number).
 
 The personal identification number is used to identify persons and legal
-entities and has 11 digits (sometimes prefixed by HR), contains no
-personal information and uses the ISO 7064 Mod 11, 10 checksum algorithm.
+entities in Croatia. It has 11 digits (sometimes prefixed by HR), contains
+no personal information and uses the ISO 7064 Mod 11, 10 checksum algorithm.
 
 >>> compact('HR 33392005961')
 '33392005961'

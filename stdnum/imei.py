@@ -20,8 +20,8 @@
 
 """IMEI (International Mobile Equipment Identity).
 
-The  IMEI (International Mobile Equipment Identity) is used to identify
-mobile phones.
+The  IMEI is used to identify mobile phones. The IMEI may optionally
+include a check digit which is validated using the Luhn algorithm.
 
 >>> is_valid('35686800-004141-20')
 True

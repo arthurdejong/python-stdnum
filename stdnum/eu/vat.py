@@ -22,7 +22,11 @@
 
 The European Union VAT number consists of a 2 letter country code (ISO
 3166-1, except Greece which uses EL) followed by a number that is
-allocated per country. The format varies per country.
+allocated per country.
+
+The exact format of the numbers varies per country and a country-specific
+check is performed on the number using the VAT module that is relevant for
+that country.
 
 >>> is_valid('ATU 57194903')
 True
@@ -40,12 +44,13 @@ country_codes = set([
     'gr', 'hu', 'ie', 'it', 'lt', 'lu', 'lv', 'mt', 'nl', 'pl', 'pt', 'ro',
     'se', 'si', 'sk'
 ])
-"""The collection of country codes that are queried."""
+"""The collection of country codes that are queried. Greece is listed with
+a country code of gr while for VAT purposes el is used instead."""
 
 _country_modules = dict()
 
 vies_wsdl = 'http://ec.europa.eu/taxation_customs/vies/checkVatService.wsdl'
-"""The WSDL URL of the VAT Information Exchange System (VIES) """
+"""The WSDL URL of the VAT Information Exchange System (VIES)."""
 
 # a cached version of the suds client for VIES
 _vies_client = None
@@ -89,7 +94,7 @@ def guess_country(number):
     """Guess the country code based on the provided number. This checks the
     provided number against each of the validation routines and returns
     the list of countries for which it is valid. This returns lower case
-    codes and returns gr (instead of el) for Greece."""
+    codes and returns gr (not el) for Greece."""
     return [cc
             for cc in country_codes
             if _get_cc_module(cc).is_valid(number)]

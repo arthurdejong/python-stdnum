@@ -19,7 +19,13 @@
 
 """IBAN (International Bank Account Number).
 
-The IBAN is used to identify bank accounts across national borders.
+The IBAN is used to identify bank accounts across national borders. The
+first two letters are a country code. The next two digits are check digits
+for the ISO 7064 Mod 97, 10 checksum. Each country uses it's own format
+for the remainder of the number.
+
+Some countries may also use checksum algorithms within their number but
+this is currently not checked by this number.
 
 >>> is_valid('GR16 0110 1050 0000 1054 7023 795')
 True
