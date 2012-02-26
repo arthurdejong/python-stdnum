@@ -30,10 +30,18 @@ to validate the numbers.
 True
 >>> is_valid('404833047')
 False
+>>> to_tva('443 121 975')
+'46 443 121 975'
 """
 
 from stdnum.util import clean
 from stdnum import luhn
+
+
+# An online validation function is available but it does not provide an
+# automated entry point, has usage restrictions and seems to require
+# attribution to the service for any results used.
+# http://avis-situation-sirene.insee.fr/
 
 
 def compact(number):
@@ -50,3 +58,14 @@ def is_valid(number):
     except:
         return False
     return len(number) == 9 and number.isdigit() and luhn.is_valid(number)
+
+
+def to_tva(number):
+    """Return a TVA that prepends the two extra check digits to the SIREN."""
+    # note that this always returns numeric check digits
+    # it is unclean when the alphabetic ones are used
+    return '%02d%s%s' % (
+        int(compact(number) + '12') % 97,
+        ' ' if ' ' in number else '',
+        number
+    )
