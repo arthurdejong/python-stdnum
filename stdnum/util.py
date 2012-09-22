@@ -25,6 +25,11 @@ stdnum.
 """
 
 import pkgutil
+import pydoc
+import re
+
+
+_strip_doctest_re = re.compile('^>>> .*\Z', re.DOTALL | re.MULTILINE)
 
 
 def clean(number, deletechars):
@@ -46,3 +51,23 @@ def get_number_modules(base='stdnum'):
         module = __import__(name, globals(), locals(), [name])
         if hasattr(module, 'is_valid'):
             yield module
+
+
+def get_module_name(module):
+    """Return the short description of the number."""
+    return pydoc.splitdoc(pydoc.getdoc(module))[0]
+
+
+def get_module_description(module):
+    """Return a description of the number."""
+    doc = pydoc.splitdoc(pydoc.getdoc(module))[1]
+    # remove the doctests
+    return _strip_doctest_re.sub('', doc[1]).strip(),
+
+
+def get_module_list():
+    for module in get_number_modules():
+        yield ' * %s: %s' % (
+            module.__name__.replace('stdnum.', ''),
+            get_module_name(module),
+        )
