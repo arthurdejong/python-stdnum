@@ -1,7 +1,7 @@
 
 # numdb.py - module for handling hierarchically organised numbers
 #
-# Copyright (C) 2010, 2011 Arthur de Jong
+# Copyright (C) 2010, 2011, 2012, 2013 Arthur de Jong
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -39,20 +39,47 @@ To split a number:
 
 To split the number and get properties for each part:
 
->>> dbfile.info('01006')
-[('0', {'prop1': 'foo'}), ('100', {'prop2': 'bar'}), ('6', {})]
->>> dbfile.info('02006')
-[('0', {'prop1': 'foo'}), ('200', {'prop2': 'bar', 'prop3': 'baz'}), ('6', {})]
->>> dbfile.info('03456')
-[('0', {'prop1': 'foo'}), ('345', {'prop2': 'bar', 'prop3': 'baz'}), ('6', {})]
->>> dbfile.info('902006')
-[('90', {'prop1': 'booz'}), ('20', {'prop2': 'foo'}), ('06', {})]
->>> dbfile.info('909856')
-[('90', {'prop1': 'booz'}), ('985', {'prop2': 'fooz'}), ('6', {})]
->>> dbfile.info('9889')
-[('98', {'prop1': 'booz'}), ('89', {'prop2': 'foo'})]
->>> dbfile.info('633322')
-[('6', {'prop1': 'boo'}), ('333', {'prop2': 'bar', 'prop3': 'baz'}), ('22', {})]
+>>> dbfile.info('01006') == [
+...     ('0',   {'prop1': 'foo'}),
+...     ('100', {'prop2': 'bar'}),
+...     ('6',   {}),
+... ]
+True
+>>> dbfile.info('02006') == [
+...     ('0',   {'prop1': 'foo'}),
+...     ('200', {'prop2': 'bar', 'prop3': 'baz'}),
+...     ('6',   {}),
+... ]
+True
+>>> dbfile.info('03456') == [
+...     ('0', {'prop1': 'foo'}),
+...     ('345', {'prop2': 'bar', 'prop3': 'baz'}),
+...     ('6', {}),
+... ]
+True
+>>> dbfile.info('902006') == [
+...     ('90', {'prop1': 'booz'}),
+...     ('20', {'prop2': 'foo'}),
+...     ('06', {}),
+... ]
+True
+>>> dbfile.info('909856') == [
+...     ('90', {'prop1': 'booz'}),
+...     ('985', {'prop2': 'fooz'}),
+...     ('6', {}),
+... ]
+True
+>>> dbfile.info('9889') == [
+...     ('98', {'prop1': 'booz'}),
+...     ('89', {'prop2': 'foo'}),
+... ]
+True
+>>> dbfile.info('633322') == [
+...     ('6', {'prop1': 'boo'}),
+...     ('333', {'prop2': 'bar', 'prop3': 'baz'}),
+...     ('22', {}),
+... ]
+True
 
 """
 
