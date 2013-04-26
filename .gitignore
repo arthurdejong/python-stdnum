@@ -1,0 +1,11 @@
+# global
+*.pyc
+*.pyo
+__pycache__
+
+# /
+/build
+/dist
+/python_stdnum.egg-info
+/.coverage
+/coverage
