@@ -1,6 +1,6 @@
 # util.py - common utility functions
 #
-# Copyright (C) 2012 Arthur de Jong
+# Copyright (C) 2012, 2013 Arthur de Jong
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -27,6 +27,7 @@ stdnum.
 import pkgutil
 import pydoc
 import re
+import sys
 
 
 _strip_doctest_re = re.compile('^>>> .*\Z', re.DOTALL | re.MULTILINE)
@@ -43,12 +44,14 @@ def clean(number, deletechars):
 
 def get_number_modules(base='stdnum'):
     """Yield all the module and package names under the specified module."""
-    module = __import__(base, globals(), locals(), [base])
+    __import__(base)
+    module = sys.modules[base]
     for loader, name, is_pkg in pkgutil.walk_packages(
                     module.__path__, module.__name__ + '.',
                     onerror=lambda x: None
                 ):
-        module = __import__(name, globals(), locals(), [name])
+        __import__(name)
+        module = sys.modules[name]
         if hasattr(module, 'is_valid'):
             yield module
 
