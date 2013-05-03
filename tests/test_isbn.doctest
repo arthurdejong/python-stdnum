@@ -1,6 +1,6 @@
 test_isbn.doctest - more detailed doctests for stdnum.isbn module
 
-Copyright (C) 2010, 2011 Arthur de Jong
+Copyright (C) 2010, 2011, 2013 Arthur de Jong
 
 This library is free software; you can redistribute it and/or
 modify it under the terms of the GNU Lesser General Public
@@ -27,12 +27,22 @@ really useful as module documentation.
 
 Tests for mangling and incorect check digits.
 
->>> isbn.is_valid('08515x-629-2')  # added X in the middle
-False
->>> isbn.is_valid('85152-629-1')  # incorrect check digit
-False
->>> isbn.is_valid('978-902453827X')  # ISBN with X check digit
-False
+>>> isbn.validate('08515x-629-2')  # added X in the middle
+Traceback (most recent call last):
+    ...
+InvalidFormat: ...
+>>> isbn.validate('85152-629-1')  # incorrect check digit
+Traceback (most recent call last):
+    ...
+InvalidChecksum: ...
+>>> isbn.validate('978-902453827X')  # ISBN13 with X check digit
+Traceback (most recent call last):
+    ...
+InvalidFormat: ...
+>>> isbn.validate('978-902453827')  # invalid length
+Traceback (most recent call last):
+    ...
+InvalidLength: ...
 
 
 See if ISBN10 to 13 conversion works.
@@ -45,9 +55,11 @@ See if ISBN10 to 13 conversion works.
 '9781857982183'
 >>> isbn.to_isbn13('1-85798-218-5')
 '978-1-85798-218-3'
->>> isbn.is_valid(isbn.to_isbn13('1 85798218 5'))
-True
+>>> isbn.validate(isbn.to_isbn13('1 85798218 5'))
+'9781857982183'
 >>> isbn.compact('1 85798218 5', convert=True)
+'9781857982183'
+>>> isbn.validate('1 85798218 5', convert=True)
 '9781857982183'
 
 
@@ -64,11 +76,11 @@ See if ISBN13 to 10 conversion works.
 >>> isbn.to_isbn10('979-20-1234567-8')  # incorrect check digit
 Traceback (most recent call last):
     ...
-ValueError: Not a valid ISBN13.
+InvalidFormat: ...
 >>> isbn.to_isbn10('9791843123391')
 Traceback (most recent call last):
     ...
-ValueError: Does not use 978 Bookland prefix.
+InvalidFormat: ...
 
 
 Regrouping tests.
