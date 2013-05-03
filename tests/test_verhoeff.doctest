@@ -1,6 +1,6 @@
 test_verhoeff.doctest - more detailed doctests for stdnum.verhoeff module
 
-Copyright (C) 2010 Arthur de Jong
+Copyright (C) 2010, 2011, 2013 Arthur de Jong
 
 This library is free software; you can redistribute it and/or
 modify it under the terms of the GNU Lesser General Public
@@ -37,25 +37,29 @@ These are normal variations that should just work. Calculating checksums:
 
 The same numbers but now simply ask for validation:
 
->>> verhoeff.is_valid('654')
-False
->>> verhoeff.is_valid('1428570')
-True
->>> verhoeff.is_valid('398438246238642378648236487236482734')
-False
+>>> verhoeff.validate('654')
+Traceback (most recent call last):
+    ...
+InvalidChecksum: ...
+>>> verhoeff.validate('1428570')
+'1428570'
+>>> verhoeff.validate('398438246238642378648236487236482734')
+Traceback (most recent call last):
+    ...
+InvalidChecksum: ...
 
 
 Adding a check digit to the numbers so they are all valid:
 
 >>> verhoeff.calc_check_digit('654')
 '8'
->>> verhoeff.is_valid('6548')
-True
+>>> verhoeff.validate('6548')
+'6548'
 >>> verhoeff.calc_check_digit('1428570')
 '8'
->>> verhoeff.is_valid('1428570')
-True
+>>> verhoeff.validate('1428570')
+'1428570'
 >>> verhoeff.calc_check_digit('398438246238642378648236487236482734')
 '7'
->>> verhoeff.is_valid('3984382462386423786482364872364827347')
-True
+>>> verhoeff.validate('3984382462386423786482364872364827347')
+'3984382462386423786482364872364827347'
