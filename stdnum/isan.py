@@ -1,7 +1,7 @@
 # isan.py - functions for handling International Standard Audiovisual Numbers
 #           (ISANs)
 #
-# Copyright (C) 2010, 2011, 2012 Arthur de Jong
+# Copyright (C) 2010, 2011, 2012, 2013 Arthur de Jong
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -28,15 +28,16 @@ and an episode or part. After that an optional check digit, optional
 version and optionally another check digit can be provided. The check
 digits are validated using the ISO 7064 Mod 37, 36 algorithm.
 
-
->>> is_valid('000000018947000000000000')
-True
+>>> validate('000000018947000000000000')
+'000000018947000000000000'
 >>> compact('0000-0000-D07A-0090-Q-0000-0000-X')
 '00000000D07A009000000000'
->>> is_valid('0000-0001-8CFA-0000-I-0000-0000-K')
-True
->>> is_valid('0000-0001-8CFA-0000-A-0000-0000-K') # invalid check digit
-False
+>>> validate('0000-0001-8CFA-0000-I-0000-0000-K')
+'000000018CFA0000I00000000K'
+>>> validate('0000-0001-8CFA-0000-A-0000-0000-K')
+Traceback (most recent call last):
+    ...
+InvalidChecksum: ...
 >>> format('000000018947000000000000')
 '0000-0001-8947-0000-8-0000-0000-D'
 
@@ -46,7 +47,7 @@ False
 '<ISAN root="1881-66C7-3420" episode="6541" version="9F3A-0245" />'
 """
 
-
+from stdnum.exceptions import *
 from stdnum.iso7064 import mod_37_36
 from stdnum.util import clean
 
@@ -67,30 +68,48 @@ def split(number):
 def compact(number, strip_check_digits=True):
     """Convert the ISAN to the minimal representation. This strips the number
     of any valid separators and removes surrounding whitespace. The check
-    digits are also removed by default."""
+    digits are removed by default."""
     number = list(split(number))
     number[2] = number[4] = ''
     return ''.join(number)
 
 
-def _check(number, length, required=True):
-    if (number or required) and length != len(number):
-        return False
-    for x in number:
+def validate(number, strip_check_digits=False, add_check_digits=False):
+    """Checks to see if the number provided is a valid ISAN. If check digits
+    are present in the number they are validated. If strip_check_digits is
+    True any existing check digits will be removed (after checking). If
+    add_check_digits is True the check digit will be added if they are not
+    present yet."""
+    (root, episode, check1, version, check2) = split(number)
+    # check digits used
+    for x in root + episode + version:
         if x not in '0123456789ABCDEF':
-            return False
-    return True
+            raise InvalidFormat()
+    # check length of all components
+    if len(root) != 12 or len(episode) != 4 or len(check1) not in (0, 1) or \
+       len(version) not in (0, 8) or len(check1) not in (0, 1):
+        raise InvalidLength()
+    # check check digits
+    if check1:
+        mod_37_36.validate(root + episode + check1)
+    if check2:
+        mod_37_36.validate(root + episode + version + check2)
+    # remove or add check digits
+    if strip_check_digits:
+        check1 = check2 = ''
+    if add_check_digits and not check1:
+        check1 = mod_37_36.calc_check_digit(root + episode)
+    if add_check_digits and not check2 and version:
+        check2 = mod_37_36.calc_check_digit(root + episode + version)
+    return root + episode + check1 + version + check2
 
 
 def is_valid(number):
     """Checks to see if the number provided is a valid ISAN. If check digits
     are present in the number they are validated."""
     try:
-        (root, episode, check1, version, check2) = split(number)
-        return _check(root, 12) and _check(episode, 4) and _check(version, 8, False) \
-           and (not check1 or mod_37_36.is_valid(root + episode + check1)) \
-           and (not check2 or mod_37_36.is_valid(root + episode + version + check2))
-    except:
+        return bool(validate(number))
+    except ValidationError:
         return False
 
 
@@ -131,7 +150,7 @@ def to_xml(number):
     """Returns the XML form of the ISAN as a string."""
     number = format(number, strip_check_digits=True, add_check_digits=False)
     return '<ISAN root="%s" episode="%s" version="%s" />' % (
-              number[0:14], number[15:19], number[20:])
+        number[0:14], number[15:19], number[20:])
 
 
 def to_urn(number):
