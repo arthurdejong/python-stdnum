@@ -1,6 +1,6 @@
 test_imei.doctest - more detailed doctests for stdnum.imei module
 
-Copyright (C) 2010 Arthur de Jong
+Copyright (C) 2010, 2013 Arthur de Jong
 
 This library is free software; you can redistribute it and/or
 modify it under the terms of the GNU Lesser General Public
@@ -27,16 +27,16 @@ really useful as module documentation.
 
 Should be valid numbers:
 
->>> imei.is_valid('49-015420-323751')
-True
->>> imei.is_valid('35-209900-176148-1')
-True
->>> imei.is_valid('35-209900-176148-23')
-True
->>> imei.is_valid('350077-52-323751-3')
-True
->>> imei.is_valid('354178036859789')
-True
+>>> imei.validate('49-015420-323751')
+'49015420323751'
+>>> imei.validate('35-209900-176148-1')
+'352099001761481'
+>>> imei.validate('35-209900-176148-23')
+'3520990017614823'
+>>> imei.validate('350077-52-323751-3')
+'350077523237513'
+>>> imei.validate('354178036859789')
+'354178036859789'
 
 
 These are normal variations that should just work. Getting the type:

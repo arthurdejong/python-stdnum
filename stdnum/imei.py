@@ -1,7 +1,7 @@
 # imei.py - functions for handling International Mobile Equipment Identity
 #           (IMEI) numbers
 #
-# Copyright (C) 2010, 2011, 2012 Arthur de Jong
+# Copyright (C) 2010, 2011, 2012, 2013 Arthur de Jong
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -23,10 +23,12 @@
 The  IMEI is used to identify mobile phones. The IMEI may optionally
 include a check digit which is validated using the Luhn algorithm.
 
->>> is_valid('35686800-004141-20')
-True
->>> is_valid('35-417803-685978-1') # incorrect check digit
-False
+>>> validate('35686800-004141-20')
+'3568680000414120'
+>>> validate('35-417803-685978-1')
+Traceback (most recent call last):
+    ...
+InvalidChecksum: ...
 >>> compact('35686800-004141-20')
 '3568680000414120'
 >>> format('354178036859789')
@@ -39,6 +41,8 @@ False
 ('35686800', '004141', '')
 """
 
+from stdnum import luhn
+from stdnum.exceptions import *
 from stdnum.util import clean
 
 
@@ -48,28 +52,41 @@ def compact(number):
     return clean(number, ' -').strip().upper()
 
 
+def validate(number):
+    """Checks to see if the number provided is a valid IMEI (or IMEISV)
+    number."""
+    number = compact(number)
+    if not number.isdigit():
+        raise InvalidFormat()
+    if len(number) == 15:
+        # only 15 digit IMEI has check digit
+        luhn.validate(number)
+    elif len(number) not in (14, 16):
+        # neither IMEI without check digit or IMEISV (which doesn't have one)
+        raise InvalidLength()
+    return number
+
+
 def imei_type(number):
     """Check the passed number and returns 'IMEI', 'IMEISV' or None (for
     invalid) for checking the type of number passed."""
     try:
-        number = compact(number)
+        number = validate(number)
     except:
         return None
-    if len(number) == 14:  # IMEI without check digit
-        return 'IMEI' if number.isdigit() else None
-    if len(number) == 15:  # IMEI with check digit
-        from stdnum import luhn
-        return 'IMEI' if luhn.is_valid(number) else None
+    if len(number) in (14, 15):
+        return 'IMEI'
     elif len(number) == 16:
-        return 'IMEISV' if number.isdigit() else None
-    else:
-        return None
+        return 'IMEISV'
 
 
 def is_valid(number):
     """Checks to see if the number provided is a valid IMEI (or IMEISV)
     number."""
-    return imei_type(number) is not None
+    try:
+        return bool(validate(number))
+    except ValidationError:
+        return False
 
 
 def split(number):
@@ -84,7 +101,6 @@ def format(number, separator='-', add_check_digit=False):
     """Reformat the passed number to the standard format."""
     number = compact(number)
     if len(number) == 14 and add_check_digit:
-        from stdnum import luhn
         number += luhn.calc_check_digit(number)
     number = (number[:2], number[2:8], number[8:14], number[14:])
     return separator.join(x for x in number if x)
