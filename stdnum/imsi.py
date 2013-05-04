@@ -1,7 +1,7 @@
 # imsi.py - functions for handling International Mobile Subscriber Identity
 #           (IMSI) numbers
 #
-# Copyright (C) 2011, 2012 Arthur de Jong
+# Copyright (C) 2011, 2012, 2013 Arthur de Jong
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -23,10 +23,12 @@
 The IMSI (International Mobile Subscriber Identity) is used to identify
 mobile phone users (the SIM).
 
->>> is_valid('429011234567890')
-True
->>> is_valid('439011234567890')  # unknown MCC
-False
+>>> validate('429011234567890')
+'429011234567890'
+>>> validate('439011234567890')  # unknown MCC
+Traceback (most recent call last):
+    ...
+InvalidFormat: ...
 >>> split('429011234567890')
 ('429', '01', '1234567890')
 >>> split('310150123456789')
@@ -37,6 +39,7 @@ False
 'China'
 """
 
+from stdnum.exceptions import *
 from stdnum.util import clean
 
 
@@ -47,13 +50,25 @@ def compact(number):
 
 
 def split(number):
-    """Split the specified IMSI into a Mobile Country Code (MCC),
-    a Mobile Network Code (MNC), a Mobile Station Identification Number (MSIN)."""
+    """Split the specified IMSI into a Mobile Country Code (MCC), a Mobile
+    Network Code (MNC), a Mobile Station Identification Number (MSIN)."""
     from stdnum import numdb
     # clean up number
     number = compact(number)
     # split the number
     return tuple(numdb.get('imsi').split(number))
+
+
+def validate(number):
+    """Checks to see if the number provided is a valid IMSI."""
+    number = compact(number)
+    if not number.isdigit():
+        raise InvalidFormat()
+    if len(number) not in (14, 15):
+        raise InvalidLength()
+    if len(split(number)) != 3:
+        raise InvalidFormat()
+    return number
 
 
 def info(number):
@@ -76,9 +91,6 @@ def info(number):
 def is_valid(number):
     """Checks to see if the number provided is a valid IMSI."""
     try:
-        number = compact(number)
-    except:
+        return bool(validate(number))
+    except ValidationError:
         return False
-    return len(number) in (14, 15) and \
-           number.isdigit() and \
-           len(split(number)) == 3
