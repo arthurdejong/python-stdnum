@@ -1,6 +1,6 @@
 # meid.py - functions for handling Mobile Equipment Identifiers (MEIDs)
 #
-# Copyright (C) 2010, 2011, 2012 Arthur de Jong
+# Copyright (C) 2010, 2011, 2012, 2013 Arthur de Jong
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -22,18 +22,21 @@
 The Mobile Equipment Identifier is used to identify a physical piece of
 CDMA mobile station equipment.
 
->>> compact('AF 01 23 45 0A BC DE C')
+>>> validate('AF 01 23 45 0A BC DE C')
 'AF0123450ABCDE'
->>> is_valid('AF 01 23 45 0A BC DE')
-True
->>> is_valid('AF 01 23 45 0A BC DE C')
-True
->>> is_valid('29360 87365 0070 3710 0')
-True
+>>> validate('29360 87365 0070 3710 0')
+'AF0123450ABCDE'
+>>> validate('29360 87365 0070 3710 1')
+Traceback (most recent call last):
+    ...
+InvalidChecksum: ...
 >>> format('af0123450abcDEC', add_check_digit=True)
 'AF 01 23 45 0A BC DE C'
+>>> format('af0123450abcDEC', format='dec', add_check_digit=True)
+'29360 87365 0070 3710 0'
 """
 
+from stdnum.exceptions import *
 from stdnum.util import clean
 
 
@@ -55,23 +58,23 @@ def _ishex(number):
 
 def _parse(number):
     number = _cleanup(number)
-    if len(number) == 14 and _ishex(number):
-        # 14-digit hex representation
-        return number, ''
-    elif len(number) == 15 and _ishex(number):
-        # 14-digit hex representation with check digit
-        return number[0:14], number[14]
-    elif len(number) == 18 and number.isdigit():
+    if len(number) in (14, 15):
+        # 14 or 15 digit hex representation
+        if not _ishex(number):
+            raise InvalidFormat()
+        return number[0:14], number[14:]
+    elif len(number) in (18, 19):
         # 18-digit decimal representation
-        return number, ''
-    elif len(number) == 19 and number.isdigit():
-        # 18-digit decimal representation witch check digit
-        return number[0:18], number[18]
+        if not number.isdigit():
+            raise InvalidFormat()
+        return number[0:18], number[18:]
     else:
-        return None
+        raise InvalidLength()
 
 
-def _calc_check_digit(number):
+def calc_check_digit(number):
+    """Calculate the check digit for the number. The number should not
+    already have a check digit."""
     # both the 18-digit decimal format and the 14-digit hex format
     # containing only decimal digits should use the decimal Luhn check
     from stdnum import luhn
@@ -95,28 +98,44 @@ def compact(number, strip_check_digit=True):
     if len(number) == 18:
         number = '%08X%06X' % (int(number[0:10]), int(number[10:18]))
         if cd:
-            cd = _calc_check_digit(number)
+            cd = calc_check_digit(number)
     # put parts back together again
+    return number + cd
+
+
+def validate(number, strip_check_digit=True):
+    """Checks to see if the number provided is a valid MEID number. This
+    converts the representation format of the number (if it is
+    decimal it is not converted to hexadecimal)."""
+    from stdnum import luhn
+    # first parse the number
+    number, cd = _parse(number)
+    if len(number) == 18:
+        # decimal format can be easily determined
+        if cd:
+            luhn.validate(number + cd)
+        # convert to hex
+        number = '%08X%06X' % (int(number[0:10]), int(number[10:18]))
+        cd = calc_check_digit(number)
+    elif number.isdigit():
+        # if the remaining hex format is fully decimal it is an IMEI number
+        from stdnum import imei
+        imei.validate(number + cd)
+    else:
+        # normal hex Luhn validation
+        if cd:
+            luhn.validate(number + cd, alphabet=_hex_alphabet)
+    if strip_check_digit:
+        cd = ''
     return number + cd
 
 
 def is_valid(number):
     """Checks to see if the number provided is a valid MEID number."""
-    from stdnum import luhn
-    # first parse the number
     try:
-        number, cd = _parse(number)
-    except:
+        return bool(validate(number))
+    except ValidationError:
         return False
-    # decimal format can be easily determined
-    if len(number) == 18:
-        return not cd or luhn.is_valid(number + cd)
-    # if the remaining hex format is fully decimal it is an IMEI number
-    if number.isdigit():
-        from stdnum import imei
-        return imei.is_valid(number + cd)
-    # normal hex Luhn validation
-    return not cd or luhn.is_valid(number + cd, alphabet=_hex_alphabet)
 
 
 def format(number, separator=' ', format=None, add_check_digit=False):
@@ -132,15 +151,15 @@ def format(number, separator=' ', format=None, add_check_digit=False):
         # convert to decimal
         number = '%010d%08d' % (int(number[0:8], 16), int(number[8:14], 16))
         if cd:
-            cd = _calc_check_digit(number)
+            cd = calc_check_digit(number)
     elif format == 'hex' and len(number) == 18:
         # convert to hex
         number = '%08X%06X' % (int(number[0:10]), int(number[10:18]))
         if cd:
-            cd = _calc_check_digit(number)
+            cd = calc_check_digit(number)
     # see if we need to add a check digit
     if add_check_digit and not cd:
-        cd = _calc_check_digit(number)
+        cd = calc_check_digit(number)
     # split number according to format
     if len(number) == 14:
         number = [number[i * 2:i * 2 + 2]
@@ -164,7 +183,7 @@ def to_binary(number):
 
 def to_pseudo_esn(number):
     """Convert the provided MEID to a pseudo ESN (pESN). The ESN is returned
-    in compact HEX representation."""
+    in compact hexadecimal representation."""
     import hashlib
     # return the last 6 digits of the SHA1  hash prefixed with the reserved
     # manufacturer code

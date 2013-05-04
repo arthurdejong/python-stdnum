@@ -1,6 +1,6 @@
 test_meid.doctest - more detailed doctests for stdnum.meid module
 
-Copyright (C) 2010 Arthur de Jong
+Copyright (C) 2010, 2011, 2013 Arthur de Jong
 
 This library is free software; you can redistribute it and/or
 modify it under the terms of the GNU Lesser General Public
@@ -28,40 +28,50 @@ really useful as module documentation.
 IMEI numbers without the software version (but optionally with a check
 digit) should be valid numbers:
 
->>> meid.is_valid('49-015420-323751')
-True
->>> meid.is_valid('35-209900-176148-1')
-True
->>> meid.is_valid('35-209900-176148-2')
-False
+>>> meid.validate('49-015420-323751')
+'49015420323751'
+>>> meid.validate('35-209900-176148-1')
+'35209900176148'
+>>> meid.validate('35-209900-176148-2')
+Traceback (most recent call last):
+    ...
+InvalidChecksum: ...
 
 
 MEIDs can be represented as HEX strings (with and without check digit):
 
->>> meid.is_valid('AF 01 23 45 0A BC DE')
-True
->>> meid.is_valid('AF 01 23 45 0A BC DE C')
-True
->>> meid.is_valid('AF 01 23 45 0A BC DE D')
-False
+>>> meid.validate('AF 01 23 45 0A BC DE')
+'AF0123450ABCDE'
+>>> meid.validate('AF 01 23 45 0A BC DE C')
+'AF0123450ABCDE'
+>>> meid.validate('AF 01 23 45 0A BC DE D')
+Traceback (most recent call last):
+    ...
+InvalidChecksum: ...
 
 
 Also, MEIDs can be represented in decimal format (with and without check digit):
 
->>> meid.is_valid('29360 87365 0070 3710')
-True
->>> meid.is_valid('29360 87365 0070 3710 0')
-True
->>> meid.is_valid('29360 87365 0070 3710 1')
-False
+>>> meid.validate('29360 87365 0070 3710')
+'AF0123450ABCDE'
+>>> meid.validate('29360 87365 0070 3710 0')
+'AF0123450ABCDE'
+>>> meid.validate('29360 87365 0070 3710 1')
+Traceback (most recent call last):
+    ...
+InvalidChecksum: ...
 
 
-The is_valid() method should be fairly robust against invalid junk passed:
+The validate() method should be fairly robust against invalid junk passed:
 
->>> meid.is_valid('29360 ABCDE 0070 3710')
-False
->>> meid.is_valid('GF 01 23 45 0A BC DE')
-False
+>>> meid.validate('29360 ABCDE 0070 3710')
+Traceback (most recent call last):
+    ...
+InvalidFormat: ...
+>>> meid.validate('GF 01 23 45 0A BC DE')
+Traceback (most recent call last):
+    ...
+InvalidFormat: ...
 
 
 The compact method should convert to HEX if needed and can optionally leave
