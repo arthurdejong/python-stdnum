@@ -1,7 +1,7 @@
 # isil.py - functions for handling identifiers for libraries and related
 #           organizations
 #
-# Copyright (C) 2011 Arthur de Jong
+# Copyright (C) 2011, 2012, 2013 Arthur de Jong
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -23,15 +23,25 @@
 The ISIL is the International Standard Identifier for
 Libraries and Related Organizations.
 
->>> is_valid('IT-RM0267')
-True
->>> is_valid('OCLC-DLC')
-True
->>> is_valid('WW-RM0267') # unregistered country code
-False
+>>> validate('IT-RM0267')
+'IT-RM0267'
+>>> validate('OCLC-DLC')
+'OCLC-DLC'
+>>> validate('WW-RM0267')  # unregistered country code
+Traceback (most recent call last):
+    ...
+InvalidComponent: ...
+>>> validate('WW-RM026712423345334534512334534545')  # too long
+Traceback (most recent call last):
+    ...
+InvalidLength: ...
 >>> format('it-RM0267')
 'IT-RM0267'
 """
+
+from stdnum.exceptions import *
+from stdnum.util import clean
+
 
 # the valid characters in an ISIL
 _alphabet = set('0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz-:/')
@@ -40,7 +50,7 @@ _alphabet = set('0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz-
 def compact(number):
     """Convert the ISIL to the minimal representation. This strips
     surrounding whitespace."""
-    return number.strip()
+    return clean(number, '').strip()
 
 
 def _known_agency(agency):
@@ -52,17 +62,27 @@ def _known_agency(agency):
     return len(results) == 1 and bool(results[0][1])
 
 
+def validate(number):
+    """Checks to see if the number provided is a valid isil (or isilSV)
+    number."""
+    number = compact(number)
+    for n in number:
+        if n not in _alphabet:
+            raise InvalidFormat()
+    if len(number) > 15:
+        raise InvalidLength()
+    if not _known_agency(number.split('-')[0]):
+        raise InvalidComponent()
+    return number
+
+
 def is_valid(number):
     """Checks to see if the number provided is a valid isil (or isilSV)
     number."""
     try:
-        number = compact(number)
-    except:
+        return bool(validate(number))
+    except ValidationError:
         return False
-    for n in number:
-        if n not in _alphabet:
-            return False
-    return len(number) <= 15 and _known_agency(number.split('-')[0])
 
 
 def format(number):
