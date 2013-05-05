@@ -1,6 +1,6 @@
 # bsn.py - functions for handling BSNs
 #
-# Copyright (C) 2010, 2011, 2012 Arthur de Jong
+# Copyright (C) 2010, 2011, 2012, 2013 Arthur de Jong
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -22,16 +22,21 @@
 The BSN is a number with up to 9 digits (the leading 0's are commonly left
 out) which is used as the Dutch national identification number.
 
->>> is_valid('111222333')
-True
->>> is_valid('111252333')
-False
->>> compact('1234.56.782')
-'123456782'
+>>> validate('1112.22.333')
+'111222333'
+>>> validate('1112.52.333')
+Traceback (most recent call last):
+    ...
+InvalidChecksum: ...
+>>> validate('1112223334')
+Traceback (most recent call last):
+    ...
+InvalidLength: ...
 >>> format('111222333')
 '1112.22.333'
 """
 
+from stdnum.exceptions import *
 from stdnum.util import clean
 
 
@@ -50,15 +55,26 @@ def checksum(number):
             int(number[-1])) % 11
 
 
+def validate(number):
+    """Checks to see if the number provided is a valid BSN. This checks
+    the length and whether the check digit is correct."""
+    number = compact(number)
+    if not number.isdigit() or int(number) <= 0:
+        raise InvalidFormat()
+    if len(number) != 9:
+        raise InvalidLength()
+    if checksum(number) != 0:
+        raise InvalidChecksum()
+    return number
+
+
 def is_valid(number):
     """Checks to see if the number provided is a valid BSN. This checks
     the length and whether the check digit is correct."""
     try:
-        number = compact(number)
-    except:
+        return bool(validate(number))
+    except ValidationError:
         return False
-    return len(number) == 9 and number.isdigit() and \
-           int(number) > 0 and checksum(number) == 0
 
 
 def format(number):

@@ -1,6 +1,6 @@
 # onderwijsnummer.py - functions for handling onderwijsnummers
 #
-# Copyright (C) 2012 Arthur de Jong
+# Copyright (C) 2012, 2013 Arthur de Jong
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -23,18 +23,43 @@ The onderwijsnummers (school number) is very similar to the BSN (Dutch
 national identification number) but for students without a BSN. It uses a
 small variation of the BSN checksum.
 
->>> is_valid('101222331')
-True
->>> is_valid('100252333')
-False
->>> compact('1234.56.782')
-'123456782'
+>>> validate('1012.22.331')
+'101222331'
+>>> validate('100252333')
+Traceback (most recent call last):
+    ...
+InvalidChecksum: ...
+>>> validate('1012.22.3333')
+Traceback (most recent call last):
+    ...
+InvalidLength: ...
+>>> validate('2112.22.337')  # number must start with 10
+Traceback (most recent call last):
+    ...
+InvalidFormat: ...
 """
 
+from stdnum.exceptions import *
 from stdnum.nl.bsn import compact, checksum
 
 
-__all__ = ['compact', 'is_valid']
+__all__ = ['compact', 'validate', 'is_valid']
+
+
+def validate(number):
+    """Checks to see if the number provided is a valid onderwijsnummer.
+    This checks the length and whether the check digit is correct and
+    whether it starts with the right sequence."""
+    number = compact(number)
+    if not number.isdigit() or int(number) <= 0:
+        raise InvalidFormat()
+    if not number.startswith('10'):
+        raise InvalidFormat()
+    if len(number) != 9:
+        raise InvalidLength()
+    if checksum(number) != 5:
+        raise InvalidChecksum()
+    return number
 
 
 def is_valid(number):
@@ -42,11 +67,6 @@ def is_valid(number):
     This checks the length and whether the check digit is correct and
     whether it starts with the right sequence."""
     try:
-        number = compact(number)
-    except:
+        return bool(validate(number))
+    except ValidationError:
         return False
-    return len(number) == 9 and \
-           number.isdigit() and \
-           int(number) > 0 and \
-           checksum(number) == 5 and \
-           number.startswith('10')
