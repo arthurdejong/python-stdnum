@@ -1,7 +1,7 @@
 # cnp.py - functions for handling Romanian CNP numbers
 # coding: utf-8
 #
-# Copyright (C) 2012 Arthur de Jong
+# Copyright (C) 2012, 2013 Arthur de Jong
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -23,20 +23,25 @@
 The CNP is a 13 digit number that includes information on the person's
 gender, birth date and country zone.
 
->>> compact('1630615123457')
+>>> validate('1630615123457')
 '1630615123457'
->>> is_valid('1630615123457')
-True
->>> is_valid('8800101221144')  # invalid first digit
-False
->>> is_valid('1632215123457')  # invalid date
-False
->>> is_valid('1630615123458')  # invalid check digit
-False
+>>> validate('8800101221144')  # invalid first digit
+Traceback (most recent call last):
+    ...
+InvalidFormat: ...
+>>> validate('1632215123457')  # invalid date
+Traceback (most recent call last):
+    ...
+InvalidComponent: ...
+>>> validate('1630615123458')  # invalid check digit
+Traceback (most recent call last):
+    ...
+InvalidChecksum: ...
 """
 
 import datetime
 
+from stdnum.exceptions import *
 from stdnum.util import clean
 
 
@@ -63,26 +68,34 @@ def get_birth_date(number):
     year = int(number[1:3]) + centuries.get(number[0], 1900)
     month = int(number[3:5])
     day = int(number[5:7])
-    return datetime.date(year, month, day)
+    try:
+        return datetime.date(year, month, day)
+    except ValueError:
+        raise InvalidComponent()
+
+
+def validate(number):
+    """Checks to see if the number provided is a valid VAT number. This checks
+    the length, formatting and check digit."""
+    number = compact(number)
+    # first digit should be a known one (9=foreigner)
+    if not number.isdigit() or number[0] not in '1234569':
+        raise InvalidFormat()
+    if len(number) != 13:
+        raise InvalidLength()
+    # check if birth date is valid
+    birth_date = get_birth_date(number)
+    # TODO: check that the birth date is not in the future
+    # number[7:9] is the county, we ignore it for now, just check last digit
+    if calc_check_digit(number[:-1]) != number[-1]:
+        raise InvalidChecksum()
+    return number
 
 
 def is_valid(number):
     """Checks to see if the number provided is a valid VAT number. This checks
     the length, formatting and check digit."""
     try:
-        number = compact(number)
-    except:
+        return bool(validate(number))
+    except ValidationError:
         return False
-    if len(number) != 13 or not number.isdigit():
-        return False
-    # first digit should be a known one (9=foreigner)
-    if number[0] not in '1234569':
-        return False
-    # check if birth date is valid
-    try:
-        birth_date = get_birth_date(number)
-        # TODO: check that the birth date is not in the future
-    except ValueError:
-        return False
-    # number[7:9] is the county, we ignore it for now, just check last digit
-    return calc_check_digit(number[:-1]) == number[-1]

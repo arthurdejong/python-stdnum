@@ -1,7 +1,7 @@
 # cf.py - functions for handling Romanian CF (VAT) numbers
 # coding: utf-8
 #
-# Copyright (C) 2012 Arthur de Jong
+# Copyright (C) 2012, 2013 Arthur de Jong
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -22,16 +22,17 @@
 
 The Romanian CF is used for VAT purposes and can be from 2 to 10 digits long.
 
->>> compact('RO 185 472 90')
+>>> validate('RO 185 472 90')
 '18547290'
->>> is_valid('185 472 90')
-True
->>> is_valid('185 472 91')  # invalid check digit
-False
->>> is_valid('1630615123457')  # personal code
-True
+>>> validate('185 472 91')
+Traceback (most recent call last):
+    ...
+InvalidChecksum: ...
+>>> validate('1630615123457')  # personal code
+'1630615123457'
 """
 
+from stdnum.exceptions import *
 from stdnum.ro import cnp
 from stdnum.util import clean
 
@@ -54,18 +55,27 @@ def calc_check_digit(number):
     return str(check % 11 % 10)
 
 
+def validate(number):
+    """Checks to see if the number provided is a valid VAT number. This
+    checks the length, formatting and check digit."""
+    number = compact(number)
+    if not number.isdigit() or number[0] == '0':
+        raise InvalidFormat()
+    if len(number) == 13:
+        # apparently a CNP can also be used (however, not all sources agree)
+        cnp.validate(number)
+    elif 2 <= len(number) <= 10:
+        if calc_check_digit(number[:-1]) != number[-1]:
+            raise InvalidChecksum()
+    else:
+        raise InvalidLength()
+    return number
+
+
 def is_valid(number):
     """Checks to see if the number provided is a valid VAT number. This
     checks the length, formatting and check digit."""
     try:
-        number = compact(number)
-    except:
+        return bool(validate(number))
+    except ValidationError:
         return False
-    if not number.isdigit() or number[0] == '0':
-        return False
-    if len(number) == 13:
-        # apparently a CNP can also be used (however, not all sources agree)
-        return cnp.is_valid(number)
-    elif 2 <= len(number) <= 10:
-        return calc_check_digit(number[:-1]) == number[-1]
-    return False
