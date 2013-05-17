@@ -1,6 +1,6 @@
 # vat.py - functions for handling Belgian VAT numbers
 #
-# Copyright (C) 2012 Arthur de Jong
+# Copyright (C) 2012, 2013 Arthur de Jong
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -23,12 +23,15 @@
 '0403019261'
 >>> compact('(0)403019261')
 '0403019261'
->>> is_valid('BE 428759497')
-True
->>> is_valid('BE431150351')
-False
+>>> validate('BE 428759497')
+'0428759497'
+>>> validate('BE431150351')
+Traceback (most recent call last):
+    ...
+InvalidChecksum: ...
 """
 
+from stdnum.exceptions import *
 from stdnum.util import clean
 
 
@@ -50,11 +53,23 @@ def checksum(number):
     return (int(number[:-2]) + int(number[-2:])) % 97
 
 
+def validate(number):
+    """Checks to see if the number provided is a valid VAT number. This checks
+    the length, formatting and check digit."""
+    number = compact(number)
+    if not number.isdigit():
+        raise InvalidFormat()
+    if len(number) != 10:
+        raise InvalidLength()
+    if checksum(number) != 0:
+        raise InvalidChecksum()
+    return number
+
+
 def is_valid(number):
     """Checks to see if the number provided is a valid VAT number. This checks
     the length, formatting and check digit."""
     try:
-        number = compact(number)
-    except:
+        return bool(validate(number))
+    except ValidationError:
         return False
-    return len(number) == 10 and number.isdigit() and checksum(number) == 0
