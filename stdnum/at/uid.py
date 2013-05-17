@@ -1,6 +1,6 @@
 # vat.py - functions for handling Austrian VAT numbers
 #
-# Copyright (C) 2012 Arthur de Jong
+# Copyright (C) 2012, 2013 Arthur de Jong
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -22,17 +22,18 @@
 The Austrian UID is a 9-digit number that starts with a U (optionally
 preceded with AT). The last digit is a check digit.
 
->>> compact('AT U13585627')
+>>> validate('AT U13585627')
 'U13585627'
->>> is_valid('U13585627')
-True
 >>> calc_check_digit('U1358562')
 '7'
->>> is_valid('U13585626')  # incorrect check digit
-False
+>>> validate('U13585626')  # incorrect check digit
+Traceback (most recent call last):
+    ...
+InvalidChecksum: ...
 """
 
 from stdnum import luhn
+from stdnum.exceptions import *
 from stdnum.util import clean
 
 
@@ -51,13 +52,23 @@ def calc_check_digit(number):
     return str((6 - luhn.checksum(number[1:])) % 10)
 
 
+def validate(number):
+    """Checks to see if the number provided is a valid VAT number. This checks
+    the length, formatting and check digit."""
+    number = compact(number)
+    if number[:1] != 'U' or not number[1:].isdigit():
+        raise InvalidFormat()
+    if len(number) != 9:
+        raise InvalidLength()
+    if calc_check_digit(number[:-1]) != number[-1]:
+        raise InvalidChecksum()
+    return number
+
+
 def is_valid(number):
     """Checks to see if the number provided is a valid VAT number. This checks
     the length, formatting and check digit."""
     try:
-        number = compact(number)
-    except:
+        return bool(validate(number))
+    except ValidationError:
         return False
-    return len(number) == 9 and number[0] == 'U' and \
-           number[1:].isdigit() and \
-           calc_check_digit(number[:-1]) == number[-1]
