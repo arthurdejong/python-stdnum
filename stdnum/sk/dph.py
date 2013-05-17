@@ -1,7 +1,7 @@
 # vat.py - functions for handling Slovak VAT numbers
 # coding: utf-8
 #
-# Copyright (C) 2012 Arthur de Jong
+# Copyright (C) 2012, 2013 Arthur de Jong
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -23,14 +23,15 @@
 The IČ DPH (Identifikačné číslo pre daň z pridanej hodnoty) is a 10-digit
 number used for VAT purposes. It has a straightforward checksum.
 
->>> compact('SK 202 274 96 19')
+>>> validate('SK 202 274 96 19')
 '2022749619'
->>> is_valid('SK 202 274 96 19')
-True
->>> is_valid('SK 202 274 96 18')  # invalid check digits
-False
+>>> validate('SK 202 274 96 18')  # invalid check digits
+Traceback (most recent call last):
+    ...
+InvalidChecksum: ...
 """
 
+from stdnum.exceptions import *
 from stdnum.sk import rc
 from stdnum.util import clean
 
@@ -49,16 +50,28 @@ def checksum(number):
     return int(number) % 11
 
 
+def validate(number):
+    """Checks to see if the number provided is a valid VAT number. This
+    checks the length, formatting and check digit."""
+    number = compact(number)
+    if not number.isdigit():
+        raise InvalidFormat()
+    if len(number) != 10:
+        raise InvalidLength()
+    # it is unclear whether the RČ can be used as a valid VAT number
+    if rc.is_valid(number):
+        return number
+    if number[0] == '0' or int(number[2]) not in (2, 3, 4, 7, 8, 9):
+        raise InvalidFormat()
+    if checksum(number) != 0:
+        raise InvalidChecksum()
+    return number
+
+
 def is_valid(number):
     """Checks to see if the number provided is a valid VAT number. This
     checks the length, formatting and check digit."""
     try:
-        number = compact(number)
-    except:
+        return bool(validate(number))
+    except ValidationError:
         return False
-    if not number.isdigit() or len(number) != 10:
-        return False
-    # it is unclear whether the RČ can be used as a valid VAT number
-    return rc.is_valid(number) or \
-           (number[0] != '0' and int(number[2]) in (2, 3, 4, 7, 8, 9) and
-            checksum(number) == 0)

@@ -1,7 +1,7 @@
 # rc.py - functions for handling Slovak birth numbers
 # coding: utf-8
 #
-# Copyright (C) 2012 Arthur de Jong
+# Copyright (C) 2012, 2013 Arthur de Jong
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -27,23 +27,27 @@ person and their gender.
 
 This number is identical to the Czech counterpart.
 
->>> compact('710319/2745')
+>>> validate('710319/2745')
 '7103192745'
->>> is_valid('7103192745')
-True
->>> is_valid('991231123')
-True
->>> is_valid('7103192746')  # invalid check digit
-False
->>> is_valid('1103492745')  # invalid date
-False
->>> is_valid('590312/123')  # 9 digit number in 1959
-False
+>>> validate('991231123')
+'991231123'
+>>> validate('7103192746')  # invalid check digit
+Traceback (most recent call last):
+    ...
+InvalidChecksum: ...
+>>> validate('1103492745')  # invalid date
+Traceback (most recent call last):
+    ...
+InvalidComponent: ...
+>>> validate('590312/123')  # 9 digit number in 1959
+Traceback (most recent call last):
+    ...
+InvalidLength: ...
 >>> format('7103192745')
 '710319/2745'
 """
 
 # since this number is essentially the same as the Czech counterpart
 # (until 1993 the Czech Republic and Slovakia were one country)
-from stdnum.cz.rc import compact, is_valid, format
-__all__ = ['compact', 'is_valid', 'format']
+from stdnum.cz.rc import compact, validate, is_valid, format
+__all__ = ['compact', 'validate', 'is_valid', 'format']
