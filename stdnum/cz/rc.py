@@ -1,7 +1,7 @@
 # rc.py - functions for handling Czech birth numbers
 # coding: utf-8
 #
-# Copyright (C) 2012 Arthur de Jong
+# Copyright (C) 2012, 2013 Arthur de Jong
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -27,24 +27,29 @@ person and their gender.
 
 This number is identical to the Slovak counterpart.
 
->>> compact('710319/2745')
+>>> validate('710319/2745')
 '7103192745'
->>> is_valid('7103192745')
-True
->>> is_valid('991231123')
-True
->>> is_valid('7103192746')  # invalid check digit
-False
->>> is_valid('1103492745')  # invalid date
-False
->>> is_valid('590312/123')  # 9 digit number in 1959
-False
+>>> validate('991231123')
+'991231123'
+>>> validate('7103192746')  # invalid check digit
+Traceback (most recent call last):
+    ...
+InvalidChecksum: ...
+>>> validate('1103492745')  # invalid date
+Traceback (most recent call last):
+    ...
+InvalidComponent: ...
+>>> validate('590312/123')  # 9 digit number in 1959
+Traceback (most recent call last):
+    ...
+InvalidLength: ...
 >>> format('7103192745')
 '710319/2745'
 """
 
 import datetime
 
+from stdnum.exceptions import *
 from stdnum.util import clean
 
 
@@ -66,35 +71,44 @@ def get_birth_date(number):
         if year >= 1980:
             year -= 100
         if year > 1953:
-            raise ValueError('No 9 digit birth numbers after 1953.')
+            raise InvalidLength('No 9 digit birth numbers after 1953.')
     elif year < 1954:
         year += 100
-    return datetime.date(year, month, day)
+    try:
+        return datetime.date(year, month, day)
+    except ValueError:
+        raise InvalidComponent()
+
+
+def validate(number):
+    """Checks to see if the number provided is a valid birth number. This
+    checks the length, formatting, embedded date and check digit."""
+    number = compact(number)
+    if not number.isdigit():
+        raise InvalidFormat()
+    if len(number) not in (9, 10):
+        raise InvalidLength()
+    # check if birth date is valid
+    birth_date = get_birth_date(number)
+    # TODO: check that the birth date is not in the future
+    # check the check digit (10 digit numbers only)
+    if len(number) == 10:
+        check = int(number[:-1]) % 11
+        # before 1985 the checksum could be 0 or 10
+        if birth_date < datetime.date(1985, 1, 1):
+            check = check % 10
+        if number[-1] != str(check):
+            raise InvalidChecksum()
+    return number
 
 
 def is_valid(number):
     """Checks to see if the number provided is a valid birth number. This
     checks the length, formatting, embedded date and check digit."""
     try:
-        number = compact(number)
-    except:
+        return bool(validate(number))
+    except ValidationError:
         return False
-    if not number.isdigit() or len(number) not in (9, 10):
-        return False
-    # check if birth date is valid
-    try:
-        birth_date = get_birth_date(number)
-        # TODO: check that the birth date is not in the future
-    except ValueError:
-        return False
-    # check the check digit
-    if len(number) == 10:
-        check = int(number[:-1]) % 11
-        # before 1985 the checksum could be 0 or 10
-        if birth_date < datetime.date(1985, 1, 1):
-            check = check % 10
-        return number[-1] == str(check)
-    return True
 
 
 def format(number):
