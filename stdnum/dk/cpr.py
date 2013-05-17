@@ -1,6 +1,6 @@
 # cpr.py - functions for handling Danish CPR numbers
 #
-# Copyright (C) 2012 Arthur de Jong
+# Copyright (C) 2012, 2013 Arthur de Jong
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -27,14 +27,14 @@ digit of the sequence number indicates the century.
 The numbers used to validate using a checksum but since the sequence
 numbers ran out this was abandoned in 2007.
 
->>> compact('211062-5629')
+>>> validate('211062-5629')
 '2110625629'
->>> is_valid('211062-5629')
-True
 >>> checksum('2110625629')
 0
->>> is_valid('511062-5629')  # invalid date
-False
+>>> validate('511062-5629')  # invalid date
+Traceback (most recent call last):
+    ...
+InvalidComponent: ...
 >>> get_birth_date('2110620629')
 datetime.date(1962, 10, 21)
 >>> get_birth_date('2110525629')
@@ -45,6 +45,7 @@ datetime.date(2052, 10, 21)
 
 import datetime
 
+from stdnum.exceptions import *
 from stdnum.util import clean
 
 
@@ -72,25 +73,33 @@ def get_birth_date(number):
         year += 1900
     else:
         year += 2000
-    return datetime.date(year, month, day)
+    try:
+        return datetime.date(year, month, day)
+    except ValueError:
+        raise InvalidComponent()
+
+
+def validate(number):
+    """Checks to see if the number provided is a valid CPR number. This
+    checks the length, formatting, embedded date  and check digit."""
+    number = compact(number)
+    if not number.isdigit():
+        raise InvalidFormat()
+    if len(number) != 10:
+        raise InvalidLength()
+    # check if birth date is valid
+    birth_date = get_birth_date(number)
+    # TODO: check that the birth date is not in the future
+    return number
 
 
 def is_valid(number):
-    """Checks to see if the number provided is a valid VAT number. This checks
-    the length, formatting and check digit."""
+    """Checks to see if the number provided is a valid CPR number. This
+    checks the length, formatting, embedded date  and check digit."""
     try:
-        number = compact(number)
-    except:
+        return bool(validate(number))
+    except ValidationError:
         return False
-    if not number.isdigit() or len(number) != 10:
-        return False
-    # check if birth date is valid
-    try:
-        birth_date = get_birth_date(number)
-        # TODO: check that the birth date is not in the future
-    except ValueError:
-        return False
-    return True
 
 
 def format(number):
