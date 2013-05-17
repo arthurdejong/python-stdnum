@@ -1,7 +1,7 @@
 # siren.py - functions for handling French SIREN numbers
 # coding: utf-8
 #
-# Copyright (C) 2012 Arthur de Jong
+# Copyright (C) 2012, 2013 Arthur de Jong
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -26,16 +26,19 @@ to validate the numbers.
 
 >>> compact('552 008 443')
 '552008443'
->>> is_valid('404833048')
-True
->>> is_valid('404833047')
-False
+>>> validate('404833048')
+'404833048'
+>>> validate('404833047')
+Traceback (most recent call last):
+    ...
+InvalidChecksum: ...
 >>> to_tva('443 121 975')
 '46 443 121 975'
 """
 
-from stdnum.util import clean
 from stdnum import luhn
+from stdnum.exceptions import *
+from stdnum.util import clean
 
 
 # An online validation function is available but it does not provide an
@@ -50,14 +53,25 @@ def compact(number):
     return clean(number, ' ').strip()
 
 
+def validate(number):
+    """Checks to see if the number provided is a valid number. This checks
+    the length, formatting and check digit."""
+    number = compact(number)
+    if not number.isdigit():
+        raise InvalidFormat()
+    if len(number) != 9:
+        raise InvalidLength()
+    luhn.validate(number)
+    return number
+
+
 def is_valid(number):
     """Checks to see if the number provided is a valid number. This checks
     the length, formatting and check digit."""
     try:
-        number = compact(number)
-    except:
+        return bool(validate(number))
+    except ValidationError:
         return False
-    return len(number) == 9 and number.isdigit() and luhn.is_valid(number)
 
 
 def to_tva(number):
