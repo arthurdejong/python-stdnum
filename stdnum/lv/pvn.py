@@ -1,7 +1,7 @@
 # pvn.py - functions for handling Latvian PVN (VAT) numbers
 # coding: utf-8
 #
-# Copyright (C) 2012 Arthur de Jong
+# Copyright (C) 2012, 2013 Arthur de Jong
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -25,20 +25,23 @@ entity (in which case the first digit > 3) or a natural person (in which
 case it should be the same as the personal code (personas kods)). Personal
 codes start with 6 digits to denote the birth date in the form ddmmyy.
 
->>> compact('LV 4000 3521 600')
+>>> validate('LV 4000 3521 600')
 '40003521600'
->>> is_valid('40003521600')
-True
->>> is_valid('40003521601')  # invalid check digit
-False
->>> is_valid('161175-19997')  # personal code
-True
->>> is_valid('161375-19997')  # invalid date
-False
+>>> validate('40003521601')  # invalid check digit
+Traceback (most recent call last):
+    ...
+InvalidChecksum: ...
+>>> validate('161175-19997')  # personal code
+'16117519997'
+>>> validate('161375-19997')  # invalid date
+Traceback (most recent call last):
+    ...
+InvalidComponent: ...
 """
 
 import datetime
 
+from stdnum.exceptions import *
 from stdnum.util import clean
 
 
@@ -77,26 +80,37 @@ def get_birth_date(number):
     month = int(number[2:4])
     year = int(number[4:6])
     year += 1800 + int(number[6]) * 100
-    return datetime.date(year, month, day)
+    try:
+        return datetime.date(year, month, day)
+    except ValueError:
+        raise InvalidComponent()
+
+
+def validate(number):
+    """Checks to see if the number provided is a valid VAT number. This checks
+    the length, formatting and check digit."""
+    number = compact(number)
+    if not number.isdigit():
+        raise InvalidFormat()
+    if len(number) != 11:
+        raise InvalidLength()
+    if number[0] > '3':
+        # legal entity
+        if checksum(number) != 3:
+            raise InvalidChecksum()
+    else:
+        # natural resident, check if birth date is valid
+        birth_date = get_birth_date(number)
+        # TODO: check that the birth date is not in the future
+        if calc_check_digit_pers(number[:-1]) != number[-1]:
+            raise InvalidChecksum()
+    return number
 
 
 def is_valid(number):
     """Checks to see if the number provided is a valid VAT number. This checks
     the length, formatting and check digit."""
     try:
-        number = compact(number)
-    except:
+        return bool(validate(number))
+    except ValidationError:
         return False
-    if len(number) != 11 or not number.isdigit():
-        return False
-    if number[0] > '3':
-        # legal entity
-        return checksum(number) == 3
-    else:
-        # natural resident, check if birth date is valid
-        try:
-            birth_date = get_birth_date(number)
-            # TODO: check that the birth date is not in the future
-        except ValueError:
-            return False
-        return calc_check_digit_pers(number[:-1]) == number[-1]
