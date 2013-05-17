@@ -1,7 +1,7 @@
 # vat.py - functions for handling European VAT numbers
 # coding: utf-8
 #
-# Copyright (C) 2012 Arthur de Jong
+# Copyright (C) 2012, 2013 Arthur de Jong
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -28,15 +28,18 @@ The exact format of the numbers varies per country and a country-specific
 check is performed on the number using the VAT module that is relevant for
 that country.
 
->>> is_valid('ATU 57194903')
-True
->>> is_valid('BE697449992')
-True
->>> compact('FR 61 954 506 077')
+>>> compact('ATU 57194903')
+'ATU57194903'
+>>> validate('BE697449992')
+'BE0697449992'
+>>> validate('FR 61 954 506 077')
 'FR61954506077'
 >>> guess_country('00449544B01')
 ['nl']
 """
+
+from stdnum.exceptions import *
+from stdnum.util import clean
 
 
 country_codes = set([
@@ -75,19 +78,30 @@ def _get_cc_module(cc):
 def compact(number):
     """Convert the number to the minimal representation. This strips the
     number of any valid separators and removes surrounding whitespace."""
-    number = number.upper().strip()
-    return number[:2] + _get_cc_module(number[:2]).compact(number[2:])
+    number = clean(number, '').upper().strip()
+    module = _get_cc_module(number[:2])
+    if not module:
+        raise InvalidComponent()
+    return number[:2] + module.compact(number[2:])
+
+
+def validate(number):
+    """Checks to see if the number provided is a valid VAT number. This
+    performs the country-specific check for the number."""
+    number = clean(number, '').upper().strip()
+    module = _get_cc_module(number[:2])
+    if not module:
+        raise InvalidComponent()
+    return number[:2] + module.validate(number[2:])
 
 
 def is_valid(number):
     """Checks to see if the number provided is a valid VAT number. This
     performs the country-specific check for the number."""
     try:
-        number = compact(number)
-    except:
+        return bool(validate(number))
+    except ValidationError:
         return False
-    module = _get_cc_module(number[:2])
-    return bool(module) and module.is_valid(number[2:])
 
 
 def guess_country(number):
@@ -107,9 +121,9 @@ def check_vies(number):  # pragma: no cover (no tests for this function)
     This returns a dict-like object."""
     # this function isn't automatically tested because it would require
     # network access for the tests and unnecessarily load the VIES website
+    number = compact(number)
     global _vies_client
     if not _vies_client:
         from suds.client import Client
         _vies_client = Client(vies_wsdl)
-    number = compact(number)
     return _vies_client.service.checkVat(number[:2], number[2:])
