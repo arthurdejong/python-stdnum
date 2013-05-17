@@ -1,7 +1,7 @@
 # kmkr.py - functions for handling Estonian VAT numbers
 # coding: utf-8
 #
-# Copyright (C) 2012 Arthur de Jong
+# Copyright (C) 2012, 2013 Arthur de Jong
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -22,12 +22,15 @@
 
 >>> compact('EE 100 931 558')
 '100931558'
->>> is_valid('100594102')
-True
->>> is_valid('100594103')  # incorrect check digit
-False
+>>> validate('100594102')
+'100594102'
+>>> validate('100594103')  # incorrect check digit
+Traceback (most recent call last):
+    ...
+InvalidChecksum: ...
 """
 
+from stdnum.exceptions import *
 from stdnum.util import clean
 
 
@@ -46,11 +49,23 @@ def checksum(number):
     return sum(weights[i] * int(n) for i, n in enumerate(number)) % 10
 
 
+def validate(number):
+    """Checks to see if the number provided is a valid VAT number. This
+    checks the length, formatting and check digit."""
+    number = compact(number)
+    if not number.isdigit():
+        raise InvalidFormat()
+    if len(number) != 9:
+        raise InvalidLength()
+    if checksum(number) != 0:
+        raise InvalidChecksum()
+    return number
+
+
 def is_valid(number):
     """Checks to see if the number provided is a valid VAT number. This
     checks the length, formatting and check digit."""
     try:
-        number = compact(number)
-    except:
+        return bool(validate(number))
+    except ValidationError:
         return False
-    return number.isdigit() and len(number) == 9 and checksum(number) == 0
