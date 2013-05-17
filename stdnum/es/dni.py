@@ -1,7 +1,7 @@
 # dni.py - functions for handling Spanish personal identity codes
 # coding: utf-8
 #
-# Copyright (C) 2012 Arthur de Jong
+# Copyright (C) 2012, 2013 Arthur de Jong
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -26,14 +26,19 @@ digit is a checksum letter.
 Foreign nationals, since 2010 are issued an NIE (Número de Identificación
 de Extranjeros, Foreigner's Identity Number) instead.
 
->>> compact('54362315-K')
+>>> validate('54362315-K')
 '54362315K'
->>> is_valid('54362315-K')
-True
->>> is_valid('54362315Z')  # invalid check digit
-False
+>>> validate('54362315Z')  # invalid check digit
+Traceback (most recent call last):
+    ...
+InvalidChecksum: ...
+>>> validate('54362315')  # digit missing
+Traceback (most recent call last):
+    ...
+InvalidLength: ...
 """
 
+from stdnum.exceptions import *
 from stdnum.util import clean
 
 
@@ -49,12 +54,23 @@ def calc_check_digit(number):
     return 'TRWAGMYFPDXBNJZSQVHLCKE'[int(number) % 23]
 
 
+def validate(number):
+    """Checks to see if the number provided is a valid DNI number. This
+    checks the length, formatting and check digit."""
+    number = compact(number)
+    if not number[:-1].isdigit():
+        raise InvalidFormat()
+    if len(number) != 9:
+        raise InvalidLength()
+    if calc_check_digit(number[:-1]) != number[-1]:
+        raise InvalidChecksum()
+    return number
+
+
 def is_valid(number):
     """Checks to see if the number provided is a valid DNI number. This
     checks the length, formatting and check digit."""
     try:
-        number = compact(number)
-    except:
+        return bool(validate(number))
+    except ValidationError:
         return False
-    return number[:-1].isdigit() and len(number) == 9 and \
-           calc_check_digit(number[:-1]) == number[-1]
