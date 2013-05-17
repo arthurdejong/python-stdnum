@@ -1,7 +1,7 @@
 # vat.py - functions for handling Cypriot VAT numbers
 # coding: utf-8
 #
-# Copyright (C) 2012 Arthur de Jong
+# Copyright (C) 2012, 2013 Arthur de Jong
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -25,12 +25,15 @@ where the last one is a is a letter and functions as a check digit.
 
 >>> compact('CY-10259033P')
 '10259033P'
->>> is_valid('CY-10259033P ')
-True
->>> is_valid('CY-10259033Z')  # invalid check digit
-False
+>>> validate('CY-10259033P ')
+'10259033P'
+>>> validate('CY-10259033Z')  # invalid check digit
+Traceback (most recent call last):
+    ...
+InvalidChecksum: ...
 """
 
+from stdnum.exceptions import *
 from stdnum.util import clean
 
 
@@ -56,13 +59,25 @@ def calc_check_digit(number):
     ) % 26]
 
 
+def validate(number):
+    """Checks to see if the number provided is a valid VAT number. This
+    checks the length, formatting and check digit."""
+    number = compact(number)
+    if not number[:-1].isdigit():
+        raise InvalidFormat()
+    if len(number) != 9:
+        raise InvalidLength()
+    if number[0:2] == '12':
+        raise InvalidComponent()
+    if number[-1] != calc_check_digit(number[:-1]):
+        raise InvalidChecksum()
+    return number
+
+
 def is_valid(number):
     """Checks to see if the number provided is a valid VAT number. This
     checks the length, formatting and check digit."""
     try:
-        number = compact(number)
-    except:
+        return bool(validate(number))
+    except ValidationError:
         return False
-    return len(number) == 9 and number[:-1].isdigit() and \
-           number[0:2] != '12' and \
-           number[-1] == calc_check_digit(number[:-1])
