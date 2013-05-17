@@ -1,7 +1,7 @@
 # anum.py - functions for handling Hungarian VAT numbers
 # coding: utf-8
 #
-# Copyright (C) 2012 Arthur de Jong
+# Copyright (C) 2012, 2013 Arthur de Jong
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -23,14 +23,15 @@
 The ANUM is the Hungarian VAT (Közösségi adószám) number. It is an 8-digit
 taxpayer registration number that includes a weighted checksum.
 
->>> compact('HU-12892312')
+>>> validate('HU-12892312')
 '12892312'
->>> is_valid('HU-12892312')
-True
->>> is_valid('HU-12892313')  # invalid check digit
-False
+>>> validate('HU-12892313')  # invalid check digit
+Traceback (most recent call last):
+    ...
+InvalidChecksum: ...
 """
 
+from stdnum.exceptions import *
 from stdnum.util import clean
 
 
@@ -49,11 +50,23 @@ def checksum(number):
     return sum(weights[i] * int(n) for i, n in enumerate(number)) % 10
 
 
+def validate(number):
+    """Checks to see if the number provided is a valid VAT number. This
+    checks the length, formatting and check digit."""
+    number = compact(number)
+    if not number.isdigit():
+        raise InvalidFormat()
+    if len(number) != 8:
+        raise InvalidLength()
+    if checksum(number) != 0:
+        raise InvalidChecksum()
+    return number
+
+
 def is_valid(number):
     """Checks to see if the number provided is a valid VAT number. This
     checks the length, formatting and check digit."""
     try:
-        number = compact(number)
-    except:
+        return bool(validate(number))
+    except ValidationError:
         return False
-    return number.isdigit() and len(number) == 8 and checksum(number) == 0
