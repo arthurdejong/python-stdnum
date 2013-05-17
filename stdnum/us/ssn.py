@@ -1,6 +1,6 @@
 # ssn.py - functions for handling SSNs
 #
-# Copyright (C) 2011, 2012 Arthur de Jong
+# Copyright (C) 2011, 2012, 2013 Arthur de Jong
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -22,12 +22,20 @@
 The Social Security Number is used to identify individuals for taxation
 purposes.
 
->>> is_valid('111-22-3333')
-True
->>> is_valid('1112-23333')
-False
->>> is_valid('666-00-0000')
-False
+>>> validate('536-90-4399')
+'536904399'
+>>> validate('1112-23333')  # dash in the wrong place
+Traceback (most recent call last):
+    ...
+InvalidFormat: ...
+>>> validate('666-00-0000')  # invalid area
+Traceback (most recent call last):
+    ...
+InvalidComponent: ...
+>>> validate('078-05-1120')  # blacklisted entry
+Traceback (most recent call last):
+    ...
+InvalidComponent: ...
 >>> compact('1234-56-789')
 '123456789'
 >>> format('111223333')
@@ -36,6 +44,7 @@ False
 
 import re
 
+from stdnum.exceptions import *
 from stdnum.util import clean
 
 
@@ -52,15 +61,12 @@ def compact(number):
     return clean(number, '-').strip()
 
 
-def is_valid(number):
+def validate(number):
     """Checks to see if the number provided is a valid SSN. This checks
     the length, groups and formatting if it is present."""
-    try:
-        match = _ssn_re.search(number.strip())
-    except:
-        return False
+    match = _ssn_re.search(clean(number, '').strip())
     if not match:
-        return False
+        raise InvalidFormat()
     area = match.group('area')
     group = match.group('group')
     serial = match.group('serial')
@@ -68,9 +74,20 @@ def is_valid(number):
     # (9xx also won't be issued which includes the advertising range)
     if area == '000' or area == '666' or area[0] == '9' or \
        group == '00' or serial == '0000':
-        return False
+        raise InvalidComponent()
     # check blacklists
-    return format(number) not in _ssn_blacklist
+    if format(number) in _ssn_blacklist:
+        raise InvalidComponent()
+    return compact(number)
+
+
+def is_valid(number):
+    """Checks to see if the number provided is a valid SSN. This checks
+    the length, groups and formatting if it is present."""
+    try:
+        return bool(validate(number))
+    except ValidationError:
+        return False
 
 
 def format(number):
