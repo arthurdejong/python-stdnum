@@ -1,7 +1,7 @@
 # ddv.py - functions for handling Slovenian VAT numbers
 # coding: utf-8
 #
-# Copyright (C) 2012 Arthur de Jong
+# Copyright (C) 2012, 2013 Arthur de Jong
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -24,14 +24,15 @@ The DDV number (Davčna številka) is used for VAT (DDV, Davek na dodano
 vrednost) purposes and consist of 8 digits of which the last is a check
 digit.
 
->>> compact('SI 5022 3054')
+>>> validate('SI 5022 3054')
 '50223054'
->>> is_valid('SI 50223054')
-True
->>> is_valid('SI 50223055')  # invalid check digits
-False
+>>> validate('SI 50223055')  # invalid check digits
+Traceback (most recent call last):
+    ...
+InvalidChecksum: ...
 """
 
+from stdnum.exceptions import *
 from stdnum.util import clean
 
 
@@ -52,12 +53,23 @@ def calc_check_digit(number):
     return '0' if check == 10 else str(check)
 
 
+def validate(number):
+    """Checks to see if the number provided is a valid VAT number. This
+    checks the length, formatting and check digit."""
+    number = compact(number)
+    if not number.isdigit() or number.startswith('0'):
+        raise InvalidFormat()
+    if len(number) != 8:
+        raise InvalidLength()
+    if calc_check_digit(number[:-1]) != number[-1]:
+        raise InvalidChecksum()
+    return number
+
+
 def is_valid(number):
     """Checks to see if the number provided is a valid VAT number. This
     checks the length, formatting and check digit."""
     try:
-        number = compact(number)
-    except:
+        return bool(validate(number))
+    except ValidationError:
         return False
-    return number.isdigit() and len(number) == 8 and number[0] != '0' and \
-           calc_check_digit(number[:-1]) == number[-1]
