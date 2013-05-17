@@ -1,7 +1,7 @@
 # nif.py - functions for handling Portuguese VAT numbers
 # coding: utf-8
 #
-# Copyright (C) 2012 Arthur de Jong
+# Copyright (C) 2012, 2013 Arthur de Jong
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -24,14 +24,15 @@ The NIF (Número de identificação fiscal, NIPC, Número de Identificação de
 Pessoa Colectiva) is used for VAT purposes. It is a 9-digit number with a
 simple checksum.
 
->>> compact('PT 501 964 843')
+>>> validate('PT 501 964 843')
 '501964843'
->>> is_valid('PT 501 964 843')
-True
->>> is_valid('PT 501 964 842')  # invalid check digits
-False
+>>> validate('PT 501 964 842')  # invalid check digits
+Traceback (most recent call last):
+    ...
+InvalidChecksum: ...
 """
 
+from stdnum.exceptions import *
 from stdnum.util import clean
 
 
@@ -50,12 +51,23 @@ def calc_check_digit(number):
     return str((11 - sum((9 - i) * int(n) for i, n in enumerate(number)) ) % 11 % 10)
 
 
+def validate(number):
+    """Checks to see if the number provided is a valid VAT number. This
+    checks the length, formatting and check digit."""
+    number = compact(number)
+    if not number.isdigit() or number[0] == '0':
+        raise InvalidFormat()
+    if len(number) != 9:
+        raise InvalidLength()
+    if calc_check_digit(number[:-1]) != number[-1]:
+        raise InvalidChecksum()
+    return number
+
+
 def is_valid(number):
     """Checks to see if the number provided is a valid VAT number. This
     checks the length, formatting and check digit."""
     try:
-        number = compact(number)
-    except:
+        return bool(validate(number))
+    except ValidationError:
         return False
-    return number.isdigit() and len(number) == 9 and \
-           number[0] != '0' and calc_check_digit(number[:-1]) == number[-1]
