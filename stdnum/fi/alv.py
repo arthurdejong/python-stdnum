@@ -1,7 +1,7 @@
 # vat.py - functions for handling Finnish VAT numbers
 # coding: utf-8
 #
-# Copyright (C) 2012 Arthur de Jong
+# Copyright (C) 2012, 2013 Arthur de Jong
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -22,14 +22,15 @@
 
 The number is an 8-digit code with a weighted checksum.
 
->>> compact('FI- 2077474-0')
+>>> validate('FI 20774740')
 '20774740'
->>> is_valid('FI 20774740')
-True
->>> is_valid('FI 20774741')  # invalid check digit
-False
+>>> validate('FI 20774741')  # invalid check digit
+Traceback (most recent call last):
+    ...
+InvalidChecksum: ...
 """
 
+from stdnum.exceptions import *
 from stdnum.util import clean
 
 
@@ -48,11 +49,23 @@ def checksum(number):
     return sum(weights[i] * int(n) for i, n in enumerate(number)) % 11
 
 
+def validate(number):
+    """Checks to see if the number provided is a valid VAT number. This
+    checks the length, formatting and check digit."""
+    number = compact(number)
+    if not number.isdigit():
+        raise InvalidFormat()
+    if len(number) != 8:
+        raise InvalidLength()
+    if checksum(number) != 0:
+        raise InvalidChecksum()
+    return number
+
+
 def is_valid(number):
     """Checks to see if the number provided is a valid VAT number. This
     checks the length, formatting and check digit."""
     try:
-        number = compact(number)
-    except:
+        return bool(validate(number))
+    except ValidationError:
         return False
-    return number.isdigit() and len(number) == 8 and checksum(number) == 0

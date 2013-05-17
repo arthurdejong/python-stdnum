@@ -1,6 +1,7 @@
 test_fi_hetu.doctest - more detailed doctests for stdnum.fi.hetu module
 
 Copyright (C) 2011 Jussi Judin
+Copyright (C) 2013 Arthur de Jong
 
 This library is free software; you can redistribute it and/or
 modify it under the terms of the GNU Lesser General Public
@@ -23,52 +24,67 @@ tries to cover more corner cases and detailed functionality that is not
 really useful as module documentation.
 
 >>> from stdnum.fi import hetu
+>>> from stdnum.exceptions import *
 
 
 Normal values that should just work.
 
->>> hetu.is_valid('131052-308T')
-True
->>> hetu.is_valid('131052+308T')
-True
->>> hetu.is_valid('131052A308T')
-True
->>> hetu.is_valid('131052a308t')
-True
+>>> hetu.validate('131052-308T')
+'131052-308T'
+>>> hetu.validate('131052+308T')
+'131052+308T'
+>>> hetu.validate('131052A308T')
+'131052A308T'
+>>> hetu.validate('131052a308t')
+'131052A308T'
 
 
 Invalid checksum:
 
->>> hetu.is_valid('131052-308U')
-False
+>>> hetu.validate('131052-308U')
+Traceback (most recent call last):
+    ...
+InvalidChecksum: ...
 
 
 Invalid century indicator:
 
->>> hetu.is_valid('131052/308T')
-False
->>> hetu.is_valid('131052T308T')
-False
+>>> hetu.validate('131052/308T')
+Traceback (most recent call last):
+    ...
+InvalidFormat: ...
+>>> hetu.validate('131052T308T')
+Traceback (most recent call last):
+    ...
+InvalidFormat: ...
 
 
 Invalid birth date:
 
->>> hetu.is_valid('310252-308Y')
-False
->>> hetu.is_valid('130052-308R')
-False
+>>> hetu.validate('310252-308Y')
+Traceback (most recent call last):
+    ...
+InvalidComponent: ...
+>>> hetu.validate('130052-308R')
+Traceback (most recent call last):
+    ...
+InvalidComponent: ...
 
 Leaving out the first zero is wrong:
 
->>> hetu.is_valid('10101-0101')
-False
+>>> hetu.validate('10101-0101')
+Traceback (most recent call last):
+    ...
+InvalidFormat: ...
 
 
 Invalid individual number:
 (for historical reasons individual IDs start from 002)
 
->>> hetu.is_valid('131052-000V')
-False
+>>> hetu.validate('131052-000V')
+Traceback (most recent call last):
+    ...
+InvalidComponent: ...
 
 
 compact() and format() don't do much special:

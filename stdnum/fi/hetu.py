@@ -2,6 +2,7 @@
 # coding: utf-8
 #
 # Copyright (C) 2011 Jussi Judin
+# Copyright (C) 2012, 2013 Arthur de Jong
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -25,12 +26,16 @@ See http://www.vaestorekisterikeskus.fi/default.aspx?id=45 for checksum
 calculation details and http://tarkistusmerkit.teppovuori.fi/tarkmerk.htm#hetu1
 for historical details.
 
->>> is_valid('131052-308T')
-True
->>> is_valid('131052-308U')
-False
->>> is_valid('310252-308Y')
-False
+>>> validate('131052-308T')
+'131052-308T'
+>>> validate('131052-308U')
+Traceback (most recent call last):
+    ...
+InvalidChecksum: ...
+>>> validate('310252-308Y')
+Traceback (most recent call last):
+    ...
+InvalidComponent: ...
 >>> compact('131052a308t')
 '131052A308T'
 """
@@ -38,12 +43,15 @@ False
 import re
 import datetime
 
+from stdnum.exceptions import *
+from stdnum.util import clean
+
 
 _century_codes = {
     '+': 1800,
     '-': 1900,
     'A': 2000,
-    }
+}
 
 # Finnish personal identity codes are composed of date part, century
 # indicating sign, individual number and control character.
@@ -56,23 +64,21 @@ _hetu_re = re.compile(r'^(?P<day>[0123]\d)(?P<month>[01]\d)(?P<year>\d\d)'
 def compact(number):
     """Convert the HETU to the minimal representation. This strips
     surrounding whitespace and converts it to upper case."""
-    return number.strip().upper()
+    return clean(number, '').upper().strip()
 
 
 def _calc_checksum(number):
     return '0123456789ABCDEFHJKLMNPRSTUVWXY'[int(number) % 31]
 
 
-def is_valid(number):
+def validate(number):
     """Checks to see if the number provided is a valid HETU. It checks the
     format, whether a valid date is given and whether the check digit is
     correct."""
-    try:
-        match = _hetu_re.search(compact(number))
-        if not match:
-            return False
-    except:
-        return False
+    number = compact(number)
+    match = _hetu_re.search(number)
+    if not match:
+        raise InvalidFormat()
     day = int(match.group('day'))
     month = int(match.group('month'))
     year = int(match.group('year'))
@@ -82,12 +88,24 @@ def is_valid(number):
     try:
         datetime.date(century + year, month, day)
     except ValueError:
-        return False
+        raise InvalidComponent()
     # for historical reasons individual IDs start from 002
     if individual < 2:
-        return False
+        raise InvalidComponent()
     checkable_number = '%02d%02d%02d%03d' % (day, month, year, individual)
-    return match.group('control') == _calc_checksum(checkable_number)
+    if match.group('control') != _calc_checksum(checkable_number):
+        raise InvalidChecksum()
+    return number
+
+
+def is_valid(number):
+    """Checks to see if the number provided is a valid HETU. It checks the
+    format, whether a valid date is given and whether the check digit is
+    correct."""
+    try:
+        return bool(validate(number))
+    except ValidationError:
+        return False
 
 
 # This is here just for completeness as there are no different length forms
