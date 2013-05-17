@@ -1,6 +1,6 @@
 test_gb_vat.doctest - more detailed doctests for stdnum.gb.vat module
 
-Copyright (C) 2012 Arthur de Jong
+Copyright (C) 2012, 2013 Arthur de Jong
 
 This library is free software; you can redistribute it and/or
 modify it under the terms of the GNU Lesser General Public
@@ -27,20 +27,46 @@ really useful as module documentation.
 
 Normal values that should just work.
 
->>> vat.is_valid('980780684')  # standard number
-True
->>> vat.is_valid('242338087388')  # branch trader
-True
->>> vat.is_valid('GD100')  # government department
-True
->>> vat.is_valid('HA501')  # health authority
-True
+>>> vat.validate('980780684')  # standard number
+'980780684'
+>>> vat.validate('242338087388')  # branch trader
+'242338087388'
+>>> vat.validate('GD100')  # government department
+'GD100'
+>>> vat.validate('HA501')  # health authority
+'HA501'
 
 
-Invalid checksum:
+Invalid long numbers:
 
->>> vat.is_valid('802311781')  # invalid check digit
-False
+>>> vat.validate('802311781')  # invalid check digit
+Traceback (most recent call last):
+    ...
+InvalidChecksum: ...
+>>> vat.validate('9807806842')  # too long for standard number
+Traceback (most recent call last):
+    ...
+InvalidLength: ...
+>>> vat.validate('9807806B4')  # invalid digit
+Traceback (most recent call last):
+    ...
+InvalidFormat: ...
+
+
+Some variations on the short format:
+
+>>> vat.validate('ZZ100')  # unknown code
+Traceback (most recent call last):
+    ...
+InvalidComponent: ...
+>>> vat.validate('GD600')  # government department with high number
+Traceback (most recent call last):
+    ...
+InvalidComponent: ...
+>>> vat.validate('HA201')  # health authority with low number
+Traceback (most recent call last):
+    ...
+InvalidComponent: ...
 
 
 Formatting tests:
