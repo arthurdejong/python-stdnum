@@ -1,7 +1,7 @@
 # pvm.py - functions for handling Lithuanian VAT numbers
 # coding: utf-8
 #
-# Copyright (C) 2012 Arthur de Jong
+# Copyright (C) 2012, 2013 Arthur de Jong
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -25,18 +25,19 @@ entities) or 12 digits long (for temporarily registered taxpayers). This
 module does not check the format of Lithuanian personal codes (Asmens
 kodas).
 
->>> compact('LT 100001919017')
+>>> validate('119511515')  # organisation
+'119511515'
+>>> validate('LT 100001919017')  # temporarily registered
 '100001919017'
->>> is_valid('119511515')  # organisation
-True
->>> is_valid('100001919017')  # temporarily registered
-True
->>> is_valid('100001919018')  # invalid check digit
-False
->>> is_valid('100004801610')  # second step in check digit calculation
-True
+>>> validate('100001919018')  # invalid check digit
+Traceback (most recent call last):
+    ...
+InvalidChecksum: ...
+>>> validate('100004801610')  # second step in check digit calculation
+'100004801610'
 """
 
+from stdnum.exceptions import *
 from stdnum.util import clean
 
 
@@ -58,21 +59,31 @@ def calc_check_digit(number):
     return str(check % 11 % 10)
 
 
+def validate(number):
+    """Checks to see if the number provided is a valid VAT number. This
+    checks the length, formatting and check digit."""
+    number = compact(number)
+    if not number.isdigit():
+        raise InvalidFormat()
+    if len(number) == 9:
+        # legal entities
+        if number[7] != '1':
+            raise InvalidComponent()
+    elif len(number) == 12:
+        # temporary tax payers and natural persons
+        if number[10] != '1':
+            raise InvalidComponent()
+    else:
+        raise InvalidLength()
+    if calc_check_digit(number[:-1]) != number[-1]:
+        raise InvalidChecksum()
+    return number
+
+
 def is_valid(number):
     """Checks to see if the number provided is a valid VAT number. This
     checks the length, formatting and check digit."""
     try:
-        number = compact(number)
-    except:
+        return bool(validate(number))
+    except ValidationError:
         return False
-    if not number.isdigit():
-        return False
-    if len(number) == 9:
-        # legal entities
-        return number[7] == '1' and \
-               calc_check_digit(number[:-1]) == number[-1]
-    if len(number) == 12:
-        # temporary tax payers and natural persons
-        return number[10] == '1' and \
-               calc_check_digit(number[:-1]) == number[-1]
-    return False
