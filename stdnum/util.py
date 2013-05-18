@@ -57,7 +57,7 @@ def get_number_modules(base='stdnum'):
                 ):
         __import__(name)
         module = sys.modules[name]
-        if hasattr(module, 'is_valid'):
+        if hasattr(module, 'validate'):
             yield module
 
 
