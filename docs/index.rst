@@ -17,6 +17,13 @@ Common Interface
 
 Most of the number format modules implement the following functions:
 
+.. function:: validate(number)
+
+   Validate the number and return a compact, consistent representation of
+   the number or code. If the validation fails,
+   :mod:`an exception <.exceptions>` is raised that indicates the type of
+   error.
+
 .. function:: is_valid(number)
 
    Return either True or False depending on whether the passed number is
@@ -50,6 +57,16 @@ The check digit modules generally also provide the following functions:
 
 Apart from the above, the modules may add extra parsing, validation or
 conversion functions.
+
+
+Helper modules
+--------------
+
+.. autosummary::
+   :toctree:
+
+   exceptions
+
 
 Generic check digit algorithms
 ------------------------------
