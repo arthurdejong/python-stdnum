@@ -66,19 +66,3 @@ These normal tests of Mod 37, 2 should just work
 
 >>> mod_37_2.calc_check_digit('G123498654321')
 'H'
-
-
-Furthermore the is_valid() method should be fairly robust against invalid
-junk passed:
-
->>> testvalues = ( None, '*&^%$', False, object() )
->>> [ x for x in testvalues if mod_11_10.is_valid(x) ]
-[]
->>> [ x for x in testvalues if mod_11_2.is_valid(x) ]
-[]
->>> [ x for x in testvalues if mod_37_2.is_valid(x) ]
-[]
->>> [ x for x in testvalues if mod_37_36.is_valid(x) ]
-[]
->>> [ x for x in testvalues if mod_97_10.is_valid(x) ]
-[]
