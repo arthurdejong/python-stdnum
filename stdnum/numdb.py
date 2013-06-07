@@ -1,4 +1,3 @@
-
 # numdb.py - module for handling hierarchically organised numbers
 #
 # Copyright (C) 2010, 2011, 2012, 2013 Arthur de Jong
