@@ -58,7 +58,7 @@ def get_number_modules(base='stdnum'):
 
 def get_module_name(module):
     """Return the short description of the number."""
-    return pydoc.splitdoc(pydoc.getdoc(module))[0]
+    return pydoc.splitdoc(pydoc.getdoc(module))[0].strip('.')
 
 
 def get_module_description(module):

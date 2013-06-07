@@ -17,7 +17,7 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 # 02110-1301 USA
 
-"""BSN (Burgerservicenummer, the Dutch national identification number).
+"""BSN (Burgerservicenummer, Dutch national identification number).
 
 The BSN is a number with up to 9 digits (the leading 0's are commonly left
 out) which is used as the Dutch national identification number.
