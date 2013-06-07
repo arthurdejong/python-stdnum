@@ -11,6 +11,7 @@ or some common formatting is eligible for inclusion in this library.
 
 http://arthurdejong.org/python-stdnum/
 
+
 Common Interface
 ----------------
 
@@ -18,26 +19,29 @@ Most of the number format modules implement the following functions:
 
 .. function:: is_valid(number)
 
-   Returns either True or False depending on whether the passed number is
+   Return either True or False depending on whether the passed number is
    in any supported and valid form and passes all embedded checks of the
-   number.
+   number. This function should never raise an exception.
 
 .. function:: compact(number)
 
-   Returns a compact representation of the number or code. This function
+   Return a compact representation of the number or code. This function
    generally does not do validation but may raise exceptions for wildly
    invalid numbers.
 
 .. function:: format(number)
 
-   Returns a formatted version of the number in the preferred format.
-   This function generally expects to be passed a valid number or code.
+   Return a formatted version of the number in the preferred format.
+   This function generally expects to be passed a valid number or code and
+   may raise exceptions for invalid numbers.
 
 The check digit modules generally also provide the following functions:
 
 .. function:: checksum(number)
 
-   Calculate the checksum over the provided number.
+   Calculate the checksum over the provided number. This is generally a
+   number that can be used to determine whether the provided number is
+   valid. It depends on the algorithm which checksum is considered valid.
 
 .. function:: calc_check_digit(number)
 
@@ -56,6 +60,7 @@ Generic check digit algorithms
    iso7064
    luhn
    verhoeff
+
 
 Available formats
 -----------------
