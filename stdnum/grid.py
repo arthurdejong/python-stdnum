@@ -1,6 +1,6 @@
 # grid.py - functions for handling Global Release Identifier (GRid) numbers
 #
-# Copyright (C) 2010, 2011, 2012 Arthur de Jong
+# Copyright (C) 2010, 2011, 2012, 2013 Arthur de Jong
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -59,7 +59,7 @@ def is_valid(number):
     return len(number) == 18 and mod_37_36.is_valid(number)
 
 
-def format(number, separator='-', add_check_digit=False):
+def format(number, separator='-'):
     """Reformat the passed number to the standard format."""
     number = compact(number)
     number = (number[0:2], number[2:7], number[7:17], number[17:])
