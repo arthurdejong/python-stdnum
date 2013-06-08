@@ -1,0 +1,126 @@
+test_my_nric.doctest - more detailed doctests for stdnum.my.nric module
+
+Copyright (C) 2013 Arthur de Jong
+
+This library is free software; you can redistribute it and/or
+modify it under the terms of the GNU Lesser General Public
+License as published by the Free Software Foundation; either
+version 2.1 of the License, or (at your option) any later version.
+
+This library is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+Lesser General Public License for more details.
+
+You should have received a copy of the GNU Lesser General Public
+License along with this library; if not, write to the Free Software
+Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
+02110-1301 USA
+
+
+This file contains more detailed doctests for the stdnum.my.nric. It
+tries to cover more corner cases and detailed functionality that is not
+really useful as module documentation.
+
+>>> from stdnum.my import nric
+>>> from stdnum.exceptions import *
+
+
+Normal values that should just work.
+
+>>> nric.validate('770305-02-1234')
+'770305021234'
+>>> nric.validate('890131-06-1224')
+'890131061224'
+>>> nric.validate('810909785542')
+'810909785542'
+>>> nric.validate('880229875542')
+'880229875542'
+
+
+Get the birth date:
+
+>>> nric.get_birth_date('770305-02-1234')
+datetime.date(1977, 3, 5)
+>>> nric.get_birth_date('890131-06-1224')
+datetime.date(1989, 1, 31)
+>>> nric.get_birth_date('810909785542')
+datetime.date(1981, 9, 9)
+>>> nric.get_birth_date('880229875542')
+datetime.date(1988, 2, 29)
+
+
+Get the birth place:
+
+>>> str(nric.get_birth_place('770305-02-1234')['state'])
+'Kedah'
+>>> str(nric.get_birth_place('890131-06-1224')['state'])
+'Pahang'
+>>> str(nric.get_birth_place('810909785542')['country'])
+'Sri Lanka'
+>>> str(nric.get_birth_place('880229875542')['countries'])
+'Britain, Ireland'
+
+
+Formatting:
+
+>>> nric.format('770305-02-1234')
+'770305-02-1234'
+>>> nric.format('890131-06-1224')
+'890131-06-1224'
+>>> nric.format('810909785542')
+'810909-78-5542'
+>>> nric.format('880229875542')
+'880229-87-5542'
+
+
+Invalid date:
+
+>>> nric.validate('771305-02-1234')
+Traceback (most recent call last):
+    ...
+InvalidComponent: ...
+>>> nric.validate('890132-06-1224')
+Traceback (most recent call last):
+    ...
+InvalidComponent: ...
+>>> nric.validate('870229875542')
+Traceback (most recent call last):
+    ...
+InvalidComponent: ...
+
+
+Invalid birth place:
+
+>>> nric.validate('770305-00-1234')
+Traceback (most recent call last):
+    ...
+InvalidComponent: ...
+>>> nric.validate('890131-17-1224')
+Traceback (most recent call last):
+    ...
+InvalidComponent: ...
+>>> nric.validate('810909805542')
+Traceback (most recent call last):
+    ...
+InvalidComponent: ...
+>>> nric.validate('880229995542')
+Traceback (most recent call last):
+    ...
+InvalidComponent: ...
+
+
+Just invalid numbers:
+
+>>> nric.validate('770305-00')
+Traceback (most recent call last):
+    ...
+InvalidLength: ...
+>>> nric.validate('890A31-17-1224')
+Traceback (most recent call last):
+    ...
+InvalidFormat: ...
+>>> nric.get_birth_place('8109098')
+Traceback (most recent call last):
+    ...
+InvalidComponent: ...
