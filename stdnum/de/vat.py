@@ -1,6 +1,6 @@
 # vat.py - functions for handling German VAT numbers
 #
-# Copyright (C) 2012 Arthur de Jong
+# Copyright (C) 2012, 2013 Arthur de Jong
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -24,12 +24,15 @@ algorithm.
 
 >>> compact('DE 136,695 976')
 '136695976'
->>> is_valid('DE136695976')
-True
->>> is_valid('136695978')
-False
+>>> validate('DE136695976')
+'136695976'
+>>> validate('136695978')
+Traceback (most recent call last):
+    ...
+InvalidChecksum: ...
 """
 
+from stdnum.exceptions import *
 from stdnum.iso7064 import mod_11_10
 from stdnum.util import clean
 
@@ -43,12 +46,22 @@ def compact(number):
     return number
 
 
+def validate(number):
+    """Checks to see if the number provided is a valid VAT number. This checks
+    the length, formatting and check digit."""
+    number = compact(number)
+    if not number.isdigit() or number[0] == '0':
+        raise InvalidFormat()
+    if len(number) != 9:
+        raise InvalidLength()
+    mod_11_10.validate(number)
+    return number
+
+
 def is_valid(number):
     """Checks to see if the number provided is a valid VAT number. This checks
     the length, formatting and check digit."""
     try:
-        number = compact(number)
-    except:
+        return bool(validate(number))
+    except ValidationError:
         return False
-    return len(number) == 9 and number.isdigit() and \
-           number[0] != '0' and mod_11_10.is_valid(number)

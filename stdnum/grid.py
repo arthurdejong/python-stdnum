@@ -23,20 +23,21 @@ The Global Release Identifier is used to identify releases of digital
 sound recordings and uses the ISO 7064 Mod 37, 36 algorithm to verify the
 correctness of the number.
 
->>> is_valid('A12425GABC1234002M')
-True
->>> is_valid('Grid: A1-2425G-ABC1234002-M')
-True
->>> is_valid('A1-2425G-ABC1234002-Q') # incorrect check digit
-False
->>> is_valid(None) # method should be robust
-False
+>>> validate('A12425GABC1234002M')
+'A12425GABC1234002M'
+>>> validate('Grid: A1-2425G-ABC1234002-M')
+'A12425GABC1234002M'
+>>> validate('A1-2425G-ABC1234002-Q') # incorrect check digit
+Traceback (most recent call last):
+    ...
+InvalidChecksum: ...
 >>> compact('A1-2425G-ABC1234002-M')
 'A12425GABC1234002M'
 >>> format('A12425GABC1234002M')
 'A1-2425G-ABC1234002-M'
 """
 
+from stdnum.exceptions import *
 from stdnum.util import clean
 
 
@@ -49,14 +50,21 @@ def compact(number):
     return number
 
 
-def is_valid(number):
+def validate(number):
     """Checks to see if the number provided is a valid GRid."""
     from stdnum.iso7064 import mod_37_36
+    number = compact(number)
+    if len(number) != 18:
+        raise InvalidLength()
+    return mod_37_36.validate(number)
+
+
+def is_valid(number):
+    """Checks to see if the number provided is a valid GRid."""
     try:
-        number = compact(number)
-    except:
+        return bool(validate(number))
+    except ValidationError:
         return False
-    return len(number) == 18 and mod_37_36.is_valid(number)
 
 
 def format(number, separator='-'):

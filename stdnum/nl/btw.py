@@ -1,6 +1,6 @@
 # btw.py - functions for handling Dutch VAT numbers
 #
-# Copyright (C) 2012 Arthur de Jong
+# Copyright (C) 2012, 2013 Arthur de Jong
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -23,14 +23,17 @@ The BTW-nummer is the Dutch number for VAT. It consists of a RSIN or BSN
 followed by a B and two digits that identify the unit within the
 organisation (usually 01).
 
->>> is_valid('004495445B01')
-True
->>> is_valid('NL4495445B01')
-True
->>> is_valid('123456789B90')
-False
+>>> validate('004495445B01')
+'004495445B01'
+>>> validate('NL4495445B01')
+'004495445B01'
+>>> validate('123456789B90')
+Traceback (most recent call last):
+    ...
+InvalidChecksum: ...
 """
 
+from stdnum.exceptions import *
 from stdnum.nl import bsn
 from stdnum.util import clean
 
@@ -44,14 +47,24 @@ def compact(number):
     return bsn.compact(number[:-3]) + number[-3:]
 
 
+def validate(number):
+    """Checks to see if the number provided is a valid BTW number. This checks
+    the length, formatting and check digit."""
+    number = compact(number)
+    if not number[10:].isdigit() or int(number[10:]) <= 0:
+        raise InvalidFormat()
+    if len(number) != 12:
+        raise InvalidLength()
+    if number[9] != 'B':
+        raise InvalidFormat()
+    bsn.validate(number[:9])
+    return number
+
+
 def is_valid(number):
     """Checks to see if the number provided is a valid BTW number. This checks
     the length, formatting and check digit."""
     try:
-        number = compact(number)
-    except:
+        return bool(validate(number))
+    except ValidationError:
         return False
-    return len(number) == 12 and \
-           number[9] == 'B' and \
-           number[10:].isdigit() and int(number[10:]) > 0 and \
-           bsn.is_valid(number[0:9])

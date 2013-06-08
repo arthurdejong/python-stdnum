@@ -1,6 +1,6 @@
 # vat.py - functions for handling United Kingdom VAT numbers
 #
-# Copyright (C) 2012 Arthur de Jong
+# Copyright (C) 2012, 2013 Arthur de Jong
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -25,17 +25,18 @@ government departments (first two digits are GD) or a 5-digit number for
 health authorities (first two digits are HA). The 9-digit variants use a
 weighted checksum.
 
->>> compact('GB 980 7806 84')
+>>> validate('GB 980 7806 84')
 '980780684'
->>> is_valid('980780684')
-True
->>> is_valid('802311781')  # invalid check digit
-False
+>>> validate('802311781')  # invalid check digit
+Traceback (most recent call last):
+    ...
+InvalidChecksum: ...
 >>> format('980780684')
 '980 7806 84'
 """
 
 from stdnum.util import clean
+from stdnum.exceptions import *
 
 
 def compact(number):
@@ -54,26 +55,40 @@ def checksum(number):
     return sum(weights[i] * int(n) for i, n in enumerate(number)) % 97
 
 
+def validate(number):
+    """Checks to see if the number provided is a valid VAT number. This
+    checks the length, formatting and check digit."""
+    number = compact(number)
+    if len(number) == 5:
+        if not number[2:].isdigit():
+            raise InvalidFormat()
+        if number.startswith('GD') and int(number[2:]) < 500:
+            # government department
+            pass
+        elif number.startswith('HA') and int(number[2:]) >= 500:
+            # health authority
+            pass
+        else:
+            raise InvalidComponent()
+    elif len(number) in (9, 12):
+        if not number.isdigit():
+            raise InvalidFormat()
+        # standard number: nnn nnnn nn
+        # branch trader: nnn nnnn nn nnn (ignore the last thee digits)
+        if checksum(number[:9]) not in (0, 42):
+            raise InvalidChecksum()
+    else:
+        raise InvalidLength()
+    return number
+
+
 def is_valid(number):
     """Checks to see if the number provided is a valid VAT number. This
     checks the length, formatting and check digit."""
     try:
-        number = compact(number)
-    except:
+        return bool(validate(number))
+    except ValidationError:
         return False
-    if len(number) == 5 and number.startswith('GD') and number[2:].isdigit():
-        # government department
-        return int(number[2:]) < 500
-    if len(number) == 5 and number.startswith('HA') and number[2:].isdigit():
-        # health authority
-        return int(number[2:]) >= 500
-    if len(number) == 12 and number.isdigit():
-        # branch trader: nnn nnnn nn nnn (ignore the last thee digits)
-        return checksum(number[:-3]) in (0, 42)
-    if len(number) == 9 and number.isdigit():
-        # standard number: nnn nnnn nn
-        return checksum(number) in (0, 42)
-    return False
 
 
 def format(number):

@@ -1,7 +1,7 @@
 # cpf.py - functions for handling CPF numbers
 # coding: utf-8
 #
-# Copyright (C) 2011, 2012 Arthur de Jong
+# Copyright (C) 2011, 2012, 2013 Arthur de Jong
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -20,16 +20,21 @@
 
 """CPF (Cadastro de Pessoas Físicas, Brazillian national identifier).
 
->>> is_valid('390.533.447-05')
-True
->>> is_valid('231.002.999-00')
-False
->>> compact('390.533.447-05')
+>>> validate('390.533.447-05')
 '39053344705'
+>>> validate('231.002.999-00')
+Traceback (most recent call last):
+    ...
+InvalidChecksum: ...
+>>> validate('390.533.447=0')  # invalid delimiter
+Traceback (most recent call last):
+    ...
+InvalidFormat: ...
 >>> format('23100299900')
 '231.002.999-00'
 """
 
+from stdnum.exceptions import *
 from stdnum.util import clean
 
 
@@ -48,17 +53,26 @@ def _calc_check_digits(number):
     return '%d%d' % (d1, d2)
 
 
+def validate(number):
+    """Checks to see if the number provided is a valid CPF. This checks
+    the length and whether the check digit is correct."""
+    number = compact(number)
+    if not number.isdigit() or int(number) <= 0:
+        raise InvalidFormat()
+    if len(number) != 11:
+        raise InvalidLength()
+    if _calc_check_digits(number) != number[-2:]:
+        raise InvalidChecksum()
+    return number
+
+
 def is_valid(number):
-    """Checks to see if the number provided is a valid BSN. This checks
+    """Checks to see if the number provided is a valid CPF. This checks
     the length and whether the check digit is correct."""
     try:
-        number = compact(number)
-    except:
+        return bool(validate(number))
+    except ValidationError:
         return False
-    return len(number) == 11 and \
-           number.isdigit() and \
-           int(number) > 0 and \
-           _calc_check_digits(number) == number[-2:]
 
 
 def format(number):

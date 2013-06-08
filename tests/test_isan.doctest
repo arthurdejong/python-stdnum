@@ -1,6 +1,6 @@
 test_isan.doctest - more detailed doctests for stdnum.isan module
 
-Copyright (C) 2010 Arthur de Jong
+Copyright (C) 2010, 2012, 2013 Arthur de Jong
 
 This library is free software; you can redistribute it and/or
 modify it under the terms of the GNU Lesser General Public
@@ -55,22 +55,30 @@ Compacting should also work:
 
 These should be valid numbers:
 
->>> isan.is_valid('0000-0000-D07A-0090-Q-0000-0000-X')
-True
->>> isan.is_valid('1881-66C7-3420-6541-Y-9F3A-0245-O')
-True
->>> isan.is_valid('0000-0000-D07A-0090-Q-0000-0000-X')
-True
->>> isan.is_valid('0000-0000-D07A-0090-Q')
-True
+>>> isan.validate('0000-0000-D07A-0090-Q-0000-0000-X')
+'00000000D07A0090Q00000000X'
+>>> isan.validate('1881-66C7-3420-6541-Y-9F3A-0245-O')
+'188166C734206541Y9F3A0245O'
+>>> isan.validate('0000-0000-D07A-0090-Q-0000-0000-X')
+'00000000D07A0090Q00000000X'
+>>> isan.validate('0000-0000-D07A-0090-Q')
+'00000000D07A0090Q'
 
 
 And these should be invalid:
 
->>> isan.is_valid('00000000D07A0090-Z')  # wrong check digit
-False
->>> isan.is_valid('3abc6800-0041X1-20')  # illegal character
-False
+>>> isan.validate('00000000D07A0090-Z')
+Traceback (most recent call last):
+    ...
+InvalidChecksum: ...
+>>> isan.validate('3abc6800-0041X1-20')
+Traceback (most recent call last):
+    ...
+InvalidFormat: ...
+>>> isan.validate('3abc6800-0041')
+Traceback (most recent call last):
+    ...
+InvalidLength: ...
 
 
 The format() function can add the check digit if needed. It should leave
@@ -83,6 +91,10 @@ or absence of a version number.
 '1881-66C7-3420-6541-Y-9F3A-0245-O'
 >>> isan.format('1881-66C7-3420-6541-?-9F3A-0245-?', strip_check_digits=True, add_check_digits=True)
 '1881-66C7-3420-6541-Y-9F3A-0245-O'
+>>> isan.validate('1881-66C7-3420-6541-Y-9F3A-0245-O', strip_check_digits=True)
+'188166C7342065419F3A0245'
+>>> isan.validate('188166C7342065419F3A0245', add_check_digits=True)
+'188166C734206541Y9F3A0245O'
 
 
 A simple test for the to_binary() function.

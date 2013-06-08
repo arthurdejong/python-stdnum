@@ -1,6 +1,6 @@
 # isbn.py - functions for handling ISBNs
 #
-# Copyright (C) 2010, 2011, 2012 Arthur de Jong
+# Copyright (C) 2010, 2011, 2012, 2013 Arthur de Jong
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -23,10 +23,12 @@ The ISBN is the International Standard Book Number, used to identify
 publications. This module supports both numbers in ISBN-10 (10-digit) and
 ISBN-13 (13-digit) format.
 
->>> is_valid('978-9024538270')
-True
->>> is_valid('978-9024538271') # incorrect check digit
-False
+>>> validate('978-9024538270')
+'9789024538270'
+>>> validate('978-9024538271')
+Traceback (most recent call last):
+    ...
+InvalidChecksum: ...
 >>> compact('1-85798-218-5')
 '1857982185'
 >>> format('9780471117094')
@@ -44,6 +46,7 @@ False
 """
 
 from stdnum import ean
+from stdnum.exceptions import *
 from stdnum.util import clean
 
 
@@ -68,24 +71,36 @@ def _calc_isbn10_check_digit(number):
     return 'X' if check == 10 else str(check)
 
 
+def validate(number, convert=False):
+    """Checks to see if the number provided is a valid ISBN (either a legacy
+    10-digit one or a 13-digit one). This checks the length and the check
+    bit but does not check if the group and publisher are valid (use split()
+    for that)."""
+    number = compact(number, convert=False)
+    if not number[:-1].isdigit():
+        raise InvalidFormat()
+    if len(number) == 10:
+        if _calc_isbn10_check_digit(number[:-1]) != number[-1]:
+            raise InvalidChecksum()
+    elif len(number) == 13:
+        ean.validate(number)
+    else:
+        raise InvalidLength()
+    if convert:
+        number = to_isbn13(number)
+    return number
+
+
 def isbn_type(number):
     """Check the passed number and returns 'ISBN13', 'ISBN10' or None (for
     invalid) for checking the type of number passed."""
     try:
-        number = compact(number)
-    except:
+        number = validate(number, convert=False)
+    except ValidationError:
         return None
     if len(number) == 10:
-        if not number[:-1].isdigit():
-            return None
-        if _calc_isbn10_check_digit(number[:-1]) != number[-1]:
-            return None
         return 'ISBN10'
     elif len(number) == 13:
-        if not number.isdigit():
-            return None
-        if ean.calc_check_digit(number[:-1]) != number[-1]:
-            return None
         return 'ISBN13'
 
 
@@ -94,13 +109,16 @@ def is_valid(number):
     10-digit one or a 13-digit one). This checks the length and the check
     bit but does not check if the group and publisher are valid (use split()
     for that)."""
-    return isbn_type(number) is not None
+    try:
+        return bool(validate(number))
+    except ValidationError:
+        return False
 
 
 def to_isbn13(number):
     """Convert the number to ISBN-13 format."""
     number = number.strip()
-    min_number = compact(number)
+    min_number = compact(number, convert=False)
     if len(min_number) == 13:
         return number  # nothing to do, already ISBN-13
     # put new check digit in place
@@ -117,13 +135,13 @@ def to_isbn13(number):
 def to_isbn10(number):
     """Convert the number to ISBN-10 format."""
     number = number.strip()
-    min_number = compact(number)
+    min_number = compact(number, convert=False)
     if len(min_number) == 10:
         return number  # nothing to do, already ISBN-13
     elif isbn_type(min_number) != 'ISBN13':
-        raise ValueError('Not a valid ISBN13.')
+        raise InvalidFormat('Not a valid ISBN13.')
     elif not number.startswith('978'):
-        raise ValueError('Does not use 978 Bookland prefix.')
+        raise InvalidFormat('Does not use 978 Bookland prefix.')
     # strip EAN prefix
     number = number[3:-1].strip().strip('-')
     digit = _calc_isbn10_check_digit(min_number[3:-1])

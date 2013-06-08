@@ -1,6 +1,6 @@
 # vat.py - functions for handling Maltese VAT numbers
 #
-# Copyright (C) 2012 Arthur de Jong
+# Copyright (C) 2012, 2013 Arthur de Jong
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -22,14 +22,15 @@
 The Maltese VAT registration number contains 8 digits and uses a simple
 weigted checksum.
 
->>> compact('MT 1167-9112')
+>>> validate('MT 1167-9112')
 '11679112'
->>> is_valid('1167-9112')
-True
->>> is_valid('1167-9113')  # invalid check digits
-False
+>>> validate('1167-9113')  # invalid check digits
+Traceback (most recent call last):
+    ...
+InvalidChecksum: ...
 """
 
+from stdnum.exceptions import *
 from stdnum.util import clean
 
 
@@ -48,12 +49,23 @@ def checksum(number):
     return sum(weights[i] * int(n) for i, n in enumerate(number)) % 37
 
 
+def validate(number):
+    """Checks to see if the number provided is a valid VAT number. This
+    checks the length, formatting and check digit."""
+    number = compact(number)
+    if not number.isdigit() or number[0] == '0':
+        raise InvalidFormat()
+    if len(number) != 8:
+        raise InvalidLength()
+    if checksum(number) != 0:
+        raise InvalidChecksum()
+    return number
+
+
 def is_valid(number):
     """Checks to see if the number provided is a valid VAT number. This
     checks the length, formatting and check digit."""
     try:
-        number = compact(number)
-    except:
+        return bool(validate(number))
+    except ValidationError:
         return False
-    return number.isdigit() and len(number) == 8 and \
-           number[0] != '0' and checksum(number) == 0

@@ -1,7 +1,7 @@
 # nif.py - functions for handling Spanish NIF (VAT) numbers
 # coding: utf-8
 #
-# Copyright (C) 2012 Arthur de Jong
+# Copyright (C) 2012, 2013 Arthur de Jong
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -30,18 +30,21 @@ entities and others).
 
 >>> compact('ES B-58378431')
 'B58378431'
->>> is_valid('B64717838')
-True
->>> is_valid('B64717839')  # invalid check digit
-False
->>> is_valid('54362315K')  # resident
-True
->>> is_valid('X-5253868-R')  # foreign person
-True
+>>> validate('B64717838')
+'B64717838'
+>>> validate('B64717839')  # invalid check digit
+Traceback (most recent call last):
+    ...
+InvalidChecksum: ...
+>>> validate('54362315K')  # resident
+'54362315K'
+>>> validate('X-5253868-R')  # foreign person
+'X5253868R'
 """
 
-from stdnum.util import clean
 from stdnum.es import dni, nie, cif
+from stdnum.exceptions import *
+from stdnum.util import clean
 
 
 def compact(number):
@@ -53,20 +56,30 @@ def compact(number):
     return number
 
 
+def validate(number):
+    """Checks to see if the number provided is a valid VAT number. This checks
+    the length, formatting and check digit."""
+    number = compact(number)
+    if not number[1:-1].isdigit():
+        raise InvalidFormat()
+    if len(number) != 9:
+        raise InvalidLength()
+    if number[0].isdigit():
+        # natural resident
+        dni.validate(number)
+    elif number[0] in 'XYZ':
+        # foreign natural person
+        nie.validate(number)
+    else:
+        # otherwise it has to be a valid CIF
+        cif.validate(number)
+    return number
+
+
 def is_valid(number):
     """Checks to see if the number provided is a valid VAT number. This checks
     the length, formatting and check digit."""
     try:
-        number = compact(number)
-    except:
+        return bool(validate(number))
+    except ValidationError:
         return False
-    if len(number) != 9 or not number[1:-1].isdigit():
-        return False
-    if number[0].isdigit():
-        # natural resident
-        return dni.is_valid(number)
-    if number[0] in 'XYZ':
-        # foreign natural person
-        return nie.is_valid(number)
-    # otherwise it has to be a valid CIF
-    return cif.is_valid(number)

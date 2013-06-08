@@ -1,7 +1,7 @@
 # tva.py - functions for handling Luxembourgian VAT numbers
 # coding: utf-8
 #
-# Copyright (C) 2012 Arthur de Jong
+# Copyright (C) 2012, 2013 Arthur de Jong
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -24,14 +24,15 @@ The n° TVA (Numéro d'identification à la taxe sur la valeur ajoutée) is
 used for tax purposes in Luxembourg. The number consists of 8 digits of
 which the last two are check digits.
 
->>> compact('LU 150 274 42')
+>>> validate('LU 150 274 42')
 '15027442'
->>> is_valid('150 274 42')
-True
->>> is_valid('150 274 43')  # invalid check digits
-False
+>>> validate('150 274 43')  # invalid check digits
+Traceback (most recent call last):
+    ...
+InvalidChecksum: ...
 """
 
+from stdnum.exceptions import *
 from stdnum.util import clean
 
 
@@ -49,12 +50,23 @@ def calc_check_digits(number):
     return '%02d' % (int(number) % 89)
 
 
+def validate(number):
+    """Checks to see if the number provided is a valid VAT number. This
+    checks the length, formatting and check digit."""
+    number = compact(number)
+    if not number.isdigit():
+        raise InvalidFormat()
+    if len(number) != 8:
+        raise InvalidLength()
+    if calc_check_digits(number[:6]) != number[-2:]:
+        raise InvalidChecksum()
+    return number
+
+
 def is_valid(number):
     """Checks to see if the number provided is a valid VAT number. This
     checks the length, formatting and check digit."""
     try:
-        number = compact(number)
-    except:
+        return bool(validate(number))
+    except ValidationError:
         return False
-    return number.isdigit() and len(number) == 8 and \
-           calc_check_digits(number[:6]) == number[-2:]

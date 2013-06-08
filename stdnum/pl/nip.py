@@ -1,6 +1,6 @@
 # nip.py - functions for handling Polish VAT numbers
 #
-# Copyright (C) 2012 Arthur de Jong
+# Copyright (C) 2012, 2013 Arthur de Jong
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -22,16 +22,17 @@
 The NIP (Numer Identyfikacji Podatkowej) number consists of 10 digit with
 a straightforward weighted checksum.
 
->>> compact('PL 8567346215')
+>>> validate('PL 8567346215')
 '8567346215'
->>> is_valid('PL 8567346215')
-True
->>> is_valid('PL 8567346216')  # invalid check digits
-False
+>>> validate('PL 8567346216')  # invalid check digits
+Traceback (most recent call last):
+    ...
+InvalidChecksum: ...
 >>> format('PL 8567346215')
 '856-734-62-15'
 """
 
+from stdnum.exceptions import *
 from stdnum.util import clean
 
 
@@ -50,15 +51,26 @@ def checksum(number):
     return sum(weights[i] * int(n) for i, n in enumerate(number)) % 11
 
 
+def validate(number):
+    """Checks to see if the number provided is a valid VAT number. This
+    checks the length, formatting and check digit."""
+    number = compact(number)
+    if not number.isdigit():
+        raise InvalidFormat()
+    if len(number) != 10:
+        raise InvalidLength()
+    if checksum(number) != 0:
+        raise InvalidChecksum()
+    return number
+
+
 def is_valid(number):
     """Checks to see if the number provided is a valid VAT number. This
     checks the length, formatting and check digit."""
     try:
-        number = compact(number)
-    except:
+        return bool(validate(number))
+    except ValidationError:
         return False
-    return number.isdigit() and len(number) == 10 and \
-           checksum(number) == 0
 
 
 def format(number):

@@ -1,6 +1,6 @@
 # cvr.py - functions for handling Danish CVR numbers
 #
-# Copyright (C) 2012 Arthur de Jong
+# Copyright (C) 2012, 2013 Arthur de Jong
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -22,14 +22,15 @@
 The CVR (Momsregistreringsnummer, VAT) is an 8 digit number with a
 straightforward check mechanism.
 
->>> compact('DK 13585628')
+>>> validate('DK 13585628')
 '13585628'
->>> is_valid('DK 13585628')
-True
->>> is_valid('DK 13585627')
-False
+>>> validate('DK 13585627')
+Traceback (most recent call last):
+    ...
+InvalidChecksum: ...
 """
 
+from stdnum.exceptions import *
 from stdnum.util import clean
 
 
@@ -48,12 +49,23 @@ def checksum(number):
     return sum(weights[i] * int(n) for i, n in enumerate(number)) % 11
 
 
+def validate(number):
+    """Checks to see if the number provided is a valid VAT number. This checks
+    the length, formatting and check digit."""
+    number = compact(number)
+    if not number.isdigit() or number[0] == '0':
+        raise InvalidFormat()
+    if len(number) != 8:
+        raise InvalidLength()
+    if checksum(number) != 0:
+        raise InvalidChecksum()
+    return number
+
+
 def is_valid(number):
     """Checks to see if the number provided is a valid VAT number. This checks
     the length, formatting and check digit."""
     try:
-        number = compact(number)
-    except:
+        return bool(validate(number))
+    except ValidationError:
         return False
-    return len(number) == 8 and number.isdigit() and \
-           number[0] != '0' and checksum(number) == 0

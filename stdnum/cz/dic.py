@@ -1,7 +1,7 @@
 # dic.py - functions for handling Czech VAT numbers
 # coding: utf-8
 #
-# Copyright (C) 2012 Arthur de Jong
+# Copyright (C) 2012, 2013 Arthur de Jong
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -28,17 +28,20 @@ that begin with a 6).
 
 >>> compact('CZ 25123891')
 '25123891'
->>> is_valid('25123891')  # legal entity
-True
->>> is_valid('25123890')  # incorrect check digit
-False
->>> is_valid('7103192745')  # RČ
-True
->>> is_valid('640903926')  # special case
-True
+>>> validate('25123891')  # legal entity
+'25123891'
+>>> validate('25123890')  # incorrect check digit
+Traceback (most recent call last):
+    ...
+InvalidChecksum: ...
+>>> validate('7103192745')  # RČ
+'7103192745'
+>>> validate('640903926')  # special case
+'640903926'
 """
 
 from stdnum.cz import rc
+from stdnum.exceptions import *
 from stdnum.util import clean
 
 
@@ -65,22 +68,34 @@ def calc_check_digit_special(number):
     return str(9 - check % 10)
 
 
+def validate(number):
+    """Checks to see if the number provided is a valid VAT number. This
+    checks the length, formatting and check digit."""
+    number = compact(number)
+    if not number.isdigit():
+        raise InvalidFormat()
+    if len(number) == 8:
+        # legal entities
+        if number.startswith('9'):
+            raise InvalidComponent()
+        if calc_check_digit_legal(number[:-1]) != number[-1]:
+            raise InvalidChecksum()
+    elif len(number) == 9 and number.startswith('6'):
+        # special cases (skip first digit in calculation)
+        if calc_check_digit_special(number[1:-1]) != number[-1]:
+            raise InvalidChecksum()
+    elif len(number) in (9, 10):
+        # 9 or 10 digit individual
+        rc.validate(number)
+    else:
+        raise InvalidLength()
+    return number
+
+
 def is_valid(number):
     """Checks to see if the number provided is a valid VAT number. This
     checks the length, formatting and check digit."""
     try:
-        number = compact(number)
-    except:
+        return bool(validate(number))
+    except ValidationError:
         return False
-    if not number.isdigit():
-        return False
-    if len(number) == 8 and not number.startswith('9'):
-        # legal entities
-        return calc_check_digit_legal(number[:-1]) == number[-1]
-    if len(number) == 9 and number.startswith('6'):
-        # special cases (skip first digit in calculation)
-        return calc_check_digit_special(number[1:-1]) == number[-1]
-    if len(number) in (9, 10):
-        # 9 or 10 digit individual
-        return rc.is_valid(number)
-    return False

@@ -1,7 +1,7 @@
 # vat.py - functions for handling Bulgarian VAT numbers
 # coding: utf-8
 #
-# Copyright (C) 2012 Arthur de Jong
+# Copyright (C) 2012, 2013 Arthur de Jong
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -26,14 +26,17 @@ others) long. Each type of number has it's own check digit algorithm.
 
 >>> compact('BG 175 074 752')
 '175074752'
->>> is_valid('175074752')
-True
->>> is_valid('175074751')  # invalid check digit
-False
+>>> validate('175074752')
+'175074752'
+>>> validate('175074751')  # invalid check digit
+Traceback (most recent call last):
+    ...
+InvalidChecksum: ...
 """
 
-from stdnum.util import clean
 from stdnum.bg import egn, pnf
+from stdnum.exceptions import *
+from stdnum.util import clean
 
 
 def compact(number):
@@ -61,19 +64,30 @@ def calc_check_digit_other(number):
     return str((11 - sum(weights[i] * int(n) for i, n in enumerate(number))) % 11)
 
 
+def validate(number):
+    """Checks to see if the number provided is a valid VAT number. This
+    checks the length, formatting and check digit."""
+    number = compact(number)
+    if not number.isdigit():
+        raise InvalidFormat()
+    if len(number) == 9:
+        # 9 digit numbers are for legal entities
+        if number[-1] != calc_check_digit_legal(number[:-1]):
+            raise InvalidChecksum()
+    elif len(number) == 10:
+        # 10 digit numbers are for physical persons, foreigners and others
+        if not egn.is_valid(number) and not pnf.is_valid(number) and \
+                number[-1] != calc_check_digit_other(number[:-1]):
+            raise InvalidChecksum()
+    else:
+        raise InvalidLength()
+    return number
+
+
 def is_valid(number):
     """Checks to see if the number provided is a valid VAT number. This
     checks the length, formatting and check digit."""
     try:
-        number = compact(number)
-    except:
+        return bool(validate(number))
+    except ValidationError:
         return False
-    if len(number) == 9 and number.isdigit():
-        # 9 digit numbers are for legal entities
-        return number[-1] == calc_check_digit_legal(number[:-1])
-    if len(number) == 10 and number.isdigit():
-        # 10 digit numbers are for physical persons, foreigners and others
-        return egn.is_valid(number) or \
-               pnf.is_valid(number) or \
-               number[-1] == calc_check_digit_other(number[:-1])
-    return False

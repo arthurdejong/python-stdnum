@@ -1,6 +1,6 @@
 # ean.py - functions for handling EANs
 #
-# Copyright (C) 2011, 2012 Arthur de Jong
+# Copyright (C) 2011, 2012, 2013 Arthur de Jong
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -22,12 +22,13 @@
 Module for handling EAN (International Article Number) codes. This
 module handles numbers EAN-13, EAN-8 and UPC (12-digit) format.
 
->>> is_valid('73513537')
-True
->>> is_valid('978-0-471-11709-4') # ISBN-13 format
-True
+>>> validate('73513537')
+'73513537'
+>>> validate('978-0-471-11709-4') # EAN-13 format
+'9780471117094'
 """
 
+from stdnum.exceptions import *
 from stdnum.util import clean
 
 
@@ -44,14 +45,25 @@ def calc_check_digit(number):
                          for i, n in enumerate(reversed(number)))) % 10)
 
 
+def validate(number):
+    """Checks to see if the number provided is a valid EAN-13. This checks
+    the length and the check bit but does not check whether a known GS1
+    Prefix and company identifier are referenced."""
+    number = compact(number)
+    if not number.isdigit():
+        raise InvalidFormat()
+    if len(number) not in (13, 12, 8):
+        raise InvalidLength()
+    if calc_check_digit(number[:-1]) != number[-1]:
+        raise InvalidChecksum()
+    return number
+
+
 def is_valid(number):
     """Checks to see if the number provided is a valid EAN-13. This checks
     the length and the check bit but does not check whether a known GS1
     Prefix and company identifier are referenced."""
     try:
-        number = compact(number)
-    except:
+        return bool(validate(number))
+    except ValidationError:
         return False
-    return len(number) in (13, 12, 8) and \
-           number.isdigit() and \
-           calc_check_digit(number[:-1]) == number[-1]

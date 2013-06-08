@@ -1,7 +1,7 @@
 # nie.py - functions for handling Spanish foreigner identity codes
 # coding: utf-8
 #
-# Copyright (C) 2012 Arthur de Jong
+# Copyright (C) 2012, 2013 Arthur de Jong
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -24,15 +24,20 @@ The NIE is an identification number for foreigners. It is a 9 digit number
 where the first digit is either X, Y or Z and last digit is a checksum
 letter.
 
->>> compact('x-2482300w')
+>>> validate('x-2482300w')
 'X2482300W'
->>> is_valid('x-2482300w')
-True
->>> is_valid('x-2482300a')  # invalid check digit
-False
+>>> validate('x-2482300a')  # invalid check digit
+Traceback (most recent call last):
+    ...
+InvalidChecksum: ...
+>>> validate('X2482300')  # digit missing
+Traceback (most recent call last):
+    ...
+InvalidLength: ...
 """
 
 from stdnum.es import dni
+from stdnum.exceptions import *
 
 
 __all__ = ['compact', 'is_valid']
@@ -50,12 +55,23 @@ def calc_check_digit(number):
     return dni.calc_check_digit(number)
 
 
+def validate(number):
+    """Checks to see if the number provided is a valid NIE. This checks
+    the length, formatting and check digit."""
+    number = compact(number)
+    if not number[1:-1].isdigit() or number[:1] not in 'XYZ':
+        raise InvalidFormat()
+    if len(number) != 9:
+        raise InvalidLength()
+    if calc_check_digit(number[:-1]) != number[-1]:
+        raise InvalidChecksum()
+    return number
+
+
 def is_valid(number):
-    """Checks to see if the number provided is a valid DNI number. This
-    checks the length, formatting and check digit."""
+    """Checks to see if the number provided is a valid NIE. This checks
+    the length, formatting and check digit."""
     try:
-        number = compact(number)
-    except:
+        return bool(validate(number))
+    except ValidationError:
         return False
-    return len(number) == 9 and number[1:-1].isdigit() and \
-           number[0] in 'XYZ' and calc_check_digit(number[:-1]) == number[-1]

@@ -1,6 +1,6 @@
 # ismn.py - functions for handling ISMNs
 #
-# Copyright (C) 2010, 2011, 2012 Arthur de Jong
+# Copyright (C) 2010, 2011, 2012, 2013 Arthur de Jong
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -22,14 +22,16 @@
 The ISMN (International Standard Music Number) is used to identify sheet
 music. This module handles both numbers in the 10-digit 13-digit format.
 
->>> is_valid('979-0-3452-4680-5')
-True
->>> is_valid('9790060115615')
-True
+>>> validate('979-0-3452-4680-5')
+'9790345246805'
+>>> validate('9790060115615')
+'9790060115615'
 >>> ismn_type(' M-2306-7118-7')
 'ISMN10'
->>> is_valid('9790060115614') # incorrect check digit
-False
+>>> validate('9790060115614')
+Traceback (most recent call last):
+    ...
+InvalidChecksum: ...
 >>> compact('  979-0-3452-4680-5')
 '9790345246805'
 >>> format('9790060115615')
@@ -41,6 +43,7 @@ False
 """
 
 from stdnum import ean
+from stdnum.exceptions import *
 from stdnum.util import clean
 
 
@@ -50,27 +53,41 @@ def compact(number):
     return clean(number, ' -.').strip().upper()
 
 
+def validate(number):
+    """Checks to see if the number provided is a valid ISMN (either a legacy
+    10-digit one or a 13-digit one). This checks the length and the check
+    bit but does not check if the publisher is known."""
+    number = compact(number)
+    if len(number) == 10:
+        if number[0] != 'M':
+            raise InvalidFormat()
+        ean.validate('9790' + number[1:])
+    else:
+        ean.validate(number)
+    return number
+
+
 def ismn_type(number):
     """Check the type of ISMN number passed and return 'ISMN13', 'ISMN10'
     or None (for invalid)."""
     try:
-        number = compact(number)
-    except:
+        number = validate(number)
+    except ValidationError:
         return None
-    if len(number) == 10 and number[0] == 'M' and number[1:].isdigit():
-        if ean.calc_check_digit('9790' + number[1:-1]) == number[-1]:
-            return 'ISMN10'
-    elif len(number) == 13 and number.isdigit():
-        if ean.calc_check_digit(number[:-1]) == number[-1]:
-            return 'ISMN13'
-    return None
+    if len(number) == 10:
+        return 'ISMN10'
+    elif len(number) == 13:
+        return 'ISMN13'
 
 
 def is_valid(number):
     """Checks to see if the number provided is a valid ISMN (either a legacy
     10-digit one or a 13-digit one). This checks the length and the check
     bit but does not check if the publisher is known."""
-    return ismn_type(number) is not None
+    try:
+        return bool(validate(number))
+    except ValidationError:
+        return False
 
 
 def to_ismn13(number):

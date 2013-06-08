@@ -1,6 +1,6 @@
 # issn.py - functions for handling ISSNs
 #
-# Copyright (C) 2010, 2011, 2012 Arthur de Jong
+# Copyright (C) 2010, 2011, 2012, 2013 Arthur de Jong
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -22,10 +22,16 @@
 The ISSN (International Standard Serial Number) is the standard code to
 identify periodical publications. It has a checksum similar to ISBN-10.
 
->>> is_valid('0024-9319')
-True
->>> is_valid('0032147X') # incorrect check digit
-False
+>>> validate('0024-9319')
+'00249319'
+>>> validate('0032147X')
+Traceback (most recent call last):
+    ...
+InvalidChecksum: ...
+>>> validate('003214712')
+Traceback (most recent call last):
+    ...
+InvalidLength: ...
 >>> compact('0032-1478')
 '00321478'
 >>> format('00249319')
@@ -35,6 +41,7 @@ False
 """
 
 from stdnum import ean
+from stdnum.exceptions import *
 from stdnum.util import clean
 
 
@@ -52,16 +59,26 @@ def calc_check_digit(number):
     return 'X' if check == 10 else str(check)
 
 
+def validate(number):
+    """Checks to see if the number provided is a valid ISSN. This checks
+    the length and whether the check digit is correct."""
+    number = compact(number)
+    if not number[:-1].isdigit():
+        raise InvalidFormat()
+    if len(number) != 8:
+        raise InvalidLength()
+    if calc_check_digit(number[:-1]) != number[-1]:
+        raise InvalidChecksum()
+    return number
+
+
 def is_valid(number):
     """Checks to see if the number provided is a valid ISSN. This checks
     the length and whether the check digit is correct."""
     try:
-        number = compact(number)
-    except:
+        return bool(validate(number))
+    except ValidationError:
         return False
-    return len(number) == 8 and \
-           number[:-1].isdigit() and \
-           calc_check_digit(number[:-1]) == number[-1]
 
 
 def format(number):
@@ -71,7 +88,6 @@ def format(number):
 
 
 def to_ean(number, issue_code='00'):
-    """Convert the number to EAN-13 format. The number is assumed to be a
-    valid ISSN."""
-    number = '977' + compact(number)[:-1] + issue_code
+    """Convert the number to EAN-13 format."""
+    number = '977' + validate(number)[:-1] + issue_code
     return number + ean.calc_check_digit(number)

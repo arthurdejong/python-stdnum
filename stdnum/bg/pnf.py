@@ -1,7 +1,7 @@
 # pnf.py - functions for handling Bulgarian personal number of a foreigner
 # coding: utf-8
 #
-# Copyright (C) 2012 Arthur de Jong
+# Copyright (C) 2012, 2013 Arthur de Jong
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -23,14 +23,19 @@
 The personal number of a foreigner is a 10-digit number where the last digit
 is the result of a weighted checksum.
 
->>> compact('7111 042 925')
+>>> validate('7111 042 925')
 '7111042925'
->>> is_valid('7111042925')
-True
->>> is_valid('7111042922')  # invalid check digit
-False
+>>> validate('7111042922')  # invalid check digit
+Traceback (most recent call last):
+    ...
+InvalidChecksum: ...
+>>> validate('71110A2922')  # invalid digit
+Traceback (most recent call last):
+    ...
+InvalidFormat: ...
 """
 
+from stdnum.exceptions import *
 from stdnum.util import clean
 
 
@@ -47,13 +52,25 @@ def calc_check_digit(number):
     return str(sum(weights[i] * int(n) for i, n in enumerate(number)) % 10)
 
 
+def validate(number):
+    """Checks to see if the number provided is a valid national
+    identification number. This checks the length, formatting, embedded
+    date and check digit."""
+    number = compact(number)
+    if not number.isdigit():
+        raise InvalidFormat()
+    if len(number) != 10:
+        raise InvalidLength()
+    if calc_check_digit(number[:-1]) != number[-1]:
+        raise InvalidChecksum()
+    return number
+
+
 def is_valid(number):
     """Checks to see if the number provided is a valid national
     identification number. This checks the length, formatting, embedded
     date and check digit."""
     try:
-        number = compact(number)
-    except:
+        return bool(validate(number))
+    except ValidationError:
         return False
-    return number.isdigit() and len(number) == 10 and \
-           calc_check_digit(number[:-1]) == number[-1]

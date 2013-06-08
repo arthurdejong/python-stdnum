@@ -1,6 +1,6 @@
 # mod_11_10.py - functions for performing the ISO 7064 Mod 11, 10 algorithm
 #
-# Copyright (C) 2010, 2011, 2012 Arthur de Jong
+# Copyright (C) 2010, 2011, 2012, 2013 Arthur de Jong
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -27,13 +27,15 @@ For a module that can do generic Mod x+1, x calculations see the
 
 >>> calc_check_digit('79462')
 '3'
->>> is_valid('794623')
-True
+>>> validate('794623')
+'794623'
 >>> calc_check_digit('00200667308')
 '5'
->>> is_valid('002006673085')
-True
+>>> validate('002006673085')
+'002006673085'
 """
+
+from stdnum.exceptions import *
 
 
 def checksum(number):
@@ -50,9 +52,20 @@ def calc_check_digit(number):
     return str((1 - ((checksum(number) or 10) * 2) % 11) % 10)
 
 
+def validate(number):
+    """Checks whether the check digit is valid."""
+    try:
+        valid = checksum(number) == 1
+    except:
+        raise InvalidFormat()
+    if not valid:
+        raise InvalidChecksum()
+    return number
+
+
 def is_valid(number):
     """Checks whether the check digit is valid."""
     try:
-        return bool(number) and checksum(number) == 1
-    except:
+        return bool(validate(number))
+    except ValidationError:
         return False

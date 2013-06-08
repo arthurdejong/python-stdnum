@@ -1,7 +1,7 @@
 # tva.py - functions for handling French TVA numbers
 # coding: utf-8
 #
-# Copyright (C) 2012 Arthur de Jong
+# Copyright (C) 2012, 2013 Arthur de Jong
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -27,18 +27,21 @@ style numbers at least one is a alphabetic.
 
 >>> compact('Fr 40 303 265 045')
 '40303265045'
->>> is_valid('23334175221')
-True
->>> is_valid('84 323 140 391')  # incorrect check digit
-False
->>> is_valid('K7399859412')  # new-style number
-True
->>> is_valid('4Z123456782')  # new-style number starting with digit
-True
+>>> validate('23334175221')
+'23334175221'
+>>> validate('84 323 140 391')
+Traceback (most recent call last):
+    ...
+InvalidChecksum: ...
+>>> validate('K7399859412')  # new-style number
+'K7399859412'
+>>> validate('4Z123456782')  # new-style number starting with digit
+'4Z123456782'
 """
 
-from stdnum.util import clean
+from stdnum.exceptions import *
 from stdnum.fr import siren
+from stdnum.util import clean
 
 
 # the valid characters for the first two digits (O and I are missing)
@@ -54,26 +57,38 @@ def compact(number):
     return number
 
 
+def validate(number):
+    """Checks to see if the number provided is a valid VAT number. This
+    checks the length, formatting and check digit."""
+    number = compact(number)
+    if not all(x in _alphabet for x in number[:2]):
+        raise InvalidFormat()
+    if len(number) != 11:
+        raise InvalidLength()
+    siren.validate(number[2:])
+    if number.isdigit():
+        # all-numeric digits
+        if int(number[:2]) != (int(number[2:] + '12') % 97):
+            raise InvalidChecksum()
+    else:
+        # one of the first two digits isn't a number
+        if number[0].isdigit():
+            check = (
+                _alphabet.index(number[0]) * 24 +
+                _alphabet.index(number[1]) - 10)
+        else:
+            check = (
+                _alphabet.index(number[0]) * 34 +
+                _alphabet.index(number[1]) - 100)
+        if (int(number[2:]) + 1 + check // 11) % 11 != (check % 11):
+            raise InvalidChecksum()
+    return number
+
+
 def is_valid(number):
     """Checks to see if the number provided is a valid VAT number. This
     checks the length, formatting and check digit."""
     try:
-        number = compact(number)
-    except:
-        return False
-    if len(number) == 11 and siren.is_valid(number[2:]) and \
-       number[0] in _alphabet and number[1] in _alphabet:
-        if number.isdigit():
-            # all-numeric digits
-            return int(number[:2]) == int(number[2:] + '12') % 97
-        else:
-            # one of the first two digits isn't a number
-            if number[0].isdigit():
-                check = _alphabet.index(number[0]) * 24 + \
-                        _alphabet.index(number[1]) - 10
-            else:
-                check = _alphabet.index(number[0]) * 34 + \
-                        _alphabet.index(number[1]) - 100
-            return (int(number[2:]) + 1 + check // 11 ) % 11 == check % 11
-    else:
+        return bool(validate(number))
+    except ValidationError:
         return False

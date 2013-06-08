@@ -29,6 +29,8 @@ import pydoc
 import re
 import sys
 
+from stdnum.exceptions import *
+
 
 _strip_doctest_re = re.compile('^>>> .*\Z', re.DOTALL | re.MULTILINE)
 
@@ -39,7 +41,10 @@ def clean(number, deletechars):
     >>> clean('123-456:78 9', ' -:')
     '123456789'
     """
-    return ''.join(x for x in number if x not in deletechars)
+    try:
+        return ''.join(x for x in number if x not in deletechars)
+    except:
+        raise InvalidFormat()
 
 
 def get_number_modules(base='stdnum'):
@@ -52,7 +57,7 @@ def get_number_modules(base='stdnum'):
                 ):
         __import__(name)
         module = sys.modules[name]
-        if hasattr(module, 'is_valid'):
+        if hasattr(module, 'validate'):
             yield module
 
 

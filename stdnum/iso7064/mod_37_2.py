@@ -1,6 +1,6 @@
 # mod_37_2.py - functions for performing the ISO 7064 Mod 37, 2 algorithm
 #
-# Copyright (C) 2010, 2011, 2012 Arthur de Jong
+# Copyright (C) 2010, 2011, 2012, 2013 Arthur de Jong
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -24,8 +24,8 @@ digit may also be numeric, a letter or '*'.
 
 >>> calc_check_digit('G123489654321')
 'Y'
->>> is_valid('G123489654321Y')
-True
+>>> validate('G123489654321Y')
+'G123489654321Y'
 >>> checksum('G123489654321Y')
 1
 
@@ -34,11 +34,13 @@ algorithm. For example Mod 11, 2:
 
 >>> calc_check_digit('079', alphabet='0123456789X')
 'X'
->>> is_valid('079', alphabet='0123456789X')
-True
->>> checksum('079', alphabet='0123456789X')
+>>> validate('079X', alphabet='0123456789X')
+'079X'
+>>> checksum('079X', alphabet='0123456789X')
 1
 """
+
+from stdnum.exceptions import *
 
 
 def checksum(number, alphabet='0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ*'):
@@ -57,9 +59,20 @@ def calc_check_digit(number, alphabet='0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ*'):
     return alphabet[(1 - 2 * checksum(number, alphabet)) % modulus]
 
 
+def validate(number, alphabet='0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ*'):
+    """Checks whether the check digit is valid."""
+    try:
+        valid = checksum(number, alphabet) == 1
+    except:
+        raise InvalidFormat()
+    if not valid:
+        raise InvalidChecksum()
+    return number
+
+
 def is_valid(number, alphabet='0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ*'):
     """Checks whether the check digit is valid."""
     try:
-        return bool(number) and checksum(number, alphabet) == 1
-    except:
+        return bool(validate(number, alphabet))
+    except ValidationError:
         return False

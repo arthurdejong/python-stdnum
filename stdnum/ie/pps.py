@@ -1,6 +1,6 @@
 # pps.py - functions for handling Irish PPS numbers
 #
-# Copyright (C) 2012 Arthur de Jong
+# Copyright (C) 2012, 2013 Arthur de Jong
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -24,18 +24,19 @@ are numeric and the last is the check character. The number is sometimes
 be followed by an extra letter that can be a 'W', 'T' or an 'X' and is
 ignored for the check algorithm.
 
->>> compact('6433435F')
+>>> validate('6433435F')
 '6433435F'
->>> is_valid('6433435F')
-True
->>> is_valid('6433435E')  # incorrect check digit
-False
+>>> validate('6433435E')  # incorrect check digit
+Traceback (most recent call last):
+    ...
+InvalidChecksum: ...
 """
 
 import re
 
-from stdnum.util import clean
+from stdnum.exceptions import *
 from stdnum.ie import vat
+from stdnum.util import clean
 
 
 pps_re = re.compile('^\d{7}[A-W][WTX]?$')
@@ -48,13 +49,21 @@ def compact(number):
     return clean(number, ' -').upper().strip()
 
 
+def validate(number):
+    """Checks to see if the number provided is a valid PPS number. This
+    checks the length, formatting and check digit."""
+    number = compact(number)
+    if not pps_re.match(number):
+        raise InvalidFormat()
+    if number[7] != vat.calc_check_digit(number[:7]):
+        raise InvalidChecksum()
+    return number
+
+
 def is_valid(number):
     """Checks to see if the number provided is a valid PPS number. This
     checks the length, formatting and check digit."""
     try:
-        number = compact(number)
-    except:
+        return bool(validate(number))
+    except ValidationError:
         return False
-    if not pps_re.match(number):
-        return False
-    return number[7] == vat.calc_check_digit(number[:7])

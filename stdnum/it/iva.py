@@ -1,6 +1,6 @@
-# vat.py - functions for handling Italian VAT numbers
+# iva.py - functions for handling Italian VAT numbers
 #
-# Copyright (C) 2012 Arthur de Jong
+# Copyright (C) 2012, 2013 Arthur de Jong
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -26,15 +26,16 @@ of residence and the last is a check digit.
 The fiscal code for individuals is not accepted as valid code for
 intracommunity VAT related operations so it is ignored here.
 
->>> compact('IT 00743110157')
+>>> validate('IT 00743110157')
 '00743110157'
->>> is_valid('00743110157')
-True
->>> is_valid('00743110158')  # invalid check digit
-False
+>>> validate('00743110158')  # invalid check digit
+Traceback (most recent call last):
+    ...
+InvalidChecksum: ...
 """
 
 from stdnum import luhn
+from stdnum.exceptions import *
 from stdnum.util import clean
 
 
@@ -47,15 +48,26 @@ def compact(number):
     return number
 
 
+def validate(number):
+    """Checks to see if the number provided is a valid VAT number. This checks
+    the length, formatting and check digit."""
+    number = compact(number)
+    if not number.isdigit() or int(number[0:7]) == 0:
+        raise InvalidFormat()
+    if len(number) != 11:
+        raise InvalidLength()
+    # check the province of residence
+    if not('001' <= number[7:10] <= '100') and \
+            number[7:10] not in ('120', '121', '888', '999'):
+        raise InvalidComponent()
+    luhn.validate(number)
+    return number
+
+
 def is_valid(number):
     """Checks to see if the number provided is a valid VAT number. This checks
     the length, formatting and check digit."""
     try:
-        number = compact(number)
-    except:
+        return bool(validate(number))
+    except ValidationError:
         return False
-    return len(number) == 11 and number.isdigit() and \
-           int(number[0:7]) > 0 and (
-              '001' <= number[7:10] <= '100' or
-              number[7:10] in ('120', '121', '888', '999')
-           ) and luhn.is_valid(number)

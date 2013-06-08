@@ -1,6 +1,6 @@
 test_luhn.doctest - more detailed doctests for stdnum.luhn module
 
-Copyright (C) 2010 Arthur de Jong
+Copyright (C) 2010, 2011, 2013 Arthur de Jong
 
 This library is free software; you can redistribute it and/or
 modify it under the terms of the GNU Lesser General Public
@@ -37,24 +37,26 @@ These are normal variations that should just work. Calculating checksums:
 
 The same numbers but now simply ask for validation:
 
->>> luhn.is_valid('4992739871')
-False
->>> luhn.is_valid('490154203237518')
-True
->>> luhn.is_valid('abcdefe', alphabet='abcdef')
-True
+>>> luhn.validate('4992739871')
+Traceback (most recent call last):
+    ...
+InvalidChecksum: ...
+>>> luhn.validate('490154203237518')
+'490154203237518'
+>>> luhn.validate('abcdefe', alphabet='abcdef')
+'abcdefe'
 
 Adding a check digit to the numbers so they are all valid:
 
 >>> luhn.calc_check_digit('4992739871')
 '6'
->>> luhn.is_valid('49927398716')
-True
+>>> luhn.validate('49927398716')
+'49927398716'
 >>> luhn.calc_check_digit('142857')
 '2'
->>> luhn.is_valid('1428572')
-True
+>>> luhn.validate('1428572')
+'1428572'
 >>> luhn.calc_check_digit('398438246238642378648236487236482734')
 '7'
->>> luhn.is_valid('3984382462386423786482364872364827347')
-True
+>>> luhn.validate('3984382462386423786482364872364827347')
+'3984382462386423786482364872364827347'

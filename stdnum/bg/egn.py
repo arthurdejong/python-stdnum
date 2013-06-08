@@ -1,7 +1,7 @@
 # egn.py - functions for handling Bulgarian national identification numbers
 # coding: utf-8
 #
-# Copyright (C) 2012 Arthur de Jong
+# Copyright (C) 2012, 2013 Arthur de Jong
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -27,18 +27,23 @@ digit.
 
 >>> compact('752316 926 3')
 '7523169263'
->>> is_valid('8032056031')
-True
+>>> validate('8032056031')
+'8032056031'
 >>> get_birth_date('7542011030')
 datetime.date(2075, 2, 1)
->>> is_valid('7552010004')  # invalid check digit
-False
->>> is_valid('8019010008')  # invalid date
-False
+>>> validate('7552A10004')  # invalid digit
+Traceback (most recent call last):
+    ...
+InvalidFormat: ...
+>>> validate('8019010008')  # invalid date
+Traceback (most recent call last):
+    ...
+InvalidComponent: ...
 """
 
 import datetime
 
+from stdnum.exceptions import *
 from stdnum.util import clean
 
 
@@ -66,7 +71,28 @@ def get_birth_date(number):
     elif month > 20:
         year -= 100
         month -= 20
-    return datetime.date(year, month, day)
+    try:
+        return datetime.date(year, month, day)
+    except ValueError:
+        raise InvalidComponent()
+
+
+def validate(number):
+    """Checks to see if the number provided is a valid national
+    identification number. This checks the length, formatting, embedded
+    date and check digit."""
+    number = compact(number)
+    if not number.isdigit():
+        raise InvalidFormat()
+    if len(number) != 10:
+        raise InvalidLength()
+    # check if birth date is valid
+    birth_date = get_birth_date(number)
+    # TODO: check that the birth date is not in the future
+    # check the check digit
+    if calc_check_digit(number[:-1]) != number[-1]:
+        raise InvalidChecksum()
+    return number
 
 
 def is_valid(number):
@@ -74,16 +100,6 @@ def is_valid(number):
     identification number. This checks the length, formatting, embedded
     date and check digit."""
     try:
-        number = compact(number)
-    except:
+        return bool(validate(number))
+    except ValidationError:
         return False
-    if not number.isdigit() or len(number) != 10:
-        return False
-    # check if birth date is valid
-    try:
-        birth_date = get_birth_date(number)
-        # TODO: check that the birth date is not in the future
-    except ValueError:
-        return False
-    # check the check digit
-    return calc_check_digit(number[:-1]) == number[-1]

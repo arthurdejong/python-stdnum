@@ -84,15 +84,18 @@ Interface
 
 Most of these modules implement the following functions:
 
-is_valid() - returns either True or False depending on whether the
-             passed number is in any supported and valid form
+validate() - validate the correctness of the passed number and return a
+             compact representation of the number
+             invalid numbers are rejected with one of the exceptions
+             from the stdnum.exceptions module
 compact() - return a compact representation of the number or code
             this function generally does not do validation but may raise
             exceptions for wildly incorrect numbers
 format() - return a formatted version of the number in the preferred format
            this function generally expects to be passed a valid number or code
 
-Apart from the above, the module may add extra parsing, validation or conversion functions.
+Apart from the above, the module may add extra parsing, validation or
+conversion functions.
 
 Requirements
 ------------
@@ -104,7 +107,7 @@ also work with older versions of Python.
 Copyright
 ---------
 
-Copyright (C) 2010, 2011, 2012 Arthur de Jong
+Copyright (C) 2010, 2011, 2012, 2013 Arthur de Jong
 
 This library is free software; you can redistribute it and/or
 modify it under the terms of the GNU Lesser General Public

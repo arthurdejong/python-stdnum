@@ -1,6 +1,6 @@
 test_doctest - more detailed doctests for the stdnum.iso7064 package
 
-Copyright (C) 2010, 2011 Arthur de Jong
+Copyright (C) 2010, 2011, 2013 Arthur de Jong
 
 This library is free software; you can redistribute it and/or
 modify it under the terms of the GNU Lesser General Public
@@ -27,20 +27,22 @@ really useful as module documentation.
 
 These are normal variations of Mod 11, 10 that should just work.
 
->>> mod_11_10.is_valid('12323')
-True
->>> mod_11_10.is_valid('546794')
-True
+>>> mod_11_10.validate('12323')
+'12323'
+>>> mod_11_10.validate('546794')
+'546794'
 >>> mod_11_10.calc_check_digit('0794')
 '5'
->>> mod_11_10.is_valid('07945')
-True
+>>> mod_11_10.validate('07945')
+'07945'
 >>> mod_11_10.calc_check_digit('00200667308')
 '5'
->>> mod_11_10.is_valid('002006673085')
-True
->>> mod_11_10.is_valid('002006673084')
-False
+>>> mod_11_10.validate('002006673085')
+'002006673085'
+>>> mod_11_10.validate('002006673084')
+Traceback (most recent call last):
+    ...
+InvalidChecksum: ...
 >>> mod_11_10.calc_check_digit('00200667309')
 '3'
 >>> mod_11_10.calc_check_digit('00200667310')
@@ -55,12 +57,12 @@ These normal tests of Mod 11, 2 should just work.
 
 >>> mod_11_2.calc_check_digit('0794')
 '0'
->>> mod_11_2.is_valid('07940')
-True
+>>> mod_11_2.validate('07940')
+'07940'
 >>> mod_11_2.calc_check_digit('079')
 'X'
->>> mod_11_2.is_valid('079')
-True
+>>> mod_11_2.validate('079X')
+'079X'
 
 These normal tests of Mod 37, 2 should just work
 

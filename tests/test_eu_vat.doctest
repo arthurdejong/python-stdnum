@@ -1,6 +1,6 @@
 test_eu_vat.doctest - more detailed doctests for the stdnum.eu.vat module
 
-Copyright (C) 2012 Arthur de Jong
+Copyright (C) 2012, 2013 Arthur de Jong
 
 This library is free software; you can redistribute it and/or
 modify it under the terms of the GNU Lesser General Public
@@ -22,6 +22,7 @@ This file contains more detailed doctests for the stdnum.eu.vat module. It
 tries to validate a number of VAT numbers that have been found online.
 
 >>> from stdnum.eu import vat
+>>> from stdnum.exceptions import *
 
 
 These have been found online and should all be valid numbers.
@@ -652,5 +653,177 @@ These have been found online and should all be valid numbers.
 ... SK2022193459
 ...
 ... '''
->>> [ x for x in numbers.splitlines() if x and not vat.is_valid(x) ]
+>>> [x for x in numbers.splitlines() if x and not vat.is_valid(x)]
+[]
+
+
+The following numbers are wrong in one way or another. First we need a
+function to be able to determine the kind of error.
+
+>>> def caught(number, exception):
+...     try:
+...         vat.validate(number)
+...         return False
+...     except exception:
+...         return True
+...
+
+
+These numbers should be mostly valid except that they have been mangled
+so their check digit is wrong.
+
+>>> numbers = '''
+...
+... ATU 143 43 102
+... ATU 15169209
+... ATU46080904
+... ATU61191628
+...
+... BE 0406.139.583
+... BE 0793 013 186
+... BE 456.973.432
+... BE697449982
+...
+... BG 1037735942
+... BG 131 172 009
+... BG 147147471
+... BG 200940556
+...
+... CY 10246672F
+... CY-10009489 A
+... CY-10257074Y
+... CY00632893 F
+...
+... CZ 25557481
+... CZ 48207726
+... CZ 640913926
+... CZ 8058018314
+...
+... DE 125014855
+... DE 246 495 415
+... DE 813 91 38 75
+... DE - 266297673
+...
+... DK 11 96 56 58
+... DK 2565 2202
+... DK-27996592
+... DK10159817
+...
+... EE 100 941 558
+... EE 100525487
+... EE 101586639
+... EE101256754
+...
+... ES 54362415K
+... ES K-2814015-F
+... ES-x-2322300w
+... Es-a48951310
+...
+... EL 094013834
+... EL 094068733
+... EL094501140
+... EL: 094269805
+...
+... FR 04409414264
+... FR 21 326 565 603
+... FR K 7399859312
+... FR L 7399859412
+...
+... IE 4731823H
+... IE 632 3421 C
+... IE 5339273F
+... IE8D79729I
+...
+... LV 40003189715
+... LV 90000528022
+... LV-10103241337
+... LV-42103048181
+...
+... SK 1078449164
+... SK 302 274 96 19
+... SK 2030 237 945
+... SK 2020457679
+...
+... '''
+>>> [x for x in numbers.splitlines() if x and not caught(x, InvalidChecksum)]
+[]
+
+
+These numbers should be mostly valid except that they have some formatting
+flaws.
+
+>>> numbers = '''
+...
+... AT1 142 43 102
+... ATU 1515B209
+...
+... BE 02A2.239.951
+... BE 0220,764.971
+...
+... BG 10X8735941
+...
+... CY-102590Z3P
+...
+... DE 246X595 415
+... DE 011125440
+...
+... IE 4550C59S
+... IE 069385V8
+...
+... NL 001241643801
+... NL 009122746B00
+... NL B06753742B01
+... NL 82X569759b01
+...
+... SK A078449064
+... SK 012 274 96 19
+... SK 2010 237 945
+...
+... '''
+>>> [x for x in numbers.splitlines() if x and not caught(x, InvalidFormat)]
+[]
+
+
+These numbers should be mostly valid except that they have some component
+that contains an invalid or unknown value.
+
+>>> numbers = '''
+...
+... CY-12259033P
+...
+... CZ 95123891
+...
+... IT 00687129980
+...
+... LT 100001354
+... LT 100001509922
+...
+... QQ 124567
+...
+... '''
+>>> [x for x in numbers.splitlines() if x and not caught(x, InvalidComponent)]
+[]
+>>> vat.compact('QQ 124567')
+Traceback (most recent call last):
+    ...
+InvalidComponent: ...
+
+
+These numbers should be mostly valid except that they have the wrong length.
+
+>>> numbers = '''
+...
+... ATU 151592092
+...
+... CY-1225903322
+...
+... ES B-583784312
+...
+... NL006866304B021
+...
+... SE 55643359201
+... SE 5567003255201
+...
+... '''
+>>> [x for x in numbers.splitlines() if x and not caught(x, InvalidLength)]
 []
