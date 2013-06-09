@@ -69,6 +69,7 @@ Currently this package supports the following formats:
  * lv.pvn: PVN (Pievienotās vērtības nodokļa, Latvian VAT number)
  * meid: MEID (Mobile Equipment Identifier)
  * mt.vat: VAT (Maltese VAT number)
+ * my.nric: NRIC No. (Malaysian National Registration Identity Card Number)
  * nl.bsn: BSN (Burgerservicenummer, Dutch national identification number)
  * nl.btw: BTW-nummer (Omzetbelastingnummer, the Dutch VAT number)
  * nl.onderwijsnummer: Onderwijsnummer (Dutch school number)
@@ -95,4 +96,4 @@ Furthermore a number of generic check digit algorithms are available:
 
 
 # the version number of the library
-__version__ = '0.7'
+__version__ = '0.8'

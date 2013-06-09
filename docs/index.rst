@@ -129,6 +129,7 @@ Available formats
    lv.pvn
    meid
    mt.vat
+   my.nric
    nl.bsn
    nl.btw
    nl.onderwijsnummer

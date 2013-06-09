@@ -1,3 +1,16 @@
+changes from 0.7 to 0.8
+-----------------------
+
+* add modules for the following number formats:
+  - NRIC No. (Malaysian National Registration Identity Card Number)
+* all modules now provide a validate() function that throws an exception
+  that contains more information on the failure reason
+* documentation improvements
+* remove add_check_digit parameter from GRid's format() function
+* improvements to the tests
+* re-add Python3 support (now tested with Python 2.7, 3.2 and 3.3)
+
+
 changes from 0.6 to 0.7
 -----------------------
 

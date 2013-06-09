@@ -1,979 +1,915 @@
-2012-02-26 16:27  arthur
-
-	* [r171] stdnum/iban.dat, stdnum/imsi.dat, stdnum/isbn.dat,
-	  stdnum/isil.dat: update data files
-
-2012-02-26 15:24  arthur
-
-	* [r170] getnumlist.py: also generate a list of modules for use in
-	  the Spinx documentation
-
-2012-02-26 15:19  arthur
-
-	* [r169] README, getnumlist.py, stdnum/__init__.py: use a script to
-	  generate the list of number formats in stdnum
-
-2012-02-26 15:08  arthur
-
-	* [r168] stdnum/eu/vat.py, stdnum/gb/vat.py, stdnum/gr/vat.py,
-	  stdnum/grid.py, stdnum/hr/oib.py, stdnum/hu/anum.py,
-	  stdnum/iban.py, stdnum/ie/pps.py, stdnum/ie/vat.py,
-	  stdnum/imei.py, stdnum/isan.py, stdnum/iso7064/__init__.py,
-	  stdnum/iso7064/mod_11_10.py, stdnum/iso7064/mod_11_2.py,
-	  stdnum/iso7064/mod_37_2.py, stdnum/iso7064/mod_37_36.py,
-	  stdnum/iso7064/mod_97_10.py, stdnum/lt/pvm.py, stdnum/luhn.py,
-	  stdnum/meid.py, stdnum/verhoeff.py: some more documentation
-	  improvements
-
-2012-02-26 11:38  arthur
-
-	* [r167] setup.py: make script executable
-
-2012-02-26 11:36  arthur
-
-	* [r166] stdnum/fr/siren.py: add a to_vta() function to the
-	  stdnum.fr.siren module
-
-2012-02-26 11:10  arthur
-
-	* [r165] stdnum/__init__.py, stdnum/at/uid.py, stdnum/be/vat.py,
-	  stdnum/bg/egn.py, stdnum/bg/pnf.py, stdnum/bg/vat.py,
-	  stdnum/br/cpf.py, stdnum/cy/vat.py, stdnum/cz/dic.py,
-	  stdnum/cz/rc.py, stdnum/de/vat.py, stdnum/dk/cpr.py,
-	  stdnum/dk/cvr.py, stdnum/ean.py, stdnum/ee/kmkr.py,
-	  stdnum/es/cif.py, stdnum/es/dni.py, stdnum/es/nie.py,
-	  stdnum/es/nif.py, stdnum/eu/vat.py, stdnum/fi/alv.py,
-	  stdnum/fi/hetu.py, stdnum/fr/siren.py, stdnum/fr/tva.py,
-	  stdnum/gb/vat.py, stdnum/gr/vat.py, stdnum/grid.py,
-	  stdnum/hr/oib.py, stdnum/hu/anum.py, stdnum/iban.py,
-	  stdnum/ie/pps.py, stdnum/ie/vat.py, stdnum/imei.py,
-	  stdnum/imsi.py, stdnum/isan.py, stdnum/isbn.py, stdnum/isil.py,
-	  stdnum/ismn.py, stdnum/iso7064/__init__.py,
-	  stdnum/iso7064/mod_11_10.py, stdnum/iso7064/mod_11_2.py,
-	  stdnum/iso7064/mod_37_2.py, stdnum/iso7064/mod_37_36.py,
-	  stdnum/iso7064/mod_97_10.py, stdnum/issn.py, stdnum/it/iva.py,
-	  stdnum/lt/pvm.py, stdnum/lu/tva.py, stdnum/luhn.py,
-	  stdnum/lv/pvn.py, stdnum/meid.py, stdnum/mt/vat.py,
-	  stdnum/nl/bsn.py, stdnum/nl/btw.py, stdnum/nl/onderwijsnummer.py,
-	  stdnum/numdb.py, stdnum/pl/nip.py, stdnum/pt/nif.py,
-	  stdnum/ro/cf.py, stdnum/ro/cnp.py, stdnum/se/vat.py,
-	  stdnum/si/ddv.py, stdnum/sk/dph.py, stdnum/sk/rc.py,
-	  stdnum/us/ssn.py, stdnum/util.py, stdnum/verhoeff.py: ensure that
-	  the module docstrings are in a somewhat more usable format
-
-2012-02-25 21:06  arthur
-
-	* [r164] setup.py: add the optional dependency on suds for the
-	  stdnum.eu.vat.check_vies() function
-
-2012-02-24 20:54  arthur
-
-	* [r163] stdnum/cz/rc.py: make the get_birth_date() function
-	  publically available
-
-2012-02-24 20:43  arthur
-
-	* [r162] docs, docs/_templates, docs/_templates/autosummary,
-	  docs/_templates/autosummary/module.rst, docs/conf.py,
-	  docs/index.rst, docs/stdnum.at.uid.rst, docs/stdnum.be.vat.rst,
-	  docs/stdnum.bg.egn.rst, docs/stdnum.bg.pnf.rst,
-	  docs/stdnum.bg.vat.rst, docs/stdnum.br.cpf.rst,
-	  docs/stdnum.cy.vat.rst, docs/stdnum.cz.dic.rst,
-	  docs/stdnum.cz.rc.rst, docs/stdnum.de.vat.rst,
-	  docs/stdnum.dk.cpr.rst, docs/stdnum.dk.cvr.rst,
-	  docs/stdnum.ean.rst, docs/stdnum.ee.kmkr.rst,
-	  docs/stdnum.es.cif.rst, docs/stdnum.es.dni.rst,
-	  docs/stdnum.es.nie.rst, docs/stdnum.es.nif.rst,
-	  docs/stdnum.eu.vat.rst, docs/stdnum.fi.alv.rst,
-	  docs/stdnum.fi.hetu.rst, docs/stdnum.fr.siren.rst,
-	  docs/stdnum.fr.tva.rst, docs/stdnum.gb.vat.rst,
-	  docs/stdnum.gr.vat.rst, docs/stdnum.grid.rst,
-	  docs/stdnum.hr.oib.rst, docs/stdnum.hu.anum.rst,
-	  docs/stdnum.iban.rst, docs/stdnum.ie.pps.rst,
-	  docs/stdnum.ie.vat.rst, docs/stdnum.imei.rst,
-	  docs/stdnum.imsi.rst, docs/stdnum.isan.rst, docs/stdnum.isbn.rst,
-	  docs/stdnum.isil.rst, docs/stdnum.ismn.rst,
-	  docs/stdnum.iso7064.rst, docs/stdnum.issn.rst,
-	  docs/stdnum.it.iva.rst, docs/stdnum.lt.pvm.rst,
-	  docs/stdnum.lu.tva.rst, docs/stdnum.luhn.rst,
-	  docs/stdnum.lv.pvn.rst, docs/stdnum.meid.rst,
-	  docs/stdnum.mt.vat.rst, docs/stdnum.nl.bsn.rst,
-	  docs/stdnum.nl.btw.rst, docs/stdnum.nl.onderwijsnummer.rst,
-	  docs/stdnum.pl.nip.rst, docs/stdnum.pt.nif.rst,
-	  docs/stdnum.ro.cf.rst, docs/stdnum.ro.cnp.rst,
-	  docs/stdnum.se.vat.rst, docs/stdnum.si.ddv.rst,
-	  docs/stdnum.sk.dph.rst, docs/stdnum.sk.rc.rst,
-	  docs/stdnum.us.ssn.rst, docs/stdnum.verhoeff.rst, setup.cfg:
-	  generate documentation using Sphinx
+2013-06-09 14:28:41 +0200 Arthur de Jong
 
-2012-02-23 22:25  arthur
+	* [9597010] Update database files
 
-	* [r161] README, stdnum/__init__.py, stdnum/dk/cpr.py: add a CPR
-	  (personnummer, the Danish citizen number) module
+2013-06-09 14:29:11 +0200 Arthur de Jong
 
-2012-02-23 21:58  arthur
+	* [19cbb3c] Fix NRIC module description
 
-	* [r160] README, stdnum/__init__.py, stdnum/ie/pps.py: add a PPS No
-	  (Personal Public Service Number, Irish personal number) module
+2013-06-08 15:37:56 +0200 Arthur de Jong
 
-2012-02-22 21:17  arthur
+	* [46a7996] Add a Malaysian NRIC No. module
 
-	* [r159] README, stdnum/__init__.py, stdnum/hr,
-	  stdnum/hr/__init__.py, stdnum/hr/oib.py: add an OIB (Osobni
-	  identifikacijski broj, Croatian personal identification number)
-	  module
+2013-06-08 14:46:38 +0200 Arthur de Jong
 
-2012-02-20 22:22  arthur
+	* [999f2c3] Provide a validate() function in all modules
 
-	* [r158] numdb-test.dat, stdnum/numdb.py, test.dat: rename numdb
-	  test file
+2013-05-22 22:31:15 +0200 Arthur de Jong
 
-2012-02-20 20:40  arthur
+	* [cb69921] Document the validate() function and exceptions
 
-	* [r157] stdnum/eu/vat.py: add a stdnum.eu.vat.check_vies()
-	  function to do an on-line check of the VAT number
+2013-05-18 23:54:42 +0200 Arthur de Jong
 
-2012-02-19 22:24  arthur
+	* [e00744c] Use validate() in stdnum.util
 
-	* [r156] stdnum/iban.py, stdnum/numdb.py: add "pragma: no cover"
-	  statements to code that isn't expected to be covered
+2013-05-17 17:08:25 +0200 Arthur de Jong
 
-2012-02-19 09:55  arthur
+	* [3d3a97d] Implement validate() for U.S. Social Security Number
 
-	* [r155] README, stdnum/__init__.py, stdnum/eu,
-	  stdnum/eu/__init__.py, stdnum/eu/vat.py,
-	  tests/test_eu_vat.doctest: add a VAT (European Union VAT number)
-	  module
+2013-05-17 17:16:27 +0200 Arthur de Jong
 
-2012-02-19 09:55  arthur
+	* [4bfce3f] Implement validate() for European VAT numbers
 
-	* [r154] README, stdnum/__init__.py: make number description
-	  consistent
+2013-05-17 17:02:15 +0200 Arthur de Jong
 
-2012-02-19 09:38  arthur
+	* [1aaf902] Implement validate() for Slovak numbers
 
-	* [r153] stdnum/at/__init__.py, stdnum/cz/__init__.py,
-	  stdnum/dk/__init__.py, stdnum/ee/__init__.py,
-	  stdnum/es/__init__.py, stdnum/fi/__init__.py,
-	  stdnum/fr/__init__.py, stdnum/hu/__init__.py,
-	  stdnum/it/__init__.py, stdnum/lt/__init__.py,
-	  stdnum/lu/__init__.py, stdnum/lv/__init__.py,
-	  stdnum/nl/__init__.py, stdnum/pl/__init__.py,
-	  stdnum/pt/__init__.py, stdnum/ro/__init__.py,
-	  stdnum/si/__init__.py, stdnum/sk/__init__.py: for all countries,
-	  provide vat as an alias for the local vat identifier
+2013-05-17 16:52:10 +0200 Arthur de Jong
 
-2012-02-19 09:32  arthur
+	* [8982d1e] Implement validate() for Slovenian VAT numbers
 
-	* [r152] stdnum/at/__init__.py, stdnum/be/__init__.py,
-	  stdnum/bg/__init__.py, stdnum/br/__init__.py,
-	  stdnum/cy/__init__.py, stdnum/cz/__init__.py,
-	  stdnum/de/__init__.py, stdnum/dk/__init__.py,
-	  stdnum/ee/__init__.py, stdnum/es/__init__.py,
-	  stdnum/fi/__init__.py, stdnum/fr/__init__.py,
-	  stdnum/gb/__init__.py, stdnum/gr/__init__.py,
-	  stdnum/hu/__init__.py, stdnum/ie/__init__.py,
-	  stdnum/it/__init__.py, stdnum/lt/__init__.py,
-	  stdnum/lu/__init__.py, stdnum/lv/__init__.py,
-	  stdnum/mt/__init__.py, stdnum/nl/__init__.py,
-	  stdnum/pl/__init__.py, stdnum/pt/__init__.py,
-	  stdnum/ro/__init__.py, stdnum/se/__init__.py,
-	  stdnum/si/__init__.py, stdnum/sk/__init__.py,
-	  stdnum/us/__init__.py: give all packages a description
+2013-05-17 16:48:48 +0200 Arthur de Jong
 
-2012-02-19 09:14  arthur
+	* [522a599] Implement validate() for Swedish VAT numbers
 
-	* [r151] stdnum/nl/vat.py: remove stdnum.nl.vat alias module
+2013-05-17 16:46:19 +0200 Arthur de Jong
 
-2012-02-19 09:11  arthur
+	* [8e7d807] Implement validate() for Portuguese VAT numbers
 
-	* [r150] stdnum/util.py, tests/test_robustness.doctest: use
-	  introspection to find number modules and test them
+2013-05-17 16:43:24 +0200 Arthur de Jong
 
-2012-02-18 21:52  arthur
+	* [7e865db] Implement validate() for Polish numbers
 
-	* [r149] README, stdnum/__init__.py, stdnum/bg/vat.py,
-	  tests/test_bg_vat.doctest, tests/test_robustness.doctest: add a
-	  VAT (Идентификационен номер по ДДС, Bulgarian VAT numbers) module
+2013-05-17 14:00:13 +0200 Arthur de Jong
 
-2012-02-18 21:32  arthur
+	* [96c5080] Implement validate() for Maltese numbers
 
-	* [r148] README, stdnum/__init__.py, stdnum/bg/pnf.py,
-	  tests/test_robustness.doctest: add a PNF (ЛНЧ, Личен номер на
-	  чужденец, Bulgarian personal number of a foreigner) module
+2013-05-17 13:57:34 +0200 Arthur de Jong
 
-2012-02-18 20:05  arthur
+	* [2ff4950] Implement validate() for Latvian numbers
 
-	* [r147] README, stdnum/__init__.py, stdnum/bg,
-	  stdnum/bg/__init__.py, stdnum/bg/egn.py,
-	  tests/test_robustness.doctest: add an EGN (ЕГН, Единен граждански
-	  номер, Bulgarian personal identity codes) module
+2013-05-17 13:52:38 +0200 Arthur de Jong
 
-2012-02-18 19:26  arthur
+	* [9845b0a] Implement validate() for Luxembourgian numbers
 
-	* [r146] tests/test_robustness.doctest: explicitly test for False
+2013-05-17 13:48:53 +0200 Arthur de Jong
 
-2012-02-18 19:25  arthur
+	* [04cfb84] Implement validate() for Lithuanian numbers
 
-	* [r145] stdnum/lt/pvm.py: explicitly return False if no rule
-	  matches
+2013-05-17 13:44:16 +0200 Arthur de Jong
 
-2012-02-18 16:08  arthur
+	* [b1d5a72] Implement validate() for Italian numbers
 
-	* [r144] README, stdnum/__init__.py, stdnum/gb,
-	  stdnum/gb/__init__.py, stdnum/gb/vat.py,
-	  tests/test_gb_vat.doctest, tests/test_robustness.doctest: add a
-	  VAT (United Kingdom (and Isle of Man) VAT registration number)
-	  module
+2013-05-17 13:39:22 +0200 Arthur de Jong
 
-2012-02-18 16:02  arthur
+	* [083993b] Implement validate() for Irish numbers
 
-	* [r143] tests/test_fi_hetu.doctest: fix typo
+2013-05-17 13:28:46 +0200 Arthur de Jong
 
-2012-02-18 15:38  arthur
+	* [301ba25] Implement validate() for Hungarian numbers
 
-	* [r142] README, stdnum/__init__.py, stdnum/se,
-	  stdnum/se/__init__.py, stdnum/se/vat.py,
-	  tests/test_robustness.doctest: add a VAT (Moms, Mervärdesskatt,
-	  Swedish VAT number) module
+2013-05-17 13:26:37 +0200 Arthur de Jong
 
-2012-02-18 15:05  arthur
+	* [31f2684] Implement validate() for Croatian numbers
 
-	* [r141] README, stdnum/__init__.py, stdnum/si,
-	  stdnum/si/__init__.py, stdnum/si/ddv.py,
-	  tests/test_robustness.doctest: add a ID za DDV (Davčna številka,
-	  Slovenian VAT number) module
+2013-05-17 13:22:44 +0200 Arthur de Jong
 
-2012-02-18 14:16  arthur
+	* [1932f69] Implement validate() for Greek numbers
 
-	* [r140] README, stdnum/__init__.py, stdnum/pl,
-	  stdnum/pl/__init__.py, stdnum/pl/nip.py,
-	  tests/test_robustness.doctest: add a NIP (Numer Identyfikacji
-	  Podatkowej, Polish VAT number) module
+2013-05-17 13:18:31 +0200 Arthur de Jong
 
-2012-02-18 13:54  arthur
+	* [10710dc] Implement validate() for United Kingdom numbers
 
-	* [r139] README, stdnum/__init__.py, stdnum/mt,
-	  stdnum/mt/__init__.py, stdnum/mt/vat.py,
-	  tests/test_robustness.doctest: add a VAT (Maltese VAT number)
-	  module
+2013-05-17 13:04:14 +0200 Arthur de Jong
 
-2012-02-17 22:24  arthur
+	* [4753c09] Implement validate() for Finnish numbers
 
-	* [r138] stdnum/it/iva.py: strip a few more separators
+2013-05-17 12:46:27 +0200 Arthur de Jong
 
-2012-02-17 22:18  arthur
+	* [2259cbb] Implement validate() for Spanish numbers
 
-	* [r137] README, stdnum/__init__.py, stdnum/fr/tva.py,
-	  tests/test_robustness.doctest: add a TVA (Numéro d'identification
-	  à la taxe sur la valeur ajoutée, French VAT number) module
+2013-05-17 11:59:19 +0200 Arthur de Jong
 
-2012-02-17 16:27  arthur
+	* [07c66e1] Implement validate() for Estonian numbers
 
-	* [r136] README, stdnum/__init__.py, stdnum/lt,
-	  stdnum/lt/__init__.py, stdnum/lt/pvm.py,
-	  tests/test_robustness.doctest: add a PVM (Pridėtinės vertės
-	  mokestis mokėtojo kodas, Lithuanian VAT number) module
+2013-05-17 11:47:20 +0200 Arthur de Jong
 
-2012-02-17 16:15  arthur
+	* [8caecc5] Implement validate() for Danish numbers
 
-	* [r135] README, stdnum/__init__.py, stdnum/ee,
-	  stdnum/ee/__init__.py, stdnum/ee/kmkr.py,
-	  tests/test_robustness.doctest: add a KMKR (Käibemaksukohuslase,
-	  Estonian VAT number) module
+2013-05-17 11:29:06 +0200 Arthur de Jong
 
-2012-02-17 16:10  arthur
+	* [360480b] Implement validate() for German numbers
 
-	* [r134] README, stdnum/__init__.py, stdnum/ie,
-	  stdnum/ie/__init__.py, stdnum/ie/vat.py,
-	  tests/test_robustness.doctest: add a VAT (Irish VAT number)
-	  module
+2013-05-17 11:18:06 +0200 Arthur de Jong
 
-2012-02-17 16:01  arthur
+	* [fce6196] Implement validate() for Cypriot numbers
 
-	* [r133] README, stdnum/__init__.py, stdnum/hu,
-	  stdnum/hu/__init__.py, stdnum/hu/anum.py,
-	  tests/test_robustness.doctest: add an ANUM (Közösségi adószám,
-	  Hungarian VAT number) module
+2013-05-17 11:18:06 +0200 Arthur de Jong
 
-2012-02-17 15:36  arthur
+	* [14e382f] Implement validate() for Czech numbers
 
-	* [r132] README, stdnum/__init__.py, stdnum/cz/dic.py,
-	  tests/test_robustness.doctest: add a DIČ (Daňové identifikační
-	  číslo, Czech VAT number) module
+2013-05-17 10:52:42 +0200 Arthur de Jong
 
-2012-02-17 15:15  arthur
+	* [54ce2d7] Implement validate() for Brazillian numbers
 
-	* [r131] README, stdnum/__init__.py, stdnum/fi/alv.py,
-	  tests/test_robustness.doctest: add an ALV nro
-	  (Arvonlisäveronumero, Finnish VAT number) module
+2013-05-17 10:44:42 +0200 Arthur de Jong
 
-2012-02-17 15:02  arthur
+	* [6080907] Implement validate() for Bulgarian numbers
 
-	* [r130] README, stdnum/__init__.py, stdnum/sk/dph.py,
-	  tests/test_robustness.doctest: add IČ DPH (Identifikačné číslo
-	  pre daň z pridanej hodnoty, Slovak VAT number) module
+2013-05-17 10:32:19 +0200 Arthur de Jong
 
-2012-02-16 20:48  arthur
+	* [33ce4e9] Implement validate() for Belgian numbers
 
-	* [r129] README, stdnum/__init__.py, stdnum/pt,
-	  stdnum/pt/__init__.py, stdnum/pt/nif.py,
-	  tests/test_robustness.doctest: add a NIF (Número de identificação
-	  fiscal, Portuguese VAT number) module
+2013-05-17 10:28:38 +0200 Arthur de Jong
 
-2012-02-13 22:11  arthur
+	* [66d6259] Implement validate() for Austrian numbers
 
-	* [r128] README, stdnum/__init__.py, stdnum/at,
-	  stdnum/at/__init__.py, stdnum/at/uid.py,
-	  tests/test_robustness.doctest: add a UID
-	  (Umsatzsteuer-Identifikationsnummer, Austrian VAT number) module
+2013-05-11 23:51:53 +0200 Arthur de Jong
 
-2012-02-13 22:02  arthur
+	* [05547a4] Implement validate() for Romanian numbers
 
-	* [r127] README, stdnum/__init__.py, stdnum/cy,
-	  stdnum/cy/__init__.py, stdnum/cy/vat.py,
-	  tests/test_robustness.doctest: add a Αριθμός Εγγραφής Φ.Π.Α.
-	  (Cypriot VAT number) module
+2013-05-17 23:30:58 +0200 Arthur de Jong
 
-2012-02-12 22:09  arthur
+	* [fc1432c] Implement validate() for French numbers
 
-	* [r126] stdnum/es/cif.py, stdnum/it/iva.py, stdnum/util.py: use
-	  the luhn module where possible
+2013-05-05 23:33:22 +0200 Arthur de Jong
 
-2012-02-12 15:30  arthur
+	* [62cafb4] Implement validate() for Dutch numbers
 
-	* [r125] tests/test_robustness.doctest: fix typo in header
+2013-05-04 23:53:08 +0200 Arthur de Jong
 
-2012-02-12 15:29  arthur
+	* [cf88e23] Implement validate() for MEID
 
-	* [r124] README, stdnum/__init__.py, stdnum/it,
-	  stdnum/it/__init__.py, stdnum/it/iva.py,
-	  tests/test_robustness.doctest: add a Partita IVA (Italian VAT
-	  number) module
+2013-05-04 23:40:31 +0200 Arthur de Jong
 
-2012-02-12 14:26  arthur
+	* [c6f41f6] Implement validate() for ISSN
 
-	* [r123] README, stdnum/__init__.py, stdnum/ro/cf.py,
-	  tests/test_robustness.doctest: add a CF (Cod de înregistrare în
-	  scopuri de TVA, Romanian VAT number) module
+2013-05-04 23:33:06 +0200 Arthur de Jong
 
-2012-02-12 13:33  arthur
+	* [21f07b3] Implement validate() for ISMN
 
-	* [r122] README, stdnum/__init__.py, stdnum/ro,
-	  stdnum/ro/__init__.py, stdnum/ro/cnp.py,
-	  tests/test_robustness.doctest: add a CNP (Cod Numeric Personal,
-	  Romanian Numerical Personal Code) module
+2013-05-04 23:16:46 +0200 Arthur de Jong
 
-2012-02-12 10:11  arthur
+	* [c07609f] Implement validate() for ISIL
 
-	* [r121] stdnum/gr/vat.py: also strip : as seen in some numbers
+2013-05-04 21:55:06 +0200 Arthur de Jong
 
-2012-02-11 20:38  arthur
+	* [a18f1ac] Implement validate() for ISAN
 
-	* [r120] README, stdnum/__init__.py, stdnum/lu,
-	  stdnum/lu/__init__.py, stdnum/lu/tva.py,
-	  tests/test_robustness.doctest: add a TVA (Numéro d'identification
-	  à la taxe sur la valeur ajoutée, Luxembourgian VAT number) module
+2013-05-01 23:13:56 +0200 Arthur de Jong
 
-2012-02-11 20:26  arthur
+	* [3ac8164] Implement validate() for IBAN
 
-	* [r119] README, stdnum/__init__.py, stdnum/dk,
-	  stdnum/dk/__init__.py, stdnum/dk/cvr.py,
-	  tests/test_robustness.doctest: add a CVR
-	  (Momsregistreringsnummer, Danish VAT number) module
+2013-05-03 23:38:56 +0200 Arthur de Jong
 
-2012-02-11 20:25  arthur
+	* [12bd684] Implement validate() for GRid numbers
 
-	* [r118] stdnum/be/vat.py: add missing test
+2013-05-04 21:14:39 +0200 Arthur de Jong
 
-2012-02-11 20:11  arthur
+	* [9cee495] Implement validate() for IMSI
 
-	* [r117] stdnum/be/vat.py: clean up numbers starting with (0)
+2013-05-04 18:28:24 +0200 Arthur de Jong
 
-2012-02-11 20:09  arthur
+	* [6e4bb71] Implement validate() for IMEI numbers
 
-	* [r116] README, stdnum/__init__.py, stdnum/lv,
-	  stdnum/lv/__init__.py, stdnum/lv/pvn.py,
-	  tests/test_robustness.doctest: add a PVN (Pievienotās vērtības
-	  nodokļa, Latvian VAT number) module
+2013-05-04 20:50:05 +0200 Arthur de Jong
 
-2012-02-11 14:50  arthur
+	* [efa2550] Implement validate() for ISO 7064 algorithms
 
-	* [r115] README, stdnum/__init__.py, stdnum/es/nif.py,
-	  tests/test_robustness.doctest: add a NIF (Número de
-	  Identificación Fiscal, Spanish VAT number) module
+2013-05-03 22:52:17 +0200 Arthur de Jong
 
-2012-02-11 14:44  arthur
+	* [5c9090b] Implement validate() for the Verhoeff checksum
 
-	* [r114] README, stdnum/__init__.py, stdnum/es/cif.py,
-	  tests/test_robustness.doctest: add a CIF (Certificado de
-	  Identificación Fiscal, Spanish tax identification number) module
+2013-05-03 23:15:48 +0200 Arthur de Jong
 
-2012-02-11 14:43  arthur
+	* [9ad5139] Implement validate() for the Luhn algorithms
 
-	* [r113] stdnum/util.py: implement a digitsum() function to find
-	  the sub of all digits in a number
+2013-05-03 23:37:56 +0200 Arthur de Jong
 
-2012-02-11 14:37  arthur
+	* [9580046] Implement validate() for ISBN
 
-	* [r112] stdnum/es/nie.py: fix description and remove unnecessary
-	  import
+2013-05-03 23:38:30 +0200 Arthur de Jong
 
-2012-02-10 20:53  arthur
+	* [fa1864f] Implement validate() for EAN
 
-	* [r111] README, stdnum/__init__.py, stdnum/es/nie.py,
-	  tests/test_robustness.doctest: add a NIE (Número de
-	  Identificación de Extranjeros, Spanish identification number for
-	  foreigners) module
+2013-06-07 23:38:07 +0200 Arthur de Jong
 
-2012-02-10 20:49  arthur
+	* [8b9ef8f] Raise a proper exception if cleaning fails
 
-	* [r110] README, stdnum/__init__.py, stdnum/es,
-	  stdnum/es/__init__.py, stdnum/es/dni.py,
-	  tests/test_robustness.doctest: add a DNI (Documento nacional de
-	  identidad, Spanish personal identity codes) module
+2013-06-07 23:37:58 +0200 Arthur de Jong
 
-2012-02-10 13:33  arthur
+	* [1ac5437] Provide a module with validation exceptions
 
-	* [r109] README, stdnum/__init__.py, stdnum/be,
-	  stdnum/be/__init__.py, stdnum/be/vat.py,
-	  tests/test_robustness.doctest: add a BTW, TVA, NWSt (Belgian VAT
-	  number) module
+2013-06-07 21:05:52 +0200 Arthur de Jong
 
-2012-02-10 13:27  arthur
+	* [99586c9] Revert generating stdnum docstring dynamically
 
-	* [r108] README, stdnum/__init__.py, stdnum/sk,
-	  stdnum/sk/__init__.py, stdnum/sk/rc.py: also make the
-	  stdnum.cz.rc module available as stdnum.sk.rc
+2013-06-07 19:07:18 +0200 Arthur de Jong
 
-2012-02-10 13:23  arthur
+	* [a655e82] Documentation consistency improvements
 
-	* [r107] stdnum/nl/vat.py: also make the stdnum.nl.btw module
-	  available as stdnum.nl.vat
+2013-06-07 18:24:14 +0200 Arthur de Jong
 
-2012-02-10 13:22  arthur
+	* [37a2afd] The robustness test were moved to the general tests
 
-	* [r106] stdnum/nl/btw.py: fix number in test and ensure that
-	  number is not all zeroes
+2013-06-07 18:23:08 +0200 Arthur de Jong
 
-2012-02-10 13:19  arthur
+	* [90b7c4a] Remove empty line
 
-	* [r105] stdnum/cz/rc.py: add some info to description
+2013-06-07 18:21:54 +0200 Arthur de Jong
 
-2012-02-10 13:16  arthur
+	* [bcb0a0b] GRid's format() function shouldn't have add_check_digit parameter
 
-	* [r104] README, stdnum/__init__.py, stdnum/de,
-	  stdnum/de/__init__.py, stdnum/de/vat.py,
-	  tests/test_robustness.doctest: add an Ust ID Nr. (Umsatzsteur
-	  Identifikationnummer, the German VAT number) module
+2013-04-26 23:22:29 +0200 Arthur de Jong
 
-2012-02-10 13:06  arthur
+	* [2d956eb] Use a cleaner way to get all stdnum modules
 
-	* [r103] README, stdnum/__init__.py, stdnum/gr,
-	  stdnum/gr/__init__.py, stdnum/gr/vat.py,
-	  tests/test_robustness.doctest: add a FPA, ΦΠΑ (Foros
-	  Prostithemenis Aksias, the Greek VAT number) module
+2013-04-26 23:22:20 +0200 Arthur de Jong
 
-2012-02-05 21:12  arthur
+	* [30c832f] Fix doctest to not be dependant on dict ordering
 
-	* [r102] README, stdnum/__init__.py, stdnum/fr,
-	  stdnum/fr/__init__.py, stdnum/fr/siren.py,
-	  tests/test_robustness.doctest: add a SIREN (Système
-	  d'Identification du Répertoire des Entreprises, a French company
-	  identification number) module
+2013-04-26 23:22:11 +0200 Arthur de Jong
 
-2012-02-05 20:51  arthur
+	* [51a55be] Add a .gitignore file
 
-	* [r101] README, stdnum/__init__.py, stdnum/cz,
-	  stdnum/cz/__init__.py, stdnum/cz/rc.py,
-	  tests/test_robustness.doctest: add a RČ (Rodné číslo, the Czech
-	  birth numbers) module
+2012-09-22 15:40:03 +0000 Arthur de Jong
 
-2012-02-04 19:15  arthur
+	* [3f6d52a] generate part of the stdnum docstring based on introspection of the modules
 
-	* [r100] stdnum/br/cpf.py, stdnum/ean.py, stdnum/grid.py,
-	  stdnum/iban.py, stdnum/imei.py, stdnum/imsi.py, stdnum/isan.py,
-	  stdnum/isbn.py, stdnum/ismn.py, stdnum/issn.py, stdnum/meid.py,
-	  stdnum/nl/bsn.py, stdnum/nl/btw.py, stdnum/nl/onderwijsnummer.py,
-	  stdnum/us/ssn.py, stdnum/util.py: implement a stdnum.util module
-	  for holding utility functions (for now clean())
+2012-06-16 10:42:27 +0000 Arthur de Jong
 
-2012-02-04 19:12  arthur
+	* [af7e837] set svn:ignore properly
 
-	* [r99] tests/test_robustness.doctest: some extra rubustness checks
+2012-02-26 21:30:31 +0000 Arthur de Jong
 
-2012-02-04 19:11  arthur
+	* [8f2e44c] re-add Python3 support
 
-	* [r98] stdnum/nl/bsn.py, stdnum/nl/onderwijsnummer.py: rename
-	  calc_checksum() to checksum() for consistency
+2012-02-26 18:55:19 +0000 Arthur de Jong
 
-2012-02-04 19:06  arthur
+	* [3325052] get files ready for 0.7 release
 
-	* [r97] stdnum/iso7064/mod_37_36.py: use integer division
+2012-02-26 16:27:18 +0000 Arthur de Jong
 
-2012-02-02 21:12  arthur
+	* [a3ba206] update data files
 
-	* [r96] README, stdnum/__init__.py, stdnum/nl/btw.py,
-	  tests/test_robustness.doctest: add a BTW (the Dutch VAT number)
-	  module
+2012-02-26 15:24:56 +0000 Arthur de Jong
 
-2012-02-02 21:09  arthur
+	* [c240eff] also generate a list of modules for use in the Spinx documentation
 
-	* [r95] README, stdnum/__init__.py, stdnum/nl/bsn.py,
-	  stdnum/nl/onderwijsnummer.py, tests/test_robustness.doctest: add
-	  an onderwijsnummer (Dutch school number) module
+2012-02-26 15:19:16 +0000 Arthur de Jong
 
-2011-12-31 16:16  arthur
+	* [54b0f47] use a script to generate the list of number formats in stdnum
 
-	* [r94] setup.py: revert switching to distutils part of r93, keep
-	  restructuring part
+2012-02-26 15:08:37 +0000 Arthur de Jong
 
-2011-12-31 15:59  arthur
+	* [dada6a4] some more documentation improvements
 
-	* [r93] setup.cfg, setup.py: switch to distutils
+2012-02-26 11:38:24 +0000 Arthur de Jong
 
-2011-11-07 22:07  arthur
+	* [13218a0] make script executable
 
-	* [r92] README, stdnum/__init__.py, stdnum/fi,
-	  stdnum/fi/__init__.py, stdnum/fi/hetu.py,
-	  tests/test_fi_hetu.doctest, tests/test_robustness.doctest: add a
-	  HETU (Finnish personal identity code) module as provided by Jussi
-	  Judin (#5)
+2012-02-26 11:36:34 +0000 Arthur de Jong
 
-2011-09-30 08:44  arthur
+	* [c2f0ea2] add a to_vta() function to the stdnum.fr.siren module
 
-	* [r90] setup.py: fix version number use (fix r86)
+2012-02-26 11:10:38 +0000 Arthur de Jong
 
-2011-09-30 08:40  arthur
+	* [902a656] ensure that the module docstrings are in a somewhat more usable format
 
-	* [r88] ChangeLog, NEWS, stdnum/__init__.py: get files ready for
-	  0.6 release
+2012-02-25 21:06:09 +0000 Arthur de Jong
 
-2011-09-30 08:36  arthur
+	* [907e410] add the optional dependency on suds for the stdnum.eu.vat.check_vies() function
 
-	* [r87] stdnum/imsi.dat, stdnum/isbn.dat, stdnum/isil.dat: update
-	  data files
+2012-02-24 20:54:55 +0000 Arthur de Jong
 
-2011-09-30 08:22  arthur
+	* [ae9268b] make the get_birth_date() function publically available
 
-	* [r86] setup.py, stdnum/__init__.py: move the version number
-	  definition to the stdnum package
+2012-02-24 20:43:25 +0000 Arthur de Jong
 
-2011-09-25 07:45  arthur
+	* [4dfc8d7] generate documentation using Sphinx
 
-	* [r85] stdnum/ismn.py: implement an ismn_type() function
+2012-02-23 22:25:03 +0000 Arthur de Jong
 
-2011-09-23 19:07  arthur
+	* [093b1a1] add a CPR (personnummer, the Danish citizen number) module
 
-	* [r84] ., stdnum, stdnum/br, stdnum/iso7064, stdnum/nl, stdnum/us,
-	  tests: ignore __pycache__ directories
+2012-02-23 21:58:18 +0000 Arthur de Jong
 
-2011-09-23 18:35  arthur
+	* [89e4d78] add a PPS No (Personal Public Service Number, Irish personal number) module
 
-	* [r83] README, getimsi.py, stdnum/__init__.py, stdnum/imsi.dat,
-	  stdnum/imsi.py, tests/test_robustness.doctest: add an IMSI
-	  (International Mobile Subscriber Identity) module
+2012-02-22 21:17:28 +0000 Arthur de Jong
 
-2011-09-23 18:29  arthur
+	* [3a9c407] add an OIB (Osobni identifikacijski broj, Croatian personal identification number) module
 
-	* [r82] stdnum/imei.py: implement an imei.split() function that
-	  splits the number into a TAC, serial number and checksum or
-	  software version
+2012-02-20 22:22:18 +0000 Arthur de Jong
 
-2011-09-23 14:52  arthur
+	* [680b7d1] rename numdb test file
 
-	* [r81] getiban.py: remove unneeded import
+2012-02-20 20:40:08 +0000 Arthur de Jong
 
-2011-09-20 21:14  arthur
+	* [68f62bf] add a stdnum.eu.vat.check_vies() function to do an on-line check of the VAT number
 
-	* [r80] stdnum/isbn.py, tests/test_isbn.doctest: implement a
-	  conversion function from ISBN13 to ISBN10
+2012-02-19 22:24:23 +0000 Arthur de Jong
 
-2011-09-20 20:53  arthur
+	* [e640e3b] add "pragma: no cover" statements to code that isn't expected to be covered
 
-	* [r79] tests/test_imei.doctest, tests/test_isan.doctest,
-	  tests/test_isbn.doctest, tests/test_ismn.doctest: fix space
-	  before inline comments
+2012-02-19 09:55:51 +0000 Arthur de Jong
 
-2011-09-20 20:52  arthur
+	* [b561d59] add a VAT (European Union VAT number) module
 
-	* [r78] stdnum/isbn.py, tests/test_isbn.doctest: fix a problem with
-	  an ISBN13 with a valid check digit but with an unknown bookland
-	  prefix
+2012-02-19 09:55:11 +0000 Arthur de Jong
 
-2011-09-04 09:23  arthur
+	* [61af19d] make number description consistent
 
-	* [r77] setup.py: fix homepage URL
+2012-02-19 09:38:38 +0000 Arthur de Jong
 
-2011-08-19 08:22  arthur
+	* [eeb5c61] for all countries, provide vat as an alias for the local vat identifier
 
-	* [r76] getiban.py, getisbn.py, getisil.py, setup.py,
-	  stdnum/br/cpf.py, stdnum/ean.py, stdnum/grid.py, stdnum/iban.py,
-	  stdnum/imei.py, stdnum/isan.py, stdnum/isbn.py, stdnum/isil.py,
-	  stdnum/ismn.py, stdnum/iso7064/mod_11_10.py,
-	  stdnum/iso7064/mod_11_2.py, stdnum/iso7064/mod_37_2.py,
-	  stdnum/iso7064/mod_37_36.py, stdnum/iso7064/mod_97_10.py,
-	  stdnum/issn.py, stdnum/luhn.py, stdnum/meid.py, stdnum/nl/bsn.py,
-	  stdnum/numdb.py, stdnum/us/ssn.py, stdnum/verhoeff.py: make
-	  source code layout follow PEP8 more
+2012-02-19 09:32:31 +0000 Arthur de Jong
 
-2011-07-09 15:15  arthur
+	* [6755b94] give all packages a description
 
-	* [r74] ChangeLog, NEWS, setup.py: get files ready for 0.5 release
+2012-02-19 09:14:20 +0000 Arthur de Jong
 
-2011-07-09 15:12  arthur
+	* [6d74fe9] remove stdnum.nl.vat alias module
 
-	* [r73] stdnum/iban.dat, stdnum/isbn.dat, stdnum/isil.dat: update
-	  data files
+2012-02-19 09:11:44 +0000 Arthur de Jong
 
-2011-06-20 20:56  arthur
+	* [528901d] use introspection to find number modules and test them
 
-	* [r72] stdnum/issn.py: implement a conversion function from ISSN
-	  to EAN
+2012-02-18 21:52:42 +0000 Arthur de Jong
 
-2011-06-20 20:55  arthur
+	* [2d80a24] add a VAT (Идентификационен номер по ДДС, Bulgarian VAT numbers) module
 
-	* [r71] stdnum/isbn.py, stdnum/ismn.py: use the ean module for
-	  calculating the check digit
+2012-02-18 21:32:34 +0000 Arthur de Jong
 
-2011-06-20 20:53  arthur
+	* [1384488] add a PNF (ЛНЧ, Личен номер на чужденец, Bulgarian personal number of a foreigner) module
 
-	* [r70] README, stdnum/__init__.py, stdnum/ean.py,
-	  tests/test_robustness.doctest: add an EAN (International Article
-	  Number) module
+2012-02-18 20:05:29 +0000 Arthur de Jong
 
-2011-03-06 21:56  arthur
+	* [a24e98e] add an EGN (ЕГН, Единен граждански номер, Bulgarian personal identity codes) module
 
-	* [r69] setup.py, stdnum/numdb.py: also support Python3 with the
-	  same codebase (see #3)
+2012-02-18 19:26:20 +0000 Arthur de Jong
 
-2011-03-06 19:54  arthur
+	* [4ac3fe7] explicitly test for False
 
-	* [r68] setup.py: ensure that data files are always included
+2012-02-18 19:25:00 +0000 Arthur de Jong
 
-2011-03-02 19:30  arthur
+	* [0c78d90] explicitly return False if no rule matches
 
-	* [r67] stdnum/verhoeff.py: Python 2.5 compatibility improvement
+2012-02-18 16:08:18 +0000 Arthur de Jong
 
-2011-02-06 15:23  arthur
+	* [cddb5f9] add a VAT (United Kingdom (and Isle of Man) VAT registration number) module
 
-	* [r65] ChangeLog, NEWS, setup.py: get files ready for 0.4 release
+2012-02-18 16:02:36 +0000 Arthur de Jong
 
-2011-02-06 15:21  arthur
+	* [6c436ec] fix typo
 
-	* [r64] stdnum/isbn.dat: include an updated version
+2012-02-18 15:38:51 +0000 Arthur de Jong
 
-2011-02-06 14:00  arthur
+	* [aa39c92] add a VAT (Moms, Mervärdesskatt, Swedish VAT number) module
 
-	* [r63] README, stdnum/__init__.py, stdnum/us,
-	  stdnum/us/__init__.py, stdnum/us/ssn.py,
-	  tests/test_robustness.doctest: add an SSN (U.S. Social Security
-	  Number) module
+2012-02-18 15:05:46 +0000 Arthur de Jong
 
-2011-02-05 22:48  arthur
+	* [3a7a91c] add a ID za DDV (Davčna številka, Slovenian VAT number) module
 
-	* [r62] README, stdnum/__init__.py: add ISIL to the documentation
+2012-02-18 14:16:27 +0000 Arthur de Jong
 
-2011-02-05 22:43  arthur
+	* [ebbd1af] add a NIP (Numer Identyfikacji Podatkowej, Polish VAT number) module
 
-	* [r61] getisil.py, stdnum/isil.dat, stdnum/isil.py,
-	  tests/test_robustness.doctest: add an ISIL (International
-	  Standard Identifier for Libraries and Related Organizations)
-	  module
+2012-02-18 13:54:11 +0000 Arthur de Jong
 
-2011-02-05 22:32  arthur
+	* [c75f072] add a VAT (Maltese VAT number) module
 
-	* [r60] stdnum/numdb.py: allow most kind of characters in number
-	  ranges
+2012-02-17 22:24:17 +0000 Arthur de Jong
 
-2011-02-05 22:08  arthur
+	* [0922f3c] strip a few more separators
 
-	* [r59] stdnum/iban.py: move more validation into try/except
-	  (specifically the _convert() call)
+2012-02-17 22:18:48 +0000 Arthur de Jong
 
-2011-02-05 22:03  arthur
+	* [b708920] add a TVA (Numéro d'identification à la taxe sur la valeur ajoutée, French VAT number) module
 
-	* [r58] tests/test_br_cpf.doctest, tests/test_iban.doctest,
-	  tests/test_imei.doctest, tests/test_isan.doctest,
-	  tests/test_isbn.doctest, tests/test_ismn.doctest,
-	  tests/test_issn.doctest, tests/test_luhn.doctest,
-	  tests/test_meid.doctest, tests/test_nl_bsn.doctest,
-	  tests/test_robustness.doctest, tests/test_verhoeff.doctest: move
-	  all robustness tests into one test file
+2012-02-17 16:27:34 +0000 Arthur de Jong
 
-2011-02-05 21:57  arthur
+	* [dc8e9a3] add a PVM (Pridėtinės vertės mokestis mokėtojo kodas, Lithuanian VAT number) module
 
-	* [r57] tests/test_iso7064.doctest: fix imports of iso7064.mod_*_*
-	  modules
+2012-02-17 16:15:53 +0000 Arthur de Jong
 
-2011-02-05 21:55  arthur
+	* [20296ef] add a KMKR (Käibemaksukohuslase, Estonian VAT number) module
 
-	* [r56] stdnum/isbn.py: fix typo in r53
+2012-02-17 16:10:02 +0000 Arthur de Jong
 
-2011-02-05 21:55  arthur
+	* [2100c28] add a VAT (Irish VAT number) module
 
-	* [r55] stdnum/__init__.py: add encoding header
+2012-02-17 16:01:58 +0000 Arthur de Jong
 
-2011-01-31 21:59  arthur
+	* [d2f1348] add an ANUM (Közösségi adószám, Hungarian VAT number) module
 
-	* [r54] README, stdnum/__init__.py: get README and package
-	  docstring in sync
+2012-02-17 15:36:45 +0000 Arthur de Jong
 
-2011-01-21 10:49  arthur
+	* [d803443] add a DIČ (Daňové identifikační číslo, Czech VAT number) module
 
-	* [r53] stdnum/isbn.py, tests/test_isbn.doctest: add a convert
-	  parameter to most isbn functions to automatically convert to
-	  ISBN-13
+2012-02-17 15:15:17 +0000 Arthur de Jong
 
-2011-01-17 21:15  arthur
+	* [0d2e4cc] add an ALV nro (Arvonlisäveronumero, Finnish VAT number) module
 
-	* [r52] README: add note about CPF and update copyright year
+2012-02-17 15:02:05 +0000 Arthur de Jong
 
-2011-01-16 21:48  arthur
+	* [03eccc4] add IČ DPH (Identifikačné číslo pre daň z pridanej hodnoty, Slovak VAT number) module
 
-	* [r51] README, getiban.py, stdnum/iban.dat, stdnum/iban.py,
-	  tests/test_iban.doctest: add an IBAN (International Bank Account
-	  Number) module
+2012-02-16 20:48:25 +0000 Arthur de Jong
 
-2011-01-16 21:23  arthur
+	* [389c306] add a NIF (Número de identificação fiscal, Portuguese VAT number) module
 
-	* [r50] setup.py, stdnum/numdb.py: revert r49 because it wasn't
-	  needed after all
+2012-02-13 22:11:22 +0000 Arthur de Jong
 
-2011-01-16 20:36  arthur
+	* [cdc7f96] add a UID (Umsatzsteuer-Identifikationsnummer, Austrian VAT number) module
 
-	* [r49] setup.py, stdnum/numdb.py: introduce a full parameter that
-	  can be used to only return the part that is in the database
+2012-02-13 22:02:41 +0000 Arthur de Jong
 
-2011-01-16 19:13  arthur
+	* [e0bb4e8] add a Αριθμός Εγγραφής Φ.Π.Α. (Cypriot VAT number) module
 
-	* [r48] stdnum/grid.py, stdnum/isan.py: fix import of iso7064
-	  modules
+2012-02-12 22:09:29 +0000 Arthur de Jong
 
-2011-01-16 08:49  arthur
+	* [402a0d5] use the luhn module where possible
 
-	* [r47] stdnum/numdb.py, test.dat: add test for partial match
+2012-02-12 15:30:02 +0000 Arthur de Jong
 
-2011-01-15 20:27  arthur
+	* [1c2b4c3] fix typo in header
 
-	* [r46] tests/test_nl_bsn.doctest: fix comments to refer to the new
-	  path of the module
+2012-02-12 15:29:44 +0000 Arthur de Jong
 
-2011-01-15 20:26  arthur
+	* [09ef54d] add a Partita IVA (Italian VAT number) module
 
-	* [r45] stdnum/br, stdnum/br/__init__.py, stdnum/br/cpf.py,
-	  tests/test_br_cpf.doctest: add a CPF (Cadastro de Pessoas
-	  Físicas) module
+2012-02-12 14:26:44 +0000 Arthur de Jong
 
-2011-01-15 19:05  arthur
+	* [ffc824b] add a CF (Cod de înregistrare în scopuri de TVA, Romanian VAT number) module
 
-	* [r44] stdnum/bsn.py, stdnum/nl, stdnum/nl/__init__.py,
-	  stdnum/nl/bsn.py, tests/test_bsn.doctest,
-	  tests/test_nl_bsn.doctest: move bsn module inside nl package
+2012-02-12 13:33:23 +0000 Arthur de Jong
 
-2010-11-26 22:25  arthur
+	* [9d65f6a] add a CNP (Cod Numeric Personal, Romanian Numerical Personal Code) module
 
-	* [r43] setup.py, stdnum/__init__.py: move general description to
-	  package __init__.py file
+2012-02-12 10:11:48 +0000 Arthur de Jong
 
-2010-11-24 22:09  arthur
+	* [60533cd] also strip : as seen in some numbers
 
-	* [r42] getisbn.py, stdnum/isbn, stdnum/isbn.dat, stdnum/isbn.py,
-	  stdnum/numdb.py, test.dat, tests/test_isbn.doctest: implement a
-	  new numdb module to hold information on hierarchically organised
-	  numbers and switch the isbn module to use this format instead
+2012-02-11 20:38:08 +0000 Arthur de Jong
 
-2010-09-11 09:13  arthur
+	* [74c4c71] add a TVA (Numéro d'identification à la taxe sur la valeur ajoutée, Luxembourgian VAT number) module
 
-	* [r40] ChangeLog, NEWS, README, setup.py: get files ready for 0.3
-	  release
+2012-02-11 20:26:46 +0000 Arthur de Jong
 
-2010-09-05 17:53  arthur
+	* [74f4e2a] add a CVR (Momsregistreringsnummer, Danish VAT number) module
 
-	* [r39] setup.py: have sdist target create a tarball with
-	  reasonable permissions
+2012-02-11 20:25:18 +0000 Arthur de Jong
 
-2010-08-29 19:27  arthur
+	* [3c64f1e] add missing test
 
-	* [r38] stdnum/bsn.py, stdnum/isan.py, stdnum/iso7064/mod_37_2.py,
-	  stdnum/iso7064/mod_37_36.py, stdnum/meid.py, stdnum/verhoeff.py,
-	  tests/test_bsn.doctest, tests/test_ismn.doctest: spelling check
+2012-02-11 20:11:44 +0000 Arthur de Jong
 
-2010-08-28 16:12  arthur
+	* [b8c3ba6] clean up numbers starting with (0)
 
-	* [r37] README, stdnum/grid.py: add a GRid (Global Release
-	  Identifier) module
+2012-02-11 20:09:06 +0000 Arthur de Jong
 
-2010-08-27 14:44  arthur
+	* [8a10861] add a PVN (Pievienotās vērtības nodokļa, Latvian VAT number) module
 
-	* [r36] README, stdnum/isan.py, tests/test_isan.doctest: add ISAN
-	  (International Standard Audiovisual Number) module
+2012-02-11 14:50:11 +0000 Arthur de Jong
 
-2010-08-27 11:36  arthur
+	* [a3610a3] add a NIF (Número de Identificación Fiscal, Spanish VAT number) module
 
-	* [r35] README, stdnum/iso7064, stdnum/iso7064/__init__.py,
-	  stdnum/iso7064/mod_11_10.py, stdnum/iso7064/mod_11_2.py,
-	  stdnum/iso7064/mod_37_2.py, stdnum/iso7064/mod_37_36.py,
-	  stdnum/iso7064/mod_97_10.py, tests/test_iso7064.doctest:
-	  implement some ISO/IEC 7064 check digit schemes
+2012-02-11 14:44:35 +0000 Arthur de Jong
 
-2010-08-26 21:03  arthur
+	* [aa90c4f] add a CIF (Certificado de Identificación Fiscal, Spanish tax identification number) module
 
-	* [r34] stdnum/isbn/__init__.py, stdnum/ismn.py, stdnum/issn.py,
-	  stdnum/verhoeff.py: switch to using enumerate() for looping over
-	  numbers where needed
+2012-02-11 14:43:55 +0000 Arthur de Jong
 
-2010-08-21 15:37  arthur
+	* [a574e6c] implement a digitsum() function to find the sub of all digits in a number
 
-	* [r33] README, stdnum/ismn.py, tests/test_ismn.doctest: add an
-	  ISMN (International Standard Music Number) module
+2012-02-11 14:37:28 +0000 Arthur de Jong
 
-2010-08-21 12:41  arthur
+	* [84d1ee7] fix description and remove unnecessary import
 
-	* [r32] tests/test_isbn.doctest: simplify ranges tests a bit
+2012-02-10 20:53:56 +0000 Arthur de Jong
 
-2010-08-21 12:40  arthur
+	* [fa2d398] add a NIE (Número de Identificación de Extranjeros, Spanish identification number for foreigners) module
 
-	* [r31] stdnum/isbn/ranges.py: update ranges from newly downloaded
-	  file
+2012-02-10 20:49:17 +0000 Arthur de Jong
 
-2010-08-20 19:47  arthur
+	* [fe3210f] add a DNI (Documento nacional de identidad, Spanish personal identity codes) module
 
-	* [r30] README, stdnum/meid.py, tests/test_meid.doctest: add a MEID
-	  (Mobile Equipment Identifier) module
+2012-02-10 13:33:23 +0000 Arthur de Jong
 
-2010-08-20 19:41  arthur
+	* [4439f47] add a BTW, TVA, NWSt (Belgian VAT number) module
 
-	* [r29] setup.cfg, tests/test_isbn.doctest,
-	  tests/test_issn.doctest: write some more tests (some of which are
-	  a bit of a hack) to get coverage to 100%
+2012-02-10 13:27:39 +0000 Arthur de Jong
 
-2010-08-20 16:25  arthur
+	* [1ab602c] also make the stdnum.cz.rc module available as stdnum.sk.rc
 
-	* [r28] stdnum/imei.py, tests/test_imei.doctest: add an
-	  add_check_digit option to the format() function to add a check
-	  digit if needed and possible
+2012-02-10 13:23:21 +0000 Arthur de Jong
 
-2010-08-20 14:44  arthur
+	* [e9e5861] also make the stdnum.nl.btw module available as stdnum.nl.vat
 
-	* [r27] stdnum/luhn.py: make checksum calculation a little more
-	  readable
+2012-02-10 13:22:49 +0000 Arthur de Jong
 
-2010-08-20 14:16  arthur
+	* [c795b3c] fix number in test and ensure that number is not all zeroes
 
-	* [r26] README, stdnum/imei.py, tests/test_imei.doctest: add an
-	  IMEI (International Mobile Equipment Identity) module
+2012-02-10 13:19:48 +0000 Arthur de Jong
 
-2010-08-20 12:16  arthur
+	* [2bb9231] add some info to description
 
-	* [r25] README, stdnum/luhn.py, tests/test_luhn.doctest: add
-	  functions for handling the Luhn and Luhn mod N algorithms
+2012-02-10 13:16:58 +0000 Arthur de Jong
 
-2010-08-20 11:56  arthur
+	* [1aeeaf4] add an Ust ID Nr. (Umsatzsteur Identifikationnummer, the German VAT number) module
 
-	* [r24] stdnum/issn.py: fix typo
+2012-02-10 13:06:31 +0000 Arthur de Jong
 
-2010-08-20 09:37  arthur
+	* [473b3ca] add a FPA, ΦΠΑ (Foros Prostithemenis Aksias, the Greek VAT number) module
 
-	* [r23] README, stdnum/verhoeff.py, tests/test_verhoeff.doctest:
-	  add functions for handling the Verhoeff algorithm
+2012-02-05 21:12:18 +0000 Arthur de Jong
 
-2010-08-16 19:50  arthur
+	* [9f1d47b] add a SIREN (Système d'Identification du Répertoire des Entreprises, a French company identification number) module
 
-	* [r21] ChangeLog, NEWS, setup.py: get files ready for 0.2 release
+2012-02-05 20:51:19 +0000 Arthur de Jong
 
-2010-08-16 19:45  arthur
+	* [575fc75] add a RČ (Rodné číslo, the Czech birth numbers) module
 
-	* [r20] debian: debian package configuration is now available at
-	  http://svn.debian.org/viewsvn/python-modules/packages/python-stdnum/trunk/
+2012-02-04 19:15:00 +0000 Arthur de Jong
 
-2010-08-14 20:47  arthur
+	* [41dd815] implement a stdnum.util module for holding utility functions (for now clean())
 
-	* [r19] setup.cfg, tests, tests/test_bsn.doctest,
-	  tests/test_isbn.doctest: add more doctests that are not part of
-	  the module documentation
+2012-02-04 19:12:20 +0000 Arthur de Jong
 
-2010-07-27 20:19  arthur
+	* [54cc207] some extra rubustness checks
 
-	* [r18] README, stdnum/bsn.py, stdnum/isbn/__init__.py,
-	  stdnum/issn.py: rename validate() function to is_valid()
+2012-02-04 19:11:10 +0000 Arthur de Jong
 
-2010-07-27 20:14  arthur
+	* [b43817c] rename calc_checksum() to checksum() for consistency
 
-	* [r17] stdnum/isbn/ranges.py: fix typo in output() function
+2012-02-04 19:06:53 +0000 Arthur de Jong
 
-2010-07-27 20:14  arthur
+	* [548f129] use integer division
 
-	* [r16] stdnum/isbn/ranges.py: fix range detection to handle lookup
-	  errors more gracefully
+2012-02-02 21:12:52 +0000 Arthur de Jong
 
-2010-07-27 20:13  arthur
+	* [9efde4f] add a BTW (the Dutch VAT number) module
 
-	* [r15] stdnum/bsn.py, stdnum/isbn/__init__.py, stdnum/issn.py:
-	  handle wrong types passed to validate() more gracefully
+2012-02-02 21:09:26 +0000 Arthur de Jong
 
-2010-07-26 20:46  arthur
+	* [086e509] add an onderwijsnummer (Dutch school number) module
 
-	* [r14] debian/changelog, debian/source/format, debian/watch: make
-	  release 0.1-1
+2011-12-31 16:16:51 +0000 Arthur de Jong
 
-2010-07-25 12:54  arthur
+	* [587c538] revert switching to distutils part of r93, keep restructuring part
 
-	* [r12] ChangeLog: get files ready for 0.1 release
+2011-12-31 15:59:14 +0000 Arthur de Jong
 
-2010-07-25 12:53  arthur
+	* [6756d79] switch to distutils
 
-	* [r11] debian, debian/changelog, debian/compat, debian/control,
-	  debian/copyright, debian/docs, debian/rules, debian/source,
-	  debian/source/format: add Debian packaging
+2011-11-07 22:07:15 +0000 Arthur de Jong
 
-2010-07-25 11:27  arthur
+	* [e6020b9] add a HETU (Finnish personal identity code) module as provided by Jussi Judin (#5)
 
-	* [r10] COPYING, ChangeLog, MANIFEST.in, NEWS: include some more
-	  files in the source distribution
+2011-09-30 08:44:08 +0000 Arthur de Jong
 
-2010-07-25 10:42  arthur
+	* [77ac8d4] fix version number use (fix r86)
 
-	* [r9] ., setup.cfg: use nose for testing and ignore generated
-	  files and directories
+2011-09-30 08:40:18 +0000 Arthur de Jong
 
-2010-07-25 09:24  arthur
+	* [6cdfb6b] get files ready for 0.6 release
 
-	* [r8] setup.py: add a setup.py script for use of setuptools
+2011-09-30 08:36:25 +0000 Arthur de Jong
 
-2010-07-25 09:21  arthur
+	* [1451b47] update data files
 
-	* [r7] README: add documentation to the README
+2011-09-30 08:22:50 +0000 Arthur de Jong
 
-2010-07-25 09:21  arthur
+	* [6ec6c7e] move the version number definition to the stdnum package
 
-	* [r6] stdnum/bsn.py, stdnum/isbn/__init__.py,
-	  stdnum/isbn/ranges.py, stdnum/issn.py: spelling check an extra
-	  doctest and a simplification
+2011-09-25 07:45:06 +0000 Arthur de Jong
 
-2010-07-23 19:13  arthur
+	* [ae2013d] implement an ismn_type() function
 
-	* [r5] stdnum/bsn.py: add BSN (Burgerservicenummer, the Ducth
-	  national identification number) module
+2011-09-23 19:07:38 +0000 Arthur de Jong
 
-2010-07-23 14:46  arthur
+	* [14b97f9] ignore __pycache__ directories
 
-	* [r4] stdnum/issn.py: add an ISSN (International Standard Serial
-	  Number) module
+2011-09-23 18:35:10 +0000 Arthur de Jong
 
-2010-07-23 14:34  arthur
+	* [cbd114e] add an IMSI (International Mobile Subscriber Identity) module
 
-	* [r3] stdnum/isbn/__init__.py: fix example and fix ISBN13
-	  conversion
+2011-09-23 18:29:11 +0000 Arthur de Jong
 
-2010-07-23 13:51  arthur
+	* [68c98f0] implement an imei.split() function that splits the number into a TAC, serial number and checksum or software version
 
-	* [r2] stdnum/isbn/__init__.py: get rid of remainders of old code
-	  that used exceptions
+2011-09-23 14:52:31 +0000 Arthur de Jong
 
-2010-07-23 13:40  arthur
+	* [e6cd768] remove unneeded import
 
-	* [r1] ., README, stdnum, stdnum/__init__.py, stdnum/isbn,
-	  stdnum/isbn/__init__.py, stdnum/isbn/ranges.py: make a initial
-	  repository layout with an implementation of the isbn module
+2011-09-20 21:14:48 +0000 Arthur de Jong
 
+	* [4e8d7e4] implement a conversion function from ISBN13 to ISBN10
+
+2011-09-20 20:53:36 +0000 Arthur de Jong
+
+	* [d6f9ba2] fix space before inline comments
+
+2011-09-20 20:52:03 +0000 Arthur de Jong
+
+	* [c4ad099] fix a problem with an ISBN13 with a valid check digit but with an unknown bookland prefix
+
+2011-09-04 09:23:07 +0000 Arthur de Jong
+
+	* [1c7c198] fix homepage URL
+
+2011-08-19 08:22:13 +0000 Arthur de Jong
+
+	* [881e8a6] make source code layout follow PEP8 more
+
+2011-07-09 15:15:15 +0000 Arthur de Jong
+
+	* [8dbcedd] get files ready for 0.5 release
+
+2011-07-09 15:12:26 +0000 Arthur de Jong
+
+	* [596c7a1] update data files
+
+2011-06-20 20:56:39 +0000 Arthur de Jong
+
+	* [63b2b0a] implement a conversion function from ISSN to EAN
+
+2011-06-20 20:55:58 +0000 Arthur de Jong
+
+	* [d101acf] use the ean module for calculating the check digit
+
+2011-06-20 20:53:35 +0000 Arthur de Jong
+
+	* [f5747bc] add an EAN (International Article Number) module
+
+2011-03-06 21:56:20 +0000 Arthur de Jong
+
+	* [1b904ba] also support Python3 with the same codebase (see #3)
+
+2011-03-06 19:54:49 +0000 Arthur de Jong
+
+	* [a45079f] ensure that data files are always included
+
+2011-03-02 19:30:01 +0000 Arthur de Jong
+
+	* [c17920a] Python 2.5 compatibility improvement
+
+2011-02-06 15:23:33 +0000 Arthur de Jong
+
+	* [e6ba399] get files ready for 0.4 release
+
+2011-02-06 15:21:28 +0000 Arthur de Jong
+
+	* [060dfce] include an updated version
+
+2011-02-06 14:00:07 +0000 Arthur de Jong
+
+	* [8806d2a] add an SSN (U.S. Social Security Number) module
+
+2011-02-05 22:48:39 +0000 Arthur de Jong
+
+	* [c260626] add ISIL to the documentation
+
+2011-02-05 22:43:44 +0000 Arthur de Jong
+
+	* [e517903] add an ISIL (International Standard Identifier for Libraries and Related Organizations) module
+
+2011-02-05 22:32:01 +0000 Arthur de Jong
+
+	* [96f4f7c] allow most kind of characters in number ranges
+
+2011-02-05 22:08:27 +0000 Arthur de Jong
+
+	* [33611d1] move more validation into try/except (specifically the _convert() call)
+
+2011-02-05 22:03:16 +0000 Arthur de Jong
+
+	* [62aa496] move all robustness tests into one test file
+
+2011-02-05 21:57:09 +0000 Arthur de Jong
+
+	* [9081e90] fix imports of iso7064.mod_*_* modules
+
+2011-02-05 21:55:57 +0000 Arthur de Jong
+
+	* [e5678ca] fix typo in r53
+
+2011-02-05 21:55:09 +0000 Arthur de Jong
+
+	* [ea737ff] add encoding header
+
+2011-01-31 21:59:25 +0000 Arthur de Jong
+
+	* [cc7a6d8] get README and package docstring in sync
+
+2011-01-21 10:49:39 +0000 Arthur de Jong
+
+	* [6724e50] add a convert parameter to most isbn functions to automatically convert to ISBN-13
+
+2011-01-17 21:15:23 +0000 Arthur de Jong
+
+	* [411874e] add note about CPF and update copyright year
+
+2011-01-16 21:48:12 +0000 Arthur de Jong
+
+	* [db2238c] add an IBAN (International Bank Account Number) module
+
+2011-01-16 21:23:43 +0000 Arthur de Jong
+
+	* [2b4aff6] revert r49 because it wasn't needed after all
+
+2011-01-16 20:36:44 +0000 Arthur de Jong
+
+	* [0bf31c9] introduce a full parameter that can be used to only return the part that is in the database
+
+2011-01-16 19:13:12 +0000 Arthur de Jong
+
+	* [4fe17ba] fix import of iso7064 modules
+
+2011-01-16 08:49:39 +0000 Arthur de Jong
+
+	* [c1f03c2] add test for partial match
+
+2011-01-15 20:27:39 +0000 Arthur de Jong
+
+	* [81a99d3] fix comments to refer to the new path of the module
+
+2011-01-15 20:26:53 +0000 Arthur de Jong
+
+	* [fda67ac] add a CPF (Cadastro de Pessoas Físicas) module
+
+2011-01-15 19:05:38 +0000 Arthur de Jong
+
+	* [8d3a92c] move bsn module inside nl package
+
+2010-11-26 22:25:49 +0000 Arthur de Jong
+
+	* [6ed480c] move general description to package __init__.py file
+
+2010-11-24 22:09:28 +0000 Arthur de Jong
+
+	* [124c16d] implement a new numdb module to hold information on hierarchically organised numbers and switch the isbn module to use this format instead
+
+2010-09-11 09:13:36 +0000 Arthur de Jong
+
+	* [72a0b96] get files ready for 0.3 release
+
+2010-09-05 17:53:47 +0000 Arthur de Jong
+
+	* [cd844b5] have sdist target create a tarball with reasonable permissions
+
+2010-08-29 19:27:59 +0000 Arthur de Jong
+
+	* [2e64eb8] spelling check
+
+2010-08-28 16:12:23 +0000 Arthur de Jong
+
+	* [2a7afff] add a GRid (Global Release Identifier) module
+
+2010-08-27 14:44:26 +0000 Arthur de Jong
+
+	* [9970652] add ISAN (International Standard Audiovisual Number) module
+
+2010-08-27 11:36:42 +0000 Arthur de Jong
+
+	* [fda9552] implement some ISO/IEC 7064 check digit schemes
+
+2010-08-26 21:03:44 +0000 Arthur de Jong
+
+	* [4017d83] switch to using enumerate() for looping over numbers where needed
+
+2010-08-21 15:37:27 +0000 Arthur de Jong
+
+	* [8bdb6ef] add an ISMN (International Standard Music Number) module
+
+2010-08-21 12:41:00 +0000 Arthur de Jong
+
+	* [97d5280] simplify ranges tests a bit
+
+2010-08-21 12:40:04 +0000 Arthur de Jong
+
+	* [f3b025b] update ranges from newly downloaded file
+
+2010-08-20 19:47:13 +0000 Arthur de Jong
+
+	* [8748830] add a MEID (Mobile Equipment Identifier) module
+
+2010-08-20 19:41:39 +0000 Arthur de Jong
+
+	* [f125f3e] write some more tests (some of which are a bit of a hack) to get coverage to 100%
+
+2010-08-20 16:25:33 +0000 Arthur de Jong
+
+	* [d622d92] add an add_check_digit option to the format() function to add a check digit if needed and possible
+
+2010-08-20 14:44:33 +0000 Arthur de Jong
+
+	* [a74a6f7] make checksum calculation a little more readable
+
+2010-08-20 14:16:55 +0000 Arthur de Jong
+
+	* [6bb04af] add an IMEI (International Mobile Equipment Identity) module
+
+2010-08-20 12:16:23 +0000 Arthur de Jong
+
+	* [ca08995] add functions for handling the Luhn and Luhn mod N algorithms
+
+2010-08-20 11:56:45 +0000 Arthur de Jong
+
+	* [7e800c3] fix typo
+
+2010-08-20 09:37:09 +0000 Arthur de Jong
+
+	* [571dc83] add functions for handling the Verhoeff algorithm
+
+2010-08-16 19:50:54 +0000 Arthur de Jong
+
+	* [9ffa9fd] get files ready for 0.2 release
+
+2010-08-16 19:45:49 +0000 Arthur de Jong
+
+	* [19b7d2d] debian package configuration is now available at http://svn.debian.org/viewsvn/python-modules/packages/python-stdnum/trunk/
+
+2010-08-14 20:47:57 +0000 Arthur de Jong
+
+	* [85e9e3b] add more doctests that are not part of the module documentation
+
+2010-07-27 20:19:54 +0000 Arthur de Jong
+
+	* [c536356] rename validate() function to is_valid()
+
+2010-07-27 20:14:40 +0000 Arthur de Jong
+
+	* [85a5fc8] fix typo in output() function
+
+2010-07-27 20:14:19 +0000 Arthur de Jong
+
+	* [1071603] fix range detection to handle lookup errors more gracefully
+
+2010-07-27 20:13:25 +0000 Arthur de Jong
+
+	* [a86c4cc] handle wrong types passed to validate() more gracefully
+
+2010-07-26 20:46:29 +0000 Arthur de Jong
+
+	* [9495116] make release 0.1-1
+
+2010-07-25 12:54:23 +0000 Arthur de Jong
+
+	* [55a97d4] get files ready for 0.1 release
+
+2010-07-25 12:53:04 +0000 Arthur de Jong
+
+	* [1e02d5a] add Debian packaging
+
+2010-07-25 11:27:29 +0000 Arthur de Jong
+
+	* [14bd2fe] include some more files in the source distribution
+
+2010-07-25 10:42:09 +0000 Arthur de Jong
+
+	* [9940cf3] use nose for testing and ignore generated files and directories
+
+2010-07-25 09:24:40 +0000 Arthur de Jong
+
+	* [967f2ae] add a setup.py script for use of setuptools
+
+2010-07-25 09:21:55 +0000 Arthur de Jong
+
+	* [ca5f850] add documentation to the README
+
+2010-07-25 09:21:25 +0000 Arthur de Jong
+
+	* [40aff16] spelling check an extra doctest and a simplification
+
+2010-07-23 19:13:39 +0000 Arthur de Jong
+
+	* [6eabbc3] add BSN (Burgerservicenummer, the Ducth national identification number) module
+
+2010-07-23 14:46:37 +0000 Arthur de Jong
+
+	* [92e18aa] add an ISSN (International Standard Serial Number) module
+
+2010-07-23 14:34:31 +0000 Arthur de Jong
+
+	* [31ce783] fix example and fix ISBN13 conversion
+
+2010-07-23 13:51:05 +0000 Arthur de Jong
+
+	* [4b8c10e] get rid of remainders of old code that used exceptions
+
+2010-07-23 13:40:33 +0000 Arthur de Jong
+
+	* [7d2f15a] make a initial repository layout with an implementation of the isbn module
