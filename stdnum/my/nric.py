@@ -17,8 +17,10 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 # 02110-1301 USA
 
-"""NRIC No. (National Registration Identity Card Number) is the unique
-identifier for issued to Malaysian citizens and permanent residents.
+"""NRIC No. (Malaysian National Registration Identity Card Number).
+
+The NRIC No. is the unique identifier for issued to Malaysian citizens and
+permanent residents.
 
 The number consist of 12 digits in three sections. The first 6 digits
 represent the birth date, followed by two digits represeting the birth
