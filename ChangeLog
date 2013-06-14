@@ -1,3 +1,11 @@
+2013-06-14 21:23:16 +0200 Arthur de Jong
+
+	* [31e5e81] Ensure that all used files are included in the sdist
+
+2013-06-09 19:20:36 +0200 Arthur de Jong
+
+	* [7fa9822] Get files ready for 0.8 release
+
 2013-06-09 14:28:41 +0200 Arthur de Jong
 
 	* [9597010] Update database files
