@@ -51,7 +51,7 @@ setup(name='python-stdnum',
           'Topic :: Text Processing :: General',
           ],
       packages=find_packages(),
-      package_data={'stdnum': ['*.dat']},
+      package_data={'': ['*.dat']},
       install_requires=['distribute'],
       extras_require={
           'VIES':  ['suds'],
