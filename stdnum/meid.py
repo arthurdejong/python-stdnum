@@ -173,7 +173,6 @@ def to_binary(number):
     """Convert the number to it's binary representation (without the check
     digit)."""
     import sys
-    import binascii
     number = compact(number, strip_check_digit=True)
     if sys.version > '3':  # pragma: no cover (Python 2/3 specific code)
         return bytes.fromhex(number)
