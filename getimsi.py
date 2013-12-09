@@ -81,13 +81,19 @@ cleanup_replacements = {
 
 
 remove_ref_re = re.compile(r'<ref>.*?</ref>')
-
+remove_href_re  = re.compile(ur'(?i)\b((?:https?://|www\d{0,3}[.]|[a-z0-9.\-]+' +
+                             ur'[.][a-z]{2,4}/)(?:[^\s()<>]+|\(([^\s()<>]+|' +
+                             ur'(\([^\s()<>]+\)))*\))+(?:\(([^\s()<>]+|' +
+                             ur'(\([^\s()<>]+\)))*\)|[^\s`!()\[\]{};:\'".,<>' +
+                             ur'?\xab\xbb\u201c\u201d\u2018\u2019]))')
 
 def cleanup_value(val):
     """Remove unneeded markup from the value."""
     # remove uninteresting things from value
-    val = val.replace('[', '').replace(']', '').strip()
     val = remove_ref_re.sub('', val)
+    val = remove_href_re.sub('', val)
+    val = val.replace('[', '').replace(']', '').replace('\'\'', '').strip()
+    val = val.split('|')[-1]
     # replace value
     val = val.replace('United Kingdom|UK', 'United Kingdom')
     val = val.replace('United States|US', 'United States')
@@ -105,15 +111,14 @@ def get_mncs_from_wikipedia(data):
     """Update the collection of Mobile Country Codes from Wikipedia.
     This parses a Wikipedia page to extract the MCC and MNC, the first
     part of any IMSI, and stores the results."""
-    mnc_country_re = re.compile(r'^====\s+(?P<country>.*?)(\s+-\s+(?P<cc>[^\s]{2}))?\s+====$')
-    mnc_line_re = re.compile(r'^\|\s+(?P<mcc>[0-9]+)' +
-                             r'\s+\|\|\s+(?P<mnc>[0-9]+)' +
-                             r'(\s+\|\|\s+(?P<brand>[^|]*)' +
-                             r'(\s+\|\|\s+(?P<operator>[^|]*)' +
-                             r'(\s+\|\|\s+(?P<status>[^|]*)' +
-                             r'(\s+\|\|\s+(?P<bands>[^|]*)' +
-                             r'(\s+\|\|\s+(?P<notes>[^|]*)' +
-                             r')?)?)?)?)?')
+    mnc_country_re = re.compile(r'^[=]{2,4}\s+(?P<country>.*?)(\s+-\s+(?P<cc>[^\s]{2}))?\s+[=]{2,4}$')
+    mnc_line_re = re.compile(r'^\|\s*(?P<mcc>[0-9]+)' +
+                             r'\s+\|\|\s*(?P<mnc>[0-9]+)' +
+                             r'\s+\|\|(\s*(?P<brand>.*))?' +
+                             r'\s+\|\|(\s*(?P<operator>.*))?' +
+                             r'\s+\|\|(\s*(?P<status>.*))?' +
+                             r'\s+\|\|(\s*(?P<bands>.*))?' +
+                             r'\s+\|\|(\s*(?P<notes>.*))?')
     f = urllib.urlopen(mcc_list_url)
     country = cc = ''
     for line in f.readlines():
