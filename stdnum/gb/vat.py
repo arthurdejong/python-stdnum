@@ -70,13 +70,31 @@ def validate(number):
             pass
         else:
             raise InvalidComponent()
+    elif len(number) == 11 and number[0:6] in ('GD8888', 'HA8888'):
+        if not number[6:].isdigit():
+            raise InvalidFormat()
+        if number.startswith('GD') and int(number[6:9]) < 500:
+            # government department
+            pass
+        elif number.startswith('HA') and int(number[6:9]) >= 500:
+            # health authority
+            pass
+        else:
+            raise InvalidComponent()
+        if int(number[6:9]) % 97 != int(number[9:11]):
+            raise InvalidChecksum()
     elif len(number) in (9, 12):
         if not number.isdigit():
             raise InvalidFormat()
         # standard number: nnn nnnn nn
         # branch trader: nnn nnnn nn nnn (ignore the last thee digits)
-        if checksum(number[:9]) not in (0, 42):
-            raise InvalidChecksum()
+        # restarting: 100 nnnn nn
+        if int(number[:3]) >= 100:
+            if checksum(number[:9]) not in (0, 42, 55):
+                raise InvalidChecksum()
+        else:
+            if checksum(number[:9]) != 0:
+                raise InvalidChecksum()
     else:
         raise InvalidLength()
     return number
