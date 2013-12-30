@@ -29,12 +29,16 @@ Normal values that should just work.
 
 >>> vat.validate('980780684')  # standard number
 '980780684'
+>>> vat.validate('100190874')  # standard number restarting
+'100190874'
 >>> vat.validate('242338087388')  # branch trader
 '242338087388'
 >>> vat.validate('GD100')  # government department
 'GD100'
 >>> vat.validate('HA501')  # health authority
 'HA501'
+>>> vat.validate('HA888856782')  # health authority for EU
+'HA888856782'
 
 
 Invalid long numbers:
