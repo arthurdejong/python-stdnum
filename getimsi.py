@@ -81,14 +81,23 @@ cleanup_replacements = {
 
 
 remove_ref_re = re.compile(r'<ref>.*?</ref>')
-
+remove_comment_re =  re.compile(r'{{.*?}}')
+remove_href_re  = re.compile(ur'(?i)\b((?:https?://|www\d{0,3}[.]|[a-z0-9.\-]+' +
+                             ur'[.][a-z]{2,4}/)(?:[^\s()<>]+|\(([^\s()<>]+|' +
+                             ur'(\([^\s()<>]+\)))*\))+(?:\(([^\s()<>]+|' +
+                             ur'(\([^\s()<>]+\)))*\)|[^\s`!()\[\]{};:\'".,<>' +
+                             ur'?\xab\xbb\u201c\u201d\u2018\u2019]))')
 
 def cleanup_value(val):
     """Remove unneeded markup from the value."""
     # remove uninteresting things from value
-    val = val.replace('[', '').replace(']', '').strip()
+    val = remove_comment_re.sub('', val)
     val = remove_ref_re.sub('', val)
+    val = remove_href_re.sub('', val)
+    val = val.replace('[', '').replace(']', '').replace('\'\'', '').strip()
+    val = val.split('|')[-1]
     # replace value
+    val = val.replace('Unknown', '')
     val = val.replace('United Kingdom|UK', 'United Kingdom')
     val = val.replace('United States|US', 'United States')
     val = val.replace('New Zealand|NZ', 'New Zealand').strip()
@@ -105,14 +114,14 @@ def get_mncs_from_wikipedia(data):
     """Update the collection of Mobile Country Codes from Wikipedia.
     This parses a Wikipedia page to extract the MCC and MNC, the first
     part of any IMSI, and stores the results."""
-    mnc_country_re = re.compile(r'^====\s+(?P<country>.*?)(\s+-\s+(?P<cc>[^\s]{2}))?\s+====$')
-    mnc_line_re = re.compile(r'^\|\s+(?P<mcc>[0-9]+)' +
-                             r'\s+\|\|\s+(?P<mnc>[0-9]+)' +
-                             r'(\s+\|\|\s+(?P<brand>[^|]*)' +
-                             r'(\s+\|\|\s+(?P<operator>[^|]*)' +
-                             r'(\s+\|\|\s+(?P<status>[^|]*)' +
-                             r'(\s+\|\|\s+(?P<bands>[^|]*)' +
-                             r'(\s+\|\|\s+(?P<notes>[^|]*)' +
+    mnc_country_re = re.compile(r'^[=]{2,4}\s+(?P<country>.*?)(\s+-\s+(?P<cc>[^\s]{2}))?\s+[=]{2,4}$')
+    mnc_line_re = re.compile(r'^\|\s*(?P<mcc>[0-9]+)' +
+                             r'\s*\\\\\s*(?P<mnc>[0-9]+)' +
+                             r'(\s*\\\\\s*(?P<brand>[^\\]*)' +
+                             r'(\s*\\\\\s*(?P<operator>[^\\]*)' +
+                             r'(\s*\\\\\s*(?P<status>[^\\]*)' +
+                             r'(\s*\\\\\s*(?P<bands>[^\\]*)' +
+                             r'(\s*\\\\\s*(?P<notes>[^\\]*)' +
                              r')?)?)?)?)?')
     f = urllib.urlopen(mcc_list_url)
     country = cc = ''
@@ -122,14 +131,32 @@ def get_mncs_from_wikipedia(data):
         if match:
             country = match.group('country')
             cc = (match.group('cc') or '').lower()
+        if "||" not in line:
+            continue
+        line = line.replace('||', '\\\\')
         match = mnc_line_re.match(line)
         if match:
-            update_mncs(data, match.group('mcc'), match.group('mnc'),
-                        country=country, cc=cc, brand=match.group('brand'),
-                        operator=match.group('operator'),
-                        status=match.group('status'),
-                        bands=match.group('bands'))
+            mnc_list = str2range(match.group('mnc'))
+            for mnc in mnc_list:
+                update_mncs(data, match.group('mcc'), mnc,
+                            country=country, cc=cc, brand=match.group('brand'),
+                            operator=match.group('operator'),
+                            status=match.group('status'),
+                            bands=match.group('bands'))
 
+def str2range(x):
+    result = []
+    for part in x.split(','):
+        if '-' in part:
+            a, b = part.split('-')
+            f = "%0" + str(len(b)) + "d"
+            a, b = int(a), int(b)
+            for i in range(a, b + 1):
+                result.append(f % (i))
+        else:
+            a = part
+            result.append(part)
+    return result
 
 if __name__ == '__main__':
     # download/parse the information
