@@ -125,5 +125,6 @@ def check_vies(number):  # pragma: no cover (no tests for this function)
     global _vies_client
     if not _vies_client:
         from suds.client import Client
-        _vies_client = Client(vies_wsdl)
+        from urllib import getproxies
+        _vies_client = Client(vies_wsdl, proxy=getproxies())
     return _vies_client.service.checkVat(number[:2], number[2:])
