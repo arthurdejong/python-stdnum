@@ -176,7 +176,7 @@ def to_binary(number):
     number = compact(number, strip_check_digit=True)
     if sys.version > '3':  # pragma: no cover (Python 2/3 specific code)
         return bytes.fromhex(number)
-    else:
+    else:  # pragma: no cover (Python 2/3 specific code)
         return number.decode('hex')
 
 

@@ -44,7 +44,7 @@ def _mk_char_map(mapping):
         for char in key.split(','):
             try:
                 yield (unicodedata.lookup(char), value)
-            except KeyError:
+            except KeyError:  # pragma: no cover (does not happen on Python3)
                 pass
 
 
