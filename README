@@ -54,9 +54,11 @@ Currently this package supports the following formats:
  * MEID (Mobile Equipment Identifier)
  * VAT (Maltese VAT number)
  * NRIC No. (Malaysian National Registration Identity Card Number)
+ * Brin number (Dutch number for schools)
  * BSN (Burgerservicenummer, Dutch national identification number)
  * BTW-nummer (Omzetbelastingnummer, the Dutch VAT number)
- * Onderwijsnummer (Dutch school number)
+ * Onderwijsnummer (Dutch student school number)
+ * Postcode (Dutch postal code)
  * NIP (Numer Identyfikacji Podatkowej, Polish VAT number)
  * NIF (Número de identificação fiscal, Portuguese VAT number)
  * CF (Cod de înregistrare în scopuri de TVA, Romanian VAT number)
@@ -65,7 +67,12 @@ Currently this package supports the following formats:
  * ID za DDV (Davčna številka, Slovenian VAT number)
  * IČ DPH (IČ pre daň z pridanej hodnoty, Slovak VAT number)
  * RČ (Rodné číslo, the Slovak birth number)
+ * ATIN (U.S. Adoption Taxpayer Identification Number)
+ * EIN (U.S. Employer Identification Number)
+ * ITIN (U.S. Individual Taxpayer Identification Number)
+ * PTIN (U.S. Preparer Tax Identification Number)
  * SSN (U.S. Social Security Number)
+ * TIN (U.S. Taxpayer Identification Number)
 
 Furthermore a number of generic check digit algorithms are available:
 

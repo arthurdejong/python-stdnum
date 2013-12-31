@@ -1,3 +1,22 @@
+changes from 0.8.1 to 0.9
+-------------------------
+
+* add modules for the following number formats:
+  - Brin number (Dutch number for schools)
+  - Postcode (Dutch postal code)
+  - ATIN (U.S. Adoption Taxpayer Identification Number)
+  - EIN (U.S. Employer Identification Number)
+  - ITIN (U.S. Individual Taxpayer Identification Number)
+  - PTIN (U.S. Preparer Tax Identification Number)
+  - TIN (U.S. Taxpayer Identification Number)
+* try to replace Unicode characters with similar-looking ASCII characters
+* update getimsi script (thanks eneq123)
+* update getiban script
+* add proxy support to the stdnum.eu.vat.check_vies() function (thanks
+  Cédric Krier)
+* support newer United Kingdom VAT numbers
+
+
 changes from 0.8 to 0.8.1
 -------------------------
 

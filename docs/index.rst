@@ -130,9 +130,11 @@ Available formats
    meid
    mt.vat
    my.nric
+   nl.brin
    nl.bsn
    nl.btw
    nl.onderwijsnummer
+   nl.postcode
    pl.nip
    pt.nif
    ro.cf
@@ -141,4 +143,9 @@ Available formats
    si.ddv
    sk.dph
    sk.rc
+   us.atin
+   us.ein
+   us.itin
+   us.ptin
    us.ssn
+   us.tin

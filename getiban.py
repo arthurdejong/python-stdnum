@@ -2,7 +2,7 @@
 
 # getiban.py - script to donwload and parse data from the IBAN registry
 #
-# Copyright (C) 2011 Arthur de Jong
+# Copyright (C) 2011, 2013 Arthur de Jong
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public

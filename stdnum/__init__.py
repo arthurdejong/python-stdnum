@@ -70,9 +70,11 @@ Currently this package supports the following formats:
  * meid: MEID (Mobile Equipment Identifier)
  * mt.vat: VAT (Maltese VAT number)
  * my.nric: NRIC No. (Malaysian National Registration Identity Card Number)
+ * nl.brin: Brin number (Dutch number for schools)
  * nl.bsn: BSN (Burgerservicenummer, Dutch national identification number)
  * nl.btw: BTW-nummer (Omzetbelastingnummer, the Dutch VAT number)
- * nl.onderwijsnummer: Onderwijsnummer (Dutch school number)
+ * nl.onderwijsnummer: Onderwijsnummer (Dutch student school number)
+ * nl.postcode: Postcode (Dutch postal code)
  * pl.nip: NIP (Numer Identyfikacji Podatkowej, Polish VAT number)
  * pt.nif: NIF (Número de identificação fiscal, Portuguese VAT number)
  * ro.cf: CF (Cod de înregistrare în scopuri de TVA, Romanian VAT number)
@@ -81,7 +83,12 @@ Currently this package supports the following formats:
  * si.ddv: ID za DDV (Davčna številka, Slovenian VAT number)
  * sk.dph: IČ DPH (IČ pre daň z pridanej hodnoty, Slovak VAT number)
  * sk.rc: RČ (Rodné číslo, the Slovak birth number)
+ * us.atin: ATIN (U.S. Adoption Taxpayer Identification Number)
+ * us.ein: EIN (U.S. Employer Identification Number)
+ * us.itin: ITIN (U.S. Individual Taxpayer Identification Number)
+ * us.ptin: PTIN (U.S. Preparer Tax Identification Number)
  * us.ssn: SSN (U.S. Social Security Number)
+ * us.tin: TIN (U.S. Taxpayer Identification Number)
 
 Furthermore a number of generic check digit algorithms are available:
 
@@ -96,4 +103,4 @@ Furthermore a number of generic check digit algorithms are available:
 
 
 # the version number of the library
-__version__ = '0.8.1'
+__version__ = '0.9'

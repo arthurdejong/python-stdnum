@@ -9,3 +9,4 @@ __pycache__
 /python_stdnum.egg-info
 /.coverage
 /coverage
+/distribute-*.egg

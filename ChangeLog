@@ -1,3 +1,166 @@
+2013-12-31  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [5c1765e] stdnum/iban.dat, stdnum/isbn.dat: Update database files
+
+2013-12-31  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [4217c35] stdnum/isan.py, stdnum/meid.py, stdnum/util.py: Add
+	  pragma: no cover for Python 3
+
+	  Some statements are not covered in Python 3 tests.
+
+2013-12-31  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [6c49ca8] getiban.py: Update getiban script
+
+	  This switches to use the csv module to support multi-line column
+	  values.  This also handles some problems in the BBAN structure
+	  column that would contain an IBAN structure.
+
+2013-12-31  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [0ee74e5] ChangeLog: Generate Changelog with different formatter
+
+	  git log --date=short --name-only \ --format="%x0c%ad	%aN
+	      <%aE>%n%n%x09* [%h]%x00%s%n%x00%+b%x00" | \
+	    awk 'BEGIN { RS="\f"; FS="\0" } { if ($1) { gsub(/\n*$/,
+	    "", $4); gsub(/^\n*/, "", $4); gsub(/\n/, ", ", $4);
+	    gsub(/\ngit-svn-id.*/, "", $3); gsub(/\n/, "\n\t  ", $3); print
+	    $1 " " $4 ": "; print "\t  " $2 $3 }}' | \ fmt --width=78 -c
+	    > ChangeLog
+
+2013-12-30  Cédric Krier <ced@b2ck.com>
+
+	* [a148835] stdnum/gb/vat.py, tests/test_gb_vat.doctest: Add some
+	  new VAT numbers for GB
+
+	  Add support for restarting from November 2009 using 9755.
+	  Add support for EU format of health authorities
+
+	  See: https://github.com/arthurdejong/python-stdnum/pull/4
+
+2013-12-12  eneq123 <koc@loki.glas.net>
+
+	* [4609a22] getimsi.py, stdnum/imsi.dat: Update parsing in getimsi
+	  script
+
+	  This updates the regexes and includes seom optimizations.
+
+	  See: https://github.com/arthurdejong/python-stdnum/issues/1
+
+2013-12-30  Cédric Krier <ced@b2ck.com>
+
+	* [9ec3cb0] stdnum/eu/vat.py: Add support for proxy
+
+2013-12-04  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [7f30979] getimsi.py, stdnum/imsi.dat: Update getimsi script
+
+	  This updates the script due to the Wikipedia article change and
+	  removes the code for getting the data from ITU for now.
+
+	  See: https://github.com/arthurdejong/python-stdnum/issues/1
+
+2013-11-09  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [b0c47d5] stdnum/nl/__init__.py, stdnum/nl/postcode.py: Add a
+	  Dutch postal code module
+
+	  The Dutch postal code (postcode) consists of four digits followed
+	  by two characters and together with the house number should
+	  uniquely identify any address.
+
+	  Addresses trac ticket #7.
+
+2013-11-09  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [73d05b0] stdnum/nl/brin.py: Add a Dutch Brin number module
+
+	  The Brin (Basis Registratie Instellingen) is a number to identify
+	  schools and related institutions.
+
+	  Addresses trac ticket #6.
+
+2013-11-09  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [73330a1] stdnum/nl/onderwijsnummer.py: Clarify onderwijsnummer
+	  description
+
+2013-11-09  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [188d3ea] : Add various United States Tax number modules
+
+	  This adds modules for the Individual Taxpayer Identification Number
+	  (ITIN), the Employer Identification Number (EIN), Adoption Taxpayer
+	  Identification Number (ATIN) and Preparer Tax Identification
+	  Number (PTIN) that together with the Social Security Number
+	  (SSN) are valid Taxpayer Identification Numbers (TIN)
+
+2013-10-12  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [9530635] stdnum/us/tin.py: Add a United States TIN module
+
+	  The Taxpayer Identification Number is used used for tax purposes
+	  in the United States. This module uses the SSN, ITIN, EIN,
+	  PTIN and ATIN modules to determine validitiy of the TIN.
+
+2013-10-11  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [316e3f2] stdnum/us/ptin.py: Add a United States PTIN module
+
+	  A Preparer Tax Identification Number (PTIN) is United States
+	  identification number for tax return preparers. It is an
+	  eight-digit number prefixed with a capital P.
+
+2013-10-11  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [47ea6ea] stdnum/us/atin.py: Add a United States ATIN module
+
+	  An Adoption Taxpayer Identification Number (ATIN) is a temporary
+	  nine-digit number issued by the United States IRS for a child for
+	  whom the adopting parents cannot obtain a Social Security Number.
+
+2013-10-11  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [b1c9ba5] stdnum/us/ein.dat, stdnum/us/ein.py: Add a United
+	  States EIN module
+
+	  The Employer Identification Number (EIN), also known as Federal
+	  Employer Identification Number (FEIN), is used to identify a
+	  business entity in the United States. It is issued to anyone
+	  that has to pay withholding taxes on employees.
+
+2013-10-11  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [19039f7] stdnum/us/itin.py: Add a United States ITIN module
+
+	  The ITIN (Individual Taxpayer Identification Number) is issued
+	  by the United States IRS to individuals who are required to
+	  have a taxpayer identification number but who are not eligible
+	  to obtain a Social Security Number.
+
+2013-10-11  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [70b974b] stdnum/meid.py: Remove unused import
+
+2013-11-08  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [f122c88] stdnum/util.py: Try to replace Unicode characters
+	  with ASCII
+
+	  This changes the stdnum.util.clean() method that is used by all
+	  modules to replace alternative Unicode dashes, dots, etc. by
+	  their ASCII equivalent so the numbers will be automatically
+	  converted and validated.
+
+	  Inspiration for this change came from
+	  https://github.com/JNRowe/pyisbn/pull/6
+
+2013-06-14  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [c042f02] ChangeLog, NEWS, stdnum/__init__.py: Get files ready
+	  for 0.8.1 release
+
 2013-06-14  Arthur de Jong <arthur@arthurdejong.org>
 
 	* [31e5e81] MANIFEST.in, setup.py: Ensure that all used files are

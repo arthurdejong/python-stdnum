@@ -2,7 +2,7 @@
 
 # getismsi.py - script to donwload data from Wikipedia to build the database
 #
-# Copyright (C) 2011 Arthur de Jong
+# Copyright (C) 2011, 2013 Arthur de Jong
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
