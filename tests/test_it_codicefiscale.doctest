@@ -1,0 +1,129 @@
+test_it_codicefiscale.doctest - tests for the stdnum.it.codicefiscale module
+
+Copyright (C) 2009-2013 Emanuele Rocca
+Copyright (C) 2014 Augusto Destrero
+Copyright (C) 2014 Arthur de Jong
+
+This library is free software; you can redistribute it and/or
+modify it under the terms of the GNU Lesser General Public
+License as published by the Free Software Foundation; either
+version 2.1 of the License, or (at your option) any later version.
+
+This library is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+Lesser General Public License for more details.
+
+You should have received a copy of the GNU Lesser General Public
+License along with this library; if not, write to the Free Software
+Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
+02110-1301 USA
+
+
+This file contains more detailed doctests for the stdnum.it.codicefiscale
+module. It tries to validate a number of tax codes that have been found
+online.
+
+>>> from stdnum.it import codicefiscale
+>>> from stdnum.exceptions import *
+
+
+Some valid numbers
+
+>>> numbers = '''
+... MRTNTN23M02D969P
+... RCCMNL83S18D969H
+... MRSMSR81D60Z611H
+... CNTCHR83T41D969D
+... FOXDRA26C24H872Y
+... MAILCU91A25F839D
+... RSSMRA45C12F205C
+... RSSMRA45C12F20RX
+... RSSMRA45C12F2L5N
+... RSSMRA45C12F2LRI
+... RSSMRAQRCMNFNLRG
+... '''
+>>> [x for x in numbers.splitlines() if x and not codicefiscale.is_valid(x)]
+[]
+
+
+These should be invalid:
+
+>>> codicefiscale.validate('CSTNGL22I10D086I')  # the first 'I' shouldn't be there
+Traceback (most recent call last):
+    ...
+InvalidFormat: ...
+>>> codicefiscale.validate('FOXDRA26C24H872A')
+Traceback (most recent call last):
+    ...
+InvalidChecksum: ...
+>>> codicefiscale.validate('CNTCHR83T32D969H')  # invalid date
+Traceback (most recent call last):
+    ...
+InvalidComponent: ...
+
+
+Test getting the birth date.
+
+>>> codicefiscale.get_birth_date('MRTNTN23M02D969P')
+datetime.date(1923, 8, 2)
+>>> codicefiscale.get_birth_date('RCCMNL83S18D969H')
+datetime.date(1983, 11, 18)
+>>> codicefiscale.get_birth_date('MRSMSR81D60Z611H')
+datetime.date(1981, 4, 20)
+>>> codicefiscale.get_birth_date('CNTCHR83T41D969D')
+datetime.date(1983, 12, 1)
+>>> codicefiscale.get_birth_date('FOXDRA26C24H872Y')
+datetime.date(1926, 3, 24)
+>>> codicefiscale.get_birth_date('MAILCU91A25F839D')
+datetime.date(1991, 1, 25)
+>>> codicefiscale.get_birth_date('RSSMRA45C12F205C')
+datetime.date(1945, 3, 12)
+>>> codicefiscale.get_birth_date('RSSMRA45C12F20RX')
+datetime.date(1945, 3, 12)
+>>> codicefiscale.get_birth_date('RSSMRA45C12F2L5N')
+datetime.date(1945, 3, 12)
+>>> codicefiscale.get_birth_date('RSSMRA45C12F2LRI')
+datetime.date(1945, 3, 12)
+>>> codicefiscale.get_birth_date('RSSMRAQRCMNFNLRG')
+datetime.date(1945, 3, 12)
+>>> codicefiscale.get_birth_date('MRTNTN23M02D969P')
+datetime.date(1923, 8, 2)
+
+
+Test getting the gender.
+
+>>> codicefiscale.get_gender('MRTNTN23M02D969P')
+'M'
+>>> codicefiscale.get_gender('RCCMNL83S18D969H')
+'M'
+>>> codicefiscale.get_gender('RCDLSN84S16D969Z')
+'M'
+>>> codicefiscale.get_gender('MRSMSR81D60Z611H')
+'F'
+>>> codicefiscale.get_gender('CNTCHR83T41D969D')
+'F'
+>>> codicefiscale.get_gender('FOXDRA26C24H872Y')
+'M'
+>>> codicefiscale.get_gender('MAILCU91A25F839D')
+'M'
+
+
+Test calculating the check digit.
+
+>>> codicefiscale.calc_check_digit('MRTNTN23M02D969')
+'P'
+>>> codicefiscale.calc_check_digit('MRSMSR81D60Z611')
+'H'
+>>> codicefiscale.calc_check_digit('RCDLSN84S16D969')
+'Z'
+>>> codicefiscale.calc_check_digit('CNTCHR83T41D969')
+'D'
+>>> codicefiscale.calc_check_digit('BNCSFN85T58G702')
+'W'
+>>> codicefiscale.calc_check_digit('RCCMNL83S18D969')
+'H'
+>>> codicefiscale.calc_check_digit('FOXDRA26C24H872')
+'Y'
+>>> codicefiscale.calc_check_digit('MAILCU91A25F839')
+'D'
