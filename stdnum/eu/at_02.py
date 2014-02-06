@@ -74,4 +74,3 @@ def is_valid(number):
         return bool(validate(number))
     except ValidationError:
         return False
-
