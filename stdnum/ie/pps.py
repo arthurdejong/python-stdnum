@@ -19,11 +19,28 @@
 
 """PPS No (Personal Public Service Number, Irish personal number).
 
-The Personal Public Service number consists of 8 digits. The first seven
-are numeric and the last is the check character. The number is sometimes
-be followed by an extra letter that can be a 'W', 'T' or an 'X' and is
-ignored for the check algorithm.
+The Personal Public Service number consists of 7 digits, and one or
+two letters. The first letter is a check character.
+When present (which should be the case for new numbers as of 2013),
+the second letter can be 'A' (for individuals) or 'H' (for
+non-individuals, such as limited companies, trusts, partnerships
+and unincorporated bodies). Pre-2013 values may have 'W', 'T',
+or 'X' as the second letter ; it is ignored by the check.
 
+>>> validate('6433435F') # pre-2013
+'6433435F'
+>>> validate('6433435FT') # pre-2013 with special final 'T'
+'6433435FT'
+>>> validate('6433435FW') # pre-2013 format for married women
+'6433435FW'
+>>> validate('6433435OA') # 2013 format (personal)
+'6433435OA'
+>>> validate('6433435IH') # 2013 format (non-personal)
+'6433435IH'
+>>> validate('6433435VH') # 2013 format (incorrect check)
+Traceback (most recent call last):
+    ...
+InvalidChecksum: ...
 >>> validate('6433435F')
 '6433435F'
 >>> validate('6433435E')  # incorrect check digit
@@ -39,7 +56,7 @@ from stdnum.ie import vat
 from stdnum.util import clean
 
 
-pps_re = re.compile('^\d{7}[A-W][WTX]?$')
+pps_re = re.compile('^\d{7}[A-W][AHWTX]?$')
 """Regular expression used to check syntax of PPS numbers."""
 
 
@@ -55,8 +72,14 @@ def validate(number):
     number = compact(number)
     if not pps_re.match(number):
         raise InvalidFormat()
-    if number[7] != vat.calc_check_digit(number[:7]):
-        raise InvalidChecksum()
+    if len(number) == 9 and number[8] in 'AH':
+        # new 2013 format
+        if number[7] != vat.calc_check_digit(number[:7] + number[8:]):
+            raise InvalidChecksum()
+    else:
+        # old format, last letter ignored
+        if number[7] != vat.calc_check_digit(number[:7]):
+            raise InvalidChecksum()
     return number
 
 
