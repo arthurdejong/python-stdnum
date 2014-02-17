@@ -22,8 +22,10 @@
 The Irish VAT number consists of 8 digits. The last digit is a check
 letter, the second digit may be a number, a letter, "+" or "*".
 
->>> validate('IE 6433435F')
+>>> validate('IE 6433435F')  # pre-2013 format
 '6433435F'
+>>> validate('IE 6433435OA')  # 2013 format
+'6433435OA'
 >>> validate('6433435E')  # incorrect check digit
 Traceback (most recent call last):
     ...
@@ -53,8 +55,10 @@ def calc_check_digit(number):
     """Calculate the check digit. The number passed should not have the
     check digit included."""
     alphabet = 'WABCDEFGHIJKLMNOPQRSTUV'
-    number = (7 - len(number)) * '0' + number
-    return alphabet[sum((8 - i) * int(n) for i, n in enumerate(number)) % 23]
+    number = compact(number).zfill(7)
+    return alphabet[(
+        sum((8 - i) * int(n) for i, n in enumerate(number[:7])) +
+        9 * alphabet.index(number[7:])) % 23]
 
 
 def validate(number):
@@ -63,15 +67,15 @@ def validate(number):
     number = compact(number)
     if not number[:1].isdigit() or not number[2:7].isdigit():
         raise InvalidFormat()
-    if len(number) != 8:
+    if len(number) not in (8, 9):
         raise InvalidLength()
     if number[:7].isdigit():
         # new system
-        if number[-1] != calc_check_digit(number[:-1]):
+        if number[7] != calc_check_digit(number[:7] + number[8:]):
             raise InvalidChecksum()
     elif number[1] in 'ABCDEFGHIJKLMNOPQRSTUVWXYZ+*':
         # old system
-        if number[-1] != calc_check_digit(number[2:-1] + number[0]):
+        if number[7] != calc_check_digit(number[2:7] + number[0]):
             raise InvalidChecksum()
     else:
         raise InvalidFormat()
