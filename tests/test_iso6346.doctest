@@ -1,0 +1,77 @@
+test_doctest - more detailed doctests for the stdnum.iso6346 package
+
+Copyright (C) 2014 Openlabs Technologies & consulting (P) Limited
+
+This library is free software; you can redistribute it and/or
+modify it under the terms of the GNU Lesser General Public
+License as published by the Free Software Foundation; either
+version 2.1 of the License, or (at your option) any later version.
+
+This library is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+Lesser General Public License for more details.
+
+You should have received a copy of the GNU Lesser General Public
+License along with this library; if not, write to the Free Software
+Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
+02110-1301 USA
+
+
+This file contains more detailed doctests for the stdnum.iso7064 package. It
+tries to test more corner cases and detailed functionality that is not
+really useful as module documentation.
+
+>>> from stdnum import iso6346
+
+Test the character equivalence::
+
+>>> iso6346._equivalent_number('A')
+10
+>>> iso6346._equivalent_number('a')
+10
+>>> iso6346._equivalent_number('b')
+12
+>>> iso6346._equivalent_number('c')
+13
+>>> iso6346._equivalent_number('k')
+21
+>>> iso6346._equivalent_number('l')
+23
+>>> iso6346._equivalent_number('m')
+24
+>>> iso6346._equivalent_number('u')
+32
+>>> iso6346._equivalent_number('v')
+34
+>>> iso6346._equivalent_number('z')
+38
+
+
+Test with Valid numbers::
+
+>>> iso6346.validate('CSQU3054383')
+True
+>>> iso6346.is_valid('CSQU3054383')
+True
+>>> iso6346.validate('csqu3054383')
+True
+>>> iso6346.is_valid('csQU3054383')
+True
+>>> iso6346.validate('tcnu7200794')
+True
+>>> iso6346.validate('tolu4734787')
+True
+
+Test with an Invaid number::
+
+>>> iso6346.validate('CSQU3054384')
+Traceback (most recent call last):
+    ...
+InvalidChecksum: ...
+>>> iso6346.validate('CSQU305438')
+Traceback (most recent call last):
+    ...
+InvalidLength: ...
+>>> iso6346.is_valid('CSQU3054384')
+False

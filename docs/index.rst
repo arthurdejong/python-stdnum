@@ -75,6 +75,7 @@ Generic check digit algorithms
    :toctree:
 
    iso7064
+   iso6346
    luhn
    verhoeff
 
