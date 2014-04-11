@@ -47,7 +47,7 @@ if __name__ == '__main__':
     print 'For stdnum/__init__.py:'
     print ''
     for module in get_number_modules():
-        print ' * %s: %s' % (
+        print '* %s: %s' % (
             module.__name__.replace('stdnum.', ''),
             util.get_module_name(module),
         )
