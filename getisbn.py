@@ -2,7 +2,7 @@
 
 # getisbn.py - script to get ISBN prefix data
 #
-# Copyright (C) 2010, 2011 Arthur de Jong
+# Copyright (C) 2010, 2011, 2014 Arthur de Jong
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -30,7 +30,7 @@ import urllib
 
 
 # The place where the current version of RangeMessage.xml can be downloaded.
-download_url = 'http://www.isbn-international.org/agency?rmxml=1'
+download_url = 'https://www.isbn-international.org/export_rangemessage.xml'
 
 
 def _wrap(text):
@@ -90,7 +90,7 @@ class RangeHandler(xml.sax.ContentHandler):
                     for line in _wrap(','.join(r[0] + '-' + r[1]
                                                for r in self._topranges[p])):
                         print ' %s' % line
-                print ' %s agency="%s"' % (a, self._agency)
+                print (' %s agency="%s"' % (a, self._agency)).encode('utf-8')
                 for line in _wrap(','.join(r[0] + '-' + r[1]
                                            for r in self._ranges)):
                     print '  %s' % line
