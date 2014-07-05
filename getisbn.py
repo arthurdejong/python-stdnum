@@ -25,17 +25,24 @@ ranges for those prefixes suitable for the numdb module. This data is needed
 to correctly split ISBNs into an EAN.UCC prefix, a group prefix, a registrant,
 an item number and a check-digit."""
 
-import xml.sax
+from xml.etree import ElementTree
 import urllib
 
 
-# The place where the current version of RangeMessage.xml can be downloaded.
+# the location of the ISBN Ranges XML file
 download_url = 'https://www.isbn-international.org/export_rangemessage.xml'
 
 
-def _wrap(text):
-    """Generator that returns lines of text that are no longer than
-    max_len."""
+def ranges(group):
+    for rule in group.find('Rules').findall('Rule'):
+        length = int(rule.find('Length').text.strip())
+        if length:
+            yield '-'.join(
+                x[:length]
+                for x in rule.find('Range').text.strip().split('-'))
+
+
+def wrap(text):
     while text:
         i = len(text)
         if i > 73:
@@ -44,66 +51,40 @@ def _wrap(text):
         text = text[i + 1:]
 
 
-class RangeHandler(xml.sax.ContentHandler):
+def get(f=None):
+    if f is None:
+        yield '# generated from RangeMessage.xml, downloaded from'
+        yield '# %s' % download_url
+        f = urllib.urlopen(download_url)
+    else:
+        yield '# generated from %r' % f
 
-    def __init__(self):
-        self._gather = None
-        self._prefix = None
-        self._agency = None
-        self._range = None
-        self._length = None
-        self._ranges = []
-        self._last = None
-        self._topranges = {}
+    # parse XML document
+    msg = ElementTree.parse(f).getroot()
 
-    def startElement(self, name, attrs):
-        if name in ('MessageSerialNumber', 'MessageDate', 'Prefix',
-                    'Agency', 'Range', 'Length'):
-            self._gather = ''
+    # dump data from document
+    yield '# file serial %s' % msg.find('MessageSerialNumber').text.strip()
+    yield '# file date %s' % msg.find('MessageDate').text.strip()
 
-    def characters(self, content):
-        if self._gather is not None:
-            self._gather += content
+    top_groups = dict(
+        (x.find('Prefix').text.strip(), x)
+        for x in msg.find('EAN.UCCPrefixes').findall('EAN.UCC'))
 
-    def endElement(self, name):
-        if name == 'MessageSerialNumber':
-            print '# file serial %s' % self._gather.strip()
-        elif name == 'MessageDate':
-            print '# file date %s' % self._gather.strip()
-        elif name == 'Prefix':
-            self._prefix = self._gather.strip()
-        elif name == 'Agency':
-            self._agency = self._gather.strip()
-        elif name == 'Range':
-            self._range = self._gather.strip()
-        elif name == 'Length':
-            self._length = int(self._gather.strip())
-        elif name == 'Rule' and self._length:
-            self._ranges.append(tuple(x[:self._length]
-                                      for x in self._range.split('-')))
-        elif name == 'Rules':
-            if '-' in self._prefix:
-                p, a = self._prefix.split('-')
-                if p != self._last:
-                    print p
-                    self._last = p
-                    for line in _wrap(','.join(r[0] + '-' + r[1]
-                                               for r in self._topranges[p])):
-                        print ' %s' % line
-                print (' %s agency="%s"' % (a, self._agency)).encode('utf-8')
-                for line in _wrap(','.join(r[0] + '-' + r[1]
-                                           for r in self._ranges)):
-                    print '  %s' % line
-            else:
-                self._topranges[self._prefix] = self._ranges
-            self._ranges = []
-        self._gather = None
+    prevtop = None
+    for group in msg.find('RegistrationGroups').findall('Group'):
+        top, prefix = group.find('Prefix').text.strip().split('-')
+        agency = group.find('Agency').text.strip()
+        if top != prevtop:
+            yield top
+            for line in wrap(','.join(ranges(top_groups[top]))):
+                yield ' %s' % line
+            prevtop = top
+        yield ' %s agency="%s"' % (prefix, agency)
+        for line in wrap(','.join(ranges(group))):
+            yield '  %s' % line
 
 
 if __name__ == '__main__':
-    print '# generated from RangeMessage.xml, downloaded from'
-    print '# %s' % download_url
-    parser = xml.sax.make_parser()
-    parser.setContentHandler(RangeHandler())
-    parser.parse(urllib.urlopen(download_url))
-    #parser.parse('RangeMessage.xml')
+    # get('RangeMessage.xml')
+    for row in get():
+        print row.encode('utf-8')
