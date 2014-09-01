@@ -1,3 +1,7 @@
+2014-09-01  Tony Bajan <tony.bajan@onefinestay.com>
+
+    * stdnum/us/rtn.py: Add banking Routing Transit Numbers.
+
 2013-12-31  Arthur de Jong <arthur@arthurdejong.org>
 
 	* [5c1765e] stdnum/iban.dat, stdnum/isbn.dat: Update database files
