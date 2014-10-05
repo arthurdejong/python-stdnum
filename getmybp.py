@@ -27,8 +27,8 @@ import BeautifulSoup
 
 
 # URLs that are downloaded
-state_list_url = 'http://www.jpn.gov.my/en/informasi/states-code'
-country_list_url = 'http://www.jpn.gov.my/en/informasi/country-code'
+state_list_url = 'http://www.jpn.gov.my/informasi/kod-negeri/'
+country_list_url = 'http://www.jpn.gov.my/en/informasi/kod-negara/'
 
 
 spaces_re = re.compile('\s+', re.UNICODE)
@@ -43,7 +43,7 @@ def parse(f):
     """Parse the specified file."""
     soup = BeautifulSoup.BeautifulSoup(f, convertEntities='html')
     # find all table rows
-    for tr in soup.find('div', id='content').findAll('tr'):
+    for tr in soup.find('div', id='inner-main').findAll('tr'):
         # find the rows with four columns of text
         tds = [
             clean(''.join(x.string for x in td.findAll(text=True)))
@@ -56,19 +56,19 @@ def parse(f):
 
 
 if __name__ == '__main__':
-    results = defaultdict(lambda : defaultdict(list))
+    results = defaultdict(lambda : defaultdict(set))
     # read the states
     #f = open('/tmp/states.html', 'r')
     f = urllib.urlopen(state_list_url)
     for state, bps in parse(f):
         for bp in bps.split(','):
             results[bp.strip()]['state'] = state
-            results[bp.strip()]['countries'].append('Malaysia')
+            results[bp.strip()]['countries'].add('Malaysia')
     # read the countries
     #f = open('/tmp/countries.html', 'r')
     f = urllib.urlopen(country_list_url)
     for country, bp in parse(f):
-        results[bp]['countries'].append(country)
+        results[bp]['countries'].add(country)
     # print the results
     print '# generated from National Registration Department of Malaysia, downloaded from'
     print '# %s' % state_list_url
@@ -79,7 +79,8 @@ if __name__ == '__main__':
         row = results[bp]
         if 'state' in row:
             res += ' state="%s"' % row['state']
-        countries = row['countries']
+        countries = list(row['countries'])
+        countries.sort()
         if len(countries) == 1:
             res += ' country="%s"' % countries[0]
         if len(countries) > 0:
