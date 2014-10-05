@@ -1,6 +1,6 @@
 # nric.py - functions for handling  NRIC numbers
 #
-# Copyright (C) 2013 Arthur de Jong
+# Copyright (C) 2013, 2014 Arthur de Jong
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -33,7 +33,7 @@ the last digit: odd numbers for males and even numbers for females.
 Traceback (most recent call last):
     ...
 InvalidComponent: ...
->>> validate('770305-99-1234')  # unknown birth place code
+>>> validate('770305-17-1234')  # unknown birth place code
 Traceback (most recent call last):
     ...
 InvalidComponent: ...
