@@ -1,0 +1,90 @@
+test_cn_ric.doctest - more detailed doctests for stdnum.cn.ric module
+
+Copyright (C) 2014 Jiangge Zhang
+
+This library is free software; you can redistribute it and/or
+modify it under the terms of the GNU Lesser General Public
+License as published by the Free Software Foundation; either
+version 2.1 of the License, or (at your option) any later version.
+
+This library is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+Lesser General Public License for more details.
+
+You should have received a copy of the GNU Lesser General Public
+License along with this library; if not, write to the Free Software
+Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
+02110-1301 USA
+
+
+This file contains more detailed doctests for the stdnum.cn.ric. It
+tries to cover more corner cases and detailed functionality that is not
+really useful as module documentation.
+
+>>> from stdnum.cn import ric
+>>> from stdnum.exceptions import *  # noqa
+
+
+Normal values that should just work.
+
+>>> ric.validate('360426199101010071')
+'360426199101010071'
+>>> ric.validate('44011320141005001x')
+'44011320141005001X'
+>>> ric.format('44011320141005001x')
+'44011320141005001X'
+
+
+Get the birth date:
+
+>>> ric.get_birth_date('360426199101010071')
+datetime.date(1991, 1, 1)
+>>> ric.get_birth_date('44011320141005001x')
+datetime.date(2014, 10, 5)
+
+
+Get the birth place:
+
+>>> c = ric.get_birth_place('360426199101010071')['county']
+>>> c == u'\u5fb7\u5b89\u53bf'
+True
+>>> c = ric.get_birth_place('44011320141005001x')['county']
+>>> c == u'\u756a\u79ba\u533a'
+True
+
+
+Invalid format:
+
+>>> ric.validate('36042619910101007V')
+Traceback (most recent call last):
+    ...
+InvalidFormat: ...
+>>> ric.validate('T60426199101010078')
+Traceback (most recent call last):
+    ...
+InvalidFormat: ...
+
+
+Invalid date:
+
+>>> ric.validate('360426199113010079')
+Traceback (most recent call last):
+    ...
+InvalidComponent: ...
+
+
+Invalid checksum:
+
+>>> ric.validate('36042619910102009X')
+Traceback (most recent call last):
+    ...
+InvalidChecksum: ...
+
+
+Invalid location:
+
+>>> ric.validate('990426199112010074')  # unknown birth place code
+Traceback (most recent call last):
+    ...
+InvalidComponent: ...
