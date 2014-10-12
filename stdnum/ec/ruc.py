@@ -26,11 +26,11 @@ where the third digit is a number who denoting the type of entity.
 >>> validate('1714307103001') # Natural entity
 '1714307103001'
 >>> validate('1768152130001') # Public entity
-'1763154690001'
+'1768152130001'
 >>> validate('1792060346001') # Juridical entity
 '1792060346001'
 >>> validate('1792060346-001')
-'1763154690001'
+'1792060346001'
 >>> validate('1763154690001')  # Invalid
 Traceback (most recent call last):
     ...
