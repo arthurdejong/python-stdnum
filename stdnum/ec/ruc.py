@@ -21,7 +21,7 @@
 """RUC (Registro Único de Contribuyentes, Ecuadorian company tax number).
 
 The RUC is a tax identification number for legal entities. It has 13 digits
-where the third digit is a letter (denoting the type of entity).
+where the third digit is a number who denoting the type of entity.
 
 >>> validate('1714307103001') # Natural entity
 '1714307103001'
@@ -29,7 +29,9 @@ where the third digit is a letter (denoting the type of entity).
 '1763154690001'
 >>> validate('1792060346001') # Juridical entity
 '1792060346001'
->>> validate('1763154690001')  # Public entity
+>>> validate('1792060346-001')
+'1763154690001'
+>>> validate('1763154690001')  # Invalid
 Traceback (most recent call last):
     ...
 InvalidChecksum: ...
@@ -37,8 +39,6 @@ InvalidChecksum: ...
 Traceback (most recent call last):
     ...
 InvalidLength: ...
->>> validate('1792060346-001')
-'1763154690001'
 """
 
 from stdnum.ec import ci
@@ -51,24 +51,13 @@ __all__ = ['compact', 'validate', 'is_valid']
 # use the same compact function as CI
 compact = ci.compact
 
-
-def validate(number):
-    """Checks to see if the number provided is a valid RUC number. This
-    checks the length, formatting, check digit and check sum."""
-    number = compact(number)
-    if len(number) != 13:
-        raise InvalidLength()
-
+def calc_check_sum(number):
     result = 0
-    residue = 0
-
     if int(number[2]) == 6:
         # 6 = Public RUC
         coefficient = "32765432"
-        checker = int(number[8])
-        for i in range(8):
-            result += (int(number[i]) * int(coefficient[i]))
-            residue = result % 11
+        result = sum(int(number[i]) * int(coefficient[i]) for i in range(8))
+        residue = result % 11
         if residue == 0:
             result = residue
         else:
@@ -76,10 +65,8 @@ def validate(number):
     elif int(number[2]) == 9:
         # 9 = Juridical RUC
         coefficient = "432765432"
-        checker = int(number[9])
-        for i in range(9):
-            result += (int(number[i]) * int(coefficient[i]))
-            residue = result % 11
+        result = sum(int(number[i]) * int(coefficient[i]) for i in range(9))
+        residue = result % 11
         if residue == 0:
             result = residue
         else:
@@ -87,13 +74,12 @@ def validate(number):
     elif int(number[2]) < 6:
         # less than 6 = Natural RUC
         coefficient = "212121212"
-        checker = int(number[9])
         for i in range(9):
-            sum = (int(number[i]) * int(coefficient[i]))
-            if sum > 10:
-                str_sum = str(sum)
-                sum = int(str_sum[0]) + int(str_sum[1])
-            result += sum
+            suma = int(number[i]) * int(coefficient[i])
+            if suma > 10:
+                str_sum = str(suma)
+                suma = int(str_sum[0]) + int(str_sum[1])
+            result += suma
         residue = result % 10
         if residue == 0:
             result = residue
@@ -101,15 +87,25 @@ def validate(number):
             result = 10 - residue
     else:
         raise InvalidFormat()
+    return result
 
-    if result != checker:
+
+def validate(number):
+    """Checks to see if the number provided is a valid RUC number. This
+    checks the length, formatting, check digit and check sum."""
+    number = compact(number)
+    if len(number) != 13:
+        raise InvalidLength()
+    if not number.isdigit():
+        raise InvalidFormat()
+    checker = int(number[8]) if int(number[2]) == 6 else int(number[9])
+    if calc_check_sum(number) != checker:
         raise InvalidChecksum()
-
     return number
 
 
 def is_valid(number):
-    """Checks to see if the number provided is a valid DNI number. This
+    """Checks to see if the number provided is a valid RUC number. This
     checks the length, formatting and check digit."""
     try:
         return bool(validate(number))

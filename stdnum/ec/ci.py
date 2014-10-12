@@ -46,21 +46,30 @@ def compact(number):
     return clean(number, ' -').upper().strip()
 
 
+def checksum(number):
+    """Calculate the check digit."""
+    value = [int(number[x]) * (2 - x % 2) for x in range(9)]
+    total = sum(map(lambda x: x > 9 and x - 9 or x, value))
+    if int(int(number[9] if int(number[9]) != 0 else 10)) != (10 - int(str(total)[-1:])):
+        return False
+    return True
+
+
 def validate(number):
-    """Checks to see if the number provided is a valid DNI number. This
+    """Checks to see if the number provided is a valid CI number. This
     checks the length, formatting and check digit."""
     number = compact(number)
     if len(number) != 10:
         raise InvalidLength()
-    value = [int(number[x]) * (2 - x % 2) for x in range(9)]
-    total = sum(map(lambda x: x > 9 and x - 9 or x, value))
-    if int(int(number[9] if int(number[9]) != 0 else 10)) != (10 - int(str(total)[-1:])):
+    if not number.isdigit():
+        raise InvalidFormat()
+    if not checksum(number):
         raise InvalidChecksum()
     return number
 
 
 def is_valid(number):
-    """Checks to see if the number provided is a valid DNI number. This
+    """Checks to see if the number provided is a valid CI number. This
     checks the length, formatting and check digit."""
     try:
         return bool(validate(number))
