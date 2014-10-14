@@ -18,7 +18,7 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 # 02110-1301 USA
 
-"""FPA, ΦΠΑ (Foros Prostithemenis Aksias, the Greek VAT number).
+"""FPA, ΦΠΑ, ΑΦΜ (Αριθμός Φορολογικού Μητρώου, the Greek VAT number).
 
 The FPA is a 9-digit number with a simple checksum.
 
