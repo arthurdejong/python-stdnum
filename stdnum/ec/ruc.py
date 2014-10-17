@@ -1,4 +1,4 @@
-# cif.py - functions for handling Ecuadorian fiscal numbers
+# ruc.py - functions for handling Ecuadorian fiscal numbers
 # coding: utf-8
 #
 # Copyright (C) 2014 Jonathan Finlay
@@ -21,17 +21,11 @@
 """RUC (Registro Único de Contribuyentes, Ecuadorian company tax number).
 
 The RUC is a tax identification number for legal entities. It has 13 digits
-where the third digit is a number who denoting the type of entity.
+where the third digit is a number denoting the type of entity.
 
->>> validate('1714307103001')  # Natural entity
-'1714307103001'
->>> validate('1768152130001')  # Public entity
-'1768152130001'
->>> validate('1792060346001')  # Juridical entity
-'1792060346001'
 >>> validate('1792060346-001')
 '1792060346001'
->>> validate('1763154690001')  # Invalid
+>>> validate('1763154690001')  # invalid check digit
 Traceback (most recent call last):
     ...
 InvalidChecksum: ...

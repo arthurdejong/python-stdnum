@@ -1,4 +1,4 @@
-# dni.py - functions for handling Ecuadorian personal identity codes
+# ci.py - functions for handling Ecuadorian personal identity codes
 # coding: utf-8
 #
 # Copyright (C) 2014 Jonathan Finlay
@@ -18,15 +18,13 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 # 02110-1301 USA
 
-"""CI (Cédula de identidad, Ecuadorian personal identity codes).
+"""CI (Cédula de identidad, Ecuadorian personal identity code).
 
 The CI is a 10 digit number used to identify Ecuadorian citizens.
 
->>> validate('1714307103')
-'1714307103'
 >>> validate('171430710-3')
 '1714307103'
->>> validate('1714307104')  # invalid document
+>>> validate('1714307104')  # invalid check digit
 Traceback (most recent call last):
     ...
 InvalidChecksum: ...
@@ -47,7 +45,7 @@ def compact(number):
 
 
 def checksum(number):
-    """Calculate the check digit."""
+    """Calculate a checksum over the number."""
     value = [int(number[x]) * (2 - x % 2) for x in range(9)]
     total = sum(map(lambda x: x > 9 and x - 9 or x, value))
     if int(int(number[9] if int(number[9]) != 0 else 10)) != (10 - int(str(total)[-1:])):
