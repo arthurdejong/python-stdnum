@@ -60,6 +60,10 @@ def validate(number):
         raise InvalidLength()
     if not number.isdigit():
         raise InvalidFormat()
+    if number[:2] < '01' or number[:2] > '24':
+        raise InvalidComponent()  # invalid province code
+    if number[2] > '5':
+        raise InvalidComponent()  # third digit wrong
     if _checksum(number) != 0:
         raise InvalidChecksum()
     return number

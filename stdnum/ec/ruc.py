@@ -60,15 +60,23 @@ def validate(number):
         raise InvalidLength()
     if not number.isdigit():
         raise InvalidFormat()
+    if number[:2] < '01' or number[:2] > '24':
+        raise InvalidComponent()  # invalid province code
     if number[2] < '6':
         # 0..5 = natural RUC: CI plus establishment number
+        if number[-3:] == '000':
+            raise InvalidComponent()  # establishment number wrong
         ci.validate(number[:10])
     elif number[2] == '6':
         # 6 = public RUC
+        if number[-4:] == '0000':
+            raise InvalidComponent()  # establishment number wrong
         if _checksum(number[:9], (3, 2, 7, 6, 5, 4, 3, 2, 1)) != 0:
             raise InvalidChecksum()
     elif number[2] == '9':
         # 9 = juridical RUC
+        if number[-3:] == '000':
+            raise InvalidComponent()  # establishment number wrong
         if _checksum(number[:10], (4, 3, 2, 7, 6, 5, 4, 3, 2, 1)) != 0:
             raise InvalidChecksum()
     else:
