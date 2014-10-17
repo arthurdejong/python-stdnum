@@ -1,0 +1,164 @@
+test_ec_ruc.doctest - more detailed doctests for stdnum.ec.ruc module
+
+Copyright (C) 2014 Jonathan Finlay
+Copyright (C) 2014 Arthur de Jong
+
+This library is free software; you can redistribute it and/or
+modify it under the terms of the GNU Lesser General Public
+License as published by the Free Software Foundation; either
+version 2.1 of the License, or (at your option) any later version.
+
+This library is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+Lesser General Public License for more details.
+
+You should have received a copy of the GNU Lesser General Public
+License along with this library; if not, write to the Free Software
+Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
+02110-1301 USA
+
+
+This file contains more detailed doctests for the stdnum.ec.ruc. It tries to
+cover more corner cases and detailed functionality that is not really useful
+as module documentation.
+
+>>> from stdnum.ec import ruc
+>>> from stdnum.exceptions import *
+
+
+Normal natural RUC values (third digit less than 6) that should just work.
+
+>>> numbers = '''
+... 0101016905001
+... 0602910945001
+... 0910005917001
+... 0926687856001
+... 1001152287001
+... 1102755442001
+... 1104552037001
+... 1311919078001
+... 1700672486001
+... 1702264233001
+... 1704159860001
+... 1710034065001
+... 1710585264001
+... 1710589373001
+... 1713238234001
+... 1714307103001
+... 1721788659001
+... 1803557964001
+... '''
+>>> [x for x in numbers.splitlines() if x and not ruc.is_valid(x)]
+[]
+
+
+Normal public RUC values (third digit is 6) that should just work.
+
+>>> numbers = '''
+... 0160001910001
+... 0260001060001
+... 0360001040001
+... 0560000540001
+... 0660000280001
+... 0660000600001
+... 0660000870001
+... 0968529830001
+... 1060000420001
+... 1060000690001
+... 1060008080001
+... 1060024600001
+... 1360000630001
+... 1560000780001
+... 1760001040001
+... 1760001550001
+... 1760009880001
+... 1768007390001
+... 1768152130001
+... 2160011760001
+... '''
+>>> [x for x in numbers.splitlines() if x and not ruc.is_valid(x)]
+[]
+
+
+Normal juridical RUC values (third digit is 9) that should just work.
+
+>>> numbers = '''
+... 0190155722001
+... 0490002669001
+... 0590041920001
+... 0790024656001
+... 0990138850001
+... 0992397535001
+... 1190015110001
+... 1390007791001
+... 1390089410001
+... 1390091474001
+... 1790011674001
+... 1790085783001
+... 1790325083001
+... 1791280172001
+... 1791714350001
+... 1792060346001
+... 1792141869001
+... 1792373255001
+... 1890001323001
+... 1890037646001
+... '''
+>>> [x for x in numbers.splitlines() if x and not ruc.is_valid(x)]
+[]
+
+
+Values that are invalid in one way or another:
+
+>>> ruc.validate('179206034601')  # too short
+Traceback (most recent call last):
+    ...
+InvalidLength: ...
+>>> ruc.validate('17920603A6001')  # contains a character
+Traceback (most recent call last):
+    ...
+InvalidFormat: ...
+>>> ruc.validate('0170000610001')  # third digit invalid
+Traceback (most recent call last):
+    ...
+InvalidComponent: ...
+
+>>> ruc.validate('1763154690001')  # invalid check digit in natural RUC
+Traceback (most recent call last):
+    ...
+InvalidChecksum: ...
+>>> ruc.validate('0160000610001')  # invalid check digit in public RUC
+Traceback (most recent call last):
+    ...
+InvalidChecksum: ...
+>>> ruc.validate('0190115799001')  # invalid check digit in juridical RUC
+Traceback (most recent call last):
+    ...
+InvalidChecksum: ...
+
+>>> ruc.validate('8810034069001')  # invalid province code in natural RUC
+Traceback (most recent call last):
+    ...
+InvalidComponent: ...
+>>> ruc.validate('8868152120001')  # invalid province code in public RUC
+Traceback (most recent call last):
+    ...
+InvalidComponent: ...
+>>> ruc.validate('8892397539001')  # invalid province code in juridical RUC
+Traceback (most recent call last):
+    ...
+InvalidComponent: ...
+
+>>> ruc.validate('0926687856000')  # invalid establishment in natural RUC
+Traceback (most recent call last):
+    ...
+InvalidComponent: ...
+>>> ruc.validate('1760001550000')  # invalid establishment in public RUC
+Traceback (most recent call last):
+    ...
+InvalidComponent: ...
+>>> ruc.validate('0992397535000')  # invalid establishment in juridical RUC
+Traceback (most recent call last):
+    ...
+InvalidComponent: ...

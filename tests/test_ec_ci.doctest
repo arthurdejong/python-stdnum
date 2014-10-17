@@ -1,0 +1,65 @@
+test_ec_ci.doctest - more detailed doctests for stdnum.ec.ci module
+
+Copyright (C) 2014 Jonathan Finlay
+Copyright (C) 2014 Arthur de Jong
+
+This library is free software; you can redistribute it and/or
+modify it under the terms of the GNU Lesser General Public
+License as published by the Free Software Foundation; either
+version 2.1 of the License, or (at your option) any later version.
+
+This library is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+Lesser General Public License for more details.
+
+You should have received a copy of the GNU Lesser General Public
+License along with this library; if not, write to the Free Software
+Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
+02110-1301 USA
+
+
+This file contains more detailed doctests for the stdnum.ec.ci. It tries to
+cover more corner cases and detailed functionality that is not really useful
+as module documentation.
+
+>>> from stdnum.ec import ci
+>>> from stdnum.exceptions import *
+
+
+Normal values that should just work.
+
+>>> ci.validate('1714307103')
+'1714307103'
+>>> ci.validate('171430710-3')
+'1714307103'
+>>> ci.validate('0602910945')
+'0602910945'
+>>> ci.validate('0926687856')
+'0926687856'
+>>> ci.validate('0910005917')
+'0910005917'
+
+
+Some invalid numbers.
+
+>>> ci.validate('1714307104')  # invalid check digit
+Traceback (most recent call last):
+    ...
+InvalidChecksum: ...
+>>> ci.validate('171430710')  # digit missing
+Traceback (most recent call last):
+    ...
+InvalidLength: ...
+>>> ci.validate('123A567890')  # contains a letter
+Traceback (most recent call last):
+    ...
+InvalidFormat: ...
+>>> ci.validate('1784307108')  # third digit wrong
+Traceback (most recent call last):
+    ...
+InvalidComponent: ...
+>>> ci.validate('8814307107')  # invalid province code
+Traceback (most recent call last):
+    ...
+InvalidComponent: ...
