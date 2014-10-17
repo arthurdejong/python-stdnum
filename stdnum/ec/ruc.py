@@ -2,6 +2,7 @@
 # coding: utf-8
 #
 # Copyright (C) 2014 Jonathan Finlay
+# Copyright (C) 2014 Arthur de Jong
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -46,43 +47,9 @@ __all__ = ['compact', 'validate', 'is_valid']
 compact = ci.compact
 
 
-def calc_check_sum(number):
-    result = 0
-    if int(number[2]) == 6:
-        # 6 = Public RUC
-        coefficient = "32765432"
-        result = sum(int(number[i]) * int(coefficient[i]) for i in range(8))
-        residue = result % 11
-        if residue == 0:
-            result = residue
-        else:
-            result = 11 - residue
-    elif int(number[2]) == 9:
-        # 9 = Juridical RUC
-        coefficient = "432765432"
-        result = sum(int(number[i]) * int(coefficient[i]) for i in range(9))
-        residue = result % 11
-        if residue == 0:
-            result = residue
-        else:
-            result = 11 - residue
-    elif int(number[2]) < 6:
-        # less than 6 = Natural RUC
-        coefficient = "212121212"
-        for i in range(9):
-            suma = int(number[i]) * int(coefficient[i])
-            if suma > 10:
-                str_sum = str(suma)
-                suma = int(str_sum[0]) + int(str_sum[1])
-            result += suma
-        residue = result % 10
-        if residue == 0:
-            result = residue
-        else:
-            result = 10 - residue
-    else:
-        raise InvalidFormat()
-    return result
+def _checksum(number, weights):
+    """Calculate a checksum over the number given the weights."""
+    return sum(weights[i] * int(n) for i, n in enumerate(number)) % 11
 
 
 def validate(number):
@@ -93,9 +60,19 @@ def validate(number):
         raise InvalidLength()
     if not number.isdigit():
         raise InvalidFormat()
-    checker = int(number[8]) if int(number[2]) == 6 else int(number[9])
-    if calc_check_sum(number) != checker:
-        raise InvalidChecksum()
+    if number[2] < '6':
+        # 0..5 = natural RUC: CI plus establishment number
+        ci.validate(number[:10])
+    elif number[2] == '6':
+        # 6 = public RUC
+        if _checksum(number[:9], (3, 2, 7, 6, 5, 4, 3, 2, 1)) != 0:
+            raise InvalidChecksum()
+    elif number[2] == '9':
+        # 9 = juridical RUC
+        if _checksum(number[:10], (4, 3, 2, 7, 6, 5, 4, 3, 2, 1)) != 0:
+            raise InvalidChecksum()
+    else:
+        raise InvalidComponent()  # third digit wrong
     return number
 
 

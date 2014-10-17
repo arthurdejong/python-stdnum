@@ -2,6 +2,7 @@
 # coding: utf-8
 #
 # Copyright (C) 2014 Jonathan Finlay
+# Copyright (C) 2014 Arthur de Jong
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -44,13 +45,11 @@ def compact(number):
     return clean(number, ' -').upper().strip()
 
 
-def checksum(number):
+def _checksum(number):
     """Calculate a checksum over the number."""
-    value = [int(number[x]) * (2 - x % 2) for x in range(9)]
-    total = sum(map(lambda x: x > 9 and x - 9 or x, value))
-    if int(int(number[9] if int(number[9]) != 0 else 10)) != (10 - int(str(total)[-1:])):
-        return False
-    return True
+    fold = lambda x: x - 9 if x > 9 else x
+    return sum(fold((2 - (i % 2)) * int(n))
+               for i, n in enumerate(number)) % 10
 
 
 def validate(number):
@@ -61,7 +60,7 @@ def validate(number):
         raise InvalidLength()
     if not number.isdigit():
         raise InvalidFormat()
-    if not checksum(number):
+    if _checksum(number) != 0:
         raise InvalidChecksum()
     return number
 
