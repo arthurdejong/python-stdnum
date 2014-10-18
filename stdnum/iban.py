@@ -87,7 +87,7 @@ def validate(number):
     number = compact(number)
     try:
         test_number = _to_base10(number)
-    except:
+    except Exception:
         raise InvalidFormat()
     # ensure that checksum is valid
     mod_97_10.validate(test_number)

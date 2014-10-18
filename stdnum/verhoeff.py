@@ -81,7 +81,7 @@ def validate(number):
         raise InvalidFormat()
     try:
         valid = checksum(number) == 0
-    except:
+    except Exception:
         raise InvalidFormat()
     if not valid:
         raise InvalidChecksum()

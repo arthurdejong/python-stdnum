@@ -61,7 +61,7 @@ def validate(number, alphabet='0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ'):
     """Checks whether the check digit is valid."""
     try:
         valid = checksum(number, alphabet) == 1
-    except:
+    except Exception:
         raise InvalidFormat()
     if not valid:
         raise InvalidChecksum()

@@ -106,7 +106,7 @@ def clean(number, deletechars=''):
     """
     try:
         number = ''.join(x for x in number)
-    except:
+    except Exception:
         raise InvalidFormat()
     if sys.version < '3' and isinstance(number, str):  # pragma: no cover (Python 2/3 specific code)
         try:

@@ -64,7 +64,7 @@ def validate(number, alphabet='0123456789'):
         raise InvalidFormat()
     try:
         valid = checksum(number, alphabet) == 0
-    except:
+    except Exception:
         raise InvalidFormat()
     if not valid:
         raise InvalidChecksum()

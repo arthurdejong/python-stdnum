@@ -72,7 +72,7 @@ def imei_type(number):
     invalid) for checking the type of number passed."""
     try:
         number = validate(number)
-    except:
+    except Exception:
         return None
     if len(number) in (14, 15):
         return 'IMEI'

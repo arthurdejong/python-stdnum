@@ -52,7 +52,7 @@ def validate(number):
     """Checks whether the check digit is valid."""
     try:
         valid = checksum(number) == 1
-    except:
+    except Exception:
         raise InvalidFormat()
     if not valid:
         raise InvalidChecksum()
