@@ -37,7 +37,6 @@ InvalidChecksum: ...
 """
 
 import re
-import string
 
 from stdnum.exceptions import InvalidChecksum, InvalidFormat, InvalidLength, \
     ValidationError
