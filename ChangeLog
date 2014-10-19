@@ -1,3 +1,198 @@
+2014-10-19  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [72c0ff1] stdnum/iso6346.py: Remove unused import
+
+2014-10-19  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [e713cc7] stdnum/iban.dat, stdnum/imsi.dat, stdnum/isbn.dat,
+	  stdnum/isil.dat: Update database files
+
+2014-10-13  Denis Krienbühl <denis@href.ch>
+
+	* [256aa49] stdnum/ch/__init__.py, stdnum/ch/ssn.py: Adds the
+	  Swiss social security number
+
+	  Also known as "Sozialversicherungsnummer" / "Neue AHV Nummer".
+
+2014-10-18  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [2cc50e2] stdnum/eu/at_02.py, stdnum/iban.py, stdnum/imei.py,
+	  stdnum/iso7064/mod_11_10.py, stdnum/iso7064/mod_11_2.py,
+	  stdnum/iso7064/mod_37_2.py, stdnum/iso7064/mod_37_36.py,
+	  stdnum/iso7064/mod_97_10.py, stdnum/luhn.py, stdnum/util.py,
+	  stdnum/verhoeff.py: Only catch Exception
+
+2014-10-17  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [e2948bb] : Add Ecuadorian CI and RUC numbers
+
+	  Add modules for Ecuadorian Identification Card (CI - Cédula
+	  de identidad) and Fiscal Numbers (RUC - Registro Único de
+	  Contribuyentes)
+
+	  See: https://github.com/arthurdejong/python-stdnum/pull/12
+
+2014-10-17  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [e5250be] stdnum/ec/ci.py, stdnum/ec/ruc.py,
+	  tests/test_ec_ci.doctest, tests/test_ec_ruc.doctest: Validate
+	  parts of numbers
+
+	  This raises exceptions when the provice or establishment number
+	  part of the number contains invalid values.
+
+2014-10-17  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [10a044f] stdnum/ec/ci.py, stdnum/ec/ruc.py: Refactor checksum
+	  functions
+
+	  Use the CI checks from within the RUC module for natural RUC
+	  numbers (thereby eliminating a bug in the RUC checksum calculation)
+	  and simplify the checksum functions.
+
+2014-10-17  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [f61b855] stdnum/ec/ci.py, stdnum/ec/ruc.py,
+	  tests/test_ec_ci.doctest, tests/test_ec_ruc.doctest: Use
+	  dedicated doctests
+
+	  This moves a number of the existing test cases to dedicated doctest
+	  files and extend the tests with more numbers and corner cases.
+
+	  This also fixes a few docstrings.
+
+2014-10-12  Jonathan Finlay <jfinlay@riseup.net>
+
+	* [e8f1ca6] stdnum/ec/__init__.py, stdnum/ec/ci.py, stdnum/ec/ruc.py:
+	  Add Ecuadorian CI and RUC numbers
+
+	  Add modules for Ecuadorian Identification Card (CI - Cédula
+	  de identidad) and Fiscal Numbers (RUC - Registro Único de
+	  Contribuyentes)
+
+2014-10-06  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [2700b7a] : Add Chinese Resident Identity Card Number
+
+2014-10-06  Jiangge Zhang <tonyseek@gmail.com>
+
+	* [141d576] stdnum/cn/ric.py, tests/test_cn_ric.doctest: Support
+	  the Resident Identity Card Number of People's Republic China
+
+2014-10-05  Jiangge Zhang <tonyseek@gmail.com>
+
+	* [10ae548] getcnloc.py, stdnum/cn/loc.dat: Download locations
+	  from the China (PRC) government site
+
+2014-10-05  Jiangge Zhang <tonyseek@gmail.com>
+
+	* [e9eb546] stdnum/cn/__init__.py: Add stdnum.cn package for Chinese
+	  (PRC) numbers
+
+2014-10-05  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [97ac94d] stdnum/my/nric.py, tests/test_my_nric.doctest: Update
+	  NRIC tests
+
+2014-10-05  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [123e9cb] getmybp.py, stdnum/my/bp.dat: Update URLs for Malaysian
+	  code lists
+
+	  This updates the URLs for the state and country codes as published
+	  by the National Registration Department of Malaysia and changes
+	  the parsing to the new page layout.
+
+	  This also updates the data file.
+
+	  https://github.com/arthurdejong/python-stdnum/issues/14
+
+2014-09-01  Tony Bajan <tony.bajan@onefinestay.com>
+
+	* [86f60a2] stdnum/us/rtn.py: Add US bank routing transit numbers
+
+2014-07-05  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [fbb0316] getisbn.py: Use ElementTree for simpler XML parsing
+
+2014-07-05  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [03e4f97] getisbn.py, stdnum/isbn.dat: Fix getisbn script and
+	  update ISBN data file
+
+2014-04-11  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [26517fe] getnumlist.py, stdnum/__init__.py: Improve package
+	  docstring formatting and show example
+
+2014-03-18  Sharoon Thomas <sharoon.thomas@openlabs.co.in>
+
+	* [85dd6f2] stdnum/iso6346.py, tests/test_iso6346.doctest: Add
+	  support for ISO6346
+
+	  Add validation and creation of check digit for ISO6346 codes.
+
+	  See: https://github.com/arthurdejong/python-stdnum/pull/9
+
+2014-03-05  Jussi Räsänen <jussi@skyred.fi>
+
+	* [2405c89] stdnum/eu/vat.py: Added a simple backwards compability
+	  check
+
+2014-02-17  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [a4012f5] stdnum/ie/pps.py, stdnum/ie/vat.py,
+	  tests/test_eu_vat.doctest: Add support for 2013 extension of
+	  Irish PPS Numbers
+
+	  References: - https://www.welfare.ie/en/Pages/PPSN.aspx -
+	  http://www.citizensinformation.ie/en/social_welfare/irish_social_welfare_system/personal_public_service_number.html
+2014-02-06  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [71d9837] stdnum/at_02.py, stdnum/eu/at_02.py: Rename AT-02
+	  module to stdnum.eu.at_02
+
+2014-02-05  Sergi Almacellas Abellana <sergi@koolpi.com>
+
+	* [099078e] stdnum/at_02.py: Add SEPA Creditor identifier (AT-02)
+
+2014-02-02  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [1ac00a0] stdnum/it/codicefiscale.py,
+	  tests/test_it_codicefiscale.doctest: Add an Italian Codice
+	  Fiscale module
+
+	  This module validates 16 digit Italian tax codes for individuals.
+	  https://en.wikipedia.org/wiki/Italian_fiscal_code_card
+
+	  It is based on the pycodicefiscale module that can be found here:
+	  https://github.com/baxeico/pycodicefiscale
+
+	  Functions have been renamed to follow the stdnum naming scheme:
+	  isvalid() -> is_valid(), control_code -> calc_check_digit(),
+	  get_birthday() -> get_birth_date(), get_sex() -> get_gender(). The
+	  build() function for generating tax codes (based on name,
+	  birth place and date) has been left out because this number
+	  cannot be uniquely constructed with this information alone
+	  (numbers are issued by the Italian tax office with a mechanism
+	  handle duplicates).
+
+	  Addresses trac ticket #9.
+
+2014-01-01  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [c3d669c] setup.py: Remove requirement on distribute
+
+	  This accidentally slipped into 907e410.  2013-12-31  Arthur de
+Jong <arthur@arthurdejong.org>
+
+	* [d933aab] .gitignore, ChangeLog, NEWS, README, docs/index.rst,
+	  docs/stdnum.my.nric.rst, docs/stdnum.nl.brin.rst,
+	  docs/stdnum.nl.postcode.rst, docs/stdnum.us.atin.rst,
+	  docs/stdnum.us.ein.rst, docs/stdnum.us.itin.rst,
+	  docs/stdnum.us.ptin.rst, docs/stdnum.us.tin.rst, getiban.py,
+	  getimsi.py, stdnum/__init__.py: Get files ready for 0.9 release
+
 2013-12-31  Arthur de Jong <arthur@arthurdejong.org>
 
 	* [5c1765e] stdnum/iban.dat, stdnum/isbn.dat: Update database files

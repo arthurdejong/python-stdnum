@@ -2,7 +2,7 @@
 
 # setup.py - python-stdnum installation script
 #
-# Copyright (C) 2010, 2011, 2012, 2013 Arthur de Jong
+# Copyright (C) 2010-2014 Arthur de Jong
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -41,10 +41,12 @@ setup(name='python-stdnum',
       url='http://arthurdejong.org/python-stdnum/',
       license='LGPL',
       classifiers=[
-          'Development Status :: 4 - Beta',
+          'Development Status :: 5 - Production/Stable',
           'Intended Audience :: Developers',
-          'Intended Audience :: System Administrators',
-          'License :: OSI Approved :: GNU Library or Lesser General Public License (LGPL)',
+          'Intended Audience :: Financial and Insurance Industry',
+          'Intended Audience :: Information Technology',
+          'Intended Audience :: Telecommunications Industry',
+          'License :: OSI Approved :: GNU Lesser General Public License v2 or later (LGPLv2+)',
           'Operating System :: OS Independent',
           'Programming Language :: Python',
           'Topic :: Software Development :: Libraries :: Python Modules',

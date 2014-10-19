@@ -91,6 +91,8 @@ Available formats
    bg.pnf
    bg.vat
    br.cpf
+   ch.ssn
+   cn.ric
    cy.vat
    cz.dic
    cz.rc
@@ -98,11 +100,14 @@ Available formats
    dk.cpr
    dk.cvr
    ean
+   ec.ci
+   ec.ruc
    ee.kmkr
    es.cif
    es.dni
    es.nie
    es.nif
+   eu.at_02
    eu.vat
    fi.alv
    fi.hetu
@@ -122,7 +127,9 @@ Available formats
    isbn
    isil
    ismn
+   iso6346
    issn
+   it.codicefiscale
    it.iva
    lt.pvm
    lu.tva
@@ -147,5 +154,6 @@ Available formats
    us.ein
    us.itin
    us.ptin
+   us.rtn
    us.ssn
    us.tin

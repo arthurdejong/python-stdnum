@@ -1,7 +1,7 @@
 # __init__.py - main module
 # coding: utf-8
 #
-# Copyright (C) 2010, 2011, 2012, 2013 Arthur de Jong
+# Copyright (C) 2010-2014 Arthur de Jong
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -31,6 +31,8 @@ Currently this package supports the following formats:
 * bg.pnf: PNF (ЛНЧ, Личен номер на чужденец, Bulgarian number of a foreigner)
 * bg.vat: VAT (Идентификационен номер по ДДС, Bulgarian VAT number)
 * br.cpf: CPF (Cadastro de Pessoas Físicas, Brazillian national identifier)
+* ch.ssn: Swiss social security number ("Sozialversicherungsnummer")
+* cn.ric: RIC No. (Chinese Resident Identity Card Number)
 * cy.vat: Αριθμός Εγγραφής Φ.Π.Α. (Cypriot VAT number)
 * cz.dic: DIČ (Daňové identifikační číslo, Czech VAT number)
 * cz.rc: RČ (Rodné číslo, the Czech birth number)
@@ -38,11 +40,14 @@ Currently this package supports the following formats:
 * dk.cpr: CPR (personnummer, the Danish citizen number)
 * dk.cvr: CVR (Momsregistreringsnummer, Danish VAT number)
 * ean: EAN (International Article Number)
+* ec.ci: CI (Cédula de identidad, Ecuadorian personal identity code)
+* ec.ruc: RUC (Registro Único de Contribuyentes, Ecuadorian company tax number)
 * ee.kmkr: KMKR (Käibemaksukohuslase, Estonian VAT number)
 * es.cif: CIF (Certificado de Identificación Fiscal, Spanish company tax number)
 * es.dni: DNI (Documento nacional de identidad, Spanish personal identity codes)
 * es.nie: NIE (Número de Identificación de Extranjeros, Spanish foreigner number)
 * es.nif: NIF (Número de Identificación Fiscal, Spanish VAT number)
+* eu.at_02: SEPA Identifier of the Creditor (AT-02)
 * eu.vat: VAT (European Union VAT number)
 * fi.alv: ALV nro (Arvonlisäveronumero, Finnish VAT number)
 * fi.hetu: HETU (Henkilötunnus, Finnish personal identity code)
@@ -62,7 +67,9 @@ Currently this package supports the following formats:
 * isbn: ISBN (International Standard Book Number)
 * isil: ISIL (International Standard Identifier for Libraries)
 * ismn: ISMN (International Standard Music Number)
+* iso6346: ISO 6346 (International standard for container identification)
 * issn: ISSN (International Standard Serial Number)
+* it.codicefiscale: Codice Fiscale (Italian tax code for individuals)
 * it.iva: Partita IVA (Italian VAT number)
 * lt.pvm: PVM (Pridėtinės vertės mokestis mokėtojo kodas, Lithuanian VAT number)
 * lu.tva: TVA (taxe sur la valeur ajoutée, Luxembourgian VAT number)
@@ -87,6 +94,7 @@ Currently this package supports the following formats:
 * us.ein: EIN (U.S. Employer Identification Number)
 * us.itin: ITIN (U.S. Individual Taxpayer Identification Number)
 * us.ptin: PTIN (U.S. Preparer Tax Identification Number)
+* us.rtn: RTN (Routing transport number)
 * us.ssn: SSN (U.S. Social Security Number)
 * us.tin: TIN (U.S. Taxpayer Identification Number)
 
@@ -116,4 +124,4 @@ parsing, validation, formatting or conversion functions.
 
 
 # the version number of the library
-__version__ = '0.9'
+__version__ = '1.0'

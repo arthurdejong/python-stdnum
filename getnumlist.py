@@ -56,8 +56,3 @@ if __name__ == '__main__':
     print ''
     for module in get_number_modules():
         print '   %s' % module.__name__.replace('stdnum.', '')
-    print ''
-    print 'For index.xml:'
-    print ''
-    for module in get_number_modules():
-        print '  <li>%s</li>' % util.get_module_name(module)

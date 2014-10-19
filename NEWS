@@ -1,3 +1,21 @@
+changes from 0.9 to 1.0
+-----------------------
+
+* add modules for the following number formats:
+  - Swiss social security number ("Sozialversicherungsnummer")
+  - RIC No. (Chinese Resident Identity Card Number)
+  - CI (Cédula de identidad, Ecuadorian personal identity code)
+  - RUC (Registro Único de Contribuyentes, Ecuadorian company tax number)
+  - SEPA Identifier of the Creditor (AT-02)
+  - ISO 6346 (International standard for container identification)
+  - Codice Fiscale (Italian tax code for individuals)
+  - RTN (Routing transport number)
+* Add support for 2013 extension of Irish PPS Numbers
+* update getisbn script
+* update getmybp URLs for Malaysian code lists
+* various other minor improvements
+
+
 changes from 0.8.1 to 0.9
 -------------------------
 
