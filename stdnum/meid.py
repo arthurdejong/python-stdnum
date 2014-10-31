@@ -115,7 +115,11 @@ def validate(number, strip_check_digit=True):
         if cd:
             luhn.validate(number + cd)
         # convert to hex
-        number = '%08X%06X' % (int(number[0:10]), int(number[10:18]))
+        manufacturer_code = int(number[0:10])
+        serial_num = int(number[10:18])
+        if manufacturer_code.bit_length() > 32 or serial_num.bit_length() > 24:
+            raise InvalidComponent()
+        number = '%08X%06X' % (manufacturer_code, serial_num)
         cd = calc_check_digit(number)
     elif number.isdigit():
         # if the remaining hex format is fully decimal it is an IMEI number

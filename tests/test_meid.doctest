@@ -73,6 +73,20 @@ Traceback (most recent call last):
     ...
 InvalidFormat: ...
 
+Decimal format MEIDs with manufacturer code exceeding 32-bits should fail.
+
+>>> meid.validate('99999 99999 0070 3710 4')
+Traceback (most recent call last):
+    ...
+InvalidComponent: ...
+
+Decimal format MEIDs with serial number exceeding 24-bits should fail.
+
+>>> meid.validate('29360 87365 9999 9999 4')
+Traceback (most recent call last):
+    ...
+InvalidComponent: ...
+
 
 The compact method should convert to HEX if needed and can optionally leave
 the check digit intact.
