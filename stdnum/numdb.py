@@ -96,7 +96,7 @@ _open_databases = {}
 #   [ length, low, high, props, children ]
 #   ...
 # ]
-# where children is a prefixes structure in it's own right
+# where children is a prefixes structure in its own right
 # (there is no expected ordering within the list)
 
 

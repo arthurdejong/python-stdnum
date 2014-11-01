@@ -22,7 +22,7 @@
 
 The Bulgarian VAT (Данък върху добавената стойност) number is either 9
 (for legal entities) or 10 digits (for physical persons, foreigners and
-others) long. Each type of number has it's own check digit algorithm.
+others) long. Each type of number has its own check digit algorithm.
 
 >>> compact('BG 175 074 752')
 '175074752'

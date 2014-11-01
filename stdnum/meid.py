@@ -174,7 +174,7 @@ def format(number, separator=' ', format=None, add_check_digit=False):
 
 
 def to_binary(number):
-    """Convert the number to it's binary representation (without the check
+    """Convert the number to its binary representation (without the check
     digit)."""
     import sys
     number = compact(number, strip_check_digit=True)

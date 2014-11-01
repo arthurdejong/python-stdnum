@@ -21,7 +21,7 @@
 
 The IBAN is used to identify bank accounts across national borders. The
 first two letters are a country code. The next two digits are check digits
-for the ISO 7064 Mod 97, 10 checksum. Each country uses it's own format
+for the ISO 7064 Mod 97, 10 checksum. Each country uses its own format
 for the remainder of the number.
 
 Some countries may also use checksum algorithms within their number but
@@ -62,7 +62,7 @@ def compact(number):
 
 
 def _to_base10(number):
-    """Prepare the number to it's base10 representation (also moving the
+    """Prepare the number to its base10 representation (also moving the
     check digits to the end) so it can be checked with the ISO 7064
     Mod 97, 10 algorithm."""
     # TODO: find out whether this should be in the mod_97_10 module

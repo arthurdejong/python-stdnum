@@ -50,7 +50,7 @@ def compact(number):
 
 
 def _to_base10(number):
-    """Prepare the number to it's base10 representation so it can be checked
+    """Prepare the number to its base10 representation so it can be checked
     with the ISO 7064 Mod 97, 10 algorithm. That means excluding positions
     5 to 7 and moving the first four digits to the end"""
     return ''.join(str(_alphabet.index(x)) for x in number[7:] + number[:4])

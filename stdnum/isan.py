@@ -136,7 +136,7 @@ def format(number, separator='-', strip_check_digits=False, add_check_digits=Tru
 
 
 def to_binary(number):
-    """Convert the number to it's binary representation (without the check
+    """Convert the number to its binary representation (without the check
     digits)."""
     import sys
     number = compact(number, strip_check_digits=True)
