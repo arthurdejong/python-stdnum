@@ -44,7 +44,7 @@ from stdnum.util import clean
 
 country_codes = set([
     'at', 'be', 'bg', 'cy', 'cz', 'de', 'dk', 'ee', 'es', 'fi', 'fr', 'gb',
-    'gr', 'hu', 'ie', 'it', 'lt', 'lu', 'lv', 'mt', 'nl', 'pl', 'pt', 'ro',
+    'gr', 'hr', 'hu', 'ie', 'it', 'lt', 'lu', 'lv', 'mt', 'nl', 'pl', 'pt', 'ro',
     'se', 'si', 'sk'
 ])
 """The collection of country codes that are queried. Greece is listed with

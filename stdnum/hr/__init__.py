@@ -19,3 +19,6 @@
 # 02110-1301 USA
 
 """Collection of Croatian numbers."""
+
+# provide vat as an alias
+from stdnum.hr import oib as vat
