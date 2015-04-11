@@ -19,13 +19,13 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 # 02110-1301 USA
 
-"""MVA nummer (Merverdiavgift, Norwegian VAT number).
+"""MVA (Merverdiavgift, Norwegian VAT number).
 
 The VAT number is the standard Norwegian organisation number
 (Organisasjonsnummer) with 'MVA' as suffix.
 
 >>> validate('NO 995 525 828 MVA')
-'995525828'
+'995525828MVA'
 >>> validate('NO 995 525 829 MVA')  # invalid check digit
 Traceback (most recent call last):
     ...
@@ -45,8 +45,6 @@ def compact(number):
     number = clean(number, ' ').upper().strip()
     if number.startswith('NO'):
         number = number[2:]
-    if number.endswith('MVA'):
-        number = number[:-3]
     return number
 
 
@@ -72,4 +70,7 @@ def is_valid(number):
 def format(number):
     """Reformat the passed number to the standard format."""
     number = compact(number)
+    if not number.endswith('MVA'):
+        raise InvalidFormat()
+    orgnr.validate(number[:-3])
     return 'NO ' + orgnr.format(number[:9]) + ' ' + number[9:]
