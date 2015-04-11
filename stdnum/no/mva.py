@@ -47,8 +47,6 @@ def compact(number):
     number = clean(number, ' ').upper().strip()
     if number.startswith('NO'):
         number = number[2:]
-    if number.endswith('MVA'):
-        number = number[:-3]
     return number
 
 
@@ -56,4 +54,7 @@ def validate(number):
     """Checks to see if the number provided is a valid organization
     number. This checks the length, formatting and check digit."""
     number = compact(number)
-    return orgnr.validate(number)
+    if not number.endswith('MVA'):
+        raise InvalidFormat()
+    orgnr.validate(number[:-3])
+    return number
