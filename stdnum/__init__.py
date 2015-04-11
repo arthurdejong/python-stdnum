@@ -122,7 +122,7 @@ Currently this package supports the following formats:
 * nl.onderwijsnummer: Onderwijsnummer (Dutch student school number)
 * nl.postcode: Postcode (Dutch postal code)
 * no.mva: MVA (Merverdiavgift, Norwegian VAT number)
-* no.orgnr: Orgnr (Organisasjonsnummer, Norwegian organisation number)
+* no.orgnr: Orgnr (Organisasjonsnummer, Norwegian organization number)
 * pl.nip: NIP (Numer Identyfikacji Podatkowej, Polish VAT number)
 * pl.pesel: PESEL (Polish national identification number)
 * pl.regon: REGON (Rejestr Gospodarki Narodowej, Polish register of economic units)
