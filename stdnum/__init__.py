@@ -66,6 +66,8 @@ Currently this package supports the following formats:
 * isan: ISAN (International Standard Audiovisual Number)
 * isbn: ISBN (International Standard Book Number)
 * isil: ISIL (International Standard Identifier for Libraries)
+* isl.vsk: VSK (Virðisaukaskattsnúmer, Icelandic VAT number)
+* isl.kennitala: Kennitala (Icelandic personal and organisation identity number)
 * ismn: ISMN (International Standard Music Number)
 * iso6346: ISO 6346 (International standard for container identification)
 * issn: ISSN (International Standard Serial Number)
