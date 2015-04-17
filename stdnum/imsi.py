@@ -1,7 +1,7 @@
 # imsi.py - functions for handling International Mobile Subscriber Identity
 #           (IMSI) numbers
 #
-# Copyright (C) 2011, 2012, 2013 Arthur de Jong
+# Copyright (C) 2011-2015 Arthur de Jong
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -28,7 +28,7 @@ mobile phone users (the SIM).
 >>> validate('439011234567890')  # unknown MCC
 Traceback (most recent call last):
     ...
-InvalidFormat: ...
+InvalidComponent: ...
 >>> split('429011234567890')
 ('429', '01', '1234567890')
 >>> split('310150123456789')
@@ -67,7 +67,7 @@ def validate(number):
     if len(number) not in (14, 15):
         raise InvalidLength()
     if len(split(number)) != 3:
-        raise InvalidFormat()
+        raise InvalidComponent()
     return number
 
 
