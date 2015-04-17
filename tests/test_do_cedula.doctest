@@ -1,0 +1,143 @@
+test_do_cedula.doctest - more detailed doctests for stdnum.do.cedula module
+
+Copyright (C) 2015 Arthur de Jong
+
+This library is free software; you can redistribute it and/or
+modify it under the terms of the GNU Lesser General Public
+License as published by the Free Software Foundation; either
+version 2.1 of the License, or (at your option) any later version.
+
+This library is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+Lesser General Public License for more details.
+
+You should have received a copy of the GNU Lesser General Public
+License along with this library; if not, write to the Free Software
+Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
+02110-1301 USA
+
+
+This file contains more detailed doctests for the stdnum.do.cedula module. It
+tries to cover more corner cases and detailed functionality that is not
+really useful as module documentation.
+
+>>> from stdnum.do import cedula
+
+
+Some basic tests for invalid numbers:
+
+>>> cedula.validate('1234567890')
+Traceback (most recent call last):
+    ...
+InvalidLength: ...
+>>> cedula.validate('123456789111')
+Traceback (most recent call last):
+    ...
+InvalidLength: ...
+>>> cedula.validate('abcasdqwerz')
+Traceback (most recent call last):
+    ...
+InvalidFormat: ...
+>>> cedula.validate('00114272360')
+'00114272360'
+>>> cedula.validate('00114272368')
+Traceback (most recent call last):
+    ...
+InvalidChecksum: ...
+>>> cedula.validate('00105606543')
+'00105606543'
+>>> cedula.validate('00113918205')
+'00113918205'
+>>> cedula.validate('00113918204')
+Traceback (most recent call last):
+    ...
+InvalidChecksum: ...
+>>> cedula.validate('00113918213')
+'00113918213'
+>>> cedula.validate('0011391820x')
+Traceback (most recent call last):
+    ...
+InvalidFormat: ...
+>>> cedula.validate('x0113918205')
+Traceback (most recent call last):
+    ...
+InvalidFormat: ...
+>>> cedula.validate('00113x18205')
+Traceback (most recent call last):
+    ...
+InvalidFormat: ...
+
+
+Some numbers have an invalid check digit but were issued nonetheless. The
+following numbers should all be valid cedulas.
+
+>>> numbers = '''
+...
+... 00000058035
+... 00000155482
+... 00100288929
+... 00100709215
+... 00100759932
+... 00101552784
+... 00101659661
+... 00101961125
+... 00103754365
+... 00105606543
+... 00108796883
+... 00113918205
+... 00113918213
+... 00114272360
+... 00114532330
+... 00117582001
+... 00121581800
+... 00161884001
+... 00162906003
+... 00163540003
+... 00166533003
+... 00200123640
+... 00200409772
+... 00207327056
+... 00208430205
+... 00222017001
+... 00274652001
+... 00289931003
+... 00300169535
+... 00301200901
+... 00356533003
+... 00516077003
+... 00524571001
+... 00633126023
+... 00686904003
+... 00757398001
+... 00800106971
+... 00848583056
+... 01100620962
+... 01200004166
+... 01200008613
+... 01600026316
+... 02300023225
+... 02600036132
+... 02800021761
+... 02800029588
+... 03103749672
+... 03800032522
+... 04600198229
+... 04700027064
+... 05400038776
+... 05500003079
+... 05500006796
+... 05500022399
+... 05500023407
+... 07600000691
+... 09421581768
+... 10061805811
+... 12019831001
+... 22321581834
+... 22400022111
+... 40200401324
+... 90001200901
+...
+... '''
+>>> [x for x in numbers.splitlines() if x and not cedula.is_valid(x)]
+[]
