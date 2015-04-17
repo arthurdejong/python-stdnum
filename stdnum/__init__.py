@@ -82,6 +82,8 @@ Currently this package supports the following formats:
 * nl.btw: BTW-nummer (Omzetbelastingnummer, the Dutch VAT number)
 * nl.onderwijsnummer: Onderwijsnummer (Dutch student school number)
 * nl.postcode: Postcode (Dutch postal code)
+* no.mva: MVA (Merverdiavgift, Norwegian VAT number)
+* no.orgnr: Orgnr (Organisasjonsnummer, Norwegian organization number)
 * pl.nip: NIP (Numer Identyfikacji Podatkowej, Polish VAT number)
 * pt.nif: NIF (Número de identificação fiscal, Portuguese VAT number)
 * ro.cf: CF (Cod de înregistrare în scopuri de TVA, Romanian VAT number)
