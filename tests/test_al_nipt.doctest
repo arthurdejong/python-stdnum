@@ -1,0 +1,178 @@
+test_al_nitp.doctest - more detailed doctests stdnum.al.nipt
+
+Copyright (C) 2015 Arthur de Jong
+
+This library is free software; you can redistribute it and/or
+modify it under the terms of the GNU Lesser General Public
+License as published by the Free Software Foundation; either
+version 2.1 of the License, or (at your option) any later version.
+
+This library is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+Lesser General Public License for more details.
+
+You should have received a copy of the GNU Lesser General Public
+License along with this library; if not, write to the Free Software
+Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
+02110-1301 USA
+
+
+This file contains more detailed doctests for the stdnum.al.nipt module.
+
+>>> from stdnum.al import nipt
+>>> from stdnum.exceptions import *
+
+
+These have been found online and should all be valid numbers. There is also
+a validation service at
+http://www.qkr.gov.al/nrc/kerko_per_subjekt.aspx
+
+>>> numbers = '''
+...
+... J 64103842 S
+... J 69102564 M
+... J 78311939 N
+... J 8291 6498 D
+... J 91402501 L
+... J 98624806 P
+... J61807017B
+... J61826022R
+... J61911008C
+... J61922018S
+... J61923008Q
+... J62903175S
+... J62903393F
+... J62903470T
+... J62903491S
+... J64103682L
+... J66702410U
+... J67902618M
+... J69405530G
+... J71824003C
+... J72603171B
+... J73706808B
+... J73721043Q
+... J74517201G
+... J77411245Q
+... J81314004P
+... J81402004E
+... J81508002V
+... J81804001C
+... J86526614T
+... J91305001Q
+... J91808007H
+... J92006014W
+... J92917219S
+... J93910409N
+... K 01725001F
+... K 02727202 O
+... K 11715005 L
+... K 22013001U
+... K 37507987 N
+... K 41316001 V
+... K 41424801 U
+... K 47905861 R
+... K 63005203 O
+... K 67204202 P
+... K 91426008 U
+... K11515001T
+... K11715005L
+... K12113002H
+... K14019001H
+... K21405003G
+... K21622001M
+... K22218003V
+... K26330201T
+... K31404025J
+... K31525146H
+... K31526056N
+... K31823059I
+... K31929010K
+... K32203501H
+... K32801430W
+... K33714725W
+... K34712418N
+... K36308746I
+... K36520204A
+... K42725403f
+... K46621201I
+... K51428013Q
+... K51518058O
+... K59418208E
+... K61710508W
+... K71903001A
+... K72410014H
+... K81427030E
+... K81428502L
+... K81618039O
+... K84508002F
+... K87101202A
+... K91725009J
+... K92402023O
+... L 21721005U
+... L 22614402 H
+... L01307052Q
+... L01510016S
+... L01622006F
+... L01909501I
+... L02003503P
+... L02023501H
+... L02226012N
+... L02602801H
+... L03321203G
+... L06426702Q
+... L06524402O
+... L06901403L
+... L06923204C
+... L07305201K
+... L08711201I
+... L09110504G
+... L11325024K
+... L11625013E
+... L11810502T
+... L11815018A
+... L12003021H
+... L12009010A
+... L12624002J
+... L13020404N
+... L14118803B
+... L14703202P
+... L21310054D
+... L21408015A
+... L21429502L
+... L21508023Q
+... L21923507N
+... L22201021E
+... L22203019C
+... L22804207O
+... L22825801P
+... L22902002B
+... L24006002V
+... L24018612J
+... L26311004G
+... L29616001A
+... L31511019E
+... L31911504A
+... L32210507A
+... L32319014A
+... L32522401O
+... L33117002J
+... L33318001M
+... L41309075A
+... L41320026E
+... L41410025S
+... L42008005H
+... L42115015G
+... L42206027K
+... L42307007E
+... L42710403A
+... L42720201A
+... L44119601E
+... L46812703Q
+... L47014204F
+... L48117101S
+...
+... '''
+>>> [x for x in numbers.splitlines() if x and not nipt.is_valid(x)]
+[]
