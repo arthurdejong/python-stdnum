@@ -1,0 +1,48 @@
+test_is_kennitala.doctest - more detailed doctests stdnum.is_.kennitala
+
+Copyright (C) 2015 Arthur de Jong
+
+This library is free software; you can redistribute it and/or
+modify it under the terms of the GNU Lesser General Public
+License as published by the Free Software Foundation; either
+version 2.1 of the License, or (at your option) any later version.
+
+This library is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+Lesser General Public License for more details.
+
+You should have received a copy of the GNU Lesser General Public
+License along with this library; if not, write to the Free Software
+Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
+02110-1301 USA
+
+
+This file contains more detailed doctests for the stdnum.is_.kennitala
+module.
+
+>>> from stdnum.is_ import kennitala
+>>> from stdnum.exceptions import *
+
+
+These have been found online and should all be valid numbers.
+
+>>> numbers = '''
+...
+... 020884-2749
+... 2607565169
+... 4406032540
+... 450401-3150
+... 480408-0550
+... 4905891209
+... 5609091440
+... 580169-1559
+... 580607-0710
+... 641005-1340
+... 670901-2110
+... 670906-0190
+... 7003090610
+...
+... '''
+>>> [x for x in numbers.splitlines() if x and not kennitala.is_valid(x)]
+[]
