@@ -1,7 +1,7 @@
 # tva.py - functions for handling French TVA numbers
 # coding: utf-8
 #
-# Copyright (C) 2012, 2013 Arthur de Jong
+# Copyright (C) 2012-2015 Arthur de Jong
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -37,6 +37,10 @@ InvalidChecksum: ...
 'K7399859412'
 >>> validate('4Z123456782')  # new-style number starting with digit
 '4Z123456782'
+>>> validate('IO334175221')   # the letters cannot by I or O
+Traceback (most recent call last):
+    ...
+InvalidFormat: ...
 """
 
 from stdnum.exceptions import *
