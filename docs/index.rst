@@ -85,6 +85,8 @@ Available formats
 .. autosummary::
    :toctree:
 
+   al.nipt
+   ar.cuit
    at.uid
    be.vat
    bg.egn
@@ -92,13 +94,17 @@ Available formats
    bg.vat
    br.cpf
    ch.ssn
+   cl.rut
    cn.ric
+   co.nit
    cy.vat
    cz.dic
    cz.rc
    de.vat
    dk.cpr
    dk.cvr
+   do.cedula
+   do.rnc
    ean
    ec.ci
    ec.ruc
@@ -123,11 +129,14 @@ Available formats
    ie.vat
    imei
    imsi
+   is_.kennitala
+   is_.vsk
    isan
    isbn
    isil
    ismn
    iso6346
+   iso9362
    issn
    it.codicefiscale
    it.iva
@@ -142,14 +151,18 @@ Available formats
    nl.btw
    nl.onderwijsnummer
    nl.postcode
+   no.mva
+   no.orgnr
    pl.nip
    pt.nif
    ro.cf
    ro.cnp
+   se.orgnr
    se.vat
    si.ddv
    sk.dph
    sk.rc
+   sm.coe
    us.atin
    us.ein
    us.itin

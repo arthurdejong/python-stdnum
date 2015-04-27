@@ -1,3 +1,30 @@
+changes from 1.0 to 1.1
+-----------------------
+
+* add number formats based on the implementation in the vatnumber module:
+  - NIPT (Numri i Identifikimit për Personin e Tatueshëm, Albanian VAT number)
+  - CUIT (Código Único de Identificación Tributaria, Argentinian tax number)
+  - RUT (Rol Único Tributario, Chilean national tax number)
+  - NIT (Número De Identificación Tributaria, Colombian identity code)
+  - COE (Codice operatore economico, San Marino national tax number)
+* add modules for the following number formats:
+  - Cedula (Dominican Republic national identification number)
+  - RNC (Registro Nacional del Contribuyente, Dominican Republic tax number)
+  - Kennitala (Icelandic personal and organisation identity code, provided by
+    Tuomas Toivonen)
+  - VSK number (Virðisaukaskattsnúmer, Icelandic VAT number, provided by
+    Tuomas Toivonen)
+  - ISO 9362 (Business identifier codes, provided by Tony Bajan)
+  - MVA (Merverdiavgift, Norwegian VAT number, provided by Tuomas Toivonen)
+  - Orgnr (Organisasjonsnummer, Norwegian organisation number, provided by
+    Tuomas Toivonen)
+  - Orgnr (Organisationsnummer, Swedish company number, provided by Tomas
+    Thor Jonsson)
+* add Croatia to list of EU VAT numbers
+* update getcnloc script
+* various small fixes and additional tests for existing modules
+
+
 changes from 0.9 to 1.0
 -----------------------
 

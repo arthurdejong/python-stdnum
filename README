@@ -9,6 +9,8 @@ Available formats
 
 Currently this package supports the following formats:
 
+ * NIPT (Numri i Identifikimit për Personin e Tatueshëm, Albanian VAT number)
+ * CUIT (Código Único de Identificación Tributaria, Argentinian tax number)
  * UID (Umsatzsteuer-Identifikationsnummer, Austrian VAT number)
  * BTW, TVA, NWSt (Belgian VAT number)
  * EGN (ЕГН, Единен граждански номер, Bulgarian personal identity codes)
@@ -16,13 +18,17 @@ Currently this package supports the following formats:
  * VAT (Идентификационен номер по ДДС, Bulgarian VAT number)
  * CPF (Cadastro de Pessoas Físicas, Brazillian national identifier)
  * Swiss social security number ("Sozialversicherungsnummer")
+ * RUT (Rol Único Tributario, Chilean national tax number)
  * RIC No. (Chinese Resident Identity Card Number)
+ * NIT (Número De Identificación Tributaria, Colombian identity code)
  * Αριθμός Εγγραφής Φ.Π.Α. (Cypriot VAT number)
  * DIČ (Daňové identifikační číslo, Czech VAT number)
  * RČ (Rodné číslo, the Czech birth number)
  * Ust ID Nr. (Umsatzsteur Identifikationnummer, German VAT number)
  * CPR (personnummer, the Danish citizen number)
  * CVR (Momsregistreringsnummer, Danish VAT number)
+ * Cedula (Dominican Republic national identification number)
+ * RNC (Registro Nacional del Contribuyente, Dominican Republic tax number)
  * EAN (International Article Number)
  * CI (Cédula de identidad, Ecuadorian personal identity code)
  * RUC (Registro Único de Contribuyentes, Ecuadorian company tax number)
@@ -38,7 +44,7 @@ Currently this package supports the following formats:
  * SIREN (a French company identification number)
  * n° TVA (taxe sur la valeur ajoutée, French VAT number)
  * VAT (United Kingdom (and Isle of Man) VAT registration number)
- * FPA, ΦΠΑ (Foros Prostithemenis Aksias, the Greek VAT number)
+ * FPA, ΦΠΑ, ΑΦΜ (Αριθμός Φορολογικού Μητρώου, the Greek VAT number)
  * GRid (Global Release Identifier)
  * OIB (Osobni identifikacijski broj, Croatian identification number)
  * ANUM (Közösségi adószám, Hungarian VAT number)
@@ -47,11 +53,14 @@ Currently this package supports the following formats:
  * VAT (Irish VAT number)
  * IMEI (International Mobile Equipment Identity)
  * IMSI (International Mobile Subscriber Identity)
+ * Kennitala (Icelandic personal and organisation identity code)
+ * VSK number (Virðisaukaskattsnúmer, Icelandic VAT number)
  * ISAN (International Standard Audiovisual Number)
  * ISBN (International Standard Book Number)
  * ISIL (International Standard Identifier for Libraries)
  * ISMN (International Standard Music Number)
  * ISO 6346 (International standard for container identification)
+ * ISO 9362 (Business identifier codes)
  * ISSN (International Standard Serial Number)
  * Codice Fiscale (Italian tax code for individuals)
  * Partita IVA (Italian VAT number)
@@ -66,14 +75,18 @@ Currently this package supports the following formats:
  * BTW-nummer (Omzetbelastingnummer, the Dutch VAT number)
  * Onderwijsnummer (Dutch student school number)
  * Postcode (Dutch postal code)
+ * MVA (Merverdiavgift, Norwegian VAT number)
+ * Orgnr (Organisasjonsnummer, Norwegian organisation number)
  * NIP (Numer Identyfikacji Podatkowej, Polish VAT number)
  * NIF (Número de identificação fiscal, Portuguese VAT number)
  * CF (Cod de înregistrare în scopuri de TVA, Romanian VAT number)
  * CNP (Cod Numeric Personal, Romanian Numerical Personal Code)
+ * Orgnr (Organisationsnummer, Swedish company number)
  * VAT (Moms, Mervärdesskatt, Swedish VAT number)
  * ID za DDV (Davčna številka, Slovenian VAT number)
  * IČ DPH (IČ pre daň z pridanej hodnoty, Slovak VAT number)
  * RČ (Rodné číslo, the Slovak birth number)
+ * COE (Codice operatore economico, San Marino national tax number)
  * ATIN (U.S. Adoption Taxpayer Identification Number)
  * EIN (U.S. Employer Identification Number)
  * ITIN (U.S. Individual Taxpayer Identification Number)
@@ -123,7 +136,7 @@ also work with older versions of Python.
 Copyright
 ---------
 
-Copyright (C) 2010-2014 Arthur de Jong and others
+Copyright (C) 2010-2015 Arthur de Jong and others
 
 This library is free software; you can redistribute it and/or
 modify it under the terms of the GNU Lesser General Public

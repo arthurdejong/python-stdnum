@@ -1,7 +1,7 @@
 # __init__.py - main module
 # coding: utf-8
 #
-# Copyright (C) 2010-2014 Arthur de Jong
+# Copyright (C) 2010-2015 Arthur de Jong
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -25,6 +25,8 @@ standard numbers and codes in various formats.
 
 Currently this package supports the following formats:
 
+* al.nipt: NIPT (Numri i Identifikimit për Personin e Tatueshëm, Albanian VAT number)
+* ar.cuit: CUIT (Código Único de Identificación Tributaria, Argentinian tax number)
 * at.uid: UID (Umsatzsteuer-Identifikationsnummer, Austrian VAT number)
 * be.vat: BTW, TVA, NWSt (Belgian VAT number)
 * bg.egn: EGN (ЕГН, Единен граждански номер, Bulgarian personal identity codes)
@@ -32,13 +34,17 @@ Currently this package supports the following formats:
 * bg.vat: VAT (Идентификационен номер по ДДС, Bulgarian VAT number)
 * br.cpf: CPF (Cadastro de Pessoas Físicas, Brazillian national identifier)
 * ch.ssn: Swiss social security number ("Sozialversicherungsnummer")
+* cl.rut: RUT (Rol Único Tributario, Chilean national tax number)
 * cn.ric: RIC No. (Chinese Resident Identity Card Number)
+* co.nit: NIT (Número De Identificación Tributaria, Colombian identity code)
 * cy.vat: Αριθμός Εγγραφής Φ.Π.Α. (Cypriot VAT number)
 * cz.dic: DIČ (Daňové identifikační číslo, Czech VAT number)
 * cz.rc: RČ (Rodné číslo, the Czech birth number)
 * de.vat: Ust ID Nr. (Umsatzsteur Identifikationnummer, German VAT number)
 * dk.cpr: CPR (personnummer, the Danish citizen number)
 * dk.cvr: CVR (Momsregistreringsnummer, Danish VAT number)
+* do.cedula: Cedula (Dominican Republic national identification number)
+* do.rnc: RNC (Registro Nacional del Contribuyente, Dominican Republic tax number)
 * ean: EAN (International Article Number)
 * ec.ci: CI (Cédula de identidad, Ecuadorian personal identity code)
 * ec.ruc: RUC (Registro Único de Contribuyentes, Ecuadorian company tax number)
@@ -54,7 +60,7 @@ Currently this package supports the following formats:
 * fr.siren: SIREN (a French company identification number)
 * fr.tva: n° TVA (taxe sur la valeur ajoutée, French VAT number)
 * gb.vat: VAT (United Kingdom (and Isle of Man) VAT registration number)
-* gr.vat: FPA, ΦΠΑ (Foros Prostithemenis Aksias, the Greek VAT number)
+* gr.vat: FPA, ΦΠΑ, ΑΦΜ (Αριθμός Φορολογικού Μητρώου, the Greek VAT number)
 * grid: GRid (Global Release Identifier)
 * hr.oib: OIB (Osobni identifikacijski broj, Croatian identification number)
 * hu.anum: ANUM (Közösségi adószám, Hungarian VAT number)
@@ -63,11 +69,14 @@ Currently this package supports the following formats:
 * ie.vat: VAT (Irish VAT number)
 * imei: IMEI (International Mobile Equipment Identity)
 * imsi: IMSI (International Mobile Subscriber Identity)
+* is_.kennitala: Kennitala (Icelandic personal and organisation identity code)
+* is_.vsk: VSK number (Virðisaukaskattsnúmer, Icelandic VAT number)
 * isan: ISAN (International Standard Audiovisual Number)
 * isbn: ISBN (International Standard Book Number)
 * isil: ISIL (International Standard Identifier for Libraries)
 * ismn: ISMN (International Standard Music Number)
 * iso6346: ISO 6346 (International standard for container identification)
+* iso9362: ISO 9362 (Business identifier codes)
 * issn: ISSN (International Standard Serial Number)
 * it.codicefiscale: Codice Fiscale (Italian tax code for individuals)
 * it.iva: Partita IVA (Italian VAT number)
@@ -82,14 +91,18 @@ Currently this package supports the following formats:
 * nl.btw: BTW-nummer (Omzetbelastingnummer, the Dutch VAT number)
 * nl.onderwijsnummer: Onderwijsnummer (Dutch student school number)
 * nl.postcode: Postcode (Dutch postal code)
+* no.mva: MVA (Merverdiavgift, Norwegian VAT number)
+* no.orgnr: Orgnr (Organisasjonsnummer, Norwegian organisation number)
 * pl.nip: NIP (Numer Identyfikacji Podatkowej, Polish VAT number)
 * pt.nif: NIF (Número de identificação fiscal, Portuguese VAT number)
 * ro.cf: CF (Cod de înregistrare în scopuri de TVA, Romanian VAT number)
 * ro.cnp: CNP (Cod Numeric Personal, Romanian Numerical Personal Code)
+* se.orgnr: Orgnr (Organisationsnummer, Swedish company number)
 * se.vat: VAT (Moms, Mervärdesskatt, Swedish VAT number)
 * si.ddv: ID za DDV (Davčna številka, Slovenian VAT number)
 * sk.dph: IČ DPH (IČ pre daň z pridanej hodnoty, Slovak VAT number)
 * sk.rc: RČ (Rodné číslo, the Slovak birth number)
+* sm.coe: COE (Codice operatore economico, San Marino national tax number)
 * us.atin: ATIN (U.S. Adoption Taxpayer Identification Number)
 * us.ein: EIN (U.S. Employer Identification Number)
 * us.itin: ITIN (U.S. Individual Taxpayer Identification Number)
@@ -124,4 +137,4 @@ parsing, validation, formatting or conversion functions.
 
 
 # the version number of the library
-__version__ = '1.0'
+__version__ = '1.1'
