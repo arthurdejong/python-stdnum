@@ -3,6 +3,7 @@
 # getcnloc.py - script to fetch data from the China (PRC) government site
 #
 # Copyright (C) 2014 Jiangge Zhang
+# Copyright (C) 2015 Arthur de Jong
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -43,11 +44,13 @@ def make_etree(response, encoding='utf-8'):
     return lxml.html.fromstring(response.text)
 
 
-def iter_revisions():
-    html = make_etree(requests.get(revisions_url))
+def get_revisions(url):
+    """Return the links to versions of the published administrative division
+    codes."""
+    html = make_etree(requests.get(url))
     anchors = html.xpath('.//div[@class="center_list"]/ul/li/a')
     for anchor in anchors:
-        url = urljoin(revisions_url, anchor.attrib['href'])
+        url = urljoin(url, anchor.attrib['href'])
         date_text = anchor.findtext('.//span/*[@class="cont_tit02"]')
         date = datetime.strptime(date_text, '%Y-%m-%d').date()
         yield url, date
@@ -55,8 +58,9 @@ def iter_revisions():
 
 def iter_records(url):
     html = make_etree(requests.get(url))
-    lines = html.xpath('.//div[@class="xilan_con"]//p/text()')
+    lines = html.xpath('.//div[@class="xilan_con"]//p')
     for line in lines:
+        line = ' '.join(line.xpath('.//text()'))
         try:
             city_code, city_name = line.strip().split()
         except ValueError:
@@ -66,8 +70,7 @@ def iter_records(url):
             yield city_code.strip(), city_name.strip()
 
 
-def group_records():
-    url, _ = max(iter_revisions(), key=itemgetter(1))  # latest revision
+def group_records(url):
 
     provinces = {}
     prefectures = {}
@@ -96,7 +99,9 @@ def print_data_file(file):
     print("# generated from National Bureau of Statistics of the People's",
           file=file)
     print('# Republic of China, downloaded from %s' % revisions_url, file=file)
-    for city_code, city_data in group_records():
+    url, dt = max(get_revisions(revisions_url), key=itemgetter(1))
+    print('# %s (revision %s)' % (url, dt), file=file)
+    for city_code, city_data in group_records(url):
         if not all(city_data.values()):
             continue
         city_pairs = ' '.join(
