@@ -1,7 +1,8 @@
 # vat.py - functions for handling European VAT numbers
 # coding: utf-8
 #
-# Copyright (C) 2012, 2013 Arthur de Jong
+# Copyright (C) 2012-2015 Arthur de Jong
+# Copyright (C) 2015 Lionel Elie Mamane
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -44,8 +45,8 @@ from stdnum.util import clean
 
 country_codes = set([
     'at', 'be', 'bg', 'cy', 'cz', 'de', 'dk', 'ee', 'es', 'fi', 'fr', 'gb',
-    'gr', 'hr', 'hu', 'ie', 'it', 'lt', 'lu', 'lv', 'mt', 'nl', 'pl', 'pt', 'ro',
-    'se', 'si', 'sk'
+    'gr', 'hr', 'hu', 'ie', 'it', 'lt', 'lu', 'lv', 'mt', 'nl', 'pl', 'pt',
+    'ro', 'se', 'si', 'sk',
 ])
 """The collection of country codes that are queried. Greece is listed with
 a country code of gr while for VAT purposes el is used instead."""
@@ -114,14 +115,10 @@ def guess_country(number):
             if _get_cc_module(cc).is_valid(number)]
 
 
-def check_vies(number):  # pragma: no cover (no tests for this function)
-    """Queries the online European Commission VAT Information Exchange
-    System (VIES) for validity of the provided number. Note that the
-    service has usage limitations (see the VIES website for details).
-    This returns a dict-like object."""
-    # this function isn't automatically tested because it would require
-    # network access for the tests and unnecessarily load the VIES website
-    number = compact(number)
+def _get_client():  # pragma: no cover (no tests for this function)
+    """Get a SOAP client for performing VIES requests."""
+    # this function isn't automatically tested because the functions using
+    # it are not automatically tested
     global _vies_client
     if not _vies_client:
         from suds.client import Client
@@ -130,4 +127,30 @@ def check_vies(number):  # pragma: no cover (no tests for this function)
         except ImportError:
             from urllib.request import getproxies
         _vies_client = Client(vies_wsdl, proxy=getproxies())
-    return _vies_client.service.checkVat(number[:2], number[2:])
+    return _vies_client
+
+
+def check_vies(number):  # pragma: no cover (no tests for this function)
+    """Queries the online European Commission VAT Information Exchange
+    System (VIES) for validity of the provided number. Note that the
+    service has usage limitations (see the VIES website for details).
+    This returns a dict-like object."""
+    # this function isn't automatically tested because it would require
+    # network access for the tests and unnecessarily load the VIES website
+    number = compact(number)
+    return _get_client().service.checkVat(number[:2], number[2:])
+
+
+def check_vies_approx(number, requester):  # pragma: no cover
+    """Queries the online European Commission VAT Information Exchange System
+    (VIES) for validity of the provided number, providing a validity
+    certificate as proof. You will need to give your own VAT number for this
+    to work. Note that the service has usage limitations (see the VIES
+    website for details). This returns a dict-like object."""
+    # this function isn't automatically tested because it would require
+    # network access for the tests and unnecessarily load the VIES website
+    number = compact(number)
+    requester = compact(requester)
+    return _get_client.service.checkVatApprox(
+        countryCode=number[:2], vatNumber=number[2:],
+        requesterCountryCode=requester[:2], requesterVatNumber=requester[2:])
