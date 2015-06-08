@@ -24,89 +24,72 @@ from __future__ import print_function, unicode_literals
 
 import sys
 import codecs
-from urlparse import urljoin
-from operator import itemgetter
+from collections import OrderedDict
 from datetime import datetime
 
 import requests
-import lxml.html
 
 
-revisions_url = 'http://www.stats.gov.cn/tjsj/tjbz/xzqhdm/'
+data_url = 'https://github.com/cn/GB2260'
+data_revisions = [
+    'GB2260-2002',
+    'GB2260-2003',
+    'GB2260-200306',
+    'GB2260-2004',
+    'GB2260-200403',
+    'GB2260-200409',
+    'GB2260-2005',
+    'GB2260-200506',
+    'GB2260-2006',
+    'GB2260-2007',
+    'GB2260-2008',
+    'GB2260-2009',
+    'GB2260-2010',
+    'GB2260-2011',
+    'GB2260-2012',
+    'GB2260-2013',
+    'GB2260',
+]
 
 
-def make_etree(response, encoding='utf-8'):
-    if not response.ok:
-        args = (response.status_code, response.reason, response.url)
-        print('%d %s: %s' % args, file=sys.stderr)
-        sys.exit(-1)
-    response.encoding = encoding
-    return lxml.html.fromstring(response.text)
-
-
-def get_revisions(url):
-    """Return the links to versions of the published administrative division
-    codes."""
-    html = make_etree(requests.get(url))
-    anchors = html.xpath('.//div[@class="center_list"]/ul/li/a')
-    for anchor in anchors:
-        url = urljoin(url, anchor.attrib['href'])
-        date_text = anchor.findtext('.//span/*[@class="cont_tit02"]')
-        date = datetime.strptime(date_text, '%Y-%m-%d').date()
-        yield url, date
-
-
-def iter_records(url):
-    html = make_etree(requests.get(url))
-    lines = html.xpath('.//div[@class="xilan_con"]//p')
-    for line in lines:
-        line = ' '.join(line.xpath('.//text()'))
-        try:
-            city_code, city_name = line.strip().split()
-        except ValueError:
-            if line.strip():
-                print('invalid line: %r' % line, file=sys.stderr)
+def fetch_data():
+    data_collection = OrderedDict()
+    for revision in data_revisions:
+        response = requests.get('%s/raw/master/%s.txt' % (data_url, revision))
+        if response.ok:
+            print('%s is fetched' % revision, file=sys.stderr)
         else:
-            yield city_code.strip(), city_name.strip()
+            print('%s is missing' % revision, file=sys.stderr)
+            continue
+        for line in response.text.strip().split('\n'):
+            code, name = line.split('\t')
+            data_collection[code.strip()] = name.strip()
+    return data_collection
 
 
-def group_records(url):
-
-    provinces = {}
-    prefectures = {}
-
-    for city_code, city_name in iter_records(url):
-        province_code = city_code[:2]
-        prefecture_code = city_code[2:4]
-        county_code = city_code[4:6]
-
-        county_name = None
-
-        if prefecture_code == '00':
-            provinces[province_code] = city_name
-        elif county_code == '00':
-            prefectures[prefecture_code] = city_name
-        else:
-            county_name = city_name
-
-        yield city_code, dict(
-            province=provinces.get(province_code),
-            prefecture=prefectures.get(prefecture_code),
-            county=county_name)
+def group_data(data_collection):
+    for code, name in sorted(data_collection.items()):
+        if code.endswith('00'):
+            continue  # county only
+        province_code = code[:2] + '0000'
+        prefecture_code = code[:4] + '00'
+        province_name = data_collection[province_code]
+        prefecture_name = data_collection[prefecture_code]
+        yield code, name, prefecture_name, province_name
 
 
 def print_data_file(file):
     print("# generated from National Bureau of Statistics of the People's",
           file=file)
-    print('# Republic of China, downloaded from %s' % revisions_url, file=file)
-    url, dt = max(get_revisions(revisions_url), key=itemgetter(1))
-    print('# %s (revision %s)' % (url, dt), file=file)
-    for city_code, city_data in group_records(url):
-        if not all(city_data.values()):
-            continue
-        city_pairs = ' '.join(
-            '%s="%s"' % (k, v) for k, v in sorted(city_data.items()) if v)
-        print('%s %s' % (city_code, city_pairs), file=file)
+    print('# Republic of China, downloaded from %s' % data_url, file=file)
+    print('# %s' % datetime.utcnow(), file=file)
+
+    print('Downloading...', file=sys.stderr)
+    data_collection = fetch_data()
+
+    print('Generating...', file=sys.stderr)
+    for data in group_data(data_collection):
+        print('%s county="%s" prefecture="%s" province="%s"' % data, file=file)
 
 
 if __name__ == '__main__':
