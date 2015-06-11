@@ -2,7 +2,7 @@
 # coding: utf-8
 #
 # Copyright (C) 2015 Holvi Payment Services Oy
-# Copyright (C) 2015 Arthur de Jong
+# Copyright (C) 2012, 2013 Arthur de Jong
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -19,46 +19,52 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 # 02110-1301 USA
 
-"""Y-tunnus (Finnish business identifier).
+"""Y-tunnus (Finnish business identifier)
 
 The number is an 8-digit code with a weighted checksum.
 
 >>> validate('2077474-0')
-'20774740'
+'2077474-0'
 >>> validate('2077474-1')  # invalid check digit
 Traceback (most recent call last):
     ...
 InvalidChecksum: ...
->>> format('2077474-0')
-'2077474-0'
 """
 
 from stdnum.exceptions import *
-from stdnum.fi import alv
+from stdnum.util import clean
 
 
 def compact(number):
     """Convert the number to the minimal representation. This strips the
     number of any valid separators and removes surrounding whitespace."""
-    return alv.compact(number)
+    number = clean(number, ' -').upper().strip()
+    return number
+
+
+def checksum(number):
+    """Calculate the checksum."""
+    weights = (7, 9, 10, 5, 8, 4, 2, 1)
+    return sum(weights[i] * int(n) for i, n in enumerate(number)) % 11
 
 
 def validate(number):
-    """Checks to see if the number provided is a valid business identifier.
-    This checks the length, formatting and check digit."""
-    return alv.validate(number)
+    """Checks to see if the number provided is a valid business identifier. This
+    checks the length, formatting and check digit."""
+    number = compact(number)
+    if not number.isdigit():
+        raise InvalidFormat()
+    if len(number) != 8:
+        raise InvalidLength()
+    if checksum(number) != 0:
+        raise InvalidChecksum()
+    return "%s-%s" % (number[:7], number[7:])
 
 
 def is_valid(number):
-    """Checks to see if the number provided is a valid business identifier.
-    This checks the length, formatting and check digit."""
+    """Checks to see if the number provided is a valid business identifier. This
+    checks the length, formatting and check digit."""
     try:
         return bool(validate(number))
     except ValidationError:
         return False
-
-
-def format(number):
-    """Reformat the passed number to the standard format."""
-    number = compact(number)
-    return number[:7] + '-' + number[7:]
