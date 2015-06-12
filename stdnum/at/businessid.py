@@ -18,11 +18,11 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 # 02110-1301 USA
 
-"""Austrian Company Register Numbers.
+"""Austrian Company Register Numbers
 
-The Austrian company register number consist of digits followed by a single
-letter, e.g. "122119m". Sometimes it is presented with preceding "FN", e.g.
-"FN 122119m".
+The Austrian company register number consist of digits followed by
+a single letter, e.g. "122119m". Sometimes it is presented with preceding
+"FN", e.g. "FN 122119m".
 
 >>> validate('FN 122119m')
 '122119m'
@@ -38,6 +38,7 @@ Traceback (most recent call last):
 InvalidFormat: ...
 """
 
+from stdnum import luhn
 from stdnum.exceptions import *
 from stdnum.util import clean
 
@@ -47,14 +48,14 @@ def compact(number):
     number of any valid separators and removes surrounding whitespace.
     Preceding "FN" is also removed."""
     number = clean(number, ' -./').strip()
-    if number.upper().startswith('FN'):
+    if number.startswith('FN'):
         number = number[2:]
     return number
 
 
 def validate(number):
-    """Checks to see if the number provided is a valid company register
-    number. This only checks the formatting."""
+    """Checks to see if the number provided is a valid company register number.
+    This checks only the formatting."""
     number = compact(number)
     if not number[-1:].isalpha() or not number[:-1].isdigit():
         raise InvalidFormat()
@@ -62,8 +63,8 @@ def validate(number):
 
 
 def is_valid(number):
-    """Checks to see if the number provided is a valid company register
-    number. This only checks the formatting."""
+    """Checks to see if the number provided is a valid company register number.
+    This checks only the formatting."""
     try:
         return bool(validate(number))
     except ValidationError:
