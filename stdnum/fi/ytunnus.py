@@ -33,6 +33,7 @@ InvalidChecksum: ...
 
 from stdnum.exceptions import *
 from stdnum.util import clean
+from stdnum.fi import alv
 
 
 def compact(number):
@@ -42,22 +43,11 @@ def compact(number):
     return number
 
 
-def checksum(number):
-    """Calculate the checksum."""
-    weights = (7, 9, 10, 5, 8, 4, 2, 1)
-    return sum(weights[i] * int(n) for i, n in enumerate(number)) % 11
-
-
 def validate(number):
     """Checks to see if the number provided is a valid business identifier. This
     checks the length, formatting and check digit."""
     number = compact(number)
-    if not number.isdigit():
-        raise InvalidFormat()
-    if len(number) != 8:
-        raise InvalidLength()
-    if checksum(number) != 0:
-        raise InvalidChecksum()
+    number = alv.validate(number)
     return "%s-%s" % (number[:7], number[7:])
 
 
