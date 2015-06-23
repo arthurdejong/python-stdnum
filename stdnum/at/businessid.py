@@ -48,7 +48,7 @@ def compact(number):
     number of any valid separators and removes surrounding whitespace.
     Preceding "FN" is also removed."""
     number = clean(number, ' -./').strip()
-    if number.startswith('FN'):
+    if number.upper().startswith('FN'):
         number = number[2:]
     return number
 
