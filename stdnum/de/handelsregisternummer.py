@@ -47,48 +47,6 @@ import re
 from stdnum.exceptions import *
 from stdnum.util import clean
 
-
-def validate(number):
-    """
-    Validate the format of a German company registry number.
-
-    First split the provided number with the HRA or HRB. Expect
-    the first part to be the name of the court and the second
-    part to be the registry number. Returns a cleaned representation
-    of the number with the court, HRA/HRB and the number.
-    """
-    parts = re.split('HR(A|B)', number, flags=re.IGNORECASE)
-    if len(parts) != 3:
-        raise InvalidFormat()
-    if parts[1].upper() not in ['A', 'B']:
-        raise InvalidFormat()
-    court = clean(parts[0], ':').strip()
-    if court.lower() not in (name.lower() for name in GERMAN_COURTS):
-        try:
-            ordinal = int(court)
-            if ordinal < len(GERMAN_COURTS) and ordinal >= 0:
-                court = GERMAN_COURTS[ordinal]
-            else:
-                raise InvalidFormat()
-        except ValueError:
-            raise InvalidFormat()
-    else:
-        index = [name.lower() for name in GERMAN_COURTS].index(court.lower())
-        court = GERMAN_COURTS[index]
-    registry = 'HR'+parts[1].upper()
-    number = clean(parts[2], ' -./,').upper().strip()
-    return "%s %s %s" % (court, registry, number)
-
-
-def is_valid(number):
-    """Checks to see if the number provided is a valid company registry number.
-    This checks that the court exists and the format is correct."""
-    try:
-        return bool(validate(number))
-    except ValidationError:
-        return False
-
-
 GERMAN_COURTS = [
     u"Achen",
     u"Altenburg",
@@ -251,3 +209,50 @@ GERMAN_COURTS = [
     u"Würzburg",
     u"Zweibrücken"
 ]
+
+
+def validate(number):
+    """
+    Validate the format of a German company registry number.
+
+    First split the provided number with the HRA or HRB. Expect
+    the first part to be the name of the court and the second
+    part to be the registry number. Returns a cleaned representation
+    of the number with the court, HRA/HRB and the number.
+    """
+    try:
+        parts = re.split('HR(A|B)', number, flags=re.IGNORECASE)
+    except TypeError:
+        return ''
+
+    if len(parts) != 3:
+        raise InvalidFormat()
+    if parts[1].upper() not in ['A', 'B']:
+        raise InvalidFormat()
+    court = clean(parts[0], ':').strip()
+    if court.lower() not in (name.lower() for name in GERMAN_COURTS):
+        try:
+            ordinal = int(court)
+            if ordinal < len(GERMAN_COURTS) and ordinal >= 0:
+                court = GERMAN_COURTS[ordinal]
+            else:
+                raise InvalidFormat()
+        except ValueError:
+            raise InvalidFormat()
+    else:
+        index = [name.lower() for name in GERMAN_COURTS].index(court.lower())
+        court = GERMAN_COURTS[index]
+    registry = 'HR'+parts[1].upper()
+    number = clean(parts[2], ' -./,').upper().strip()
+    if not number.isdigit():
+        raise InvalidFormat()
+    return "%s %s %s" % (court, registry, number)
+
+
+def is_valid(number):
+    """Checks to see if the number provided is a valid company registry number.
+    This checks that the court exists and the format is correct."""
+    try:
+        return bool(validate(number))
+    except ValidationError:
+        return False
