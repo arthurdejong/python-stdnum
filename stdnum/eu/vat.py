@@ -121,12 +121,18 @@ def _get_client():  # pragma: no cover (no tests for this function)
     # it are not automatically tested
     global _vies_client
     if not _vies_client:
-        from suds.client import Client
         try:
             from urllib import getproxies
         except ImportError:
             from urllib.request import getproxies
-        _vies_client = Client(vies_wsdl, proxy=getproxies())
+        # try suds first
+        try:
+            from suds.client import Client
+            _vies_client = Client(vies_wsdl, proxy=getproxies()).service
+        except ImportError:
+            # fall back to using pysimplesoap
+            from pysimplesoap.client import SoapClient
+            _vies_client = SoapClient(wsdl=vies_wsdl, proxy=getproxies())
     return _vies_client
 
 
@@ -138,7 +144,7 @@ def check_vies(number):  # pragma: no cover (no tests for this function)
     # this function isn't automatically tested because it would require
     # network access for the tests and unnecessarily load the VIES website
     number = compact(number)
-    return _get_client().service.checkVat(number[:2], number[2:])
+    return _get_client().checkVat(number[:2], number[2:])
 
 
 def check_vies_approx(number, requester):  # pragma: no cover
@@ -151,6 +157,6 @@ def check_vies_approx(number, requester):  # pragma: no cover
     # network access for the tests and unnecessarily load the VIES website
     number = compact(number)
     requester = compact(requester)
-    return _get_client.service.checkVatApprox(
+    return _get_client.checkVatApprox(
         countryCode=number[:2], vatNumber=number[2:],
         requesterCountryCode=requester[:2], requesterVatNumber=requester[2:])
