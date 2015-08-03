@@ -55,6 +55,7 @@ Currently this package supports the following formats:
  * IMSI (International Mobile Subscriber Identity)
  * Kennitala (Icelandic personal and organisation identity code)
  * VSK number (Virðisaukaskattsnúmer, Icelandic VAT number)
+ * IK (Isikukood, Estonian personal ID)
  * ISAN (International Standard Audiovisual Number)
  * ISBN (International Standard Book Number)
  * ISIL (International Standard Identifier for Libraries)
