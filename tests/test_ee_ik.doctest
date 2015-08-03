@@ -1,0 +1,125 @@
+test_ee_ik.doctest - test for estonian personal id
+
+Copyright (C) 2015 Tomas Karasek
+Copyright (C) 2015 Arthur de Jong
+
+This library is free software; you can redistribute it and/or
+modify it under the terms of the GNU Lesser General Public
+License as published by the Free Software Foundation; either
+version 2.1 of the License, or (at your option) any later version.
+
+This library is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+Lesser General Public License for more details.
+
+You should have received a copy of the GNU Lesser General Public
+License along with this library; if not, write to the Free Software
+Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
+02110-1301 USA
+
+
+>>> from stdnum.ee import ik
+>>> import stdnum.exceptions
+
+>>> ik.validate('36805280109')
+'36805280109'
+>>> ik.is_valid('36805280109')
+True
+>>> ik.calc_check_digit('36805280109')
+'9'
+>>> ik.validate('06805280106')  # invalid first digit
+Traceback (most recent call last):
+    ...
+InvalidComponent: ...
+>>> ik.validate('36805280108')  # invalid check digit
+Traceback (most recent call last):
+    ...
+InvalidChecksum: ...
+>>> ik.validate('368052801099')
+Traceback (most recent call last):
+    ...
+InvalidLength: ...
+
+
+>>> ik.get_birth_date('36805280109')
+datetime.date(1968, 5, 28)
+>>> ik.get_birth_date('16805280107')
+datetime.date(1868, 5, 28)
+>>> ik.get_birth_date('51205280105')
+datetime.date(2012, 5, 28)
+>>> ik.get_birth_date('81205280108')
+datetime.date(2112, 5, 28)
+>>> ik.get_birth_date('06805280106')  # invalid first digit
+Traceback (most recent call last):
+    ...
+InvalidComponent: ...
+>>> ik.get_birth_date('38102290106')  # non-existing date
+Traceback (most recent call last):
+    ...
+InvalidComponent: ...
+
+
+>>> ik.get_gender('36805280109')
+'M'
+>>> ik.get_gender('46805280103')
+'F'
+>>> ik.get_gender('98102290101')  # invalid first digit
+Traceback (most recent call last):
+    ...
+InvalidComponent: ...
+
+
+>>> numbers = """
+... 36205030034
+... 36606130166
+... 38002090113
+... 36703010079
+... 36412140053
+... 37105250048
+... 35806110178
+... 38411280151
+... 38004160054
+... 37406220030
+... 37207010076
+... 46104090101
+... 47306160017
+... 35712020095
+... 35512240278
+... 37111070056
+... 36003050128
+... 34508136020
+... 37112300117
+... 37205120111
+... 36708120106
+... 36204130100
+... 36805280109
+... 36404240119
+... 37609300174
+... 38407170099
+... 35903140121
+... 36912050058
+... 36706060097
+... 37909180161
+... 37210220129
+... 35803140053
+... 37709190107
+... 36306200109
+... 36208130099
+... 37611280079
+... 35806190146
+... 44909210102
+... 37104020141
+... 35907150159
+... 36412100145
+... 49105080018
+... 37406110083
+... 36304020091
+... 37106220087
+... 34706045216
+... 37503240119
+... 38310150127
+... 46708270050
+... """
+>>> [x for x in numbers.splitlines() if x and not ik.is_valid(x)]
+[]
