@@ -26,6 +26,8 @@ CDMA mobile station equipment.
 'AF0123450ABCDE'
 >>> validate('29360 87365 0070 3710 0')
 'AF0123450ABCDE'
+>>> validate('29360 87365 0070 3710 0', strip_check_digit=False)
+'AF0123450ABCDEC'
 >>> validate('29360 87365 0070 3710 1')
 Traceback (most recent call last):
     ...

@@ -38,6 +38,8 @@ Traceback (most recent call last):
 InvalidComponent: ...
 >>> format('042103594')
 '04-2103594'
+>>> format('123')  # unknown formatting is left alone
+'123'
 """
 
 import re

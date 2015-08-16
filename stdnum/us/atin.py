@@ -31,6 +31,8 @@ Traceback (most recent call last):
 InvalidFormat: ...
 >>> format('123456789')
 '123-45-6789'
+>>> format('123')  # unknown formatting is left alone
+'123'
 """
 
 import re

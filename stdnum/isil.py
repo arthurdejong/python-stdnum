@@ -37,6 +37,8 @@ Traceback (most recent call last):
 InvalidLength: ...
 >>> format('it-RM0267')
 'IT-RM0267'
+>>> format('zz-RM0267')  # unknown agencies are left alone
+'zz-RM0267'
 """
 
 from stdnum.exceptions import *

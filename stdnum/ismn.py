@@ -76,7 +76,7 @@ def ismn_type(number):
         return None
     if len(number) == 10:
         return 'ISMN10'
-    elif len(number) == 13:
+    else:  # len(number) == 13:
         return 'ISMN13'
 
 

@@ -100,7 +100,7 @@ def isbn_type(number):
         return None
     if len(number) == 10:
         return 'ISBN10'
-    elif len(number) == 13:
+    else:  # len(number) == 13:
         return 'ISBN13'
 
 

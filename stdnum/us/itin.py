@@ -45,6 +45,8 @@ InvalidComponent: ...
 '123456789'
 >>> format('111223333')
 '111-22-3333'
+>>> format('123')  # unknown formatting is left alone
+'123'
 """
 
 import re

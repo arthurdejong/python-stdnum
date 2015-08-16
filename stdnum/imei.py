@@ -76,7 +76,7 @@ def imei_type(number):
         return None
     if len(number) in (14, 15):
         return 'IMEI'
-    elif len(number) == 16:
+    else:  # len(number) == 16:
         return 'IMEISV'
 
 
