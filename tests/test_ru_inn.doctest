@@ -1,0 +1,59 @@
+test_ru_inn.doctest - more detailed doctests for the stdnum.ru.inn module
+
+Copyright (C) 2015 Arthur de Jong
+
+This library is free software; you can redistribute it and/or
+modify it under the terms of the GNU Lesser General Public
+License as published by the Free Software Foundation; either
+version 2.1 of the License, or (at your option) any later version.
+
+This library is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+Lesser General Public License for more details.
+
+You should have received a copy of the GNU Lesser General Public
+License along with this library; if not, write to the Free Software
+Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
+02110-1301 USA
+
+
+This file contains more detailed doctests for the stdnum.ru.inn module. It
+tries to validate a number of numbers that have been found online.
+
+>>> from stdnum.ru import inn
+>>> from stdnum.exceptions import *
+
+
+These have been found online and should all be valid numbers.
+
+>>> numbers = '''
+...
+... 005826107187
+... 0108003670
+... 0273074555
+... 0279111370
+... 0716007984
+... 5190187770
+... 6223002330
+... 6440019934
+... 6672238301
+... 6903022126
+... 6908012650
+... 6911001698
+... 7609000881
+... 7709442668
+... 7716450028
+... 7724051595
+... 7726485118
+... 7727705694
+... 7728127936
+... 7813045547
+... 7825498171
+... 8614008550
+... 8906008726
+... 8906008740
+...
+... '''
+>>> [x for x in numbers.splitlines() if x and not inn.is_valid(x)]
+[]
