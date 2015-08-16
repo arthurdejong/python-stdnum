@@ -2,7 +2,7 @@
 
 # getiban.py - script to donwload and parse data from the IBAN registry
 #
-# Copyright (C) 2011, 2013 Arthur de Jong
+# Copyright (C) 2011-2015 Arthur de Jong
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -62,7 +62,7 @@ def parse(f):
                 bban = bban[5:]
             # print country line
             print '%s country="%s" bban="%s"' % (
-                cc, row['name of country'], bban)
+                cc, row['name of country'], bban.replace(' ', ''))
             # TODO: some countries have a fixed check digit value
             # TODO: some countries have extra check digits
             # TODO: use "Bank identifier position within the BBAN" field
