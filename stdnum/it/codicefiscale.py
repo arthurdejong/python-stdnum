@@ -92,7 +92,7 @@ def calc_check_digit(number):
 
 
 def get_birth_date(number, minyear=1920):
-    """Get the birth date from the person's whose fiscal code.
+    """Get the birth date from the person's fiscal code.
 
     Only the last two digits of the year are stured in the number. The
     dates will be returned in the range from minyear to minyear + 100.
@@ -117,7 +117,7 @@ def get_birth_date(number, minyear=1920):
 
 
 def get_gender(number):
-    """Get the gender of the person's provided fiscal code.
+    """Get the gender of the person's fiscal code.
 
     >>> get_gender('RCCMNL83S18D969H')
     'M'

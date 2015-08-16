@@ -89,7 +89,7 @@ def validate(number):
     # check if birth date or registration data is valid
     try:
         if day >= 40:  # organisation
-            datetime.date(year, month, day-40)
+            datetime.date(year, month, day - 40)
         else:  # individual
             datetime.date(year, month, day)
     except ValueError:
