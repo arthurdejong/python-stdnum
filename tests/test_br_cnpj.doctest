@@ -1,0 +1,60 @@
+test_br_cnpj.doctest - more detailed doctests for the stdnum.br.cnpj module
+
+Copyright (C) 2015 Arthur de Jong
+
+This library is free software; you can redistribute it and/or
+modify it under the terms of the GNU Lesser General Public
+License as published by the Free Software Foundation; either
+version 2.1 of the License, or (at your option) any later version.
+
+This library is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+Lesser General Public License for more details.
+
+You should have received a copy of the GNU Lesser General Public
+License along with this library; if not, write to the Free Software
+Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
+02110-1301 USA
+
+
+This file contains more detailed doctests for the stdnum.br.cnpj module. It
+tries to validate a number of numbers that have been found online.
+
+>>> from stdnum.br import cnpj
+>>> from stdnum.exceptions import *
+
+
+These have been found online and should all be valid numbers.
+
+>>> numbers = '''
+...
+... 07.195.358/0001-66
+... 08.807.432/0001-10
+... 11.015.248/0001-42
+... 11.017.153/0001-68
+... 11.017.153/0002-49
+... 11.017.153/0003-20
+... 11.017.153/0005-91
+... 11.980.459/0001-15
+... 14.847.283/0001-16
+... 14.847.283/0002-05
+... 14.847.283/0003-88
+... 14.847.283/0004-69
+... 14.847.283/0005-40
+... 16.727.230.0001-97
+... 18.090.575/0001-08
+... 18.090.575/0002-99
+... 18.090.575/0003-70
+... 18.090.575/0004-50
+... 18.090.575/0005-31
+... 22.610.961/0001-50
+... 44.407.989/0001-28
+... 47.080.619/0001-17
+... 53.612.734/0001-98
+... 61882613000194
+... 69.435.154/0001-02
+...
+... '''
+>>> [x for x in numbers.splitlines() if x and not cnpj.is_valid(x)]
+[]
