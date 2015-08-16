@@ -49,14 +49,13 @@ import re
 from stdnum.exceptions import *
 from stdnum.util import clean
 
-_bic_re = re.compile(r'^[a-z]{6}[0-9a-z]{2}([0-9a-z]{3})?$', re.IGNORECASE)
+_bic_re = re.compile(r'^[A-Z]{6}[0-9A-Z]{2}([0-9A-Z]{3})?$')
 
 
 def compact(number):
     """Convert the number to the minimal representation. This strips the
     number of any surrounding whitespace."""
-    number = clean(number).strip()
-    return number
+    return clean(number).strip().upper()
 
 
 def validate(number):
@@ -82,5 +81,4 @@ def is_valid(number):
 
 def format(number):
     """Reformat the passed number to the standard format."""
-    number = compact(number)
-    return number.upper()
+    return compact(number)
