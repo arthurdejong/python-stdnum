@@ -1,4 +1,4 @@
-# pesel.py - functions for handling polish PESEL numbers
+# pesel.py - functions for handling Polish national identification numbers
 # coding: utf-8
 #
 # Copyright (C) 2015 Dariusz Choruzy
@@ -35,8 +35,9 @@ def checksum(number):
 
 
 def validate(number):
-    """Checks to see if the number provided is a valid PESEL number. This
-    checks the length, formatting and check digit."""
+    """Checks to see if the number provided is a valid
+    national identification number. This checks the length,
+    formatting and check digit."""
     number = compact(number)
     if not number.isdigit():
         raise InvalidFormat()
@@ -51,8 +52,9 @@ def validate(number):
 
 
 def is_valid(number):
-    """Checks to see if the number provided is a valid PESEL number. This
-    checks the length, formatting and check digit."""
+    """Checks to see if the number provided is a valid
+    national identification number. This checks the length,
+    formatting and check digit."""
     try:
         return bool(validate(number))
     except ValidationError:
