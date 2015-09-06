@@ -1,0 +1,104 @@
+test_pl_regon.doctest - more detailed doctests for the stdnum.pl.regon module
+
+Copyright (C) 2015 Arthur de Jong
+
+This library is free software; you can redistribute it and/or
+modify it under the terms of the GNU Lesser General Public
+License as published by the Free Software Foundation; either
+version 2.1 of the License, or (at your option) any later version.
+
+This library is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+Lesser General Public License for more details.
+
+You should have received a copy of the GNU Lesser General Public
+License along with this library; if not, write to the Free Software
+Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
+02110-1301 USA
+
+
+This file contains more detailed doctests for the stdnum.pl.regon module. It
+tries to validate a number of numbers that have been found online.
+
+>>> from stdnum.pl import regon
+>>> from stdnum.exceptions import *
+
+
+These have been found online and should all be valid numbers.
+
+>>> numbers = '''
+...
+... 000144992
+... 000262289
+... 000569734
+... 001123710
+... 001130740
+... 001130762
+... 001130785
+... 004611261
+... 010925233
+... 011370116
+... 015615046
+... 015831301
+... 017282442
+... 021425170
+... 021493503
+... 061245300
+... 080121017
+... 101286521
+... 101624716
+... 101702037
+... 120444729
+... 120812966
+... 122903064
+... 122989806
+... 140006787
+... 140124720
+... 140567178
+... 140906290
+... 141215688
+... 147244188
+... 160178314
+... 180405830
+... 180562050
+... 190248215
+... 190384415
+... 191305139
+... 192976380
+... 200197338
+... 220218697
+... 221997249
+... 241675487
+... 271747631
+... 276273209
+... 280002520
+... 292449593
+... 300613124
+... 302406613
+... 357126121
+... 360935507
+... 362392991
+... 362501144
+... 362509447
+... 362509460
+... 362509476
+... 362523660
+... 370418951
+... 370452988
+... 432740426
+... 570007868
+... 570135170
+... 570271370
+... 570860528
+... 572134252
+... 630679076
+... 632154969
+... 634389910
+... 670141210
+... 810033277
+... 812663628
+...
+... '''
+>>> [x for x in numbers.splitlines() if x and not regon.is_valid(x)]
+[]
