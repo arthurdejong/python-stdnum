@@ -1,6 +1,6 @@
 test_eu_vat.doctest - more detailed doctests for the stdnum.eu.vat module
 
-Copyright (C) 2012, 2013 Arthur de Jong
+Copyright (C) 2012-2015 Arthur de Jong
 
 This library is free software; you can redistribute it and/or
 modify it under the terms of the GNU Lesser General Public
@@ -47,6 +47,7 @@ These have been found online and should all be valid numbers.
 ... ATU 65033803
 ... ATU 65034704
 ... ATU 65480455
+... ATU13585627
 ... ATU46080404
 ... ATU61195628
 ...
@@ -66,6 +67,7 @@ These have been found online and should all be valid numbers.
 ... BE 444.503.092
 ... BE 456.973.433
 ... BE 464 401 356
+... BE0428759497
 ... BE413562567
 ... BE697449992
 ...
@@ -80,6 +82,11 @@ These have been found online and should all be valid numbers.
 ... BG 200182590
 ... BG 200950556
 ... BG130544585
+... BG175074752
+... BG7111042925
+... BG7523169263
+... BG7542011030
+... BG8032056031
 ... Bg 200442771
 ...
 ... CY 10246672X
@@ -107,6 +114,10 @@ These have been found online and should all be valid numbers.
 ... CZ49620819
 ... CZ6306150004
 ...
+... DE - 113866163
+... DE - 231969187
+... DE - 265265318
+... DE - 267297673
 ... DE 118619592
 ... DE 125014955
 ... DE 129304291
@@ -122,10 +133,6 @@ These have been found online and should all be valid numbers.
 ... DE 811305931
 ... DE 813 11 38 75
 ... DE 813 184868
-... DE - 113866163
-... DE - 231969187
-... DE - 265265318
-... DE - 267297673
 ... DE119263782
 ... DE129390950
 ... DE136308783
@@ -384,11 +391,11 @@ These have been found online and should all be valid numbers.
 ... IE 9741812E
 ... IE 9742129V
 ... IE-9696131F
+... IE6433435IH
+... IE6433435OA
 ... IE6599001W
 ... IE8D79739I
 ... IE9Y71814N
-... IE6433435OA
-... IE6433435IH
 ...
 ... IT - 01404480202
 ... IT 0 0 6 1 8 2 8 0 4 9 9
@@ -541,18 +548,54 @@ These have been found online and should all be valid numbers.
 ... NL811705262B01
 ... NL813411786B01
 ...
+... PL 5211355116
 ... PL 5211754253
-... PL 5262987091
+... PL 5220205853
+... PL 5342152448
+... PL 5423074698
 ... PL 584-030-44-72
 ... PL 5840154038
 ... PL 5840304472
 ... PL 5860224115
 ... PL 6330005110
+... PL 645-000-67-50
+... PL 6651344956
 ... PL 6661913137
+... PL 6772320831
+... PL 6792831859
+... PL 6831810615
+... PL 6842599822
 ... PL 687-16-26-585
+... PL 7010098470
+... PL 7271676569
+... PL 764-23-05-489
+... PL 764-23-05-495
+... PL 764-23-05-503
+... PL 764-23-05-526
+... PL 764-23-05-549
+... PL 764-23-05-555
+... PL 764-23-05-578
+... PL 767-000-06-78
+... PL 767-13-25-342
+... PL 767-14-25-718
+... PL 767-14-47-329
+... PL 768-000-24-66
+... PL 7711598811
 ... PL 777 26 68 285
 ... PL 7780104605
 ... PL 7881154591
+... PL 7961373674
+... PL 8393173893
+... PL 851-020-66-96
+... PL 867-16-19-297
+... PL 8722342429
+... PL 8771130532
+... PL 8971772896
+... PL 8992708633
+... PL 9241826918
+... PL 9452174677
+... PL 9462485048
+... PL 9542705026
 ... PL 9562197426
 ... PL-7532365958
 ... PL-951-157-77-68
