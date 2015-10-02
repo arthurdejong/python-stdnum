@@ -137,7 +137,7 @@ def to_isbn10(number):
     number = number.strip()
     min_number = compact(number, convert=False)
     if len(min_number) == 10:
-        return number  # nothing to do, already ISBN-13
+        return number  # nothing to do, already ISBN-10
     elif isbn_type(min_number) != 'ISBN13':
         raise InvalidFormat('Not a valid ISBN13.')
     elif not number.startswith('978'):
