@@ -1,7 +1,7 @@
 # egn.py - functions for handling Bulgarian national identification numbers
 # coding: utf-8
 #
-# Copyright (C) 2012, 2013 Arthur de Jong
+# Copyright (C) 2012-2015 Arthur de Jong
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -57,7 +57,7 @@ def calc_check_digit(number):
     """Calculate the check digit. The number passed should not have the
     check digit included."""
     weights = (2, 4, 8, 5, 10, 9, 7, 3, 6)
-    return str(sum(weights[i] * int(n) for i, n in enumerate(number)) % 11 % 10)
+    return str(sum(w * int(n) for w, n in zip(weights, number)) % 11 % 10)
 
 
 def get_birth_date(number):

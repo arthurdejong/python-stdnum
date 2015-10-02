@@ -67,7 +67,7 @@ def calc_check_digit(number):
         weights = (8, 9, 2, 3, 4, 5, 6, 7)
     else:
         weights = (2, 4, 8, 5, 0, 9, 7, 3, 6, 1, 2, 4, 8)
-    check = sum(weights[i] * int(n) for i, n in enumerate(number))
+    check = sum(w * int(n) for w, n in zip(weights, number))
     return str(check % 11 % 10)
 
 

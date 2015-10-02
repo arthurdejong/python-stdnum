@@ -1,7 +1,7 @@
 # pnf.py - functions for handling Bulgarian personal number of a foreigner
 # coding: utf-8
 #
-# Copyright (C) 2012, 2013 Arthur de Jong
+# Copyright (C) 2012-2015 Arthur de Jong
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -49,7 +49,7 @@ def calc_check_digit(number):
     """Calculate the check digit. The number passed should not have the
     check digit included."""
     weights = (21, 19, 17, 13, 11, 9, 7, 3, 1)
-    return str(sum(weights[i] * int(n) for i, n in enumerate(number)) % 10)
+    return str(sum(w * int(n) for w, n in zip(weights, number)) % 10)
 
 
 def validate(number):

@@ -68,7 +68,7 @@ def compact(number):
 def checksum(number):
     """Calculate the checksum."""
     weights = (3, 2, 7, 6, 5, 4, 3, 2, 1, 0)
-    return sum(weights[i] * int(n) for i, n in enumerate(number)) % 11
+    return sum(w * int(n) for w, n in zip(weights, number)) % 11
 
 
 def validate(number):

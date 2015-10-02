@@ -1,7 +1,7 @@
 # cf.py - functions for handling Romanian CF (VAT) numbers
 # coding: utf-8
 #
-# Copyright (C) 2012, 2013 Arthur de Jong
+# Copyright (C) 2012-2015 Arthur de Jong
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -51,7 +51,7 @@ def calc_check_digit(number):
     should not have the check digit included."""
     weights = (7, 5, 3, 2, 1, 7, 5, 3, 2)
     number = (9 - len(number)) * '0' + number
-    check = 10 * sum(weights[i] * int(n) for i, n in enumerate(number))
+    check = 10 * sum(w * int(n) for w, n in zip(weights, number))
     return str(check % 11 % 10)
 
 

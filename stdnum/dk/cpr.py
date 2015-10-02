@@ -1,6 +1,6 @@
 # cpr.py - functions for handling Danish CPR numbers
 #
-# Copyright (C) 2012, 2013 Arthur de Jong
+# Copyright (C) 2012-2015 Arthur de Jong
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -59,7 +59,7 @@ def checksum(number):
     """Calculate the checksum. Note that the checksum isn't actually used
     any more. Valid numbers used to have a checksum of 0."""
     weights = (4, 3, 2, 7, 6, 5, 4, 3, 2, 1)
-    return sum(weights[i] * int(n) for i, n in enumerate(number)) % 11
+    return sum(w * int(n) for w, n in zip(weights, number)) % 11
 
 
 def get_birth_date(number):

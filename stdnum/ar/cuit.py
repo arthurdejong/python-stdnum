@@ -56,7 +56,7 @@ def compact(number):
 def calc_check_digit(number):
     """Calculate the check digit."""
     weights = (5, 4, 3, 2, 7, 6, 5, 4, 3, 2)
-    check = sum(weights[i] * int(n) for i, n in enumerate(number)) % 11
+    check = sum(w * int(n) for w, n in zip(weights, number)) % 11
     return '012345678990'[11 - check]
 
 

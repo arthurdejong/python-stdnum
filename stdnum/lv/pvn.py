@@ -1,7 +1,7 @@
 # pvn.py - functions for handling Latvian PVN (VAT) numbers
 # coding: utf-8
 #
-# Copyright (C) 2012, 2013 Arthur de Jong
+# Copyright (C) 2012-2015 Arthur de Jong
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -62,7 +62,7 @@ def compact(number):
 def checksum(number):
     """Calculate the checksum for legal entities."""
     weights = (9, 1, 4, 8, 3, 10, 2, 5, 7, 6, 1)
-    return sum(weights[i] * int(n) for i, n in enumerate(number)) % 11
+    return sum(w * int(n) for w, n in zip(weights, number)) % 11
 
 
 def calc_check_digit_pers(number):

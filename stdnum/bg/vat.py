@@ -1,7 +1,7 @@
 # vat.py - functions for handling Bulgarian VAT numbers
 # coding: utf-8
 #
-# Copyright (C) 2012, 2013 Arthur de Jong
+# Copyright (C) 2012-2015 Arthur de Jong
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -61,7 +61,7 @@ def calc_check_digit_other(number):
     """Calculate the check digit for others. The number passed should not
     have the check digit included."""
     weights = (4, 3, 2, 7, 6, 5, 4, 3, 2)
-    return str((11 - sum(weights[i] * int(n) for i, n in enumerate(number))) % 11)
+    return str((11 - sum(w * int(n) for w, n in zip(weights, number))) % 11)
 
 
 def validate(number):

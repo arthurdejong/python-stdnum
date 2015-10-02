@@ -1,7 +1,7 @@
 # cnp.py - functions for handling Romanian CNP numbers
 # coding: utf-8
 #
-# Copyright (C) 2012, 2013 Arthur de Jong
+# Copyright (C) 2012-2015 Arthur de Jong
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -56,7 +56,7 @@ def calc_check_digit(number):
     should not have the check digit included."""
     # note that this algorithm has not been confirmed by an independent source
     weights = (2, 7, 9, 1, 4, 6, 3, 5, 8, 2, 7, 9)
-    check = sum(weights[i] * int(n) for i, n in enumerate(number)) % 11
+    check = sum(w * int(n) for w, n in zip(weights, number)) % 11
     return '1' if check == 10 else str(check)
 
 

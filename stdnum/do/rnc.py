@@ -49,7 +49,7 @@ def compact(number):
 def calc_check_digit(number):
     """Calculate the check digit."""
     weights = (7, 9, 8, 6, 5, 4, 3, 2)
-    check = sum(weights[i] * int(n) for i, n in enumerate(number)) % 11
+    check = sum(w * int(n) for w, n in zip(weights, number)) % 11
     return str((10 - check) % 9 + 1)
 
 

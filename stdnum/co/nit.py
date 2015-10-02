@@ -59,8 +59,8 @@ def calc_check_digit(number):
     """Calculate the check digit. The number passed should not have the
     check digit included."""
     weights = (3, 7, 13, 17, 19, 23, 29, 37, 41, 43, 47, 53, 59, 67, 71)
-    s = sum(int(n) * weights[i] for i, n in enumerate(number[::-1]))
-    return '01987654321'[s % 11]
+    s = sum(w * int(n) for w, n in zip(weights, reversed(number))) % 11
+    return '01987654321'[s]
 
 
 def validate(number):
