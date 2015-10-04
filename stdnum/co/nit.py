@@ -22,27 +22,17 @@
 
 """NIT (Número De Identificación Tributaria, Colombian identity code).
 
-This number, also referred to as RUT (Registro Unico Tributario) is a 10-digit
-code that includes a check digit.
+This number, also referred to as RUT (Registro Unico Tributario) is the
+Colombian business tax number.
 
 >>> validate('213.123.432-1')
 '2131234321'
->>> validate('2131234351')
-'2131234351'
->>> validate('2131234350')
+>>> validate('2131234325')
 Traceback (most recent call last):
     ...
 InvalidChecksum: ...
->>> validate('213123435')
-Traceback (most recent call last):
-    ...
-InvalidLength: ...
->>> validate('213123435A')
-Traceback (most recent call last):
-    ...
-InvalidFormat: ...
->>> format('2131234351')
-'213.123.435-1'
+>>> format('2131234321')
+'213.123.432-1'
 """
 
 from stdnum.exceptions import *
@@ -52,7 +42,7 @@ from stdnum.util import clean
 def compact(number):
     """Convert the number to the minimal representation. This strips
     surrounding whitespace and separation dash."""
-    return clean(number, '.-').upper().strip()
+    return clean(number, '.,- ').upper().strip()
 
 
 def calc_check_digit(number):
@@ -67,7 +57,7 @@ def validate(number):
     """Checks to see if the number provided is a valid number. This checks
     the length, formatting and check digit."""
     number = compact(number)
-    if len(number) != 10:
+    if not 8 <= len(number) <= 16:
         raise InvalidLength()
     if not number.isdigit():
         raise InvalidFormat()
@@ -88,5 +78,6 @@ def is_valid(number):
 def format(number):
     """Reformat the passed number to the standard format."""
     number = compact(number)
-    return (number[:-7] + '.' + number[-7:-4] + '.' +
-            number[-4:-1] + '-' + number[-1])
+    return ('.'.join(
+        number[i - 3:i] for i in reversed(range(-1, -len(number), -3))) +
+        '-' + number[-1])
