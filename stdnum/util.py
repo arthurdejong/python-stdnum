@@ -1,7 +1,7 @@
 # util.py - common utility functions
 # coding: utf-8
 #
-# Copyright (C) 2012, 2013 Arthur de Jong
+# Copyright (C) 2012, 2013, 2015 Arthur de Jong
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -23,6 +23,11 @@
 This module is meant for internal use by stdnum modules and is not
 guaranteed to remain stable and as such not part of the public API of
 stdnum.
+
+>>> get_vat_module('nl').__name__
+'stdnum.nl.btw'
+>>> get_vat_module('is').__name__
+'stdnum.is_.vsk'
 """
 
 import pkgutil
@@ -91,6 +96,13 @@ _char_map = dict(_mk_char_map({
     }))
 
 
+# mapping of country codes to internally used names
+# used in the get_vat_module() function
+_cc_translations = {
+    'el': 'gr', 'is': 'is_',
+}
+
+
 def _clean_chars(number):
     """Replace various Unicode characters with their ASCII counterpart."""
     return ''.join(_char_map.get(x, x) for x in number)
@@ -153,3 +165,10 @@ def get_module_list():
             module.__name__.replace('stdnum.', ''),
             get_module_name(module),
         )
+
+
+def get_vat_module(cc):
+    """Find the VAT number module based on the country code."""
+    cc = cc.lower()
+    cc = _cc_translations.get(cc, cc)
+    return __import__('stdnum.%s' % cc, globals(), locals(), ['vat']).vat

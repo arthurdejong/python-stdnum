@@ -40,7 +40,7 @@ that country.
 """
 
 from stdnum.exceptions import *
-from stdnum.util import clean
+from stdnum.util import clean, get_vat_module
 
 
 country_codes = set([
@@ -69,10 +69,7 @@ def _get_cc_module(cc):
     if cc not in country_codes:
         return
     if cc not in _country_modules:
-        # do `from stdnum.CC import vat` instead of `import stdnum.CC.vat`
-        # to handle the case where vat is an alias
-        _country_modules[cc] = __import__(
-            'stdnum.%s' % cc, globals(), locals(), ['vat']).vat
+        _country_modules[cc] = get_vat_module(cc)
     return _country_modules[cc]
 
 
