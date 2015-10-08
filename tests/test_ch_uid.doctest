@@ -1,0 +1,183 @@
+test_ch_uid.doctest - more detailed doctests for the stdnum.ch.uid module
+
+Copyright (C) 2015 Arthur de Jong
+
+This library is free software; you can redistribute it and/or
+modify it under the terms of the GNU Lesser General Public
+License as published by the Free Software Foundation; either
+version 2.1 of the License, or (at your option) any later version.
+
+This library is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+Lesser General Public License for more details.
+
+You should have received a copy of the GNU Lesser General Public
+License along with this library; if not, write to the Free Software
+Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
+02110-1301 USA
+
+
+This file contains more detailed doctests for the stdnum.ch.uid module.
+
+>>> from stdnum.ch import uid
+>>> from stdnum.exceptions import *
+
+
+Some more detailed tests.
+
+>>> uid.validate('ZZZ-107.787.577')
+Traceback (most recent call last):
+    ...
+InvalidComponent: ...
+>>> uid.validate('CHE-10A.787.577')
+Traceback (most recent call last):
+    ...
+InvalidFormat: ...
+
+
+These have been found online and should all be valid numbers.
+
+>>> numbers = '''
+...
+... CHE 113.042.942.
+... CHE-101.415.551
+... CHE-105.067.880
+... CHE-105.616.108
+... CHE-105.838.471
+... CHE-106.222.918
+... CHE-108.902.220
+... CHE-112.786.448
+... CHE-113.606.230
+... CHE-113.606.253
+... CHE-113.614.519
+... CHE-113.617.417
+... CHE-113.638.690
+... CHE-113.690.319
+... CHE-113.706.877
+... CHE-113.840.903
+... CHE-114.165.895
+... CHE-114.332.288
+... CHE-114.365.477
+... CHE-114.557.166
+... CHE-114.587.210
+... CHE-114.764.713
+... CHE-114.921.562
+... CHE-115.117.491
+... CHE-115.188.717
+... CHE-115.257.146
+... CHE-115.401.147
+... CHE-115.681.283
+... CHE-115.702.784
+... CHE-115.901.131
+... CHE-116.018.087
+... CHE-116.022.172
+... CHE-116.024.389
+... CHE-116.066.413
+... CHE-116.066.436
+... CHE-116.066.459
+... CHE-116.066.465
+... CHE-116.066.471
+... CHE-116.066.488
+... CHE-116.068.168
+... CHE-116.068.180
+... CHE-116.068.257
+... CHE-116.068.369
+... CHE-116.068.375
+... CHE-116.068.398
+... CHE-116.068.435
+... CHE-116.068.470
+... CHE-116.068.524
+... CHE-116.068.582
+... CHE-131.608.474
+... CHE-132.071.565
+... CHE-133.192.355
+... CHE-145.202.776
+... CHE-146.680.598
+... CHE-154.748.703
+... CHE-154.936.162
+... CHE-157.957.462
+... CHE-164.589.300
+... CHE-165.355.615
+... CHE-170.094.053
+... CHE-172.763.936
+... CHE-187.271.257
+... CHE-188.858.471
+... CHE-190.214.202
+... CHE-193.052.812
+... CHE-199.027.184
+... CHE-199.213.611
+... CHE-200.143.304
+... CHE-200.474.557
+... CHE-201.091.609
+... CHE-208.913.684
+... CHE-211.403.691
+... CHE-221.032.573
+... CHE-221.432.665
+... CHE-222.251.936
+... CHE-222.259.895
+... CHE-226.253.064
+... CHE-226.598.037
+... CHE-247.670.953
+... CHE-254.168.819
+... CHE-255.108.719
+... CHE-255.286.924
+... CHE-261.860.174
+... CHE-263.297.189
+... CHE-264.708.255
+... CHE-265.476.805
+... CHE-268.880.226
+... CHE-276.015.555
+... CHE-276.258.224
+... CHE-279.426.498
+... CHE-288.910.965
+... CHE-304.459.014
+... CHE-313.282.453
+... CHE-316.510.171
+... CHE-317.089.412
+... CHE-319.639.393
+... CHE-320.640.339
+... CHE-322.193.357
+... CHE-325.352.422
+... CHE-327.285.558
+... CHE-335.670.007
+... CHE-360.001.499
+... CHE-363.192.993
+... CHE-367.908.992
+... CHE-378.338.277
+... CHE-379.051.878
+... CHE-383.713.530
+... CHE-392.445.860
+... CHE-397.984.845
+... CHE-400.352.783
+... CHE-402.703.876
+... CHE-403.244.345
+... CHE-404.107.716
+... CHE-405.509.388
+... CHE-415.481.515
+... CHE-420.485.329
+... CHE-422.892.792
+... CHE-424.195.422
+... CHE-430.271.592
+... CHE-433.064.977
+... CHE-443.047.638
+... CHE-444.796.174
+... CHE-444.901.873
+... CHE-445.737.990
+... CHE-446.609.550
+... CHE-447.518.447
+... CHE-447.564.660
+... CHE-449.312.098
+... CHE-450.220.178
+... CHE-460.147.005
+... CHE-467.023.568
+... CHE-468.593.911
+... CHE-475.427.548
+... CHE-478.406.525
+... CHE-488.502.886
+... CHE-488.972.766
+... CHE-489.713.641
+...
+... '''
+>>> [x for x in numbers.splitlines() if x and not uid.is_valid(x)]
+[]

@@ -1,0 +1,68 @@
+test_ch_vat.doctest - more detailed doctests for the stdnum.ch.vat module
+
+Copyright (C) 2015 Arthur de Jong
+
+This library is free software; you can redistribute it and/or
+modify it under the terms of the GNU Lesser General Public
+License as published by the Free Software Foundation; either
+version 2.1 of the License, or (at your option) any later version.
+
+This library is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+Lesser General Public License for more details.
+
+You should have received a copy of the GNU Lesser General Public
+License along with this library; if not, write to the Free Software
+Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
+02110-1301 USA
+
+
+This file contains more detailed doctests for the stdnum.ch.vat module.
+
+>>> from stdnum.ch import vat
+>>> from stdnum.exceptions import *
+
+
+Some more detailed tests.
+
+>>> vat.validate('CHE-107.787.577 ZZZ')
+Traceback (most recent call last):
+    ...
+InvalidComponent: ...
+>>> vat.validate('ZZZ-107.787.577 MWST')
+Traceback (most recent call last):
+    ...
+InvalidComponent: ...
+
+
+These have been found online and should all be valid numbers.
+
+>>> numbers = '''
+...
+... CHE-1 76.814.97 5 MWST
+... CHE-100.155.212 MWST
+... CHE-105.048.256 MWST
+... CHE-105.838.471 MWST
+... CHE-105.969.179 MWST
+... CHE-106.222.918 MWST
+... CHE-107.787.577 IVA
+... CHE-108.113.335 MwST
+... CHE-108.446.096 MWST
+... CHE-108.703.181 MWST
+... CHE-109.578.122 MWST
+... CHE-110.576.236 IVA
+... CHE-110.576.236 TVA
+... CHE-112.142.015 TVA
+... CHE-112.487.804 MWST
+... CHE-113.330.424 MWST
+... CHE-115.606.778 MWST
+... CHE-116.046.681 TPV
+... CHE-116.274.213 MWST
+... CHE-116.320.362 MWST
+... CHE-164.589.300 MWST
+... CHE-400.352.783 MWST
+...
+... '''
+>>> [x for x in numbers.splitlines() if x and not vat.is_valid(x)]
+[]
