@@ -1,0 +1,249 @@
+test_cusip.doctest - more detailed doctests for the stdnum.cusip module
+
+Copyright (C) 2015 Arthur de Jong
+
+This library is free software; you can redistribute it and/or
+modify it under the terms of the GNU Lesser General Public
+License as published by the Free Software Foundation; either
+version 2.1 of the License, or (at your option) any later version.
+
+This library is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+Lesser General Public License for more details.
+
+You should have received a copy of the GNU Lesser General Public
+License along with this library; if not, write to the Free Software
+Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
+02110-1301 USA
+
+
+This file contains more detailed doctests for the stdnum.cusip module. It
+tries to validate a number of numbers that have been found online.
+
+>>> from stdnum import cusip
+>>> from stdnum.exceptions import *
+
+
+Number should not use O (captial o) or I (capital 1) to avoid confusion with
+0 and 1:
+
+>>> cusip.validate('0O141T575')
+Traceback (most recent call last):
+    ...
+InvalidFormat: ...
+>>> cusip.validate('257I32103')
+Traceback (most recent call last):
+    ...
+InvalidFormat: ...
+
+
+These have been found online and should all be valid numbers.
+
+>>> numbers = '''
+...
+... 00078H125
+... 00080Y348
+... 00141H409
+... 00141M572
+... 00141T577
+... 00141V267
+... 00142F832
+... 00142K500
+... 00170J862
+... 00170K109
+... 00170M873
+... 00758M261
+... 024524746
+... 024932808
+... 024934408
+... 025081704
+... 025081860
+... 02631C817
+... 068278704
+... 068278878
+... 06828M405
+... 101156602
+... 119804102
+... 12628J600
+... 140543828
+... 192476109
+... 19765J830
+... 19765N401
+... 19765Y852
+... 207267105
+... 23336W809
+... 23337G134
+... 23337R502
+... 23338F713
+... 245908660
+... 245917505
+... 24610B859
+... 25155T528
+... 25156A668
+... 25157M778
+... 25159K309
+... 25159L745
+... 25264S403
+... 254939424
+... 257132100
+... 258618701
+... 261967103
+... 261967822
+... 261986566
+... 265458513
+... 265458570
+... 269858817
+... 277902565
+... 277905436
+... 29372R208
+... 313923302
+... 314172743
+... 315792598
+... 315805325
+... 315807651
+... 315911875
+... 315920579
+... 316069103
+... 31607A208
+... 316146257
+... 316175850
+... 31638R204
+... 316390277
+... 316390335
+... 316390640
+... 316390681
+... 320600109
+... 320604606
+... 320917107
+... 353496854
+... 353535107
+... 354128704
+... 354723769
+... 36158T506
+... 409902624
+... 416649507
+... 416649606
+... 425888104
+... 42588P825
+... 42588P882
+... 44929K630
+... 461418691
+... 465898682
+... 469785109
+... 471023531
+... 47803M663
+... 4812A4427
+... 4812C0548
+... 52106N335
+... 52106N442
+... 52106N632
+... 52106N657
+... 543912604
+... 543913305
+... 552984601
+... 552986309
+... 552986853
+... 557492428
+... 56063J849
+... 56063U851
+... 56166Y438
+... 561709692
+... 561717661
+... 57056B ZW1
+... 575719109
+... 592905756
+... 61744J499
+... 640917209
+... 640917407
+... 64122M506
+... 643642200
+... 647108414
+... 648018828
+... 650914203
+... 66537Y165
+... 67065R408
+... 67065R812
+... 670678762
+... 670690767
+... 670700608
+... 670725738
+... 670729599
+... 670729730
+... 680029667
+... 68583W507
+... 704329101
+... 70472Q302
+... 70472Q880
+... 72200Q232
+... 72201F383
+... 72201F458
+... 72201M800
+... 72201T664
+... 72201U430
+... 741481105
+... 741486104
+... 74149P390
+... 74149P648
+... 74149P689
+... 74149P820
+... 742935521
+... 742935547
+... 74316P207
+... 743185373
+... 743185464
+... 74318Q864
+... 74683L508
+... 749255121
+... 74972H200
+... 74972H283
+... 74972H390
+... 74972H598
+... 74972K666
+... 76628T496
+... 77956H302
+... 783554470
+... 783554728
+... 784924458
+... 803431105
+... 803431410
+... 829334101
+... 82980D400
+... 884116872
+... 890085327
+... 890085871
+... 89354D874
+... 904504560
+... 904504586
+... 912810EQ7
+... 912828C24
+... 912828EG1
+... 912828HA1
+... 912828KD1
+... 912828UA6
+... 920461209
+... 92646A252
+... 92913K645
+... 92913K884
+... 92913L775
+... 92913R822
+... 92914A661
+... 93208V106
+... 936793306
+... 936793504
+... 94975P686
+... 94984B108
+... 94984B538
+... 949915177
+... 949915557
+... 957904584
+... 969251719
+... 969251834
+... 984281204
+... Y0488F100
+... Y27257149
+... Y44425117
+...
+... '''
+>>> [x for x in numbers.splitlines() if x and not cusip.is_valid(x)]
+[]
