@@ -1,3 +1,3 @@
-include README NEWS ChangeLog COPYING numdb-test.dat *.py
+include README NEWS ChangeLog COPYING *.py
 recursive-include tests *.doctest
 recursive-include docs *.rst *.py
