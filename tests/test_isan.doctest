@@ -45,10 +45,14 @@ Compacting should also work:
 '000000018947000000000000'
 >>> isan.compact('0000-0000-D07A-0090-Q-0000-0000-X')
 '00000000D07A009000000000'
+>>> isan.compact('0000-0000-D07A-0090-Q-0000-0000-X', strip_check_digits=False)
+'00000000D07A0090Q00000000X'
 >>> isan.compact('000000018947000000000000')
 '000000018947000000000000'
 >>> isan.compact('1881-66C7-3420-6541-Y')
 '188166C734206541'
+>>> isan.compact('1881-66C7-3420-6541-Y', strip_check_digits=False)
+'188166C734206541Y'
 >>> isan.compact('1881-66C7-3420-6541')
 '188166C734206541'
 
@@ -89,11 +93,19 @@ or absence of a version number.
 '0000-0000-D07A-0090-Q'
 >>> isan.format('1881-66C734206541-9F3A-0245')
 '1881-66C7-3420-6541-Y-9F3A-0245-O'
+>>> isan.format('1881-66C7-3420-6541-?-9F3A-0245-?', strip_check_digits=True, add_check_digits=False)
+'1881-66C7-3420-6541-9F3A-0245'
 >>> isan.format('1881-66C7-3420-6541-?-9F3A-0245-?', strip_check_digits=True, add_check_digits=True)
 '1881-66C7-3420-6541-Y-9F3A-0245-O'
+
+
+The validate() function also allows stripping and (re)adding check digits.
+
 >>> isan.validate('1881-66C7-3420-6541-Y-9F3A-0245-O', strip_check_digits=True)
 '188166C7342065419F3A0245'
 >>> isan.validate('188166C7342065419F3A0245', add_check_digits=True)
+'188166C734206541Y9F3A0245O'
+>>> isan.validate('1881-66C7-3420-6541-X-9F3A-0245-A', strip_check_digits=True, add_check_digits=True)
 '188166C734206541Y9F3A0245O'
 
 

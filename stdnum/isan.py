@@ -70,7 +70,8 @@ def compact(number, strip_check_digits=True):
     of any valid separators and removes surrounding whitespace. The check
     digits are removed by default."""
     number = list(split(number))
-    number[2] = number[4] = ''
+    if strip_check_digits:
+        number[2] = number[4] = ''
     return ''.join(number)
 
 
@@ -89,14 +90,15 @@ def validate(number, strip_check_digits=False, add_check_digits=False):
     if len(root) != 12 or len(episode) != 4 or len(check1) not in (0, 1) or \
        len(version) not in (0, 8) or len(check1) not in (0, 1):
         raise InvalidLength()
+    # allow removing check digits
+    if strip_check_digits:
+        check1 = check2 = ''
     # check check digits
     if check1:
         mod_37_36.validate(root + episode + check1)
     if check2:
         mod_37_36.validate(root + episode + version + check2)
-    # remove or add check digits
-    if strip_check_digits:
-        check1 = check2 = ''
+    # add check digits
     if add_check_digits and not check1:
         check1 = mod_37_36.calc_check_digit(root + episode)
     if add_check_digits and not check2 and version:
