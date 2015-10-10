@@ -1,0 +1,255 @@
+test_sedol.doctest - more detailed doctests for the stdnum.gb.sedol module
+
+Copyright (C) 2015 Arthur de Jong
+
+This library is free software; you can redistribute it and/or
+modify it under the terms of the GNU Lesser General Public
+License as published by the Free Software Foundation; either
+version 2.1 of the License, or (at your option) any later version.
+
+This library is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+Lesser General Public License for more details.
+
+You should have received a copy of the GNU Lesser General Public
+License along with this library; if not, write to the Free Software
+Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
+02110-1301 USA
+
+
+This file contains more detailed doctests for the stdnum.gb.sedol module. It
+tries to validate a number of numbers that have been found online.
+
+>>> from stdnum.gb import sedol
+>>> from stdnum.exceptions import *
+
+
+Old-style number are fully numeric, new-style numbers start with a letter.
+
+>>> sedol.validate('0017505')
+'0017505'
+>>> sedol.validate('B07MXC1')
+'B07MXC1'
+>>> sedol.validate('107MXC1')
+Traceback (most recent call last):
+    ...
+InvalidFormat: ...
+
+
+No vowels are allowed:
+
+>>> sedol.validate('BO7MXC9')
+Traceback (most recent call last):
+    ...
+InvalidFormat: ...
+
+
+These have been found online and should all be valid numbers.
+
+>>> numbers = '''
+...
+... 0016308
+... 0059585
+... 0286941
+... 0371847
+... 0885865
+... 0937636
+... 2181334
+... 2342034
+... 2458113
+... 3111084
+... 3143838
+... 3395349
+... 4178419
+... 4913223
+... 5533976
+... 7142091
+... B012BV2
+... B059874
+... B05CW04
+... B05D467
+... B05D6X8
+... B05D724
+... B05D746
+... B05D7C4
+... B05D7G8
+... B05D9N9
+... B05DCY1
+... B05DKZ8
+... B05DS21
+... B05DSL0
+... B05F6M3
+... B05F7R5
+... B05F7Z3
+... B05FC47
+... B05FFN7
+... B05FFX7
+... B05FHZ3
+... B05FJ02
+... B05FKV0
+... B05FKX2
+... B05FPZ9
+... B05FRQ4
+... B05FXV1
+... B05FZQ0
+... B05FZS2
+... B05G198
+... B05G637
+... B05G7J0
+... B068074
+... B0M6373
+... B0R46X9
+... B0SDR09
+... B0VMH70
+... B0VMJM9
+... B0VMPT8
+... B0XWNB4
+... B0YVBC7
+... B10LNL1
+... B11S1X9
+... B1893V7
+... B18S7B2
+... B1CD9S4
+... B1CDK14
+... B1CQNK3
+... B1CQRH8
+... B1CQRN4
+... B1CQV98
+... B1CQWZ1
+... B1CQY00
+... B1CR0L6
+... B1CR0S3
+... B1KTQX8
+... B1KYVC7
+... B1KYVZ0
+... B1RMWL0
+... B1VCNQ8
+... B1XG8T6
+... B243G00
+... B29LZ80
+... B2N6X76
+... B2PRS50
+... B2PRWF8
+... B2PRWJ2
+... B2PS0H9
+... B2PV5Y0
+... B2PVGZ8
+... B2PVHM2
+... B2PVMB6
+... B2PVP84
+... B2PVRV1
+... B2PY1R4
+... B2PY390
+... B2PY3H8
+... B2PY572
+... B2PY5J4
+... B2Q1N90
+... B2QXZK1
+... B2RKQW0
+... B39DW15
+... B3CFXY8
+... B3CFYB2
+... B3CG1T2
+... B3F8162
+... B3KF8V2
+... B3LFLQ7
+... B3LT1Q9
+... B3LXSJ3
+... B3M3MB2
+... B3M5D48
+... B3M7ZH1
+... B3MPTK6
+... B3MVRM2
+... B3NSQZ8
+... B3NVM93
+... B3P2YG5
+... B3P9Y44
+... B3PHCS8
+... B3PL150
+... B3PQ1W2
+... B3Q3L88
+... B3SC0P3
+... B3VM3R3
+... B3VVG60
+... B3XK5J1
+... B42TM62
+... B45BZT9
+... B4JT339
+... B4MJF52
+... B4PRH35
+... B50HQ74
+... B52LK94
+... B545JR5
+... B5497R3
+... B54V1Z5
+... B599TV6
+... B59TPT6
+... B5BKK36
+... B5BKMR4
+... B5P8YX4
+... B5T42N4
+... B5V3ZY1
+... B5VR9Q3
+... B61BDZ9
+... B626RZ1
+... B6496D9
+... B64JSM2
+... B652H90
+... B657SR0
+... B66G553
+... B6734R8
+... B676F30
+... B67NKZ8
+... B6QDDF0
+... B76V7N7
+... B78DL95
+... B7K2811
+... B7RRJJ4
+... B7RRKB3
+... B7WNMF4
+... B7XCP73
+... B80QGD8
+... B83MH18
+... B8C0D37
+... B8KQFS6
+... B8N44W4
+... B8N45L0
+... B8N46J5
+... B8V9FZ1
+... B9BRCL7
+... B9DQ900
+... BB97138
+... BBGBF31
+... BC7GZX2
+... BCRY644
+... BCW3NW3
+... BCZSZF2
+... BGJZZG8
+... BK1PTB7
+... BKXH0G3
+... BRWQVY5
+... BSBNC63
+... BTF8JJ3
+... BTL1K93
+... BVC3VM2
+... BVXCDJ9
+... BVXLP67
+... BW38RQ9
+... BWWD0R7
+... BWXBQ27
+... BWXTNQ4
+... BX7RKZ9
+... BX7RPQ5
+... BYN8P69
+... BYT3LB5
+... BYTLC94
+... BYW6P64
+... BYXJKZ6
+... BYXX1Y4
+... BZ0S6X3
+... BZ21T08
+...
+... '''
+>>> [x for x in numbers.splitlines() if x and not sedol.is_valid(x)]
+[]
