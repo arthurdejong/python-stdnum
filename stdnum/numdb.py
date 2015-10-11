@@ -85,8 +85,12 @@ True
 import re
 from pkg_resources import resource_stream
 
-_line_re = re.compile('^(?P<indent> *)(?P<ranges>([^-,\s]+(-[^-,\s]+)?)(,[^-,\s]+(-[^-,\s]+)?)*)\s*(?P<props>.*)$')
-_prop_re = re.compile('(?P<prop>[0-9a-zA-Z-_]+)="(?P<value>[^"]*)"')
+_line_re = re.compile(
+    r'^(?P<indent> *)'
+    r'(?P<ranges>([^-,\s]+(-[^-,\s]+)?)(,[^-,\s]+(-[^-,\s]+)?)*)\s*'
+    r'(?P<props>.*)$')
+_prop_re = re.compile(
+    r'(?P<prop>[0-9a-zA-Z-_]+)="(?P<value>[^"]*)"')
 
 # this is a cache of open databases
 _open_databases = {}
@@ -195,5 +199,6 @@ def get(name):
     if name not in _open_databases:
         import codecs
         reader = codecs.getreader('utf-8')
-        _open_databases[name] = read(reader(resource_stream(__name__, name + '.dat')))
+        db = read(reader(resource_stream(__name__, name + '.dat')))
+        _open_databases[name] = db
     return _open_databases[name]

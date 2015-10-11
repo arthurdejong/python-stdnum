@@ -43,7 +43,7 @@ from stdnum.exceptions import InvalidChecksum, InvalidFormat, InvalidLength, \
 from stdnum.util import clean
 
 
-_iso6346_re = re.compile('^\w{3}(U|J|Z|R)\d{7}$')
+_iso6346_re = re.compile(r'^\w{3}(U|J|Z|R)\d{7}$')
 
 
 def compact(number):

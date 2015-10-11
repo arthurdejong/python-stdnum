@@ -48,7 +48,8 @@ def compact(number):
 def calc_check_digit(number):
     """Calculate the check digit. The number passed should not have the
     check digit included."""
-    return str((11 - sum((9 - i) * int(n) for i, n in enumerate(number)) ) % 11 % 10)
+    s = sum((9 - i) * int(n) for i, n in enumerate(number))
+    return str((11 - s) % 11 % 10)
 
 
 def validate(number):

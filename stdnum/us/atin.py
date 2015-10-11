@@ -42,7 +42,7 @@ from stdnum.util import clean
 
 
 # regular expression for matching ATINs
-_atin_re = re.compile('^[0-9]{3}-?[0-9]{2}-?[0-9]{4}$')
+_atin_re = re.compile(r'^[0-9]{3}-?[0-9]{2}-?[0-9]{4}$')
 
 
 def compact(number):

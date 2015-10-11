@@ -178,12 +178,8 @@ def format(number, separator=' ', format=None, add_check_digit=False):
 def to_binary(number):
     """Convert the number to its binary representation (without the check
     digit)."""
-    import sys
-    number = compact(number, strip_check_digit=True)
-    if sys.version > '3':  # pragma: no cover (Python 2/3 specific code)
-        return bytes.fromhex(number)
-    else:  # pragma: no cover (Python 2/3 specific code)
-        return number.decode('hex')
+    from binascii import a2b_hex
+    return a2b_hex(compact(number, strip_check_digit=True))
 
 
 def to_pseudo_esn(number):

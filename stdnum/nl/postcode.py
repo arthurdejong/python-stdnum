@@ -44,7 +44,7 @@ from stdnum.util import clean
 _postcode_re = re.compile(r'^(?P<pt1>[1-9][0-9]{3})(?P<pt2>[A-Z]{2})$')
 
 
-_postcode_blacklist = ('SA', 'SD' ,'SS')
+_postcode_blacklist = ('SA', 'SD', 'SS')
 
 
 def compact(number):

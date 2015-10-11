@@ -51,9 +51,9 @@ from stdnum.util import clean
 
 # regular expression for matching fiscal codes
 _code_re = re.compile(
-    '^[A-Z]{6}'
-    '[0-9LMNPQRSTUV]{2}[ABCDEHLMPRST]{1}[0-9LMNPQRSTUV]{2}'
-    '[A-Z]{1}[0-9LMNPQRSTUV]{3}[A-Z]{1}$')
+    r'^[A-Z]{6}'
+    r'[0-9LMNPQRSTUV]{2}[ABCDEHLMPRST]{1}[0-9LMNPQRSTUV]{2}'
+    r'[A-Z]{1}[0-9LMNPQRSTUV]{3}[A-Z]{1}$')
 
 # encoding of birth day and year values (usually numeric but some letters
 # may be substituted on clashes)

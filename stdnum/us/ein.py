@@ -49,7 +49,7 @@ from stdnum.util import clean
 
 
 # regular expression for matching EINs
-_ein_re = re.compile('^(?P<area>[0-9]{2})-?(?P<group>[0-9]{7})$')
+_ein_re = re.compile(r'^(?P<area>[0-9]{2})-?(?P<group>[0-9]{7})$')
 
 
 def compact(number):

@@ -78,6 +78,6 @@ def is_valid(number):
 def format(number):
     """Reformat the passed number to the standard format."""
     number = compact(number)
-    return ('.'.join(
-        number[i - 3:i] for i in reversed(range(-1, -len(number), -3))) +
-        '-' + number[-1])
+    return '.'.join(
+        number[i - 3:i] for i in reversed(range(-1, -len(number), -3))
+    ) + '-' + number[-1]

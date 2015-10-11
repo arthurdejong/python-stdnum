@@ -40,7 +40,7 @@ from stdnum.util import clean
 
 
 # regular expression for matching PTINs
-_ptin_re = re.compile('^P[0-9]{8}$')
+_ptin_re = re.compile(r'^P[0-9]{8}$')
 
 
 def compact(number):

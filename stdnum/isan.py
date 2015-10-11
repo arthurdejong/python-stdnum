@@ -140,12 +140,8 @@ def format(number, separator='-', strip_check_digits=False, add_check_digits=Tru
 def to_binary(number):
     """Convert the number to its binary representation (without the check
     digits)."""
-    import sys
-    number = compact(number, strip_check_digits=True)
-    if sys.version > '3':  # pragma: no cover (Python 2/3 specific code)
-        return bytes.fromhex(number)
-    else:  # pragma: no cover (Python 2/3 specific code)
-        return number.decode('hex')
+    from binascii import a2b_hex
+    return a2b_hex(compact(number, strip_check_digits=True))
 
 
 def to_xml(number):

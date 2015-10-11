@@ -52,7 +52,7 @@ _ibandb = numdb.get('iban')
 _alphabet = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ'
 
 # regular expression to check IBAN structure
-_struct_re = re.compile('([1-9][0-9]*)!([nac])')
+_struct_re = re.compile(r'([1-9][0-9]*)!([nac])')
 
 
 def compact(number):

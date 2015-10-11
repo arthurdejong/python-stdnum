@@ -56,7 +56,7 @@ from stdnum.util import clean
 
 
 # regular expression for matching ITINs
-_itin_re = re.compile('^(?P<area>[0-9]{3})-?(?P<group>[0-9]{2})-?[0-9]{4}$')
+_itin_re = re.compile(r'^(?P<area>[0-9]{3})-?(?P<group>[0-9]{2})-?[0-9]{4}$')
 
 
 # allowed group digits

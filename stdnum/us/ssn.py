@@ -49,7 +49,8 @@ from stdnum.util import clean
 
 
 # regular expression for matching SSN
-_ssn_re = re.compile('^(?P<area>[0-9]{3})-?(?P<group>[0-9]{2})-?(?P<serial>[0-9]{4})$')
+_ssn_re = re.compile(
+    r'^(?P<area>[0-9]{3})-?(?P<group>[0-9]{2})-?(?P<serial>[0-9]{4})$')
 
 # blacklist of SSNs
 _ssn_blacklist = set(('078-05-1120', '457-55-5462', '219-09-9999'))
