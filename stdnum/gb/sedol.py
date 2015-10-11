@@ -29,6 +29,8 @@ in length consisting of six alphanumeric digits, followed by a check digit.
 Traceback (most recent call last):
     ...
 InvalidChecksum: ...
+>>> to_isin('B15KXQ8')
+'GB00B15KXQ89'
 """
 
 from stdnum.exceptions import *
@@ -76,3 +78,9 @@ def is_valid(number):
         return bool(validate(number))
     except ValidationError:
         return False
+
+
+def to_isin(number):
+    """Convert the number to an ISIN."""
+    from stdnum import isin
+    return isin.from_natid('GB', number)

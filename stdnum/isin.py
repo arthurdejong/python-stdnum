@@ -36,6 +36,8 @@ More information:
 Traceback (most recent call last):
     ...
 InvalidChecksum: ...
+>>> from_natid('gb', 'BYXJL75')
+'GB00BYXJL758'
 """
 
 from stdnum.exceptions import *
@@ -114,3 +116,10 @@ def is_valid(number):
         return bool(validate(number))
     except ValidationError:
         return False
+
+
+def from_natid(country_code, number):
+    """Generate an ISIN from a national security identifier."""
+    number = compact(number)
+    number = country_code.upper() + (9 - len(number)) * '0' + number
+    return number + calc_check_digit(number)

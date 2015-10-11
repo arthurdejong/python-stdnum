@@ -30,6 +30,8 @@ longer has any structure. It is expected to be replaced by the ISIN.
 Traceback (most recent call last):
     ...
 InvalidFormat: ...
+>>> to_isin('SKWM02')
+'DE000SKWM021'
 """
 
 from stdnum.exceptions import *
@@ -64,3 +66,9 @@ def is_valid(number):
         return bool(validate(number))
     except ValidationError:
         return False
+
+
+def to_isin(number):
+    """Convert the number to an ISIN."""
+    from stdnum import isin
+    return isin.from_natid('DE', number)
