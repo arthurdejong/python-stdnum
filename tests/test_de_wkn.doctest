@@ -1,0 +1,233 @@
+test_de_wkn.doctest - more detailed doctests for the stdnum.de.wkn module
+
+Copyright (C) 2015 Arthur de Jong
+
+This library is free software; you can redistribute it and/or
+modify it under the terms of the GNU Lesser General Public
+License as published by the Free Software Foundation; either
+version 2.1 of the License, or (at your option) any later version.
+
+This library is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+Lesser General Public License for more details.
+
+You should have received a copy of the GNU Lesser General Public
+License along with this library; if not, write to the Free Software
+Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
+02110-1301 USA
+
+
+This file contains more detailed doctests for the stdnum.de.wkn module. It
+tries to validate a number of numbers that have been found online.
+
+>>> from stdnum.de import wkn
+>>> from stdnum.exceptions import *
+
+
+These have been found online and should all be valid numbers.
+
+>>> numbers = '''
+...
+... 934056
+... A0Q2A9
+... 978273
+... 989756
+... A0D85Q
+... A0MUD3
+... A0F67A
+... 622925
+... A0ESSP
+... A0M82M
+... 200435
+... 895705
+... A0MMMK
+... 989226
+... 977858
+... A0DNG5
+... A0LGM2
+... 701932
+... A0H0UT
+... 989127
+... A0JM7H
+... 516810
+... 977023
+... 971043
+... 865742
+... A0MYFQ
+... A1EWXW
+... 591961
+... 980276
+... A0RNQ5
+... A0BMA4
+... 531713
+... A0F6EB
+... A0MUHB
+... 975694
+... A1J0ZD
+... A0M11P
+... A0MNX5
+... A0F5T6
+... A0MR7J
+... 974839
+... 972001
+... A0M16T
+... 592895
+... 977974
+... A0HGWD
+... A0LHCL
+... 691298
+... DBX0HY
+... 986732
+... 974956
+... 973275
+... ETFL29
+... 857534
+... A0MVL0
+... A0CBA2
+... A0NGX0
+... A0M92M
+... A0MSAG
+... A0NFHK
+... A0Q35X
+... 513010
+... 921418
+... 531435
+... A0BL1D
+... A0MKA9
+... 976169
+... 779374
+... 847519
+... A0HG5F
+... 986868
+... 847347
+... 971929
+... A0DJ6U
+... 847910
+... A0JMLN
+... 701276
+... 580515
+... 986881
+... A0M2BY
+... A0M93X
+... 989427
+... A0LE9R
+... 848390
+... 980457
+... DWS0UR
+... 977187
+... 850667
+... 930920
+... 987906
+... A0MY8N
+... 970047
+... A0M1NX
+... 933368
+... DBX0F1
+... 848186
+... A0J3GM
+... DBX0HC
+... A0Q09X
+... 988890
+... 589684
+... A0KE7P
+... A0EAD3
+... DBX1F1
+... A1JJTG
+... A0EQ91
+... A0KD2Q
+... 971117
+... 973210
+... A0F6WG
+... A0MLJK
+... A0M46B
+... A0HNPN
+... 848066
+... A0LGQN
+... DBX0G7
+... LYX0AB
+... A0LGWU
+... A0RDGC
+... 848639
+... 589006
+... A0LEEE
+... 552538
+... 977025
+... 531416
+... A0DJ49
+... A0REJL
+... A0YE2R
+... 251119
+... 693287
+... A0MJP7
+... 577345
+... 973228
+... 866953
+... A0MWAL
+... 113596
+... 847426
+... 722538
+... DK0EBQ
+... 603005
+... A1H6H7
+... 593396
+... 987972
+... 541779
+... 750437
+... 588798
+... A0Q60E
+... A0NC6Z
+... A0LGCU
+... 532018
+... 257575
+... 629236
+... A1J0BH
+... 515231
+... 851143
+... LYX0MG
+... 801536
+... 888323
+... 976956
+... 853836
+... 723890
+... A0BL78
+... 971915
+... A0YCYF
+... A0J3WX
+... 847661
+... A0X970
+... 976375
+... A0J3W3
+... 989844
+... A0B5LC
+... 620440
+... LYX0CB
+... 795322
+... 848534
+... 677496
+... 727516
+... 973806
+... 971872
+... 859123
+... 970578
+... 675179
+... 976999
+... A0HF4G
+... 871970
+... 978945
+... 691660
+... A0DPBF
+... 930424
+... 978047
+... 847665
+... 971534
+... A0BMAJ
+... A0NC87
+... A1JJP8
+... A0M2EB
+... A0EQYQ
+... 263233
+...
+... '''
+>>> [x for x in numbers.splitlines() if x and not wkn.is_valid(x)]
+[]
