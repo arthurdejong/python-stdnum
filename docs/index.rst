@@ -87,20 +87,26 @@ Available formats
 
    al.nipt
    ar.cuit
+   at.businessid
    at.uid
    be.vat
    bg.egn
    bg.pnf
    bg.vat
+   br.cnpj
    br.cpf
    ch.ssn
+   ch.uid
+   ch.vat
    cl.rut
    cn.ric
    co.nit
+   cusip
    cy.vat
    cz.dic
    cz.rc
    de.vat
+   de.wkn
    dk.cpr
    dk.cvr
    do.cedula
@@ -108,6 +114,7 @@ Available formats
    ean
    ec.ci
    ec.ruc
+   ee.ik
    ee.kmkr
    es.cif
    es.dni
@@ -116,9 +123,12 @@ Available formats
    eu.at_02
    eu.vat
    fi.alv
+   fi.associationid
    fi.hetu
+   fi.ytunnus
    fr.siren
    fr.tva
+   gb.sedol
    gb.vat
    gr.vat
    grid
@@ -128,12 +138,14 @@ Available formats
    ie.pps
    ie.vat
    imei
+   imo
    imsi
    is_.kennitala
    is_.vsk
    isan
    isbn
    isil
+   isin
    ismn
    iso6346
    iso9362
@@ -145,6 +157,7 @@ Available formats
    lv.pvn
    meid
    mt.vat
+   mx.rfc
    my.nric
    nl.brin
    nl.bsn
@@ -154,9 +167,12 @@ Available formats
    no.mva
    no.orgnr
    pl.nip
+   pl.pesel
+   pl.regon
    pt.nif
    ro.cf
    ro.cnp
+   ru.inn
    se.orgnr
    se.vat
    si.ddv

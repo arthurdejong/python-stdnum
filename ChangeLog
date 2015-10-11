@@ -1,3 +1,309 @@
+2015-10-11  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [1327045] getcnloc.py, stdnum/cn/loc.dat, stdnum/iban.dat,
+	  stdnum/imsi.dat, stdnum/isbn.dat, stdnum/isil.dat: Update
+	  database files
+
+	  This also updates the script to download updated Chinese
+	  location names.
+
+2015-10-11  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [a891c60] stdnum/al/nipt.py, stdnum/co/nit.py, stdnum/iban.py,
+	  stdnum/ie/pps.py, stdnum/imei.py, stdnum/isan.py,
+	  stdnum/iso6346.py, stdnum/it/codicefiscale.py, stdnum/meid.py,
+	  stdnum/nl/postcode.py, stdnum/numdb.py, stdnum/pt/nif.py,
+	  stdnum/us/atin.py, stdnum/us/ein.py, stdnum/us/itin.py,
+	  stdnum/us/ptin.py, stdnum/us/ssn.py, stdnum/util.py: Code style
+	  improvements
+
+	  Ensure that regular expressions are r'' strings, avoid too
+	  long lines and fix line wrapping. Also avoid catching toplevel
+	  Exception when possible and use binascii for hex to binary
+	  conversion which is available in both Python 2 and 3.
+
+2015-10-11  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [3c7a302] stdnum/cusip.py, stdnum/de/wkn.py, stdnum/gb/sedol.py,
+	  stdnum/isin.py: Convert security ids to ISIN
+
+	  Allow conversion from national securities identifiers to the
+	  international ISIN.
+
+2015-10-11  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [c565517] stdnum/de/wkn.py, tests/test_de_wkn.doctest: Add
+	  German Wertpapierkennnummer
+
+	  The format itself is pretty simple (no check digit) but this
+	  module is more for completeness sake.
+
+2015-10-10  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [961815f] stdnum/gb/sedol.py, tests/test_gb_sedol.doctest:
+	  Add SEDOL number
+
+2015-10-10  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [fb91775] stdnum/ru/__init__.py: Add information to Russian package
+
+2015-10-10  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [ebb5c07] MANIFEST.in, numdb-test.dat, stdnum/numdb.py,
+	  tests/numdb-test.dat: Move numdb test file
+
+	  This places the test database file in the tests directory.
+
+2015-10-10  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [fa8099e] stdnum/imo.py: Add int. maritime org. number (IMO)
+
+	  This adds checks for the International Maritime Organization
+	  number used to identify ships. However, there seem to be a lot
+	  of ships with an IMO number that does not follow these rules
+	  (different check digits or even length).
+
+2015-10-10  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [111b4fd] stdnum/isan.py, tests/test_isan.doctest: Fix handling
+	  of strip_check_digits in ISAN
+
+	  This fixes the compact() function to honor the strip_check_digits
+	  argument and does not validate the check digits if they are
+	  passed to validate together with strip_check_digits.
+
+2015-10-10  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [9f9d13c] stdnum/isin.py, tests/test_isin.doctest: Add
+	  international securities id (ISIN)
+
+	  This adds support for handling ISINs (International Securities
+	  Identification Number). The can contain a CUSIP but performing
+	  this additional validation is currently not performed.
+
+2015-10-09  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [522611c] stdnum/cusip.py, tests/test_cusip.doctest: Add CUSIP
+	  number
+
+2015-10-08  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [320ecea] stdnum/ch/uid.py, stdnum/ch/vat.py,
+	  tests/test_ch_uid.doctest, tests/test_ch_vat.doctest: Add Swiss
+	  UID and VAT numbers
+
+	  The Swiss VAT number (MWST, TVA, IVA, TPV) is the UID
+	  (Unternehmens-Identifikationsnummer) followed by one of the
+	  VAT abbreviations.
+
+2015-10-05  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [ec9bcb0] stdnum/mx/__init__.py, stdnum/mx/rfc.py,
+	  tests/test_mx_rfc.doctest: Add Mexican RFC number
+
+	  This adds support for the Mexican tax number RFC (Registro
+	  Federal de Contribuyentes).
+
+	  This module includes a number of checks on the number but the
+	  validation of the last check digit is disabled by default because
+	  a large number of numbers were found that were otherwise valid
+	  but had an invalid check digit.
+
+2015-10-04  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [fd0cfd9] stdnum/eu/vat.py, stdnum/util.py: Move finding VAT
+	  module to util
+
+	  This moves the finding of a VAT module to the util module so
+	  that it can be more easily re-used for non-EU countries.
+
+2015-10-04  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [38ed9c0] stdnum/co/nit.py, tests/test_co_nit.doctest: Update
+	  Colombian NIT checks
+
+	  This adds a number of tests for numbers found online. The length
+	  check has also been revisited because both shorter numbers and
+	  longer number have been found.
+
+	  This also updates the format() function to handle arbitrary
+	  length numbers.
+
+2015-10-02  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [d413f95] stdnum/isbn.py: Fix comment
+
+2015-10-02  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [3d1dbbb] stdnum/ar/cuit.py, stdnum/bg/egn.py, stdnum/bg/pnf.py,
+	  stdnum/bg/vat.py, stdnum/co/nit.py, stdnum/dk/cpr.py,
+	  stdnum/dk/cvr.py, stdnum/do/rnc.py, stdnum/ec/ruc.py,
+	  stdnum/ee/kmkr.py, stdnum/fi/alv.py, stdnum/gb/vat.py,
+	  stdnum/hu/anum.py, stdnum/is_/kennitala.py, stdnum/lv/pvn.py,
+	  stdnum/mt/vat.py, stdnum/no/orgnr.py, stdnum/pl/nip.py,
+	  stdnum/pl/pesel.py, stdnum/pl/regon.py, stdnum/ro/cf.py,
+	  stdnum/ro/cnp.py: Use zip() instead of enumerate()
+
+	  Makes the code slightly simpler and more compact.
+
+2015-10-01  Sergio Isidoro <sergio@holvi.com>
+
+	* [222a87e] stdnum/fi/__init__.py: Add alias to hetu in for finnish
+	  personal id code
+
+2015-09-27  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [e045c71] tests/test_eu_vat.doctest: Add more numbers found online
+
+2015-09-07  Dariusz Choruzy <darobial@gmail.com>
+
+	* [36217ac] stdnum/pl/regon.py, tests/test_pl_regon.doctest:
+	  Add Polish REGON number
+
+2015-09-06  Dariusz Choruzy <darobial@gmail.com>
+
+	* [a0cb61f] stdnum/pl/pesel.py: Add Polish PESEL number
+
+2015-08-16  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [5ab8d24] stdnum/ru/__init__.py, stdnum/ru/inn.py,
+	  tests/test_ru_inn.doctest: Add Russioan ИНН (INN) tax ID
+
+	  This adds a basic implementation of the Russian
+	  Идентификационный номер
+	  налогоплательщика (tax identification
+	  number). This currently only checks the format, length and check
+	  digits but not whether each of the parts of the number are valid
+	  (e.g. valid region specified).
+
+2015-08-16  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [714fa60] stdnum/br/cnpj.py, tests/test_br_cnpj.doctest: Add
+	  Brazillian CNPJ business identifier
+
+	  Add module for Cadastro Nacional da Pessoa Jurídica, the
+	  Brazillian company identifier.
+
+2015-08-16  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [b939099] getiban.py, stdnum/iban.dat, tests/test_iban.doctest:
+	  Update IBAN tests
+
+	  This updates the iban.dat file from the IBAN registry, includes
+	  a fix for handling spaces in the BBAN and adds some more IBAN
+	  examples from the IBAN registry.
+
+2015-08-16  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [7714db7] stdnum/iso9362.py: Make uppercase in compact()
+
+	  This changes the compact() function of the ISO 9362 module to
+	  make all the letters uppercase.
+
+2015-08-16  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [6afa875] setup.cfg, stdnum/imei.py, stdnum/isbn.py,
+	  stdnum/isil.py, stdnum/ismn.py, stdnum/meid.py, stdnum/us/atin.py,
+	  stdnum/us/ein.py, stdnum/us/itin.py: Turn on and improve branch
+	  coverage
+
+2015-08-16  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [e88ba0b] stdnum/dk/cpr.py, stdnum/is_/kennitala.py,
+	  stdnum/it/codicefiscale.py: Small typo and code style fixes
+
+2015-08-03  Tomas Karasek <tom.to.the.k@gmail.com>
+
+	* [243e50f] stdnum/ee/ik.py, tests/test_ee_ik.doctest: Add validation
+	  of Estonian personal ID
+
+2015-06-12  Lari Haataja <lari@holvi.com>
+
+	* [7f9c94f] stdnum/at/businessid.py: Add company register number
+	  validation for Austria
+
+2015-07-12  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [0cbba6e] : Merge Finnish numbers provided by Holvi
+
+	  This merges the Finnish numbers provided by Holvi Payment Services
+	  Oy as found here: https://github.com/holvi/python-stdnum
+
+2015-07-12  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [320326e] stdnum/fi/ytunnus.py: Split out format() function
+
+	  This uses the stdnum.fi.alv module more extensively and ensures
+	  that validate() returns a compact representation and a separate
+	  format() function is available.
+
+2015-06-23  Lari Haataja <lari@holvi.com>
+
+	* [37f7fa6] stdnum/fi/__init__.py, stdnum/fi/ytunnus.py: Add
+	  validation for Finnish y-tunnus (business identifier)
+
+2015-07-12  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [db24746] stdnum/fi/associationid.py: Add a whitelist for short
+	  numbers and fix API
+
+	  This implements separate functions compact() and format() and
+	  fixes the doctests. This also implements a whitelist of registered
+	  short numbers to avoid accidentally validating just any number.
+
+2015-06-16  Lari Haataja <lari@holvi.com>
+
+	* [8d30992] stdnum/fi/associationid.py: Validation for Finnish
+	  association identifier
+
+2015-07-12  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [e107457] : Merge changes to use CN Open Data
+
+2015-07-12  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [a1a134e] stdnum/eu/vat.py: Fall back to pysimplesoap if suds
+	  is unavailable
+
+	  Initial testing seems to suggest that proxy-support is not
+	  complete with pysimplesoap (at least httplib2 and PySocks seem
+	  to be required).
+
+2015-04-28  Lionel Elie Mamane <lmamane@debian.org>
+
+	* [8fe44f9] stdnum/eu/vat.py: Implement alternate VIES check
+
+	  Add a function to stdnum.eu.vat so that when one does a VIES VAT
+	  number check, one gets a proof (certificate) that one did the
+	  check, as defence against the VAT administration later putting
+	  this in doubt. This certificate is provided by the VIES service,
+	  if one provides one's own VAT number.
+
+2015-06-08  Jiangge Zhang <tonyseek@gmail.com>
+
+	* [6308261] stdnum/cn/loc.dat: Download and generate latest Chinese
+	  location data.
+
+2015-06-08  Jiangge Zhang <tonyseek@gmail.com>
+
+	* [12ba352] getcnloc.py: Download GB2260 data from github.com/cn.
+
+2015-04-27  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [8925ae2] tests/test_iso6346.doctest: Fix copyright header
+
+2015-04-27  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [58775d9] ChangeLog, NEWS, README, docs/index.rst,
+	  docs/stdnum.al.nipt.rst, docs/stdnum.ar.cuit.rst,
+	  docs/stdnum.cl.rut.rst, docs/stdnum.co.nit.rst,
+	  docs/stdnum.do.cedula.rst, docs/stdnum.do.rnc.rst,
+	  docs/stdnum.is_.kennitala.rst, docs/stdnum.is_.vsk.rst,
+	  docs/stdnum.iso9362.rst, docs/stdnum.no.mva.rst,
+	  docs/stdnum.no.orgnr.rst, docs/stdnum.se.orgnr.rst,
+	  docs/stdnum.sm.coe.rst, setup.py, stdnum/__init__.py: Get files
+	  ready for 1.1 release
+
 2015-04-27  Arthur de Jong <arthur@arthurdejong.org>
 
 	* [583b066] getcnloc.py, stdnum/cn/loc.dat, stdnum/iban.dat,

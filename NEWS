@@ -1,3 +1,29 @@
+changes from 1.1 to 1.2
+-----------------------
+
+* add modules for the following number formats:
+  - Austrian Company Register Numbers
+  - CNPJ (Cadastro Nacional da Pessoa Jurídica, Brazillian company identifier)
+  - UID (Unternehmens-Identifikationsnummer, Swiss business identifier)
+  - VAT, MWST, TVA, IVA, TPV (Mehrwertsteuernummer, the Swiss VAT number)
+  - CUSIP number (financial security identification number)
+  - Wertpapierkennnummer (German securities identification code)
+  - Isikukood (Estonian Personcal ID number)
+  - Finnish Association Identifier
+  - Y-tunnus (Finnish business identifier)
+  - SEDOL number (Stock Exchange Daily Official List number)
+  - IMO number (International Maritime Organization number)
+  - ISIN (International Securities Identification Number)
+  - RFC (Registro Federal de Contribuyentes, Mexican tax number)
+  - PESEL (Polish national identification number)
+  - REGON (Rejestr Gospodarki Narodowej, Polish register of economic units)
+  - ИНН (Идентификационный номер налогоплательщика, Russian tax identifier)
+* add an alternate VIES check (check_vies_approx()) that includes a proof
+  (certificate) that the check was performed
+* fall back to pysimplesoap if suds is unavailable
+* test and code quality improvements
+
+
 changes from 1.0 to 1.1
 -----------------------
 
