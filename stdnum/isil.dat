@@ -28,6 +28,7 @@ NZ$ country="New Zealand" ra_url="http://natlib.govt.nz/" ra="National Library o
 QA$ country="Qatar" ra_url="http://www.qnl.qa/" ra="Qatar National Library (QNL)"
 RU$ country="Russian Federation" ra_url="http://english.gpntb.ru/" ra="Russian National Public Library for Science and Technology"
 SI$ country="The Republic of Slovenia" ra_url="http://www.nuk.uni-lj.si/nukeng3.asp?id=311364382" ra="National and University Library"
+SK$ country="Slovak Republic" ra_url="http://www.snk.sk" ra="Slovak National Library"
 O$ ra="See OCLC"
 OCLC$ country="WorldCat Symbol" ra_url="http://www.oclc.org" ra="OCLC"
 ZDB$ country="Staatsbibliothek zu Berlin - Zeitschriftendatenbank" ra="Staatsbibliothek zu Berlin"

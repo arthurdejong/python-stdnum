@@ -48,9 +48,8 @@ data_revisions = [
     'GB2260-2011',
     'GB2260-2012',
     'GB2260-2013',
-    'GB2260',
+    'GB2260-2014',
 ]
-
 
 def fetch_data():
     data_collection = OrderedDict()

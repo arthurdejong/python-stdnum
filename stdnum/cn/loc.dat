@@ -1,6 +1,6 @@
 # generated from National Bureau of Statistics of the People's
 # Republic of China, downloaded from https://github.com/cn/GB2260
-# 2015-06-08 09:43:51.705262
+# 2015-10-11 10:02:20.899770
 110101 county="东城区" prefecture="市辖区" province="北京市"
 110102 county="西城区" prefecture="市辖区" province="北京市"
 110103 county="崇文区" prefecture="市辖区" province="北京市"
@@ -225,8 +225,6 @@
 131128 county="阜城县" prefecture="衡水市" province="河北省"
 131181 county="冀州市" prefecture="衡水市" province="河北省"
 131182 county="深州市" prefecture="衡水市" province="河北省"
-139001 county="定州市" prefecture="省直辖县级行政区划" province="河北省"
-139002 county="辛集市" prefecture="省直辖县级行政区划" province="河北省"
 140101 county="市辖区" prefecture="太原市" province="山西省"
 140105 county="小店区" prefecture="太原市" province="山西省"
 140106 county="迎泽区" prefecture="太原市" province="山西省"
