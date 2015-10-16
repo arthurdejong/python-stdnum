@@ -59,7 +59,7 @@ def calc_check_digit(number):
     alphabet = '0123456789A BCDEFGHIJK LMNOPQRSTU VWXYZ'
     return str(sum(
         alphabet.index(n) * pow(2, i)
-        for i, n in enumerate(number)) % 11)
+        for i, n in enumerate(number)) % 11 % 10)
 
 
 def validate(number):
