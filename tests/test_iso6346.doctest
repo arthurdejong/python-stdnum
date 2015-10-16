@@ -39,6 +39,8 @@ True
 'TCNU7200794'
 >>> iso6346.validate('tolu4734787')
 'TOLU4734787'
+>>> iso6346.validate('GYOU4047990')
+'GYOU4047990'
 
 
 Test with invalid numbers:
