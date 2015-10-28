@@ -154,6 +154,6 @@ def check_vies_approx(number, requester):  # pragma: no cover
     # network access for the tests and unnecessarily load the VIES website
     number = compact(number)
     requester = compact(requester)
-    return _get_client.checkVatApprox(
+    return _get_client().checkVatApprox(
         countryCode=number[:2], vatNumber=number[2:],
         requesterCountryCode=requester[:2], requesterVatNumber=requester[2:])
