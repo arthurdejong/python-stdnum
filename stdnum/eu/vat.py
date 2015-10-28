@@ -117,7 +117,7 @@ def _get_client():  # pragma: no cover (no tests for this function)
     # this function isn't automatically tested because the functions using
     # it are not automatically tested
     global _vies_client
-    if not _vies_client:
+    if _vies_client is None:
         try:
             from urllib import getproxies
         except ImportError:
