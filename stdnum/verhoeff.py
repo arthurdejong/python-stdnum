@@ -1,6 +1,6 @@
 # verhoeff.py - functions for performing the Verhoeff checksum
 #
-# Copyright (C) 2010, 2011, 2012, 2013 Arthur de Jong
+# Copyright (C) 2010-2015 Arthur de Jong
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -19,8 +19,18 @@
 
 """The Verhoeff algorithm.
 
-The Verhoeff algorithm uses two tables for permutations and
-multiplications to calculate a checksum.
+The Verhoeff algorithm is a checksum algorithm that should catch most common
+(typing) errors in numbers. The algorithm uses two tables for permutations
+and multiplications and as a result is more complex than the Luhn algorithm.
+
+More information:
+  https://en.wikipedia.org/wiki/Verhoeff_algorithm
+  https://en.wikibooks.org/wiki/Algorithm_Implementation/Checksums/Verhoeff_Algorithm
+
+The module provides the checksum() function to calculate the Verhoeff
+checksum a calc_check_digit() function to generate a check digit that can be
+append to an existing number to result in a number with a valid checksum and
+validation functions.
 
 >>> validate('1234')
 Traceback (most recent call last):
@@ -41,16 +51,16 @@ from stdnum.exceptions import *
 # Verhoeff algorithm.
 
 _multiplication_table = (
-    [0, 1, 2, 3, 4, 5, 6, 7, 8, 9],
-    [1, 2, 3, 4, 0, 6, 7, 8, 9, 5],
-    [2, 3, 4, 0, 1, 7, 8, 9, 5, 6],
-    [3, 4, 0, 1, 2, 8, 9, 5, 6, 7],
-    [4, 0, 1, 2, 3, 9, 5, 6, 7, 8],
-    [5, 9, 8, 7, 6, 0, 4, 3, 2, 1],
-    [6, 5, 9, 8, 7, 1, 0, 4, 3, 2],
-    [7, 6, 5, 9, 8, 2, 1, 0, 4, 3],
-    [8, 7, 6, 5, 9, 3, 2, 1, 0, 4],
-    [9, 8, 7, 6, 5, 4, 3, 2, 1, 0])
+    (0, 1, 2, 3, 4, 5, 6, 7, 8, 9),
+    (1, 2, 3, 4, 0, 6, 7, 8, 9, 5),
+    (2, 3, 4, 0, 1, 7, 8, 9, 5, 6),
+    (3, 4, 0, 1, 2, 8, 9, 5, 6, 7),
+    (4, 0, 1, 2, 3, 9, 5, 6, 7, 8),
+    (5, 9, 8, 7, 6, 0, 4, 3, 2, 1),
+    (6, 5, 9, 8, 7, 1, 0, 4, 3, 2),
+    (7, 6, 5, 9, 8, 2, 1, 0, 4, 3),
+    (8, 7, 6, 5, 9, 3, 2, 1, 0, 4),
+    (9, 8, 7, 6, 5, 4, 3, 2, 1, 0))
 
 _permutation_table = (
     (0, 1, 2, 3, 4, 5, 6, 7, 8, 9),

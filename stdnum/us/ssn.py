@@ -1,6 +1,6 @@
 # ssn.py - functions for handling SSNs
 #
-# Copyright (C) 2011, 2012, 2013 Arthur de Jong
+# Copyright (C) 2011-2015 Arthur de Jong
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -20,7 +20,24 @@
 """SSN (U.S. Social Security Number).
 
 The Social Security Number is used to identify individuals for taxation
-purposes.
+purposes. It is a 9-digit number that consists of a 3-digit area number, a
+2-digit group number and a 4-digit serial number. The number does not use a
+check digit.
+
+Some validation options are available but with the introduction of Social
+Security Number Randomization it is no longer possible to validate using the
+High Group History List. Some areas, groups and ranges can be blacklisted
+though.
+
+There are several on-line verification facilities available, either for
+Employers or at a fee but validation requires more information than just the
+number (e.g. name, date of birth, etc). Another means of validation is the
+Death Master File which can be ordered on DVD.
+
+More information:
+  https://en.wikipedia.org/wiki/Social_Security_number
+  https://www.ssa.gov/employer/verifySSN.htm
+  https://en.wikipedia.org/wiki/Death_Master_File
 
 >>> validate('536-90-4399')
 '536904399'

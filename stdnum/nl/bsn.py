@@ -1,6 +1,6 @@
 # bsn.py - functions for handling BSNs
 #
-# Copyright (C) 2010, 2011, 2012, 2013 Arthur de Jong
+# Copyright (C) 2010-2015 Arthur de Jong
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -19,8 +19,14 @@
 
 """BSN (Burgerservicenummer, Dutch national identification number).
 
-The BSN is a number with up to 9 digits (the leading 0's are commonly left
-out) which is used as the Dutch national identification number.
+The BSN is a unique personal identifier and has been introduced as the
+successor to the sofinummer. The number consists of up to 9 digits (the
+leading 0's are commonly left out) and contains a simple checksum.
+
+More information:
+  https://en.wikipedia.org/wiki/National_identification_number#Netherlands
+  https://nl.wikipedia.org/wiki/Burgerservicenummer
+  http://www.burgerservicenummer.nl/
 
 >>> validate('1112.22.333')
 '111222333'

@@ -1,6 +1,6 @@
 # isbn.py - functions for handling ISBNs
 #
-# Copyright (C) 2010, 2011, 2012, 2013 Arthur de Jong
+# Copyright (C) 2010-2015 Arthur de Jong
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -20,8 +20,23 @@
 """ISBN (International Standard Book Number).
 
 The ISBN is the International Standard Book Number, used to identify
-publications. This module supports both numbers in ISBN-10 (10-digit) and
-ISBN-13 (13-digit) format.
+publications. An ISBN is used to identify books. Numbers can either have 10
+digits (in ISBN-10 format) or 13 digits (in ISBN-13, EAN compatible format).
+An ISBN has the following components:
+
+* 3-digit (only in ISBN-13) Bookland code
+* 1 to 5-digit group identifier (identifies country or language)
+* 1 to 7-digit publisher code
+* 1 to 8-digit item number (identifies the book)
+* a check digit
+
+More information:
+  https://en.wikipedia.org/wiki/International_Standard_Book_Number
+  https://www.isbn-international.org/range_file_generation
+
+This module also offers functions for converting to ISBN-13 and formatting
+based on how the number should be split into a bookland code, group
+identifier, publisher code, item number and check digit.
 
 >>> validate('978-9024538270')
 '9789024538270'

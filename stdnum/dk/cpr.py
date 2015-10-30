@@ -19,13 +19,21 @@
 
 """CPR (personnummer, the Danish citizen number).
 
-The CPR is the national number to identify Danish citizens. The number
+The CPR is the national number to identify Danish citizens and is stored in
+the Det Centrale Personregister (Civil Registration System). The number
 consists of 10 digits in the format DDMMYY-SSSS where the first part
-represents the birth date and the second a sequence number. The first
-digit of the sequence number indicates the century.
+represents the birth date and the second a sequence number. The first digit
+of the sequence number indicates the century.
 
-The numbers used to validate using a checksum but since the sequence
-numbers ran out this was abandoned in 2007.
+The numbers used to validate using a checksum but since the sequence numbers
+ran out this was abandoned in 2007. It is also not possible to use the
+checksum only for numbers that have a birth date before that because the
+numbers are also assigned to immigrants.
+
+More information:
+  https://en.wikipedia.org/wiki/Personal_identification_number_(Denmark)
+  https://da.wikipedia.org/wiki/CPR-nummer
+  https://cpr.dk/
 
 >>> validate('211062-5629')
 '2110625629'

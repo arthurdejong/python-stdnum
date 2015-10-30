@@ -1,6 +1,6 @@
 # issn.py - functions for handling ISSNs
 #
-# Copyright (C) 2010, 2011, 2012, 2013 Arthur de Jong
+# Copyright (C) 2010-2015 Arthur de Jong
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -20,7 +20,15 @@
 """ISSN (International Standard Serial Number).
 
 The ISSN (International Standard Serial Number) is the standard code to
-identify periodical publications. It has a checksum similar to ISBN-10.
+identify periodical publications (e.g. magazines).
+
+An ISSN has 8 digits and is formatted in two pairs of 4 digits separated by a
+hyphen. The last digit is a check digit and may be 0-9 or X (similar to
+ISBN-10).
+
+More information:
+  https://en.wikipedia.org/wiki/International_Standard_Serial_Number
+  http://www.issn.org/
 
 >>> validate('0024-9319')
 '00249319'

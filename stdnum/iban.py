@@ -1,6 +1,6 @@
 # iban.py - functions for handling International Bank Account Numbers (IBANs)
 #
-# Copyright (C) 2011, 2012, 2013 Arthur de Jong
+# Copyright (C) 2011-2015 Arthur de Jong
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -26,6 +26,10 @@ for the remainder of the number.
 
 Some countries may also use checksum algorithms within their number but
 this is currently not checked by this number.
+
+More information:
+  https://en.wikipedia.org/wiki/International_Bank_Account_Number
+  https://www.swift.com/products_services/bic_and_iban_format_registration_iban_format_r
 
 >>> validate('GR16 0110 1050 0000 1054 7023 795')
 'GR1601101050000010547023795'

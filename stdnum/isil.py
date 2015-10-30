@@ -1,7 +1,7 @@
 # isil.py - functions for handling identifiers for libraries and related
 #           organizations
 #
-# Copyright (C) 2011, 2012, 2013 Arthur de Jong
+# Copyright (C) 2011-2015 Arthur de Jong
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -20,8 +20,27 @@
 
 """ISIL (International Standard Identifier for Libraries).
 
-The ISIL is the International Standard Identifier for
-Libraries and Related Organizations.
+The ISIL is the International Standard Identifier for Libraries and Related
+Organizations (ISO 15511) used to uniquely identify libraries, archives,
+museums, and similar organisations.
+
+The identifier can be up to 15 characters that may use digits,
+letters (case insensitive) hyphens, colons and slashes. The non-alphanumeric
+characters are part of the identifier and are not just for readability.
+
+The identifier consists of two parts separated by a hyphen. The first part is
+either a two-letter ISO 3166 country code or a (not two-letter) non-national
+prefix that identifies the agency that issued the ISIL. The second part is
+the is the identifier issued by that agency.
+
+Only the first part can be validated since it is registered globally. There
+may be some validation possible with the second parts (some agencies provide
+web services for validation) but there is no common format to these services.
+
+More information:
+  https://en.wikipedia.org/wiki/ISBT_128
+  http://biblstandard.dk/isil/
+  http://www.iso.org/iso/catalogue_detail?csnumber=57332
 
 >>> validate('IT-RM0267')
 'IT-RM0267'
@@ -46,7 +65,8 @@ from stdnum.util import clean
 
 
 # the valid characters in an ISIL
-_alphabet = set('0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz-:/')
+_alphabet = set(
+    '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz-:/')
 
 
 def compact(number):
@@ -55,7 +75,7 @@ def compact(number):
     return clean(number, '').strip()
 
 
-def _known_agency(agency):
+def _is_known_agency(agency):
     """Checks whether the specified agency is valid."""
     # look it up in the db
     from stdnum import numdb
@@ -65,22 +85,19 @@ def _known_agency(agency):
 
 
 def validate(number):
-    """Checks to see if the number provided is a valid isil (or isilSV)
-    number."""
+    """Checks to see if the number provided is a valid ISIL."""
     number = compact(number)
-    for n in number:
-        if n not in _alphabet:
-            raise InvalidFormat()
+    if not all(x in _alphabet for x in number):
+        raise InvalidFormat()
     if len(number) > 15:
         raise InvalidLength()
-    if not _known_agency(number.split('-')[0]):
+    if not _is_known_agency(number.split('-')[0]):
         raise InvalidComponent()
     return number
 
 
 def is_valid(number):
-    """Checks to see if the number provided is a valid isil (or isilSV)
-    number."""
+    """Checks to see if the number provided is a valid ISIL."""
     try:
         return bool(validate(number))
     except ValidationError:
@@ -91,6 +108,6 @@ def format(number):
     """Reformat the passed number to the standard format."""
     number = compact(number)
     parts = number.split('-')
-    if len(parts) > 1 and _known_agency(parts[0]):
+    if len(parts) > 1 and _is_known_agency(parts[0]):
         parts[0] = parts[0].upper()
     return '-'.join(parts)
