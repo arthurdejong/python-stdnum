@@ -3,7 +3,7 @@
 # getcnloc.py - script to fetch data from the CN Open Data community
 #
 # Copyright (C) 2014-2015 Jiangge Zhang
-# Copyright (C) 2015 Arthur de Jong
+# Copyright (C) 2015-2016 Arthur de Jong
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -54,7 +54,7 @@ data_revisions = [
 def fetch_data():
     data_collection = OrderedDict()
     for revision in data_revisions:
-        response = requests.get('%s/raw/master/%s.txt' % (data_url, revision))
+        response = requests.get('%s/raw/release/%s.txt' % (data_url, revision))
         if response.ok:
             print('%s is fetched' % revision, file=sys.stderr)
         else:

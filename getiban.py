@@ -2,7 +2,7 @@
 
 # getiban.py - script to donwload and parse data from the IBAN registry
 #
-# Copyright (C) 2011-2015 Arthur de Jong
+# Copyright (C) 2011-2016 Arthur de Jong
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -28,7 +28,7 @@ import urllib
 
 
 # The place where the current version of IBAN_Registry.txt can be downloaded.
-download_url = 'http://www.swift.com/dsp/resources/documents/IBAN_Registry.txt'
+download_url = 'https://www.swift.com/node/11971'
 
 
 def clean_row(row):
