@@ -2,7 +2,7 @@
 
 # getnumlist.py - script to get a list of number formats in stdnum
 #
-# Copyright (C) 2012, 2013 Arthur de Jong
+# Copyright (C) 2012-2016 Arthur de Jong
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -57,7 +57,7 @@ if __name__ == '__main__':
     for module in get_number_modules():
         print '   %s' % module.__name__.replace('stdnum.', '')
     print ''
-    print 'For index.xml:'
+    print 'For formats.xml:'
     print ''
     for module in get_number_modules():
         print '  <li>%s</li>' % util.get_module_name(module)

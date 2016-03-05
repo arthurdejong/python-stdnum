@@ -1,3 +1,62 @@
+2016-03-03  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [6457734] getcnloc.py, getiban.py, stdnum/cn/loc.dat,
+	  stdnum/iban.dat, stdnum/imsi.dat, stdnum/isbn.dat, stdnum/isil.dat:
+	  Update database files
+
+	  This also updates the getcnloc and getiban scripts to use new URLs.
+
+2015-10-30  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [0061564] stdnum/dk/cpr.py, stdnum/iban.py, stdnum/imei.py,
+	  stdnum/isbn.py, stdnum/isil.py, stdnum/issn.py, stdnum/nl/bsn.py,
+	  stdnum/us/ssn.py, stdnum/verhoeff.py: Integrate information from
+	  the wiki
+
+	  This adds the information that was previously in the Trac wiki
+	  into the source docstrings because the Trac instance is being
+	  phased out.
+
+	  This also includes small updates to the ISIL module.
+
+2015-10-28  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [96c8151] stdnum/eu/vat.py: Fix SOAP client re-use
+
+	  This fixes a bug when checking re-use of the global SOAP client
+	  object.  The object could not be evaluated in boolean context
+	  so is no explicitly compared to None. For suds a MethodNotFound
+	  exception would be raised for __nonzero__() (which Python uses
+	  for boolean comparison).
+
+2015-10-28  Lionel Elie Mamane <lionel@mamane.lu>
+
+	* [2881b86] stdnum/eu/vat.py: Fix problem with check_vies_approx()
+
+2015-10-15  Ronald Paloschi <ronald.paloschi@gmail.com>
+
+	* [fb0efe0] stdnum/iso6346.py, tests/test_iso6346.doctest: Fix
+	  for when ISO 6346 checksum is 10
+
+	  Bug fix for when the checksum is 10, it was compared to 0 and
+	  failed.  New doctest exposing the bug that passes after the fix
+	  is applied.
+
+	  See: https://github.com/arthurdejong/python-stdnum/pull/30
+
+2015-10-11  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [1361817] ChangeLog, MANIFEST.in, NEWS, README, docs/index.rst,
+	  docs/stdnum.at.businessid.rst, docs/stdnum.br.cnpj.rst,
+	  docs/stdnum.ch.uid.rst, docs/stdnum.ch.vat.rst,
+	  docs/stdnum.cusip.rst, docs/stdnum.de.wkn.rst,
+	  docs/stdnum.ee.ik.rst, docs/stdnum.fi.associationid.rst,
+	  docs/stdnum.fi.ytunnus.rst, docs/stdnum.gb.sedol.rst,
+	  docs/stdnum.imo.rst, docs/stdnum.isin.rst, docs/stdnum.mx.rfc.rst,
+	  docs/stdnum.pl.pesel.rst, docs/stdnum.pl.regon.rst,
+	  docs/stdnum.ru.inn.rst, setup.py, stdnum/__init__.py: Get files
+	  ready for 1.2 release
+
 2015-10-11  Arthur de Jong <arthur@arthurdejong.org>
 
 	* [1327045] getcnloc.py, stdnum/cn/loc.dat, stdnum/iban.dat,
