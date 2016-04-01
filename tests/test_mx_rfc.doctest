@@ -416,7 +416,9 @@ numbers all have valid check digits (also see the list below).
 
 The following numbers were also found online, and while they appear to be in
 use and referencing existing persons or organisations, the check digit does
-not validate.
+not validate. All of these have been checked to be valid on
+https://portalsat.plataforma.sat.gob.mx/ConsultaRFC/
+(note that this website expects ISO-8859-1 encoded numbers)
 
 >>> numbers = '''
 ...
@@ -461,7 +463,6 @@ not validate.
 ... EQU810430193
 ... FAE8509042W7
 ... FIS0008226ZA
-... FISL7809158A0
 ... FME9305279N0
 ... FSA080813655
 ... FSI900505I74
@@ -484,12 +485,10 @@ not validate.
 ... LMI0811119C5
 ... LOCB6410225K0
 ... LOMM8110052J4
-... MAEE620525S14
 ... MALC721019EV6
 ... MDI931014D37
 ... MFA840320DX0
 ... MGR070820G78
-... MOJO6101239H7
 ... MPT000824LH7
 ... MSA850111TE1
 ... NIÑ7409256U1
@@ -499,7 +498,6 @@ not validate.
 ... OMD100907CJ4
 ... OPP010927SA5
 ... OTM090818KS6
-... PAC8608084O8
 ... PEJE480914ES9
 ... PERL640914HY9
 ... PPA100118E37
@@ -523,7 +521,6 @@ not validate.
 ... TPT890516JP5
 ... VAME720111AA4
 ... WME000218GK3
-... YLO031113IP4
 ... YME9610251W6
 ...
 ... '''

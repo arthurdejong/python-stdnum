@@ -31,12 +31,16 @@ person's name, followed by their birth date and 3 check digits.
 
 The first two check digits are calculated based on the person's or company's
 full name. The last check digit is calculated over all the preceding digits
-in the number. However, it seems a lot of numbers are in use with invalid
-check digits so this test is disabled by default.
+in the number. However, it seems a lot of numbers (estimated at around 1.5%
+of all numbers) are in use with invalid check digits so this test is disabled
+by default.
 
 More information can be found at:
   http://www.sisi.org.mx/jspsi/documentos/2005/seguimiento/06101/0610100162005_065.doc
   https://es.wikipedia.org/wiki/Registro_Federal_de_Contribuyentes_(M%C3%A9xico)
+
+An online validation service is available at:
+  https://portalsat.plataforma.sat.gob.mx/ConsultaRFC/
 
 >>> validate('GODE 561231 GR8')  # personal number
 'GODE561231GR8'
