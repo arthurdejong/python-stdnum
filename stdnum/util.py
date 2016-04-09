@@ -1,7 +1,7 @@
 # util.py - common utility functions
 # coding: utf-8
 #
-# Copyright (C) 2012, 2013, 2015 Arthur de Jong
+# Copyright (C) 2012-2016 Arthur de Jong
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -178,3 +178,21 @@ def get_vat_module(cc):
     cc = cc.lower()
     cc = _cc_translations.get(cc, cc)
     return __import__('stdnum.%s' % cc, globals(), locals(), ['vat']).vat
+
+
+def get_soap_client(wsdlurl):  # pragma: no cover (no tests for this function)
+    """Get a SOAP client for performing requests."""
+    # this function isn't automatically tested because the functions using
+    # it are not automatically tested
+    try:
+        from urllib import getproxies
+    except ImportError:
+        from urllib.request import getproxies
+    # try suds first
+    try:
+        from suds.client import Client
+        return Client(wsdlurl, proxy=getproxies()).service
+    except ImportError:
+        # fall back to using pysimplesoap
+        from pysimplesoap.client import SoapClient
+        return SoapClient(wsdl=wsdlurl, proxy=getproxies())

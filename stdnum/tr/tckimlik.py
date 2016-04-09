@@ -45,7 +45,15 @@ InvalidFormat: ...
 """
 
 from stdnum.exceptions import *
-from stdnum.util import clean
+from stdnum.util import clean, get_soap_client
+
+
+tckimlik_wsdl = 'https://tckimlik.nvi.gov.tr/Service/KPSPublic.asmx?WSDL'
+"""The WSDL URL of the T.C. Kimlik validation service."""
+
+
+# a cached version of the SOAP client for Kimlik validation
+_tckimlik_client = None
 
 
 def compact(number):
@@ -83,3 +91,27 @@ def is_valid(number):
         return bool(validate(number))
     except ValidationError:
         return False
+
+
+def _get_client():  # pragma: no cover (no tests for this function)
+    """Get a SOAP client for performing T.C. Kimlik validation."""
+    # this function isn't automatically tested because the functions using
+    # it are not automatically tested
+    global _tckimlik_client
+    if _tckimlik_client is None:
+        _tckimlik_client = get_soap_client(tckimlik_wsdl)
+    return _tckimlik_client
+
+
+def check_kps(number, name, surname, birth_year):  # pragma: no cover
+    """Queries the online T.C. Kimlik validation service run by the
+    Directorate of Population and Citizenship Affairs. This returns a boolean
+    but may raise a SOAP exception for missing or invalid values."""
+    # this function isn't automatically tested because it would require
+    # network access for the tests and unnecessarily load the online service
+    number = compact(number)
+    result = _get_client().TCKimlikNoDogrula(
+        TCKimlikNo=number, Ad=name, Soyad=surname, DogumYili=birth_year)
+    if hasattr(result, 'get'):
+        return result.get('TCKimlikNoDogrulaResult')
+    return result

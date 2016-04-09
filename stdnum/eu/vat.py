@@ -40,7 +40,7 @@ that country.
 """
 
 from stdnum.exceptions import *
-from stdnum.util import clean, get_vat_module
+from stdnum.util import clean, get_vat_module, get_soap_client
 
 
 country_codes = set([
@@ -118,18 +118,7 @@ def _get_client():  # pragma: no cover (no tests for this function)
     # it are not automatically tested
     global _vies_client
     if _vies_client is None:
-        try:
-            from urllib import getproxies
-        except ImportError:
-            from urllib.request import getproxies
-        # try suds first
-        try:
-            from suds.client import Client
-            _vies_client = Client(vies_wsdl, proxy=getproxies()).service
-        except ImportError:
-            # fall back to using pysimplesoap
-            from pysimplesoap.client import SoapClient
-            _vies_client = SoapClient(wsdl=vies_wsdl, proxy=getproxies())
+        _vies_client = get_soap_client(vies_wsdl)
     return _vies_client
 
 
