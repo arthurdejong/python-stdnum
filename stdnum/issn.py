@@ -27,8 +27,9 @@ hyphen. The last digit is a check digit and may be 0-9 or X (similar to
 ISBN-10).
 
 More information:
-  https://en.wikipedia.org/wiki/International_Standard_Serial_Number
-  http://www.issn.org/
+
+* https://en.wikipedia.org/wiki/International_Standard_Serial_Number
+* http://www.issn.org/
 
 >>> validate('0024-9319')
 '00249319'

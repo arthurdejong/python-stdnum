@@ -25,10 +25,11 @@ The REGON (Rejestr Gospodarki Narodowej) is a statistical identification
 number for businesses. National entities are assigned a 9-digit number, while
 local units append 5 digits to form a 14-digit number.
 
-More information can be found at:
-  http://bip.stat.gov.pl/en/regon/
-  http://www.stat.gov.pl/bip/regon_ENG_HTML.htm
-  https://wyszukiwarkaregon.stat.gov.pl/appBIR/index.aspx
+More information:
+
+* http://bip.stat.gov.pl/en/regon/
+* http://www.stat.gov.pl/bip/regon_ENG_HTML.htm
+* https://wyszukiwarkaregon.stat.gov.pl/appBIR/index.aspx
 
 >>> validate('192598184')
 '192598184'

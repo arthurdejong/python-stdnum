@@ -28,7 +28,8 @@ This module does not currently separately validate the embedded national
 security identifier part (e.g. when it is a CUSIP).
 
 More information:
-  https://en.wikipedia.org/wiki/International_Securities_Identification_Number
+
+* https://en.wikipedia.org/wiki/International_Securities_Identification_Number
 
 >>> validate('US0378331005')
 'US0378331005'

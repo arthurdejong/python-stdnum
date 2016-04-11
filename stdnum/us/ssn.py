@@ -35,9 +35,10 @@ number (e.g. name, date of birth, etc). Another means of validation is the
 Death Master File which can be ordered on DVD.
 
 More information:
-  https://en.wikipedia.org/wiki/Social_Security_number
-  https://www.ssa.gov/employer/verifySSN.htm
-  https://en.wikipedia.org/wiki/Death_Master_File
+
+* https://en.wikipedia.org/wiki/Social_Security_number
+* https://www.ssa.gov/employer/verifySSN.htm
+* https://en.wikipedia.org/wiki/Death_Master_File
 
 >>> validate('536-90-4399')
 '536904399'

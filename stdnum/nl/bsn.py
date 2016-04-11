@@ -24,9 +24,10 @@ successor to the sofinummer. The number consists of up to 9 digits (the
 leading 0's are commonly left out) and contains a simple checksum.
 
 More information:
-  https://en.wikipedia.org/wiki/National_identification_number#Netherlands
-  https://nl.wikipedia.org/wiki/Burgerservicenummer
-  http://www.burgerservicenummer.nl/
+
+* https://en.wikipedia.org/wiki/National_identification_number#Netherlands
+* https://nl.wikipedia.org/wiki/Burgerservicenummer
+* http://www.burgerservicenummer.nl/
 
 >>> validate('1112.22.333')
 '111222333'
@@ -56,7 +57,7 @@ def compact(number):
 
 def checksum(number):
     """Calculate the checksum over the number. A valid number should have
-    a check digit of 0."""
+    a checksum of 0."""
     return (sum((9 - i) * int(n) for i, n in enumerate(number[:-1])) -
             int(number[-1])) % 11
 

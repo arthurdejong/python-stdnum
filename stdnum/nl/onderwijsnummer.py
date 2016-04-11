@@ -23,6 +23,10 @@ The onderwijsnummers (education number) is very similar to the BSN (Dutch
 national identification number) for students without a BSN. It uses a
 checksum mechanism similar to the BSN.
 
+More information:
+
+* https://nl.wikipedia.org/wiki/Onderwijsnummer
+
 >>> validate('1012.22.331')
 '101222331'
 >>> validate('100252333')

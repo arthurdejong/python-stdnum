@@ -25,8 +25,9 @@ alphanumeric code where the first six characters identify the issuer,
 followed by two digits that identify and a check digit.
 
 More information:
-  https://en.wikipedia.org/wiki/CUSIP
-  https://www.cusip.com/
+
+* https://en.wikipedia.org/wiki/CUSIP
+* https://www.cusip.com/
 
 >>> validate('DUS0421C5')
 'DUS0421C5'

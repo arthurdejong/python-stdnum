@@ -27,9 +27,10 @@ protected with a simple checksum.
 This module only supports the "new" format that was introduced in 2011 which
 completely replaced the "old" 6-digit format in 2014.
 
-More information is available at:
-  https://www.uid.admin.ch/
-  https://de.wikipedia.org/wiki/Unternehmens-Identifikationsnummer
+More information:
+
+* https://www.uid.admin.ch/
+* https://de.wikipedia.org/wiki/Unternehmens-Identifikationsnummer
 
 >>> validate('CHE-100.155.212')
 'CHE100155212'

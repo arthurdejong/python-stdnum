@@ -24,9 +24,10 @@ The Turkish Identification Number (Türkiye Cumhuriyeti Kimlik Numarası) is a
 unique personal identification number assigned to every citizen of Turkey.
 The number consists of 11 digits and the last two digits are check digits.
 
-More information can be found at:
-  https://en.wikipedia.org/wiki/Turkish_Identification_Number
-  https://tckimlik.nvi.gov.tr/
+More information:
+
+* https://en.wikipedia.org/wiki/Turkish_Identification_Number
+* https://tckimlik.nvi.gov.tr/
 
 >>> validate('17291716060')
 '17291716060'

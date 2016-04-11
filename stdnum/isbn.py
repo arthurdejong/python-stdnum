@@ -31,8 +31,9 @@ An ISBN has the following components:
 * a check digit
 
 More information:
-  https://en.wikipedia.org/wiki/International_Standard_Book_Number
-  https://www.isbn-international.org/range_file_generation
+
+* https://en.wikipedia.org/wiki/International_Standard_Book_Number
+* https://www.isbn-international.org/range_file_generation
 
 This module also offers functions for converting to ISBN-13 and formatting
 based on how the number should be split into a bookland code, group

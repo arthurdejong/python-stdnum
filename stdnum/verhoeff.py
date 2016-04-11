@@ -24,8 +24,9 @@ The Verhoeff algorithm is a checksum algorithm that should catch most common
 and multiplications and as a result is more complex than the Luhn algorithm.
 
 More information:
-  https://en.wikipedia.org/wiki/Verhoeff_algorithm
-  https://en.wikibooks.org/wiki/Algorithm_Implementation/Checksums/Verhoeff_Algorithm
+
+* https://en.wikipedia.org/wiki/Verhoeff_algorithm
+* https://en.wikibooks.org/wiki/Algorithm_Implementation/Checksums/Verhoeff_Algorithm
 
 The module provides the checksum() function to calculate the Verhoeff
 checksum a calc_check_digit() function to generate a check digit that can be

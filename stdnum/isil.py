@@ -38,9 +38,10 @@ may be some validation possible with the second parts (some agencies provide
 web services for validation) but there is no common format to these services.
 
 More information:
-  https://en.wikipedia.org/wiki/ISBT_128
-  http://biblstandard.dk/isil/
-  http://www.iso.org/iso/catalogue_detail?csnumber=57332
+
+* https://en.wikipedia.org/wiki/ISBT_128
+* http://biblstandard.dk/isil/
+* http://www.iso.org/iso/catalogue_detail?csnumber=57332
 
 >>> validate('IT-RM0267')
 'IT-RM0267'

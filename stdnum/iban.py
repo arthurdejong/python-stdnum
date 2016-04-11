@@ -28,8 +28,9 @@ Some countries may also use checksum algorithms within their number but
 this is currently not checked by this number.
 
 More information:
-  https://en.wikipedia.org/wiki/International_Bank_Account_Number
-  https://www.swift.com/products_services/bic_and_iban_format_registration_iban_format_r
+
+* https://en.wikipedia.org/wiki/International_Bank_Account_Number
+* https://www.swift.com/products_services/bic_and_iban_format_registration_iban_format_r
 
 >>> validate('GR16 0110 1050 0000 1054 7023 795')
 'GR1601101050000010547023795'

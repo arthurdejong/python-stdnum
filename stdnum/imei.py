@@ -25,7 +25,8 @@ check digit is included) or 16 digits (IMEISV) long. The check digit is
 validated using the Luhn algorithm.
 
 More information:
-  https://en.wikipedia.org/wiki/International_Mobile_Equipment_Identity
+
+* https://en.wikipedia.org/wiki/International_Mobile_Equipment_Identity
 
 >>> validate('35686800-004141-20')
 '3568680000414120'

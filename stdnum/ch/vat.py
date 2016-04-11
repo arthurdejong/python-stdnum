@@ -28,9 +28,10 @@ ajoutée in French), "IVA" (Imposta sul valore aggiunto in Italian) or "TPV"
 This module only supports the "new" format that was introduced in 2011 which
 completely replaced the "old" 6-digit format in 2014.
 
-More information is available at:
-  https://www.ch.ch/en/value-added-tax-number-und-business-identification-number/
-  https://www.uid.admin.ch/
+More information:
+
+* https://www.ch.ch/en/value-added-tax-number-und-business-identification-number/
+* https://www.uid.admin.ch/
 
 >>> validate('CHE-107.787.577 IVA')
 'CHE107787577IVA'
