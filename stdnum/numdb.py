@@ -199,6 +199,6 @@ def get(name):
     if name not in _open_databases:
         import codecs
         reader = codecs.getreader('utf-8')
-        db = read(reader(resource_stream(__name__, name + '.dat')))
-        _open_databases[name] = db
+        with reader(resource_stream(__name__, name + '.dat')) as fp:
+            _open_databases[name] = db = read(fp)
     return _open_databases[name]
