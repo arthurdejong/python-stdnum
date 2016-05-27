@@ -46,7 +46,7 @@ master_doc = 'index'
 
 # General information about the project.
 project = u'python-stdnum'
-copyright = u'2013, Arthur de Jong'
+copyright = u'2013, Arthur de Jong. 2016, Yoann Aubineau'
 
 # The version info for the project you're documenting, acts as replacement for
 # |version| and |release|, also used in various other places throughout the

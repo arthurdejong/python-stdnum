@@ -51,6 +51,7 @@ Currently this package supports the following formats:
  * HETU (Henkilötunnus, Finnish personal identity code)
  * Y-tunnus (Finnish business identifier)
  * SIREN (a French company identification number)
+ * SIRET (a French company's establishment identification number)
  * n° TVA (taxe sur la valeur ajoutée, French VAT number)
  * SEDOL number (Stock Exchange Daily Official List number)
  * VAT (United Kingdom (and Isle of Man) VAT registration number)
