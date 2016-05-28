@@ -1,6 +1,6 @@
 # vat.py - functions for handling Irish VAT numbers
 #
-# Copyright (C) 2012, 2013 Arthur de Jong
+# Copyright (C) 2012-2016 Arthur de Jong
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -17,10 +17,11 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 # 02110-1301 USA
 
-"""VAT (Irish VAT number).
+"""VAT (Irish tax reference number).
 
-The Irish VAT number consists of 8 digits. The last digit is a check
-letter, the second digit may be a number, a letter, "+" or "*".
+The Irish VAT number consists of 8 or 9 digits. The number is either 7 digits
+and 1 letter (optionally followed by a W for married women), 7 digits and 2
+letters, or 6 digits and 2 letters or symbols (in second and last position).
 
 >>> validate('IE 6433435F')  # pre-2013 format
 '6433435F'
@@ -36,6 +37,8 @@ InvalidChecksum: ...
 Traceback (most recent call last):
     ...
 InvalidFormat: ...
+>>> convert('1F23456T')
+'0234561T'
 """
 
 from stdnum.exceptions import *
@@ -51,14 +54,16 @@ def compact(number):
     return number
 
 
+_alphabet = 'WABCDEFGHIJKLMNOPQRSTUV'
+
+
 def calc_check_digit(number):
     """Calculate the check digit. The number passed should not have the
     check digit included."""
-    alphabet = 'WABCDEFGHIJKLMNOPQRSTUV'
     number = compact(number).zfill(7)
-    return alphabet[(
+    return _alphabet[(
         sum((8 - i) * int(n) for i, n in enumerate(number[:7])) +
-        9 * alphabet.index(number[7:])) % 23]
+        9 * _alphabet.index(number[7:])) % 23]
 
 
 def validate(number):
@@ -67,14 +72,16 @@ def validate(number):
     number = compact(number)
     if not number[:1].isdigit() or not number[2:7].isdigit():
         raise InvalidFormat()
+    if not all(x in _alphabet for x in number[7:]):
+        raise InvalidFormat()
     if len(number) not in (8, 9):
         raise InvalidLength()
     if number[:7].isdigit():
-        # new system
+        # new system (7 digits followed by 1 or 2 letters)
         if number[7] != calc_check_digit(number[:7] + number[8:]):
             raise InvalidChecksum()
     elif number[1] in 'ABCDEFGHIJKLMNOPQRSTUVWXYZ+*':
-        # old system
+        # old system (second character is a letter or symbol)
         if number[7] != calc_check_digit(number[2:7] + number[0]):
             raise InvalidChecksum()
     else:
@@ -89,3 +96,13 @@ def is_valid(number):
         return bool(validate(number))
     except ValidationError:
         return False
+
+
+def convert(number):
+    """Convert an "old" style 8-digit VAT number where the second character
+    is a letter to the new 8-digit format where only the last digit is a
+    character."""
+    number = compact(number)
+    if len(number) == 8 and not number[1].isdigit():
+        number = '0' + number[2:7] + number[0] + number[7:]
+    return number
