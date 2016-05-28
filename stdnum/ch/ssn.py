@@ -1,6 +1,7 @@
 # vat.py - functions for handling Swiss social security numbers
 #
 # Copyright (C) 2014 Denis Krienbuehl
+# Copyright (C) 2016 Arthur de Jong
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -19,12 +20,10 @@
 
 """Swiss social security number ("Sozialversicherungsnummer").
 
-Also known as "Neue AHV Nummer".
+Also known as "Neue AHV Nummer". The Swiss Sozialversicherungsnummer is used
+to identify individuals for taxation and pension purposes.
 
-The Swiss Sozialversicherungsnummer is used to identify indivduals for taxation
-and pension purposes.
-
-The number is validated using EAN-13, though dashes are substitued for dots.
+The number is validated using EAN-13, though dashes are substituted for dots.
 
 >>> compact('756.9217.0769.85')
 '7569217076985'
@@ -40,8 +39,8 @@ Traceback (most recent call last):
 InvalidChecksum: ...
 """
 
-from stdnum.exceptions import ValidationError
 from stdnum import ean
+from stdnum.exceptions import *
 from stdnum.util import clean
 
 
@@ -58,9 +57,12 @@ def format(number):
 
 
 def validate(number):
-    """Checks to see if the number provided is a valid
-    Swiss Sozialversicherungsnummer."""
-    return ean.validate(compact(number))
+    """Checks to see if the number provided is a valid Swiss
+    Sozialversicherungsnummer."""
+    number = compact(number)
+    if len(number) != 13:
+        raise InvalidLength()
+    return ean.validate(number)
 
 
 def is_valid(number):
