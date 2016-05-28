@@ -162,7 +162,7 @@ def get_module_description(module):
     """Return a description of the number."""
     doc = pydoc.splitdoc(pydoc.getdoc(module))[1]
     # remove the doctests
-    return _strip_doctest_re.sub('', doc[1]).strip(),
+    return _strip_doctest_re.sub('', doc).strip()
 
 
 def get_module_list():
