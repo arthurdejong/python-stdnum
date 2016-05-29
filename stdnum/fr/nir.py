@@ -54,19 +54,67 @@ def compact(number):
 def validate(number):
     """Checks to see if the number provided is valid. This checks the length
     and check digit."""
-    number = compact(number)
-    if not number.isdigit():
+    number = compact(number).upper()
+    if not (number.isdigit() or (number[:5].isdigit() and number[7:].isdigit()
+                                 and number[5:7] in {'2A', '2B'})):
         raise InvalidFormat()
     if len(number) != 15:
         raise InvalidLength()
-    if (97 - (int(number[:13]) % 97)) != int(number[13:]):
+    if int(number[:1]) not in {1, 2,
+                               3, 4, 7, 8}:  # according to Wikipedia
+        raise InvalidFormat()
+    year = int(number[1:3])
+    month = int(number[3:5])
+    if month < 1 or (month > 12
+                     and month != 62 and month != 63):  # unknown months
+        raise InvalidFormat()
+    department = number[5:7]
+    if department in {'2A', '2B'}:
+        # Corsica after 1976-01-01
+        pass  # FIXME: check municipality code
+    else:
+        department = int(department)
+        if (department >= 1 and department <= 95):
+            # metropolitan France
+            # Algeria and Morroco before 1964
+            pass  # FIXME: check municipality code
+        elif department == 96 and year < 65:
+            # Tunisia before 1964
+            pass  # FIXME: check municipality code
+        elif department == 99:
+            # foreign countries
+            pass  # FIXME: check country code
+        elif department in {97, 98}:
+            # overseas territory
+            department = int(number[5:8])
+            STATUTORY_EXCEPTION = {
+                984,  # Terres australes et antarctiques francaises
+                986,  # Wallis-et-Futuna
+                987,  # Polynesie francaise
+                988,  # Nouvelle-Caledonie
+                989,  # Ile de Clipperton
+            }
+            if ((department >= 971 and department <= 978) or
+                    department in STATUTORY_EXCEPTION):
+                pass  # FIXME: check municipality code
+            else:
+                raise InvalidFormat()
+        else:
+            raise InvalidFormat()
+    if department == '2A':
+        s = number[:5] + '19' + number[7:13]
+    elif department == '2B':
+        s = number[:5] + '18' + number[7:13]
+    else:
+        s = number[:13]
+    if (97 - (int(s) % 97)) != int(number[13:]):
         raise InvalidChecksum()
     return number
 
 
 def is_valid(number):
     """Checks to see if the number provided is valid. This checks the length
-    and check digit."""
+    and check digits."""
     try:
         return bool(validate(number))
     except ValidationError:

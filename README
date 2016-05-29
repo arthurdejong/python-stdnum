@@ -110,6 +110,8 @@ Currently this package supports the following formats:
  * RTN (Routing transport number)
  * SSN (U.S. Social Security Number)
  * TIN (U.S. Taxpayer Identification Number)
+ * NIR (Numero d'inscription au répertoire national d'identification des
+        personnes physiques, French personal identification number)
 
 Furthermore a number of generic check digit algorithms are available:
 
