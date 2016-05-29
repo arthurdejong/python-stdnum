@@ -48,25 +48,34 @@ from stdnum.util import clean
 def compact(number):
     """Convert the number to the minimal representation. This strips the
     number of any valid separators and removes surrounding whitespace."""
-    return clean(number, ' .').strip()
+    return clean(number, ' .').strip().upper()
 
 
 def validate(number):
     """Checks to see if the number provided is valid. This checks the length
-    and check digit."""
+    and check digits."""
     number = compact(number)
-    if not number.isdigit():
+    if not (number.isdigit() or (
+                number[:5].isdigit() and number[7:].isdigit() and
+                number[5:7] in ('2A', '2B'))):
         raise InvalidFormat()
     if len(number) != 15:
         raise InvalidLength()
-    if (97 - (int(number[:13]) % 97)) != int(number[13:]):
+    department = number[5:7]
+    if department == '2A':
+        s = number[:5] + '19' + number[7:13]
+    elif department == '2B':
+        s = number[:5] + '18' + number[7:13]
+    else:
+        s = number[:13]
+    if (97 - (int(s) % 97)) != int(number[13:]):
         raise InvalidChecksum()
     return number
 
 
 def is_valid(number):
     """Checks to see if the number provided is valid. This checks the length
-    and check digit."""
+    and check digits."""
     try:
         return bool(validate(number))
     except ValidationError:
