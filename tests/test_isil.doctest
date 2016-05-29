@@ -1,0 +1,404 @@
+test_isil.doctest - more detailed doctests for the stdnum.isil module
+
+Copyright (C) 2016 Arthur de Jong
+
+This library is free software; you can redistribute it and/or
+modify it under the terms of the GNU Lesser General Public
+License as published by the Free Software Foundation; either
+version 2.1 of the License, or (at your option) any later version.
+
+This library is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+Lesser General Public License for more details.
+
+You should have received a copy of the GNU Lesser General Public
+License along with this library; if not, write to the Free Software
+Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
+02110-1301 USA
+
+
+This file contains more detailed doctests for the stdnum.isil module. It
+tries to validate a number of numbers that have been found online.
+
+>>> from stdnum import isil
+>>> from stdnum.exceptions import *
+
+
+The number should start with a valid country code or prefix:
+
+>>> isil.validate('ZZ-1234')
+Traceback (most recent call last):
+    ...
+InvalidComponent: ...
+
+
+The number should not be too long:
+
+>>> isil.validate('WW-RM026712423345334534512334534545')
+Traceback (most recent call last):
+    ...
+InvalidLength: ...
+
+
+A number with an unknown agency should not be upper-cased:
+
+>>> isil.format('zz-RM0267')
+'zz-RM0267'
+
+
+These have been found online and should all be valid numbers.
+
+>>> numbers = '''
+...
+... AT-FHJ-BG
+... AT-FHK
+... AT-FHK-FE
+... AT-FHS-K
+... AT-GEOL
+... AT-HGMW
+... AT-KWPU
+... AT-LAST
+... AT-LBB
+... AT-NMW-Z
+... AT-NOeLB
+... AT-OBV
+... AT-OeAW-BA
+... AT-PHK
+... AT-PHS
+... AT-PHST
+... AT-PHT
+... AT-PHV
+... AT-STICHWORT
+... AT-UBG-SH
+... AT-UBGL
+... AT-UBI-HB
+... AT-UBL
+... AT-UBMG-HB
+... AT-UBMS
+... AT-UBMS-MUS
+... AT-UBMUL-FBG
+... AT-UBMUL-HB
+... AT-UBMUW-360
+... AT-UBMUW-400
+... AT-UBMW
+... AT-UBTUG-HB
+... AT-UBVUW-UB
+... AT-UBW
+... AT-UBWW
+... AT-UBWW-874
+... AT-VMW
+... AT-WBR
+... AT-WHK
+... AT-WSTLA-B
+...
+... AU-ABC:ARC
+... AU-ABC:PL
+... AU-ABC:RN
+... AU-ANL:AJA
+... AU-ANU:ADBO
+... AU-ANU:IR
+... AU-ANU:ON
+... AU-NABC
+... AU-NABM
+... AU-NACON
+... AU-NACU:AA
+... AU-NAIM
+... AU-NEF
+... AU-NJHS
+... AU-NNCU:A
+... AU-NRNA
+... AU-NU
+... AU-NU:DF
+... AU-NUWS
+... AU-QMINT
+... AU-QU
+... AU-SMUA
+... AU-SUSA
+... AU-TS:RL
+... AU-TU
+... AU-VAAPM
+... AU-VACMU
+... AU-VAGH
+... AU-VAHRI
+... AU-VAMD
+... AU-VANDS
+... AU-VDU
+... AU-VEMU
+... AU-VLGA
+... AU-VPM
+... AU-VS:NAH
+... AU-VSWT
+... AU-VU
+... AU-WAHB
+... AU-XACA
+...
+... BE-A0510
+... BE-A3004
+... BE-A5000
+... BE-A5001
+... BE-A5002
+... BE-AAR00
+... BE-ALN00
+... BE-ANN03
+... BE-ANT01
+... BE-BDE00
+... BE-BEE00
+... BE-BRL06
+... BE-BRL07
+... BE-BRL10
+... BE-BUE01
+... BE-DIT00
+... BE-DNE00
+... BE-DPE00
+... BE-EKN00
+... BE-GAN00
+... BE-GET02
+... BE-HCT00
+... BE-HED00
+... BE-HEN00
+... BE-HES01
+... BE-JEE00
+... BE-KLT00
+... BE-KNE00
+... BE-KRG00
+... BE-LLE00
+... BE-LNL00
+... BE-LUK01
+... BE-LUN00
+... BE-MSE00
+... BE-NET00
+... BE-OSE00
+... BE-RIT00
+... BE-SJS01
+... BE-ZEE00
+... BE-ZUE00
+...
+... CA-QMCB
+...
+... CH-000050-X
+... CH-000051-7
+... CH-000084-8
+... CH-000190-0
+... CH-000244-3
+... CH-000422-7
+... CH-000423-4
+... CH-000425-9
+... CH-000560-3
+... CH-000886-6
+... CH-001008-0
+... CH-001010-9
+... CH-001057-5
+... CH-001059-X
+... CH-001113-6
+... CH-001243-0
+... CH-001283-6
+... CH-001350-0
+... CH-001539-4
+... CH-001631-1
+... CH-001644-X
+... CH-001645-7
+... CH-001646-4
+... CH-001648-9
+... CH-001649-6
+... CH-001654-6
+... CH-001666-7
+... CH-001669-9
+... CH-001760-9
+... CH-001800-6
+... CH-001815-9
+... CH-001821-6
+... CH-001824-8
+... CH-001825-5
+... CH-001832-X
+... CH-001839-0
+... CH-001844-0
+... CH-001845-8
+... CH-001846-5
+... CH-001851-5
+...
+... CY-02-CUT
+...
+... DE-101c
+... DE-16-18
+... DE-1769
+... DE-1786
+... DE-180-1-2
+... DE-1834h
+... DE-1834k
+... DE-1869
+... DE-188-878
+... DE-188-e
+... DE-1886
+... DE-1935
+... DE-1939
+... DE-1988
+... DE-1996
+... DE-2300
+... DE-2343
+... DE-360
+... DE-379
+... DE-38-230
+... DE-412
+... DE-416
+... DE-450
+... DE-465M-15
+... DE-469
+... DE-46a
+... DE-570
+... DE-6-235
+... DE-6-271
+... DE-6-321
+... DE-7-040
+... DE-7-061
+... DE-718
+... DE-758
+... DE-781
+... DE-82-204
+... DE-82-219
+... DE-Bor4
+... DE-Kn184
+... DE-Tue120
+...
+... GB-NiBfQU
+... GB-StAlCLS
+... GB-StDnUAD
+... GB-StGlU
+... GB-StPaUWSP
+... GB-UK-AbCCL
+... GB-UK-DhCL
+... GB-UK-LoRCN
+... GB-UK-WiU
+... GB-UkBrCC
+... GB-UkBsBC
+... GB-UkCU-TRH
+... GB-UkCmUG
+... GB-UkCoI
+... GB-UkCvUL
+... GB-UkCyUK
+... GB-UkElC
+... GB-UkExU
+... GB-UkFlBUFL
+... GB-UkHsBUUC
+... GB-UkIfBRL
+... GB-UkLRCM
+... GB-UkLUC
+... GB-UkLoBS
+... GB-UkLoMdU
+... GB-UkLoSTAC
+... GB-UkLuBC
+... GB-UkMaUHSM
+... GB-UkNrSTB
+... GB-UkOlOLS
+... GB-UkRlWC
+... GB-UkSbWC-T
+... GB-UkScaSH
+... GB-UkSfCL
+... GB-UkSfSSSH
+... GB-UkSofDA
+... GB-UkTeS
+... GB-UkWbSWB
+... GB-UkWfC
+... GB-WlCaUW
+...
+... IT-RM0267
+...
+... NL-04-0041-000
+... NL-AlSARM
+... NL-AsdUvA
+... NL-AsnDA
+... NL-CoGC
+... NL-DdvHVA
+... NL-DtAD
+... NL-DtHHD
+... NL-EhvRHCE
+... NL-EmnGE
+... NL-FwGF
+... NL-GnADNG
+... NL-GnGRA
+... NL-GnPG
+... NL-GnUMG
+... NL-HAMuscom
+... NL-HaKV
+... NL-HaNIMH
+... NL-HaNRK
+... NL-HlGH
+... NL-HnWFA
+... NL-HvsSAGV
+... NL-KrdGA
+... NL-LdnRMV
+... NL-LnsGDM
+... NL-LwPF
+... NL-MpGM
+... NL-MssHVM
+... NL-MtmGM
+... NL-NmRAN
+... NL-OmnHKO
+... NL-OmnOO
+... NL-OmsVHO
+... NL-RtEUR
+... NL-RtSA
+... NL-SelGV
+... NL-SloGS
+... NL-VbGALV
+... NL-WtGAW
+... NL-WtslGT
+... NL-ZhGZ
+... Nl-GdSAMH
+...
+... OCLC-ABI
+... OCLC-ATNHK
+... OCLC-ATQCO
+... OCLC-ATVMV
+... OCLC-BEMCH
+... OCLC-BRI
+... OCLC-CKI
+... OCLC-CSF
+... OCLC-DEKNV
+... OCLC-EMSBC
+... OCLC-ENC
+... OCLC-EZU
+... OCLC-FLNSW
+... OCLC-FNL
+... OCLC-GYR
+... OCLC-I8S
+... OCLC-IDT
+... OCLC-ILW
+... OCLC-JAKUC
+... OCLC-JXE
+... OCLC-JYY
+... OCLC-KW5
+... OCLC-LABMH
+... OCLC-MLBVL
+... OCLC-MSL
+... OCLC-NEZH8
+... OCLC-OME
+... OCLC-QBA
+... OCLC-QP7
+... OCLC-SMP
+... OCLC-SVZ
+... OCLC-TXCLY
+... OCLC-TY7
+... OCLC-U9V
+... OCLC-UDU
+... OCLC-WK6
+... OCLC-WYEMB
+... OCLC-XOH
+... OCLC-YA6
+... OCLC-YEJ
+...
+... US-DLC
+... US-InU-Mu
+... US-MdBJ-W
+...
+... '''
+>>> [x for x in numbers.splitlines() if x and not isil.is_valid(x)]
+[]
+
+
+These have been found online but seem invalid:
+
+... OCLC-B#P
+... OCLC-LT$
+... OCLC-RE#
+... OCLC-RG$
