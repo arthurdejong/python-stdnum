@@ -127,6 +127,7 @@ Available formats
    fi.hetu
    fi.ytunnus
    fr.siren
+   fr.siret
    fr.tva
    gb.sedol
    gb.vat
