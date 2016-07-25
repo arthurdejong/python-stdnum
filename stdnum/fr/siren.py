@@ -50,7 +50,7 @@ from stdnum.util import clean
 def compact(number):
     """Convert the number to the minimal representation. This strips the
     number of any valid separators and removes surrounding whitespace."""
-    return clean(number, ' ').strip()
+    return clean(number, ' .').strip()
 
 
 def validate(number):

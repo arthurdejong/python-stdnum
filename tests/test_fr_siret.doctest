@@ -1,0 +1,85 @@
+test_fr_siret.doctest - more detailed doctests for the stdnum.fr.siret module
+
+Copyright (C) 2016 Arthur de Jong
+
+This library is free software; you can redistribute it and/or
+modify it under the terms of the GNU Lesser General Public
+License as published by the Free Software Foundation; either
+version 2.1 of the License, or (at your option) any later version.
+
+This library is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+Lesser General Public License for more details.
+
+You should have received a copy of the GNU Lesser General Public
+License along with this library; if not, write to the Free Software
+Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
+02110-1301 USA
+
+
+This file contains more detailed doctests for the stdnum.fr.siret module.
+
+>>> from stdnum.fr import siret
+>>> from stdnum.exceptions import *
+
+
+These have been found online and should all be valid numbers.
+
+>>> numbers = '''
+...
+... 0 5 7 8 1 3 1 3 1 0 0 0 2 6
+... 1 800 700 39 00 110
+... 2 00 03 00 13 000 11
+... 2 101 005 33 000 12
+... 2 777 000 43 000 15
+... 3 1 0 1 8 8 4 2 0 00 0 8 0
+... 3 12 494 529 000 34
+... 3 24 34 54 20 000 40
+... 30206838200050
+... 314 901 323 00043
+... 31719324100013
+... 32228438100017
+... 32650798500058
+... 32738082000032
+... 329.338.88300153
+... 32929695800039
+... 33770320100034
+... 34530016400018
+... 380 321 430 00023
+... 38446899700034
+... 38536958200023
+... 389 011 529 00036
+... 38981890700203
+... 39039475700020
+... 39102766100050
+... 4 0 0 9 0 8 5 0 5 0 0 0 11
+... 4 0 3 3 1 4 6 6 9 0 0 0 4 1
+... 4 0 9 0 8 5 2 1 4 0 0 0 2 4
+... 4 2 0 3 0 9 6 2 7 0 0 0 3 2
+... 4 4 3 4 8 9 2 7 3 0 0 0 1 3
+... 4 4 3 5 4 9 8 7 8 0 0 0 4 1
+... 4 8 2 7 8 1 9 11 0 0 0 11
+... 40300300700032
+... 44126652500019
+... 44142526100019
+... 44796433900017
+... 479 461 675 00049
+... 5 12 326 653 000 15
+... 5 17 758 173 000 10
+... 50397442000021
+... 513 133 637 000 35
+... 52524288900042
+... 542 097 324 0006 6
+... 652 059 213 00023
+... 7 7821 0526 00019
+... 775.563.232.00104
+... 778 239 798 000 11
+... 79068156300017
+... 8 1 0 2 4 7 3 8 7 0 0 0 1 4
+... 8 1002665800015
+... 8 21 114 55000014
+...
+... '''
+>>> [x for x in numbers.splitlines() if x and not siret.is_valid(x)]
+[]

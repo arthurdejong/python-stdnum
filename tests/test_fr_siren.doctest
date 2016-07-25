@@ -1,0 +1,47 @@
+test_fr_siren.doctest - more detailed doctests for the stdnum.fr.siren module
+
+Copyright (C) 2016 Arthur de Jong
+
+This library is free software; you can redistribute it and/or
+modify it under the terms of the GNU Lesser General Public
+License as published by the Free Software Foundation; either
+version 2.1 of the License, or (at your option) any later version.
+
+This library is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+Lesser General Public License for more details.
+
+You should have received a copy of the GNU Lesser General Public
+License along with this library; if not, write to the Free Software
+Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
+02110-1301 USA
+
+
+This file contains more detailed doctests for the stdnum.fr.siren module.
+
+>>> from stdnum.fr import siren
+>>> from stdnum.exceptions import *
+
+
+These have been found online and should all be valid numbers.
+
+>>> numbers = '''
+...
+... 217601 145
+... 3 1 0 1 8 8 4 2 0
+... 350792008
+... 480318245
+... 500 674 056
+... 529290488
+... 738 205 269
+... 752136200
+... 752490334
+... 775 699 309
+... 775672272
+... 776 944 944
+... 820043784
+...
+... '''
+>>> [x for x in numbers.splitlines() if x and not siren.is_valid(x)]
+[]

@@ -38,6 +38,8 @@ InvalidChecksum: ...
 '44 732 829 320'
 >>> to_tva('73282932000074')
 '44732829320'
+>>> format('73282932000074')
+'732 829 320 00074'
 """
 
 from stdnum import luhn
@@ -49,7 +51,7 @@ from stdnum.util import clean
 def compact(number):
     """Convert the number to the minimal representation. This strips the
     number of any valid separators and removes surrounding whitespace."""
-    return clean(number, ' ').strip()
+    return clean(number, ' .').strip()
 
 
 def validate(number):
@@ -61,6 +63,7 @@ def validate(number):
     if len(number) != 14:
         raise InvalidLength()
     luhn.validate(number)
+    siren.validate(number[:9])
     return number
 
 
@@ -95,3 +98,9 @@ def to_tva(number):
     error checking digits.
     """
     return siren.to_tva(to_siren(number))
+
+
+def format(number, separator=' '):
+    """Reformat the passed number to the standard format."""
+    number = compact(number)
+    return separator.join((number[0:3], number[3:6], number[6:9], number[9:]))
