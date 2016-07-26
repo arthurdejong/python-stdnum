@@ -1,6 +1,8 @@
 # nir.py - functions for handling French NIR numbers
+# coding: utf-8
 #
 # Copyright (C) 2016 Dimitri Papadopoulos
+# Copyright (C) 2016 Arthur de Jong
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -19,17 +21,23 @@
 
 """NIR (French personal identification number).
 
-The NIR (Numero d'Inscription au Repertoire national d'identification
-des personnes physiques) is a 15 digit number used to identify persons
-in France. All persons born in France are registered in the Repertoire
-national d'identification des personnes physiques (RNIPP) and assigned
-a NIR which consists of 15 digits where the two final digits are check
-digits. The NIR is used by French social security and is popularly known
-as the "social security number".
+The NIR (Numero d'Inscription au Repertoire national d'identification des
+personnes physiques) is used to identify persons in France. It is popularly
+known as the "social security number" and sometimes referred to as an INSEE
+number. All persons born in France are registered in the Repertoire national
+d'identification des personnes physiques (RNIPP) and assigned a NIR.
+
+The number consists of 15 digits: the first digit indicates the gender,
+followed by 2 digits for the year or birth, 2 for the month of birth, 5 for
+the location of birth (COG), 3 for a serial and 2 check digits.
 
 More information:
 
 * http://www.insee.fr/en/methodes/default.asp?page=definitions/nir.htm
+* https://en.wikipedia.org/wiki/INSEE_code
+* http://resoo.org/docs/_docs/regles-numero-insee.pdf
+* https://fr.wikipedia.org/wiki/Numéro_de_sécurité_sociale_en_France
+* http://xml.insee.fr/schema/nir.html
 
 >>> validate('2 95 10 99 126 111 93')
 '295109912611193'
@@ -37,6 +45,10 @@ More information:
 Traceback (most recent call last):
     ...
 InvalidChecksum: ...
+>>> validate('253072B07300470')
+'253072B07300470'
+>>> validate('253072A07300443')
+'253072A07300443'
 >>> format('295109912611193')
 '2 95 10 99 126 111 93'
 """
@@ -51,6 +63,16 @@ def compact(number):
     return clean(number, ' .').strip().upper()
 
 
+def calc_check_digits(number):
+    """Calculate the check digits for the number."""
+    department = number[5:7]
+    if department == '2A':
+        number = number[:5] + '19' + number[7:]
+    elif department == '2B':
+        number = number[:5] + '18' + number[7:]
+    return '%02d' % (97 - (int(number[:13]) % 97))
+
+
 def validate(number):
     """Checks to see if the number provided is valid. This checks the length
     and check digits."""
@@ -61,14 +83,7 @@ def validate(number):
         raise InvalidFormat()
     if len(number) != 15:
         raise InvalidLength()
-    department = number[5:7]
-    if department == '2A':
-        s = number[:5] + '19' + number[7:13]
-    elif department == '2B':
-        s = number[:5] + '18' + number[7:13]
-    else:
-        s = number[:13]
-    if (97 - (int(s) % 97)) != int(number[13:]):
+    if calc_check_digits(number) != number[13:]:
         raise InvalidChecksum()
     return number
 
