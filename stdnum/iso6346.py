@@ -28,6 +28,10 @@ digit), the owner, a country code, a size, type and equipment category as well
 as any operational marks. The standard is managed by the International
 Container Bureau (BIC).
 
+More information:
+
+* http://en.wikipedia.org/wiki/ISO_6346
+
 >>> validate('csqu3054383')
 'CSQU3054383'
 >>> validate('CSQU3054384')
