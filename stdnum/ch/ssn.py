@@ -1,4 +1,4 @@
-# vat.py - functions for handling Swiss social security numbers
+# ssn.py - functions for handling Swiss social security numbers
 #
 # Copyright (C) 2014 Denis Krienbuehl
 # Copyright (C) 2016 Arthur de Jong
@@ -25,10 +25,11 @@ to identify individuals for taxation and pension purposes.
 
 The number is validated using EAN-13, though dashes are substituted for dots.
 
->>> compact('756.9217.0769.85')
-'7569217076985'
->>> format('7569217076985')
-'756.9217.0769.85'
+More information:
+
+* https://en.wikipedia.org/wiki/National_identification_number#Switzerland
+* https://de.wikipedia.org/wiki/Sozialversicherungsnummer#Versichertennummer
+
 >>> validate('7569217076985')
 '7569217076985'
 >>> validate('756.9217.0769.85')
@@ -37,6 +38,12 @@ The number is validated using EAN-13, though dashes are substituted for dots.
 Traceback (most recent call last):
     ...
 InvalidChecksum: ...
+>>> validate('123.4567.8910.19')
+Traceback (most recent call last):
+    ...
+InvalidComponent: ...
+>>> format('7569217076985')
+'756.9217.0769.85'
 """
 
 from stdnum import ean
@@ -62,6 +69,8 @@ def validate(number):
     number = compact(number)
     if len(number) != 13:
         raise InvalidLength()
+    if not number.startswith('756'):
+        raise InvalidComponent()
     return ean.validate(number)
 
 
