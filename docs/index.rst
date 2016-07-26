@@ -74,6 +74,7 @@ Generic check digit algorithms
 .. autosummary::
    :toctree:
 
+   damm
    iso7064
    luhn
    verhoeff
@@ -126,8 +127,12 @@ Available formats
    fi.associationid
    fi.hetu
    fi.ytunnus
+   fr.nif
+   fr.nir
    fr.siren
+   fr.siret
    fr.tva
+   gb.nhs
    gb.sedol
    gb.vat
    gr.vat
@@ -179,6 +184,7 @@ Available formats
    sk.dph
    sk.rc
    sm.coe
+   tr.tckimlik
    us.atin
    us.ein
    us.itin

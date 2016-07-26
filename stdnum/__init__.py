@@ -66,8 +66,12 @@ Currently this package supports the following formats:
 * fi.associationid: Finnish Association Identifier
 * fi.hetu: HETU (Henkilötunnus, Finnish personal identity code)
 * fi.ytunnus: Y-tunnus (Finnish business identifier)
+* fr.nif: NIF (Numéro d'Immatriculation Fiscale, French tax identification number)
+* fr.nir: NIR (French personal identification number)
 * fr.siren: SIREN (a French company identification number)
+* fr.siret: SIRET (a French company establishment identification number)
 * fr.tva: n° TVA (taxe sur la valeur ajoutée, French VAT number)
+* gb.nhs: NHS (United Kingdom National Health Service patient identifier)
 * gb.sedol: SEDOL number (Stock Exchange Daily Official List number)
 * gb.vat: VAT (United Kingdom (and Isle of Man) VAT registration number)
 * gr.vat: FPA, ΦΠΑ, ΑΦΜ (Αριθμός Φορολογικού Μητρώου, the Greek VAT number)
@@ -76,7 +80,7 @@ Currently this package supports the following formats:
 * hu.anum: ANUM (Közösségi adószám, Hungarian VAT number)
 * iban: IBAN (International Bank Account Number)
 * ie.pps: PPS No (Personal Public Service Number, Irish personal number)
-* ie.vat: VAT (Irish VAT number)
+* ie.vat: VAT (Irish tax reference number)
 * imei: IMEI (International Mobile Equipment Identity)
 * imo: IMO number (International Maritime Organization number)
 * imsi: IMSI (International Mobile Subscriber Identity)
@@ -119,6 +123,7 @@ Currently this package supports the following formats:
 * sk.dph: IČ DPH (IČ pre daň z pridanej hodnoty, Slovak VAT number)
 * sk.rc: RČ (Rodné číslo, the Slovak birth number)
 * sm.coe: COE (Codice operatore economico, San Marino national tax number)
+* tr.tckimlik: T.C. Kimlik No. (Turkish personal identification number)
 * us.atin: ATIN (U.S. Adoption Taxpayer Identification Number)
 * us.ein: EIN (U.S. Employer Identification Number)
 * us.itin: ITIN (U.S. Individual Taxpayer Identification Number)
@@ -129,6 +134,7 @@ Currently this package supports the following formats:
 
 Furthermore a number of generic check digit algorithms are available:
 
+* damm: The Damm algorithm
 * iso7064.mod_11_10: The ISO 7064 Mod 11, 10 algorithm
 * iso7064.mod_11_2: The ISO 7064 Mod 11, 2 algorithm
 * iso7064.mod_37_2: The ISO 7064 Mod 37, 2 algorithm
@@ -153,4 +159,4 @@ parsing, validation, formatting or conversion functions.
 
 
 # the version number of the library
-__version__ = '1.3'
+__version__ = '1.4'

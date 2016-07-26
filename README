@@ -50,8 +50,12 @@ Currently this package supports the following formats:
  * Finnish Association Identifier
  * HETU (Henkilötunnus, Finnish personal identity code)
  * Y-tunnus (Finnish business identifier)
+ * NIF (Numéro d'Immatriculation Fiscale, French tax identification number)
+ * NIR (French personal identification number)
  * SIREN (a French company identification number)
+ * SIRET (a French company establishment identification number)
  * n° TVA (taxe sur la valeur ajoutée, French VAT number)
+ * NHS (United Kingdom National Health Service patient identifier)
  * SEDOL number (Stock Exchange Daily Official List number)
  * VAT (United Kingdom (and Isle of Man) VAT registration number)
  * FPA, ΦΠΑ, ΑΦΜ (Αριθμός Φορολογικού Μητρώου, the Greek VAT number)
@@ -60,7 +64,7 @@ Currently this package supports the following formats:
  * ANUM (Közösségi adószám, Hungarian VAT number)
  * IBAN (International Bank Account Number)
  * PPS No (Personal Public Service Number, Irish personal number)
- * VAT (Irish VAT number)
+ * VAT (Irish tax reference number)
  * IMEI (International Mobile Equipment Identity)
  * IMO number (International Maritime Organization number)
  * IMSI (International Mobile Subscriber Identity)
@@ -103,6 +107,7 @@ Currently this package supports the following formats:
  * IČ DPH (IČ pre daň z pridanej hodnoty, Slovak VAT number)
  * RČ (Rodné číslo, the Slovak birth number)
  * COE (Codice operatore economico, San Marino national tax number)
+ * T.C. Kimlik No. (Turkish personal identification number)
  * ATIN (U.S. Adoption Taxpayer Identification Number)
  * EIN (U.S. Employer Identification Number)
  * ITIN (U.S. Individual Taxpayer Identification Number)
@@ -114,6 +119,7 @@ Currently this package supports the following formats:
 Furthermore a number of generic check digit algorithms are available:
 
  * the Verhoeff algorithm
+ * the Damm algorithm
  * the Luhn and Luhn mod N algorithms
  * some algorithms described in ISO/IEC 7064: Mod 11, 2, Mod 37, 2,
    Mod 97, 10, Mod 11, 10 and Mod 37, 36
@@ -152,7 +158,7 @@ also work with older versions of Python.
 Copyright
 ---------
 
-Copyright (C) 2010-2015 Arthur de Jong and others
+Copyright (C) 2010-2016 Arthur de Jong and others
 
 This library is free software; you can redistribute it and/or
 modify it under the terms of the GNU Lesser General Public

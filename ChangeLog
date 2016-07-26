@@ -1,3 +1,202 @@
+2016-07-26  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [3e4e9e2] getmybp.py, stdnum/cn/loc.dat, stdnum/iban.dat,
+	  stdnum/imsi.dat, stdnum/isbn.dat, stdnum/isil.dat: Update
+	  database files
+
+	  This also updates the getmybp script to support the new layout.
+
+2016-07-26  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [3e344d1] stdnum/iso6346.py: Add formatting of ISO 6346 container
+	  codes
+
+2016-07-26  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [aa1c298] getnumlist.py, stdnum/damm.py, tests/test_damm.doctest:
+	  Implement Damm algorithm
+
+	  This is a generic check digit algorithm.  2016-07-26	Arthur de
+Jong <arthur@arthurdejong.org>
+
+	* [411d038] stdnum/fr/nif.py: Fix French NIF format test
+
+	  Fixes 2409ee9.  2016-07-26  Arthur de Jong
+<arthur@arthurdejong.org>
+
+	* [06e4165] stdnum/ch/ssn.py: Improve validation to Swiss SSN number
+
+	  The EAN-13 number should start with 756.
+
+2016-07-26  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [1907c67] stdnum/br/cpf.py: Add documentation to Brazillian CPF
+
+2016-07-26  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [cf428ac] stdnum/iso6346.py: Add pointer to ISO 6346 information
+
+2016-07-26  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [011c0f0] stdnum/gb/nhs.py: Fix copyright notice
+
+2016-05-22  Dimitri Papadopoulos <dimitri.papadopoulos@cea.fr>
+
+	* [2409ee9] stdnum/fr/nif.py: Add NIF - French tax identification
+	  number
+
+	  Add module for NIF also known as SPI number.
+
+2016-07-26  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [43b58d3] stdnum/fr/nir.py: Move NIR check digit calculation
+	  to function
+
+	  This also fixes a number of formatting issues, improves the
+	  module description and adds tests for the 2A and 2B departments.
+
+2016-05-29  Dimitri Papadopoulos <dimitri.papadopoulos@cea.fr>
+
+	* [879f2d3] stdnum/fr/nir.py: Improve French NIR validation
+
+	  Please note that the 7th character of the NIR might be 'A' or
+	  'B'. Other than that the NIR contains digits only.
+
+2016-07-25  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [fd9f953] stdnum/fr/siren.py, stdnum/fr/siret.py,
+	  tests/test_fr_siren.doctest, tests/test_fr_siret.doctest: Add
+	  extra tests for SIREN and SIRET
+
+	  This adds tests for a few numbers that have been found online
+	  and allows the dot as a seprator because those numbers were found.
+
+	  It also ensures that the SIREN validation is also called for
+	  SIRET and adds a SIRET formatting function.
+
+2016-05-27  Yoann Aubineau <y.aubineau@criteo.com>
+
+	* [5ba3a87] stdnum/fr/siret.py: Add French SIRET number
+
+	  Add a SIRET (Système d'Identification du Répertoire des
+	  ETablissements, a French company etablishment identification
+	  number) module.
+
+2016-05-29  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [dc708f0] stdnum/isil.py, tests/test_isil.doctest: Add more
+	  ISIL tests
+
+	  This moves a few of the tests from the module to a dedicated
+	  test file and adds tests for a number of ISIL numbers found online.
+
+2016-05-29  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [4a57d84] stdnum/us/tin.py: Fix formatting of bulleted list
+
+2016-05-28  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [9b74840] stdnum/ch/ssn.py, tests/test_ch_ssn.doctest: Fix bug
+	  in Swiss SSN validation
+
+	  The validation was delegated to the EAN module but the number
+	  is supposed to be an EAN-13 only and and EAN-8 was also accepted.
+
+	  This also reformats the docstring.
+
+2016-05-28  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [f3c2491] stdnum/ie/vat.py, tests/test_ie_vat.doctest: Fix bug
+	  in Irish VAT number validation
+
+	  The last digits of the number that should be letters were not
+	  tested to be letters which could result in ValueError being
+	  raised for certain validations.
+
+	  This also clarifies the documentation and adds a convert()
+	  function to convert numbers from the old format (where the
+	  second character would be a letter or symbol) to the new format
+	  (7 digits followed by 1 or 2 letters).
+
+2016-05-28  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [b5397ed] tests/test_robustness.doctest: Small improvements
+	  to tests
+
+	  This includes a formatting fix and removes an unused variable
+	  from a test.
+
+2016-05-28  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [d85b27f] stdnum/util.py: Fix get_module_description()
+
+	  This fixes the initial implementation in 3f6d52a.
+
+2016-05-22  Dimitri Papadopoulos <dimitri.papadopoulos@cea.fr>
+
+	* [a1afa76] stdnum/fr/nir.py: Add French NIR
+
+	  Add module for NIR also known as social security number.
+
+2016-05-09  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [0a2f39e] stdnum/gb/nhs.py: Add United Kingdom NHS number
+
+	  Add module for United Kingdom National Health Service patient
+	  identifier.
+
+2016-05-09  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [2126947] stdnum/numdb.py: Read numdb files in context manager
+
+	  This ensures that the file is explicitly closed in the function
+	  to avoid "unclosed file" warnings.
+
+	  See: https://github.com/arthurdejong/python-stdnum/issues/33
+
+2016-04-11  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [e28b5e1] stdnum/ch/uid.py, stdnum/ch/vat.py, stdnum/cusip.py,
+	  stdnum/dk/cpr.py, stdnum/iban.py, stdnum/imei.py, stdnum/isbn.py,
+	  stdnum/isil.py, stdnum/isin.py, stdnum/issn.py, stdnum/mx/rfc.py,
+	  stdnum/nl/bsn.py, stdnum/nl/onderwijsnummer.py, stdnum/pl/regon.py,
+	  stdnum/tr/tckimlik.py, stdnum/us/ssn.py, stdnum/verhoeff.py:
+	  Make more information links consistent
+
+	  Also fix a docstring in stdnum.nl.bsn and add a pointer to
+	  stdnum.nl.onderwijsnummer.
+
+2016-04-09  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [feab917] stdnum/eu/vat.py, stdnum/tr/tckimlik.py, stdnum/util.py:
+	  Implement online TC Kimlik check
+
+	  This refactors out the SOAP client function that was implemented
+	  for VIES to the stdnum.utils module.
+
+2016-04-09  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [619b097] stdnum/tr/__init__.py, stdnum/tr/tckimlik.py,
+	  tests/test_tr_tckimlik.doctest: Add Turkish personal identification
+	  number
+
+2016-04-01  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [095dcbb] stdnum/mx/rfc.py, tests/test_mx_rfc.doctest: Document
+	  accuracy of RFC check digit test
+
+	  There is an online service that allows validating RFC numbers. It
+	  seems there are a lot of numbers that do not match the check
+	  digit algorithm which confirms disabling the check digit test
+	  by default is a good idea.
+
+	  Also see https://github.com/arthurdejong/python-stdnum/issues/32
+
+2016-03-05  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [41cecb5] ChangeLog, NEWS, getnumlist.py, setup.py,
+	  stdnum/__init__.py: Get files ready for 1.3 release
+
 2016-03-03  Arthur de Jong <arthur@arthurdejong.org>
 
 	* [6457734] getcnloc.py, getiban.py, stdnum/cn/loc.dat,
