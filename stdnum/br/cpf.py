@@ -1,7 +1,7 @@
 # cpf.py - functions for handling CPF numbers
 # coding: utf-8
 #
-# Copyright (C) 2011, 2012, 2013 Arthur de Jong
+# Copyright (C) 2011-2016 Arthur de Jong
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -19,6 +19,14 @@
 # 02110-1301 USA
 
 """CPF (Cadastro de Pessoas Físicas, Brazillian national identifier).
+
+The Cadastro de Pessoas Físicas is the Brazilian identification number
+assigned to individuals for tax purposes. The number consists of 11 digits
+and includes two check digits.
+
+More information:
+
+* https://en.wikipedia.org/wiki/Cadastro_de_Pessoas_Físicas
 
 >>> validate('390.533.447-05')
 '39053344705'
