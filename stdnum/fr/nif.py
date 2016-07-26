@@ -28,7 +28,7 @@ issued by the French tax authorities to people for tax reporting purposes.
 More information:
 
 * https://ec.europa.eu/taxation_customs/tin/tinByCountry.html
-* https://fr.wikipedia.org/wiki/Num%C3%A9ro_d%27Immatriculation_Fiscale#France
+* https://fr.wikipedia.org/wiki/Numéro_d%27Immatriculation_Fiscale#France
 
 >>> validate('0701987765432')
 '0701987765432'
@@ -36,8 +36,8 @@ More information:
 Traceback (most recent call last):
     ...
 InvalidLength: ...
->>> format('295109912611193')
-'2 95 10 99 126 111 93'
+>>> format('0701987765432')
+'07 01 987 765 432'
 """
 
 from stdnum.exceptions import *
