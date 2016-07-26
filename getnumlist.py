@@ -28,7 +28,8 @@ from stdnum import util
 
 
 # these are excluded
-algortihms = ('stdnum.verhoeff', 'stdnum.luhn', 'stdnum.iso7064')
+algortihms = (
+    'stdnum.verhoeff', 'stdnum.luhn', 'stdnum.iso7064', 'stdnum.damm')
 
 
 def get_number_modules():
@@ -36,7 +37,7 @@ def get_number_modules():
     for module in util.get_number_modules():
         if module.__name__ not in algortihms and \
            not module.__name__.startswith('stdnum.iso7064'):
-             yield module
+            yield module
 
 if __name__ == '__main__':
     print 'For README:'

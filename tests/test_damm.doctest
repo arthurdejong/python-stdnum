@@ -1,0 +1,93 @@
+test_damm.doctest - more detailed doctests for stdnum.damm module
+
+Copyright (C) 2016 Arthur de Jong
+
+This library is free software; you can redistribute it and/or
+modify it under the terms of the GNU Lesser General Public
+License as published by the Free Software Foundation; either
+version 2.1 of the License, or (at your option) any later version.
+
+This library is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+Lesser General Public License for more details.
+
+You should have received a copy of the GNU Lesser General Public
+License along with this library; if not, write to the Free Software
+Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
+02110-1301 USA
+
+
+This file contains more detailed doctests for the stdnum.damm module. It
+tries to test more corner cases and detailed functionality that is not
+really useful as module documentation.
+
+>>> from stdnum import damm
+
+
+These are normal variations that should just work. Calculating checksums:
+
+>>> damm.checksum('572')
+4
+>>> damm.checksum('5724')
+0
+>>> damm.checksum('43881234567')
+9
+>>> damm.checksum('438812345679')
+0
+
+
+The same numbers but now simply ask for validation:
+
+>>> damm.validate('572')
+Traceback (most recent call last):
+    ...
+InvalidChecksum: ...
+>>> damm.validate('5724')
+'5724'
+>>> damm.validate('43881234567')
+Traceback (most recent call last):
+    ...
+InvalidChecksum: ...
+>>> damm.validate('438812345679')
+'438812345679'
+
+
+Adding a check digit to the numbers so they are all valid:
+
+>>> damm.calc_check_digit('572')
+'4'
+>>> damm.validate('5724')
+'5724'
+>>> damm.calc_check_digit('5724')
+'0'
+>>> damm.validate('57240')
+'57240'
+>>> damm.calc_check_digit('43881234567')
+'9'
+>>> damm.validate('438812345679')
+'438812345679'
+>>> damm.calc_check_digit('438812345679')
+'0'
+>>> damm.validate('4388123456790')
+'4388123456790'
+
+
+We can also use a different table if we really need to. This one is from
+http://www.md-software.de/math/DAMM_Quasigruppen.txt
+
+>>> table = (
+...     (0, 2, 3, 4, 5, 6, 7, 8, 9, 1),
+...     (2, 0, 4, 1, 7, 9, 5, 3, 8, 6),
+...     (3, 7, 0, 5, 2, 8, 1, 6, 4, 9),
+...     (4, 1, 8, 0, 6, 3, 9, 2, 7, 5),
+...     (5, 6, 2, 9, 0, 7, 4, 1, 3, 8),
+...     (6, 9, 7, 3, 1, 0, 8, 5, 2, 4),
+...     (7, 5, 1, 8, 4, 2, 0, 9, 6, 3),
+...     (8, 4, 6, 2, 9, 5, 3, 0, 1, 7),
+...     (9, 8, 5, 7, 3, 1, 6, 4, 0, 2),
+...     (1, 3, 9, 6, 8, 4, 2, 7, 5, 0))
+>>> damm.checksum('816', table=table)
+9
+>>> damm.checksum('8169', table=table)
+0
