@@ -1,6 +1,6 @@
 # nhs.py - functions for handling United Kingdom NHS numbers
 #
-# Copyright (C) 2012-2015 Arthur de Jong
+# Copyright (C) 2016 Arthur de Jong
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
