@@ -2,7 +2,7 @@
 
 # getmybp.py - script to donwnload data from Malaysian government site
 #
-# Copyright (C) 2013 Arthur de Jong
+# Copyright (C) 2013-2016 Arthur de Jong
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -43,7 +43,7 @@ def parse(f):
     """Parse the specified file."""
     soup = BeautifulSoup.BeautifulSoup(f, convertEntities='html')
     # find all table rows
-    for tr in soup.find('div', id='inner-main').findAll('tr'):
+    for tr in soup.find('div', {'class': 'box-content'}).findAll('tr'):
         # find the rows with four columns of text
         tds = [
             clean(''.join(x.string for x in td.findAll(text=True)))
