@@ -38,6 +38,8 @@ More information:
 Traceback (most recent call last):
     ...
 InvalidChecksum: ...
+>>> format('tasu117 000 0')
+'TASU 117000 0'
 """
 
 import re
@@ -53,7 +55,7 @@ _iso6346_re = re.compile(r'^\w{3}(U|J|Z|R)\d{7}$')
 def compact(number):
     """Convert the number to the minimal representation. This strips the
     number of any valid separators and removes surrounding whitespace."""
-    return clean(number).strip().upper()
+    return clean(number, ' ').strip().upper()
 
 
 def calc_check_digit(number):
@@ -85,3 +87,9 @@ def is_valid(number):
         return bool(validate(number))
     except ValidationError:
         return False
+
+
+def format(number):
+    """Reformat the passed number to the standard format."""
+    number = compact(number)
+    return ' '.join((number[:4], number[4:-1], number[-1:]))
