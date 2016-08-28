@@ -1,7 +1,8 @@
 # referenciacatastral.py - functions for handling Spanish real state ids
 # coding: utf-8
 #
-# Copyright (C) 2011-2015 Arthur de Jong
+# Copyright (C) 2016 David García Garzón
+# Copyright (C) 2016 Arthur de Jong
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -20,7 +21,9 @@
 
 """Referencia Catastral (Spanish real estate property id)
 
-The cadastral reference code is an id for real estates in Spain.
+The cadastral reference code is an id for real estates in Spain
+issued by Dirección General del Catastro (General Directorate of Land
+Registry) of the Ministerio de Hacienda (Tresury Ministry) of Spain.
 It has 20 digits, being numbers and capital letters including spanish Ñ.
 First 14 digits identify the parcel, next 4 are a sequence number
 identifying different properties within the parcel, 
@@ -68,10 +71,15 @@ special (infrastructure) states:
     * Number of municipalities it extends (2 digits, numbers)
     * Abreviated denomination (4 digits, letters)
 
+
+The control digit check algorithm is based on Javascript
+implementation by Vicente Sancho that can be found at
+http://trellat.es/validar-la-referencia-catastral-en-javascript/ 
+
 More information:
 
-* http://www.catastro.meh.es/documentos/05042010_P.pdf
-* http://trellat.es/validar-la-referencia-catastral-en-javascript/
+* http://www.catastro.meh.es/esp/referencia_catastral_1.asp (Spanish)
+* http://www.catastro.meh.es/documentos/05042010_P.pdf (Spanish)
 
 >>> compact('7837301-VG8173B-0001 TT')
 '7837301VG8173B0001TT'
@@ -81,18 +89,18 @@ More information:
 >>> format('4A08169P03PRAT0001LR') # Special: BCN Airport
 '4A08169 P03PRAT 0001 LR'
 
->>> validate('7837301 VG8173B 0001 TT')
+>>> validate('7837301 VG8173B 0001 TT') # Valid
 '7837301VG8173B0001TT'
->>> validate('783301 VG8173B 0001 TT')
+>>> validate('783301 VG8173B 0001 TT') # Missing digit
 Traceback (most recent call last):
     ...
 ValidationError: Wrong length for cadastral reference \
 '783301VG8173B0001TT', should be 20
->>> validate('7837301/VG8173B 0001 TT')
+>>> validate('7837301/VG8173B 0001 TT') # non alphanum
 Traceback (most recent call last):
     ...
 ValidationError: Found invalid digits '/'
->>> validate('7837301 VG8173B 0001 NN')
+>>> validate('7837301 VG8173B 0001 NN') # bad control digits
 Traceback (most recent call last):
     ...
 ValidationError: Control code should be TT instead of NN
