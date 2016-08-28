@@ -1,0 +1,83 @@
+test_my_nric.doctest - more detailed doctests for stdnum.es.cups module
+
+Copyright (C) 2016 David García Garzón
+Copyright (C) 2016 Arthur de Jong
+
+This library is free software; you can redistribute it and/or
+modify it under the terms of the GNU Lesser General Public
+License as published by the Free Software Foundation; either
+version 2.1 of the License, or (at your option) any later version.
+
+This library is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+Lesser General Public License for more details.
+
+You should have received a copy of the GNU Lesser General Public
+License along with this library; if not, write to the Free Software
+Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
+02110-1301 USA
+
+
+This file contains more detailed doctests for the stdnum.es.cups. It
+tries to cover more corner cases and detailed functionality that is not
+really useful as module documentation.
+
+>>> from stdnum.es import cups
+>>> from stdnum.exceptions import *
+
+
+>>> cups.compact('ES 1234-123456789012-jy')
+'ES1234123456789012JY'
+
+>>> cups.validate('ES 1234-123456789012-JY')
+'ES1234123456789012JY'
+>>> cups.validate('GB 1234-123456789012-JY')
+Traceback (most recent call last):
+    ...
+InvalidComponent: ...
+>>> cups.validate('ES 1234-12X456789012-JY')
+Traceback (most recent call last):
+    ...
+InvalidFormat: ...
+>>> cups.validate('ES 1234-12345678901X-JY')
+Traceback (most recent call last):
+    ...
+InvalidFormat: ...
+>>> cups.validate('ES 1234-12456789012-JY')
+Traceback (most recent call last):
+    ...
+InvalidLength: ...
+>>> cups.validate('ES 1234-123456789012-JY 1F')
+'ES1234123456789012JY1F'
+>>> cups.validate('ES 1234-123456789012-JY 1T')
+Traceback (most recent call last):
+    ...
+InvalidFormat: ...
+>>> cups.validate('ES 1234-123456789012-JY XF')
+Traceback (most recent call last):
+    ...
+InvalidFormat: ...
+>>> cups.validate('ES 1234-123456789012-XY 1F')
+Traceback (most recent call last):
+    ...
+InvalidChecksum: ...
+
+>>> cups.is_valid('ES 1234-123456789012-JY 1F')
+True
+>>> cups.is_valid('ES 1234-123456789012-XY 1F')
+False
+
+>>> cups.format('ES1234123456789012JY')
+'ES 1234 1234 5678 9012 JY'
+>>> cups.format('ES1234123456789012JY1F')
+'ES 1234 1234 5678 9012 JY 1F'
+
+>>> cups.validate('ES 0987 5432 1098 7654 ZF')
+'ES0987543210987654ZF'
+>>> cups.validate('ES 1234 1234 5678 9012 JY')
+'ES1234123456789012JY'
+>>> cups.validate('ES 9750 2109 8765 4321 CQ')
+'ES9750210987654321CQ'
+>>> cups.validate('ES 0999 1100 1234 5678 EK')
+'ES0999110012345678EK'
