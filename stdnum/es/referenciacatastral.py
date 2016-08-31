@@ -59,8 +59,8 @@ special (infrastructure) states:
             * 3C: Tolled road
             * 3T: Tolled tunnel
         * Ports and airports
-            * 4A: Aeropuertos:
-            * 4P: Puertos comerciales:
+            * 4A: Airports
+            * 4P: Comercial ports
     * Province (major if many) (2 digits)
     * Municipality (3 digits)
     * Scope (1 letter, leter)
