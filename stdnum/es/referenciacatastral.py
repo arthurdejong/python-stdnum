@@ -119,32 +119,32 @@ from stdnum.util import clean
 _valids = u'ABCDEFGHIJKLMNÑOPQRSTUVWXYZ0123456789'
 
 
-def compact(reference):
-    return clean(reference, ' -').strip().upper()
+def compact(number):
+    return clean(number, ' -').strip().upper()
 
 
-def format(reference):
-    reference = compact(reference)
+def format(number):
+    number = compact(number)
     return ' '.join([
-        reference[0:7],
-        reference[7:14],
-        reference[14:18],
-        reference[18:20]
+        number[0:7],
+        number[7:14],
+        number[14:18],
+        number[18:20]
         ])
 
 
-def validate(reference):
-    reference = compact(reference)
-    invalidchars = ''.join(c for c in reference if c not in _valids)
+def validate(number):
+    number = compact(number)
+    invalidchars = ''.join(c for c in number if c not in _valids)
     if invalidchars:
         raise InvalidFormat(
             "Found invalid digits '{}'".format(invalidchars))
 
     # TODO: rustic ones are 19?
-    if len(reference) != 20:
+    if len(number) != 20:
         raise InvalidLength(
             "Wrong length for cadastral reference '{}', "
-            "should be 20".format(reference))
+            "should be 20".format(number))
 
     def controlCode(string):
         posweight = [13, 15, 12, 5, 4, 17, 9, 21, 3, 7, 1]
@@ -159,15 +159,15 @@ def validate(reference):
         dc %= 23
         return dcletter[dc]
 
-    dc1 = controlCode(reference[0:7] + reference[14:18])
-    dc2 = controlCode(reference[7:14] + reference[14:18])
+    dc1 = controlCode(number[0:7] + number[14:18])
+    dc2 = controlCode(number[7:14] + number[14:18])
 
-    if dc1+dc2 != reference[18:]:
+    if dc1+dc2 != number[18:]:
         raise InvalidChecksum(
             "Control code should be {} instead of {}"
-            .format(dc1+dc2, reference[18:]))
+            .format(dc1+dc2, number[18:]))
 
-    return reference
+    return number
 
 
 def is_valid(number):
