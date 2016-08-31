@@ -26,10 +26,10 @@ issued by Dirección General del Catastro (General Directorate of Land
 Registry) of the Ministerio de Hacienda (Tresury Ministry) of Spain.
 It has 20 digits, being numbers and capital letters including spanish Ñ.
 First 14 digits identify the parcel, next 4 are a sequence number
-identifying different properties within the parcel, 
+identifying different properties within the parcel,
 and the last 2 are two checksum letters.
 
-The parcel is identified diferently in urban, non-urban or 
+The parcel is identified diferently in urban, non-urban or
 special (infrastructure) states:
 
 * Urban states
@@ -74,7 +74,7 @@ special (infrastructure) states:
 
 The control digit check algorithm is based on Javascript
 implementation by Vicente Sancho that can be found at
-http://trellat.es/validar-la-referencia-catastral-en-javascript/ 
+http://trellat.es/validar-la-referencia-catastral-en-javascript/
 
 More information:
 
@@ -115,10 +115,13 @@ False
 from stdnum.exceptions import *
 from stdnum.util import clean
 
+
 _valids = u'ABCDEFGHIJKLMNÑOPQRSTUVWXYZ0123456789'
+
 
 def compact(reference):
     return clean(reference, ' -').strip().upper()
+
 
 def format(reference):
     reference = compact(reference)
@@ -128,6 +131,7 @@ def format(reference):
         reference[14:18],
         reference[18:20]
         ])
+
 
 def validate(reference):
     reference = compact(reference)
@@ -143,10 +147,10 @@ def validate(reference):
             "should be 20".format(reference))
 
     def controlCode(string):
-        posweight=[13,15,12,5,4,17,9,21,3,7,1]
-        dcletter='MQWERTYUIOPASDFGHJKLBZX'
-        dc=0
-        for i,c in enumerate(string):
+        posweight = [13, 15, 12, 5, 4, 17, 9, 21, 3, 7, 1]
+        dcletter = 'MQWERTYUIOPASDFGHJKLBZX'
+        dc = 0
+        for i, c in enumerate(string):
             try:
                 charvalue = int(c)
             except ValueError:
@@ -159,10 +163,12 @@ def validate(reference):
     dc2 = controlCode(reference[7:14] + reference[14:18])
 
     if dc1+dc2 != reference[18:]:
-        raise InvalidChecksum("Control code should be {} instead of {}"
+        raise InvalidChecksum(
+            "Control code should be {} instead of {}"
             .format(dc1+dc2, reference[18:]))
 
     return reference
+
 
 def is_valid(number):
     """Checks to see if the number provided is a valid Cadastral Reference."""
@@ -170,5 +176,3 @@ def is_valid(number):
         return bool(validate(number))
     except ValidationError:
         return False
-
-
