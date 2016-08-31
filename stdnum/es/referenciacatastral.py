@@ -94,16 +94,16 @@ More information:
 >>> validate('783301 VG8173B 0001 TT') # Missing digit
 Traceback (most recent call last):
     ...
-ValidationError: Wrong length for cadastral reference \
+InvalidLength: Wrong length for cadastral reference \
 '783301VG8173B0001TT', should be 20
 >>> validate('7837301/VG8173B 0001 TT') # non alphanum
 Traceback (most recent call last):
     ...
-ValidationError: Found invalid digits '/'
+InvalidFormat: Found invalid digits '/'
 >>> validate('7837301 VG8173B 0001 NN') # bad control digits
 Traceback (most recent call last):
     ...
-ValidationError: Control code should be TT instead of NN
+InvalidChecksum: Control code should be TT instead of NN
 
 >>> is_valid('7837301VG8173B0001TT')
 True
@@ -133,12 +133,12 @@ def validate(reference):
     reference = compact(reference)
     invalidchars = ''.join(c for c in reference if c not in _valids)
     if invalidchars:
-        raise ValidationError(
+        raise InvalidFormat(
             "Found invalid digits '{}'".format(invalidchars))
 
     # TODO: rustic ones are 19?
     if len(reference) != 20:
-        raise ValidationError(
+        raise InvalidLength(
             "Wrong length for cadastral reference '{}', "
             "should be 20".format(reference))
 
@@ -159,7 +159,7 @@ def validate(reference):
     dc2 = controlCode(reference[7:14] + reference[14:18])
 
     if dc1+dc2 != reference[18:]:
-        raise ValidationError("Control code should be {} instead of {}"
+        raise InvalidChecksum("Control code should be {} instead of {}"
             .format(dc1+dc2, reference[18:]))
 
     return reference
