@@ -1,7 +1,7 @@
 # vat.py - functions for handling European VAT numbers
 # coding: utf-8
 #
-# Copyright (C) 2012-2015 Arthur de Jong
+# Copyright (C) 2012-2016 Arthur de Jong
 # Copyright (C) 2015 Lionel Elie Mamane
 #
 # This library is free software; you can redistribute it and/or
@@ -40,7 +40,7 @@ that country.
 """
 
 from stdnum.exceptions import *
-from stdnum.util import clean, get_vat_module, get_soap_client
+from stdnum.util import clean, get_cc_module, get_soap_client
 
 
 country_codes = set([
@@ -69,7 +69,7 @@ def _get_cc_module(cc):
     if cc not in country_codes:
         return
     if cc not in _country_modules:
-        _country_modules[cc] = get_vat_module(cc)
+        _country_modules[cc] = get_cc_module(cc, 'vat')
     return _country_modules[cc]
 
 

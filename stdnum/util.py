@@ -24,9 +24,9 @@ This module is meant for internal use by stdnum modules and is not
 guaranteed to remain stable and as such not part of the public API of
 stdnum.
 
->>> get_vat_module('nl').__name__
+>>> get_cc_module('nl', 'vat').__name__
 'stdnum.nl.btw'
->>> get_vat_module('is').__name__
+>>> get_cc_module('is', 'vat').__name__
 'stdnum.is_.vsk'
 """
 
@@ -103,13 +103,6 @@ _char_map = dict(_mk_char_map({
 }))
 
 
-# mapping of country codes to internally used names
-# used in the get_vat_module() function
-_cc_translations = {
-    'el': 'gr', 'is': 'is_',
-}
-
-
 def _clean_chars(number):
     """Replace various Unicode characters with their ASCII counterpart."""
     return ''.join(_char_map.get(x, x) for x in number)
@@ -173,11 +166,17 @@ def get_module_list():
         )
 
 
-def get_vat_module(cc):
-    """Find the VAT number module based on the country code."""
+def get_cc_module(cc, name):
+    """Find the country-specific named module."""
     cc = cc.lower()
-    cc = _cc_translations.get(cc, cc)
-    return __import__('stdnum.%s' % cc, globals(), locals(), ['vat']).vat
+    # add suffix for python reserved words
+    if cc in ('in', 'is', 'if'):
+        cc += '_'
+    try:
+        mod = __import__('stdnum.%s' % cc, globals(), locals(), [name])
+        return getattr(mod, name, None)
+    except ImportError:
+        return
 
 
 def get_soap_client(wsdlurl):  # pragma: no cover (no tests for this function)
