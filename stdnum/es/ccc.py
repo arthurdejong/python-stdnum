@@ -58,6 +58,8 @@ Traceback (most recent call last):
 InvalidChecksum: ...
 >>> format('12341234161234567890')
 '1234 1234 16 12345 67890'
+>>> to_iban('21000418450200051331')
+'ES2121000418450200051331'
 """
 
 from stdnum.exceptions import *
@@ -114,3 +116,12 @@ def is_valid(number):
         return bool(validate(number))
     except ValidationError:
         return False
+
+
+def to_iban(number):
+    """Convert the number to an IBAN."""
+    from stdnum import iban
+    separator = ' ' if ' ' in number else ''
+    return separator.join((
+        'ES' + iban.calc_check_digits('ES00' + number),
+        number))
