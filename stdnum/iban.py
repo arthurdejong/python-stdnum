@@ -25,7 +25,7 @@ for the ISO 7064 Mod 97, 10 checksum. Each country uses its own format
 for the remainder of the number.
 
 Some countries may also use checksum algorithms within their number but
-this is currently not checked by this number.
+this is only checked for a few countries.
 
 More information:
 
@@ -49,7 +49,7 @@ import re
 from stdnum import numdb
 from stdnum.exceptions import *
 from stdnum.iso7064 import mod_97_10
-from stdnum.util import clean
+from stdnum.util import clean, get_cc_module
 
 
 # our open copy of the IBAN database
@@ -60,6 +60,9 @@ _alphabet = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ'
 
 # regular expression to check IBAN structure
 _struct_re = re.compile(r'([1-9][0-9]*)!([nac])')
+
+# cache of country codes to modules
+_country_modules = dict()
 
 
 def compact(number):
@@ -102,8 +105,18 @@ def _struct_to_re(structure):
     return re.compile('^%s$' % _struct_re.sub(conv, structure))
 
 
-def validate(number):
-    """Checks to see if the number provided is a valid IBAN."""
+def _get_cc_module(cc):
+    """Get the VAT number module based on the country code."""
+    # Greece uses a "wrong" country code
+    cc = cc.lower()
+    if cc not in _country_modules:
+        _country_modules[cc] = get_cc_module(cc, 'iban')
+    return _country_modules[cc]
+
+
+def validate(number, check_country=True):
+    """Checks to see if the number provided is a valid IBAN. The country-
+    specific check can be disabled with the check_country argument."""
     number = compact(number)
     # ensure that checksum is valid
     mod_97_10.validate(_to_base10(number))
@@ -113,14 +126,19 @@ def validate(number):
     bban = number[4:]
     if not _struct_to_re(info[0][1].get('bban', '')).match(bban):
         raise InvalidFormat()
+    # check the country-specific module if it exists
+    if check_country:
+        module = _get_cc_module(number[:2])
+        if module:
+            module.validate(number)
     # return the compact representation
     return number
 
 
-def is_valid(number):
+def is_valid(number, check_country=True):
     """Checks to see if the number provided is a valid IBAN."""
     try:
-        return bool(validate(number))
+        return bool(validate(number, check_country=check_country))
     except ValidationError:
         return False
 
@@ -128,4 +146,7 @@ def is_valid(number):
 def format(number, separator=' '):
     """Reformat the passed number to the space-separated format."""
     number = compact(number)
+    module = _get_cc_module(number[:2])
+    if module and hasattr(module, 'format') and module.format != format:
+        return module.format(number, separator=separator)
     return separator.join(number[i:i + 4] for i in range(0, len(number), 4))
