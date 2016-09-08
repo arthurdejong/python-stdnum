@@ -199,3 +199,15 @@ or have an unknown country code:
 ... '''
 >>> [ x for x in numbers.splitlines() if x and iban.is_valid(x) ]
 []
+
+
+These are mostly for the normal IBAN check but they are not correct according
+to the country-specific validation.
+
+>>> numbers = '''
+... ES2121000418450200051331
+... '''
+>>> [ x for x in numbers.splitlines() if x and not iban.is_valid(x, check_country=False) ]
+[]
+>>> [ x for x in numbers.splitlines() if x and iban.is_valid(x) ]
+[]
