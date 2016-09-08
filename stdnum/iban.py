@@ -1,6 +1,6 @@
 # iban.py - functions for handling International Bank Account Numbers (IBANs)
 #
-# Copyright (C) 2011-2015 Arthur de Jong
+# Copyright (C) 2011-2016 Arthur de Jong
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -40,6 +40,8 @@ More information:
 'GR1601101050000010547023795'
 >>> format('GR1601101050000010547023795')
 'GR16 0110 1050 0000 1054 7023 795'
+>>> calc_check_digits('BExx435411161155')
+'31'
 """
 
 import re
@@ -71,7 +73,20 @@ def _to_base10(number):
     check digits to the end) so it can be checked with the ISO 7064
     Mod 97, 10 algorithm."""
     # TODO: find out whether this should be in the mod_97_10 module
-    return ''.join(str(_alphabet.index(x)) for x in number[4:] + number[:4])
+    try:
+        return ''.join(
+            str(_alphabet.index(x)) for x in number[4:] + number[:4])
+    except Exception:
+        raise InvalidFormat()
+
+
+def calc_check_digits(number):
+    """Calculate the check digits that should be put in the number to make
+    it valid. Check digits in the supplied number are ignored.."""
+    number = compact(number)
+    # replace check digits with placeholders
+    number = ''.join((number[:2], '00', number[4:]))
+    return mod_97_10.calc_check_digits(_to_base10(number)[:-2])
 
 
 def _struct_to_re(structure):
@@ -90,12 +105,8 @@ def _struct_to_re(structure):
 def validate(number):
     """Checks to see if the number provided is a valid IBAN."""
     number = compact(number)
-    try:
-        test_number = _to_base10(number)
-    except Exception:
-        raise InvalidFormat()
     # ensure that checksum is valid
-    mod_97_10.validate(test_number)
+    mod_97_10.validate(_to_base10(number))
     # look up the number
     info = _ibandb.info(number)
     # check if the bban part of number has the correct structure
