@@ -78,6 +78,10 @@ def format(number):
     ])
 
 
+# The check digit implementation is based on the Javascript
+# implementation by Vicente Sancho that can be found at
+# http://trellat.es/validar-la-referencia-catastral-en-javascript/
+
 def _check_digit(number):
     """Calculate a single check digit on the provided part of the number."""
     weights = (13, 15, 12, 5, 4, 17, 9, 21, 3, 7, 1)
