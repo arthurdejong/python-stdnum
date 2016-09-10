@@ -25,7 +25,8 @@ numbers, etc).
 
 To read a database from a file:
 
->>> dbfile = read(open('tests/numdb-test.dat', 'r'))
+>>> with open('tests/numdb-test.dat', 'r') as f:
+...     dbfile = read(f)
 
 To split a number:
 
