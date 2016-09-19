@@ -29,6 +29,9 @@ Currently this package supports the following formats:
 * ar.cuit: CUIT (Código Único de Identificación Tributaria, Argentinian tax number)
 * at.businessid: Austrian Company Register Numbers
 * at.uid: UID (Umsatzsteuer-Identifikationsnummer, Austrian VAT number)
+* au.abn: ABN Australian Business Number
+* au.acn: ACN Australian Company Number
+* au.tfn: TFN Australian Tax File Number
 * be.vat: BTW, TVA, NWSt (Belgian VAT number)
 * bg.egn: EGN (ЕГН, Единен граждански номер, Bulgarian personal identity codes)
 * bg.pnf: PNF (ЛНЧ, Личен номер на чужденец, Bulgarian number of a foreigner)
