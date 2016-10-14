@@ -1,0 +1,125 @@
+test_au_acn.doctest - more detailed doctests for the stdnum.au.acn module
+
+Copyright (C) 2016 Arthur de Jong
+
+This library is free software; you can redistribute it and/or
+modify it under the terms of the GNU Lesser General Public
+License as published by the Free Software Foundation; either
+version 2.1 of the License, or (at your option) any later version.
+
+This library is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+Lesser General Public License for more details.
+
+You should have received a copy of the GNU Lesser General Public
+License along with this library; if not, write to the Free Software
+Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
+02110-1301 USA
+
+
+This file contains more detailed doctests for the stdnum.au.acn module. It
+tries to validate a number of numbers that have been found online.
+
+>>> from stdnum.au import acn, abn
+>>> from stdnum.exceptions import *
+
+
+These have been found online and should all be valid numbers.
+
+>>> numbers = '''
+...
+... 000 024 733
+... 001 002 731
+... 001 976 272
+... 002 724 334
+... 002 955 722
+... 003 855 561
+... 004 071 854
+... 004 235 063
+... 004 394 763
+... 005 957 004
+... 007 433 623
+... 050 539 350
+... 055 980 204
+... 082 930 916
+... 088 952 023
+... 093 966 888 
+... 099503456
+... 104 045 089
+... 104 128 001
+... 112 045 002
+... 116 306 453
+... 125 295 712 
+... 135 427 075 
+... 141 800 357
+... 143477632
+...
+... 000 000 019
+... 000 250 000
+... 000 500 005
+... 000 750 005
+... 001 000 004
+... 001 250 004
+... 001 500 009
+... 001 749 999
+... 001 999 999
+... 002 249 998
+... 002 499 998
+... 002 749 993
+... 002 999 993
+... 003 249 992
+... 003 499 992
+... 003 749 988
+... 003 999 988
+... 004 249 987
+... 004 499 987
+... 004 749 982
+... 004 999 982
+... 005 249 981
+... 005 499 981
+... 005 749 986
+... 005 999 977
+... 006 249 976
+... 006 499 976
+... 006 749 980
+... 006 999 980
+... 007 249 989
+... 007 499 989
+... 007 749 975
+... 007 999 975
+... 008 249 974
+... 008 499 974
+... 008 749 979
+... 008 999 979
+... 009 249 969
+... 009 499 969
+... 009 749 964
+... 009 999 964
+... 010 249 966
+... 010 499 966
+... 010 749 961
+...
+... '''
+>>> [x for x in numbers.splitlines() if x and not acn.is_valid(x)]
+[]
+
+
+These numbers have been found in combination with an existing ABN.
+
+>>> numbers = '''
+...
+... 000 024 733 / 79 000 024 733
+... 002 724 334 / 43002724334
+... 004 071 854 / 56 004 071 854
+... 004 235 063 / 63 004 235 063
+... 004 394 763 / 74 004 394 763
+... 055 980 204 / 31 055 980 204
+... 104 045 089 / 97 104 045 089
+... 112 045 002 / 19 112 045 002
+... 143477632   / 28143477632
+...
+... '''
+>>> lines = (l.split('/') for l in numbers.splitlines() if l)
+>>> [(x, y) for x, y in lines if acn.to_abn(x) != abn.compact(y)]
+[]
