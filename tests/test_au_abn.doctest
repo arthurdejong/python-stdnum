@@ -1,0 +1,136 @@
+test_au_abn.doctest - more detailed doctests for the stdnum.au.abn module
+
+Copyright (C) 2016 Arthur de Jong
+
+This library is free software; you can redistribute it and/or
+modify it under the terms of the GNU Lesser General Public
+License as published by the Free Software Foundation; either
+version 2.1 of the License, or (at your option) any later version.
+
+This library is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+Lesser General Public License for more details.
+
+You should have received a copy of the GNU Lesser General Public
+License along with this library; if not, write to the Free Software
+Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
+02110-1301 USA
+
+
+This file contains more detailed doctests for the stdnum.au.abn module. It
+tries to validate a number of numbers that have been found online.
+
+>>> from stdnum.au import abn
+>>> from stdnum.exceptions import *
+
+
+These have been found online and should all be valid numbers.
+
+>>> numbers = '''
+...
+... 11574456001
+... 12 123 552 732
+... 12197960056
+... 14 007 145 637
+... 14 085 537 097
+... 15 071 884 994
+... 16 050 539 350
+... 16 875 959 817
+... 16207643640
+... 17 088 952 023 
+... 17 091 664 318
+... 17798019840
+... 18657363620
+... 18986035694
+... 19406270520
+... 20 080 574 616
+... 21 006 741 420
+... 211 082 588 59
+... 21276698420
+... 22752397988
+... 25 009 256 179
+... 25 078 164 020
+... 26 128 975 842
+... 27146513745
+... 29 176 219 543
+... 30194533815
+... 30319635949
+... 30753140115
+... 32510077067
+... 32967065962
+... 34180019054
+... 35 061 659 185
+... 35367869361
+... 36562063587
+... 38032136826
+... 38689369989
+... 42350020583
+... 42793074259
+... 43 002 724 334
+... 45138393975
+... 45686492545
+... 46 003 855 561
+... 46 003 855 561 
+... 46065060376
+... 46080667721
+... 46241363405
+... 48110267900
+... 49046814670
+... 50 001 065 096
+... 50785233431
+... 51 824 753 556
+... 51120335948
+... 51424722884
+... 51974674048
+... 52 007 061 930
+... 54159269665
+... 55344832020
+... 55593511022
+... 57 064 001 270
+... 57356639841
+... 58437726834
+... 60431599619
+... 61173792360
+... 61483329243
+... 62128948118
+... 62361423248
+... 62826560160
+... 66 098 752 319
+... 66870124640
+... 68515519306
+... 69629520833
+... 73401973717
+... 73420076995
+... 74756347129
+... 74823923971
+... 75 091 431 202
+... 79772126259
+... 81 633 873 422
+... 83562801946
+... 84 002 705 224
+... 84598062158
+... 84696968277
+... 84771313085
+... 85 192 178 954
+... 85573270719
+... 86760778045
+... 87252821098
+... 88 775 098 848
+... 88278681363
+... 90 006 091 774
+... 90399103769
+... 91 010 334 915
+... 91044249923
+... 91957581192
+... 92 104 128 001
+... 93915085021
+... 96196152632
+... 97522448851
+... 98 116 306 453
+... 98977939326
+... 99870624871
+...
+... '''
+>>> [x for x in numbers.splitlines() if x and not abn.is_valid(x)]
+[]
