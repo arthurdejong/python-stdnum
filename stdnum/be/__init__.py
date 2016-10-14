@@ -1,7 +1,7 @@
 # __init__.py - collection of Belgian numbers
 # coding: utf-8
 #
-# Copyright (C) 2012 Arthur de Jong
+# Copyright (C) 2012-2016 Arthur de Jong
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -19,3 +19,6 @@
 # 02110-1301 USA
 
 """Collection of Belgian numbers."""
+
+# provide businessid as an alias
+from stdnum.be import vat as businessid

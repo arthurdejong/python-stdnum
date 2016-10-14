@@ -1,6 +1,6 @@
 # vat.py - functions for handling Belgian VAT numbers
 #
-# Copyright (C) 2012, 2013 Arthur de Jong
+# Copyright (C) 2012-2016 Arthur de Jong
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -17,7 +17,11 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 # 02110-1301 USA
 
-"""BTW, TVA, NWSt (Belgian VAT number).
+"""BTW, TVA, NWSt, ondernemingsnummer (Belgian enterprise number).
+
+The enterprise number (ondernemingsnummer) is a unique identifier of
+companies within the Belgian administrative services. It was previously
+the VAT ID number. The number consists of 10 digits.
 
 >>> compact('BE403019261')
 '0403019261'
