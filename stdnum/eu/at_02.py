@@ -1,6 +1,6 @@
 # at_02.py - functions for handling AT-02 (SEPA Creditor identifier)
 #
-# Copyright (C) 2014 Sergi Almacellas Abellana
+# Copyright (C) 2014-2016 Sergi Almacellas Abellana
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -22,17 +22,20 @@
 This identifier is indicated in the ISO 20022 data element `Creditor Scheme
 Identification`. The creditor can be a legal entity, or an association that
 is not a legal entity, or a person.
+
 Ther first two digits contain the ISO country code, the nex two are check
-digitsi for the ISO 7064 Mod 97, 10 checksum, the next tree contain the
+digits for the ISO 7064 Mod 97, 10 checksum, the next tree contain the
 Creditor Bussines Code (or `ZZZ` if no bussness code used) and the remainder
 contain the country-specific identifier.
 
->>> validate('ES23ZZZ47690558N')
+>>> validate('ES 23 ZZZ 47690558N')
 'ES23ZZZ47690558N'
 >>> validate('ES2300047690558N')
 'ES2300047690558N'
 >>> compact('ES++()+23ZZZ4//7690558N')
 'ES23ZZZ47690558N'
+>>> calc_check_digits('ESXXZZZ47690558N')
+'23'
 """
 
 from stdnum.exceptions import *
@@ -44,15 +47,15 @@ _alphabet = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ'
 
 
 def compact(number):
-    """Convert the AT-02 number to the minimal representation. This strips the
-    number of any valid separators and removes invalid characters."""
+    """Convert the AT-02 number to the minimal representation. This strips
+    the number of any valid separators and removes invalid characters."""
     return clean(number, ' -/?:().m\'+"').strip().upper()
 
 
 def _to_base10(number):
     """Prepare the number to its base10 representation so it can be checked
-    with the ISO 7064 Mod 97, 10 algorithm. That means excluding positions
-    5 to 7 and moving the first four digits to the end"""
+    with the ISO 7064 Mod 97, 10 algorithm. That means excluding positions 5
+    to 7 and moving the first four digits to the end."""
     return ''.join(str(_alphabet.index(x)) for x in number[7:] + number[:4])
 
 
@@ -74,3 +77,12 @@ def is_valid(number):
         return bool(validate(number))
     except ValidationError:
         return False
+
+
+def calc_check_digits(number):
+    """Calculate the check digits that should be put in the number to make it
+    valid. Check digits in the supplied number are ignored."""
+    number = compact(number)
+    # replace check digits with placeholders
+    number = ''.join((number[:2], '00', number[4:]))
+    return mod_97_10.calc_check_digits(_to_base10(number)[:-2])
