@@ -33,6 +33,8 @@ contain the country-specific identifier.
 'ES2300047690558N'
 >>> compact('ES++()+23ZZZ4//7690558N')
 'ES23ZZZ47690558N'
+>>> calc_check_digits('ESXXZZZZ47690558N')
+'23'
 """
 
 from stdnum.exceptions import *
@@ -74,3 +76,12 @@ def is_valid(number):
         return bool(validate(number))
     except ValidationError:
         return False
+
+
+def calc_check_digits(number):
+    """Calculate the check digits that should be put in the number to make
+    it valid. Check digits in the supplied number are ignored.."""
+    number = compact(number)
+    # replace check digits with placeholders
+    number = ''.join((number[:2], '00', number[4:]))
+    return mod_97_10.calc_check_digits(_to_base10(number)[:-2])
