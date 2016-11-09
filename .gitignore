@@ -4,9 +4,10 @@
 __pycache__
 
 # /
-/build
-/dist
-/python_stdnum.egg-info
 /.coverage
+/.tox
+/build
 /coverage
+/dist
 /distribute-*.egg
+/python_stdnum.egg-info
