@@ -1,3 +1,19 @@
+changes from 1.4 to 1.5
+-----------------------
+
+* add modules for the following number formats:
+  - ABN (Australian Business Number)
+  - ACN (Australian Company Number)
+  - TFN (Australian Tax File Number)
+  - CCC (Código Cuenta Corriente, Spanish Bank Account Code)
+  - CUPS (Código Unificado de Punto de Suministro, Supply Point Unified Code)
+  - Spanish IBAN (International Bank Account Number)
+  - Referencia Catastral (Spanish real estate property id)
+* The IBAN module now support validating the country-specific part
+* The Belgian VAT number is now also referenced as businessid
+* add a Tox configuration file
+
+
 changes from 1.3 to 1.4
 -----------------------
 

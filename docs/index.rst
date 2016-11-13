@@ -90,6 +90,9 @@ Available formats
    ar.cuit
    at.businessid
    at.uid
+   au.abn
+   au.acn
+   au.tfn
    be.vat
    bg.egn
    bg.pnf
@@ -117,10 +120,14 @@ Available formats
    ec.ruc
    ee.ik
    ee.kmkr
+   es.ccc
    es.cif
+   es.cups
    es.dni
+   es.iban
    es.nie
    es.nif
+   es.referenciacatastral
    eu.at_02
    eu.vat
    fi.alv

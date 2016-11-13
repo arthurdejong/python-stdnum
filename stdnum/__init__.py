@@ -29,7 +29,10 @@ Currently this package supports the following formats:
 * ar.cuit: CUIT (Código Único de Identificación Tributaria, Argentinian tax number)
 * at.businessid: Austrian Company Register Numbers
 * at.uid: UID (Umsatzsteuer-Identifikationsnummer, Austrian VAT number)
-* be.vat: BTW, TVA, NWSt (Belgian VAT number)
+* au.abn: ABN (Australian Business Number)
+* au.acn: ACN (Australian Company Number)
+* au.tfn: TFN (Australian Tax File Number)
+* be.vat: BTW, TVA, NWSt, ondernemingsnummer (Belgian enterprise number)
 * bg.egn: EGN (ЕГН, Единен граждански номер, Bulgarian personal identity codes)
 * bg.pnf: PNF (ЛНЧ, Личен номер на чужденец, Bulgarian number of a foreigner)
 * bg.vat: VAT (Идентификационен номер по ДДС, Bulgarian VAT number)
@@ -56,10 +59,14 @@ Currently this package supports the following formats:
 * ec.ruc: RUC (Registro Único de Contribuyentes, Ecuadorian company tax number)
 * ee.ik: Isikukood (Estonian Personcal ID number)
 * ee.kmkr: KMKR (Käibemaksukohuslase, Estonian VAT number)
+* es.ccc: CCC (Código Cuenta Corriente, Spanish Bank Account Code)
 * es.cif: CIF (Certificado de Identificación Fiscal, Spanish company tax number)
+* es.cups: CUPS (Código Unificado de Punto de Suministro, Supply Point Unified Code)
 * es.dni: DNI (Documento nacional de identidad, Spanish personal identity codes)
+* es.iban: Spanish IBAN (International Bank Account Number)
 * es.nie: NIE (Número de Identificación de Extranjeros, Spanish foreigner number)
 * es.nif: NIF (Número de Identificación Fiscal, Spanish VAT number)
+* es.referenciacatastral: Referencia Catastral (Spanish real estate property id)
 * eu.at_02: SEPA Identifier of the Creditor (AT-02)
 * eu.vat: VAT (European Union VAT number)
 * fi.alv: ALV nro (Arvonlisäveronumero, Finnish VAT number)
@@ -159,4 +166,4 @@ parsing, validation, formatting or conversion functions.
 
 
 # the version number of the library
-__version__ = '1.4'
+__version__ = '1.5'

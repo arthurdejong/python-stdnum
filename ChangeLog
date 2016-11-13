@@ -1,3 +1,179 @@
+2016-11-13  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [c9beb00] stdnum/cn/loc.dat, stdnum/iban.dat, stdnum/imsi.dat,
+	  stdnum/isbn.dat, stdnum/isil.dat, tests/test_iban.doctest:
+	  Update database files
+
+	  This removes the Costa Rica IBAN test because the format of the
+	  IBAN seems to have been changed. The old length still seems to
+	  be in use so a more permanent solution is probably required.
+
+2016-11-13  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [ac560a7] getisbn.py: Update getisbn to Python3
+
+	  There were some SSL-related issues with the urllib module. This
+	  was the easiest solution.
+
+2016-11-13  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [458c310] getiban.py: Update gettin IBAN registry
+
+	  The format of the registry file has changed. Before it was a
+	  straightforward CSV file with countries in rows but countries
+	  are now in columns.
+
+2016-11-09  Sergi Almacellas Abellana <sergi@koolpi.com>
+
+	* [45faa7c] .gitignore, tox.ini: Add tox.ini file
+
+2016-11-08  Sergi Almacellas Abellana <sergi@koolpi.com>
+
+	* [a9e5405] stdnum/eu/at_02.py: Implement calc_check_digits in
+	  SEPA Identifier of the Creditor (AT-02)
+
+2016-10-14  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [8ea76ba] stdnum/au/tfn.py, tests/test_au_tfn.doctest: Add
+	  Australian Tax File Number
+
+	  Based on the implementation provided by Vincent Bastos
+	  <vincent@lavalab.com.au>
+
+	  See https://github.com/arthurdejong/python-stdnum/pull/40
+
+2016-10-14  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [8028c3a] stdnum/au/acn.py, tests/test_au_acn.doctest: Add
+	  Australian Company Number
+
+	  Based on the implementation provided by Vincent Bastos
+	  <vincent@lavalab.com.au>
+
+	  See https://github.com/arthurdejong/python-stdnum/pull/40
+
+2016-10-14  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [70b94ee] stdnum/au/__init__.py, stdnum/au/abn.py,
+	  tests/test_au_abn.doctest: Add Australian Business Number
+
+	  Based on the implementation provided by Vincent Bastos
+	  <vincent@lavalab.com.au>
+
+	  See https://github.com/arthurdejong/python-stdnum/pull/40
+
+2016-10-14  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [d7cff5d] stdnum/be/__init__.py, stdnum/be/vat.py: Provide
+	  businessid as an alias
+
+	  The Belgian company number or enterprise number
+	  (ondernemingsnummer) is the new name for what was previously
+	  the VAT number.
+
+2016-09-10  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [352aa8a] stdnum/es/referenciacatastral.py: Add reference to
+	  Referencia Catastral implementation
+
+2016-09-03  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [49db553] tests/test_es_referenciacatastral.doctest: Add more
+	  tests for Referencia Catastral
+
+	  This adds a number of extra tests for the Spanish Referencia
+	  Catastral (stdnum.es.referenciacatastral) module, mostly based
+	  on numbers found online.
+
+	  This commit includes some of the documentation on the structure
+	  of Referencia Catastral that was in the original pull request.
+
+	  See https://github.com/arthurdejong/python-stdnum/pull/38
+
+2016-08-31  David García Garzón <david.garcia@upf.edu>
+
+	* [2c557a0] stdnum/es/referenciacatastral.py: Add Spansih Referencia
+	  Catastral
+
+	  The control digit check algorithm is based on Javascript
+	  implementation by Vicente Sancho that can be found at
+	  http://trellat.es/validar-la-referencia-catastral-en-javascript/
+
+	  See https://github.com/arthurdejong/python-stdnum/pull/38
+
+2016-09-10  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [b128c8d] tests/test_iban.doctest: Test a few Spanish IBANs
+	  found online
+
+2016-09-10  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [878e036] stdnum/numdb.py: Avoid leaving open file descriptor
+	  in test
+
+2016-09-08  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [be24790] stdnum/es/iban.py, tests/test_iban.doctest: Add Spanish
+	  IBAN number module
+
+	  This validates the country-specific part of the IBAN.
+
+2016-09-08  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [2510932] stdnum/iban.py: Validate country-specific part of IBAN
+
+	  This adds the possible of validating the country-specific part
+	  of the IBAN. If the country has an IBAN module, checking is also
+	  delegated to that module.
+
+2016-09-06  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [d8cca82] stdnum/eu/vat.py, stdnum/util.py: Introduce
+	  get_cc_module() utility function
+
+	  This changes the get_vat_module() function to a more generic
+	  get_cc_module() function so that it can also be used for other
+	  things like IBAN checking.
+
+2016-09-06  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [1622873] stdnum/es/ccc.py: Add to_iban() function to Spanish CCC
+
+2016-09-08  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [7d969be] stdnum/iban.py: Implement calc_check_digits() in IBAN
+
+	  Introduce a function to calculate the two check digits of an
+	  IBAN. Since the check digits are the third and fourth characters
+	  in the number, placeholders need to be provided when calling
+	  this function.
+
+2016-08-31  David García Garzón <voki@canvoki.net>
+
+	* [294f872] stdnum/es/ccc.py: Add Spanish Código Cuenta Corriente
+	  (CCC)
+
+2016-08-28  David García Garzón <david.garcia@upf.edu>
+
+	* [466cec8] stdnum/es/cups.py, tests/test_es_cups.doctest: Add
+	  Spanish CUPS code
+
+2016-08-28  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [d95382f] stdnum/exceptions.py: Properly print error message
+	  of exceptions
+
+	  This ensures that the message passed to the constructor is shown
+	  in the traceback while falling back to the class default.
+
+2016-07-26  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [01a7f34] ChangeLog, NEWS, README, docs/index.rst,
+	  docs/stdnum.damm.rst, docs/stdnum.fr.nif.rst,
+	  docs/stdnum.fr.nir.rst, docs/stdnum.fr.siret.rst,
+	  docs/stdnum.gb.nhs.rst, docs/stdnum.tr.tckimlik.rst,
+	  stdnum/__init__.py: Get files ready for 1.4 release
+
 2016-07-26  Arthur de Jong <arthur@arthurdejong.org>
 
 	* [3e4e9e2] getmybp.py, stdnum/cn/loc.dat, stdnum/iban.dat,
@@ -307,8 +483,8 @@ Jong <arthur@arthurdejong.org>
 
 2015-10-10  Arthur de Jong <arthur@arthurdejong.org>
 
-	* [ebb5c07] MANIFEST.in, numdb-test.dat, stdnum/numdb.py,
-	  tests/numdb-test.dat: Move numdb test file
+	* [ebb5c07] MANIFEST.in, stdnum/numdb.py, tests/numdb-test.dat:
+	  Move numdb test file
 
 	  This places the test database file in the tests directory.
 
@@ -881,8 +1057,8 @@ Jong <arthur@arthurdejong.org>
 	  http://www.citizensinformation.ie/en/social_welfare/irish_social_welfare_system/personal_public_service_number.html
 2014-02-06  Arthur de Jong <arthur@arthurdejong.org>
 
-	* [71d9837] stdnum/at_02.py, stdnum/eu/at_02.py: Rename AT-02
-	  module to stdnum.eu.at_02
+	* [71d9837] stdnum/eu/at_02.py: Rename AT-02 module to
+	  stdnum.eu.at_02
 
 2014-02-05  Sergi Almacellas Abellana <sergi@koolpi.com>
 
@@ -1583,8 +1759,7 @@ Jong <arthur@arthurdejong.org>
 
 2012-02-20  Arthur de Jong <arthur@arthurdejong.org>
 
-	* [680b7d1] numdb-test.dat, stdnum/numdb.py, test.dat: rename
-	  numdb test file
+	* [680b7d1] numdb-test.dat, stdnum/numdb.py: rename numdb test file
 
 2012-02-20  Arthur de Jong <arthur@arthurdejong.org>
 
@@ -2133,13 +2308,13 @@ Jong <arthur@arthurdejong.org>
 
 2011-02-05  Arthur de Jong <arthur@arthurdejong.org>
 
-	* [62aa496] tests/test_br_cpf.doctest, tests/test_iban.doctest,
-	  tests/test_imei.doctest, tests/test_isan.doctest,
-	  tests/test_isbn.doctest, tests/test_ismn.doctest,
-	  tests/test_issn.doctest, tests/test_luhn.doctest,
-	  tests/test_meid.doctest, tests/test_nl_bsn.doctest,
-	  tests/test_robustness.doctest, tests/test_verhoeff.doctest:
-	  move all robustness tests into one test file
+	* [62aa496] tests/test_iban.doctest, tests/test_imei.doctest,
+	  tests/test_isan.doctest, tests/test_isbn.doctest,
+	  tests/test_ismn.doctest, tests/test_issn.doctest,
+	  tests/test_luhn.doctest, tests/test_meid.doctest,
+	  tests/test_nl_bsn.doctest, tests/test_robustness.doctest,
+	  tests/test_verhoeff.doctest: move all robustness tests into one
+	  test file
 
 2011-02-05  Arthur de Jong <arthur@arthurdejong.org>
 
@@ -2207,9 +2382,8 @@ Jong <arthur@arthurdejong.org>
 
 2011-01-15  Arthur de Jong <arthur@arthurdejong.org>
 
-	* [8d3a92c] stdnum/bsn.py, stdnum/nl/__init__.py, stdnum/nl/bsn.py,
-	  tests/test_bsn.doctest, tests/test_nl_bsn.doctest: move bsn
-	  module inside nl package
+	* [8d3a92c] stdnum/nl/__init__.py, stdnum/nl/bsn.py,
+	  tests/test_nl_bsn.doctest: move bsn module inside nl package
 
 2010-11-26  Arthur de Jong <arthur@arthurdejong.org>
 
@@ -2219,10 +2393,10 @@ Jong <arthur@arthurdejong.org>
 2010-11-24  Arthur de Jong <arthur@arthurdejong.org>
 
 	* [124c16d] getisbn.py, stdnum/isbn.dat, stdnum/isbn.py,
-	  stdnum/isbn/__init__.py, stdnum/isbn/ranges.py, stdnum/numdb.py,
-	  test.dat, tests/test_isbn.doctest: implement a new numdb module
-	  to hold information on hierarchically organised numbers and
-	  switch the isbn module to use this format instead
+	  stdnum/isbn/ranges.py, stdnum/numdb.py, test.dat,
+	  tests/test_isbn.doctest: implement a new numdb module to hold
+	  information on hierarchically organised numbers and switch the
+	  isbn module to use this format instead
 
 2010-09-11  Arthur de Jong <arthur@arthurdejong.org>
 
