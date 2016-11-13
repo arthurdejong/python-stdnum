@@ -1,8 +1,8 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 
 # getisbn.py - script to get ISBN prefix data
 #
-# Copyright (C) 2010, 2011, 2014 Arthur de Jong
+# Copyright (C) 2010-2016 Arthur de Jong
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -26,7 +26,7 @@ to correctly split ISBNs into an EAN.UCC prefix, a group prefix, a registrant,
 an item number and a check-digit."""
 
 from xml.etree import ElementTree
-import urllib
+import urllib.request
 
 
 # the location of the ISBN Ranges XML file
@@ -55,7 +55,7 @@ def get(f=None):
     if f is None:
         yield '# generated from RangeMessage.xml, downloaded from'
         yield '# %s' % download_url
-        f = urllib.urlopen(download_url)
+        f = urllib.request.urlopen(download_url)
     else:
         yield '# generated from %r' % f
 
@@ -87,4 +87,4 @@ def get(f=None):
 if __name__ == '__main__':
     # get('RangeMessage.xml')
     for row in get():
-        print row.encode('utf-8')
+        print(row)
