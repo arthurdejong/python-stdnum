@@ -31,11 +31,11 @@ in groups of 0-3 and 0-3 numbers. E.g. 123.123, 12.123, 1.123, 123 or 1.
 >>> validate('123123123')
 Traceback (most recent call last):
   ...
-stdnum.exceptions.InvalidLength: The number has an invalid length.
+InvalidLength: The number has an invalid length.
 >>> validate('12df')
 Traceback (most recent call last):
   ...
-stdnum.exceptions.InvalidFormat: The number has an invalid format.
+InvalidFormat: The number has an invalid format.
 >>> format('123')
 '123'
 >>> format('1234')
