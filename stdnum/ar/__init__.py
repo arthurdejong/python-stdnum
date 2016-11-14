@@ -22,3 +22,4 @@
 
 # provide vat as an alias
 from stdnum.ar import cuit as vat
+from stdnum.ar import cbu as cbu
