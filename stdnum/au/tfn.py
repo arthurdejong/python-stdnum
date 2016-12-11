@@ -42,8 +42,6 @@ InvalidChecksum: ...
 '123 456 782'
 """
 
-import operator
-
 from stdnum.exceptions import *
 from stdnum.util import clean
 
