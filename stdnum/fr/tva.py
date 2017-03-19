@@ -1,7 +1,7 @@
 # tva.py - functions for handling French TVA numbers
 # coding: utf-8
 #
-# Copyright (C) 2012-2015 Arthur de Jong
+# Copyright (C) 2012-2017 Arthur de Jong
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -67,9 +67,13 @@ def validate(number):
     number = compact(number)
     if not all(x in _alphabet for x in number[:2]):
         raise InvalidFormat()
+    if not number[2:].isdigit():
+        raise InvalidFormat()
     if len(number) != 11:
         raise InvalidLength()
-    siren.validate(number[2:])
+    if number[2:5] != '000':
+        # numbers from Monaco are valid TVA but not SIREN
+        siren.validate(number[2:])
     if number.isdigit():
         # all-numeric digits
         if int(number[:2]) != (int(number[2:] + '12') % 97):

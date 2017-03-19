@@ -1,6 +1,6 @@
 test_eu_vat.doctest - more detailed doctests for the stdnum.eu.vat module
 
-Copyright (C) 2012-2015 Arthur de Jong
+Copyright (C) 2012-2017 Arthur de Jong
 
 This library is free software; you can redistribute it and/or
 modify it under the terms of the GNU Lesser General Public
@@ -312,6 +312,28 @@ These have been found online and should all be valid numbers.
 ... Fr 40 303 265 045
 ... Fr 96 631 620 572
 ... fr 71383076817
+...
+... FR16000063601
+... FR23000047372
+... FR26000040583
+... FR28000113851
+... FR30000017854
+... FR32000000330
+... FR36000006022
+... FR40000066034
+... FR43000020445
+... FR48000052489
+... FR54000065101
+... FR64000063908
+... FR65000100833
+... FR79000030642
+... FR83000065143
+... FR83000113158
+... FR84000082668
+... FR87000018746
+... FR88000008820
+... FR88000053537
+... FR96000110899
 ...
 ... GB 002 4257 28
 ... GB 003232345
@@ -863,6 +885,8 @@ These numbers should be mostly valid except that they have the wrong length.
 ... CY-1225903322
 ...
 ... ES B-583784312
+...
+... FR000076090
 ...
 ... NL006866304B021
 ...
