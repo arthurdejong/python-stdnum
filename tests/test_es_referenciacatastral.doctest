@@ -1,7 +1,7 @@
 test_es_referenciacatastral.doctest - more detailed doctests
 
 Copyright (C) 2016 David García Garzón
-Copyright (C) 2015 Arthur de Jong
+Copyright (C) 2015-2017 Arthur de Jong
 
 This library is free software; you can redistribute it and/or
 modify it under the terms of the GNU Lesser General Public
@@ -70,6 +70,19 @@ The parcel digits are structured differently for urban, non-urban or special
 
 An online validator can be found at
 https://www1.sedecatastro.gob.es/CYCBienInmueble/OVCBusqueda.aspx
+
+
+This is a constructed example of a Referencia Catastral with an Ñ in it. It
+seems that unicode literals do not work so we are escaping Ñ.
+
+>>> referenciacatastral.calc_check_digits('9872023 ÑH5797S 0001')
+'WP'
+>>> referenciacatastral.calc_check_digits(u'9872023 \xd1H5797S 0001')
+'WP'
+>>> referenciacatastral.validate('9872023 ÑH5797S 0001 WP') == '9872023ÑH5797S0001WP'
+True
+>>> referenciacatastral.validate(u'9872023 \xd1H5797S 0001 WP') == u'9872023\xd1H5797S0001WP'
+True
 
 
 These have been found online and should all be valid numbers.
@@ -147,6 +160,9 @@ These have been found online and should all be valid numbers.
 ... 1344504PD5614S0001XE
 ... 1468103QC6316N0001PQ
 ... 1470436TJ5117S0001EP
+... 15001A005004610000JK
+... 15001A005004620000JR
+... 15037A024005060000PX
 ... 1665311QC6316S0001OO
 ... 1811701QC3711S0001RM
 ... 1927510QD2812N0001GJ
@@ -178,6 +194,8 @@ These have been found online and should all be valid numbers.
 ... 3065602TH8836N0001KA
 ... 3117006QC3731N0001KM
 ... 3135901PD7033E0001MF
+... 3174922NH0737S0011QS
+... 3174932NH0737S0001AT
 ... 3178101UJ2337N0001IB
 ... 3327002TJ6332N0001QH
 ... 3368022PE8136N0001LJ
@@ -193,6 +211,7 @@ These have been found online and should all be valid numbers.
 ... 4637801TK6843N0001WI
 ... 4878424TK6347N0001GT
 ... 4926002QE4142N0001UP
+... 50210A003001510000LT
 ... 5034623PC6853S0001MO
 ... 5078102VK8957N0001TB
 ... 5172401PD7057A0001HI
@@ -236,6 +255,7 @@ These have been found online and should all be valid numbers.
 ... 6795121QD0069N0008EU
 ... 6821105TK5662S0001QI
 ... 6822811QD2162S0001GP
+... 6837203FT3063N0001YP
 ... 6893505QC5569S0001LO
 ... 6991224PD3869S0001FW
 ... 7076102TJ5177N0001ZE
@@ -247,6 +267,7 @@ These have been found online and should all be valid numbers.
 ... 7384201TJ5178S0019OB
 ... 7384201TJ5178S0043QS
 ... 7479113QE2477N0001UY
+... 7499524NH0179N0001RJ
 ... 7570012TJ4377S0001PO
 ... 7640222QE4374B0001FR
 ... 7682601TJ5178S0001XT
@@ -259,6 +280,7 @@ These have been found online and should all be valid numbers.
 ... 8344202PC6684S0001FT
 ... 8354003PD7085C0001RR
 ... 8384416TJ8688S0001IQ
+... 8579507NH0387N0001QB
 ... 8645036TJ5984N0001TL
 ... 8670604TJ4587S0004BE
 ... 8679007TJ5187N0001LU

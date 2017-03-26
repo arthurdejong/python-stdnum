@@ -2,7 +2,7 @@
 # coding: utf-8
 #
 # Copyright (C) 2016 David García Garzón
-# Copyright (C) 2016 Arthur de Jong
+# Copyright (C) 2016-2017 Arthur de Jong
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -90,8 +90,16 @@ def _check_digit(number):
     return 'MQWERTYUIOPASDFGHJKLBZX'[s % 23]
 
 
+def _force_unicode(number):
+    """Convert the number to unicode."""
+    if not hasattr(number, 'isnumeric'):  # pragma: no cover (Python 2 code)
+        number = number.decode('utf-8')
+    return number
+
+
 def calc_check_digits(number):
     """Calculate the check digits for the number."""
+    number = _force_unicode(compact(number))
     return (
         _check_digit(number[0:7] + number[14:18]) +
         _check_digit(number[7:14] + number[14:18]))
@@ -101,11 +109,12 @@ def validate(number):
     """Checks to see if the number provided is a valid Cadastral Reference.
     This checks the length, formatting and check digits."""
     number = compact(number)
-    if not all(c in alphabet for c in number):
+    n = _force_unicode(number)
+    if not all(c in alphabet for c in n):
         raise InvalidFormat()
-    if len(number) != 20:
+    if len(n) != 20:
         raise InvalidLength()
-    if calc_check_digits(number) != number[18:]:
+    if calc_check_digits(n) != n[18:]:
         raise InvalidChecksum()
     return number
 
