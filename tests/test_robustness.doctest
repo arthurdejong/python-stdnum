@@ -22,7 +22,9 @@ This file contains some tests for modules in the stdnum package to
 check whether all provided is_valid() functions can handle clearly
 invalid junk.
 
->>> testvalues = (None, '*&^%$', '', 0, False, object(), 'Z', 'QQ', '3')
+>>> testvalues = (
+...     None, '*&^%$', '', 0, False, object(), 'Z', 'QQ', '3', '€', u'€',
+...     '😴', '¥')
 >>> from stdnum.util import get_number_modules
 
 Go over each module and try every value.
