@@ -35,7 +35,6 @@ InvalidComponent: ...
 """
 
 from stdnum.exceptions import *
-from stdnum.util import clean
 from stdnum.fr import tva
 
 
