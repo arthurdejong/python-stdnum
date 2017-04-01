@@ -1,0 +1,118 @@
+test_eu_eic.doctest - more detailed doctests for the stdnum.eu.eic module
+
+Copyright (C) 2017 Arthur de Jong
+
+This library is free software; you can redistribute it and/or
+modify it under the terms of the GNU Lesser General Public
+License as published by the Free Software Foundation; either
+version 2.1 of the License, or (at your option) any later version.
+
+This library is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+Lesser General Public License for more details.
+
+You should have received a copy of the GNU Lesser General Public
+License along with this library; if not, write to the Free Software
+Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
+02110-1301 USA
+
+
+This file contains more detailed doctests for the stdnum.eu.eic module. It
+tries to validate a number of EIC numbers that have been found online.
+
+>>> from stdnum.eu import eic
+
+
+These have been found online and should all be valid numbers.
+
+>>> numbers = '''
+...
+... 10T-NO-SE-00005Q
+... 10Y1001A1001B05V
+... 10YAT-APG------L
+... 10YCH-SWISSGRIDZ
+... 10YDE-RWENET---I
+... 10YDE-VE-------2
+... 11WD8JAEN1L---AD
+... 11XE-WERK-STERNP
+... 11XEMRHAENDLER-M
+... 11XNATGAST00000G
+... 11XNEW-ENERGIE-8
+... 11XWEMAG-------Q
+... 13X-IKBAG-NV---3
+... 14X-VES--------8
+... 18X0000000002OOE
+... 18X0000000003VQM
+... 18XAIGVA-12345-G
+... 18XALMAL-1234-12
+... 18XCEG-123456-1F
+... 18XCEPSA-12345-6
+... 18XEACCO-12345-K
+... 18XENERS-12345-Q
+... 18XEPCSA-12345-S
+... 18XERUYA-12345-5
+... 18XGEM3-12345--K
+... 18XGESTN-12345-G
+... 18XJEALS-12345-P
+... 18XLURIA-12345-Y
+... 18XMONTO-12345-C
+... 18XUTZUB-1234-1M
+... 19XENIONENERGIAM
+... 21W000000000092T
+... 21X0000000011845
+... 21X000000001297T
+... 21YEA-EC-------9
+... 22X20160610----4
+... 23X----090406-1H
+... 23X--150408-AS-5
+... 23XB4CARCAPMKT-H
+... 25X-SHELLAUSTRIL
+... 26X00000004851-Y
+... 26X00000105742-Q
+... 26X00000107862-1
+... 27XAPTPOWER-CZ-3
+... 27XG-ACTHERM-CV1
+... 27XG-RWE-STP-CZJ
+... 27XMND---------8
+... 28XENS---------6
+... 37X000000000054S
+... 59X000000000110J
+... 59X0000000001515
+... 59X0000000002309
+... 59Z000000000216C
+... 59Z000000000276V
+... 59Z000000000368Q
+... 59Z0000000004180
+... 59Z000000000673L
+... 59Z000000000905Q
+... 59Z000000001369J
+... 59Z000000001534U
+... 59Z0000000017952
+... 59Z000000001801X
+... 59Z000000001934E
+... 59Z0000000020518
+... 59Z0000000021522
+... 59Z000000002270X
+... 59Z000000002349K
+... 59Z000000002376H
+... 59Z000000002475F
+... 59Z0000000027818
+... 59Z000000003405V
+... 59Z000000003499X
+... 59Z000000003597X
+... 59Z0000000036639
+... 59Z0000000038194
+... 59Z000000003867U
+... 59Z000000004048O
+... 59Z000000004192H
+... 59Z000000004481A
+... 59Z0000000045638
+... 59Z000000004595W
+... 59Z000000004748X
+... 59Z000000004764Z
+... 59Z000000004787N
+...
+... '''
+>>> [x for x in numbers.splitlines() if x and not eic.is_valid(x)]
+[]
