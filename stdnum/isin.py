@@ -1,6 +1,6 @@
 # isin.py - functions for handling ISIN numbers
 #
-# Copyright (C) 2015 Arthur de Jong
+# Copyright (C) 2015-2017 Arthur de Jong
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -91,7 +91,7 @@ def calc_check_digit(number):
     # convert to numeric first, then double some, then sum individual digits
     number = ''.join(str(_alphabet.index(n)) for n in number)
     number = ''.join(
-        str(int(n) * (2 - i % 2)) for i, n in enumerate(reversed(number)))
+        str((2, 1)[i % 2] * int(n)) for i, n in enumerate(reversed(number)))
     return str((10 - sum(int(n) for n in number)) % 10)
 
 

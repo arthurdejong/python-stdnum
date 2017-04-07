@@ -1,7 +1,7 @@
 # tckimlik.py - functions for handling T.C. Kimlik No.
 # coding: utf-8
 #
-# Copyright (C) 2016 Arthur de Jong
+# Copyright (C) 2016-2017 Arthur de Jong
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -66,7 +66,7 @@ def compact(number):
 def calc_check_digits(number):
     """Calculate the check digits for the specified number. The number
     passed should not have the check digit included."""
-    check1 = (10 - sum((3 - 2 * (i % 2)) * int(n)
+    check1 = (10 - sum((3, 1)[i % 2] * int(n)
               for i, n in enumerate(number[:9]))) % 10
     check2 = (check1 + sum(int(n) for n in number[:9])) % 10
     return '%d%d' % (check1, check2)

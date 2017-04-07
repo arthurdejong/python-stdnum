@@ -1,6 +1,6 @@
 # cusip.py - functions for handling CUSIP numbers
 #
-# Copyright (C) 2015 Arthur de Jong
+# Copyright (C) 2015-2017 Arthur de Jong
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -57,7 +57,7 @@ def calc_check_digit(number):
     """Calculate the check digits for the number."""
     # convert to numeric first, then sum individual digits
     number = ''.join(
-        str((i % 2 + 1) * _alphabet.index(n)) for i, n in enumerate(number))
+        str((1, 2)[i % 2] * _alphabet.index(n)) for i, n in enumerate(number))
     return str((10 - sum(int(n) for n in number)) % 10)
 
 

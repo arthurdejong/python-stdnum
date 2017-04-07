@@ -1,6 +1,6 @@
 # ean.py - functions for handling EANs
 #
-# Copyright (C) 2011, 2012, 2013 Arthur de Jong
+# Copyright (C) 2011-2017 Arthur de Jong
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -41,7 +41,7 @@ def compact(number):
 def calc_check_digit(number):
     """Calculate the EAN check digit for 13-digit numbers. The number passed
     should not have the check bit included."""
-    return str((10 - sum((3 - 2 * (i % 2)) * int(n)
+    return str((10 - sum((3, 1)[i % 2] * int(n)
                          for i, n in enumerate(reversed(number)))) % 10)
 
 

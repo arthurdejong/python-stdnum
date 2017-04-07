@@ -2,7 +2,7 @@
 # coding: utf-8
 #
 # Copyright (C) 2014 Jonathan Finlay
-# Copyright (C) 2014 Arthur de Jong
+# Copyright (C) 2014-2017 Arthur de Jong
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -48,7 +48,7 @@ def compact(number):
 def _checksum(number):
     """Calculate a checksum over the number."""
     fold = lambda x: x - 9 if x > 9 else x
-    return sum(fold((2 - (i % 2)) * int(n))
+    return sum(fold((2, 1)[i % 2] * int(n))
                for i, n in enumerate(number)) % 10
 
 
