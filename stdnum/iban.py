@@ -1,6 +1,6 @@
 # iban.py - functions for handling International Bank Account Numbers (IBANs)
 #
-# Copyright (C) 2011-2016 Arthur de Jong
+# Copyright (C) 2011-2017 Arthur de Jong
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -55,9 +55,6 @@ from stdnum.util import clean, get_cc_module
 # our open copy of the IBAN database
 _ibandb = numdb.get('iban')
 
-# the valid characters we have
-_alphabet = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ'
-
 # regular expression to check IBAN structure
 _struct_re = re.compile(r'([1-9][0-9]*)!([nac])')
 
@@ -71,25 +68,11 @@ def compact(number):
     return clean(number, ' -').strip().upper()
 
 
-def _to_base10(number):
-    """Prepare the number to its base10 representation (also moving the
-    check digits to the end) so it can be checked with the ISO 7064
-    Mod 97, 10 algorithm."""
-    # TODO: find out whether this should be in the mod_97_10 module
-    try:
-        return ''.join(
-            str(_alphabet.index(x)) for x in number[4:] + number[:4])
-    except Exception:
-        raise InvalidFormat()
-
-
 def calc_check_digits(number):
     """Calculate the check digits that should be put in the number to make
-    it valid. Check digits in the supplied number are ignored.."""
+    it valid. Check digits in the supplied number are ignored."""
     number = compact(number)
-    # replace check digits with placeholders
-    number = ''.join((number[:2], '00', number[4:]))
-    return mod_97_10.calc_check_digits(_to_base10(number)[:-2])
+    return mod_97_10.calc_check_digits(number[4:] + number[:2])
 
 
 def _struct_to_re(structure):
@@ -119,7 +102,7 @@ def validate(number, check_country=True):
     specific check can be disabled with the check_country argument."""
     number = compact(number)
     # ensure that checksum is valid
-    mod_97_10.validate(_to_base10(number))
+    mod_97_10.validate(number[4:] + number[:4])
     # look up the number
     info = _ibandb.info(number)
     # check if the bban part of number has the correct structure

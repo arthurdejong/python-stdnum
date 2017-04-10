@@ -1,6 +1,6 @@
 # mod_97_10.py - functions for performing the ISO 7064 Mod 97, 10 algorithm
 #
-# Copyright (C) 2010, 2011, 2012, 2013 Arthur de Jong
+# Copyright (C) 2010-2017 Arthur de Jong
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -37,9 +37,22 @@ valid if the number modulo 97 is 1. As such it has two check digits.
 from stdnum.exceptions import *
 
 
+# the valid characters we have
+_alphabet = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ'
+
+
+def _to_base10(number):
+    """Prepare the number to its base10 representation."""
+    try:
+        return ''.join(
+            str(_alphabet.index(x)) for x in number)
+    except Exception:
+        raise InvalidFormat()
+
+
 def checksum(number):
     """Calculate the checksum. A valid number should have a checksum of 1."""
-    return int(number) % 97
+    return int(_to_base10(number)) % 97
 
 
 def calc_check_digits(number):
