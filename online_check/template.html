@@ -1,0 +1,23 @@
+<html>
+<head>
+ <title>python-stdnum: check numbers</title>
+ <meta name="author" content="Arthur de Jong">
+ <script src="jquery-1.7.1.min.js">
+ <script src="check.js">
+</head>
+<body>
+ <h1>Check numbers</h1>
+ <p>
+  Enter a number and see if
+  <a href="https://arthurdejong.org/python-stdnum/">python-stdnum</a>
+  recognises it.
+  It checks all supported formats to find the formats for
+  which it is valid.
+ </p>
+ <form>
+  <input id="number" name="number" type="text" value="" class="stdnum_check" placeholder="Enter number here">
+  <input type="submit" value="Check" class="stdnum_hide">
+ </form>
+ <div id="number_results"><ul>%s</ul></div>
+</body>
+</html>
