@@ -1,7 +1,7 @@
 # nie.py - functions for handling Spanish foreigner identity codes
 # coding: utf-8
 #
-# Copyright (C) 2012, 2013 Arthur de Jong
+# Copyright (C) 2012-2017 Arthur de Jong
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -40,7 +40,7 @@ from stdnum.es import dni
 from stdnum.exceptions import *
 
 
-__all__ = ['compact', 'is_valid']
+__all__ = ['compact', 'calc_check_digit', 'validate', 'is_valid']
 
 
 # use the same compact function as DNI
