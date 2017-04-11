@@ -1,3 +1,147 @@
+2017-04-10  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [93459d3] stdnum/cn/loc.dat, stdnum/eu/nace.dat, stdnum/iban.dat,
+	  stdnum/imsi.dat, stdnum/isbn.dat: Update database files
+
+2017-04-10  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [bb1712d] online_check/README, online_check/check.js,
+	  online_check/jquery-1.7.1.js, online_check/jquery-1.7.1.min.js,
+	  online_check/stdnum.wsgi, online_check/template.html: Add simple
+	  online check example
+
+	  This adds the code that is used to find formats for which a
+	  supplied number is valid. This is the code that is used on
+	    https://arthurdejong.org/python-stdnum/check/
+
+2017-04-10  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [5398247] stdnum/lei.py, tests/test_lei.doctest: Add Legal
+	  Entity Identifier
+
+2017-04-10  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [e844b52] stdnum/iban.py, stdnum/iso7064/mod_97_10.py: Integrate
+	  base10 conversion into Mod 97, 10
+
+	  This moves the conversion of an alphanumeric string to a numeric
+	  representation for modulo 97 calculation to the mod_97_10 module
+	  because this mechanism seems to be used by multiple formats.
+
+2017-04-10  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [1b3d16e] stdnum/es/nie.py: Add missing export (__all__)
+
+2017-04-10  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [72f5c6c] stdnum/rs/__init__.py, stdnum/rs/pib.py,
+	  tests/test_rs_pib.doctest: Add Serbian Poreski Identifikacioni Broj
+
+2017-04-10  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [800205c] tox.ini: Print warnings during tox run
+
+2017-04-07  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [7493eca] stdnum/cusip.py, stdnum/ean.py, stdnum/ec/ci.py,
+	  stdnum/isin.py, stdnum/tr/tckimlik.py: Use a slightly more
+	  readable weight alternation
+
+	  Switch to a slightly more readable syntax for alternating between
+	  two weights in checksums calculations.
+
+2017-04-01  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [23b2150] stdnum/eu/eic.py, tests/test_eu_eic.doctest: Add
+	  European EIC (Energy Identification Code)
+
+2017-03-26  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [194f025] stdnum/meid.py, tests/test_robustness.doctest: Add
+	  unicode robustness tests
+
+	  This tests a few unicode strings and fixes a bug in the MEID
+	  module.
+
+2017-03-26  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [d43c394] stdnum/es/referenciacatastral.py,
+	  tests/test_es_referenciacatastral.doctest: Add test for Ñ in
+	  Referencia Catastral
+
+	  This supports the Referencia Catastral with an Ñ in it for
+	  both byte strings (Python 2) and unicode strings (Python 2 and
+	  3). Support for literal unicode strings in Python 2 doctests is
+	  flaky so the test is a bit ugly.
+
+	  This also adds a few numbers that were found online. Sadly no
+	  real numbers with an Ñ in it have been found so the one in the
+	  test was constructed.
+
+2017-03-26  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [61d73c1] getnace.py, stdnum/eu/nace.dat, stdnum/eu/nace.py,
+	  tests/test_robustness.doctest: Add European NACE classification
+
+	  This number is used to classify business. Validation is done
+	  based on a downloaded registry.
+
+2017-03-26  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [649f073] stdnum/mc/tva.py: Remove unused import
+
+2017-03-19  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [c957318] stdnum/fr/tva.py, stdnum/mc/__init__.py,
+	  stdnum/mc/tva.py, tests/test_eu_vat.doctest: Add support for
+	  Monaco VAT number
+
+	  The number uses the French TVA number but, unlike normal French
+	  VAT numbers, they are not valid French SIREN numbers.
+
+	  See https://github.com/arthurdejong/python-stdnum/issues/46
+
+2016-12-11  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [5b43857] stdnum/au/tfn.py: Remove unused import
+
+2016-12-01  Greg Kuwaye <gkuwaye@lyft.com>
+
+	* [7d16ea5] stdnum/us/ein.dat: Add new 47 EIN prefix; fix duplicate
+	  46; move 81
+
+	  47 appears to be a new Internet campus code. Prefix 46
+	  was listed twice, once under the Philadelphia campus and
+	  again under the Internet campus.  This error may be seen
+	  on the IRS website itself. The Wikipedia article on EIN
+	  (https://en.wikipedia.org/wiki/Employer_Identification_Number)
+	  does not have 46 listed twice. 81 has moved from the Philadelphia
+	  campus to the Internet campus.
+
+2016-11-14  Luciano Rossi <lukio@gcoop.coop>
+
+	* [dcde8f4] stdnum/ar/cbu.py, tests/test_ar_cbu.doctest: Implement
+	  CBU (unique bank code) of Argentina
+
+	  See https://github.com/arthurdejong/python-stdnum/issues/43
+
+2016-11-14  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [da18e3b] setup.py, stdnum/fi/associationid.py, stdnum/meid.py,
+	  tests/test_mx_rfc.doctest, tox.ini: Add Python 2.6 support
+
+	  This also brings the list of Python versions in setup.py in line
+	  with tox.ini.
+
+2016-11-13  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [62ebbce] ChangeLog, NEWS, README, docs/index.rst,
+	  docs/stdnum.au.abn.rst, docs/stdnum.au.acn.rst,
+	  docs/stdnum.au.tfn.rst, docs/stdnum.es.ccc.rst,
+	  docs/stdnum.es.cups.rst, docs/stdnum.es.iban.rst,
+	  docs/stdnum.es.referenciacatastral.rst, stdnum/__init__.py:
+	  Get files ready for 1.5 release
+
 2016-11-13  Arthur de Jong <arthur@arthurdejong.org>
 
 	* [c9beb00] stdnum/cn/loc.dat, stdnum/iban.dat, stdnum/imsi.dat,

@@ -1,7 +1,7 @@
 # __init__.py - main module
 # coding: utf-8
 #
-# Copyright (C) 2010-2016 Arthur de Jong
+# Copyright (C) 2010-2017 Arthur de Jong
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -26,6 +26,7 @@ standard numbers and codes in various formats.
 Currently this package supports the following formats:
 
 * al.nipt: NIPT (Numri i Identifikimit për Personin e Tatueshëm, Albanian VAT number)
+* ar.cbu: CBU (Clave Bancaria Uniforme, Argentine bank account number)
 * ar.cuit: CUIT (Código Único de Identificación Tributaria, Argentinian tax number)
 * at.businessid: Austrian Company Register Numbers
 * at.uid: UID (Umsatzsteuer-Identifikationsnummer, Austrian VAT number)
@@ -68,6 +69,8 @@ Currently this package supports the following formats:
 * es.nif: NIF (Número de Identificación Fiscal, Spanish VAT number)
 * es.referenciacatastral: Referencia Catastral (Spanish real estate property id)
 * eu.at_02: SEPA Identifier of the Creditor (AT-02)
+* eu.eic: EIC (European Energy Identification Code)
+* eu.nace: NACE (classification for businesses in the European Union)
 * eu.vat: VAT (European Union VAT number)
 * fi.alv: ALV nro (Arvonlisäveronumero, Finnish VAT number)
 * fi.associationid: Finnish Association Identifier
@@ -103,9 +106,11 @@ Currently this package supports the following formats:
 * issn: ISSN (International Standard Serial Number)
 * it.codicefiscale: Codice Fiscale (Italian tax code for individuals)
 * it.iva: Partita IVA (Italian VAT number)
+* lei: LEI (Legal Entity Identifier)
 * lt.pvm: PVM (Pridėtinės vertės mokestis mokėtojo kodas, Lithuanian VAT number)
 * lu.tva: TVA (taxe sur la valeur ajoutée, Luxembourgian VAT number)
 * lv.pvn: PVN (Pievienotās vērtības nodokļa, Latvian VAT number)
+* mc.tva: n° TVA (taxe sur la valeur ajoutée, Monacan VAT number)
 * meid: MEID (Mobile Equipment Identifier)
 * mt.vat: VAT (Maltese VAT number)
 * mx.rfc: RFC (Registro Federal de Contribuyentes, Mexican tax number)
@@ -123,6 +128,7 @@ Currently this package supports the following formats:
 * pt.nif: NIF (Número de identificação fiscal, Portuguese VAT number)
 * ro.cf: CF (Cod de înregistrare în scopuri de TVA, Romanian VAT number)
 * ro.cnp: CNP (Cod Numeric Personal, Romanian Numerical Personal Code)
+* rs.pib: PIB (Poreski Identifikacioni Broj, Serbian tax identification number)
 * ru.inn: ИНН (Идентификационный номер налогоплательщика, Russian tax identifier)
 * se.orgnr: Orgnr (Organisationsnummer, Swedish company number)
 * se.vat: VAT (Moms, Mervärdesskatt, Swedish VAT number)
@@ -160,10 +166,10 @@ Traceback (most recent call last):
     ...
 InvalidChecksum: ...
 
-Apart from the validate() function, modules generally provide extra
+Apart from the validate() function, many modules provide extra
 parsing, validation, formatting or conversion functions.
 """
 
 
 # the version number of the library
-__version__ = '1.5'
+__version__ = '1.6'

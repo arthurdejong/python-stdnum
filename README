@@ -10,6 +10,7 @@ Available formats
 Currently this package supports the following formats:
 
  * NIPT (Numri i Identifikimit për Personin e Tatueshëm, Albanian VAT number)
+ * CBU (Clave Bancaria Uniforme, Argentine bank account number)
  * CUIT (Código Único de Identificación Tributaria, Argentinian tax number)
  * Austrian Company Register Numbers
  * UID (Umsatzsteuer-Identifikationsnummer, Austrian VAT number)
@@ -52,6 +53,8 @@ Currently this package supports the following formats:
  * NIF (Número de Identificación Fiscal, Spanish VAT number)
  * Referencia Catastral (Spanish real estate property id)
  * SEPA Identifier of the Creditor (AT-02)
+ * EIC (European Energy Identification Code)
+ * NACE (classification for businesses in the European Union)
  * VAT (European Union VAT number)
  * ALV nro (Arvonlisäveronumero, Finnish VAT number)
  * Finnish Association Identifier
@@ -87,9 +90,11 @@ Currently this package supports the following formats:
  * ISSN (International Standard Serial Number)
  * Codice Fiscale (Italian tax code for individuals)
  * Partita IVA (Italian VAT number)
+ * LEI (Legal Entity Identifier)
  * PVM (Pridėtinės vertės mokestis mokėtojo kodas, Lithuanian VAT number)
  * TVA (taxe sur la valeur ajoutée, Luxembourgian VAT number)
  * PVN (Pievienotās vērtības nodokļa, Latvian VAT number)
+ * n° TVA (taxe sur la valeur ajoutée, Monacan VAT number)
  * MEID (Mobile Equipment Identifier)
  * VAT (Maltese VAT number)
  * RFC (Registro Federal de Contribuyentes, Mexican tax number)
@@ -107,6 +112,7 @@ Currently this package supports the following formats:
  * NIF (Número de identificação fiscal, Portuguese VAT number)
  * CF (Cod de înregistrare în scopuri de TVA, Romanian VAT number)
  * CNP (Cod Numeric Personal, Romanian Numerical Personal Code)
+ * PIB (Poreski Identifikacioni Broj, Serbian tax identification number)
  * ИНН (Идентификационный номер налогоплательщика, Russian tax identifier)
  * Orgnr (Organisationsnummer, Swedish company number)
  * VAT (Moms, Mervärdesskatt, Swedish VAT number)
@@ -159,13 +165,13 @@ Requirements
 ------------
 
 The modules should not require any external Python modules and should be pure
-Python. The modules are developed and tested with Python 2.7 and 3.5 but may
+Python. The modules are developed and tested with Python 2.7 and 3.6 but may
 also work with older versions of Python.
 
 Copyright
 ---------
 
-Copyright (C) 2010-2016 Arthur de Jong and others
+Copyright (C) 2010-2017 Arthur de Jong and others
 
 This library is free software; you can redistribute it and/or
 modify it under the terms of the GNU Lesser General Public

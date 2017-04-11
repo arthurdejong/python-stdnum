@@ -1,3 +1,20 @@
+changes from 1.5 to 1.6
+-----------------------
+
+* add modules for the following number formats:
+  - CBU (Clave Bancaria Uniforme, Argentine bank account number)
+    (thanks Luciano Rossi)
+  - EIC (European Energy Identification Code)
+  - NACE (classification for businesses in the European Union)
+  - LEI (Legal Entity Identifier)
+  - n° TVA (taxe sur la valeur ajoutée, Monacan VAT number)
+  - PIB (Poreski Identifikacioni Broj, Serbian tax identification number)
+* add online check example that finds valid formats for a given number
+* fix support for Ñ in Spanish Referencia Catastral
+* updates to U.S. Employer Identification Number (thanks Greg Kuwaye)
+* various minor improvements
+
+
 changes from 1.4 to 1.5
 -----------------------
 
@@ -9,8 +26,8 @@ changes from 1.4 to 1.5
   - CUPS (Código Unificado de Punto de Suministro, Supply Point Unified Code)
   - Spanish IBAN (International Bank Account Number)
   - Referencia Catastral (Spanish real estate property id)
-* The IBAN module now support validating the country-specific part
-* The Belgian VAT number is now also referenced as businessid
+* the IBAN module now support validating the country-specific part
+* the Belgian VAT number is now also referenced as businessid
 * add a Tox configuration file
 
 

@@ -87,6 +87,7 @@ Available formats
    :toctree:
 
    al.nipt
+   ar.cbu
    ar.cuit
    at.businessid
    at.uid
@@ -129,6 +130,8 @@ Available formats
    es.nif
    es.referenciacatastral
    eu.at_02
+   eu.eic
+   eu.nace
    eu.vat
    fi.alv
    fi.associationid
@@ -164,9 +167,11 @@ Available formats
    issn
    it.codicefiscale
    it.iva
+   lei
    lt.pvm
    lu.tva
    lv.pvn
+   mc.tva
    meid
    mt.vat
    mx.rfc
@@ -184,6 +189,7 @@ Available formats
    pt.nif
    ro.cf
    ro.cnp
+   rs.pib
    ru.inn
    se.orgnr
    se.vat

@@ -1,3 +1,4 @@
-include README NEWS ChangeLog COPYING *.py
+include README NEWS ChangeLog COPYING *.py tox.ini
 recursive-include tests *.doctest *.dat
 recursive-include docs *.rst *.py
+recursive-include online_check *
