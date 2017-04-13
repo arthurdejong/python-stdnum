@@ -1,6 +1,6 @@
 # nhs.py - functions for handling United Kingdom NHS numbers
 #
-# Copyright (C) 2016 Arthur de Jong
+# Copyright (C) 2016-2017 Arthur de Jong
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -28,7 +28,7 @@ More information:
 
 * https://en.wikipedia.org/wiki/NHS_number
 * http://www.nhs.uk/NHSEngland/thenhs/records/nhs-number/
-* http://systems.hscic.gov.uk/nhsnumber
+* https://digital.nhs.uk/article/301/NHS-Number
 * http://www.datadictionary.nhs.uk/data_dictionary/attributes/n/nhs/nhs_number_de.asp
 
 >>> validate('943-476-5870')

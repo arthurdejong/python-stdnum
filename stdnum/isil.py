@@ -1,7 +1,7 @@
 # isil.py - functions for handling identifiers for libraries and related
 #           organizations
 #
-# Copyright (C) 2011-2015 Arthur de Jong
+# Copyright (C) 2011-2017 Arthur de Jong
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -41,7 +41,7 @@ More information:
 
 * https://en.wikipedia.org/wiki/ISBT_128
 * http://biblstandard.dk/isil/
-* http://www.iso.org/iso/catalogue_detail?csnumber=57332
+* https://www.iso.org/standard/57332.html
 
 >>> validate('IT-RM0267')
 'IT-RM0267'

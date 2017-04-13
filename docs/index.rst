@@ -9,7 +9,7 @@ in different formats. It contains a large collection of number formats.
 Basically any number or code that has some validation mechanism available
 or some common formatting is eligible for inclusion in this library.
 
-http://arthurdejong.org/python-stdnum/
+https://arthurdejong.org/python-stdnum/
 
 
 Common Interface

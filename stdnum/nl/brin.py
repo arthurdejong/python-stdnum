@@ -1,6 +1,6 @@
 # brin.py - functions for handling Brin numbers
 #
-# Copyright (C) 2013 Arthur de Jong
+# Copyright (C) 2013-2017 Arthur de Jong
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -25,7 +25,7 @@ characters, sometimes extended with two digits to indicate the site (this
 complete code is called the vestigingsnummer).
 
 The register of these numbers can be downloaded from:
-http://www.duo.nl/organisatie/open_onderwijsdata/databestanden/default.asp
+https://www.duo.nl/open_onderwijsdata/databestanden/
 
 >>> validate('05 KO')
 '05KO'

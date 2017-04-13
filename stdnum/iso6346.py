@@ -1,7 +1,7 @@
 # iso6346.py - functions for handling ISO 6346
 #
 # Copyright (C) 2014 Openlabs Technologies & Consulting (P) Limited
-# Copyright (C) 2014 Arthur de Jong
+# Copyright (C) 2014-2017 Arthur de Jong
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -30,7 +30,7 @@ Container Bureau (BIC).
 
 More information:
 
-* http://en.wikipedia.org/wiki/ISO_6346
+* https://en.wikipedia.org/wiki/ISO_6346
 
 >>> validate('csqu3054383')
 'CSQU3054383'

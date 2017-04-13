@@ -1,6 +1,6 @@
 test_al_nitp.doctest - more detailed doctests stdnum.al.nipt
 
-Copyright (C) 2015 Arthur de Jong
+Copyright (C) 2015-2017 Arthur de Jong
 
 This library is free software; you can redistribute it and/or
 modify it under the terms of the GNU Lesser General Public
@@ -26,7 +26,7 @@ This file contains more detailed doctests for the stdnum.al.nipt module.
 
 These have been found online and should all be valid numbers. There is also
 a validation service at
-http://www.qkr.gov.al/nrc/kerko_per_subjekt.aspx
+http://www.qkr.gov.al/kerko/kerko-ne-regjistrin-tregtar/kerko-per-subjekt/
 
 >>> numbers = '''
 ...

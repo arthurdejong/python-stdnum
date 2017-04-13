@@ -1,7 +1,7 @@
 # siren.py - functions for handling French SIREN numbers
 # coding: utf-8
 #
-# Copyright (C) 2012, 2013 Arthur de Jong
+# Copyright (C) 2012-2017 Arthur de Jong
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -44,7 +44,7 @@ from stdnum.util import clean
 # An online validation function is available but it does not provide an
 # automated entry point, has usage restrictions and seems to require
 # attribution to the service for any results used.
-# http://avis-situation-sirene.insee.fr/
+# https://avis-situation-sirene.insee.fr/
 
 
 def compact(number):

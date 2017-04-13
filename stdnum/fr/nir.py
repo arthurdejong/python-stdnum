@@ -2,7 +2,7 @@
 # coding: utf-8
 #
 # Copyright (C) 2016 Dimitri Papadopoulos
-# Copyright (C) 2016 Arthur de Jong
+# Copyright (C) 2016-2017 Arthur de Jong
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -33,7 +33,7 @@ the location of birth (COG), 3 for a serial and 2 check digits.
 
 More information:
 
-* http://www.insee.fr/en/methodes/default.asp?page=definitions/nir.htm
+* https://www.insee.fr/en/metadonnees/definition/c1409
 * https://en.wikipedia.org/wiki/INSEE_code
 * http://resoo.org/docs/_docs/regles-numero-insee.pdf
 * https://fr.wikipedia.org/wiki/Numéro_de_sécurité_sociale_en_France

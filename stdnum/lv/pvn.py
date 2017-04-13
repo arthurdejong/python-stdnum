@@ -1,7 +1,7 @@
 # pvn.py - functions for handling Latvian PVN (VAT) numbers
 # coding: utf-8
 #
-# Copyright (C) 2012-2015 Arthur de Jong
+# Copyright (C) 2012-2017 Arthur de Jong
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -47,7 +47,7 @@ from stdnum.util import clean
 
 # validation functions are available on-line but it is not allowed
 # to perform automated queries:
-# http://www6.vid.gov.lv/VID_PDB?aspxerrorpath=/vid_pdb/pvn.asp
+# https://www6.vid.gov.lv/VID_PDB?aspxerrorpath=/vid_pdb/pvn.asp
 
 
 def compact(number):
