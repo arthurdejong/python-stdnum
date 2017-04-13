@@ -1,6 +1,6 @@
 # damm.py - functions for performing the Damm checksum algorithm
 #
-# Copyright (C) 2016 Arthur de Jong
+# Copyright (C) 2016-2017 Arthur de Jong
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -82,7 +82,7 @@ def validate(number, table=None):
 def is_valid(number, table=None):
     """Checks to see if the number provided passes the Damm algorithm."""
     try:
-        return bool(validate(number), table=table)
+        return bool(validate(number, table=table))
     except ValidationError:
         return False
 
