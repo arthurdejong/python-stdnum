@@ -22,6 +22,7 @@ import json
 import os
 import re
 import sys
+import inspect
 
 sys.stdout = sys.stderr
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), 'python-stdnum'))
@@ -33,7 +34,24 @@ from stdnum.util import (
 _template = None
 
 
+def get_conversions(module, number):
+    """Return the possible conversions for the number."""
+    for name, func in inspect.getmembers(module, inspect.isfunction):
+        if name.startswith('to_'):
+            args, varargs, varkw, defaults = inspect.getargspec(func)
+            if defaults:
+                args = args[:-len(defaults)]
+            if args == ['number']:
+                try:
+                    conversion = func(number)
+                    if conversion != number:
+                        yield (name[3:], conversion)
+                except Exception:
+                    pass
+
+
 def info(module, number):
+    """Return information about the number."""
     compactfn = getattr(module, 'compact', lambda x: x)
     formatfn = getattr(module, 'format', compactfn)
     return dict(
@@ -42,7 +60,8 @@ def info(module, number):
         valid=module.is_valid(number),
         module=module.__name__.split('.', 1)[1],
         name=get_module_name(module),
-        description=get_module_description(module))
+        description=get_module_description(module),
+        conversions=dict(get_conversions(module, number)))
 
 
 def format(data):
@@ -54,6 +73,9 @@ def format(data):
         r'\b((https?|ftp)://[^\s<]*[-\w+&@#/%=~_|])',
         r'<a href="\1">\1</a>',
         description, flags=re.IGNORECASE + re.UNICODE)
+    for name, conversion in data.get('conversions', {}).items():
+        description += '\n<br/><b><i>%s</i></b>: %s' % (
+            cgi.escape(name), cgi.escape(conversion))
     return '<li><b>%s</b><br/>%s<p>%s</p></li>' % (
         cgi.escape(data['name']),
         cgi.escape(data['number']),
@@ -68,10 +90,8 @@ def application(environ, start_response):
             environ['DOCUMENT_ROOT'],
             os.path.dirname(environ['SCRIPT_NAME']).strip('/'))
         _template = open(os.path.join(basedir, 'template.html'), 'r').read()
-
     is_ajax = environ.get(
         'HTTP_X_REQUESTED_WITH', '').lower() == 'xmlhttprequest'
-
     parameters = cgi.parse_qs(environ.get('QUERY_STRING', ''))
     results = []
     if 'number' in parameters:

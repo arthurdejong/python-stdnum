@@ -43,6 +43,13 @@ $( document ).ready(function() {
         $("<div/>").text(result["number"]).html(),
         "<p>",
         format(result["description"]),
+        $.map(result["conversions"], function(value, key){
+          return [
+            "<br/><b><i>",
+            $("<div/>").text(key).html(),
+            "</i></b>: ",
+            $("<div/>").text(value).html()].join('')
+        }).join(''),
         "</p></li>")
     });
     h.push("</ul>");
@@ -92,5 +99,8 @@ $( document ).ready(function() {
 
   // hide the submit button
   $(".stdnum_hide").hide();
+
+  // focus the text field
+  $(".stdnum_check").focus();
 
 });
