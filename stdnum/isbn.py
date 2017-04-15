@@ -1,6 +1,6 @@
 # isbn.py - functions for handling ISBNs
 #
-# Copyright (C) 2010-2015 Arthur de Jong
+# Copyright (C) 2010-2017 Arthur de Jong
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -134,9 +134,11 @@ def is_valid(number):
 def to_isbn13(number):
     """Convert the number to ISBN-13 format."""
     number = number.strip()
-    min_number = compact(number, convert=False)
+    min_number = clean(number, ' -')
     if len(min_number) == 13:
         return number  # nothing to do, already ISBN-13
+    if len(min_number) == 9:
+        number = '0' + number  # convert from 9 to 10 digits
     # put new check digit in place
     number = number[:-1] + ean.calc_check_digit('978' + min_number[:-1])
     # add prefix

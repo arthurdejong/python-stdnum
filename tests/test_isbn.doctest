@@ -1,6 +1,6 @@
 test_isbn.doctest - more detailed doctests for stdnum.isbn module
 
-Copyright (C) 2010, 2011, 2013 Arthur de Jong
+Copyright (C) 2010-2017 Arthur de Jong
 
 This library is free software; you can redistribute it and/or
 modify it under the terms of the GNU Lesser General Public
@@ -61,6 +61,14 @@ See if ISBN10 to 13 conversion works.
 '9781857982183'
 >>> isbn.validate('1 85798218 5', convert=True)
 '9781857982183'
+
+
+Conversion of 9 digit ISBN to ISBN13 also works.
+
+>>> isbn.is_valid('12-345678-9')
+True
+>>> isbn.validate(isbn.to_isbn13('12-345678-9'))
+'9780123456786'
 
 
 See if ISBN13 to 10 conversion works.
