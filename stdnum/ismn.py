@@ -1,6 +1,6 @@
 # ismn.py - functions for handling ISMNs
 #
-# Copyright (C) 2010, 2011, 2012, 2013 Arthur de Jong
+# Copyright (C) 2010-2017 Arthur de Jong
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -62,8 +62,12 @@ def validate(number):
         if number[0] != 'M':
             raise InvalidFormat()
         ean.validate('9790' + number[1:])
-    else:
+    elif len(number) == 13:
+        if not number.startswith('9790'):
+            raise InvalidComponent()
         ean.validate(number)
+    else:
+        raise InvalidLength()
     return number
 
 

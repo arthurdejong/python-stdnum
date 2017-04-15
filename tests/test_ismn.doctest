@@ -1,6 +1,6 @@
 test_ismn.doctest - more detailed doctests for stdnum.ismn module
 
-Copyright (C) 2010, 2011, 2012, 2013 Arthur de Jong
+Copyright (C) 2010-2017 Arthur de Jong
 
 This library is free software; you can redistribute it and/or
 modify it under the terms of the GNU Lesser General Public
@@ -41,7 +41,7 @@ These are normal variations that should just work.
 '9790260000438'
 
 
-Tests for mangling and incorect check digits.
+Tests for mangling and incorrect check digits.
 
 >>> ismn.validate('979-0-3217-6543-x')
 Traceback (most recent call last):
@@ -54,7 +54,7 @@ InvalidChecksum: ...
 >>> ismn.validate('979M321765450')
 Traceback (most recent call last):
     ...
-InvalidFormat: ...
+InvalidComponent: ...
 >>> ismn.validate('Z-3217-6546-8')
 Traceback (most recent call last):
     ...
@@ -72,6 +72,7 @@ See if 10 to 13 digit conversion works.
 
 
 Test the ismn_type() function
+
 >>> ismn.ismn_type('M-3217-6546-7')
 'ISMN10'
 >>> ismn.ismn_type('BAD')
@@ -85,3 +86,16 @@ Regrouping tests.
 '979-0-3217-6546-7'
 >>> ismn.format('9790321765450')
 '979-0-3217-6545-0'
+
+
+While an EAN can also be less than 13 digits and ISMN should always be
+13 digits (when not 10 digits) and start with 9790.
+
+>>> ismn.validate('979023456784')
+Traceback (most recent call last):
+    ...
+InvalidLength: ...
+>>> ismn.validate('9781234567866')
+Traceback (most recent call last):
+    ...
+InvalidComponent: ...
