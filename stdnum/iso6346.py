@@ -75,7 +75,7 @@ def validate(number):
         raise InvalidLength()
     if not _iso6346_re.match(number):
         raise InvalidFormat()
-    if calc_check_digit(number[:-1]) != number[-1]:
+    if calc_check_digit(number[:-1])[-1:] != number[-1]:
         raise InvalidChecksum()
     return number
 
