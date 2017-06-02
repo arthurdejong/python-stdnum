@@ -37,15 +37,11 @@ valid if the number modulo 97 is 1. As such it has two check digits.
 from stdnum.exceptions import *
 
 
-# the valid characters we have
-_alphabet = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ'
-
-
 def _to_base10(number):
     """Prepare the number to its base10 representation."""
     try:
         return ''.join(
-            str(_alphabet.index(x)) for x in number)
+            str(int(x, 36)) for x in number)
     except Exception:
         raise InvalidFormat()
 
