@@ -1,4 +1,5 @@
 # businessid.py - functions for handling Austrian company register numbers
+# coding: utf-8
 #
 # Copyright (C) 2015 Holvi Payment Services Oy
 # Copyright (C) 2012, 2013 Arthur de Jong
@@ -41,6 +42,27 @@ InvalidFormat: ...
 from stdnum import luhn
 from stdnum.exceptions import *
 from stdnum.util import clean
+
+
+# https://www.wko.at/service/wirtschaftsrecht-gewerberecht/Das_Firmenbuch.html
+AUSTRIAN_COURTS = [
+    u'Wien',
+    u'Wiener Neustadt',
+    u'St. Pölten',
+    u'Krems an der Donau',
+    u'Korneuburg',
+    u'Linz',
+    u'Ried im Innkreis',
+    u'Steyr',
+    u'Wels',
+    u'Salzburg',
+    u'Eisenstadt',
+    u'Graz',
+    u'Leoben',
+    u'Klagenfurt',
+    u'Innsbruck',
+    u'Feldkirch',
+]
 
 
 def compact(number):
