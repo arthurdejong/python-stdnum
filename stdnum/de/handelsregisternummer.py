@@ -42,6 +42,18 @@ u'Bad Homburg v.d.H. PR 11223'
 >>> validate('Ludwigshafen a.Rhein (Ludwigshafen) VR 11223')
 u'Ludwigshafen a.Rhein (Ludwigshafen) VR 11223'
 
+>>> validate('Aachen HRA 11223', company_form='KG')
+u'Aachen HRA 11223'
+
+>>> validate('Frankfurt/Oder GnR 11223', company_form='e.G.')
+u'Frankfurt/Oder GnR 11223'
+
+>>> validate('Bad Homburg v.d.H. PR 11223', company_form='PartG')
+u'Bad Homburg v.d.H. PR 11223'
+
+>>> validate('Ludwigshafen a.Rhein (Ludwigshafen) VR 11223', company_form='e.V.')
+u'Ludwigshafen a.Rhein (Ludwigshafen) VR 11223'
+
 >>> validate('Berlin (Charlottenburg) HRA 11223 B')
 u'Berlin (Charlottenburg) HRA 11223 B'
 
@@ -77,7 +89,12 @@ Traceback (most recent call last):
   ...
 stdnum.exceptions.InvalidFormat: The number has an invalid format.
 
-"""
+>>> validate('Aachen HRA 44123', company_form='GmbH')
+Traceback (most recent call last):
+  ...
+stdnum.exceptions.InvalidComponent: One of the parts of the number are invalid or unknown.
+
+"""  # NOQA
 
 import re
 from stdnum.exceptions import *
@@ -254,8 +271,24 @@ REGISTRY_TYPES = [
     'VR',
 ]
 
+COMPANY_FORM_REGISTRY_TYPES = {
+    'e.K.': 'HRA',
+    'e.V.': 'VR',
+    'Verein': 'VR',
+    'OHG': 'HRA',
+    'KG': 'HRA',
+    'KGaA': 'HRB',
+    'Vor-GmbH': 'HRB',
+    'GmbH': 'HRB',
+    'UG': 'HRB',
+    'UG i.G.': 'HRB',
+    'AG': 'HRB',
+    'e.G.': 'GnR',
+    'PartG': 'PR',
+}
 
-def validate(number, return_parts=False):
+
+def validate(number, return_parts=False, company_form=None):
     """
     Validate the format of a German company registry number.
 
@@ -264,6 +297,9 @@ def validate(number, return_parts=False):
 
     Returns a string with the parts, but optionally return a tuple
     with them.
+
+    If a company_form (eg. GmbH or PartG) is given, the number is
+    validated to have the correct registry.
     """
 
     # Return empty if something unsplittable was sent in
@@ -306,6 +342,12 @@ def validate(number, return_parts=False):
 
     if registry not in REGISTRY_TYPES:
         raise InvalidFormat(registry)
+
+    if company_form is not None:
+        if company_form not in COMPANY_FORM_REGISTRY_TYPES:
+            raise InvalidComponent()
+        elif COMPANY_FORM_REGISTRY_TYPES[company_form] != registry:
+            raise InvalidComponent()
 
     court = ' '.join(parts)
     court = clean(court, ':').strip()
