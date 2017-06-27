@@ -30,13 +30,13 @@ partnerships (OHG's, KG's etc.). In other words: businesses in section
 HRB are limited liability companies, while businesses in HRA have personally
 liable partners.
 
->>> validate('Achen HRA 11223')
-u'Achen HRA 11223'
+>>> validate('Aachen HRA 11223')
+u'Aachen HRA 11223'
 
 >>> validate('0 HRB 44123')
-u'Achen HRB 44123'
+u'Aachen HRB 44123'
 
->>> validate('Achen HRC 44123')
+>>> validate('Aachen HRC 44123')
 Traceback (most recent call last):
   ...
 stdnum.exceptions.InvalidFormat: The number has an invalid format.
@@ -48,7 +48,7 @@ from stdnum.exceptions import *
 from stdnum.util import clean
 
 GERMAN_COURTS = [
-    u"Achen",
+    u"Aachen",
     u"Altenburg",
     u"Amberg",
     u"Ansbach",
