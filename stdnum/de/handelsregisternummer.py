@@ -33,15 +33,68 @@ liable partners.
 >>> validate('Aachen HRA 11223')
 u'Aachen HRA 11223'
 
+>>> validate('Frankfurt/Oder GnR 11223')
+u'Frankfurt/Oder GnR 11223'
+
+>>> validate('Bad Homburg v.d.H. PR 11223')
+u'Bad Homburg v.d.H. PR 11223'
+
+>>> validate('Ludwigshafen a.Rhein (Ludwigshafen) VR 11223')
+u'Ludwigshafen a.Rhein (Ludwigshafen) VR 11223'
+
+>>> validate('Aachen HRA 11223', company_form='KG')
+u'Aachen HRA 11223'
+
+>>> validate('Frankfurt/Oder GnR 11223', company_form='e.G.')
+u'Frankfurt/Oder GnR 11223'
+
+>>> validate('Bad Homburg v.d.H. PR 11223', company_form='PartG')
+u'Bad Homburg v.d.H. PR 11223'
+
+>>> validate('Ludwigshafen a.Rhein (Ludwigshafen) VR 11223', company_form='e.V.')
+u'Ludwigshafen a.Rhein (Ludwigshafen) VR 11223'
+
+>>> validate('Berlin (Charlottenburg) HRA 11223 B')
+u'Berlin (Charlottenburg) HRA 11223 B'
+
+>>> validate('Berlin (Charlottenburg) HRB 11223B')
+u'Berlin (Charlottenburg) HRB 11223 B'
+
+>>> validate('Berlin (Charlottenburg) HRA 11223 B', return_parts=True)
+(u'Berlin (Charlottenburg)', 'HRA', '11223 B')
+
+>>> validate('Berlin (Charlottenburg) HRB 11223B', return_parts=True)
+(u'Berlin (Charlottenburg)', 'HRB', '11223 B')
+
+>>> validate('Berlin (Charlottenburg) HRA 11223BB')
+Traceback (most recent call last):
+  ...
+stdnum.exceptions.InvalidFormat: The number has an invalid format.
+
+>>> validate('Berlin (Charlottenburg) HRA 11223 BB')
+Traceback (most recent call last):
+  ...
+stdnum.exceptions.InvalidFormat: The number has an invalid format.
+
 >>> validate('0 HRB 44123')
 u'Aachen HRB 44123'
+
+>>> validate('160 HRB 44123')
+Traceback (most recent call last):
+  ...
+stdnum.exceptions.InvalidFormat: The number has an invalid format.
 
 >>> validate('Aachen HRC 44123')
 Traceback (most recent call last):
   ...
 stdnum.exceptions.InvalidFormat: The number has an invalid format.
 
-"""
+>>> validate('Aachen HRA 44123', company_form='GmbH')
+Traceback (most recent call last):
+  ...
+stdnum.exceptions.InvalidComponent: One of the parts of the number are invalid or unknown.
+
+"""  # NOQA
 
 import re
 from stdnum.exceptions import *
@@ -210,26 +263,94 @@ GERMAN_COURTS = [
     u"Zweibrücken"
 ]
 
+REGISTRY_TYPES = [
+    'HRA',
+    'HRB',
+    'PR',
+    'GnR',
+    'VR',
+]
 
-def validate(number):
+COMPANY_FORM_REGISTRY_TYPES = {
+    'e.K.': 'HRA',
+    'e.V.': 'VR',
+    'Verein': 'VR',
+    'OHG': 'HRA',
+    'KG': 'HRA',
+    'KGaA': 'HRB',
+    'Vor-GmbH': 'HRB',
+    'GmbH': 'HRB',
+    'UG': 'HRB',
+    'UG i.G.': 'HRB',
+    'AG': 'HRB',
+    'e.G.': 'GnR',
+    'PartG': 'PR',
+}
+
+
+def validate(number, return_parts=False, company_form=None):
     """
     Validate the format of a German company registry number.
 
-    First split the provided number with the HRA or HRB. Expect
-    the first part to be the name of the court and the second
-    part to be the registry number. Returns a cleaned representation
-    of the number with the court, HRA/HRB and the number.
+    Parse number backwards. Expect the last part to be the number,
+    the next to be the registry, and the rest to be the court.
+
+    Returns a string with the parts, but optionally return a tuple
+    with them.
+
+    If a company_form (eg. GmbH or PartG) is given, the number is
+    validated to have the correct registry.
     """
+
+    # Return empty if something unsplittable was sent in
     try:
-        parts = re.split('HR(A|B)', number, flags=re.IGNORECASE)
-    except TypeError:
+        parts = number.split()
+    except AttributeError:
         return ''
 
-    if len(parts) != 3:
+    if not parts:
         raise InvalidFormat()
-    if parts[1].upper() not in ['A', 'B']:
+
+    # At least Berlin can have a B after the digit part
+    if parts[-1].isalpha():
+        qualifier = parts.pop(-1)
+        if len(qualifier) != 1:
+            raise InvalidFormat()
+    else:
+        qualifier = None
+
+    if not parts:
         raise InvalidFormat()
-    court = clean(parts[0], ':').strip()
+
+    number = parts.pop(-1)
+    if not parts:
+        raise InvalidFormat()
+
+    # The case where there was no space between the digit and the character
+    if number[-1].isalpha() and qualifier is None:
+        number, qualifier = number[:-1], number[-1]
+
+    number = clean(number, ' -./,')
+    if not number.isdigit():
+        raise InvalidFormat()
+    elif qualifier is not None:
+        number = "%s %s" % (number, qualifier)
+
+    registry = parts.pop(-1)
+    if not parts:
+        raise InvalidFormat()
+
+    if registry not in REGISTRY_TYPES:
+        raise InvalidFormat(registry)
+
+    if company_form is not None:
+        if company_form not in COMPANY_FORM_REGISTRY_TYPES:
+            raise InvalidComponent()
+        elif COMPANY_FORM_REGISTRY_TYPES[company_form] != registry:
+            raise InvalidComponent()
+
+    court = ' '.join(parts)
+    court = clean(court, ':').strip()
     if court.lower() not in (name.lower() for name in GERMAN_COURTS):
         try:
             ordinal = int(court)
@@ -242,11 +363,11 @@ def validate(number):
     else:
         index = [name.lower() for name in GERMAN_COURTS].index(court.lower())
         court = GERMAN_COURTS[index]
-    registry = 'HR'+parts[1].upper()
-    number = clean(parts[2], ' -./,').upper().strip()
-    if not number.isdigit():
-        raise InvalidFormat()
-    return "%s %s %s" % (court, registry, number)
+
+    if return_parts:
+        return (court, registry, number)
+    else:
+        return "%s %s %s" % (court, registry, number)
 
 
 def is_valid(number):
