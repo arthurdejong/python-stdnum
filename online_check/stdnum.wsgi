@@ -94,6 +94,7 @@ def application(environ, start_response):
         'HTTP_X_REQUESTED_WITH', '').lower() == 'xmlhttprequest'
     parameters = cgi.parse_qs(environ.get('QUERY_STRING', ''))
     results = []
+    number = ''
     if 'number' in parameters:
         number = parameters['number'][0]
         results = [
@@ -104,4 +105,6 @@ def application(environ, start_response):
         start_response('200 OK', [('Content-Type', 'application/json')])
         return [json.dumps(results, indent=2, sort_keys=True)]
     start_response('200 OK', [('Content-Type', 'text/html')])
-    return _template % '\n'.join(format(data) for data in results)
+    return _template % dict(
+        value=cgi.escape(number),
+        results='\n'.join(format(data) for data in results))
