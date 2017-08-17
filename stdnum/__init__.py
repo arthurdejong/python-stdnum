@@ -99,7 +99,8 @@ Currently this package supports the following formats:
 * isan: ISAN (International Standard Audiovisual Number)
 * isbn: ISBN (International Standard Book Number)
 * isil: ISIL (International Standard Identifier for Libraries)
-* isin: ISIN (International Securities Identification Number)
+* isl.vsk: VSK (Virðisaukaskattsnúmer, Icelandic VAT number)
+* isl.kennitala: Kennitala (Icelandic personal and organisation identity number)
 * ismn: ISMN (International Standard Music Number)
 * iso6346: ISO 6346 (International standard for container identification)
 * iso9362: ISO 9362 (Business identifier codes)
@@ -121,7 +122,7 @@ Currently this package supports the following formats:
 * nl.onderwijsnummer: Onderwijsnummer (Dutch student school number)
 * nl.postcode: Postcode (Dutch postal code)
 * no.mva: MVA (Merverdiavgift, Norwegian VAT number)
-* no.orgnr: Orgnr (Organisasjonsnummer, Norwegian organisation number)
+* no.orgnr: Orgnr (Organisasjonsnummer, Norwegian organization number)
 * pl.nip: NIP (Numer Identyfikacji Podatkowej, Polish VAT number)
 * pl.pesel: PESEL (Polish national identification number)
 * pl.regon: REGON (Rejestr Gospodarki Narodowej, Polish register of economic units)
@@ -172,4 +173,4 @@ parsing, validation, formatting or conversion functions.
 
 
 # the version number of the library
-__version__ = '1.6'
+__version__ = '1.6.post0.dev2'

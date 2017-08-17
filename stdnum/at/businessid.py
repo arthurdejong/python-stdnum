@@ -1,4 +1,5 @@
 # businessid.py - functions for handling Austrian company register numbers
+# coding: utf-8
 #
 # Copyright (C) 2015 Holvi Payment Services Oy
 # Copyright (C) 2012, 2013 Arthur de Jong
@@ -18,11 +19,11 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 # 02110-1301 USA
 
-"""Austrian Company Register Numbers.
+"""Austrian Company Register Numbers
 
-The Austrian company register number consist of digits followed by a single
-letter, e.g. "122119m". Sometimes it is presented with preceding "FN", e.g.
-"FN 122119m".
+The Austrian company register number consist of digits followed by
+a single letter, e.g. "122119m". Sometimes it is presented with preceding
+"FN", e.g. "FN 122119m".
 
 >>> validate('FN 122119m')
 '122119m'
@@ -38,8 +39,30 @@ Traceback (most recent call last):
 InvalidFormat: ...
 """
 
+from stdnum import luhn
 from stdnum.exceptions import *
 from stdnum.util import clean
+
+
+# https://www.wko.at/service/wirtschaftsrecht-gewerberecht/Das_Firmenbuch.html
+AUSTRIAN_COURTS = [
+    u'Wien',
+    u'Wiener Neustadt',
+    u'St. Pölten',
+    u'Krems an der Donau',
+    u'Korneuburg',
+    u'Linz',
+    u'Ried im Innkreis',
+    u'Steyr',
+    u'Wels',
+    u'Salzburg',
+    u'Eisenstadt',
+    u'Graz',
+    u'Leoben',
+    u'Klagenfurt',
+    u'Innsbruck',
+    u'Feldkirch',
+]
 
 
 def compact(number):
@@ -53,8 +76,8 @@ def compact(number):
 
 
 def validate(number):
-    """Checks to see if the number provided is a valid company register
-    number. This only checks the formatting."""
+    """Checks to see if the number provided is a valid company register number.
+    This checks only the formatting."""
     number = compact(number)
     if not number[-1:].isalpha() or not number[:-1].isdigit():
         raise InvalidFormat()
@@ -62,8 +85,8 @@ def validate(number):
 
 
 def is_valid(number):
-    """Checks to see if the number provided is a valid company register
-    number. This only checks the formatting."""
+    """Checks to see if the number provided is a valid company register number.
+    This checks only the formatting."""
     try:
         return bool(validate(number))
     except ValidationError:

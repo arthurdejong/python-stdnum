@@ -19,3 +19,6 @@
 # 02110-1301 USA
 
 """Collection of German numbers."""
+
+# provide businessid as an alias
+from stdnum.de import handelsregisternummer as businessid

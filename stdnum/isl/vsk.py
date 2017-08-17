@@ -1,7 +1,6 @@
-# ytunnus.py - functions for handling Finnish business identifiers (y-tunnus)
+# vsk.py - functions for handling Icelandic VAT numbers
 # coding: utf-8
 #
-# Copyright (C) 2015 Holvi Payment Services Oy
 # Copyright (C) 2012, 2013 Arthur de Jong
 #
 # This library is free software; you can redistribute it and/or
@@ -19,40 +18,52 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 # 02110-1301 USA
 
-"""Y-tunnus (Finnish business identifier)
+"""VSK number (Virðisaukaskattsnúmer, Icelandic VAT number).
 
-The number is an 8-digit code with a weighted checksum.
+The Icelandic VAT number is five or six digits.
 
->>> validate('2077474-0')
-'2077474-0'
->>> validate('2077474-1')  # invalid check digit
+>>> validate('IS 00621')
+'00621'
+>>> validate('IS 0062199')  # invalid length
 Traceback (most recent call last):
     ...
-InvalidChecksum: ...
+InvalidLength: ...
+>>> validate('IS land')  # invalid format
+Traceback (most recent call last):
+    ...
+InvalidFormat: ...
+>>> validate('Island')  # invalid format
+Traceback (most recent call last):
+    ...
+InvalidFormat: ...
 """
 
 from stdnum.exceptions import *
 from stdnum.util import clean
-from stdnum.fi import alv
 
 
 def compact(number):
     """Convert the number to the minimal representation. This strips the
     number of any valid separators and removes surrounding whitespace."""
-    number = clean(number, ' -').upper().strip()
+    number = clean(number, ' ').upper().strip()
+    if number.startswith('IS'):
+        number = number[2:]
     return number
 
 
 def validate(number):
-    """Checks to see if the number provided is a valid business identifier. This
+    """Checks to see if the number provided is a valid VAT number. This
     checks the length, formatting and check digit."""
     number = compact(number)
-    number = alv.validate(number)
-    return "%s-%s" % (number[:7], number[7:])
+    if not number.isdigit():
+        raise InvalidFormat()
+    if len(number) != 5 and len(number) != 6:
+        raise InvalidLength()
+    return number
 
 
 def is_valid(number):
-    """Checks to see if the number provided is a valid business identifier. This
+    """Checks to see if the number provided is a valid VAT number. This
     checks the length, formatting and check digit."""
     try:
         return bool(validate(number))

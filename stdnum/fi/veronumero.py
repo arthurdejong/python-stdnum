@@ -1,8 +1,7 @@
-# ytunnus.py - functions for handling Finnish business identifiers (y-tunnus)
+# vat.py - functions for handling Finnish VAT numbers
 # coding: utf-8
 #
-# Copyright (C) 2015 Holvi Payment Services Oy
-# Copyright (C) 2012, 2013 Arthur de Jong
+# Copyright (C) 2012-2015 Arthur de Jong
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -19,40 +18,40 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 # 02110-1301 USA
 
-"""Y-tunnus (Finnish business identifier)
+"""
+Veronumero (Finnish tax number).
 
-The number is an 8-digit code with a weighted checksum.
+Module for handling veronumero (Finnish Tax numbers).
+See
+https://www.vero.fi/en/detailed-guidance/guidance/48791/individual_tax_numbers__instructions_fo/
+There is no checksum for this identifier.
 
->>> validate('2077474-0')
-'2077474-0'
->>> validate('2077474-1')  # invalid check digit
+>>> validate('123456789123')
+'123456789123'
+>>> validate('12345678912A')
 Traceback (most recent call last):
     ...
-InvalidChecksum: ...
+InvalidFormat: ...
+>>> validate('123456789')
+Traceback (most recent call last):
+    ...
+InvalidInvalidLength: ...
 """
-
 from stdnum.exceptions import *
-from stdnum.util import clean
-from stdnum.fi import alv
-
-
-def compact(number):
-    """Convert the number to the minimal representation. This strips the
-    number of any valid separators and removes surrounding whitespace."""
-    number = clean(number, ' -').upper().strip()
-    return number
 
 
 def validate(number):
-    """Checks to see if the number provided is a valid business identifier. This
+    """Checks to see if the number provided is a valid VAT number. This
     checks the length, formatting and check digit."""
-    number = compact(number)
-    number = alv.validate(number)
-    return "%s-%s" % (number[:7], number[7:])
+    if not number.isdigit():
+        raise InvalidFormat()
+    if len(number) != 12:
+        raise InvalidLength()
+    return number
 
 
 def is_valid(number):
-    """Checks to see if the number provided is a valid business identifier. This
+    """Checks to see if the number provided is a valid VAT number. This
     checks the length, formatting and check digit."""
     try:
         return bool(validate(number))

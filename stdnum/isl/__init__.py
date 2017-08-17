@@ -1,4 +1,4 @@
-# __init__.py - collection of Finnish numbers
+# __init__.py - collection of Icelandic numbers
 # coding: utf-8
 #
 # Copyright (C) 2012 Arthur de Jong
@@ -18,8 +18,7 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 # 02110-1301 USA
 
-"""Collection of Finnish numbers."""
+"""Collection of Icelandic numbers."""
 
 # provide vat as an alias
-from stdnum.fi import alv as vat
-from stdnum.fi import ytunnus as businessid
+from stdnum.isl import vsk as vat
