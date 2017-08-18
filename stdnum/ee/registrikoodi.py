@@ -1,4 +1,4 @@
-# registrikoodi.py - functions for handling Estonian Registeration numbers(TIN)
+# registrikood.py - functions for handling Estonian Registeration numbers(TIN)
 # coding: utf-8
 #
 # Copyright (C) 2015 Arthur de Jong
@@ -17,7 +17,7 @@
 # License along with this library; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 # 02110-1301 USA
-"""registrikoodi (Legal person TIN, Estonian registeration code).
+"""registrikood (Legal person TIN, Estonian registeration code).
 
 >>> is_valid('12345678')
 True
