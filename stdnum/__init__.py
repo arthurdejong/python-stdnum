@@ -173,4 +173,4 @@ parsing, validation, formatting or conversion functions.
 
 
 # the version number of the library
-__version__ = '1.6.post0.dev2'
+__version__ = '1.6.post0.dev3'
