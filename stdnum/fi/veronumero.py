@@ -37,7 +37,11 @@ Traceback (most recent call last):
     ...
 InvalidInvalidLength: ...
 """
-from stdnum.exceptions import *
+from stdnum.exceptions import (
+    InvalidFormat,
+    InvalidLength,
+    ValidationError
+)
 
 
 def validate(number):
