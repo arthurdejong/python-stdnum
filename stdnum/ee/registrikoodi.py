@@ -1,6 +1,6 @@
 # registrikood.py - functions for handling Estonian Registeration numbers(TIN)
 # coding: utf-8
-#
+# Copyright (C) 2017 Holvi Payment Services
 # Copyright (C) 2015 Arthur de Jong
 #
 # This library is free software; you can redistribute it and/or
@@ -37,6 +37,13 @@ from stdnum.exceptions import (
     InvalidLength,
     ValidationError
 )
+from stdnum.util import clean
+
+
+def compact(number):
+    """Convert the registrikood to the minimal representation. This strips
+    surrounding whitespace and removes separators."""
+    return clean(number, ' ').strip()
 
 
 def validate(number):
