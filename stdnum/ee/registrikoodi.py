@@ -41,8 +41,10 @@ from stdnum.util import clean
 
 
 def compact(number):
-    """Convert the registrikood to the minimal representation. This strips
-    surrounding whitespace and removes separators."""
+    """
+    Convert the number to the minimal representation. This strips the
+    number of any valid separators ' -./,' and removes surrounding whitespace.
+    """
     return clean(number, ' ').strip()
 
 
