@@ -1,0 +1,151 @@
+test_ca_bn.doctest - more detailed doctests for the stdnum.ca.bn module
+
+Copyright (C) 2017 Arthur de Jong
+
+This library is free software; you can redistribute it and/or
+modify it under the terms of the GNU Lesser General Public
+License as published by the Free Software Foundation; either
+version 2.1 of the License, or (at your option) any later version.
+
+This library is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+Lesser General Public License for more details.
+
+You should have received a copy of the GNU Lesser General Public
+License along with this library; if not, write to the Free Software
+Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
+02110-1301 USA
+
+
+This file contains more detailed doctests for the stdnum.ca.bn module.
+
+>>> from stdnum.ca import bn
+>>> from stdnum.exceptions import *
+
+
+The number can also be a 15-digit account number (Business Number followed by
+program identifier and reference number).
+
+>>> bn.validate('12302 6635')
+'123026635'
+>>> bn.validate('12302 6635 RC 0001')
+'123026635RC0001'
+>>> bn.validate('12302 6635 AA 0001')  # only some values allowed
+Traceback (most recent call last):
+    ...
+InvalidComponent: ...
+>>> bn.validate('12302 6635 RC OOO1')  # only digits allowed in ref nr
+Traceback (most recent call last):
+    ...
+InvalidFormat: ...
+
+
+These have been found online and should all be valid numbers.
+
+>>> numbers = '''
+...
+... 000089987RC1818
+... 100007780RC0001
+... 100026723RC0001
+... 100044833RC0001
+... 100060474RC0001
+... 100074699RC0001
+... 100078294RC0002
+... 100080571RC0001
+... 100287119RC0001
+... 100457266RC0001
+... 101007961RC0001
+... 101060390RC0001
+... 123025645RC0001
+... 123026635RC0001
+... 123222911RC0001
+... 123828493RC0001
+... 700706898RC0001
+... 700783491RC0001
+... 700784499RC0001
+... 700803299RC0001
+... 700859895RC0001
+... 702520891RC0001
+... 702521097RC0001
+... 702529496RC0001
+... 702667122RC0001
+... 751055724RC0001
+... 751119520RC0001
+... 751207697RC0001
+... 751369729RC0001
+... 751446725RC0001
+... 751542895RC0001
+... 751551490RC0001
+... 751756529RC0001
+... 752573725RC0001
+... 752574525RC0001
+... 752628297RC0001
+... 752767327RC0001
+... 752768127RC0001
+... 752805291RC0001
+... 752828293RC0001
+... 752860320RC0001
+... 752944892RC0001
+... 753000298RC0001
+... 753371897RC0001
+... 753372291RC0001
+... 753447127RC0001
+... 753461292RC0001
+... 753946698RC0001
+... 789422128RC0001
+... 789482494RC0001
+... 789538923RC0001
+... 789634326RC0001
+... 795578699RC0001
+... 795606490RC0001
+... 795676121RC0001
+... 795710920RC0001
+... 795848126RC0001
+... 795855527RC0001
+... 795930726RC0001
+... 800500001RC0001
+... 800810657RC0001
+... 800812885RC0001
+... 800826489RC0001
+... 800958118RC0001
+... 800973406RC0001
+... 852093749RC0001
+... 852470673RC0001
+... 852581149RC0001
+... 852615772RC0001
+... 852646900RC0001
+... 852694231RC0001
+... 852750546RC0001
+... 852988633RC0001
+... 855065504RC0001
+... 855102976RC0001
+... 855582995RC0001
+... 855643086RC0001
+... 855696373RC0001
+... 855789004RC0001
+... 855957882RC0001
+... 859043580RC0001
+... 859098337RC0001
+... 859144438RC0001
+... 859363848RC0001
+... 859395162RC0001
+... 859457681RC0001
+... 859620973RC0001
+... 892190364RC0001
+... 892220393RC0002
+... 892462672RC0001
+... 892476565RC0001
+... 892552035RC0001
+... 892737149RC0001
+... 892738741RC0001
+... 892807983RC0001
+... 899099733RC0001
+... 899429443RC0001
+... 899549042RC0001
+... 899558340RC0001
+... 899927438RC0001
+...
+... '''
+>>> [x for x in numbers.splitlines() if x and not bn.is_valid(x)]
+[]
