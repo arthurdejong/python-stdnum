@@ -107,10 +107,11 @@ def compact(number, strip_check_digit=True):
 
 def _bit_length(n):
     """Number of bits necessary to represent the number in binary."""
-    if hasattr(n, 'bit_length'):
+    try:
         return n.bit_length()
-    import math
-    return int(math.log(n, 2)) + 1
+    except AttributeError:  # pragma: no cover (Python 2.6 only)
+        import math
+        return int(math.log(n, 2)) + 1
 
 
 def validate(number, strip_check_digit=True):

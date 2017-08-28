@@ -1,6 +1,6 @@
 # numdb.py - module for handling hierarchically organised numbers
 #
-# Copyright (C) 2010, 2011, 2012, 2013 Arthur de Jong
+# Copyright (C) 2010-2017 Arthur de Jong
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -76,7 +76,7 @@ True
 True
 >>> dbfile.info('633322') == [
 ...     ('6', {'prop1': 'boo'}),
-...     ('333', {'prop2': 'bar', 'prop3': 'baz'}),
+...     ('333', {'prop2': 'bar', 'prop3': 'baz', 'prop4': 'bla'}),
 ...     ('22', {}),
 ... ]
 True
@@ -187,8 +187,7 @@ def read(fp):
     for indent, length, low, high, props in _parse(fp):
         if indent > last_indent:
             # populate the children field of the last indent
-            if stack[last_indent][-1][4] is None:
-                stack[last_indent][-1][4] = []
+            stack[last_indent][-1][4] = []
             stack[indent] = stack[last_indent][-1][4]
         stack[indent].append([length, low, high, props, None])
         last_indent = indent

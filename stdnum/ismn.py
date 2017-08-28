@@ -121,8 +121,8 @@ def split(number):
     6 digits) and a check digit."""
     # clean up number
     number = to_ismn13(compact(number))
-    # rind the correct range and split the number
-    for length, low, high in _ranges:
+    # find the correct range and split the number
+    for length, low, high in _ranges:  # pragma: no branch (all ranges covered)
         if low <= number[4:4 + length] <= high:
             return (number[:3], number[3], number[4:4 + length],
                     number[4 + length:-1], number[-1])

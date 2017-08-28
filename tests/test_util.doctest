@@ -1,0 +1,50 @@
+test_util.doctest - more detailed doctests for the stdnum.util package
+
+Copyright (C) 2017 Arthur de Jong
+
+This library is free software; you can redistribute it and/or
+modify it under the terms of the GNU Lesser General Public
+License as published by the Free Software Foundation; either
+version 2.1 of the License, or (at your option) any later version.
+
+This library is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+Lesser General Public License for more details.
+
+You should have received a copy of the GNU Lesser General Public
+License along with this library; if not, write to the Free Software
+Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
+02110-1301 USA
+
+
+This file contains more detailed doctests for the stdnum.util package. It
+tries to test more corner cases and detailed functionality. This module is
+meant for internal use by stdnum modules and is not guaranteed to remain
+stable and as such not part of the public API of stdnum.
+
+>>> from stdnum.util import (
+...     get_number_modules, get_module_name, get_module_description)
+
+
+The get_module_name() function is used in the example WSGI application and
+release scripts to get the number's name. It should not end in a dot (even
+though the docstring subject should).
+
+>>> from stdnum import isbn
+>>> get_module_name(isbn)
+'ISBN (International Standard Book Number)'
+>>> any(get_module_name(mod).endswith('.') for mod in get_number_modules())
+False
+
+
+The get_module_description() function is used in the example WSGI application
+to extract the extended description of the number for presentation purposes.
+The doctests should not be present in the descriptions.
+
+>>> from stdnum import isbn
+>>> get_module_description(isbn).startswith(
+...     'The ISBN is the International Standard Book Number')
+True
+>>> any('>>>' in get_module_description(mod) for mod in get_number_modules())
+False
