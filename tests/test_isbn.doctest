@@ -25,7 +25,7 @@ really useful as module documentation.
 >>> from stdnum import isbn
 
 
-Tests for mangling and incorect check digits.
+Tests for mangling and incorrect check digits.
 
 >>> isbn.validate('08515x-629-2')  # added X in the middle
 Traceback (most recent call last):
@@ -43,6 +43,10 @@ InvalidFormat: ...
 Traceback (most recent call last):
     ...
 InvalidLength: ...
+>>> isbn.validate('7501031311309')  # valid EAN, unknown bookland code
+Traceback (most recent call last):
+    ...
+InvalidComponent: ...
 
 
 See if ISBN10 to 13 conversion works.
@@ -88,7 +92,7 @@ InvalidFormat: ...
 >>> isbn.to_isbn10('9791843123391')
 Traceback (most recent call last):
     ...
-InvalidFormat: ...
+InvalidComponent: ...
 
 
 Regrouping tests.
@@ -99,7 +103,7 @@ Regrouping tests.
 ('', '99996', '', '7827', '0')
 >>> isbn.split('979-20-1234567-8')
 ('979', '', '', '201234567', '8')
->>> isbn.split('5413170121522')  # valid checkdigit, unknown prefix
+>>> isbn.split('5413170121522')  # valid check digit, unknown prefix
 ('', '', '', '541317012152', '2')
 
 
