@@ -125,9 +125,9 @@ state_opening_character = {
 }
 
 
-def get_state_opening_character(state, schema):
+def get_state_opening_characters(state, schema):
     """
-    Return a string of the expected openeing chracter of that state.
+    Return a string of the expected openeing chracters of that state.
     The return value will depend on the specification for that state and the
     schema type, schema type should be:
     standard: For old standard schema (Standardschema der Länder) or
@@ -143,7 +143,7 @@ def is_number_acceptable_to_state(number, state, schema):
     """
     Checks if the number is acceptable for a state.
     """
-    opening_chars = get_state_opening_character(state, schema)
+    opening_chars = get_state_opening_characters(state, schema)
     len_opening_chars = len(opening_chars)
     if number[:len_opening_chars] == opening_chars:
         return number
