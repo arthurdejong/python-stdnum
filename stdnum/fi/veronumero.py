@@ -1,7 +1,8 @@
-# veronumero.py - functions for handling Finnish tax numbers
+# veronumero.py - functions for handling Finnish individual tax numbers
 # coding: utf-8
 #
-# Copyright (C) 2012-2015 Arthur de Jong
+# Copyright (C) 2017 Holvi Payment Services Oy
+# Copyright (C) 2017 Arthur de Jong
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -19,12 +20,16 @@
 # 02110-1301 USA
 
 """
-Veronumero (Finnish tax number).
+Veronumero (Finnish individual tax number).
 
-Module for handling veronumero (Finnish Tax numbers).
-See
-https://www.vero.fi/en/detailed-guidance/guidance/48791/individual_tax_numbers__instructions_fo/
-There is no checksum for this identifier.
+The Veronumero an individual tax number that is assigned to workers in the
+construction industry in Finland. The number is separate from the HETU and is
+a 12 digit number without any embedded information such as birth dates.
+
+More information:
+
+* https://www.vero.fi/en/detailed-guidance/guidance/48791/individual_tax_numbers__instructions_fo/
+* https://prosentti.vero.fi/Veronumerorekisteri/Tarkistus/VeronumeronTarkistus.aspx
 
 >>> validate('123456789123')
 '123456789123'
@@ -35,28 +40,34 @@ InvalidFormat: ...
 >>> validate('123456789')
 Traceback (most recent call last):
     ...
-InvalidInvalidLength: ...
+InvalidLength: ...
 """
-from stdnum.exceptions import (
-    InvalidFormat,
-    InvalidLength,
-    ValidationError
-)
+
+from stdnum.exceptions import *
+from stdnum.util import clean
+
+
+def compact(number):
+    """Convert the Veronumero to the minimal representation. This strips
+    surrounding whitespace and removes separators."""
+    return clean(number, ' ').strip()
 
 
 def validate(number):
-    """Checks to see if the number provided is a valid VAT number. This
-    checks the length, formatting and check digit."""
+    """Checks to see if the number provided is a valid tax number. This
+    checks the length and formatting."""
+    number = compact(number)
     if not number.isdigit():
         raise InvalidFormat()
     if len(number) != 12:
         raise InvalidLength()
+    # there is no known check digit validation
     return number
 
 
 def is_valid(number):
-    """Checks to see if the number provided is a valid VAT number. This
-    checks the length, formatting and check digit."""
+    """Checks to see if the number provided is a valid tax number. This
+    checks the length and formatting."""
     try:
         return bool(validate(number))
     except ValidationError:

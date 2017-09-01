@@ -120,7 +120,7 @@ def clean(number, deletechars=''):
         number = ''.join(x for x in number)
     except Exception:
         raise InvalidFormat()
-    if sys.version < '3' and isinstance(number, str):  # pragma: no cover (Python 2/3 specific code)
+    if sys.version < '3' and isinstance(number, str):  # pragma: no cover (Python 2 specific code)
         try:
             number = _clean_chars(number.decode()).encode()
         except UnicodeError:
@@ -128,7 +128,7 @@ def clean(number, deletechars=''):
                 number = _clean_chars(number.decode('utf-8')).encode('utf-8')
             except UnicodeError:
                 pass
-    else:  # pragma: no cover (Python 2/3 specific code)
+    else:  # pragma: no cover (Python 3 specific code)
         number = _clean_chars(number)
     return ''.join(x for x in number if x not in deletechars)
 
@@ -138,8 +138,7 @@ def get_number_modules(base='stdnum'):
     __import__(base)
     module = sys.modules[base]
     for loader, name, is_pkg in pkgutil.walk_packages(
-            module.__path__, module.__name__ + '.',
-            onerror=lambda x: None):
+            module.__path__, module.__name__ + '.'):
         __import__(name)
         module = sys.modules[name]
         if hasattr(module, 'validate'):
@@ -156,14 +155,6 @@ def get_module_description(module):
     doc = pydoc.splitdoc(pydoc.getdoc(module))[1]
     # remove the doctests
     return _strip_doctest_re.sub('', doc).strip()
-
-
-def get_module_list():
-    for module in get_number_modules():
-        yield ' * %s: %s' % (
-            module.__name__.replace('stdnum.', ''),
-            get_module_name(module),
-        )
 
 
 def get_cc_module(cc, name):

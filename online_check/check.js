@@ -27,7 +27,7 @@ $( document ).ready(function() {
     ).replace(
       /^[*] (.*)$/gm, "<ul><li>$1</li></ul>"
     ).replace(
-      /(\b(https?|ftp):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/ig,
+      /(\b(https?|ftp):\/\/[^\s<]*[-\w+&@#/%=~_|])/ig,
       "<a href='$1'>$1</a>"
     )
   }

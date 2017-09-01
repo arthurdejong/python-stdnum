@@ -129,7 +129,4 @@ def is_valid(number, check_country=True):
 def format(number, separator=' '):
     """Reformat the passed number to the space-separated format."""
     number = compact(number)
-    module = _get_cc_module(number[:2])
-    if module and hasattr(module, 'format') and module.format != format:
-        return module.format(number, separator=separator)
     return separator.join(number[i:i + 4] for i in range(0, len(number), 4))

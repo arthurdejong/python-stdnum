@@ -100,6 +100,8 @@ def validate(number, convert=False):
             raise InvalidChecksum()
     elif len(number) == 13:
         ean.validate(number)
+        if number[:3] not in ('978', '979'):
+            raise InvalidComponent()
     else:
         raise InvalidLength()
     if convert:
@@ -159,7 +161,7 @@ def to_isbn10(number):
     elif isbn_type(min_number) != 'ISBN13':
         raise InvalidFormat('Not a valid ISBN13.')
     elif not number.startswith('978'):
-        raise InvalidFormat('Does not use 978 Bookland prefix.')
+        raise InvalidComponent('Does not use 978 Bookland prefix.')
     # strip EAN prefix
     number = number[3:-1].strip().strip('-')
     digit = _calc_isbn10_check_digit(min_number[3:-1])
