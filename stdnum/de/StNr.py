@@ -25,10 +25,10 @@ city of registeration in the new schema.
 The number should have a checkup letter based on Mod 11 - 10, but in reality
 a lot of actual registered numbers did not abide to the checks in tests.
 >>> compact(' 181/815/0815 5')
-'181/815/08155'
+'18181508155'
 >>> validate('181/815/08155')
 '181/815/08155'
-validate('201/123/12340', 'Sachsen')
+>>> validate('201/123/12340', 'Sachsen')
 '201/123/12340'
 >>> validate('4151081508156', 'Thüringen')
 '4151081508156'
@@ -183,3 +183,17 @@ def validate(number, state=None):
         return validate_standard_schema(number, state)
 
     raise InvalidLength()
+
+
+def is_valid(number, state=None):
+    """
+    Return Bool if the identifier is valid or not.
+    optional (state), if specified, the opening characters of the number will
+    be tested against the state known opening characters.
+    """
+    try:
+        return bool(validate(number=number, state=state))
+    except InvalidLength:
+        return False
+    except InvalidFormat:
+        return False
