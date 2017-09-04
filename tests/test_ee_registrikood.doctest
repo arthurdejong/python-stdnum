@@ -1,0 +1,148 @@
+test_ee_registrikood.doctest - more detailed doctests for stdnum.ee.registrikood module
+
+Copyright (C) 2017 Arthur de Jong
+
+This library is free software; you can redistribute it and/or
+modify it under the terms of the GNU Lesser General Public
+License as published by the Free Software Foundation; either
+version 2.1 of the License, or (at your option) any later version.
+
+This library is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+Lesser General Public License for more details.
+
+You should have received a copy of the GNU Lesser General Public
+License along with this library; if not, write to the Free Software
+Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
+02110-1301 USA
+
+
+This file contains more detailed doctests for the stdnum.ee.registrikood. It
+tries to cover more corner cases and detailed functionality that is not
+really useful as module documentation.
+
+>>> from stdnum.ee import registrikood
+>>> from stdnum.exceptions import *
+
+
+Some simple tests for corner cases:
+
+>>> registrikood.validate('123456789')
+Traceback (most recent call last):
+    ...
+InvalidLength: ...
+>>> registrikood.validate('1234567A')
+Traceback (most recent call last):
+    ...
+InvalidFormat: ...
+
+
+These have been found online and should all be valid numbers.
+
+>>> numbers = """
+...
+... 10000024
+... 10000030
+... 10000047
+... 10000171
+... 10254782
+... 10324169
+... 10491045
+... 10591640
+... 10722527
+... 10732046
+... 10953764
+... 11041309
+... 11104323
+... 11126796
+... 11129553
+... 11405303
+... 11426771
+... 11456861
+... 11521759
+... 11559868
+... 11664625
+... 11910691
+... 11984324
+... 12073932
+... 12111472
+... 12202654
+... 12493640
+... 70000823
+... 70002420
+... 70004264
+... 70005542
+... 75000561
+... 75000667
+... 75002287
+... 75002884
+... 75005334
+... 75005392
+... 75005618
+... 75006820
+... 75007267
+... 75008769
+... 75010476
+... 75012952
+... 75015580
+... 75016177
+... 75016993
+... 75017857
+... 75018325
+... 75018495
+... 75018822
+... 75020670
+... 75021043
+... 75021304
+... 75021617
+... 75024018
+... 75024509
+... 75024567
+... 75025153
+... 75025762
+... 75026968
+... 75027494
+... 75033069
+... 80026261
+... 80033947
+... 80040433
+... 80041421
+... 80046097
+... 80052459
+... 80078915
+... 80079820
+... 80093530
+... 80095629
+... 80107858
+... 80112196
+... 80132454
+... 80173430
+... 80186390
+... 80196158
+... 80213520
+... 80234120
+... 80287895
+... 80291371
+... 80293625
+... 80302784
+... 80309332
+... 80314929
+... 80319075
+... 80336642
+... 90004740
+... 90004817
+... 90006006
+... 90006549
+... 90006822
+... 90006845
+... 90007247
+... 90007796
+... 90008287
+... 90009370
+... 90010671
+... 90010887
+...
+... """
+>>> [x for x in numbers.splitlines() if x and not registrikood.is_valid(x)]
+[]
