@@ -1,0 +1,66 @@
+test_de_idnr.doctest - more detailed doctests for stdnum.de.idnr module
+
+Copyright (C) 2017 Holvi Payment Services Oy
+Copyright (C) 2017 Arthur de Jong
+
+This library is free software; you can redistribute it and/or
+modify it under the terms of the GNU Lesser General Public
+License as published by the Free Software Foundation; either
+version 2.1 of the License, or (at your option) any later version.
+
+This library is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+Lesser General Public License for more details.
+
+You should have received a copy of the GNU Lesser General Public
+License along with this library; if not, write to the Free Software
+Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
+02110-1301 USA
+
+
+This file contains more detailed doctests for the stdnum.de.idnr module. It
+tries to test more corner cases and detailed functionality that is not really
+useful as module documentation.
+
+>>> from stdnum.de import idnr
+
+
+The number should be 11 digits long, should contain only numbers and cannot
+start with a zero.
+
+>>> idnr.validate('116574261809')
+Traceback (most recent call last):
+    ...
+InvalidLength: ...
+>>> idnr.validate('A6574261809')
+Traceback (most recent call last):
+    ...
+InvalidFormat: ...
+>>> idnr.validate('01234567896')
+Traceback (most recent call last):
+    ...
+InvalidFormat: ...
+
+
+The first 10 digits of the IdNr is supposed to contain extactly one digit
+twice (or three times since 2016) and all other digits in the number can only
+appear once. This tries to catch some corner cases. Note that only the first
+10 digits are considered for this.
+
+>>> idnr.validate('1234567890 3')  # each digit once
+Traceback (most recent call last):
+    ...
+InvalidFormat: ...
+>>> idnr.validate('1123456789 0')  # one digit twice
+'11234567890'
+>>> idnr.validate('1112345678 6')  # one digit three times
+'11123456786'
+>>> idnr.validate('1111234567 8')  # one digit four times
+Traceback (most recent call last):
+    ...
+InvalidFormat: ...
+>>> idnr.validate('1122345678 5')  # two digits more than once
+Traceback (most recent call last):
+    ...
+InvalidFormat: ...
