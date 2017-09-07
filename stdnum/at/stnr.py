@@ -195,7 +195,9 @@ def validate_acceptable_opening_chars(number):
     any tax office"""
     opening_chars = number[:2]
     if opening_chars not in get_all_codes_dict():
-        raise InvalidFormat
+        raise InvalidFormat(
+            'The opening characters do not belong to any tax office'
+        )
     return number
 
 
@@ -204,7 +206,9 @@ def validate_opening_chars_to_office(number, office):
     opening_chars = number[:2]
     office_from_chars = get_all_codes_dict()[opening_chars]['tax_office']
     if not office_from_chars == office:
-        raise InvalidFormat()
+        raise InvalidFormat(
+            'The opening characters do not belong to this tax office'
+        )
     return number
 
 
@@ -221,9 +225,9 @@ def validate(number, office=None):
     the length and formatting."""
     clean_number = compact(number)
     if len(clean_number) != 9:
-        raise InvalidLength
+        raise InvalidLength()
     if not clean_number.isdigit():
-        raise InvalidFormat
+        raise InvalidFormat('The number contains non numerical digits')
     if office:
         validate_opening_chars_to_office(clean_number, office)
     else:
@@ -236,5 +240,5 @@ def is_valid(number, office=None):
     number. This checks the length, formatting and check digit."""
     try:
         return bool(validate(number, office))
-    except ValidationError as _:
+    except ValidationError:
         return False
