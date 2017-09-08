@@ -1,7 +1,7 @@
 # dic.py - functions for handling Czech VAT numbers
 # coding: utf-8
 #
-# Copyright (C) 2012, 2013 Arthur de Jong
+# Copyright (C) 2012-2017 Arthur de Jong
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -64,8 +64,8 @@ def calc_check_digit_legal(number):
 def calc_check_digit_special(number):
     """Calculate the check digit for special cases. The number passed
     should not have the first and last digits included."""
-    check = (11 - sum((8 - i) * int(n) for i, n in enumerate(number))) % 11
-    return str(9 - check % 10)
+    check = sum((8 - i) * int(n) for i, n in enumerate(number)) % 11
+    return str((8 - (10 - check) % 11 ) % 10)
 
 
 def validate(number):
