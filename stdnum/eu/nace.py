@@ -67,7 +67,7 @@ def info(number):
     number = compact(number)
     from stdnum import numdb
     info = dict()
-    for n, i in numdb.get('eu/nace').info(number):
+    for _n, i in numdb.get('eu/nace').info(number):
         if not i:
             raise InvalidComponent()
         info.update(i)

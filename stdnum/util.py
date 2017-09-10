@@ -137,7 +137,7 @@ def get_number_modules(base='stdnum'):
     """Yield all the module and package names under the specified module."""
     __import__(base)
     module = sys.modules[base]
-    for loader, name, is_pkg in pkgutil.walk_packages(
+    for _loader, name, _is_pkg in pkgutil.walk_packages(
             module.__path__, module.__name__ + '.'):
         __import__(name)
         module = sys.modules[name]

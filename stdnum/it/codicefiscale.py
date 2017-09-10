@@ -139,7 +139,7 @@ def validate(number):
     if calc_check_digit(number[:-1]) != number[-1]:
         raise InvalidChecksum()
     # check if birth date is valid
-    birth_date = get_birth_date(number)
+    get_birth_date(number)
     return number
 
 

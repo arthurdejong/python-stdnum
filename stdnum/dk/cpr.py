@@ -97,7 +97,7 @@ def validate(number):
     if len(number) != 10:
         raise InvalidLength()
     # check if birth date is valid
-    birth_date = get_birth_date(number)
+    get_birth_date(number)
     # TODO: check that the birth date is not in the future
     return number
 

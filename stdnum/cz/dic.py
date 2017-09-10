@@ -65,7 +65,7 @@ def calc_check_digit_special(number):
     """Calculate the check digit for special cases. The number passed
     should not have the first and last digits included."""
     check = sum((8 - i) * int(n) for i, n in enumerate(number)) % 11
-    return str((8 - (10 - check) % 11 ) % 10)
+    return str((8 - (10 - check) % 11) % 10)
 
 
 def validate(number):

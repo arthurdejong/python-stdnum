@@ -100,7 +100,7 @@ def validate(number):
             raise InvalidChecksum()
     else:
         # natural resident, check if birth date is valid
-        birth_date = get_birth_date(number)
+        get_birth_date(number)
         # TODO: check that the birth date is not in the future
         if calc_check_digit_pers(number[:-1]) != number[-1]:
             raise InvalidChecksum()

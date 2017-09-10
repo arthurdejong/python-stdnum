@@ -59,7 +59,7 @@ _ibandb = numdb.get('iban')
 _struct_re = re.compile(r'([1-9][0-9]*)!([nac])')
 
 # cache of country codes to modules
-_country_modules = dict()
+_country_modules = {}
 
 
 def compact(number):

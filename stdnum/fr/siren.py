@@ -80,5 +80,4 @@ def to_tva(number):
     return '%02d%s%s' % (
         int(compact(number) + '12') % 97,
         ' ' if ' ' in number else '',
-        number
-    )
+        number)

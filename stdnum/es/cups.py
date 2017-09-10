@@ -74,7 +74,7 @@ def format(number):
         number[14:18],
         number[18:20],
         number[20:],
-        )).strip()
+    )).strip()
 
 
 def calc_check_digits(number):

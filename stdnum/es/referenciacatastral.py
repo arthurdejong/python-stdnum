@@ -74,8 +74,7 @@ def format(number):
         number[:7],
         number[7:14],
         number[14:18],
-        number[18:]
-    ])
+        number[18:]])
 
 
 # The check digit implementation is based on the Javascript
