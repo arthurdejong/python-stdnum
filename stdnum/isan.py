@@ -53,9 +53,9 @@ from stdnum.util import clean
 
 
 def split(number):
-    """Splits the number into a root, an episode or part, a check digit a
-    version and another check digit. If any of the parts are missing an
-    empty string is returned."""
+    """Split the number into a root, an episode or part, a check digit a
+    version and another check digit. If any of the parts are missing an empty
+    string is returned."""
     number = clean(number, ' -').strip().upper()
     if len(number) == 17 or len(number) == 26:
         return number[0:12], number[12:16], number[16], number[17:25], number[25:]
@@ -76,9 +76,9 @@ def compact(number, strip_check_digits=True):
 
 
 def validate(number, strip_check_digits=False, add_check_digits=False):
-    """Checks to see if the number provided is a valid ISAN. If check digits
-    are present in the number they are validated. If strip_check_digits is
-    True any existing check digits will be removed (after checking). If
+    """Check if the number provided is a valid ISAN. If check digits are
+    present in the number they are validated. If strip_check_digits is True
+    any existing check digits will be removed (after checking). If
     add_check_digits is True the check digit will be added if they are not
     present yet."""
     (root, episode, check1, version, check2) = split(number)
@@ -107,8 +107,8 @@ def validate(number, strip_check_digits=False, add_check_digits=False):
 
 
 def is_valid(number):
-    """Checks to see if the number provided is a valid ISAN. If check digits
-    are present in the number they are validated."""
+    """Check if the number provided is a valid ISAN. If check digits are
+    present in the number they are validated."""
     try:
         return bool(validate(number))
     except ValidationError:
@@ -116,7 +116,7 @@ def is_valid(number):
 
 
 def format(number, separator='-', strip_check_digits=False, add_check_digits=True):
-    """Reformat the passed number to the standard format. If
+    """Reformat the number to the standard presentation format. If
     add_check_digits is True the check digit will be added if they are not
     present yet. If both strip_check_digits and add_check_digits are True the
     check digits will be recalculated."""
@@ -145,12 +145,12 @@ def to_binary(number):
 
 
 def to_xml(number):
-    """Returns the XML form of the ISAN as a string."""
+    """Return the XML form of the ISAN as a string."""
     number = format(number, strip_check_digits=True, add_check_digits=False)
     return '<ISAN root="%s" episode="%s" version="%s" />' % (
         number[0:14], number[15:19], number[20:])
 
 
 def to_urn(number):
-    """Returns the URN representation of the ISAN."""
+    """Return the URN representation of the ISAN."""
     return 'URN:ISAN:' + format(number, add_check_digits=True)

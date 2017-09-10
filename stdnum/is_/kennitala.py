@@ -72,9 +72,9 @@ def checksum(number):
 
 
 def validate(number):
-    """Checks to see if the number provided is a valid kennitala. It
-    checks the format, whether a valid date is given and whether the
-    check digit is correct."""
+    """Check if the number provided is a valid kennitala. It checks the
+    format, whether a valid date is given and whether the check digit is
+    correct."""
     number = compact(number)
     match = _kennitala_re.search(number)
     if not match:
@@ -101,9 +101,8 @@ def validate(number):
 
 
 def is_valid(number):
-    """Checks to see if the number provided is a valid HETU. It checks the
-    format, whether a valid date is given and whether the check digit is
-    correct."""
+    """Check if the number provided is a valid HETU. It checks the format,
+    whether a valid date is given and whether the check digit is correct."""
     try:
         return bool(validate(number))
     except ValidationError:
@@ -111,6 +110,6 @@ def is_valid(number):
 
 
 def format(number):
-    """Reformat the passed number to the standard format."""
+    """Reformat the number to the standard presentation format."""
     number = compact(number)
     return number[:6] + '-' + number[6:]

@@ -48,7 +48,7 @@ def compact(number):
 
 
 def validate(number):
-    """Checks to see if the number provided is a valid number. This checks
+    """Check if the number is a valid organisation number. This checks
     the length, formatting and check digit."""
     number = compact(number)
     if not number.isdigit():
@@ -59,8 +59,7 @@ def validate(number):
 
 
 def is_valid(number):
-    """Checks to see if the number provided is a valid number. This checks
-    the length, formatting and check digit."""
+    """Check if the number is a valid organisation number"""
     try:
         return bool(validate(number))
     except ValidationError:
@@ -68,6 +67,6 @@ def is_valid(number):
 
 
 def format(number):
-    """Reformat the number to the standard format."""
+    """Reformat the number to the standard presentation format."""
     number = compact(number)
     return number[:6] + '-' + number[6:]

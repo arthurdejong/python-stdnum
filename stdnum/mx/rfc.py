@@ -116,7 +116,7 @@ def calc_check_digit(number):
 
 
 def validate(number, validate_check_digits=False):
-    """Checks to see if the number provided is a valid number."""
+    """Check if the number is a valid RFC."""
     number = compact(number)
     if not _rfc_re.match(number):
         raise InvalidFormat()
@@ -139,7 +139,7 @@ def validate(number, validate_check_digits=False):
 
 
 def is_valid(number, validate_check_digits=False):
-    """Checks to see if the number provided is a valid number."""
+    """Check if the number provided is a valid RFC."""
     try:
         return bool(validate(number, validate_check_digits))
     except ValidationError:
@@ -147,7 +147,7 @@ def is_valid(number, validate_check_digits=False):
 
 
 def format(number, separator=' '):
-    """Reformat the passed number to the standard format."""
+    """Reformat the number to the standard presentation format."""
     number = compact(number)
     if len(number) == 12:
         return separator.join((

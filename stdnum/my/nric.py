@@ -85,8 +85,8 @@ def get_birth_place(number):
 
 
 def validate(number):
-    """Checks to see if the number provided is a valid NRIC numbers. This
-    checks the length, formatting and birth date and place."""
+    """Check if the number is a valid NRIC number. This checks the length,
+    formatting and birth date and place."""
     number = compact(number)
     if len(number) != 12:
         raise InvalidLength()
@@ -98,8 +98,7 @@ def validate(number):
 
 
 def is_valid(number):
-    """Checks to see if the number provided is a valid NRIC numbers. This
-    checks the length, formatting and birth date and place."""
+    """Check if the number is a valid NRIC number."""
     try:
         return bool(validate(number))
     except ValidationError:
@@ -107,6 +106,6 @@ def is_valid(number):
 
 
 def format(number):
-    """Reformat the passed number to the standard format."""
+    """Reformat the number to the standard presentation format."""
     number = compact(number)
     return number[:6] + '-' + number[6:8] + '-' + number[8:]

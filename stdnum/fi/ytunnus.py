@@ -44,14 +44,13 @@ def compact(number):
 
 
 def validate(number):
-    """Checks to see if the number provided is a valid business identifier.
-    This checks the length, formatting and check digit."""
+    """Check if the number is a valid business identifier. This checks the
+    length, formatting and check digit."""
     return alv.validate(number)
 
 
 def is_valid(number):
-    """Checks to see if the number provided is a valid business identifier.
-    This checks the length, formatting and check digit."""
+    """Check if the number is a valid business identifier."""
     try:
         return bool(validate(number))
     except ValidationError:
@@ -59,6 +58,6 @@ def is_valid(number):
 
 
 def format(number):
-    """Reformat the passed number to the standard format."""
+    """Reformat the number to the standard presentation format."""
     number = compact(number)
     return number[:7] + '-' + number[7:]

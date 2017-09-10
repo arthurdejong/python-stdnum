@@ -59,8 +59,8 @@ def calc_check_digit(number):
 
 
 def validate(number):
-    """Checks to see if the number provided is valid. This checks the length
-    and check digit."""
+    """Check if the number provided is valid. This checks the length and
+    check digit."""
     number = compact(number)
     if not number.isdigit():
         raise InvalidFormat()
@@ -72,8 +72,8 @@ def validate(number):
 
 
 def is_valid(number):
-    """Checks to see if the number provided is valid. This checks the length
-    and check digit."""
+    """Check if the number provided is valid. This checks the length and
+    check digit."""
     try:
         return bool(validate(number))
     except ValidationError:
@@ -81,5 +81,5 @@ def is_valid(number):
 
 
 def format(number):
-    """Reformat the passed number to the standard format."""
+    """Reformat the number to the standard presentation format."""
     return 'IMO ' + compact(number)

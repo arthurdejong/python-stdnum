@@ -51,8 +51,8 @@ def checksum(number):
 
 
 def validate(number):
-    """Checks to see if the number provided is a valid VAT number. This
-    checks the length, formatting and check digit."""
+    """Check if the number is a valid VAT number. This checks the length,
+    formatting and check digit."""
     number = compact(number)
     if not number.isdigit():
         raise InvalidFormat()
@@ -69,8 +69,7 @@ def validate(number):
 
 
 def is_valid(number):
-    """Checks to see if the number provided is a valid VAT number. This
-    checks the length, formatting and check digit."""
+    """Check if the number is a valid VAT number."""
     try:
         return bool(validate(number))
     except ValidationError:

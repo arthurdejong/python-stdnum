@@ -59,7 +59,7 @@ def checksum(number, alphabet='0123456789'):
 
 
 def validate(number, alphabet='0123456789'):
-    """Checks to see if the number provided passes the Luhn checksum."""
+    """Check if the number provided passes the Luhn checksum."""
     if not bool(number):
         raise InvalidFormat()
     try:
@@ -72,7 +72,7 @@ def validate(number, alphabet='0123456789'):
 
 
 def is_valid(number, alphabet='0123456789'):
-    """Checks to see if the number provided passes the Luhn checksum."""
+    """Check if the number passes the Luhn checksum."""
     try:
         return bool(validate(number, alphabet))
     except ValidationError:
@@ -80,7 +80,7 @@ def is_valid(number, alphabet='0123456789'):
 
 
 def calc_check_digit(number, alphabet='0123456789'):
-    """With the provided number, calculate the extra digit that should be
-    appended to make it pass the Luhn checksum."""
+    """Calculate the extra digit that should be appended to the number to
+    make it a valid number."""
     ck = checksum(str(number) + alphabet[0], alphabet)
     return alphabet[-ck]

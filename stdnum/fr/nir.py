@@ -74,7 +74,7 @@ def calc_check_digits(number):
 
 
 def validate(number):
-    """Checks to see if the number provided is valid. This checks the length
+    """Check if the number provided is valid. This checks the length
     and check digits."""
     number = compact(number)
     if not (number.isdigit() or (
@@ -89,8 +89,7 @@ def validate(number):
 
 
 def is_valid(number):
-    """Checks to see if the number provided is valid. This checks the length
-    and check digits."""
+    """Check if the number provided is valid."""
     try:
         return bool(validate(number))
     except ValidationError:
@@ -98,7 +97,7 @@ def is_valid(number):
 
 
 def format(number, separator=' '):
-    """Reformat the passed number to the standard format."""
+    """Reformat the number to the standard presentation format."""
     number = compact(number)
     return separator.join((number[:1], number[1:3], number[3:5], number[5:7],
                            number[7:10], number[10:13], number[13:]))

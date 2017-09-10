@@ -60,7 +60,7 @@ def split(number):
 
 
 def validate(number):
-    """Checks to see if the number provided is a valid IMSI."""
+    """Check if the number provided is a valid IMSI."""
     number = compact(number)
     if not number.isdigit():
         raise InvalidFormat()
@@ -89,7 +89,7 @@ def info(number):
 
 
 def is_valid(number):
-    """Checks to see if the number provided is a valid IMSI."""
+    """Check if the number provided is a valid IMSI."""
     try:
         return bool(validate(number))
     except ValidationError:

@@ -69,8 +69,8 @@ def calc_check_digit(number):
 
 
 def validate(number):
-    """Checks to see if the number provided is a valid ISSN. This checks
-    the length and whether the check digit is correct."""
+    """Check if the number is a valid ISSN. This checks the length and
+    whether the check digit is correct."""
     number = compact(number)
     if not number[:-1].isdigit():
         raise InvalidFormat()
@@ -82,8 +82,7 @@ def validate(number):
 
 
 def is_valid(number):
-    """Checks to see if the number provided is a valid ISSN. This checks
-    the length and whether the check digit is correct."""
+    """Check if the number provided is a valid ISSN."""
     try:
         return bool(validate(number))
     except ValidationError:
@@ -91,7 +90,7 @@ def is_valid(number):
 
 
 def format(number):
-    """Reformat the passed number to the standard format."""
+    """Reformat the number to the standard presentation format."""
     number = compact(number)
     return number[:4] + '-' + number[4:]
 

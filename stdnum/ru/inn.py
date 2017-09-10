@@ -67,8 +67,8 @@ def calc_personal_check_digits(number):
 
 
 def validate(number):
-    """Checks to see if the number provided is a valid ИНН. This checks the
-    length, formatting and check digit."""
+    """Check if the number is a valid ИНН. This checks the length, formatting
+    and check digit."""
     number = compact(number)
     if not number.isdigit():
         raise InvalidFormat()
@@ -85,8 +85,7 @@ def validate(number):
 
 
 def is_valid(number):
-    """Checks to see if the number provided is a valid ИНН. This checks the
-    length, formatting and check digit."""
+    """Check if the number is a valid ИНН."""
     try:
         return bool(validate(number))
     except ValidationError:

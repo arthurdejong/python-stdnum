@@ -131,7 +131,7 @@ def compact(number):
 
 
 def validate(number):
-    """Checks to see if the number provided is a valid cedula."""
+    """Check if the number provided is a valid cedula."""
     number = compact(number)
     if len(number) != 11:
         raise InvalidLength()
@@ -143,7 +143,7 @@ def validate(number):
 
 
 def is_valid(number):
-    """Checks to see if the number provided is a valid cedula."""
+    """Check if the number provided is a valid cedula."""
     try:
         return bool(validate(number))
     except ValidationError:
@@ -151,6 +151,6 @@ def is_valid(number):
 
 
 def format(number):
-    """Reformat the passed number to the standard format."""
+    """Reformat the number to the standard presentation format."""
     number = compact(number)
     return '-'.join((number[:3], number[3:-1], number[-1]))

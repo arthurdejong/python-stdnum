@@ -78,9 +78,8 @@ def get_birth_date(number):
 
 
 def validate(number):
-    """Checks to see if the number provided is a valid national
-    identification number. This checks the length, formatting, embedded
-    date and check digit."""
+    """Check if the number is a valid national identification number. This
+    checks the length, formatting, embedded date and check digit."""
     number = compact(number)
     if not number.isdigit():
         raise InvalidFormat()
@@ -96,9 +95,7 @@ def validate(number):
 
 
 def is_valid(number):
-    """Checks to see if the number provided is a valid national
-    identification number. This checks the length, formatting, embedded
-    date and check digit."""
+    """Check if the number is a valid national identification number."""
     try:
         return bool(validate(number))
     except ValidationError:

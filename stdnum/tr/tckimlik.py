@@ -73,8 +73,8 @@ def calc_check_digits(number):
 
 
 def validate(number):
-    """Checks to see if the number provided is a valid .C. Kimlik No..
-    This checks the length and check digits"""
+    """Check if the number is a valid .C. Kimlik number. This checks the
+    length and check digits."""
     number = compact(number)
     if not number.isdigit() or number[0] == '0':
         raise InvalidFormat()
@@ -86,8 +86,7 @@ def validate(number):
 
 
 def is_valid(number):
-    """Checks to see if the number provided is a valid .C. Kimlik No..
-    This checks the length and check digits"""
+    """Check if the number is a valid .C. Kimlik number."""
     try:
         return bool(validate(number))
     except ValidationError:
@@ -105,9 +104,9 @@ def _get_client():  # pragma: no cover (no tests for this function)
 
 
 def check_kps(number, name, surname, birth_year):  # pragma: no cover
-    """Queries the online T.C. Kimlik validation service run by the
-    Directorate of Population and Citizenship Affairs. This returns a boolean
-    but may raise a SOAP exception for missing or invalid values."""
+    """Query the online T.C. Kimlik validation service run by the Directorate
+    of Population and Citizenship Affairs. This returns a boolean but may
+    raise a SOAP exception for missing or invalid values."""
     # this function isn't automatically tested because it would require
     # network access for the tests and unnecessarily load the online service
     number = compact(number)

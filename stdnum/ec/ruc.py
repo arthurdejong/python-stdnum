@@ -53,8 +53,8 @@ def _checksum(number, weights):
 
 
 def validate(number):
-    """Checks to see if the number provided is a valid RUC number. This
-    checks the length, formatting, check digit and check sum."""
+    """Check if the number provided is a valid RUC number. This checks the
+    length, formatting, check digit and check sum."""
     number = compact(number)
     if len(number) != 13:
         raise InvalidLength()
@@ -85,8 +85,8 @@ def validate(number):
 
 
 def is_valid(number):
-    """Checks to see if the number provided is a valid RUC number. This
-    checks the length, formatting and check digit."""
+    """Check if the number provided is a valid RUC number. This checks the
+    length, formatting and check digit."""
     try:
         return bool(validate(number))
     except ValidationError:

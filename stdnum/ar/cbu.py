@@ -59,7 +59,7 @@ def calc_check_digit(number):
 
 
 def validate(number):
-    """Checks to see if the number provided is a valid CBU."""
+    """Check if the number is a valid CBU."""
     number = compact(number)
     if len(number) != 22:
         raise InvalidLength()
@@ -73,7 +73,7 @@ def validate(number):
 
 
 def is_valid(number):
-    """Checks to see if the number provided is a valid CBU."""
+    """Check if the number is a valid CBU."""
     try:
         return bool(validate(number))
     except ValidationError:
@@ -81,6 +81,6 @@ def is_valid(number):
 
 
 def format(number):
-    """Reformat the passed number to the standard format."""
+    """Reformat the number to the standard presentation format."""
     number = compact(number)
     return ' '.join((number[:8], number[8:]))

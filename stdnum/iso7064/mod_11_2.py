@@ -49,14 +49,14 @@ def checksum(number):
 
 
 def calc_check_digit(number):
-    """With the provided number, calculate the extra digit that should be
-    appended to make it a valid number."""
+    """Calculate the extra digit that should be appended to the number to
+    make it a valid number."""
     c = (1 - 2 * checksum(number)) % 11
     return 'X' if c == 10 else str(c)
 
 
 def validate(number):
-    """Checks whether the check digit is valid."""
+    """Check whether the check digit is valid."""
     try:
         valid = checksum(number) == 1
     except Exception:
@@ -67,7 +67,7 @@ def validate(number):
 
 
 def is_valid(number):
-    """Checks whether the check digit is valid."""
+    """Check whether the check digit is valid."""
     try:
         return bool(validate(number))
     except ValidationError:

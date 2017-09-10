@@ -87,7 +87,7 @@ def checksum(number):
 
 
 def validate(number):
-    """Checks to see if the number provided passes the Verhoeff checksum."""
+    """Check if the number provided passes the Verhoeff checksum."""
     if not bool(number):
         raise InvalidFormat()
     try:
@@ -100,7 +100,7 @@ def validate(number):
 
 
 def is_valid(number):
-    """Checks to see if the number provided passes the Verhoeff checksum."""
+    """Check if the number provided passes the Verhoeff checksum."""
     try:
         return bool(validate(number))
     except ValidationError:
@@ -108,6 +108,6 @@ def is_valid(number):
 
 
 def calc_check_digit(number):
-    """With the provided number, calculate the extra digit that should be
-    appended to make it pass the Verhoeff checksum."""
+    """Calculate the extra digit that should be appended to the number to
+    make it a valid number."""
     return str(_multiplication_table[checksum(str(number) + '0')].index(0))

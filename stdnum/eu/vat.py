@@ -84,8 +84,8 @@ def compact(number):
 
 
 def validate(number):
-    """Checks to see if the number provided is a valid VAT number. This
-    performs the country-specific check for the number."""
+    """Check if the number is a valid VAT number. This performs the
+    country-specific check for the number."""
     number = clean(number, '').upper().strip()
     module = _get_cc_module(number[:2])
     if not module:
@@ -94,8 +94,8 @@ def validate(number):
 
 
 def is_valid(number):
-    """Checks to see if the number provided is a valid VAT number. This
-    performs the country-specific check for the number."""
+    """Check if the number is a valid VAT number. This performs the
+    country-specific check for the number."""
     try:
         return bool(validate(number))
     except ValidationError:
@@ -103,10 +103,10 @@ def is_valid(number):
 
 
 def guess_country(number):
-    """Guess the country code based on the provided number. This checks the
-    provided number against each of the validation routines and returns
-    the list of countries for which it is valid. This returns lower case
-    codes and returns gr (not el) for Greece."""
+    """Guess the country code based on the number. This checks the number
+    against each of the validation routines and returns the list of countries
+    for which it is valid. This returns lower case codes and returns gr (not
+    el) for Greece."""
     return [cc
             for cc in country_codes
             if _get_cc_module(cc).is_valid(number)]
@@ -123,10 +123,10 @@ def _get_client():  # pragma: no cover (no tests for this function)
 
 
 def check_vies(number):  # pragma: no cover (no tests for this function)
-    """Queries the online European Commission VAT Information Exchange
-    System (VIES) for validity of the provided number. Note that the
-    service has usage limitations (see the VIES website for details).
-    This returns a dict-like object."""
+    """Query the online European Commission VAT Information Exchange System
+    (VIES) for validity of the provided number. Note that the service has
+    usage limitations (see the VIES website for details). This returns a
+    dict-like object."""
     # this function isn't automatically tested because it would require
     # network access for the tests and unnecessarily load the VIES website
     number = compact(number)
@@ -134,7 +134,7 @@ def check_vies(number):  # pragma: no cover (no tests for this function)
 
 
 def check_vies_approx(number, requester):  # pragma: no cover
-    """Queries the online European Commission VAT Information Exchange System
+    """Query the online European Commission VAT Information Exchange System
     (VIES) for validity of the provided number, providing a validity
     certificate as proof. You will need to give your own VAT number for this
     to work. Note that the service has usage limitations (see the VIES

@@ -62,8 +62,8 @@ def compact(number):
 
 
 def validate(number):
-    """Checks to see if the number provided is a valid TIN. This searches
-    for the proper sub-type and validates using that."""
+    """Check if the number is a valid TIN. This searches for the proper
+    sub-type and validates using that."""
     for mod in _tin_modules:
         try:
             return mod.validate(number)
@@ -74,8 +74,7 @@ def validate(number):
 
 
 def is_valid(number):
-    """Checks to see if the number provided is a valid TIN. This searches
-    for the proper sub-type and validates using that."""
+    """Check if the number is a valid TIN."""
     try:
         return bool(validate(number))
     except ValidationError:
@@ -91,7 +90,7 @@ def guess_type(number):
 
 
 def format(number):
-    """Reformat the passed number to the standard format."""
+    """Reformat the number to the standard presentation format."""
     for mod in _tin_modules:
         if mod.is_valid(number) and hasattr(mod, 'format'):
             return mod.format(number)

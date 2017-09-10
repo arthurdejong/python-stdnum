@@ -66,8 +66,8 @@ def compact(number):
 
 
 def validate(number):
-    """Checks to see if the number provided is a valid PPS number. This
-    checks the length, formatting and check digit."""
+    """Check if the number provided is a valid PPS number. This checks the
+    length, formatting and check digit."""
     number = compact(number)
     if not pps_re.match(number):
         raise InvalidFormat()
@@ -83,8 +83,8 @@ def validate(number):
 
 
 def is_valid(number):
-    """Checks to see if the number provided is a valid PPS number. This
-    checks the length, formatting and check digit."""
+    """Check if the number provided is a valid PPS number. This checks the
+    length, formatting and check digit."""
     try:
         return bool(validate(number))
     except ValidationError:

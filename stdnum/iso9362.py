@@ -59,8 +59,8 @@ def compact(number):
 
 
 def validate(number):
-    """Checks to see if the number provided is a valid routing number. This
-    checks the length and characters in each position."""
+    """Check if the number is a valid routing number. This checks the length
+    and characters in each position."""
     number = compact(number)
     if len(number) not in (8, 11):
         raise InvalidLength()
@@ -71,8 +71,7 @@ def validate(number):
 
 
 def is_valid(number):
-    """Checks to see if the number provided is a valid BIC. This checks the
-     length and characters in each position."""
+    """Check if the number provided is a valid BIC."""
     try:
         return bool(validate(number))
     except ValidationError:
@@ -80,5 +79,5 @@ def is_valid(number):
 
 
 def format(number):
-    """Reformat the passed number to the standard format."""
+    """Reformat the number to the standard presentation format."""
     return compact(number)

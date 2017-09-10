@@ -68,7 +68,7 @@ def compact(number):
 
 
 def format(number):
-    """Reformat the passed number to the standard format."""
+    """Reformat the number to the standard presentation format."""
     number = compact(number)
     return ' '.join([
         number[:7],
@@ -106,8 +106,8 @@ def calc_check_digits(number):
 
 
 def validate(number):
-    """Checks to see if the number provided is a valid Cadastral Reference.
-    This checks the length, formatting and check digits."""
+    """Check if the number is a valid Cadastral Reference. This checks the
+    length, formatting and check digits."""
     number = compact(number)
     n = _force_unicode(number)
     if not all(c in alphabet for c in n):
@@ -120,7 +120,7 @@ def validate(number):
 
 
 def is_valid(number):
-    """Checks to see if the number provided is a valid Cadastral Reference."""
+    """Check if the number is a valid Cadastral Reference."""
     try:
         return bool(validate(number))
     except ValidationError:

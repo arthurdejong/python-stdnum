@@ -51,14 +51,14 @@ def checksum(number, alphabet='0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ'):
 
 
 def calc_check_digit(number, alphabet='0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ'):
-    """With the provided number, calculate the extra digit that should be
-    appended to make it a valid number."""
+    """Calculate the extra digit that should be appended to the number to
+    make it a valid number."""
     modulus = len(alphabet)
     return alphabet[(1 - ((checksum(number, alphabet) or modulus) * 2) % (modulus + 1)) % modulus]
 
 
 def validate(number, alphabet='0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ'):
-    """Checks whether the check digit is valid."""
+    """Check whether the check digit is valid."""
     try:
         valid = checksum(number, alphabet) == 1
     except Exception:
@@ -69,7 +69,7 @@ def validate(number, alphabet='0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ'):
 
 
 def is_valid(number, alphabet='0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ'):
-    """Checks whether the check digit is valid."""
+    """Check whether the check digit is valid."""
     try:
         return bool(validate(number, alphabet))
     except ValidationError:

@@ -51,9 +51,9 @@ __all__ = ['compact', 'validate', 'is_valid']
 
 
 def validate(number):
-    """Checks to see if the number provided is a valid onderwijsnummer.
-    This checks the length and whether the check digit is correct and
-    whether it starts with the right sequence."""
+    """Check if the number is a valid onderwijsnummer. This checks the length
+    and whether the check digit is correct and whether it starts with the
+    right sequence."""
     number = compact(number)
     if not number.isdigit() or int(number) <= 0:
         raise InvalidFormat()
@@ -67,9 +67,7 @@ def validate(number):
 
 
 def is_valid(number):
-    """Checks to see if the number provided is a valid onderwijsnummer.
-    This checks the length and whether the check digit is correct and
-    whether it starts with the right sequence."""
+    """Check if the number is a valid onderwijsnummer."""
     try:
         return bool(validate(number))
     except ValidationError:

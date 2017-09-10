@@ -106,7 +106,7 @@ def compact(number, strip_check_digit=True):
 
 
 def _bit_length(n):
-    """Number of bits necessary to represent the number in binary."""
+    """Return the number of bits necessary to store the number in binary."""
     try:
         return n.bit_length()
     except AttributeError:  # pragma: no cover (Python 2.6 only)
@@ -115,9 +115,9 @@ def _bit_length(n):
 
 
 def validate(number, strip_check_digit=True):
-    """Checks to see if the number provided is a valid MEID number. This
-    converts the representation format of the number (if it is
-    decimal it is not converted to hexadecimal)."""
+    """Check if the number is a valid MEID number. This converts the
+    representation format of the number (if it is decimal it is not converted
+    to hexadecimal)."""
     from stdnum import luhn
     # first parse the number
     number, cd = _parse(number)
@@ -146,7 +146,7 @@ def validate(number, strip_check_digit=True):
 
 
 def is_valid(number):
-    """Checks to see if the number provided is a valid MEID number."""
+    """Check if the number is a valid MEID number."""
     try:
         return bool(validate(number))
     except ValidationError:
@@ -154,11 +154,11 @@ def is_valid(number):
 
 
 def format(number, separator=' ', format=None, add_check_digit=False):
-    """Reformat the passed number to the standard format. The separator
-    used can be provided. If the format is specified (either 'hex' or
-    'dec') the number is reformatted in that format, otherwise the current
-    representation is kept. If add_check_digit is True a check digit will
-    be added if it is not present yet."""
+    """Reformat the number to the standard presentation format. The separator
+    used can be provided. If the format is specified (either 'hex' or 'dec')
+    the number is reformatted in that format, otherwise the current
+    representation is kept. If add_check_digit is True a check digit will be
+    added if it is not present yet."""
     # first parse the number
     number, cd = _parse(number)
     # format conversions if needed

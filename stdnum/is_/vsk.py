@@ -44,8 +44,8 @@ def compact(number):
 
 
 def validate(number):
-    """Checks to see if the number provided is a valid VAT number. This
-    checks the length and formatting."""
+    """Check if the number provided is a valid VAT number. This checks the
+    length and formatting."""
     number = compact(number)
     if not number.isdigit():
         raise InvalidFormat()
@@ -55,8 +55,8 @@ def validate(number):
 
 
 def is_valid(number):
-    """Checks to see if the number provided is a valid VAT number. This
-    checks the length and formatting."""
+    """Check if the number provided is a valid VAT number. This checks the
+    length and formatting."""
     try:
         return bool(validate(number))
     except ValidationError:

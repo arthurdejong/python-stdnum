@@ -54,7 +54,7 @@ def calc_check_digit(number):
 
 
 def validate(number):
-    """Checks to see if the number provided is a valid RNC."""
+    """Check if the number provided is a valid RNC."""
     number = compact(number)
     if len(number) != 9:
         raise InvalidLength()
@@ -66,7 +66,7 @@ def validate(number):
 
 
 def is_valid(number):
-    """Checks to see if the number provided is a valid RNC."""
+    """Check if the number provided is a valid RNC."""
     try:
         return bool(validate(number))
     except ValidationError:
@@ -74,6 +74,6 @@ def is_valid(number):
 
 
 def format(number):
-    """Reformat the passed number to the standard format."""
+    """Reformat the number to the standard presentation format."""
     number = compact(number)
     return '-'.join((number[:1], number[1:3], number[3:-1], number[-1]))

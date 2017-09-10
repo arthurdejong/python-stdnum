@@ -58,14 +58,13 @@ def compact(number):
 
 
 def format(number):
-    """Reformat the passed number to the standard format."""
+    """Reformat the number to the standard presentation format."""
     number = compact(number)
     return '.'.join((number[:3], number[3:7], number[7:11], number[11:]))
 
 
 def validate(number):
-    """Checks to see if the number provided is a valid Swiss
-    Sozialversicherungsnummer."""
+    """Check if the number is a valid Swiss Sozialversicherungsnummer."""
     number = compact(number)
     if len(number) != 13:
         raise InvalidLength()
@@ -75,8 +74,7 @@ def validate(number):
 
 
 def is_valid(number):
-    """Checks to see if the number provided is a valid
-    Sozialversicherungsnummer."""
+    """Check if the number is a valid Swiss Sozialversicherungsnummer."""
     try:
         return bool(validate(number))
     except ValidationError:

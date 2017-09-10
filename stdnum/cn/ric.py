@@ -71,13 +71,15 @@ def get_birth_place(number):
 
 
 def calc_check_digit(number):
+    """Calculate the check digit. The number passed should have the check
+    digit included."""
     checksum = (1 - 2 * int(number[:-1], 13)) % 11
     return 'X' if checksum == 10 else str(checksum)
 
 
 def validate(number):
-    """Checks to see if the number provided is a valid RIC numbers. This
-    checks the length, formatting and birth date and place."""
+    """Check if the number is a valid RIC number. This checks the length,
+    formatting and birth date and place."""
     number = compact(number)
     if len(number) != 18:
         raise InvalidLength()
@@ -93,8 +95,7 @@ def validate(number):
 
 
 def is_valid(number):
-    """Checks to see if the number provided is a valid RIC numbers. This
-    checks the length, formatting and birth date and place."""
+    """Check if the number is a valid RIC number."""
     try:
         return bool(validate(number))
     except ValidationError:
@@ -102,5 +103,5 @@ def is_valid(number):
 
 
 def format(number):
-    """Reformat the passed number to the standard format."""
+    """Reformat the number to the standard presentation format."""
     return compact(number)

@@ -59,8 +59,8 @@ def compact(number):
 
 
 def validate(number):
-    """Checks if the number provided is valid. This checks the length,
-    and check digit."""
+    """Check if the number provided is valid. This checks the length and
+    check digit."""
     number = compact(number)
     if not number.isdigit():
         raise InvalidFormat()
@@ -74,10 +74,8 @@ def validate(number):
 
 
 def is_valid(number):
-    """
-    Checks if the number provided is valid. This checks the length,
-    and check digit.
-    """
+    """Check if the number provided is valid. This checks the length and
+    check digit."""
     try:
         return bool(validate(number))
     except ValidationError:

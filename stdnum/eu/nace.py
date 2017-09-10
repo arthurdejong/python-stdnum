@@ -80,8 +80,8 @@ def label(number):
 
 
 def validate(number):
-    """Checks to see if the number provided is a valid NACE. This checks the
-    format and searches the registry to see if it exists."""
+    """Check if the number is a valid NACE. This checks the format and
+    searches the registry to see if it exists."""
     number = compact(number)
     if len(number) > 4:
         raise InvalidLength()
@@ -96,8 +96,8 @@ def validate(number):
 
 
 def is_valid(number):
-    """Checks to see if the number provided is a valid NACE. This checks the
-    format and searches the registry to see if it exists."""
+    """Check if the number is a valid NACE. This checks the format and
+    searches the registry to see if it exists."""
     try:
         return bool(validate(number))
     except ValidationError:
@@ -105,5 +105,5 @@ def is_valid(number):
 
 
 def format(number):
-    """Reformat the passed number to the standard format."""
+    """Reformat the number to the standard presentation format."""
     return '.'.join((number[:2], number[2:])).strip('.')

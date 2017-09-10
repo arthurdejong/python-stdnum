@@ -54,9 +54,9 @@ def compact(number):
 
 
 def validate(number):
-    """Checks to see if the number provided is a valid ISMN (either a legacy
-    10-digit one or a 13-digit one). This checks the length and the check
-    bit but does not check if the publisher is known."""
+    """Check if the number provided is a valid ISMN (either a legacy 10-digit
+    one or a 13-digit one). This checks the length and the check bit but does
+    not check if the publisher is known."""
     number = compact(number)
     if len(number) == 10:
         if number[0] != 'M':
@@ -85,9 +85,9 @@ def ismn_type(number):
 
 
 def is_valid(number):
-    """Checks to see if the number provided is a valid ISMN (either a legacy
-    10-digit one or a 13-digit one). This checks the length and the check
-    bit but does not check if the publisher is known."""
+    """Check if the number provided is a valid ISMN (either a legacy 10-digit
+    one or a 13-digit one). This checks the length and the check bit but does
+    not check if the publisher is known."""
     try:
         return bool(validate(number))
     except ValidationError:
@@ -129,7 +129,7 @@ def split(number):
 
 
 def format(number, separator='-'):
-    """Reformat the passed number to the standard format with the
+    """Reformat the number to the standard presentation format with the
     prefixes, the publisher element, the item element and the check-digit
     separated by the specified separator. The number is converted to the
     13-digit format silently."""

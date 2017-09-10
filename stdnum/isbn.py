@@ -88,10 +88,9 @@ def _calc_isbn10_check_digit(number):
 
 
 def validate(number, convert=False):
-    """Checks to see if the number provided is a valid ISBN (either a legacy
-    10-digit one or a 13-digit one). This checks the length and the check
-    bit but does not check if the group and publisher are valid (use split()
-    for that)."""
+    """Check if the number provided is a valid ISBN (either a legacy 10-digit
+    one or a 13-digit one). This checks the length and the check bit but does
+    not check if the group and publisher are valid (use split() for that)."""
     number = compact(number, convert=False)
     if not number[:-1].isdigit():
         raise InvalidFormat()
@@ -110,7 +109,7 @@ def validate(number, convert=False):
 
 
 def isbn_type(number):
-    """Check the passed number and returns 'ISBN13', 'ISBN10' or None (for
+    """Check the passed number and return 'ISBN13', 'ISBN10' or None (for
     invalid) for checking the type of number passed."""
     try:
         number = validate(number, convert=False)
@@ -123,10 +122,9 @@ def isbn_type(number):
 
 
 def is_valid(number):
-    """Checks to see if the number provided is a valid ISBN (either a legacy
-    10-digit one or a 13-digit one). This checks the length and the check
-    bit but does not check if the group and publisher are valid (use split()
-    for that)."""
+    """Check if the number provided is a valid ISBN (either a legacy 10-digit
+    one or a 13-digit one). This checks the length and the check bit but does
+    not check if the group and publisher are valid (use split() for that)."""
     try:
         return bool(validate(number))
     except ValidationError:
@@ -198,10 +196,10 @@ def split(number, convert=False):
 
 
 def format(number, separator='-', convert=False):
-    """Reformat the passed number to the standard format with the EAN.UCC
-    prefix (if any), the group prefix, the registrant, the item number and
-    the check-digit separated (if possible) by the specified separator.
-    Passing an empty separator should equal compact() though this is less
-    efficient. If the covert parameter is True the number is converted to
-    ISBN-13 format first."""
+    """Reformat the number to the standard presentation format with the
+    EAN.UCC prefix (if any), the group prefix, the registrant, the item
+    number and the check-digit separated (if possible) by the specified
+    separator. Passing an empty separator should equal compact() though this
+    is less efficient. If the covert parameter is True the number is
+    converted to ISBN-13 format first."""
     return separator.join(x for x in split(number, convert) if x)

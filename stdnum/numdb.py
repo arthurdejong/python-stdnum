@@ -106,8 +106,10 @@ _open_databases = {}
 
 
 class NumDB(object):
+    """Number database."""
 
     def __init__(self):
+        """Construct an empty database."""
         self.prefixes = []
 
     @staticmethod
@@ -195,7 +197,7 @@ def read(fp):
 
 
 def get(name):
-    """Opens a database with the specified name to perform queries on."""
+    """Open a database with the specified name to perform queries on."""
     if name not in _open_databases:
         import codecs
         reader = codecs.getreader('utf-8')

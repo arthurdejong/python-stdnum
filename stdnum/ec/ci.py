@@ -53,8 +53,8 @@ def _checksum(number):
 
 
 def validate(number):
-    """Checks to see if the number provided is a valid CI number. This
-    checks the length, formatting and check digit."""
+    """Check if the number provided is a valid CI number. This checks the
+    length, formatting and check digit."""
     number = compact(number)
     if len(number) != 10:
         raise InvalidLength()
@@ -70,8 +70,8 @@ def validate(number):
 
 
 def is_valid(number):
-    """Checks to see if the number provided is a valid CI number. This
-    checks the length, formatting and check digit."""
+    """Check if the number provided is a valid CI number. This checks the
+    length, formatting and check digit."""
     try:
         return bool(validate(number))
     except ValidationError:

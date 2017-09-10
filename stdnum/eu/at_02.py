@@ -17,7 +17,7 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 # 02110-1301 USA
 
-""" SEPA Identifier of the Creditor (AT-02)
+"""SEPA Identifier of the Creditor (AT-02).
 
 This identifier is indicated in the ISO 20022 data element `Creditor Scheme
 Identification`. The creditor can be a legal entity, or an association that
@@ -60,7 +60,7 @@ def _to_base10(number):
 
 
 def validate(number):
-    """Checks to see if the number provided is a valid AT-02."""
+    """Check if the number provided is a valid AT-02."""
     number = compact(number)
     try:
         test_number = _to_base10(number)
@@ -72,7 +72,7 @@ def validate(number):
 
 
 def is_valid(number):
-    """Checks to see if the number provided is a valid AT-02."""
+    """Check if the number provided is a valid AT-02."""
     try:
         return bool(validate(number))
     except ValidationError:

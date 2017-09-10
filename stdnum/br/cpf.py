@@ -62,8 +62,8 @@ def _calc_check_digits(number):
 
 
 def validate(number):
-    """Checks to see if the number provided is a valid CPF. This checks
-    the length and whether the check digit is correct."""
+    """Check if the number is a valid CPF. This checks the length and whether
+    the check digit is correct."""
     number = compact(number)
     if not number.isdigit() or int(number) <= 0:
         raise InvalidFormat()
@@ -75,8 +75,7 @@ def validate(number):
 
 
 def is_valid(number):
-    """Checks to see if the number provided is a valid CPF. This checks
-    the length and whether the check digit is correct."""
+    """Check if the number is a valid CPF."""
     try:
         return bool(validate(number))
     except ValidationError:
@@ -84,6 +83,6 @@ def is_valid(number):
 
 
 def format(number):
-    """Reformat the passed number to the standard format."""
+    """Reformat the number to the standard presentation format."""
     number = compact(number)
     return number[:3] + '.' + number[3:6] + '.' + number[6:-2] + '-' + number[-2:]

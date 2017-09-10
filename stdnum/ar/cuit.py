@@ -61,7 +61,7 @@ def calc_check_digit(number):
 
 
 def validate(number):
-    """Checks to see if the number provided is a valid CUIT."""
+    """Check if the number is a valid CUIT."""
     number = compact(number)
     if len(number) != 11:
         raise InvalidLength()
@@ -73,7 +73,7 @@ def validate(number):
 
 
 def is_valid(number):
-    """Checks to see if the number provided is a valid CUIT."""
+    """Check if the number is a valid CUIT."""
     try:
         return bool(validate(number))
     except ValidationError:

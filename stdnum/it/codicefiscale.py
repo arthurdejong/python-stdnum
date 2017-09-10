@@ -94,8 +94,8 @@ def calc_check_digit(number):
 def get_birth_date(number, minyear=1920):
     """Get the birth date from the person's fiscal code.
 
-    Only the last two digits of the year are stured in the number. The
-    dates will be returned in the range from minyear to minyear + 100.
+    Only the last two digits of the year are stored in the number. The dates
+    will be returned in the range from minyear to minyear + 100.
 
     >>> get_birth_date('RCCMNL83S18D969H')
     datetime.date(1983, 11, 18)
@@ -129,8 +129,8 @@ def get_gender(number):
 
 
 def validate(number):
-    """Checks to see if the given fiscal code is valid. This checks the
-    length and whether the check digit is correct."""
+    """Check if the given fiscal code is valid. This checks the length and
+    whether the check digit is correct."""
     number = compact(number)
     if len(number) != 16:
         raise InvalidLength()
@@ -144,8 +144,7 @@ def validate(number):
 
 
 def is_valid(number):
-    """Checks to see if the given fiscal code is valid. This checks the
-    length and whether the check digit is correct."""
+    """Check if the given fiscal code is valid."""
     try:
         return bool(validate(number))
     except ValidationError:

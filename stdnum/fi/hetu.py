@@ -72,9 +72,8 @@ def _calc_checksum(number):
 
 
 def validate(number):
-    """Checks to see if the number provided is a valid HETU. It checks the
-    format, whether a valid date is given and whether the check digit is
-    correct."""
+    """Check if the number is a valid HETU. It checks the format, whether a
+    valid date is given and whether the check digit is correct."""
     number = compact(number)
     match = _hetu_re.search(number)
     if not match:
@@ -99,9 +98,7 @@ def validate(number):
 
 
 def is_valid(number):
-    """Checks to see if the number provided is a valid HETU. It checks the
-    format, whether a valid date is given and whether the check digit is
-    correct."""
+    """Check if the number is a valid HETU."""
     try:
         return bool(validate(number))
     except ValidationError:

@@ -58,8 +58,8 @@ def compact(number):
 
 
 def validate(number):
-    """Checks to see if the number provided is a valid number. This checks
-    the length and formatting."""
+    """Check if the number is a valid COE. This checks the length and
+    formatting."""
     number = compact(number)
     if len(number) > 5 or len(number) == 0:
         raise InvalidLength()
@@ -71,8 +71,7 @@ def validate(number):
 
 
 def is_valid(number):
-    """Checks to see if the number provided is a valid number. This
-    checks the length, formatting and check digit."""
+    """Check if the number is a valid COE."""
     try:
         return bool(validate(number))
     except ValidationError:

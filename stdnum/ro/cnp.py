@@ -75,8 +75,8 @@ def get_birth_date(number):
 
 
 def validate(number):
-    """Checks to see if the number provided is a valid VAT number. This checks
-    the length, formatting and check digit."""
+    """Check if the number is a valid VAT number. This checks the length,
+    formatting and check digit."""
     number = compact(number)
     # first digit should be a known one (9=foreigner)
     if not number.isdigit() or number[0] not in '1234569':
@@ -93,8 +93,7 @@ def validate(number):
 
 
 def is_valid(number):
-    """Checks to see if the number provided is a valid VAT number. This checks
-    the length, formatting and check digit."""
+    """Check if the number is a valid VAT number."""
     try:
         return bool(validate(number))
     except ValidationError:

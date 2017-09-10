@@ -98,8 +98,8 @@ def _get_cc_module(cc):
 
 
 def validate(number, check_country=True):
-    """Checks to see if the number provided is a valid IBAN. The country-
-    specific check can be disabled with the check_country argument."""
+    """Check if the number provided is a valid IBAN. The country-specific
+    check can be disabled with the check_country argument."""
     number = compact(number)
     # ensure that checksum is valid
     mod_97_10.validate(number[4:] + number[:4])
@@ -119,7 +119,7 @@ def validate(number, check_country=True):
 
 
 def is_valid(number, check_country=True):
-    """Checks to see if the number provided is a valid IBAN."""
+    """Check if the number provided is a valid IBAN."""
     try:
         return bool(validate(number, check_country=check_country))
     except ValidationError:

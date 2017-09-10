@@ -52,16 +52,15 @@ def compact(number):
 
 
 def validate(number):
-    """Checks to see if the number provided is valid. This checks the length,
-    format and check digits."""
+    """Check if the number is valid. This checks the length, format and check
+    digits."""
     number = compact(number)
     mod_97_10.validate(number)
     return number
 
 
 def is_valid(number):
-    """Checks to see if the number provided is valid. This checks the length,
-    format and check digits."""
+    """Check if the number is valid."""
     try:
         return bool(validate(number))
     except ValidationError:
