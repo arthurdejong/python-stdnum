@@ -32,8 +32,8 @@ InvalidChecksum: ...
 """
 
 from stdnum.exceptions import *
-from stdnum.util import clean
 from stdnum.iso7064 import mod_11_10
+from stdnum.util import clean
 
 
 def compact(number):

@@ -36,9 +36,9 @@ InvalidFormat: ...
 '224-0002211-1'
 """
 
+from stdnum import luhn
 from stdnum.exceptions import *
 from stdnum.util import clean
-from stdnum import luhn
 
 
 # list of Cedulas that do not match the checksum but are nonetheless valid

@@ -48,8 +48,8 @@ Traceback (most recent call last):
 InvalidComponent: ...
 """
 
-from stdnum.util import clean
 from stdnum.exceptions import *
+from stdnum.util import clean
 
 
 # The allowed characters in an UPN.

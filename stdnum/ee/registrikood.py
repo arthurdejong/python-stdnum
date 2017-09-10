@@ -47,9 +47,9 @@ Traceback (most recent call last):
 InvalidComponent: ...
 """
 
+from stdnum.ee.ik import calc_check_digit
 from stdnum.exceptions import *
 from stdnum.util import clean
-from stdnum.ee.ik import calc_check_digit
 
 
 def compact(number):

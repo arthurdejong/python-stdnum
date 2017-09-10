@@ -49,7 +49,7 @@ InvalidFormat: ...
 """
 
 from stdnum.exceptions import *
-from stdnum.us import ssn, itin, ein, ptin, atin
+from stdnum.us import atin, ein, itin, ptin, ssn
 from stdnum.util import clean
 
 _tin_modules = (ssn, itin, ein, ptin, atin)

@@ -35,8 +35,8 @@ InvalidChecksum: ...
 '980 7806 84'
 """
 
-from stdnum.util import clean
 from stdnum.exceptions import *
+from stdnum.util import clean
 
 
 def compact(number):

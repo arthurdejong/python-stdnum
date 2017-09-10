@@ -34,9 +34,7 @@ digit is the checksum.
 
 import datetime
 
-from stdnum.exceptions import (
-    ValidationError, InvalidLength, InvalidFormat, InvalidChecksum,
-    InvalidComponent)
+from stdnum.exceptions import *
 from stdnum.util import clean
 
 

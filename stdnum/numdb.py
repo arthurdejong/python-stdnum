@@ -84,6 +84,7 @@ True
 """
 
 import re
+
 from pkg_resources import resource_stream
 
 _line_re = re.compile(

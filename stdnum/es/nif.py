@@ -42,7 +42,7 @@ InvalidChecksum: ...
 'X5253868R'
 """
 
-from stdnum.es import dni, nie, cif
+from stdnum.es import cif, dni, nie
 from stdnum.exceptions import *
 from stdnum.util import clean
 

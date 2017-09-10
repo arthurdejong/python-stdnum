@@ -43,8 +43,8 @@ InvalidChecksum: ...
 'CHE-107.787.577 IVA'
 """
 
-from stdnum.exceptions import *
 from stdnum.ch import uid
+from stdnum.exceptions import *
 
 
 def compact(number):

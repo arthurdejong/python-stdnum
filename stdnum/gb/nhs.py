@@ -41,8 +41,8 @@ InvalidChecksum: ...
 '943 476 5870'
 """
 
-from stdnum.util import clean
 from stdnum.exceptions import *
+from stdnum.util import clean
 
 
 def compact(number):

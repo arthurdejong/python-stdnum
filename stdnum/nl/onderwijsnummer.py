@@ -44,7 +44,7 @@ InvalidFormat: ...
 """
 
 from stdnum.exceptions import *
-from stdnum.nl.bsn import compact, checksum
+from stdnum.nl.bsn import checksum, compact
 
 
 __all__ = ['compact', 'validate', 'is_valid']

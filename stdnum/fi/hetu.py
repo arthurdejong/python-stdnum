@@ -40,8 +40,8 @@ InvalidComponent: ...
 '131052A308T'
 """
 
-import re
 import datetime
+import re
 
 from stdnum.exceptions import *
 from stdnum.util import clean
