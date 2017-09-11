@@ -26,6 +26,7 @@ to correctly split ISBNs into an EAN.UCC prefix, a group prefix, a registrant,
 an item number and a check-digit."""
 
 from xml.etree import ElementTree
+import ssl
 import urllib.request
 
 
@@ -55,7 +56,8 @@ def get(f=None):
     if f is None:
         yield '# generated from RangeMessage.xml, downloaded from'
         yield '# %s' % download_url
-        f = urllib.request.urlopen(download_url)
+        ctx = ssl.SSLContext(ssl.PROTOCOL_TLSv1)
+        f = urllib.request.urlopen(download_url, context=ctx)
     else:
         yield '# generated from %r' % f
 
