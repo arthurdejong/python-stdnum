@@ -4,15 +4,15 @@
  01 bands="GSM 900 / GSM 1800" brand="TEST" country="Test networks" operator="Test Network" status="Operational"
  00-99
 202
- 01 bands="GSM 900 / GSM 1800 / UMTS 2100 / LTE 800 / LTE 1800 / LTE 2600" brand="Cosmote" cc="gr" country="Greece" operator="COSMOTE - Mobile Telecommunications S.A." status="Operational"
+ 01 bands="GSM 900 / GSM 1800 / UMTS 900 / UMTS 2100 / LTE 800 / LTE 1800 / LTE 2600" brand="Cosmote" cc="gr" country="Greece" operator="COSMOTE - Mobile Telecommunications S.A." status="Operational"
  02 bands="GSM 900 / GSM 1800 / UMTS 2100 / LTE 800 / LTE 1800 / LTE 2600" brand="Cosmote" cc="gr" country="Greece" operator="COSMOTE - Mobile Telecommunications S.A." status="Operational"
  03 bands="" cc="gr" country="Greece" operator="OTE" status=""
- 04 bands="GSM-R?" cc="gr" country="Greece" operator="OTE" status=""
+ 04 bands="GSM-R" cc="gr" country="Greece" operator="OSE" status=""
  05 bands="GSM 900 / GSM 1800 / UMTS 900 / UMTS 2100 / LTE 800 / LTE 1800 / LTE 2600" brand="Vodafone" cc="gr" country="Greece" operator="Vodafone Greece" status="Operational"
  06 bands="" cc="gr" country="Greece" operator="Cosmoline" status="Not operational"
  07 bands="" cc="gr" country="Greece" operator="AMD Telecom" status=""
- 09 bands="GSM 900 / GSM 1800 / UMTS 2100 / LTE 1800" brand="Wind" cc="gr" country="Greece" operator="Wind Hellas Telecommunications S.A." status="Operational"
- 10 bands="GSM 900 / GSM 1800 / UMTS 2100 / LTE 1800" brand="Wind" cc="gr" country="Greece" operator="Wind Hellas Telecommunications S.A." status="Operational"
+ 09 bands="GSM 900 / GSM 1800 / UMTS 2100 / LTE 800 / LTE 1800 / LTE 2600" brand="Wind" cc="gr" country="Greece" operator="Wind Hellas Telecommunications S.A." status="Operational"
+ 10 bands="GSM 900 / GSM 1800 / UMTS 2100 / LTE 800 / LTE 1800 / LTE 2600" brand="Wind" cc="gr" country="Greece" operator="Wind Hellas Telecommunications S.A." status="Operational"
  11 bands="" cc="gr" country="Greece" operator="interConnect" status=""
  12 bands="MVNO" cc="gr" country="Greece" operator="Yuboto" status="Operational"
  13 bands="" cc="gr" country="Greece" operator="Compatel Limited" status=""
@@ -43,7 +43,7 @@
  20 bands="GSM 900 / GSM 1800 / UMTS 900 / UMTS 2100 / LTE 900 / LTE 1800 / LTE 2100 / LTE 2600" brand="T-Mobile" cc="nl" country="Netherlands" operator="T-Mobile Netherlands B.V" status="Operational"
  21 bands="GSM-R 900" cc="nl" country="Netherlands" operator="ProRail B.V." status="Operational"
  22 bands="" cc="nl" country="Netherlands" operator="Ministerie van Defensie" status=""
- 23 bands="MVNE" cc="nl" country="Netherlands" operator="ASPIDER Solutions Nederland B.V." status="Operational"
+ 23 bands="MVNE" cc="nl" country="Netherlands" operator="Wyless Nederland B.V." status="Operational"
  24 bands="" cc="nl" country="Netherlands" operator="Private Mobility Nederland B.V." status=""
  25 bands="PrivateGSM 1800" cc="nl" country="Netherlands" operator="CapX B.V." status="Operational"
  26 bands="" cc="nl" country="Netherlands" operator="SpeakUp B.V." status=""
@@ -93,7 +93,7 @@
  15 bands="UMTS 900 / UMTS 2100 / LTE 700 / LTE 1800 / LTE 2600" brand="Free Mobile" cc="fr" country="France" operator="Iliad" status="Operational"
  16 bands="UMTS 900 / UMTS 2100 / LTE 700 / LTE 1800 / LTE 2600" brand="Free Mobile" cc="fr" country="France" operator="Iliad" status="Operational"
  17 bands="" brand="LEGOS" cc="fr" country="France" operator="Local Exchange Global Operation Services" status=""
- 18 bands="MVNO" brand="Voxbone" cc="fr" country="France" operator="Voxbone mobile" status="Operational"
+ 18 bands="MVNO" brand="Voxbone" cc="fr" country="France" operator="Voxbone mobile" status="Not operational"
  19 bands="" cc="fr" country="France" operator="Altitude Infrastructure" status=""
  20 bands="GSM 900 / GSM 1800 / UMTS 900 / UMTS 2100 / LTE 800 / LTE 1800 / LTE 2600" brand="Bouygues" cc="fr" country="France" operator="Bouygues Telecom" status="Operational"
  21 bands="GSM 900 / GSM 1800 / UMTS 2100 / UMTS 900" brand="Bouygues" cc="fr" country="France" operator="Bouygues Telecom" status=""
@@ -111,7 +111,7 @@
  89 bands="" cc="fr" country="France" operator="Fondation b-com" status=""
  90 bands="" cc="fr" country="France" operator="Images & Réseaux" status=""
  91 bands="" cc="fr" country="France" operator="Orange S.A." status=""
- 92 bands="TD-LTE 2300 / LTE 2600" brand="Com4Innov" cc="fr" country="France" operator="Association Plate-forme Télécom" status="Operational"
+ 92 bands="TD-LTE 2300 / LTE 2600" brand="Com4Innov" cc="fr" country="France" operator="Association Plate-forme Télécom" status="Not operational"
  93 bands="" cc="fr" country="France" operator="Thales Communications & Security SAS" status=""
  94 bands="" cc="fr" country="France" operator="Halys" status=""
  95 bands="" cc="fr" country="France" operator="Orange S.A." status=""
@@ -120,14 +120,13 @@
  98 bands="" cc="fr" country="France" operator="Société Air France" status=""
  00-99
 212
- 01 bands="GSM 900" brand="Z Mobile" cc="xk" country="Kosovo" operator="Dardaphone" status="Operational"
  10 bands="GSM 1800 / UMTS 900 / UMTS 2100 / LTE 800 / LTE 1800 / LTE 2600" brand="Office des Telephones" cc="mc" country="Monaco" operator="Monaco Telecom" status="Operational"
  00-99
 213
  03 bands="GSM 900 / GSM 1800 / UMTS 2100 / LTE 800" brand="Mobiland" cc="ad" country="Andorra" operator="Servei De Tele. DAndorra" status="Operational"
  00-99
 214
- 01 bands="GSM 900 / GSM 1800 / UMTS 900 / UMTS 2100 / LTE 800 / LTE 1800 / LTE 2600" brand="Vodafone" cc="es" country="Spain" operator="Vodafone Spain" status="Operational"
+ 01 bands="GSM 900 / GSM 1800 / UMTS 900 / UMTS 2100 / LTE 800 / LTE 1800 / LTE 2600 / TD-LTE 2600" brand="Vodafone" cc="es" country="Spain" operator="Vodafone Spain" status="Operational"
  03 bands="GSM 900 / GSM 1800 / UMTS 900 / UMTS 2100 / LTE 800 / LTE 1800 / LTE 2600" brand="Orange" cc="es" country="Spain" operator="France Telecom España SA" status="Operational"
  04 bands="GSM 1800 / UMTS 2100 / LTE 1800" brand="Yoigo" cc="es" country="Spain" operator="Xfera Moviles SA" status="Operational"
  05 bands="GSM 900 / GSM 1800 / UMTS 2100" brand="Movistar" cc="es" country="Spain" operator="Telefónica Móviles España" status="Operational"
@@ -135,17 +134,17 @@
  07 bands="GSM 900 / GSM 1800 / UMTS 900 / UMTS 2100 / LTE 800 / LTE 1800 / LTE 2600" brand="Movistar" cc="es" country="Spain" operator="Telefónica Móviles España" status="Operational"
  08 bands="MVNO" brand="Euskaltel" cc="es" country="Spain" status="Operational"
  09 bands="GSM 900 / GSM 1800 / UMTS 2100" brand="Orange" cc="es" country="Spain" operator="France Telecom España SA" status="Operational"
- 10 bands="" cc="es" country="Spain" operator="Operadora de Telecomunicaciones Opera SL" status=""
- 11 bands="" brand="Orange" cc="es" country="Spain" operator="France Telecom España SA" status=""
- 12 bands="" cc="es" country="Spain" operator="Contacta Servicios Avanzados de Telecomunicaciones SL" status=""
- 13 bands="" cc="es" country="Spain" operator="Incotel Ingeniera y Consultaria SL" status=""
- 14 bands="" cc="es" country="Spain" operator="Incotel Servicioz Avanzados SL" status=""
- 15 bands="MVNO" brand="BT" cc="es" country="Spain" operator="BT Group España Compañia de Servicios Globales de Telecomunicaciones S.A.U." status="Operational"
+ 10 bands="" cc="es" country="Spain" operator="Operadora de Telecomunicaciones Opera SL" status="Not operational"
+ 11 bands="" brand="Orange" cc="es" country="Spain" operator="France Telecom España SA" status="Not operational"
+ 12 bands="" cc="es" country="Spain" operator="Contacta Servicios Avanzados de Telecomunicaciones SL" status="Not operational"
+ 13 bands="" cc="es" country="Spain" operator="Incotel Ingeniera y Consultaria SL" status="Not operational"
+ 14 bands="" cc="es" country="Spain" operator="Incotel Servicioz Avanzados SL" status="Not operational"
+ 15 bands="MVNO" brand="BT" cc="es" country="Spain" operator="BT Group España Compañia de Servicios Globales de Telecomunicaciones S.A.U." status="Not operational"
  16 bands="MVNO" brand="TeleCable" cc="es" country="Spain" operator="Telecable de Asturias S.A.U." status="Operational"
  17 bands="MVNO" brand="Móbil R" cc="es" country="Spain" operator="R Cable y Telecomunicaciones Galicia S.A." status="Operational"
  18 bands="MVNO" brand="ONO" cc="es" country="Spain" operator="Cableuropa S.A.U." status="Not operational"
  19 bands="MVNO" brand="Simyo" cc="es" country="Spain" operator="E-PLUS Moviles Virtuales España S.L.U." status="Operational"
- 20 bands="MVNO" brand="Fonyou" cc="es" country="Spain" operator="Fonyou Telecom S.L." status="Operational"
+ 20 bands="MVNO" brand="Fonyou" cc="es" country="Spain" operator="Fonyou Telecom S.L." status="Not operational"
  21 bands="MVNO" brand="Jazztel" cc="es" country="Spain" operator="Orange S.A." status="Operational"
  22 bands="MVNO" brand="DigiMobil" cc="es" country="Spain" operator="Best Spain Telecom" status="Operational"
  23 bands="MVNO" brand="Barablu" cc="es" country="Spain" operator="Barablu Móvil España" status=""
@@ -168,6 +167,7 @@
  01 bands="GSM 900 / GSM 1800 / UMTS 2100 / LTE 800 / LTE 1800 / LTE 2600" brand="Telenor Hungary" cc="hu" country="Hungary" operator="Telenor Magyarország Zrt." status="Operational"
  02 bands="LTE 450" cc="hu" country="Hungary" operator="MVM Net Ltd." status="Operational"
  03 bands="LTE 1800" brand="DIGI" cc="hu" country="Hungary" operator="DIGI Telecommunication Ltd." status="Not operational"
+ 04 bands="" cc="hu" country="Hungary" operator="Invitech Solutions" status=""
  30 bands="GSM 900 / GSM 1800 / UMTS 2100 / LTE 800 / LTE 1800 / LTE 2600" brand="T-Mobile" cc="hu" country="Hungary" operator="Magyar Telekom Plc" status="Operational"
  70 bands="GSM 900 / GSM 1800 / UMTS 2100 / UMTS 900 / LTE 800 / LTE 1800 / LTE 2600" brand="Vodafone" cc="hu" country="Hungary" operator="Vodafone Magyarország Zrt." status="Operational"
  71 bands="MVNO" brand="upc" cc="hu" country="Hungary" operator="UPC Hungary Ltd." status="Operational"
@@ -185,7 +185,7 @@
  12 bands="MVNO" cc="hr" country="Croatia" operator="TELE FOCUS d.o.o." status=""
  00-99
 220
- 01 bands="GSM 900 / GSM 1800 / UMTS 900 / UMTS 2100 / LTE 1800" brand="Telenor" cc="rs" country="Serbia" operator="Telenor Serbia" status="Operational"
+ 01 bands="GSM 900 / GSM 1800 / UMTS 900 / UMTS 2100 / LTE 800 / LTE 1800" brand="Telenor" cc="rs" country="Serbia" operator="Telenor Serbia" status="Operational"
  02 bands="GSM 900 / GSM 1800 / UMTS 2100" brand="Telenor" cc="rs" country="Serbia" operator="Telenor Montenegro" status="Not operational"
  03 bands="GSM 900 / GSM 1800 / UMTS 2100 / LTE 1800" brand="mt:s" cc="rs" country="Serbia" operator="Telekom Srbija" status="Operational"
  04 bands="GSM" brand="T-Mobile" cc="rs" country="Serbia" operator="T-Mobile Montenegro LLC" status="Not operational"
@@ -193,6 +193,11 @@
  07 bands="CDMA 450" cc="rs" country="Serbia" operator="Orion Telekom" status="Operational"
  09 bands="MVNO" brand="Vectone Mobile" cc="rs" country="Serbia" operator="MUNDIO MOBILE d.o.o." status="Operational"
  11 bands="MVNO" cc="rs" country="Serbia" operator="GLOBALTEL d.o.o." status="Operational"
+ 00-99
+221
+ 01 bands="GSM 900 / LTE 1800" brand="Vala" cc="xk" country="Kosovo" operator="Telecom of Kosovo J.S.C." status="Operational"
+ 02 bands="GSM 900 / GSM 1800 / UMTS 2100 / LTE 1800" brand="IPKO" cc="xk" country="Kosovo" operator="IPKO" status="Operational"
+ 06 bands="MVNO" brand="Z Mobile" cc="xk" country="Kosovo" operator="Dardaphone.Net LLC" status="Operational"
  00-99
 222
  01 bands="GSM 900 / GSM 1800 / UMTS 900 / UMTS 2100 / LTE 800 / LTE 1500 / LTE 1800 / LTE 2600" brand="TIM" cc="it" country="Italy" operator="Telecom Italia S.p.A" status="Operational"
@@ -203,7 +208,6 @@
  07 bands="MVNO" brand="Nòverca" cc="it" country="Italy" operator="Nòverca Italia" status="Not operational"
  08 bands="MVNO" brand="Fastweb" cc="it" country="Italy" operator="Fastweb S.p.A." status="Operational"
  10 bands="GSM 900 / GSM 1800 / UMTS 900 / UMTS 2100 / LTE 800 / LTE 1800 / LTE 2600" brand="Vodafone" cc="it" country="Italy" operator="Vodafone Italia S.p.A." status="Operational"
- 11 bands="900 / 1800 / 2100 / 2600" brand="Free Mobile" cc="it" country="Italy" operator="Free Mobile Italia" status="Not operational"
  30 bands="GSM-R 900" brand="RFI" cc="it" country="Italy" operator="Rete Ferroviaria Italiana" status="Operational"
  33 bands="MVNO" brand="Poste Mobile" cc="it" country="Italy" operator="Poste Mobile S.p.A." status="Operational"
  34 bands="MVNO" brand="BT Italia" cc="it" country="Italy" operator="British Telecom Italia" status="Reserved"
@@ -214,6 +218,7 @@
  39 bands="" brand="SMS Italia" cc="it" country="Italy" operator="SMS Italia S.r.l." status=""
  43 bands="" brand="TIM" cc="it" country="Italy" operator="Telecom Italia S.p.A." status=""
  48 bands="" brand="TIM" cc="it" country="Italy" operator="Telecom Italia S.p.A." status=""
+ 50 bands="900 / 1800 / 2100 / 2600" brand="" cc="it" country="Italy" operator="Iliad Italia" status="Not operational"
  77 bands="UMTS 2100" brand="IPSE 2000" cc="it" country="Italy" status="Not operational"
  88 bands="GSM 900 / GSM 1800 / UMTS 900 / UMTS 2100 / LTE 800" brand="Wind" cc="it" country="Italy" operator="Wind Telecomunicazioni S.p.A." status="Operational"
  98 bands="GSM 900" brand="BLU" cc="it" country="Italy" operator="BLU S.p.A." status="Not operational"
@@ -287,7 +292,7 @@
  07 bands="MVNO" brand="tele.ring" cc="at" country="Austria" operator="T-Mobile Austria" status="Operational"
  08 bands="MVNO" brand="Lycamobile" cc="at" country="Austria" operator="Lycamobile Austria" status="Operational"
  09 bands="MVNO" brand="Tele2Mobil" cc="at" country="Austria" operator="A1 Telekom Austria" status="Operational"
- 10 bands="UMTS 2100 / LTE 1800 / LTE 2600" brand="3" cc="at" country="Austria" operator="Hutchison Drei Austria" status="Operational"
+ 10 bands="UMTS 2100 / LTE 900 / LTE 1800 / LTE 2600" brand="3" cc="at" country="Austria" operator="Hutchison Drei Austria" status="Operational"
  11 bands="MVNO" brand="bob" cc="at" country="Austria" operator="A1 Telekom Austria" status="Operational"
  12 bands="MVNO" brand="yesss!" cc="at" country="Austria" operator="A1 Telekom Austria" status="Operational"
  13 bands="MVNO" brand="upc" cc="at" country="Austria" operator="UPC Austria" status="Operational"
@@ -370,7 +375,7 @@
  91 cc="gb" country="United Kingdom" operator="Vodafone United Kingdom" status=""
  92 cc="gb" country="United Kingdom" operator="Vodafone United Kingdom" status="Not operational"
  94 cc="gb" country="United Kingdom" operator="Hutchison 3G UK Ltd" status=""
- 95 cc="gb" country="United Kingdom" operator="Network Rail Infrastructure Limited" status=""
+ 95 bands="GSM-R" cc="gb" country="United Kingdom" operator="Network Rail Infrastructure Limited" status="Test Network"
  00-99
 238
  01 bands="GSM 900 / GSM 1800 / UMTS 2100 / LTE 800 / LTE 1800 / LTE 2600" brand="TDC" cc="dk" country="Denmark" operator="TDC A/S" status="Operational"
@@ -515,9 +520,9 @@
  92 bands="" brand="Sonera" cc="fi" country="Finland" operator="TeliaSonera Finland Oyj" status=""
  00-99
 246
- 01 bands="GSM 900 / GSM 1800 / UMTS 2100 / LTE 800 / LTE 1800" brand="Omnitel" cc="lt" country="Lithuania" status="Operational"
+ 01 bands="GSM 900 / GSM 1800 / UMTS 2100 / LTE 800 / LTE 1800" brand="Telia" cc="lt" country="Lithuania" operator="Telia Lietuva" status="Operational"
  02 bands="GSM 900 / GSM 1800 / UMTS 900 / UMTS 2100 / LTE 800 / LTE 1800 / LTE 2600" brand="BITĖ" cc="lt" country="Lithuania" operator="UAB Bitė Lietuva" status="Operational"
- 03 bands="GSM 900 / GSM 1800 / UMTS 900 / UMTS 2100 / LTE 800 / LTE 1800 / LTE 2600" brand="Tele2" cc="lt" country="Lithuania" status="Operational"
+ 03 bands="GSM 900 / GSM 1800 / UMTS 900 / UMTS 2100 / LTE 800 / LTE 1800 / LTE 2600" brand="Tele2" cc="lt" country="Lithuania" operator="UAB Tele2 (Tele2 AB, Sweden)" status="Operational"
  04 bands="" cc="lt" country="Lithuania" operator="Ministry of the Interior)" status=""
  05 bands="GSM-R 900" brand="LitRail" cc="lt" country="Lithuania" operator="Lietuvos geležinkeliai (Lithuanian Railways)" status="Operational"
  06 bands="" brand="Mediafon" cc="lt" country="Lithuania" operator="UAB Mediafon" status="Operational"
@@ -557,6 +562,7 @@
  05 bands="GSM 900 / GSM 1800 / UMTS 2100 / CDMA2000 450" brand="ETK" cc="ru" country="Russian Federation" operator="Yeniseytelecom" status="Operational"
  06 bands="CDMA2000 450" brand="Skylink" cc="ru" country="Russian Federation" operator="CJSC Saratov System of Cellular Communications" status="Operational"
  07 bands="GSM 900 / GSM 1800" brand="SMARTS" cc="ru" country="Russian Federation" operator="Zao SMARTS" status="Operational"
+ 08 bands="GSM 900 / GSM 1800 / LTE 2300" brand="Vainah Telecom" cc="ru" country="Russian Federation" operator="CS "VainahTelecom"" status="Operational"
  09 bands="CDMA2000 450" brand="Skylink" cc="ru" country="Russian Federation" operator="Khabarovsky Cellular Phone" status="Operational"
  10 bands="GSM 900" brand="DTC" cc="ru" country="Russian Federation" operator="Dontelekom" status="Not operational"
  11 bands="MVNO" brand="Yota" cc="ru" country="Russian Federation" operator="Scartel" status="Operational"
@@ -586,16 +592,16 @@
  91 bands="GSM 1800" brand="Sonic Duo" cc="ru" country="Russian Federation" operator="Sonic Duo CJSC" status="Not operational"
  92 bands="" cc="ru" country="Russian Federation" operator="Primtelefon" status="Not operational"
  93 bands="" cc="ru" country="Russian Federation" operator="Telecom XXI" status="Not operational"
- 99 bands="GSM 900 / GSM 1800 / UMTS 900 / UMTS 2100 / LTE 800 / LTE 2600" brand="Beeline" cc="ru" country="Russian Federation" operator="OJSC Vimpel-Communications" status="Operational"
+ 99 bands="GSM 900 / GSM 1800 / UMTS 900 / UMTS 2100 / LTE 800 / LTE 1800 / LTE 2600" brand="Beeline" cc="ru" country="Russian Federation" operator="OJSC Vimpel-Communications" status="Operational"
  00-99
 255
- 01 bands="GSM 900 / GSM 1800 / CDMA 450 / UMTS 2100" brand="Vodafone" cc="ua" country="Ukraine" operator="MTS Ukraine" status="Operational"
+ 01 bands="GSM 900 / GSM 1800 / CDMA 450 / UMTS 2100" brand="Vodafone" cc="ua" country="Ukraine" operator="PRJSC VF Ukraine" status="Operational"
  02 bands="GSM 900 / GSM 1800" brand="Beeline" cc="ua" country="Ukraine" operator="Kyivstar GSM JSC" status="Not operational"
- 03 bands="GSM 900 / GSM 1800 / UMTS 2100" brand="Kyivstar" cc="ua" country="Ukraine" operator="Kyivstar GSM JSC" status="Operational"
- 04 bands="CDMA 800" brand="IT" cc="ua" country="Ukraine" operator="Intertelecom" status="Operational"
+ 03 bands="GSM 900 / GSM 1800 / UMTS 2100" brand="Kyivstar" cc="ua" country="Ukraine" operator="Kyivstar JSC" status="Operational"
+ 04 bands="CDMA 800" brand="IT" cc="ua" country="Ukraine" operator="Intertelecom LLC" status="Operational"
  05 bands="GSM 1800" brand="Golden Telecom" cc="ua" country="Ukraine" operator="Kyivstar GSM JSC" status="Not operational"
  06 bands="GSM 900 / GSM 1800 / UMTS 2100" brand="lifecell" cc="ua" country="Ukraine" operator="Turkcell" status="Operational"
- 07 bands="UMTS 2100" brand="3Mob" cc="ua" country="Ukraine" operator="Ukrtelecom" status="Operational"
+ 07 bands="UMTS 2100" brand="3Mob" cc="ua" country="Ukraine" operator="Trymob LLC" status="Operational"
  21 bands="CDMA 800" brand="PEOPLEnet" cc="ua" country="Ukraine" operator="Telesystems of Ukraine" status="Operational"
  23 bands="CDMA 800" brand="CDMA Ukraine" cc="ua" country="Ukraine" operator="Intertelecom" status="Not operational"
  25 bands="CDMA 800" brand="NEWTONE" cc="ua" country="Ukraine" operator="CST Invest" status="Operational"
@@ -614,12 +620,13 @@
  03 bands="CDMA 450" brand="Unité" cc="md" country="Moldova" operator="Moldtelecom" status="Operational"
  04 bands="GSM 900 / GSM 1800" brand="Eventis" cc="md" country="Moldova" operator="Eventis Telecom" status="Not operational"
  05 bands="UMTS 900 / UMTS 2100 / LTE 1800" brand="Unité" cc="md" country="Moldova" operator="Moldtelecom" status="Operational"
+ 15 bands="LTE 800" brand="IDC" cc="md" country="Moldova" operator="Interdnestrcom" status="Operational"
  99 bands="UMTS 2100" brand="Unité" cc="md" country="Moldova" operator="Moldtelecom" status="Operational"
  00-99
 260
  01 bands="GSM 900 / GSM 1800 / UMTS 900 / UMTS 2100 / LTE 1800 / LTE 2600" brand="Plus" cc="pl" country="Poland" operator="Polkomtel Sp. z o.o." status="Operational"
  02 bands="GSM 900 / GSM 1800 / UMTS 2100" brand="T-Mobile" cc="pl" country="Poland" operator="T-Mobile Polska S.A." status="Operational"
- 03 bands="GSM 900 / GSM 1800 / UMTS 2100 / CDMA2000 450" brand="Orange" cc="pl" country="Poland" operator="Polska Telefonia Komórkowa Centertel Sp. z o.o." status="Operational"
+ 03 bands="GSM 900 / GSM 1800 / UMTS 2100" brand="Orange" cc="pl" country="Poland" operator="Polska Telefonia Komórkowa Centertel Sp. z o.o." status="Operational"
  04 bands="" brand="Aero2" cc="pl" country="Poland" operator="Aero 2 Sp. z o.o." status="Not operational"
  05 bands="UMTS 2100" brand="Orange" cc="pl" country="Poland" operator="Polska Telefonia Komórkowa Centertel Sp. z o.o." status="Not operational"
  06 bands="GSM 900 / UMTS 900 / UMTS 2100 / LTE 800 / LTE 1800 / LTE 2100 / LTE 2600" brand="Play" cc="pl" country="Poland" operator="P4 Sp. z o.o." status="Operational"
@@ -670,12 +677,12 @@
  00-99
 262
  01 bands="GSM 900 / GSM 1800/ / UMTS 2100 / LTE 800 / LTE 900 / LTE 1800 / LTE 2600" brand="Telekom" cc="de" country="Germany" operator="Telekom Deutschland GmbH" status="Operational"
- 02 bands="GSM 900 / GSM 1800 / UMTS 2100 / LTE 800 / LTE 2600" brand="Vodafone" cc="de" country="Germany" operator="Vodafone D2 GmbH" status="Operational"
- 03 bands="GSM 900 / GSM 1800 / UMTS 900 / UMTS 2100 / LTE 1800" brand="E-Plus" cc="de" country="Germany" operator="E-Plus Mobilfunk" status="Operational"
+ 02 bands="GSM 900 / GSM 1800 / UMTS 2100 / LTE 800 / LTE 1800 / LTE 2600" brand="Vodafone" cc="de" country="Germany" operator="Vodafone D2 GmbH" status="Operational"
+ 03 bands="GSM 900 / GSM 1800 / UMTS 2100 / LTE 800 / LTE 1800 / LTE 2600" brand="O<sub>2</sub>" cc="de" country="Germany" operator="Telefónica Germany GmbH & Co. oHG" status="Operational"
  04 bands="GSM 900 / GSM 1800 / UMTS 2100" brand="Vodafone" cc="de" country="Germany" operator="Vodafone D2 GmbH" status="Reserved"
- 05 bands="GSM 900 / GSM 1800 / UMTS 900 / UMTS 2100" brand="E-Plus" cc="de" country="Germany" operator="E-Plus Mobilfunk" status="Reserved"
+ 05 bands="GSM 900 / GSM 1800 / UMTS 900 / UMTS 2100" brand="O<sub>2</sub>" cc="de" country="Germany" operator="Telefónica Germany GmbH & Co. oHG" status="Reserved"
  06 bands="GSM 900 / GSM 1800 / UMTS 2100 / LTE 800 / LTE 900 / LTE 1800 / LTE 2600" brand="Telekom" cc="de" country="Germany" operator="Telekom Deutschland GmbH" status="Reserved"
- 07 bands="GSM 900 / GSM 1800 / UMTS 2100 / LTE 800 / LTE 2600" brand="O<sub>2</sub>" cc="de" country="Germany" operator="Telefónica Germany GmbH & Co. oHG" status="Operational"
+ 07 bands="GSM 900 / GSM 1800 / UMTS 2100 / LTE 800 / LTE 1800 / LTE 2600" brand="O<sub>2</sub>" cc="de" country="Germany" operator="Telefónica Germany GmbH & Co. oHG" status="Not operational"
  08 bands="GSM 900 / GSM 1800 / UMTS 2100" brand="O<sub>2</sub>" cc="de" country="Germany" operator="Telefónica Germany GmbH & Co. oHG" status="Reserved"
  09 bands="GSM 900 / GSM 1800 / UMTS 2100 / LTE 2600" brand="Vodafone" cc="de" country="Germany" operator="Vodafone D2 GmbH" status="Operational"
  10 bands="GSM-R" cc="de" country="Germany" operator="DB Netz AG" status="Operational"
@@ -685,10 +692,10 @@
  14 bands="UMTS 2100" cc="de" country="Germany" operator="Group 3G UMTS" status="Not operational"
  15 bands="TD-SCDMA" brand="Airdata" cc="de" country="Germany" status="Operational"
  16 bands="MVNO" cc="de" country="Germany" operator="Telogic Germany GmbH" status="Not operational"
- 17 bands="" brand="E-Plus" cc="de" country="Germany" operator="E-Plus Mobilfunk" status=""
+ 17 bands="" brand="O<sub>2</sub>" cc="de" country="Germany" operator="Telefónica Germany GmbH & Co. oHG" status=""
  18 bands="MVNO" cc="de" country="Germany" operator="NetCologne" status="Operational"
  19 bands="CDMA 450" cc="de" country="Germany" operator="Inquam Deutschland" status=""
- 20 bands="MVNO" brand="OnePhone" cc="de" country="Germany" operator="E-Plus Mobilfunk" status="Operational"
+ 20 bands="MVNO" brand="OnePhone" cc="de" country="Germany" operator="Telefónica Germany GmbH & Co. oHG" status="Operational"
  21 bands="" cc="de" country="Germany" operator="Multiconnect GmbH" status=""
  22 bands="MVNO" cc="de" country="Germany" operator="sipgate Wireless GmbH" status=""
  23 bands="MVNO" cc="de" country="Germany" operator="Drillisch Netz AG" status="Operational"
@@ -702,7 +709,7 @@
  74 bands="" cc="de" country="Germany" operator="Qualcomm CDMA Technologies GmbH" status=""
  75 cc="de" country="Germany" operator="Core Network Dynamics GmbH" status="Not operational"
  76 bands="GSM 900" cc="de" country="Germany" operator="Siemens AG" status="Not operational"
- 77 bands="GSM 900" brand="E-Plus" cc="de" country="Germany" operator="E-Plus Mobilfunk" status="Operational"
+ 77 bands="GSM 900" brand="O<sub>2</sub>" cc="de" country="Germany" operator="Telefónica Germany GmbH & Co. oHG" status=""
  78 bands="" brand="Telekom" cc="de" country="Germany" operator="Telekom Deutschland GmbH" status=""
  79 bands="" cc="de" country="Germany" operator="ng4T GmbH" status="Not operational"
  92 bands="GSM 1800 / UMTS 2100" cc="de" country="Germany" operator="Nash Technologies" status="Operational"
@@ -776,7 +783,7 @@
  77 bands="UMTS 2100" brand="Melita" cc="mt" country="Malta" operator="Melita" status="Operational"
  00-99
 280
- 01 bands="GSM 900 / GSM 1800 / UMTS 2100 / LTE 1800" brand="Cytamobile-Vodafone" cc="cy" country="Cyprus" operator="Cyprus Telecommunications Authority" status="Operational"
+ 01 bands="GSM 900 / GSM 1800 / UMTS 2100 / LTE 800 / LTE 1800 / LTE 2600" brand="Cytamobile-Vodafone" cc="cy" country="Cyprus" operator="Cyprus Telecommunications Authority" status="Operational"
  10 bands="GSM 900 / GSM 1800 / UMTS 2100 / LTE 1800" brand="MTN" cc="cy" country="Cyprus" operator="MTN Group" status="Operational"
  20 bands="LTE 1800" brand="PrimeTel" cc="cy" country="Cyprus" operator="PrimeTel PLC" status="Operational"
  22 bands="MVNO" brand="lemontel" cc="cy" country="Cyprus" operator="Lemontel Ltd" status="Operational"
@@ -786,7 +793,7 @@
  01 bands="GSM 900 / GSM 1800 / UMTS 2100 / LTE 1800" brand="Geocell" cc="ge" country="Georgia" operator="Geocell Limited" status="Operational"
  02 bands="GSM 900 / GSM 1800 / UMTS 2100 / LTE 800 / LTE 1800" brand="MagtiCom" cc="ge" country="Georgia" operator="Magticom GSM" status="Operational"
  03 bands="CDMA 450" brand="MagtiCom" cc="ge" country="Georgia" operator="Magtifix" status="Operational"
- 04 bands="GSM 1800 / LTE 800" brand="Beeline" cc="ge" country="Georgia" operator="Mobitel LLC" status="Operational"
+ 04 bands="GSM 1800 / UMTS 2100 / LTE 800" brand="Beeline" cc="ge" country="Georgia" operator="Mobitel LLC" status="Operational"
  05 bands="CDMA 800" brand="Silknet" cc="ge" country="Georgia" operator="JSC Silknet" status="Operational"
  06 bands="" cc="ge" country="Georgia" operator="JSC Compatel" status=""
  07 bands="MVNO" brand="GlobalCell" cc="ge" country="Georgia" operator="GlobalCell Ltd" status="Operational"
@@ -833,17 +840,17 @@
 293
  10 bands="GSM-R" cc="si" country="Slovenia" operator="SŽ - Infrastruktura, d.o.o." status="Operational"
  20 bands="" cc="si" country="Slovenia" operator="COMPATEL Ltd" status="Not operational"
- 40 bands="GSM 900 / GSM 1800 / UMTS 900 / UMTS 2100 / LTE 800 / LTE 1800" brand="Si.mobil" cc="si" country="Slovenia" operator="SI.MOBIL d.d." status="Operational"
+ 40 bands="GSM 900 / GSM 1800 / UMTS 900 / UMTS 2100 / LTE 800 / LTE 1800 / LTE 2600" brand="A1" cc="si" country="Slovenia" operator="A1 Slovenija" status="Operational"
  41 bands="GSM 900 / GSM 1800 / UMTS 2100 / LTE 800 / LTE 900 / LTE 1800 / LTE 2100 / LTE 2600" brand="Mobitel" cc="si" country="Slovenia" operator="Telekom Slovenije" status="Operational"
  64 bands="UMTS 2100" brand="T-2" cc="si" country="Slovenia" operator="T-2 d.o.o." status="Operational"
  70 bands="GSM 900 / GSM 1800 / UMTS 900 / UMTS 2100 / LTE 800 / LTE 1800" brand="Telemach" cc="si" country="Slovenia" operator="Tušmobil d.o.o." status="Operational"
  00-99
 294
  01 bands="GSM 900 / UMTS 2100 / LTE 800 / LTE 1800" brand="Telekom.mk" cc="mk" country="Macedonia" operator="Makedonski Telekom" status="Operational"
- 02 bands="GSM 900 / UMTS 2100 / LTE 800 / LTE 1800" brand="ONE" cc="mk" country="Macedonia" operator="One" status="Operational"
- 03 bands="GSM 900 / GSM 1800 / UMTS 900 / UMTS 2100 / LTE 800 / LTE 1800" brand="Vip MK" cc="mk" country="Macedonia" operator="VIP Operator" status="Operational"
+ 02 bands="GSM 900 / UMTS 2100 / LTE 800 / LTE 1800" brand="vip" cc="mk" country="Macedonia" operator="ONE.VIP DOO" status="Operational"
+ 03 bands="GSM 900 / GSM 1800 / UMTS 900 / UMTS 2100 / LTE 800 / LTE 1800" brand="vip" cc="mk" country="Macedonia" operator="ONE.VIP DOO" status="Operational"
  04 bands="MVNO" brand="Lycamobile" cc="mk" country="Macedonia" operator="Lycamobile LLC" status="Operational"
- 10 bands="" cc="mk" country="Macedonia" operator="WTI Macedonia" status=""
+ 10 bands="" cc="mk" country="Macedonia" operator="WTI Macedonia" status="Not operational"
  11 bands="" cc="mk" country="Macedonia" operator="MOBIK TELEKOMUNIKACII DOOEL Skopje" status=""
  00-99
 295
@@ -862,7 +869,9 @@
  03 bands="GSM 900 / GSM 1800 / UMTS 2100" brand="m:tel CG" cc="me" country="Montenegro" operator="MTEL CG" status="Operational"
  00-99
 302
- 220 bands="UMTS 850 / UMTS 1900 / LTE 1700" brand="Telus Mobility, Koodo Mobile, Public Mobile" cc="ca" country="Canada" operator="Telus Mobility" status="Operational"
+ 130 bands="TD-LTE 3500 / WiMAX" brand="Xplornet" cc="ca" country="Canada" operator="Xplornet Communications" status="Operational"
+ 131 bands="TD-LTE 3500 / WiMAX" brand="Xplornet" cc="ca" country="Canada" operator="Xplornet Communications" status="Operational"
+ 220 bands="UMTS 850 / UMTS 1900 / LTE 1700 / LTE 2600" brand="Telus Mobility, Koodo Mobile, Public Mobile" cc="ca" country="Canada" operator="Telus Mobility" status="Operational"
  221 bands="" brand="Telus" cc="ca" country="Canada" operator="Telus Mobility" status=""
  222 bands="" brand="Telus" cc="ca" country="Canada" operator="Telus Mobility" status=""
  250 bands="" brand="ALO" cc="ca" country="Canada" operator="ALO Mobile Inc." status=""
@@ -873,45 +882,45 @@
  340 bands="MVNO" brand="Execulink" cc="ca" country="Canada" operator="Execulink" status="Operational"
  350 bands="GSM 850" brand="FIRST" cc="ca" country="Canada" operator="FIRST Networks Operations" status="Not operational"
  360 bands="iDEN 800" brand="MiKe" cc="ca" country="Canada" operator="Telus Mobility" status="Not operational"
- 361 bands="CDMA 800 / CDMA 1900" brand="Telus" cc="ca" country="Canada" operator="Telus Mobility" status="Operational"
+ 361 bands="CDMA 800 / CDMA 1900" brand="Telus" cc="ca" country="Canada" operator="Telus Mobility" status="Not operational"
  370 bands="MVNO" brand="Fido" cc="ca" country="Canada" operator="Fido Solutions (Rogers Wireless)" status="Operational"
  380 bands="UMTS 850 / UMTS 1900" brand="Keewaytinook Mobile" cc="ca" country="Canada" operator="Keewaytinook Okimakanak Mobile" status="Operational"
  390 bands="" brand="DMTS" cc="ca" country="Canada" operator="Dryden Mobility" status="Not operational"
  480 bands="" brand="SSi Connexions" cc="ca" country="Canada" operator="SSi Connexions" status=""
  490 bands="UMTS 1700 / LTE 1700" brand="Freedom Mobile" cc="ca" country="Canada" operator="Shaw Communications" status="Operational"
- 500 bands="UMTS 1700" brand="Videotron" cc="ca" country="Canada" operator="Videotron" status="Operational"
- 510 bands="UMTS 1700" brand="Videotron" cc="ca" country="Canada" operator="Videotron" status="Operational"
+ 500 bands="UMTS 1700 / LTE 1700" brand="Videotron" cc="ca" country="Canada" operator="Videotron" status="Operational"
+ 510 bands="UMTS 1700 / LTE 1700" brand="Videotron" cc="ca" country="Canada" operator="Videotron" status="Operational"
  520 bands="" brand="Videotron" cc="ca" country="Canada" operator="Videotron" status=""
  530 bands="GSM" brand="Keewaytinook Mobile" cc="ca" country="Canada" operator="Keewaytinook Okimakanak Mobile" status="Operational"
  540 bands="" cc="ca" country="Canada" operator="Rovvr Communications Inc." status=""
  560 bands="CDMA / GSM" brand="Lynx Mobility" cc="ca" country="Canada" operator="Lynx Mobility" status="Operational"
  570 bands="" brand="LightSquared" cc="ca" country="Canada" operator="LightSquared" status=""
  590 bands="" brand="Quadro Mobility" cc="ca" country="Canada" operator="Quadro Communications Co-op" status="Operational"
- 610 bands="UMTS 850 / UMTS 1900 / LTE 1700 / LTE 2600" brand="Bell Mobility, Virgin Mobile Canada" cc="ca" country="Canada" operator="Bell Mobility" status="Operational"
+ 610 bands="UMTS 850 / UMTS 1900 / LTE 700 / LTE 1700 / LTE 1900 / LTE 2600" brand="Bell Mobility, Virgin Mobile Canada" cc="ca" country="Canada" operator="Bell Mobility" status="Operational"
  620 bands="UMTS 850 / GSM 1900" brand="ICE Wireless" cc="ca" country="Canada" operator="ICE Wireless" status="Operational"
  630 bands="" brand="Aliant Mobility" cc="ca" country="Canada" operator="Bell Aliant" status=""
  640 bands="CDMA 800 / CDMA 1900" brand="Bell" cc="ca" country="Canada" operator="Bell Mobility" status="Operational"
- 650 bands="UMTS 850 / UMTS 1900 / LTE 1700 / LTE 2600" brand="TBaytel" cc="ca" country="Canada" operator="Thunder Bay Telephone" status="Operational"
- 652 bands="CDMA2000" cc="ca" country="Canada" operator="BC Tel Mobility (Telus)" status="Operational"
- 653 bands="CDMA 800 / CDMA 1900" brand="Telus" cc="ca" country="Canada" operator="Telus Mobility" status="Operational"
- 655 bands="CDMA 800 / 850 / CDMA 1900" brand="MTS" cc="ca" country="Canada" operator="MTS Mobility" status="Operational"
+ 650 bands="UMTS 850 / UMTS 1900 / LTE 2600" brand="TBaytel" cc="ca" country="Canada" operator="Thunder Bay Telephone" status="Operational"
+ 652 bands="CDMA2000" cc="ca" country="Canada" operator="BC Tel Mobility (Telus)" status="Not operational"
+ 653 bands="CDMA 800 / CDMA 1900" brand="Telus" cc="ca" country="Canada" operator="Telus Mobility" status="Not operational"
+ 655 bands="CDMA 800 / CDMA 1900" brand="MTS" cc="ca" country="Canada" operator="MTS Mobility" status="Operational"
  656 bands="CDMA" brand="TBay" cc="ca" country="Canada" operator="Thunder Bay Telephone Mobility" status="Not operational"
- 657 bands="CDMA 800 / CDMA 1900" brand="Telus" cc="ca" country="Canada" operator="Telus Mobility" status="Operational"
- 660 bands="UMTS 850 / UMTS 1900 / LTE 1700" brand="MTS" cc="ca" country="Canada" operator="MTS Mobility" status="Operational"
+ 657 bands="CDMA 800 / CDMA 1900" brand="Telus" cc="ca" country="Canada" operator="Telus Mobility" status="Not operational"
+ 660 bands="UMTS 850 / UMTS 1900 / LTE 1700" brand="MTS" cc="ca" country="Canada" operator="Bell MTS" status="Operational"
  670 bands="" brand="CityTel Mobility" cc="ca" country="Canada" operator="CityWest" status=""
- 680 bands="CDMA 850 / TD-LTE 2600" brand="SaskTel" cc="ca" country="Canada" operator="SaskTel Mobility" status="Operational"
+ 680 bands="TD-LTE 2600" brand="SaskTel" cc="ca" country="Canada" operator="SaskTel Mobility" status="Operational"
  690 bands="UMTS 850 / UMTS 1900" brand="Bell" cc="ca" country="Canada" operator="Bell Mobility" status="Operational"
  701 bands="CDMA2000" cc="ca" country="Canada" operator="MB Tel Mobility" status="Operational"
  702 bands="CDMA2000" cc="ca" country="Canada" operator="MT&T Mobility (Aliant)" status="Operational"
  703 bands="CDMA2000" cc="ca" country="Canada" operator="New Tel Mobility (Aliant)" status="Operational"
  710 bands="Satellite CDMA" brand="Globalstar" cc="ca" country="Canada" status="Operational"
- 720 bands="GSM 850 / GSM 1900 / UMTS 850 / UMTS 1900 / LTE 1700 / LTE 2600" brand="Rogers Wireless" cc="ca" country="Canada" operator="Rogers Communications" status="Operational"
+ 720 bands="GSM 850 / GSM 1900 / UMTS 850 / UMTS 1900 / LTE 700 / LTE 1700 / LTE 2600" brand="Rogers Wireless" cc="ca" country="Canada" operator="Rogers Communications" status="Operational"
  730 bands="" brand="TerreStar Solutions" cc="ca" country="Canada" operator="TerreStar Networks" status=""
  740 bands="" brand="Shaw Telecom" cc="ca" country="Canada" operator="Shaw Communications" status="Not operational"
  750 bands="" brand="SaskTel" cc="ca" country="Canada" operator="SaskTel Mobility" status=""
  760 bands="MVNO" brand="Public Mobile" cc="ca" country="Canada" operator="Telus Mobility" status="Operational"
- 770 bands="UMTS 850" brand="TNW Wireless" cc="ca" country="Canada" operator="Rural Com" status="Operational"
- 780 bands="UMTS 850 / UMTS 1900 / LTE 2100" brand="SaskTel" cc="ca" country="Canada" operator="SaskTel Mobility" status="Operational"
+ 770 bands="UMTS 850" brand="TNW Wireless" cc="ca" country="Canada" operator="TNW Wireless Inc." status="Operational"
+ 780 bands="UMTS 850 / UMTS 1900 / LTE 1700" brand="SaskTel" cc="ca" country="Canada" operator="SaskTel Mobility" status="Operational"
  790 bands="WiMAX / TD-LTE 3500" cc="ca" country="Canada" operator="NetSet Communications" status="Operational"
  820 bands="" brand="Rogers Wireless" cc="ca" country="Canada" operator="Rogers Communications" status=""
  860 bands="" brand="Telus" cc="ca" country="Canada" operator="Telus Mobility" status=""
@@ -966,7 +975,7 @@
  230 bands="GSM 1900" cc="us" country="United States of America" operator="T-Mobile" status="Not operational"
  240 bands="GSM 1900" cc="us" country="United States of America" operator="T-Mobile" status="Not operational"
  250 bands="GSM 1900" cc="us" country="United States of America" operator="T-Mobile" status="Not operational"
- 260 bands="GSM 1900 / UMTS 1900 / UMTS 1700 / LTE 850 / LTE 700 / LTE 1900 / LTE 1700" brand="T-Mobile USA" cc="us" country="United States of America" operator="T-Mobile USA" status="Operational"
+ 260 bands="GSM 1900 / UMTS 1900 / UMTS 1700 / LTE 850 / LTE 700 / LTE 1900 / LTE 1700" brand="T-Mobile" cc="us" country="United States of America" operator="T-Mobile USA" status="Operational"
  270 bands="GSM 1900" cc="us" country="United States of America" operator="T-Mobile" status="Not operational"
  280 bands="GSM 1900" brand="AT&T" cc="us" country="United States of America" operator="AT&T Mobility" status="Not operational"
  290 bands="GSM 1900" brand="nep" cc="us" country="United States of America" operator="NEP Cellcorp Inc." status="Not operational"
@@ -1011,7 +1020,7 @@
  660 bands="GSM 1900" brand="T-Mobile" cc="us" country="United States of America" status="Not operational"
  670 bands="" brand="AT&T" cc="us" country="United States of America" operator="AT&T Mobility" status=""
  680 bands="GSM 850 / GSM 1900" brand="AT&T" cc="us" country="United States of America" operator="AT&T Mobility" status="Operational"
- 690 bands="GSM 1900" brand="Limitless Mobile" cc="us" country="United States of America" operator="Limitless Mobile, LLC" status="Operational"
+ 690 bands="GSM 1900 / LTE 1900" brand="Limitless Mobile" cc="us" country="United States of America" operator="Limitless Mobile, LLC" status="Not operational"
  700 bands="GSM" brand="Bigfoot Cellular" cc="us" country="United States of America" operator="Cross Valiant Cellular Partnership" status=""
  710 bands="GSM 850" brand="ASTAC" cc="us" country="United States of America" operator="Arctic Slope Telephone Association Cooperative" status="Operational"
  720 bands="" cc="us" country="United States of America" operator="Syniverse Technologies" status=""
@@ -1059,7 +1068,7 @@
  110 bands="" brand="Verizon" cc="us" country="United States of America" operator="Verizon Wireless" status=""
  120 bands="" brand="iConnect" cc="us" country="United States of America" operator="Wave Runner LLC" status="Operational"
  130 bands="LTE" cc="us" country="United States of America" operator="Lightsquared L.P." status="Not operational"
- 140 bands="CDMA" brand="Sprocket Wireless" cc="us" country="United States of America" operator="Cross Telephone / MBO Wireless" status="Operational"
+ 140 bands="CDMA" brand="Bravado Wireless" cc="us" country="United States of America" operator="Cross Telephone Company" status="Operational"
  150 bands="GSM 850" cc="us" country="United States of America" operator="Wilkes Cellular" status="Operational"
  160 bands="LTE" cc="us" country="United States of America" operator="Lightsquared L.P." status="Not operational"
  170 bands="GSM 850" cc="us" country="United States of America" operator="Broadpoint Inc." status="Operational"
@@ -1068,7 +1077,7 @@
  200 bands="" cc="us" country="United States of America" operator="ARINC" status=""
  210 bands="GSM 1900" cc="us" country="United States of America" operator="Emery Telcom Wireless" status="Not operational"
  220 bands="CDMA" brand="U.S. Cellular" cc="us" country="United States of America" operator="U.S. Cellular" status="Operational"
- 230 bands="CDMA 850 / CDMA 1900 / LTE 1900 / LTE 1700" brand="C Spire Wireless" cc="us" country="United States of America" operator="Cellular South Inc." status="Operational"
+ 230 bands="CDMA 850 / CDMA 1900 / LTE 700 / LTE 850 / LTE 1700 / LTE 1900 / TD-LTE 2500" brand="C Spire Wireless" cc="us" country="United States of America" operator="Cellular South Inc." status="Operational"
  240 bands="GSM / UMTS 850 / WiMAX" cc="us" country="United States of America" operator="Cordova Wireless" status="Operational"
  250 bands="" brand="iConnect" cc="us" country="United States of America" operator="Wave Runner LLC" status="Operational"
  260 bands="WiMAX" brand="Sprint" cc="us" country="United States of America" operator="Sprint Corporation" status="Not operational"
@@ -1096,7 +1105,7 @@
  300 bands="" cc="us" country="United States of America" operator="Nexus Communications, Inc." status=""
  310 bands="CDMA2000" brand="NMobile" cc="us" country="United States of America" operator="Leaco Rural Telephone Company Inc." status="Operational"
  320 bands="GSM 850 / GSM 1900 / CDMA 2000 / UMTS" brand="Choice Wireless" cc="us" country="United States of America" operator="Commnet Wireless" status="Operational"
- 330 bands="GSM 1900" brand="Bug Tussel Wireless" cc="us" country="United States of America" operator="Bug Tussel Wireless LLC" status="Operational"
+ 330 bands="GSM 1900 / LTE 1700 / WiMAX 3700" brand="Bug Tussel Wireless" cc="us" country="United States of America" operator="Bug Tussel Wireless LLC" status="Operational"
  340 bands="CDMA2000 / LTE 850" cc="us" country="United States of America" operator="Illinois Valley Cellular" status="Operational"
  350 bands="CDMA2000" brand="Nemont" cc="us" country="United States of America" operator="Sagebrush Cellular, Inc." status="Operational"
  360 bands="UMTS 1700" cc="us" country="United States of America" operator="Stelera Wireless" status="Not operational"
@@ -1110,7 +1119,7 @@
  440 bands="CDMA" cc="us" country="United States of America" operator="Bluegrass Cellular LLC" status="Operational"
  450 bands="GSM 1900 / LTE 700" brand="PTCI" cc="us" country="United States of America" operator="Panhandle Telecommunication Systems Inc." status="Operational"
  460 bands="DMR" cc="us" country="United States of America" operator="Fisher Wireless Services Inc." status="Not operational"
- 470 bands="GSM 850 / GSM 1900" brand="Innovative Wireless" cc="us" country="United States of America" operator="Vitelcom Cellular Inc." status="Operational"
+ 470 bands="GSM 850 / GSM 1900" brand="Viya" cc="us" country="United States of America" operator="Vitelcom Cellular Inc." status="Operational"
  480 bands="LTE 700" brand="Verizon" cc="us" country="United States of America" operator="Verizon Wireless" status="Operational"
  481 bands="LTE 700" brand="Verizon" cc="us" country="United States of America" operator="Verizon Wireless" status="Not operational"
  482 bands="LTE 700" brand="Verizon" cc="us" country="United States of America" operator="Verizon Wireless" status="Not operational"
@@ -1176,7 +1185,7 @@
 312
  010 bands="" brand="Chariton Valley" cc="us" country="United States of America" operator="Chariton Valley Communication Corporation, Inc" status=""
  020 bands="LTE 700" cc="us" country="United States of America" operator="Infrastructure Networks, LLC" status="Operational"
- 030 bands="LTE 700" brand="Sprocket Wireless" cc="us" country="United States of America" operator="Cross Telephone / MBO Wireless" status="Operational"
+ 030 bands="LTE 700" brand="Bravado Wireless" cc="us" country="United States of America" operator="Cross Wireless" status="Operational"
  040 bands="LTE 700" cc="us" country="United States of America" operator="Custer Telephone Co-op (CTCI)" status="Operational"
  050 bands="LTE 700" cc="us" country="United States of America" operator="Fuego Wireless" status="Not operational"
  060 bands="CDMA / GSM" cc="us" country="United States of America" operator="CoverageCo" status=""
@@ -1208,7 +1217,7 @@
  320 bands="LTE 700" cc="us" country="United States of America" operator="S and R Communications LLC" status="Operational"
  330 bands="LTE 700" brand="Nemont" cc="us" country="United States of America" operator="Nemont Communications, Inc." status="Operational"
  340 bands="LTE 700" brand="MTA" cc="us" country="United States of America" operator="Matanuska Telephone Association, Inc." status="Operational"
- 350 bands="LTE 700" cc="us" country="United States of America" operator="Triangle Communication Sytem Inc." status="Operational"
+ 350 bands="LTE 700" cc="us" country="United States of America" operator="Triangle Communication System Inc." status="Operational"
  360 bands="" cc="us" country="United States of America" operator="Wes-Tex Telecommunications, Ltd." status=""
  370 bands="LTE" brand="Choice Wireless" cc="us" country="United States of America" operator="Commnet Wireless" status="Operational"
  380 bands="LTE 700" cc="us" country="United States of America" operator="Copper Valley Wireless" status="Operational"
@@ -1242,11 +1251,11 @@
  660 bands="LTE 1900" brand="nTelos" cc="us" country="United States of America" operator="nTelos Wireless" status="Not operational"
  670 bands="" brand="AT&T" cc="us" country="United States of America" operator="AT&T Mobility" status=""
  680 bands="" brand="AT&T" cc="us" country="United States of America" operator="AT&T Mobility" status=""
- 690 bands="" cc="us" country="United States of America" operator="Tecore Government Services, LLC" status=""
+ 690 bands="MVNO/MVNE" cc="us" country="United States of America" operator="TGS, LLC" status="Operational"
  700 bands="LTE 700" cc="us" country="United States of America" operator="Wireless Partners, LLC" status="Operational"
  710 bands="LTE" cc="us" country="United States of America" operator="Great North Woods Wireless LLC" status="Operational"
  720 bands="LTE" brand="Southern LINC" cc="us" country="United States of America" operator="Southern Communications Services" status=""
- 730 bands="CDMA" cc="us" country="United States of America" operator="Triangle Communication Sytem Inc." status="Operational"
+ 730 bands="CDMA" cc="us" country="United States of America" operator="Triangle Communication System Inc." status="Operational"
  740 bands="MVNO" brand="Locus Telecommunications" cc="us" country="United States of America" operator="KDDI America, Inc." status="Operational"
  750 bands="" cc="us" country="United States of America" operator="Artemis Networks LLC" status=""
  760 bands="" brand="ASTAC" cc="us" country="United States of America" operator="Arctic Slope Telephone Association Cooperative" status=""
@@ -1276,7 +1285,7 @@
  000-999
 313
  000 bands="" cc="us" country="United States of America" operator="Tennessee Wireless" status="Operational"
- 010 bands="" brand="Sprocket Wireless" cc="us" country="United States of America" operator="Cross Telephone / MBO Wireless" status=""
+ 010 bands="" brand="Bravado Wireless" cc="us" country="United States of America" operator="Cross Wireless LLC" status=""
  020 bands="CDMA" brand="CTC Wireless" cc="us" country="United States of America" operator="Cambridge Telephone Company Inc." status="Operational"
  030 bands="CDMA" brand="Snake River PCS" cc="us" country="United States of America" operator="Eagle Telephone System Inc." status="Operational"
  040 bands="CDMA" brand="NNTC Wireless" cc="us" country="United States of America" operator="Nucla-Naturita Telephone Company" status="Operational"
@@ -1331,7 +1340,7 @@
  20 bands="GSM 900 / UMTS 2100" brand="Digicel" country="French Antilles (France) - BL/GF/GP/MF/MQ" operator="DIGICEL Antilles Française Guyane" status="Operational"
  00-99
 342
- 600 bands="GSM 1900 / UMTS / LTE" brand="FLOW" cc="bb" country="Barbados" operator="LIME (formerly known as Cable & Wireless)" status="Operational"
+ 600 bands="GSM 1900 / UMTS 850 / LTE 850 / LTE 1900" brand="FLOW" cc="bb" country="Barbados" operator="LIME (formerly known as Cable & Wireless)" status="Operational"
  750 bands="GSM 900 / GSM 1800 / UMTS 2100 / LTE 700 / LTE 1900" brand="Digicel" cc="bb" country="Barbados" operator="Digicel (Barbados) Limited" status="Operational"
  820 bands="" cc="bb" country="Barbados" operator="Sunbeach Communications" status="Not operational"
  000-999
@@ -1343,7 +1352,7 @@
  000-999
 346
  050 bands="GSM 900 / GSM 1800 / UMTS / LTE 1800" brand="Digicel" cc="ky" country="Cayman Islands (United Kingdom)" operator="Digicel Cayman Ltd." status="Operational"
- 140 bands="GSM 850 / GSM 1900 / UMTS / LTE 700" brand="FLOW" cc="ky" country="Cayman Islands (United Kingdom)" operator="Cable & Wireless (Cayman Islands) Limited" status="Operational"
+ 140 bands="GSM 850 / GSM 1900 / UMTS / LTE 700 / LTE 1900" brand="FLOW" cc="ky" country="Cayman Islands (United Kingdom)" operator="Cable & Wireless (Cayman Islands) Limited" status="Operational"
  000-999
 348
  170 bands="GSM 850 / GSM 1900 / UMTS 850 / UMTS 1900 / LTE 700 / LTE 1900" brand="FLOW" cc="vg" country="British Virgin Islands" operator="Cable & Wireless" status="Operational"
@@ -1369,8 +1378,7 @@
  110 bands="GSM 850 / GSM 1900" brand="FLOW" cc="kn" country="Saint Kitts and Nevis" operator="Cable & Wireless St. Kitts & Nevis Ltd" status="Operational"
  000-999
 358
- 050 bands="GSM 900 / GSM 1800 / GSM 1900" brand="Digicel" cc="lc" country="Saint Lucia" status=""
- 110 bands="GSM 850" brand="FLOW" cc="lc" country="Saint Lucia" operator="Cable &  Wireless" status=""
+ 110 bands="GSM 850 / LTE 700" brand="FLOW" cc="lc" country="Saint Lucia" operator="Cable &  Wireless" status="Operational"
  000-999
 360
  050 bands="GSM 900 / GSM 1800 / GSM 1900" brand="Digicel" cc="vc" country="Saint Vincent and the Grenadines" operator="Digicel (St. Vincent and the Grenadines) Limited" status="Operational"
@@ -1380,7 +1388,7 @@
 362
  31 bands="GSM" country="Former Netherlands Antilles (Kingdom of the Netherlands) - BQ/CW/SX" operator="Eutel N.V." status=""
  33 bands="GSM" country="Former Netherlands Antilles (Kingdom of the Netherlands) - BQ/CW/SX" operator="WICC N.V." status=""
- 51 bands="GSM 900 / UMTS 2100" brand="Telcell" country="Former Netherlands Antilles (Kingdom of the Netherlands) - BQ/CW/SX" operator="Telcell N.V." status="Operational"
+ 51 bands="GSM 900 / UMTS 2100 / LTE 1800" brand="Telcell" country="Former Netherlands Antilles (Kingdom of the Netherlands) - BQ/CW/SX" operator="Telcell N.V." status="Operational"
  54 bands="GSM 900 / GSM 1800" brand="ECC" country="Former Netherlands Antilles (Kingdom of the Netherlands) - BQ/CW/SX" operator="East Caribbean Cellular" status="Operational"
  59 bands="GSM 900 / GSM 1800" brand="Chippie" country="Former Netherlands Antilles (Kingdom of the Netherlands) - BQ/CW/SX" operator="United Telecommunication Service N.V. (UTS)" status="Operational"
  60 bands="UMTS 2100 / LTE 1800" brand="Chippie" country="Former Netherlands Antilles (Kingdom of the Netherlands) - BQ/CW/SX" operator="United Telecommunication Service N.V. (UTS)" status="Operational"
@@ -1411,7 +1419,7 @@
  110 bands="GSM 850 / UMTS / LTE 700" brand="FLOW" cc="dm" country="Dominica" operator="Cable &  Wireless" status="Operational"
  000-999
 368
- 01 bands="GSM 900 / GSM 850" brand="CUBACEL" cc="cu" country="Cuba" operator="Empresa de Telecomunicaciones de Cuba, SA" status="Operational"
+ 01 bands="GSM 900 / GSM 850 / UMTS 900" brand="CUBACEL" cc="cu" country="Cuba" operator="Empresa de Telecomunicaciones de Cuba, SA" status="Operational"
  00-99
 370
  01 bands="GSM 900 / GSM 1800 / GSM 1900 / UMTS 900 / LTE 1800" brand="Orange" cc="do" country="Dominican Republic" operator="Orange Dominicana" status="Operational"
@@ -1624,7 +1632,7 @@
  824 bands="GSM 1800" brand="Videocon Datacom" cc="in" country="India" operator="Assam" status="Reserved"
  827 bands="GSM 1800" brand="Videocon Datacom" cc="in" country="India" operator="Gujarat" status="Operational"
  834 bands="GSM 1800" brand="Videocon Datacom" cc="in" country="India" operator="Madhya Pradesh" status="Reserved"
- 840 bands="" brand="Jio" cc="in" country="India" operator="West Bengal" status="Reserved"
+ 840 bands="LTE 850 / LTE 1800 / TD-LTE 2300" brand="Jio" cc="in" country="India" operator="West Bengal" status="Operational"
  844 bands="GSM" brand="Uninor" cc="in" country="India" operator="Delhi & NCR" status="Not operational"
  845 bands="GSM 1800" brand="IDEA" cc="in" country="India" operator="Assam" status="Operational"
  846 bands="GSM 1800 / UTMS 2100" brand="IDEA" cc="in" country="India" operator="Jammu & Kashmir" status="Operational"
@@ -1635,27 +1643,27 @@
  851 bands="GSM 1800" brand="IDEA" cc="in" country="India" operator="Punjab" status="Operational"
  852 bands="GSM 1800" brand="IDEA" cc="in" country="India" operator="Tamil Nadu" status="Operational"
  853 bands="GSM 1800" brand="IDEA" cc="in" country="India" operator="West Bengal" status="Operational"
- 854 bands="" brand="Jio" cc="in" country="India" operator="Andhra Pradesh" status="Reserved"
- 855 bands="" brand="Jio" cc="in" country="India" operator="Assam" status="Reserved"
- 856 bands="" brand="Jio" cc="in" country="India" operator="Bihar" status="Reserved"
- 857 bands="" brand="Jio" cc="in" country="India" operator="Gujarat" status="Reserved"
- 858 bands="" brand="Jio" cc="in" country="India" operator="Haryana" status="Reserved"
- 859 bands="" brand="Jio" cc="in" country="India" operator="Himachal Pradesh" status="Reserved"
- 860 bands="" brand="Jio" cc="in" country="India" operator="Jammu Kashmir" status="Reserved"
- 861 bands="LTE 1800 / TD-LTE 2300" brand="Jio" cc="in" country="India" operator="Karnataka" status="Reserved"
- 862 bands="" brand="Jio" cc="in" country="India" operator="Kerala" status="Reserved"
- 863 bands="" brand="Jio" cc="in" country="India" operator="Madhyya Pradesh" status="Reserved"
- 864 bands="" brand="Jio" cc="in" country="India" operator="Maharashtra" status="Reserved"
- 865 bands="" brand="Jio" cc="in" country="India" operator="North East" status="Reserved"
- 866 bands="" brand="Jio" cc="in" country="India" operator="Orissa" status="Reserved"
- 867 bands="" brand="Jio" cc="in" country="India" operator="Punjab" status="Reserved"
- 868 bands="" brand="Jio" cc="in" country="India" operator="Rajasthan" status="Reserved"
- 869 bands="" brand="Jio" cc="in" country="India" operator="Tamil Nadu Chennai" status="Reserved"
- 870 bands="" brand="Jio" cc="in" country="India" operator="Uttar Pradesh West" status="Reserved"
- 871 bands="" brand="Jio" cc="in" country="India" operator="Uttar Pradesh East" status="Reserved"
- 872 bands="" brand="Jio" cc="in" country="India" operator="Delhi" status="Reserved"
- 873 bands="" brand="Jio" cc="in" country="India" operator="Kolkatta" status="Reserved"
- 874 bands="" brand="Jio" cc="in" country="India" operator="Mumbai" status="Reserved"
+ 854 bands="LTE 850 / LTE 1800 / TD-LTE 2300" brand="Jio" cc="in" country="India" operator="Andhra Pradesh" status="Operational"
+ 855 bands="LTE 850 / LTE 1800 / TD-LTE 2300" brand="Jio" cc="in" country="India" operator="Assam" status="Operational"
+ 856 bands="LTE 850 / LTE 1800 / TD-LTE 2300" brand="Jio" cc="in" country="India" operator="Bihar" status="Operational"
+ 857 bands="LTE 850 / LTE 1800 / TD-LTE 2300" brand="Jio" cc="in" country="India" operator="Gujarat" status="Operational"
+ 858 bands="LTE 850 / LTE 1800 / TD-LTE 2300" brand="Jio" cc="in" country="India" operator="Haryana" status="Operational"
+ 859 bands="LTE 850 / LTE 1800 / TD-LTE 2300" brand="Jio" cc="in" country="India" operator="Himachal Pradesh" status="Operational"
+ 860 bands="LTE 850 / LTE 1800 / TD-LTE 2300" brand="Jio" cc="in" country="India" operator="Jammu & Kashmir" status="Operational"
+ 861 bands="LTE 850 / LTE 1800 / TD-LTE 2300" brand="Jio" cc="in" country="India" operator="Karnataka" status="Operational"
+ 862 bands="LTE 850 / LTE 1800 / TD-LTE 2300" brand="Jio" cc="in" country="India" operator="Kerala" status="Operational"
+ 863 bands="LTE 850 / LTE 1800 / TD-LTE 2300" brand="Jio" cc="in" country="India" operator="Madhya Pradesh" status="Operational"
+ 864 bands="LTE 850 / LTE 1800 / TD-LTE 2300" brand="Jio" cc="in" country="India" operator="Maharashtra" status="Operational"
+ 865 bands="LTE 850 / LTE 1800 / TD-LTE 2300" brand="Jio" cc="in" country="India" operator="North East" status="Operational"
+ 866 bands="LTE 850 / LTE 1800 / TD-LTE 2300" brand="Jio" cc="in" country="India" operator="Orissa" status="Operational"
+ 867 bands="LTE 850 / LTE 1800 / TD-LTE 2300" brand="Jio" cc="in" country="India" operator="Punjab" status="Operational"
+ 868 bands="LTE 850 / LTE 1800 / TD-LTE 2300" brand="Jio" cc="in" country="India" operator="Rajasthan" status="Operational"
+ 869 bands="LTE 850 / LTE 1800 / TD-LTE 2300" brand="Jio" cc="in" country="India" operator="Tamil Nadu (incl. Chennai)" status="Operational"
+ 870 bands="LTE 850 / LTE 1800 / TD-LTE 2300" brand="Jio" cc="in" country="India" operator="Uttar Pradesh (West)" status="Operational"
+ 871 bands="LTE 850 / LTE 1800 / TD-LTE 2300" brand="Jio" cc="in" country="India" operator="Uttar Pradesh (East)" status="Operational"
+ 872 bands="LTE 850 / LTE 1800 / TD-LTE 2300" brand="Jio" cc="in" country="India" operator="Delhi" status="Operational"
+ 873 bands="LTE 850 / LTE 1800 / TD-LTE 2300" brand="Jio" cc="in" country="India" operator="Kolkata" status="Operational"
+ 874 bands="LTE 850 / LTE 1800 / TD-LTE 2300" brand="Jio" cc="in" country="India" operator="Mumbai" status="Operational"
  875 bands="GSM 1800" brand="Uninor" cc="in" country="India" operator="Assam" status="Reserved"
  880 bands="GSM 1800" brand="Uninor" cc="in" country="India" operator="West Bengal" status="Operational"
  881 bands="GSM 1800" brand="S Tel" cc="in" country="India" operator="Assam" status="Reserved"
@@ -1671,13 +1679,13 @@
  929 bands="GSM 1800" brand="Uninor" cc="in" country="India" operator="Maharashtra" status="Operational"
  00-99
 410
- 01 bands="GSM 900 / GSM 1800 / UMTS 2100" brand="Mobilink" cc="pk" country="Pakistan" operator="Mobilink-PMCL" status="Operational"
+ 01 bands="GSM 900 / GSM 1800 / UMTS 2100" brand="Jazz" cc="pk" country="Pakistan" operator="Mobilink-PMCL" status="Operational"
  02 bands="CDMA2000 1900" brand="PTCL" cc="pk" country="Pakistan" operator="PTCL" status="Operational"
  03 bands="GSM 900 / GSM 1800 / UMTS 900 / UMTS 2100" brand="Ufone" cc="pk" country="Pakistan" operator="Pakistan Telecommunication Mobile Ltd" status="Operational"
  04 bands="GSM 900 / GSM 1800 / UMTS 2100 / LTE 1800" brand="Zong" cc="pk" country="Pakistan" operator="China Mobile" status="Operational"
  05 bands="GSM 900 / GSM 1800" brand="SCO Mobile" cc="pk" country="Pakistan" operator="SCO Mobile Ltd" status="Operational"
  06 bands="GSM 900 / GSM 1800 / UMTS 2100 / LTE 850" brand="Telenor" cc="pk" country="Pakistan" operator="Telenor Pakistan" status="Operational"
- 07 bands="GSM 900 / GSM 1800 / UMTS 2100 / LTE 1800" brand="Warid Pakistan" cc="pk" country="Pakistan" operator="WaridTel" status="Operational"
+ 07 bands="GSM 900 / GSM 1800 / UMTS 2100 / LTE 1800" brand="Jazz" cc="pk" country="Pakistan" operator="WaridTel" status="Operational"
  08 bands="GSM 900 / GSM 1800" brand="SCO Mobile" cc="pk" country="Pakistan" operator="SCO Mobile Ltd" status="Operational"
  00-99
 412
@@ -1691,17 +1699,23 @@
  00-99
 413
  01 bands="GSM 900 / GSM 1800 / UMTS 2100 / LTE 1800" brand="Mobitel" cc="lk" country="Sri Lanka" operator="Mobitel (Pvt) Ltd" status="Operational"
- 02 bands="GSM 900 / GSM 1800 / UMTS 2100 / LTE 1800 / TD-LTE 2300" brand="Dialog" cc="lk" country="Sri Lanka" operator="Dialog Axiata PLC" status="Operational"
+ 02 bands="GSM 900 / GSM 1800 / UMTS 2100 / LTE 1800" brand="Dialog" cc="lk" country="Sri Lanka" operator="Dialog Axiata PLC" status="Operational"
  03 bands="GSM 900 / GSM 1800 / UMTS 2100" brand="Etisalat" cc="lk" country="Sri Lanka" operator="Etisalat Lanka (Pvt) Ltd" status="Operational"
  04 bands="CDMA / WiMAX / TD-LTE 2300" brand="Lanka Bell" cc="lk" country="Sri Lanka" operator="Lanka Bell Ltd" status="Operational"
  05 bands="GSM 900 / GSM 1800 / UMTS 2100" brand="Airtel" cc="lk" country="Sri Lanka" operator="Bharti Airtel Lanka (Pvt) Ltd" status="Operational"
  08 bands="GSM 900 / GSM 1800 / UMTS 2100" brand="Hutch" cc="lk" country="Sri Lanka" operator="Hutchison Telecommunications Lanka (Pvt) Ltd" status="Operational"
+ 11 bands="CDMA / WiMAX / TD-LTE 2300" brand="Dialog Broadband" cc="lk" country="Sri Lanka" operator="Dialog Broadband Networks (Pvt) Ltd" status="Operational"
+ 12 bands="CDMA / TD-LTE 2600" brand="SLT" cc="lk" country="Sri Lanka" operator="Sri Lanka Telecom" status="Operational"
  00-99
 414
- 01 bands="GSM 900 / UMTS 2100 / LTE 2100" brand="MPT" cc="mm" country="Myanmar" operator="Myanmar Posts and Telecommunications" status="Operational"
+ 00 bands="" brand="MPT" cc="mm" country="Myanmar" operator="Myanmar Posts and Telecommunications" status=""
+ 01 bands="GSM 900 / UMTS 2100 / LTE 1800 / LTE 2100" brand="MPT" cc="mm" country="Myanmar" operator="Myanmar Posts and Telecommunications" status="Operational"
+ 02 bands="" brand="MPT" cc="mm" country="Myanmar" operator="Myanmar Posts and Telecommunications" status=""
  03 bands="CDMA 800" brand="CDMA800" cc="mm" country="Myanmar" operator="Myanmar Economic Corporation" status="Operational"
- 05 bands="UMTS 900 / UMTS 2100 / LTE 2100" brand="Ooredoo" cc="mm" country="Myanmar" operator="Ooredoo Myanmar" status="Operational"
- 06 bands="GSM 900 / UMTS 2100 / LTE 2100" brand="Telenor" cc="mm" country="Myanmar" operator="Telenor Myanmar" status="Operational"
+ 04 bands="" brand="MPT" cc="mm" country="Myanmar" operator="Myanmar Posts and Telecommunications" status=""
+ 05 bands="UMTS 900 / UMTS 2100 / LTE 1800 / LTE 2100" brand="Ooredoo" cc="mm" country="Myanmar" operator="Ooredoo Myanmar" status="Operational"
+ 06 bands="GSM 900 / UMTS 2100 / LTE 1800 / LTE 2100" brand="Telenor" cc="mm" country="Myanmar" operator="Telenor Myanmar" status="Operational"
+ 09 bands="" brand="MNTC" cc="mm" country="Myanmar" operator="Myanmar National Tele & Communication Co., Ltd" status=""
  00-99
 415
  01 bands="GSM 900 / UMTS 2100 / LTE 1800" brand="Alfa" cc="lb" country="Lebanon" operator="MIC 1" status="Operational"
@@ -1766,6 +1780,7 @@
  06 bands="GSM 900 / GSM 1800" brand="Wataniya" cc="ps" country="Palestine" operator="Wataniya Palestine Mobile Telecommunications Company" status="Operational"
  07 bands="iDEN 800 / UMTS 2100" brand="Hot Mobile" cc="il" country="Israel" operator="Hot Mobile Ltd." status="Operational"
  08 bands="UMTS 2100 / LTE 1800" brand="Golan Telecom" cc="il" country="Israel" operator="Golan Telecom Ltd" status="Operational"
+ 09 bands="" brand="018 Xphone" cc="il" country="Israel" operator="Marathon 018 Xphone Ltd." status=""
  11 bands="MVNO" cc="il" country="Israel" operator="365 Telecom" status=""
  12 bands="MVNO" cc="il" country="Israel" operator="Free Telecom" status=""
  13 bands="" cc="il" country="Israel" operator="Ituran Cellular Communications" status=""
@@ -1803,19 +1818,19 @@
  00-99
 429
  01 bands="GSM 900 / GSM 1800 / UMTS 2100 / LTE 1800 / CDMA / WiMAX" brand="Namaste / NT Mobile / Sky Phone" cc="np" country="Nepal" operator="Nepal Telecom (NDCL)" status="Operational"
- 02 bands="GSM 900 / GSM 1800 / UMTS 2100" brand="Ncell" cc="np" country="Nepal" operator="Ncell Pvt. Ltd." status="Operational"
+ 02 bands="GSM 900 / GSM 1800 / UMTS 2100 / LTE 1800" brand="Ncell" cc="np" country="Nepal" operator="Ncell Pvt. Ltd." status="Operational"
  03 bands="CDMA2000 800" brand="UTL" cc="np" country="Nepal" operator="United Telecom Limited" status="Operational"
  04 bands="GSM 900" brand="SmartCell" cc="np" country="Nepal" operator="Smart Telecom Pvt. Ltd. (STPL)" status="Operational"
  00-99
 432
- 11 bands="GSM 900 / GSM 1800 / UMTS 900 / UMTS 2100 / LTE 2600" brand="IR-MCI (Hamrah-e-Avval)" cc="ir" country="Iran" operator="Mobile Communications Company of Iran" status="Operational"
+ 11 bands="GSM 900 / UMTS 900 / UMTS 2100 / LTE 1800 / LTE 2600" brand="IR-MCI (Hamrah-e-Avval)" cc="ir" country="Iran" operator="Mobile Communications Company of Iran" status="Operational"
  12 bands="LTE 800" brand="Avacell" cc="ir" country="Iran" operator="Dadeh Dostar asr Novin p.j.s. co & Information Technology Company of Iran" status="Operational"
  14 bands="GSM 900" brand="TKC" cc="ir" country="Iran" operator="Telecommunication Kish Company" status="Operational"
  19 bands="GSM 900" brand="MTCE (Espadan)" cc="ir" country="Iran" operator="Mobile Telecommunications Company of Esfahan" status="Operational"
  20 bands="UMTS 900 / UMTS 2100 / LTE 1800" brand="Rightel" cc="ir" country="Iran" operator="Social Security Investment Co." status="Operational"
- 32 bands="GSM 900 / GSM 1800" brand="Taliya" cc="ir" country="Iran" operator="TCI of Iran and Iran Mobin" status="Operational"
- 35 bands="GSM 900 / GSM 1800 / UMTS 2100 / LTE 1800 / TD-LTE 3500" brand="MTN Irancell" cc="ir" country="Iran" operator="MTN Irancell Telecommunications Services Company" status="Operational"
- 70 bands="GSM 900 / GSM 1800" brand="TCI" cc="ir" country="Iran" operator="Telephone Communications Company of Iran" status="Operational"
+ 32 bands="GSM 900 / GSM 1800" brand="Taliya" cc="ir" country="Iran" operator="TCI of Iran and Iran Mobin" status="Not Operational"
+ 35 bands="GSM 900 / UMTS 900 / UMTS 2100 / LTE 1800 / LTE 2600 / TD-LTE 3500" brand="MTN Irancell" cc="ir" country="Iran" operator="MTN Irancell Telecommunications Services Company" status="Operational"
+ 70 bands="GSM 900" brand="TCI" cc="ir" country="Iran" operator="Telephone Communications Company of Iran" status="Operational"
  93 bands="GSM 1800" brand="Iraphone" cc="ir" country="Iran" operator="Iraphone" status="Operational"
  00-99
 434
@@ -1834,13 +1849,14 @@
  03 bands="GSM 900 / GSM 1800 / UMTS 2100 / LTE 800" brand="MegaFon" cc="tj" country="Tajikistan" operator="TT Mobile" status="Operational"
  04 bands="GSM 900 / GSM 1800 / UMTS 900 / UMTS 2100 / LTE 1800 / LTE 2100" brand="Babilon-M" cc="tj" country="Tajikistan" operator="Babilon-Mobile" status="Operational"
  05 bands="GSM 900 / GSM 1800 / UMTS 2100" brand="Beeline" cc="tj" country="Tajikistan" operator="Tacom" status="Operational"
+ 10 bands="TD-LTE 2300 / WiMAX" brand="Babilon-T" cc="tj" country="Tajikistan" operator="Babilon-T" status="Operational"
  12 bands="UMTS 2100" brand="Tcell" cc="tj" country="Tajikistan" operator="Indigo" status=""
  00-99
 437
  01 bands="GSM 900 / GSM 1800 / UMTS 2100 / LTE 800" brand="Beeline" cc="kg" country="Kyrgyzstan" operator="Sky Mobile LLC" status="Operational"
- 03 bands="CDMA2000" brand="Fonex" cc="kg" country="Kyrgyzstan" operator="Aktel Ltd" status="Operational"
+ 03 bands="CDMA2000 850" brand="Fonex" cc="kg" country="Kyrgyzstan" operator="Aktel Ltd" status="Not operational"
  05 bands="GSM 900 / GSM 1800 / UMTS 900 / UMTS 2100 / LTE 800 / LTE 1800 / LTE 2100" brand="MegaCom" cc="kg" country="Kyrgyzstan" operator="Alfa Telecom CJSC" status="Operational"
- 09 bands="GSM 900 / GSM 1800 / UMTS 2100 / LTE 2600" brand="O!" cc="kg" country="Kyrgyzstan" operator="NurTelecom LLC" status="Operational"
+ 09 bands="GSM 900 / GSM 1800 / UMTS 2100 / LTE 800 / LTE 2600" brand="O!" cc="kg" country="Kyrgyzstan" operator="NurTelecom LLC" status="Operational"
  00-99
 438
  01 bands="GSM 900 / GSM 1800 / UMTS 2100" brand="MTS" cc="tm" country="Turkmenistan" operator="MTS Turkmenistan" status="Operational"
@@ -1854,8 +1870,8 @@
  03 bands="MVNO" brand="IIJmio" cc="jp" country="Japan" operator="Internet Initiative Japan Inc." status="Operational"
  05 bands="TD-LTE 2500" cc="jp" country="Japan" operator="Wireless City Planning Inc." status="Operational"
  10 bands="UMTS 850 / UMTS 1800 / UMTS 2100 / LTE 700 / LTE 850 / LTE 1500 / LTE 1800 / LTE 2100 / TD-LTE 3500" brand="NTT docomo" cc="jp" country="Japan" operator="NTT DoCoMo, Inc." status="Operational"
- 20 bands="UMTS 900 / UMTS 2100 / LTE 700 / LTE 900 / LTE 1800 / LTE 2100 / TD-LTE 3500" brand="SoftBank" cc="jp" country="Japan" operator="SoftBank Corp." status="Operational"
- 21 bands="UMTS 900 / UMTS 2100 / LTE 700 / LTE 900 / LTE 1800 / LTE 2100 / TD-LTE 3500" brand="SoftBank" cc="jp" country="Japan" operator="SoftBank Corp." status="Operational"
+ 20 bands="UMTS 900 / UMTS 2100 / LTE 700 / LTE 900 / LTE 1500 / LTE 1800 / LTE 2100 / TD-LTE 3500" brand="SoftBank" cc="jp" country="Japan" operator="SoftBank Corp." status="Operational"
+ 21 bands="UMTS 900 / UMTS 2100 / LTE 700 / LTE 900 / LTE 1500 / LTE 1800 / LTE 2100 / TD-LTE 3500" brand="SoftBank" cc="jp" country="Japan" operator="SoftBank Corp." status="Operational"
  50 bands="CDMA2000 850 / CDMA2000 2100 / LTE 700 / LTE 850 / LTE 1500 / LTE 2100 / TD-LTE 3500" brand="au" cc="jp" country="Japan" operator="KDDI Corporation" status="Operational"
  51 bands="CDMA2000 850 / CDMA2000 2100 / LTE 700 / LTE 850 / LTE 1500 / LTE 2100 / TD-LTE 3500" brand="au" cc="jp" country="Japan" operator="KDDI Corporation" status="Operational"
  52 bands="CDMA2000 850 / CDMA2000 2100 / LTE 700 / LTE 850 / LTE 1500 / LTE 2100 / TD-LTE 3500" brand="au" cc="jp" country="Japan" operator="KDDI Corporation" status="Operational"
@@ -1872,7 +1888,7 @@
  00-99
 441
  00 bands="TD-LTE 2500" cc="jp" country="Japan" operator="Wireless City Planning Inc." status="Operational"
- 01 bands="UMTS 900 / UMTS 2100 / LTE 700 / LTE 900 / LTE 1800 / LTE 2100 / TD-LTE 3500" brand="SoftBank" cc="jp" country="Japan" operator="SoftBank Corp." status="Operational"
+ 01 bands="UMTS 900 / UMTS 2100 / LTE 700 / LTE 900 / LTE 1500 / LTE 1800 / LTE 2100 / TD-LTE 3500" brand="SoftBank" cc="jp" country="Japan" operator="SoftBank Corp." status="Operational"
  10 bands="WiMAX 2500 / TD-LTE 2500" brand="UQ WiMAX" cc="jp" country="Japan" operator="UQ Communications Inc." status="Operational"
  00-99
 450
@@ -1891,7 +1907,7 @@
  01 bands="GSM 900 / GSM 1800 / UMTS 2100" brand="MobiFone" cc="vn" country="Vietnam" operator="Vietnam Mobile Telecom Services Company" status="Operational"
  02 bands="GSM 900 / GSM 1800 / UMTS 900 / UMTS 2100 / LTE 1800" brand="Vinaphone" cc="vn" country="Vietnam" operator="Vietnam Telecom Services Company" status="Operational"
  03 bands="CDMA2000 800" brand="S-Fone" cc="vn" country="Vietnam" operator="S-Telecom" status="Not operational"
- 04 bands="GSM 900 / GSM 1800 / UMTS 2100" brand="Viettel Mobile" cc="vn" country="Vietnam" operator="Viettel Telecom" status="Operational"
+ 04 bands="GSM 900 / GSM 1800 / UMTS 2100 / LTE 1800" brand="Viettel Mobile" cc="vn" country="Vietnam" operator="Viettel Telecom" status="Operational"
  05 bands="GSM 900 / UMTS 2100" brand="Vietnamobile" cc="vn" country="Vietnam" operator="Hanoi Telecom" status="Operational"
  06 bands="CDMA2000 450" brand="EVNTelecom" cc="vn" country="Vietnam" operator="EVN Telecom" status="Not operational"
  07 bands="GSM 1800" brand="Gmobile" cc="vn" country="Vietnam" operator="GTEL Mobile JSC" status="Operational"
@@ -1929,6 +1945,7 @@
  30 bands="" cc="hk" country="Hong Kong" operator="China Data Enterprises Ltd" status=""
  31 bands="" cc="hk" country="Hong Kong" operator="China Telecom Global Limited" status=""
  32 bands="" cc="hk" country="Hong Kong" operator="Hong Kong Broadband Network Ltd" status=""
+ 35 bands="MVNO" cc="hk" country="Hong Kong" operator="Webbing Hong Kong Ltd" status="Operational"
  00-99
 455
  00 bands="GSM 900 / GSM 1800 / UMTS 2100 / LTE 1800" brand="SmarTone" cc="mo" country="Macau (China)" operator="Smartone – Comunicações Móveis, S.A." status="Operational"
@@ -1945,9 +1962,9 @@
  02 bands="GSM 900 / GSM 1800 / UMTS 2100 / LTE 1800" brand="Smart" cc="kh" country="Cambodia" operator="Smart Axiata Co. Ltd" status="Operational"
  03 bands="GSM 1800 / UMTS 2100" brand="qb" cc="kh" country="Cambodia" operator="Cambodia Advance Communications Co. Ltd" status="Operational"
  04 bands="GSM 1800 / UMTS 2100" brand="qb" cc="kh" country="Cambodia" operator="Cambodia Advance Communications Co. Ltd" status="Operational"
- 05 bands="GSM 900 / GSM 1800 / UMTS 2100 / LTE 1800" brand="Smart" cc="kh" country="Cambodia" operator="Smart Axiata Co. Ltd" status="Operational"
- 06 bands="GSM 900 / GSM 1800 / UMTS 2100 / LTE 1800" brand="Smart" cc="kh" country="Cambodia" operator="Smart Axiata Co. Ltd" status="Operational"
- 08 bands="GSM 900 / GSM 1800 / UMTS 2100" brand="Metfone" cc="kh" country="Cambodia" operator="Viettel" status="Operational"
+ 05 bands="GSM 900 / GSM 1800 / UMTS 2100 / LTE 1800 / LTE 2100" brand="Smart" cc="kh" country="Cambodia" operator="Smart Axiata Co. Ltd" status="Operational"
+ 06 bands="GSM 900 / GSM 1800 / UMTS 2100 / LTE 1800 / LTE 2100" brand="Smart" cc="kh" country="Cambodia" operator="Smart Axiata Co. Ltd" status="Operational"
+ 08 bands="GSM 900 / GSM 1800 / UMTS 2100 / LTE 1800" brand="Metfone" cc="kh" country="Cambodia" operator="Viettel" status="Operational"
  09 bands="GSM 900 / GSM 1800" brand="Metfone" cc="kh" country="Cambodia" operator="Viettel" status="Operational"
  11 bands="LTE 850" brand="SEATEL" cc="kh" country="Cambodia" operator="SEATEL Cambodia" status="Operational"
  18 bands="GSM 900 / GSM 1800 / UMTS 2100" brand="Cellcard" cc="kh" country="Cambodia" operator="The Royal Group" status="Operational"
@@ -1962,9 +1979,9 @@
  00 bands="GSM 900 / GSM 1800 / TD-SCDMA 1900 / TD-SCDMA 2000 / TD-LTE 1900 / TD-LTE 2300 / TD-LTE 2500" brand="China Mobile" cc="cn" country="China" operator="China Mobile" status="Operational"
  01 bands="GSM 900 / GSM 1800 / UMTS 900 / UMTS 2100 / LTE 1800 / TD-LTE 2300 / TD-LTE 2500" brand="China Unicom" cc="cn" country="China" operator="China Unicom" status="Operational"
  02 bands="GSM 900 / GSM 1800 / TD-SCDMA 1900 / TD-SCDMA 2000 / TD-LTE 1900 / TD-LTE 2300 / TD-LTE 2500" brand="China Mobile" cc="cn" country="China" operator="China Mobile" status="Not operational"
- 03 bands="CDMA2000 800 / LTE 1800 / LTE 2100 / TD-LTE 2300 / TD-LTE 2500" brand="China Telecom" cc="cn" country="China" operator="China Telecom" status="Operational"
+ 03 bands="CDMA2000 800 / LTE 850 / LTE 1800 / LTE 2100 / TD-LTE 2300 / TD-LTE 2500" brand="China Telecom" cc="cn" country="China" operator="China Telecom" status="Operational"
  04 bands="" cc="cn" country="China" operator="Global Star Satellite" status=""
- 05 bands="CDMA2000 800 / LTE 1800 / LTE 2100 / TD-LTE 2300 / TD-LTE 2500" brand="China Telecom" cc="cn" country="China" operator="China Telecom" status="Not operational"
+ 05 bands="CDMA2000 800 / LTE 850 / LTE 1800 / LTE 2100 / TD-LTE 2300 / TD-LTE 2500" brand="China Telecom" cc="cn" country="China" operator="China Telecom" status="Not operational"
  06 bands="GSM 900 / GSM 1800 / UMTS 2100" brand="China Unicom" cc="cn" country="China" operator="China Unicom" status="Not operational"
  07 bands="GSM 900 / GSM 1800 / TD-SCDMA 1900 / TD-SCDMA 2000 / TD-LTE 1900 / TD-LTE 2300 / TD-LTE 2500" brand="China Mobile" cc="cn" country="China" operator="China Mobile" status="Not operational"
  08 bands="" brand="China Mobile" cc="cn" country="China" operator="China Mobile" status=""
@@ -2003,7 +2020,7 @@
  02 bands="GSM 900 / GSM 1800 / UMTS 2100" brand="Robi" cc="bd" country="Bangladesh" operator="Axiata Bangladesh Ltd." status="Operational"
  03 bands="GSM 900 / GSM 1800 / UMTS 2100" brand="Banglalink" cc="bd" country="Bangladesh" operator="Banglalink Digital Communications Ltd" status="Operational"
  04 bands="GSM 900 / GSM 1800 / UMTS 2100" brand="TeleTalk" cc="bd" country="Bangladesh" operator="Teletalk Bangladesh Limited" status="Operational"
- 05 bands="CDMA 800 / GSM 900 / GSM 1800" brand="Citycell" cc="bd" country="Bangladesh" operator="Pacific Bangladesh Telecom Limited" status="Operational"
+ 05 bands="CDMA 800 / GSM 900 / GSM 1800" brand="Citycell" cc="bd" country="Bangladesh" operator="Pacific Bangladesh Telecom Limited" status="Not Operational"
  07 bands="GSM 900 / GSM 1800 / UMTS 2100" brand="Airtel" cc="bd" country="Bangladesh" operator="Bharti airtel Bangladesh Ltd." status="Operational"
  09 bands="LTE 800 / LTE 2600 / WiMAX 3500" brand="ollo" cc="bd" country="Bangladesh" operator="Bangladesh Internet Exchange Limited (BIEL)" status="Operational"
  00-99
@@ -2026,15 +2043,15 @@
  155 bands="MVNO" brand="Clixster" cc="my" country="Malaysia" operator="Clixster Mobile Sdn Bhd" status="Operational"
  156 bands="MVNO" brand="Altel" cc="my" country="Malaysia" operator="Altel Communications Sdn Bhd" status="Operational"
  157 bands="MVNO" brand="Telin" cc="my" country="Malaysia" operator="Telekomunikasi Indonesia International (M) Sdn Bhd" status="Operational"
- 16 bands="GSM 1800 / UMTS 2100 / LTE 1800 / LTE 2600" brand="DiGi" cc="my" country="Malaysia" operator="DiGi Telecommunications" status="Operational"
+ 16 bands="GSM 1800 / UMTS 2100 / LTE 900 / LTE 1800 / LTE 2600" brand="DiGi" cc="my" country="Malaysia" operator="DiGi Telecommunications" status="Operational"
  17 bands="GSM 900 / GSM 1800 / UMTS 2100 / LTE 2600" brand="Maxis" cc="my" country="Malaysia" operator="Maxis Communications Berhad" status="Operational"
- 18 bands="UMTS 2100 / LTE 2600" brand="U Mobile" cc="my" country="Malaysia" operator="U Mobile Sdn Bhd" status="Operational"
+ 18 bands="UMTS 2100 / LTE 1800 / LTE 2600" brand="U Mobile" cc="my" country="Malaysia" operator="U Mobile Sdn Bhd" status="Operational"
  19 bands="GSM 900 / GSM 1800 / UMTS 2100 / LTE 2600" brand="Celcom" cc="my" country="Malaysia" operator="Celcom Axiata Berhad" status="Operational"
  20 bands="DMR" brand="Electcoms" cc="my" country="Malaysia" operator="Electcoms Berhad" status="Operational"
  00-99
 505
  01 bands="UMTS 850 / UMTS 2100 / LTE 700 / LTE 900 / LTE 1800 / LTE 2100" brand="Telstra" cc="au" country="Australia" operator="Telstra Corporation Limited" status="Operational"
- 02 bands="GSM 900 / GSM 1800 / UMTS 900 / UMTS 2100 / LTE 700 / LTE 1800 / LTE 2100 / TD-LTE 2300" brand="Optus" cc="au" country="Australia" operator="Singtel Optus Proprietary Limited" status="Operational"
+ 02 bands="UMTS 900 / UMTS 2100 / LTE 700 / LTE 1800 / LTE 2100 / TD-LTE 2300" brand="Optus" cc="au" country="Australia" operator="Singtel Optus Proprietary Limited" status="Operational"
  03 bands="GSM 900 / GSM 1800 / UMTS 850 / UMTS 900 / UMTS 2100 / LTE 850 / LTE 1800 / LTE 2100" brand="Vodafone" cc="au" country="Australia" operator="Vodafone Hutchison Australia Proprietary Limited" status="Operational"
  04 bands="" cc="au" country="Australia" operator="Department of Defence" status="Operational"
  05 brand="Ozitel" cc="au" country="Australia" status="Not operational"
@@ -2045,7 +2062,7 @@
  10 bands="GSM 900" brand="Norfolk Telecom" cc="nf" country="Norfolk Island" operator="Norfolk Telecom" status="Operational"
  11 bands="" brand="Telstra" cc="au" country="Australia" operator="Telstra Corporation Ltd." status=""
  12 bands="UMTS 2100" brand="3" cc="au" country="Australia" operator="Vodafone Hutchison Australia Proprietary Limited" status="Not operational"
- 13 bands="GSM-R 1800" brand="Railcorp" cc="au" country="Australia" operator="Railcorp, Transport for New South Wales" status="Operational"
+ 13 bands="GSM-R 1800" brand="RailCorp" cc="au" country="Australia" operator="Railcorp, Transport for New South Wales" status="Operational"
  14 bands="MVNO" brand="AAPT" cc="au" country="Australia" operator="TPG Telecom" status="Operational"
  15 brand="3GIS" cc="au" country="Australia" status="Not operational"
  16 bands="GSM-R 1800" brand="VicTrack" cc="au" country="Australia" operator="Victorian Rail Track" status="Operational"
@@ -2094,7 +2111,7 @@
  11 bands="GSM 900 / GSM 1800 / UMTS 2100 / LTE 900 / LTE 1800" brand="XL" cc="id" country="Indonesia" operator="PT XL Axiata Tbk" status="Operational"
  20 bands="GSM 1800" brand="TELKOMMobile" cc="id" country="Indonesia" operator="PT Telkom Indonesia Tbk" status="Not operational"
  21 bands="GSM 1800" brand="IM3" cc="id" country="Indonesia" operator="PT Indonesian Satellite Corporation Tbk (INDOSAT)" status="Not operational"
- 27 bands="CDMA 450" brand="Ceria" cc="id" country="Indonesia" operator="PT Sampoerna Telekomunikasi Indonesia" status="Operational"
+ 27 bands="CDMA 450 / LTE 450" brand="Net1" cc="id" country="Indonesia" operator="PT Sampoerna Telekomunikasi Indonesia" status="Operational"
  28 bands="CDMA 800 / LTE 850 / TD-LTE 2300" brand="Fren/Hepi" cc="id" country="Indonesia" operator="PT Mobile-8 Telecom" status="Operational"
  88 bands="TD-LTE 2300" brand="BOLT! Super 4G" cc="id" country="Indonesia" operator="PT Internux" status="Operational"
  89 bands="GSM 1800 / UMTS 2100 / LTE 1800" brand="3" cc="id" country="Indonesia" operator="PT Hutchison CP Telecommunications" status="Operational"
@@ -2102,13 +2119,13 @@
  00-99
 514
  01 bands="GSM 900 / GSM 1800 / UMTS 850" brand="Telkomcel" cc="tl" country="East Timor" operator="PT Telekomunikasi Indonesia International" status="Operational"
- 02 bands="GSM 900 / UMTS" brand="TT" cc="tl" country="East Timor" operator="Timor Telecom" status="Operational"
- 03 bands="GSM 900 / GSM 1800 / UMTS" brand="Telemor" cc="tl" country="East Timor" operator="Viettel Timor-Leste" status="Operational"
+ 02 bands="GSM 900 / UMTS / LTE" brand="TT" cc="tl" country="East Timor" operator="Timor Telecom" status="Operational"
+ 03 bands="GSM 900 / GSM 1800 / UMTS / LTE" brand="Telemor" cc="tl" country="East Timor" operator="Viettel Timor-Leste" status="Operational"
  00-99
 515
  01 bands="GSM 900" brand="Islacom" cc="ph" country="Philippines" operator="Globe Telecom via Innove Communications" status="Not operational"
- 02 bands="GSM 900 / GSM 1800 / UMTS 850 / UMTS 900 / UMTS 2100 / LTE 1800 / TD-LTE 2500" brand="Globe" cc="ph" country="Philippines" operator="Globe Telecom" status="Operational"
- 03 bands="GSM 900 / GSM 1800 / UMTS 850 / UMTS 2100 / LTE 850 / LTE 1800 / LTE 2100" brand="SMART" cc="ph" country="Philippines" operator="PLDT via Smart Communications" status="Operational"
+ 02 bands="GSM 900 / GSM 1800 / UMTS 850 / UMTS 900 / UMTS 2100 / LTE 700 / LTE 1800 / TD-LTE 2500" brand="Globe" cc="ph" country="Philippines" operator="Globe Telecom" status="Operational"
+ 03 bands="GSM 900 / GSM 1800 / UMTS 850 / UMTS 2100 / LTE 700 / LTE 850 / LTE 1800 / LTE 2100 / TD-LTE 2300 / TD-LTE 2500" brand="SMART" cc="ph" country="Philippines" operator="PLDT via Smart Communications" status="Operational"
  05 bands="GSM 1800 / UMTS 2100" brand="Sun Cellular" cc="ph" country="Philippines" operator="Digital Telecommunications Philippines" status="Operational"
  11 bands="" cc="ph" country="Philippines" operator="PLDT via ACeS Philippines" status=""
  18 bands="GSM 900 / UMTS 2100" brand="Cure" cc="ph" country="Philippines" operator="PLDT via Smart's Connectivity Unlimited Resources Enterprise" status="Not operational"
@@ -2116,7 +2133,7 @@
  88 bands="iDEN" cc="ph" country="Philippines" operator="Next Mobile Inc." status="Operational"
  00-99
 520
- 00 bands="UMTS 850" brand="my by CAT" cc="th" country="Thailand" operator="CAT Telecom" status="Operational"
+ 00 bands="UMTS 850" brand="TrueMove H & my by CAT" cc="th" country="Thailand" operator="CAT Telecom" status="Operational"
  01 bands="GSM 900 / UMTS 900" brand="AIS" cc="th" country="Thailand" operator="Advanced Info Service" status="Not operational"
  02 bands="CDMA 800" brand="CAT CDMA" cc="th" country="Thailand" operator="CAT Telecom" status="Not operational"
  03 bands="UMTS 2100 / LTE 900 / LTE 1800 / LTE 2100" brand="AIS" cc="th" country="Thailand" operator="Advanced Wireless Network Company Ltd." status="Operational"
@@ -2131,14 +2148,15 @@
  99 bands="GSM 1800" brand="TrueMove" cc="th" country="Thailand" operator="True Corporation" status="Not operational"
  00-99
 525
- 01 bands="GSM 900 / GSM 1800 / UMTS 900 / UMTS 2100 / LTE 900 / LTE 1800 / LTE 2600" brand="SingTel" cc="sg" country="Singapore" operator="Singapore Telecom" status="Operational"
- 02 bands="GSM 1800" brand="SingTel-G18" cc="sg" country="Singapore" operator="Singapore Telecom" status="Operational"
- 03 bands="GSM 900 / GSM 1800 / UMTS 900 / UMTS 2100 / LTE 1800 / LTE 2600" brand="M1" cc="sg" country="Singapore" operator="M1 Limited" status="Operational"
- 05 bands="GSM 1800 / UMTS 900 / UMTS 2100 / LTE 1800 / LTE 2600" brand="StarHub" cc="sg" country="Singapore" operator="StarHub Mobile" status="Operational"
+ 01 bands="UMTS 900 / UMTS 2100 / LTE 900 / LTE 1800 / LTE 2600" brand="SingTel" cc="sg" country="Singapore" operator="Singapore Telecom" status="Operational"
+ 02 bands="GSM 1800" brand="SingTel-G18" cc="sg" country="Singapore" operator="Singapore Telecom" status="Not operational"
+ 03 bands="UMTS 900 / UMTS 2100 / LTE 1800 / LTE 2600" brand="M1" cc="sg" country="Singapore" operator="M1 Limited" status="Operational"
+ 05 bands="UMTS 900 / UMTS 2100 / LTE 1800 / LTE 2600 / TD-LTE 2600" brand="StarHub" cc="sg" country="Singapore" operator="StarHub Mobile" status="Operational"
  06 bands="" brand="StarHub" cc="sg" country="Singapore" operator="StarHub Mobile" status=""
  07 bands="" brand="SingTel" cc="sg" country="Singapore" operator="Singapore Telecom" status=""
  08 bands="" brand="StarHub" cc="sg" country="Singapore" operator="StarHub Mobile" status=""
  09 bands="MVNO" brand="Circles.Life" cc="sg" country="Singapore" operator="Liberty Wireless Pte Ltd" status="Operational"
+ 10 bands="" cc="sg" country="Singapore" operator="TPG Telecom Pte Ltd" status=""
  12 bands="iDEN 800" brand="Grid" cc="sg" country="Singapore" operator="GRID Communications Pte Ltd." status="Operational"
  00-99
 528
@@ -2152,7 +2170,7 @@
  02 bands="CDMA2000 800" brand="Telecom" cc="nz" country="New Zealand" operator="Telecom New Zealand" status="Not operational"
  03 bands="UMTS-TDD 2000" brand="Woosh" cc="nz" country="New Zealand" operator="Woosh Wireless" status="Operational"
  04 bands="UMTS 2100" brand="Vodafone" cc="nz" country="New Zealand" operator="TelstraClear New Zealand" status="Not operational"
- 05 bands="UMTS 850 / UMTS 2100 / LTE 700 / LTE 1800 / LTE 2600" brand="Spark" cc="nz" country="New Zealand" operator="Spark New Zealand" status="Operational"
+ 05 bands="UMTS 850 / UMTS 2100 / LTE 700 / LTE 1800 / TD-LTE 2300 / LTE 2600" brand="Spark" cc="nz" country="New Zealand" operator="Spark New Zealand" status="Operational"
  06 bands="MVNO" brand="Skinny" cc="nz" country="New Zealand" operator="Spark New Zealand" status="Operational"
  07 bands="" cc="nz" country="New Zealand" operator="Bluereach Limited" status=""
  24 bands="GSM 900 / GSM 1800 / UMTS 900 / UMTS 2100 / LTE 700 / LTE 1800" brand="2degrees" cc="nz" country="New Zealand" operator="2degrees" status="Operational"
@@ -2226,7 +2244,7 @@
  01 bands="GSM 900" brand="TTC" cc="tv" country="Tuvalu" operator="Tuvalu Telecom" status="Operational"
  00-99
 554
- 01 bands="LTE 700" cc="tk" country="Tokelau" operator="Teletok" status=""
+ 01 bands="LTE 700" cc="tk" country="Tokelau" operator="Teletok" status="Operational"
  00-99
 555
  01 bands="GSM 900" brand="Telecom Niue" cc="nu" country="Niue" operator="Telecom Niue" status="Operational"
@@ -2245,10 +2263,13 @@
  21 bands="GSM-R" brand="ANESRIF" cc="dz" country="Algeria" operator="Anesrif" status="Ongoing"
  00-99
 604
- 00 bands="GSM 900 / GSM 1800 / LTE" brand="Orange Morocco" cc="ma" country="Morocco" operator="Medi Telecom" status="Operational"
- 01 bands="GSM 900 / GSM 1800 / UMTS 2100 / LTE 800 / LTE 1800" brand="IAM" cc="ma" country="Morocco" operator="Ittissalat Al Maghrib (Maroc Telecom)" status="Operational"
- 02 bands="GSM 900 / GSM 1800" brand="Wana Corporate" cc="ma" country="Morocco" operator="Wana)" status="Operational"
- 05 bands="GSM 900 / GSM 1800 / LTE 1800" brand="INWI (Telecommunications)" cc="ma" country="Morocco" operator="WANA - Groupe ONA" status="Operational"
+ 00 bands="GSM 900 / GSM 1800 / LTE" brand="Orange Morocco" cc="ma" country="Morocco" operator="Médi Télécom" status="Operational"
+ 01 bands="GSM 900 / GSM 1800 / UMTS 2100 / LTE 800 / LTE 1800" brand="IAM" cc="ma" country="Morocco" operator="Ittissalat Al-Maghrib (Maroc Telecom)" status="Operational"
+ 02 bands="GSM 900 / GSM 1800" brand="INWI" cc="ma" country="Morocco" operator="Wana Corporate" status="Operational"
+ 04 bands="" cc="ma" country="Morocco" operator="Al Houria Telecom" status=""
+ 05 bands="GSM 900 / GSM 1800 / LTE 1800" brand="INWI" cc="ma" country="Morocco" operator="Wana Corporate" status="Operational"
+ 06 bands="" brand="IAM" cc="ma" country="Morocco" operator="Ittissalat Al-Maghrib (Maroc Telecom)" status=""
+ 99 bands="" cc="ma" country="Morocco" operator="Al Houria Telecom" status=""
  00-99
 605
  01 bands="GSM 900 / GSM 1800 / UMTS 2100 / LTE 800 / LTE 1800" brand="Orange" cc="tn" country="Tunisia" operator="Orange Tunisie" status="Operational"
@@ -2304,7 +2325,7 @@
  00-99
 613
  01 bands="GSM 900 / UMTS" brand="Telmob" cc="bf" country="Burkina Faso" operator="Onatel" status="Operational"
- 02 bands="GSM 900 / UMTS" brand="Airtel" cc="bf" country="Burkina Faso" operator="Airtel Burkina Faso" status="Operational"
+ 02 bands="GSM 900 / UMTS" brand="Orange" cc="bf" country="Burkina Faso" operator="Orange Burkina Faso" status="Operational"
  03 bands="GSM 900" brand="Telecel Faso" cc="bf" country="Burkina Faso" operator="Telecel Faso SA" status="Operational"
  00-99
 614
@@ -2334,7 +2355,7 @@
  01 bands="GSM 900" brand="Lonestar Cell" cc="lr" country="Liberia" operator="Lonestar Communications Corporation" status="Operational"
  02 bands="" brand="Libercell" cc="lr" country="Liberia" operator="Atlantic Wireless (Liberia) Inc." status="Not operational"
  04 bands="GSM 900 / GSM 1800 / UMTS 2100" brand="Novafone" cc="lr" country="Liberia" operator="Novafone Inc." status="Operational"
- 07 bands="GSM 900 / GSM 1800 / UMTS 2100 / LTE 1800" brand="Cellcom" cc="lr" country="Liberia" operator="Cellcom Telecommunications, Inc." status="Operational"
+ 07 bands="GSM 900 / GSM 1800 / UMTS 2100 / LTE 1800" brand="Orange LBR" cc="lr" country="Liberia" operator="Orange Liberia." status="Operational"
  20 bands="CDMA2000" brand="LIBTELCO" cc="lr" country="Liberia" operator="Liberia Telecommunications Corporation" status="Operational"
  00-99
 619
@@ -2371,7 +2392,7 @@
  30 bands="GSM 900 / GSM 1800 / UMTS 2100 / LTE 2600 / LTE 3500" brand="MTN" cc="ng" country="Nigeria" operator="MTN Nigeria Communications Limited" status="Operational"
  40 bands="LTE 900 / LTE 1800" brand="Ntel" cc="ng" country="Nigeria" operator="Nigerian Mobile Telecommunications Limited" status="Operational"
  50 bands="GSM 900 / GSM 1800 / UMTS 2100 / LTE 700" brand="Glo" cc="ng" country="Nigeria" operator="Globacom Ltd" status="Operational"
- 60 bands="GSM 900 / GSM 1800 / UMTS 2100 / LTE 1800" brand="Etisalat" cc="ng" country="Nigeria" operator="Emerging Markets Telecommunication Services Ltd (Etisalat)" status="Operational"
+ 60 bands="GSM 900 / GSM 1800 / UMTS 2100 / LTE 1800" brand="9mobile" cc="ng" country="Nigeria" operator="Etisalat)" status="Operational"
  00-99
 622
  01 bands="GSM 900 / UMTS" brand="Airtel" cc="td" country="Chad" operator="Bharti Airtel SA" status="Operational"
@@ -2396,6 +2417,7 @@
  00-99
 626
  01 bands="GSM 900" brand="CSTmovel" cc="st" country="Sao Tome and Principe" operator="Companhia Santomese de Telecomunicaçôe" status="Operational"
+ 02 bands="GSM 900" brand="Unitel STP" cc="st" country="Sao Tome and Principe" operator="Unitel Sao Tome and Principe" status="Operational"
  00-99
 627
  01 bands="GSM 900" brand="Orange GQ" cc="gq" country="Equatorial Guinea" operator="GETESA" status="Operational"
@@ -2444,7 +2466,7 @@
  02 bands="GSM 900 / GSM 1800 / UMTS 2100" brand="MTN" cc="sd" country="Sudan" operator="MTN Sudan" status="Operational"
  03 bands="" brand="MTN" cc="sd" country="Sudan" operator="MTN Sudan" status=""
  05 bands="CDMA2000 450" brand="canar" cc="sd" country="Sudan" operator="Canar Telecom" status="Operational"
- 07 bands="GSM 1800 / UMTS 2100 / LTE / CDMA2000 800" brand="Sudani One" cc="sd" country="Sudan" operator="Sudatel Group" status="Operational"
+ 07 bands="GSM 1800 / UMTS 2100 / LTE 1800 / CDMA2000 800" brand="Sudani One" cc="sd" country="Sudan" operator="Sudatel Group" status="Operational"
  09 brand="Privet Network" cc="sd" country="Sudan" operator="NEC" status=""
  00-99
 635
@@ -2538,8 +2560,9 @@
 647
  00 bands="GSM 900 / GSM 1800 / UMTS 2100 / LTE 1800" brand="Orange" country="French Indian Ocean Territories (France) - YT/RE" operator="Orange La Réunion" status="Operational"
  01 bands="GSM 900 / GSM 1800" country="French Indian Ocean Territories (France) - YT/RE" operator="BJT Partners" status=""
- 02 bands="GSM 900 / GSM 1800 / UMTS 2100" brand="only" country="French Indian Ocean Territories (France) - YT/RE" operator="Telco OI" status="Operational"
- 03 bands="" brand="only" country="French Indian Ocean Territories (France) - YT/RE" operator="Telco OI" status=""
+ 02 bands="GSM 900 / GSM 1800 / UMTS 2100 / LTE 1800" brand="Free" country="French Indian Ocean Territories (France) - YT/RE" operator="Telco OI" status="Operational"
+ 03 bands="" brand="Free" country="French Indian Ocean Territories (France) - YT/RE" operator="Telco OI" status=""
+ 04 bands="LTE" brand="4G Réunion" country="French Indian Ocean Territories (France) - YT/RE" operator="Zeop mobile" status=""
  10 bands="GSM 900 / LTE 800 / LTE 1800 / LTE 2600" brand="SFR Réunion" country="French Indian Ocean Territories (France) - YT/RE" operator="Société Réunionnaise du Radiotéléphone" status="Operational"
  00-99
 648
@@ -2570,6 +2593,7 @@
  00-99
 653
  01 bands="" cc="sz" country="Swaziland" operator="SPTC" status=""
+ 02 bands="" cc="sz" country="Swaziland" operator="Swazi Mobile Limited" status="Operational"
  10 bands="GSM 900" brand="Swazi MTN" cc="sz" country="Swaziland" operator="Swazi MTN Limited" status="Operational"
  00-99
 654
@@ -2607,6 +2631,7 @@
  46 bands="MVNO" cc="za" country="South Africa" operator="SMS Cellular Services (Pty) Ltd" status="Operational"
  50 bands="" cc="za" country="South Africa" operator="Ericsson South Africa (Pty) Ltd" status=""
  51 bands="" cc="za" country="South Africa" operator="Integrat (Pty) Ltd" status=""
+ 53 bands="MVNO" brand="Lycamobile" cc="za" country="South Africa" operator="Lycamobile (Pty) Ltd" status=""
  73 bands="" brand="iBurst" cc="za" country="South Africa" operator="Wireless Business Solutions (Pty) Ltd" status=""
  74 bands="" brand="iBurst" cc="za" country="South Africa" operator="Wireless Business Solutions (Pty) Ltd" status=""
  00-99
@@ -2637,7 +2662,7 @@
 706
  01 bands="GSM 1900 / UMTS 1900" brand="Claro" cc="sv" country="El Salvador" operator="CTE Telecom Personal, S.A. de C.V." status="Operational"
  02 bands="GSM 900 / UMTS 900" brand="digicel" cc="sv" country="El Salvador" operator="Digicel, S.A. de C.V." status="Operational"
- 03 bands="GSM 850 / UMTS 850 / LTE" brand="Tigo" cc="sv" country="El Salvador" operator="Telemovil El Salvador S.A." status="Operational"
+ 03 bands="GSM 850 / UMTS 850 / LTE 850" brand="Tigo" cc="sv" country="El Salvador" operator="Telemovil El Salvador S.A." status="Operational"
  04 bands="GSM 850 / GSM 1900 / UMTS 1900 / LTE 1900" brand="movistar" cc="sv" country="El Salvador" operator="Telefónica Móviles El Salvador" status="Operational"
  05 bands="iDEN" brand="RED" cc="sv" country="El Salvador" operator="INTELFON, S.A. de C.V." status="Operational"
  00-99
@@ -2691,20 +2716,20 @@
  03 bands="GSM 900 / GSM 1800 / UMTS 850 / UMTS 2100 / LTE 700 / LTE 1800 / LTE 2600" brand="TIM" cc="br" country="Brazil" operator="Telecom Italia Mobile" status="Operational"
  04 bands="GSM 900 / GSM 1800 / UMTS 850 / UMTS 2100 / LTE 700 / LTE 1800 / LTE 2600" brand="TIM" cc="br" country="Brazil" operator="Telecom Italia Mobile" status="Operational"
  05 bands="GSM 900 / GSM 1800 / UMTS 850 / UMTS 2100 / LTE 700 / LTE 1800 / LTE 2600" brand="Claro" cc="br" country="Brazil" operator="Claro" status="Operational"
- 06 bands="GSM 850 / GSM 1800 / UMTS 850 / UMTS 2100 / LTE 2600" brand="Vivo" cc="br" country="Brazil" operator="Vivo S.A." status="Operational"
- 10 bands="GSM 850 / GSM 1800 / UMTS 850 / UMTS 2100 / LTE 2600" brand="Vivo" cc="br" country="Brazil" operator="Vivo S.A." status="Operational"
- 11 bands="GSM 850 / GSM 1800 / UMTS 850 / UMTS 2100 / LTE 2600" brand="Vivo" cc="br" country="Brazil" operator="Vivo S.A." status="Operational"
+ 06 bands="GSM 850 / GSM 1800 / UMTS 850 / UMTS 2100 / LTE 700 / LTE 1800 / LTE 2600" brand="Vivo" cc="br" country="Brazil" operator="Vivo S.A." status="Operational"
+ 10 bands="GSM 850 / GSM 1800 / UMTS 850 / UMTS 2100 / LTE 700 / LTE 1800 / LTE 2600" brand="Vivo" cc="br" country="Brazil" operator="Vivo S.A." status="Operational"
+ 11 bands="GSM 850 / GSM 1800 / UMTS 850 / UMTS 2100 / LTE 700 / LTE 1800 / LTE 2600" brand="Vivo" cc="br" country="Brazil" operator="Vivo S.A." status="Operational"
  15 bands="GSM 900 / GSM 1800 / UMTS 850" brand="Sercomtel" cc="br" country="Brazil" operator="Sercomtel Celular" status="Operational"
  16 bands="GSM 1800 / UMTS 2100" brand="Brasil Telecom GSM" cc="br" country="Brazil" operator="Brasil Telecom GSM" status="Not operational"
  17 bands="MVNO" brand="Correios" cc="br" country="Brazil" operator="Correios Celular" status="Operational"
  18 bands="MVNO" brand="datora" cc="br" country="Brazil" operator="Datora (Vodafone)" status="Operational"
- 23 bands="GSM 850 / GSM 1800 / UMTS 850 / UMTS 2100 / LTE 2600" brand="Vivo" cc="br" country="Brazil" operator="Vivo S.A." status="Operational"
+ 23 bands="GSM 850 / GSM 1800 / UMTS 850 / UMTS 2100 / LTE 1800 / LTE 2600" brand="Vivo" cc="br" country="Brazil" operator="Vivo S.A." status="Operational"
  24 bands="" cc="br" country="Brazil" operator="Amazonia Celular" status=""
  30 bands="" brand="Oi" cc="br" country="Brazil" operator="TNL PCS Oi" status=""
- 31 bands="GSM 1800 / UMTS 2100 / LTE 2600" brand="Oi" cc="br" country="Brazil" operator="TNL PCS Oi" status="Operational"
- 32 bands="GSM 900 / GSM 1800 / UMTS 850 / UMTS 2100 / LTE 700" brand="Algar Telecom" cc="br" country="Brazil" operator="Algar Telecom S.A." status="Operational"
- 33 bands="GSM 900 / GSM 1800 / UMTS 850 / UMTS 2100 / LTE 700" brand="Algar Telecom" cc="br" country="Brazil" operator="Algar Telecom S.A." status="Operational"
- 34 bands="GSM 900 / GSM 1800 / UMTS 850 / UMTS 2100 / LTE 700" brand="Algar Telecom" cc="br" country="Brazil" operator="Algar Telecom S.A." status="Operational"
+ 31 bands="GSM 1800 / UMTS 2100 / LTE 1800 / LTE 2600" brand="Oi" cc="br" country="Brazil" operator="TNL PCS Oi" status="Operational"
+ 32 bands="GSM 900 / GSM 1800 / UMTS 850 / UMTS 2100 / LTE 700 / LTE 1800" brand="Algar Telecom" cc="br" country="Brazil" operator="Algar Telecom S.A." status="Operational"
+ 33 bands="GSM 900 / GSM 1800 / UMTS 850 / UMTS 2100 / LTE 700 / LTE 1800" brand="Algar Telecom" cc="br" country="Brazil" operator="Algar Telecom S.A." status="Operational"
+ 34 bands="GSM 900 / GSM 1800 / UMTS 850 / UMTS 2100 / LTE 700 / LTE 1800" brand="Algar Telecom" cc="br" country="Brazil" operator="Algar Telecom S.A." status="Operational"
  35 bands="" cc="br" country="Brazil" operator="Telcom Telecomunicações" status=""
  36 bands="" cc="br" country="Brazil" operator="Options Telecomunicações" status=""
  37 bands="" brand="aeiou" cc="br" country="Brazil" operator="Unicel" status="Not operational"
@@ -2716,10 +2741,10 @@
 730
  01 bands="GSM 1900 / UMTS 1900 / LTE 700 / LTE 2600" brand="entel" cc="cl" country="Chile" operator="Entel Telefonía Móvil S.A." status="Operational"
  02 bands="GSM 850 / GSM 1900 / UMTS 850 / UMTS 1900 / LTE 700 / LTE 2600" brand="movistar" cc="cl" country="Chile" operator="Telefónica Móvil de Chile" status="Operational"
- 03 bands="GSM 1900 / UMTS 850 / UMTS 1900 / LTE 2600" brand="Claro" cc="cl" country="Chile" operator="Claro Chile S.A." status="Operational"
+ 03 bands="GSM 1900 / UMTS 850 / UMTS 1900 / LTE 2600" brand="CLARO CL" cc="cl" country="Chile" operator="Claro Chile S.A." status="Operational"
  04 bands="iDEN 800" brand="WOM" cc="cl" country="Chile" operator="Novator Partners" status="Operational"
  05 bands="" cc="cl" country="Chile" operator="Multikom S.A." status=""
- 06 bands="MVNO" brand="Telefónica del Sur" cc="cl" country="Chile" operator="Blue Two Chile S.A." status="Operational"
+ 06 bands="MVNO" brand="Telsur" cc="cl" country="Chile" operator="Blue Two Chile S.A." status="Operational"
  07 bands="" brand="movistar" cc="cl" country="Chile" operator="Telefónica Móvil de Chile" status=""
  08 bands="MVNO" brand="VTR Móvil" cc="cl" country="Chile" operator="VTR S.A." status="Operational"
  09 bands="UMTS 1700 / LTE 1700" brand="WOM" cc="cl" country="Chile" operator="Novator Partners" status="Operational"
@@ -2733,6 +2758,7 @@
  17 bands="" cc="cl" country="Chile" operator="COMPATEL Chile Limitada" status=""
  18 bands="" cc="cl" country="Chile" operator="Empresas Bunker S.A." status=""
  19 bands="MVNO" brand="móvil Falabella" cc="cl" country="Chile" operator="Sociedad Falabella Móvil SPA" status="Operational"
+ 20 bands="" cc="cl" country="Chile" operator="Inversiones Santa Fe Limitada" status=""
  99 bands="GSM 1900 / UMTS 1900" brand="Will" cc="cl" country="Chile" operator="WILL Telefonía" status="Operational"
  00-99
 732
@@ -2801,7 +2827,7 @@
  10 bands="GSM 1900 / UMTS 1900 / LTE 1700" brand="Claro" cc="uy" country="Uruguay" operator="AM Wireless Uruguay S.A." status="Operational"
  00-99
 750
- 001 bands="GSM 900" brand="sure" cc="fk" country="Falkland Islands (United Kingdom)" operator="Batelco" status="Operational"
+ 001 bands="GSM 900" brand="Sure" cc="fk" country="Falkland Islands (United Kingdom)" operator="Sure South Atlantic Ltd." status="Operational"
  000-999
 901
  01 bands="Satellite" brand="ICO" country="International operators" operator="ICO Satellite Management" status="Not operational"
@@ -2859,6 +2885,9 @@
  53 bands="" country="International operators" operator="Deutsche Telekom AG" status=""
  54 bands="" country="International operators" operator="Teleena Holding B.V." status=""
  55 bands="" country="International operators" operator="Beezz Communication Solutions Ltd." status=""
+ 56 bands="" brand="ETSI" country="International operators" operator="European Telecommunications Standards Institute" status=""
+ 57 bands="" country="International operators" operator="SAP" status=""
+ 58 bands="" brand="BICS" country="International operators" operator="Belgacom ICS SA" status=""
  88 bands="" country="International operators" operator="UN Office for the Coordination of Humanitarian Affairs (OCHA)" status=""
  00-99
 995
