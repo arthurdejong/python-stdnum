@@ -1,3 +1,231 @@
+2017-09-12  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [28092b3] stdnum/damm.py: Add example with custom table to Damm
+
+2017-09-11  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [24d4a76] stdnum/cn/loc.dat, stdnum/eu/nace.dat, stdnum/imsi.dat,
+	  stdnum/isbn.dat, stdnum/isil.dat: Update database files
+
+2017-09-11  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [5071636] getisbn.py: Update getisbn to allow TLSv1
+
+	  The www.isbn-international.org site uses TLSv1 which seems to be
+	  blocked by recent Python/OpenSSL combinations unless configured
+	  otherwise.
+
+2017-09-11  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [edaad05] setup.cfg, tox.ini: Run flake8 from tox
+
+2017-09-10  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [0ce5d0b] stdnum/bg/egn.py, stdnum/cz/dic.py, stdnum/dk/cpr.py,
+	  stdnum/es/cups.py, stdnum/es/referenciacatastral.py,
+	  stdnum/eu/nace.py, stdnum/fr/nir.py, stdnum/fr/siren.py,
+	  stdnum/iban.py, stdnum/it/codicefiscale.py, stdnum/lv/pvn.py,
+	  stdnum/numdb.py, stdnum/ro/cnp.py, stdnum/util.py: Minor code
+	  improvements (mostly PEP8)
+
+2017-09-10  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [e468c1b] stdnum/ch/vat.py, stdnum/cn/ric.py, stdnum/do/cedula.py,
+	  stdnum/ee/ik.py, stdnum/ee/registrikood.py, stdnum/es/nif.py,
+	  stdnum/fi/__init__.py, stdnum/fi/hetu.py, stdnum/gb/nhs.py,
+	  stdnum/gb/upn.py, stdnum/gb/vat.py, stdnum/is_/kennitala.py,
+	  stdnum/it/codicefiscale.py, stdnum/nl/onderwijsnummer.py,
+	  stdnum/numdb.py, stdnum/rs/pib.py, stdnum/sk/rc.py,
+	  stdnum/us/tin.py: Make import ordering consistent
+
+2017-09-10  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [1c27639] stdnum/al/nipt.py, stdnum/ar/cbu.py, stdnum/ar/cuit.py,
+	  stdnum/at/businessid.py, stdnum/at/uid.py, stdnum/au/abn.py,
+	  stdnum/au/acn.py, stdnum/au/tfn.py, stdnum/be/vat.py,
+	  stdnum/bg/egn.py, stdnum/bg/pnf.py, stdnum/bg/vat.py,
+	  stdnum/br/cnpj.py, stdnum/br/cpf.py, stdnum/ca/bn.py,
+	  stdnum/ca/sin.py, stdnum/ch/ssn.py, stdnum/ch/uid.py,
+	  stdnum/ch/vat.py, stdnum/cl/rut.py, stdnum/cn/ric.py,
+	  stdnum/co/nit.py, stdnum/cusip.py, stdnum/cy/vat.py,
+	  stdnum/cz/dic.py, stdnum/cz/rc.py, stdnum/damm.py,
+	  stdnum/de/idnr.py, stdnum/de/vat.py, stdnum/de/wkn.py,
+	  stdnum/dk/cpr.py, stdnum/dk/cvr.py, stdnum/do/cedula.py,
+	  stdnum/do/rnc.py, stdnum/ean.py, stdnum/ec/ci.py, stdnum/ec/ruc.py,
+	  stdnum/ee/ik.py, stdnum/ee/kmkr.py, stdnum/ee/registrikood.py,
+	  stdnum/es/ccc.py, stdnum/es/cif.py, stdnum/es/cups.py,
+	  stdnum/es/dni.py, stdnum/es/iban.py, stdnum/es/nie.py,
+	  stdnum/es/nif.py, stdnum/es/referenciacatastral.py,
+	  stdnum/eu/at_02.py, stdnum/eu/eic.py, stdnum/eu/nace.py,
+	  stdnum/eu/vat.py, stdnum/fi/alv.py, stdnum/fi/associationid.py,
+	  stdnum/fi/hetu.py, stdnum/fi/veronumero.py, stdnum/fi/ytunnus.py,
+	  stdnum/fr/nif.py, stdnum/fr/nir.py, stdnum/fr/siren.py,
+	  stdnum/fr/siret.py, stdnum/fr/tva.py, stdnum/gb/nhs.py,
+	  stdnum/gb/sedol.py, stdnum/gb/upn.py, stdnum/gb/vat.py,
+	  stdnum/gr/vat.py, stdnum/grid.py, stdnum/hr/oib.py,
+	  stdnum/hu/anum.py, stdnum/iban.py, stdnum/ie/pps.py,
+	  stdnum/ie/vat.py, stdnum/imei.py, stdnum/imo.py,
+	  stdnum/imsi.py, stdnum/is_/kennitala.py, stdnum/is_/vsk.py,
+	  stdnum/isan.py, stdnum/isbn.py, stdnum/isil.py, stdnum/isin.py,
+	  stdnum/ismn.py, stdnum/iso6346.py, stdnum/iso7064/mod_11_10.py,
+	  stdnum/iso7064/mod_11_2.py, stdnum/iso7064/mod_37_2.py,
+	  stdnum/iso7064/mod_37_36.py, stdnum/iso7064/mod_97_10.py,
+	  stdnum/iso9362.py, stdnum/issn.py, stdnum/it/codicefiscale.py,
+	  stdnum/it/iva.py, stdnum/lei.py, stdnum/lt/pvm.py,
+	  stdnum/lu/tva.py, stdnum/luhn.py, stdnum/lv/pvn.py,
+	  stdnum/mc/tva.py, stdnum/meid.py, stdnum/mt/vat.py,
+	  stdnum/mx/rfc.py, stdnum/my/nric.py, stdnum/nl/brin.py,
+	  stdnum/nl/bsn.py, stdnum/nl/btw.py, stdnum/nl/onderwijsnummer.py,
+	  stdnum/nl/postcode.py, stdnum/no/mva.py, stdnum/no/orgnr.py,
+	  stdnum/numdb.py, stdnum/pl/nip.py, stdnum/pl/pesel.py,
+	  stdnum/pl/regon.py, stdnum/pt/nif.py, stdnum/ro/cf.py,
+	  stdnum/ro/cnp.py, stdnum/rs/pib.py, stdnum/ru/inn.py,
+	  stdnum/se/orgnr.py, stdnum/se/vat.py, stdnum/si/ddv.py,
+	  stdnum/sk/dph.py, stdnum/sm/coe.py, stdnum/tr/__init__.py,
+	  stdnum/tr/tckimlik.py, stdnum/us/atin.py, stdnum/us/ein.py,
+	  stdnum/us/itin.py, stdnum/us/ptin.py, stdnum/us/rtn.py,
+	  stdnum/us/ssn.py, stdnum/us/tin.py, stdnum/verhoeff.py: Docstring
+	  improvements
+
+2017-09-08  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [2cc39ea] stdnum/cz/dic.py, tests/test_eu_vat.doctest: Fix Czech
+	  DIČ check digit calculation
+
+	  This fixes a bug in the check digit calculation for the 9-digit
+	  numbers that start with a 6 for individuals without a RČ. This
+	  also adds a few tests for Czech VAT numbers.
+
+	  See https://github.com/arthurdejong/python-stdnum/issues/51
+
+2017-09-04  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [d24a439] stdnum/ee/registrikood.py,
+	  tests/test_ee_registrikood.doctest: Add Estonian Registrikood
+
+	  This is based on what was done by Mohammed Salman of Holvi. This
+	  adds more tests and validates the check digit.
+
+	  This uses the check digit algorithm from Isikukood which seems
+	  to work with all tested numbers although there is no confirmation
+	  that this is the correct algorithm.
+
+2017-08-25  Mohammed Salman <mohammed@holvi.com>
+
+	* [53cc0dc] stdnum/de/idnr.py, tests/test_de_idnr.doctest: Add
+	  support for German tax id number
+
+2017-08-30  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [a71a1ac] stdnum/isbn.py, tests/test_isbn.doctest: Check bookland
+	  code in ISBN
+
+	  This ensures that an InvalidComponent() exception is raised when
+	  an unknown EAN bookland code is found. It will also raise this
+	  exception when using to_isbn10() when not using the 978 code.
+
+2017-08-28  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [8f6fa7d] setup.cfg, stdnum/iban.py, stdnum/ismn.py,
+	  stdnum/meid.py, stdnum/numdb.py, stdnum/util.py,
+	  tests/numdb-test.dat, tests/test_util.doctest: Ensure 100%
+	  branch coverage
+
+	  This ensures that the tests fail if 100% branch coverage is
+	  not achieved. It also adds some pragma statements for code that
+	  cannot be covered or is Python version dependent.
+
+	  Furthermore, the get_module_list() function was removed
+	  from stdnum.util and more tests were made from stdnum.util
+	  and stdnum.numdb. The functionality to call format() in a
+	  country-specific IBAN implementation was also dropped because
+	  it was not used.
+
+2017-08-27  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [fbc92f8] stdnum/gb/upn.py: Add English Unique Pupil Number (UPN)
+
+2017-08-26  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [b8389eb] stdnum/ca/bn.py, tests/test_ca_bn.doctest: Add Canadian
+	  Business Number (BN)
+
+2017-08-26  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [efd2eb9] stdnum/ca/__init__.py, stdnum/ca/sin.py: Add Canadian
+	  Social Insurance Number (SIN)
+
+2017-08-24  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [b8e12d6] setup.cfg: Ensure all Python files are in coverage report
+
+2017-08-17  Mohammed Salman <mohammed@holvi.com>
+
+	* [0c91b43] stdnum/fi/veronumero.py: Implement Finnish individual
+	  tax number validation
+
+2017-07-11  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [bd0c7c7] online_check/check.js, online_check/stdnum.wsgi,
+	  online_check/template.html: Include search term in online form
+
+	  This also makes the Javascript regular expression used for
+	  highlighting links the same as the Python equivalent.
+
+2017-06-02  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [81446fd] stdnum/iso7064/mod_97_10.py: Use slightly more
+	  compact code
+
+	  This changes the alphanumeric to numeric translation to be
+	  slightly more compact and slightly faster.
+
+2017-04-16  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [ed9ac5b] tests/test_isbn.doctest: Add a few ISBNs found online
+
+	  This adds a number of ISBNs found online from various sources
+	  to the test suite.
+
+2017-04-15  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [57c12d8] stdnum/ismn.py, tests/test_ismn.doctest: An ISMN can
+	  only be 10 or 13 digits
+
+	  This also adds the test that an ISMN should start with 9790.
+
+2017-04-15  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [6fb2e89] stdnum/isbn.py, tests/test_isbn.doctest: Fix conversion
+	  of 9 digit ISBN to ISBN13
+
+2017-04-13  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [5604d91] docs/index.rst, setup.py, stdnum/fr/nir.py,
+	  stdnum/fr/siren.py, stdnum/gb/nhs.py, stdnum/isil.py,
+	  stdnum/iso6346.py, stdnum/lv/pvn.py, stdnum/nl/brin.py,
+	  stdnum/us/ein.dat, tests/test_al_nipt.doctest: Switch to HTTPS URLs
+
+2017-04-13  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [d14ea3b] online_check/README, online_check/check.js,
+	  online_check/stdnum.wsgi: Show possible conversions in online check
+
+	  This shows possible converted values. For example it will show
+	  ISBN13 conversions for ISBN10 values.
+
+2017-04-13  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [6b588d1] stdnum/damm.py: Fix bug in damm.is_valid() function
+
+2017-04-11  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [35542c1] ChangeLog, MANIFEST.in, NEWS, README, docs/index.rst,
+	  docs/stdnum.ar.cbu.rst, docs/stdnum.eu.eic.rst,
+	  docs/stdnum.eu.nace.rst, docs/stdnum.lei.rst,
+	  docs/stdnum.mc.tva.rst, docs/stdnum.rs.pib.rst, stdnum/__init__.py:
+	  Get files ready for 1.6 release
+
 2017-04-10  Arthur de Jong <arthur@arthurdejong.org>
 
 	* [93459d3] stdnum/cn/loc.dat, stdnum/eu/nace.dat, stdnum/iban.dat,

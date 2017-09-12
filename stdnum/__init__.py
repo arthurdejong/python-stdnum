@@ -39,6 +39,8 @@ Currently this package supports the following formats:
 * bg.vat: VAT (Идентификационен номер по ДДС, Bulgarian VAT number)
 * br.cnpj: CNPJ (Cadastro Nacional da Pessoa Jurídica, Brazillian company identifier)
 * br.cpf: CPF (Cadastro de Pessoas Físicas, Brazillian national identifier)
+* ca.bn: BN (Canadian Business Number)
+* ca.sin: SIN (Canadian Social Insurance Number)
 * ch.ssn: Swiss social security number ("Sozialversicherungsnummer")
 * ch.uid: UID (Unternehmens-Identifikationsnummer, Swiss business identifier)
 * ch.vat: VAT, MWST, TVA, IVA, TPV (Mehrwertsteuernummer, the Swiss VAT number)
@@ -49,6 +51,7 @@ Currently this package supports the following formats:
 * cy.vat: Αριθμός Εγγραφής Φ.Π.Α. (Cypriot VAT number)
 * cz.dic: DIČ (Daňové identifikační číslo, Czech VAT number)
 * cz.rc: RČ (Rodné číslo, the Czech birth number)
+* de.idnr: IdNr (Steuerliche Identifikationsnummer, German personal tax number)
 * de.vat: Ust ID Nr. (Umsatzsteur Identifikationnummer, German VAT number)
 * de.wkn: Wertpapierkennnummer (German securities identification code)
 * dk.cpr: CPR (personnummer, the Danish citizen number)
@@ -60,6 +63,7 @@ Currently this package supports the following formats:
 * ec.ruc: RUC (Registro Único de Contribuyentes, Ecuadorian company tax number)
 * ee.ik: Isikukood (Estonian Personcal ID number)
 * ee.kmkr: KMKR (Käibemaksukohuslase, Estonian VAT number)
+* ee.registrikood: Registrikood (Estonian organisation registration code)
 * es.ccc: CCC (Código Cuenta Corriente, Spanish Bank Account Code)
 * es.cif: CIF (Certificado de Identificación Fiscal, Spanish company tax number)
 * es.cups: CUPS (Código Unificado de Punto de Suministro, Supply Point Unified Code)
@@ -75,6 +79,7 @@ Currently this package supports the following formats:
 * fi.alv: ALV nro (Arvonlisäveronumero, Finnish VAT number)
 * fi.associationid: Finnish Association Identifier
 * fi.hetu: HETU (Henkilötunnus, Finnish personal identity code)
+* fi.veronumero: Veronumero (Finnish individual tax number)
 * fi.ytunnus: Y-tunnus (Finnish business identifier)
 * fr.nif: NIF (Numéro d'Immatriculation Fiscale, French tax identification number)
 * fr.nir: NIR (French personal identification number)
@@ -83,6 +88,7 @@ Currently this package supports the following formats:
 * fr.tva: n° TVA (taxe sur la valeur ajoutée, French VAT number)
 * gb.nhs: NHS (United Kingdom National Health Service patient identifier)
 * gb.sedol: SEDOL number (Stock Exchange Daily Official List number)
+* gb.upn: UPN (English Unique Pupil Number)
 * gb.vat: VAT (United Kingdom (and Isle of Man) VAT registration number)
 * gr.vat: FPA, ΦΠΑ, ΑΦΜ (Αριθμός Φορολογικού Μητρώου, the Greek VAT number)
 * grid: GRid (Global Release Identifier)
@@ -172,4 +178,4 @@ parsing, validation, formatting or conversion functions.
 
 
 # the version number of the library
-__version__ = '1.6'
+__version__ = '1.7'

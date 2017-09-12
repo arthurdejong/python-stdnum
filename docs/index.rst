@@ -100,6 +100,8 @@ Available formats
    bg.vat
    br.cnpj
    br.cpf
+   ca.bn
+   ca.sin
    ch.ssn
    ch.uid
    ch.vat
@@ -110,6 +112,7 @@ Available formats
    cy.vat
    cz.dic
    cz.rc
+   de.idnr
    de.vat
    de.wkn
    dk.cpr
@@ -121,6 +124,7 @@ Available formats
    ec.ruc
    ee.ik
    ee.kmkr
+   ee.registrikood
    es.ccc
    es.cif
    es.cups
@@ -136,6 +140,7 @@ Available formats
    fi.alv
    fi.associationid
    fi.hetu
+   fi.veronumero
    fi.ytunnus
    fr.nif
    fr.nir
@@ -144,6 +149,7 @@ Available formats
    fr.tva
    gb.nhs
    gb.sedol
+   gb.upn
    gb.vat
    gr.vat
    grid
