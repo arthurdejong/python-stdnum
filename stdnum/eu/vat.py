@@ -133,16 +133,65 @@ def check_vies(number):  # pragma: no cover (no tests for this function)
     return _get_client().checkVat(number[:2], number[2:])
 
 
-def check_vies_approx(number, requester):  # pragma: no cover
+def check_vies_approx(number, requester, company=None, company_type=None, address=None, zip=None,
+                      city=None):  # pragma: no cover
     """Query the online European Commission VAT Information Exchange System
     (VIES) for validity of the provided number, providing a validity
     certificate as proof. You will need to give your own VAT number for this
     to work. Note that the service has usage limitations (see the VIES
-    website for details). This returns a dict-like object."""
+    website for details). This returns a dict-like object.
+    
+    reply for non-ES:
+    {
+       countryCode = "GB"
+       vatNumber = "491848503"
+       requestDate = 2014-06-26
+       valid = True
+       traderName = "Some Company Inc."
+       traderCompanyType = "---"
+       traderAddress = "Imaginary address"
+       requestIdentifier = "XXXXXXXXXXXXXX"
+    }
+    reply for ES:
+    {
+        countryCode = "ES"
+        vatNumber = "ESB87352340"
+        requestDate = 2017-09-28
+        valid = False
+        traderName = "Some Company from Spain Inc."
+        traderCompanyType = None
+        traderStreet = "Plaza Ayuntamiento, 26"
+        traderPostcode = "46002"
+        traderCity = "Valencia"
+        traderNameMatch = "3"
+        traderCompanyTypeMatch = "3"
+        traderStreetMatch = "3"
+        traderPostcodeMatch = "3"
+        traderCityMatch = "3"
+        requestIdentifier = "XXXXXXXXXXXXXX"
+    }
+
+    <...Match> stays for:
+        1 == match
+        2 == no match
+        3 == not processed (no data supplied by sender)
+
+    <valid> stays for:
+        True == vatid is registered
+        False == vatid not registered
+    """
     # this function isn't automatically tested because it would require
     # network access for the tests and unnecessarily load the VIES website
     number = compact(number)
     requester = compact(requester)
     return _get_client().checkVatApprox(
-        countryCode=number[:2], vatNumber=number[2:],
-        requesterCountryCode=requester[:2], requesterVatNumber=requester[2:])
+            countryCode=number[:2],
+            vatNumber=number[2:],
+            requesterCountryCode=requester[:2],
+            requesterVatNumber=requester[2:],
+            traderName=company,
+            traderCompanyType=company_type,
+            traderStreet=address,
+            traderPostcode=zip,
+            traderCity=city
+        )
