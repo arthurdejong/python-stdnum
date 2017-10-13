@@ -1,6 +1,6 @@
 # rnc.py - functions for handling Dominican Republic tax registration
 #
-# Copyright (C) 2015 Arthur de Jong
+# Copyright (C) 2015-2017 Arthur de Jong
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -40,6 +40,15 @@ from stdnum.exceptions import *
 from stdnum.util import clean
 
 
+# list of RNCs that do not match the checksum but are nonetheless valid
+whitelist = set('''
+101581601 101582245 101595422 101595785 10233317 131188691 401007374
+501341601 501378067 501620371 501651319 501651823 501651845 501651926
+501656006 501658167 501670785 501676936 501680158 504654542 504680029
+504681442 505038691
+'''.split())
+
+
 def compact(number):
     """Convert the number to the minimal representation. This strips the
     number of any valid separators and removes surrounding whitespace."""
@@ -56,10 +65,12 @@ def calc_check_digit(number):
 def validate(number):
     """Check if the number provided is a valid RNC."""
     number = compact(number)
-    if len(number) != 9:
-        raise InvalidLength()
     if not number.isdigit():
         raise InvalidFormat()
+    if number in whitelist:
+        return number
+    if len(number) != 9:
+        raise InvalidLength()
     if calc_check_digit(number[:-1]) != number[-1]:
         raise InvalidChecksum()
     return number

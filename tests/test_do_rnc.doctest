@@ -1,6 +1,6 @@
 test_do_rnc.doctest - more detailed doctests for stdnum.do.rnc module
 
-Copyright (C) 2015 Arthur de Jong
+Copyright (C) 2015-2017 Arthur de Jong
 
 This library is free software; you can redistribute it and/or
 modify it under the terms of the GNU Lesser General Public
@@ -57,6 +57,7 @@ These have been found online and should all be valid numbers.
 
 >>> numbers = '''
 ...
+... 10233317
 ... 501050302
 ... 501249532
 ... 501275452
@@ -71,6 +72,7 @@ These have been found online and should all be valid numbers.
 ... 501494812
 ... 501496882
 ... 501670912
+... 501676936
 ... 501690832
 ... 501896112
 ... 501925082
