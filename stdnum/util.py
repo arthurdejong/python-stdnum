@@ -23,11 +23,6 @@
 This module is meant for internal use by stdnum modules and is not
 guaranteed to remain stable and as such not part of the public API of
 stdnum.
-
->>> get_cc_module('nl', 'vat').__name__
-'stdnum.nl.btw'
->>> get_cc_module('is', 'vat').__name__
-'stdnum.is_.vsk'
 """
 
 import pkgutil
@@ -164,7 +159,7 @@ def get_cc_module(cc, name):
     if cc in ('in', 'is', 'if'):
         cc += '_'
     try:
-        mod = __import__('stdnum.%s' % cc, globals(), locals(), [name])
+        mod = __import__('stdnum.%s' % cc, globals(), locals(), [str(name)])
         return getattr(mod, name, None)
     except ImportError:
         return
