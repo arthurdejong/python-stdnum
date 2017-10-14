@@ -164,7 +164,7 @@ def get_cc_module(cc, name):
     if cc in ('in', 'is', 'if'):
         cc += '_'
     try:
-        mod = __import__('stdnum.%s' % cc, globals(), locals(), [name])
+        mod = __import__('stdnum.%s' % str(cc), globals(), locals(), [str(name)])
         return getattr(mod, name, None)
     except ImportError:
         return
