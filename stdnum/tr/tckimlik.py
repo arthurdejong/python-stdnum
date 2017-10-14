@@ -53,10 +53,6 @@ tckimlik_wsdl = 'https://tckimlik.nvi.gov.tr/Service/KPSPublic.asmx?WSDL'
 """The WSDL URL of the T.C. Kimlik validation service."""
 
 
-# a cached version of the SOAP client for Kimlik validation
-_tckimlik_client = None
-
-
 def compact(number):
     """Convert the number to the minimal representation. This strips the
     number of any valid separators and removes surrounding whitespace."""
@@ -93,16 +89,6 @@ def is_valid(number):
         return False
 
 
-def _get_client():  # pragma: no cover (no tests for this function)
-    """Get a SOAP client for performing T.C. Kimlik validation."""
-    # this function isn't automatically tested because the functions using
-    # it are not automatically tested
-    global _tckimlik_client
-    if _tckimlik_client is None:
-        _tckimlik_client = get_soap_client(tckimlik_wsdl)
-    return _tckimlik_client
-
-
 def check_kps(number, name, surname, birth_year):  # pragma: no cover
     """Query the online T.C. Kimlik validation service run by the Directorate
     of Population and Citizenship Affairs. This returns a boolean but may
@@ -110,7 +96,8 @@ def check_kps(number, name, surname, birth_year):  # pragma: no cover
     # this function isn't automatically tested because it would require
     # network access for the tests and unnecessarily load the online service
     number = compact(number)
-    result = _get_client().TCKimlikNoDogrula(
+    client = get_soap_client(tckimlik_wsdl)
+    result = client.TCKimlikNoDogrula(
         TCKimlikNo=number, Ad=name, Soyad=surname, DogumYili=birth_year)
     if hasattr(result, 'get'):
         return result.get('TCKimlikNoDogrulaResult')

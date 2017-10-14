@@ -56,9 +56,6 @@ _country_modules = dict()
 vies_wsdl = 'http://ec.europa.eu/taxation_customs/vies/checkVatService.wsdl'
 """The WSDL URL of the VAT Information Exchange System (VIES)."""
 
-# a cached version of the suds client for VIES
-_vies_client = None
-
 
 def _get_cc_module(cc):
     """Get the VAT number module based on the country code."""
@@ -112,16 +109,6 @@ def guess_country(number):
             if _get_cc_module(cc).is_valid(number)]
 
 
-def _get_client():  # pragma: no cover (no tests for this function)
-    """Get a SOAP client for performing VIES requests."""
-    # this function isn't automatically tested because the functions using
-    # it are not automatically tested
-    global _vies_client
-    if _vies_client is None:
-        _vies_client = get_soap_client(vies_wsdl)
-    return _vies_client
-
-
 def check_vies(number):  # pragma: no cover (no tests for this function)
     """Query the online European Commission VAT Information Exchange System
     (VIES) for validity of the provided number. Note that the service has
@@ -130,7 +117,8 @@ def check_vies(number):  # pragma: no cover (no tests for this function)
     # this function isn't automatically tested because it would require
     # network access for the tests and unnecessarily load the VIES website
     number = compact(number)
-    return _get_client().checkVat(number[:2], number[2:])
+    client = get_soap_client(vies_wsdl)
+    return client.checkVat(number[:2], number[2:])
 
 
 def check_vies_approx(number, requester):  # pragma: no cover
@@ -143,6 +131,7 @@ def check_vies_approx(number, requester):  # pragma: no cover
     # network access for the tests and unnecessarily load the VIES website
     number = compact(number)
     requester = compact(requester)
-    return _get_client().checkVatApprox(
+    client = get_soap_client(vies_wsdl)
+    return client.checkVatApprox(
         countryCode=number[:2], vatNumber=number[2:],
         requesterCountryCode=requester[:2], requesterVatNumber=requester[2:])
