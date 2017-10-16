@@ -1,0 +1,159 @@
+test_do_ncf.doctest - more detailed doctests for stdnum.do.ncf module
+
+Copyright (C) 2017 Arthur de Jong
+
+This library is free software; you can redistribute it and/or
+modify it under the terms of the GNU Lesser General Public
+License as published by the Free Software Foundation; either
+version 2.1 of the License, or (at your option) any later version.
+
+This library is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+Lesser General Public License for more details.
+
+You should have received a copy of the GNU Lesser General Public
+License along with this library; if not, write to the Free Software
+Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
+02110-1301 USA
+
+
+This file contains more detailed doctests for the stdnum.do.ncf module. It
+tries to cover more corner cases and detailed functionality that is not
+really useful as module documentation.
+
+>>> from stdnum.do import ncf
+
+
+Some basic tests for invalid numbers:
+
+>>> ncf.validate('FJ10010010100000004')
+Traceback (most recent call last):
+    ...
+InvalidFormat: ...
+>>> ncf.validate('A0100100101000000')
+Traceback (most recent call last):
+    ...
+InvalidLength: ...
+>>> ncf.validate('A01001001010000003234')
+Traceback (most recent call last):
+    ...
+InvalidLength: ...
+>>> ncf.validate('A010010010500000004')
+Traceback (most recent call last):
+    ...
+InvalidComponent: ...
+>>> ncf.validate('Z010010011600000004')
+Traceback (most recent call last):
+    ...
+InvalidFormat: ...
+
+
+These have been found online and should all be valid numbers.
+
+>>> numbers = '''
+...
+... A010010010100000052
+... A010010010100001688
+... A010010010100003508
+... A010010010100003509
+... A010010011500000008
+... A010010011500000012
+... A010010011500000019
+... A010010011500000025
+... A010010011500000027
+... A010010011500000031
+... A010010011500000037
+... A010010011500000042
+... A010010011500000043
+... A010010011500000059
+... A010010011500000063
+... A010010011500000066
+... A010010011500000071
+... A010010011500000081
+... A010010011500000084
+... A010010011500000105
+... A010010011500000108
+... A010010011500000128
+... A010010011500000149
+... A010010011500000154
+... A010010011500000200
+... A010010011500000205
+... A010010011500000232
+... A010010011500000293
+... A010010011500000320
+... A010010011500000329
+... A010010011500000535
+... A010010011500000547
+... A010010011500000557
+... A010010011500000828
+... A010010011500000829
+... A010010011500000830
+... A010010011500000832
+... A010010011500000840
+... A010010011500000841
+... A010010011500000843
+... A010010011500000896
+... A010010011500000925
+... A010010011500000942
+... A010010011500001003
+... A010010011500001082
+... A010010011500001101
+... A010010011500001495
+... A010010011500002048
+... A010010011500002056
+... A010010011500002061
+... A010010011500002246
+... A010010011500002309
+... A010010011500002314
+... A010010011500002321
+... A010010011500002392
+... A010010011500003273
+... A010010011500003274
+... A010010011500003515
+... A010010011500003677
+... A010010011500004073
+... A010010011500004151
+... A010010011500004343
+... A010010011500004745
+... A010010011500005192
+... A010010011500005248
+... A010010011500005445
+... A010010011500005640
+... A010010011500005727
+... A010010011500006427
+... A010010011500007175
+... A010010011500007508
+... A010010011500007510
+... A010010011500008501
+... A010010011500012641
+... A010010011500012649
+... A010010011500013333
+... A010010011500042367
+... A010010011501344909
+... A010010011501344910
+... A010010011501500383
+... A010010031500051556
+... A010020011500000727
+... A010020011500000734
+... A010070051500004287
+... A010070051500004896
+... A010070051500004909
+... A010070051500004929
+... A020010011500002311
+... A020010011500003095
+... A020010011500024073
+... A020010011500431422
+... A020010230100003922
+... A020020011500000180
+... A020020011500000181
+... A030030011500002297
+... A040010011500010708
+... A040010011500012279
+... P010010011501235539
+... P010010011501528319
+... P010010011501528378
+...
+... '''
+>>> [x for x in numbers.splitlines() if x and not ncf.is_valid(x)]
+[]
