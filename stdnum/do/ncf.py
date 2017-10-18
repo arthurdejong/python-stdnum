@@ -40,8 +40,10 @@ Traceback (most recent call last):
 InvalidFormat: ...
 """
 
+import json
+
 from stdnum.exceptions import *
-from stdnum.util import clean
+from stdnum.util import clean, get_soap_client
 
 
 def compact(number):
@@ -80,3 +82,51 @@ def is_valid(number):
         return bool(validate(number))
     except ValidationError:
         return False
+
+
+def _convert_result(result):  # pragma: no cover
+    """Translate SOAP result entries into dictionaries."""
+    translation = {
+        'NOMBRE': 'name',
+        'COMPROBANTE': 'proof',
+        'ES_VALIDO': 'is_valid',
+        'MENSAJE_VALIDACION': 'validation_message',
+        'RNC': 'rnc',
+        'NCF': 'ncf',
+    }
+    return {
+        translation.get(key, key): value
+        for key, value in json.loads(result.replace('\t', '\\t')).items()}
+
+
+def check_dgii(rnc, ncf):  # pragma: no cover
+    """Validate the RNC, NCF combination on using the DGII online web service.
+
+    This uses the validation service run by the the Dirección General de
+    Impuestos Internos, the Dominican Republic tax department to check
+    whether the combination of RNC and NCF is valid.
+
+    Returns a dict with the following structure::
+
+        {
+            'name': 'The registered name',
+            'proof': 'Source of the information',
+            'is_valid': '1',
+            'validation_message': '',
+            'rnc': '123456789',
+            'ncf': 'A020010210100000005'
+        }
+
+    Will return None if the number is invalid or unknown."""
+    from stdnum.do.rnc import compact as rnc_compact
+    from stdnum.do.rnc import dgii_wsdl
+    rnc = rnc_compact(rnc)
+    ncf = compact(ncf)
+    client = get_soap_client(dgii_wsdl)
+    result = client.GetNCF(
+        RNC=rnc,
+        NCF=ncf,
+        IMEI='')
+    if result == '0':
+        return
+    return _convert_result(result)
