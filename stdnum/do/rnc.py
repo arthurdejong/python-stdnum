@@ -1,4 +1,5 @@
 # rnc.py - functions for handling Dominican Republic tax registration
+# coding: utf-8
 #
 # Copyright (C) 2015-2017 Arthur de Jong
 #
@@ -16,6 +17,8 @@
 # License along with this library; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 # 02110-1301 USA
+
+# Development of this functionality was funded by iterativo | http://iterativo.do
 
 """RNC (Registro Nacional del Contribuyente, Dominican Republic tax number).
 
@@ -36,8 +39,10 @@ InvalidChecksum: ...
 '1-31-24679-6'
 """
 
+import json
+
 from stdnum.exceptions import *
-from stdnum.util import clean
+from stdnum.util import clean, get_soap_client
 
 
 # list of RNCs that do not match the checksum but are nonetheless valid
@@ -47,6 +52,10 @@ whitelist = set('''
 501656006 501658167 501670785 501676936 501680158 504654542 504680029
 504681442 505038691
 '''.split())
+
+
+dgii_wsdl = 'http://www.dgii.gov.do/wsMovilDGII/WSMovilDGII.asmx?WSDL'
+"""The WSDL URL of DGII validation service."""
 
 
 def compact(number):
@@ -88,3 +97,93 @@ def format(number):
     """Reformat the number to the standard presentation format."""
     number = compact(number)
     return '-'.join((number[:1], number[1:3], number[3:-1], number[-1]))
+
+
+def _convert_result(result):  # pragma: no cover
+    """Translate SOAP result entries into dicts."""
+    translation = {
+        'RGE_RUC': 'rnc',
+        'RGE_NOMBRE': 'name',
+        'NOMBRE_COMERCIAL': 'commercial_name',
+        'CATEGORIA': 'category',
+        'REGIMEN_PAGOS': 'payment_regime',
+        'ESTATUS': 'status',
+        'RNUM': 'result_number',
+    }
+    return {
+        translation.get(key, key): value
+        for key, value in json.loads(result.replace('\t', '\\t')).items()}
+
+
+def check_dgii(number):  # pragma: no cover
+    """Lookup the number using the DGII online web service.
+
+    This uses the validation service run by the the Dirección General de
+    Impuestos Internos, the Dominican Republic tax department to lookup
+    registration information for the number.
+
+    Returns a dict with the following structure::
+
+        {
+            'rnc': '123456789',     # The requested number
+            'name': 'The registered name',
+            'commercial_name': 'An additional commercial name',
+            'status': '2',          # 1: inactive, 2: active
+            'category': '0',        # always 0?
+            'payment_regime': '2',  # 1: N/D, 2: NORMAL, 3: PST
+        }
+
+    Will return none if the number is invalid or unknown."""
+    # this function isn't automatically tested because it would require
+    # network access for the tests and unnecessarily load the online service
+    number = compact(number)
+    client = get_soap_client(dgii_wsdl)
+    result = '%s' % client.GetContribuyentes(
+        value=number,
+        patronBusqueda=0,   # search type: 0=by number, 1=by name
+        inicioFilas=1,      # start result (1-based)
+        filaFilas=1,        # end result
+        IMEI='')
+    if result == '0':
+        return
+    return _convert_result(result)
+
+
+def search_dgii(keyword, end_at=10, start_at=1):  # pragma: no cover
+    """Search the DGII online web service using the keyword.
+
+    This uses the validation service run by the the Dirección General de
+    Impuestos Internos, the Dominican Republic tax department to search the
+    registration information using the keyword.
+
+    The number of entries returned can be tuned with the `end_at` and
+    `start_at` arguments.
+
+    Returns a list of dicts with the following structure::
+
+        [
+            {
+                'rnc': '123456789',     # The found number
+                'name': 'The registered name',
+                'commercial_name': 'An additional commercial name',
+                'status': '2',          # 1: inactive, 2: active
+                'category': '0',        # always 0?
+                'payment_regime': '2',  # 1: N/D, 2: NORMAL, 3: PST
+                'result_number': '1',   # index of the result
+            },
+            ...
+        ]
+
+    Will return an empty list if the number is invalid or unknown."""
+    # this function isn't automatically tested because it would require
+    # network access for the tests and unnecessarily load the online service
+    client = get_soap_client(dgii_wsdl)
+    results = '%s' % client.GetContribuyentes(
+        value=keyword,
+        patronBusqueda=1,       # search type: 0=by number, 1=by name
+        inicioFilas=start_at,   # start result (1-based)
+        filaFilas=end_at,       # end result
+        IMEI='')
+    if results == '0':
+        return []
+    return [_convert_result(result) for result in results.split('@@@')]
