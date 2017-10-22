@@ -109,7 +109,7 @@ def guess_country(number):
             if _get_cc_module(cc).is_valid(number)]
 
 
-def check_vies(number):  # pragma: no cover (no tests for this function)
+def check_vies(number):  # pragma: no cover (not part of normal test suite)
     """Query the online European Commission VAT Information Exchange System
     (VIES) for validity of the provided number. Note that the service has
     usage limitations (see the VIES website for details). This returns a
