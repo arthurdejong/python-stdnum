@@ -169,7 +169,7 @@ def get_cc_module(cc, name):
 _soap_clients = {}
 
 
-def get_soap_client(wsdlurl):  # pragma: no cover (no tests for this function)
+def get_soap_client(wsdlurl):  # pragma: no cover (not part of normal test suite)
     """Get a SOAP client for performing requests. The client is cached."""
     # this function isn't automatically tested because the functions using
     # it are not automatically tested
@@ -178,13 +178,18 @@ def get_soap_client(wsdlurl):  # pragma: no cover (no tests for this function)
             from urllib import getproxies
         except ImportError:
             from urllib.request import getproxies
-        # try suds first
+        # try zeep first
         try:
-            from suds.client import Client
-            client = Client(wsdlurl, proxy=getproxies()).service
+            from zeep import CachingClient
+            client = CachingClient(wsdlurl).service
         except ImportError:
-            # fall back to using pysimplesoap
-            from pysimplesoap.client import SoapClient
-            client = SoapClient(wsdl=wsdlurl, proxy=getproxies())
+            # fall back to suds
+            try:
+                from suds.client import Client
+                client = Client(wsdlurl, proxy=getproxies()).service
+            except ImportError:
+                # use pysimplesoap as last resort
+                from pysimplesoap.client import SoapClient
+                client = SoapClient(wsdl=wsdlurl, proxy=getproxies())
         _soap_clients[wsdlurl] = client
     return _soap_clients[wsdlurl]
