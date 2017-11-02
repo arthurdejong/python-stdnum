@@ -98,6 +98,7 @@ Available formats
    bg.egn
    bg.pnf
    bg.vat
+   bic
    br.cnpj
    br.cpf
    ca.bn
@@ -169,7 +170,6 @@ Available formats
    isin
    ismn
    iso6346
-   iso9362
    issn
    it.codicefiscale
    it.iva

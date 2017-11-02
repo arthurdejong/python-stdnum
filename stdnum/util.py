@@ -30,6 +30,7 @@ import pydoc
 import re
 import sys
 import unicodedata
+import warnings
 
 from stdnum.exceptions import *
 
@@ -129,15 +130,18 @@ def clean(number, deletechars=''):
 
 
 def get_number_modules(base='stdnum'):
-    """Yield all the module and package names under the specified module."""
+    """Yield all the number validation modules under the specified module."""
     __import__(base)
     module = sys.modules[base]
-    for _loader, name, _is_pkg in pkgutil.walk_packages(
-            module.__path__, module.__name__ + '.'):
-        __import__(name)
-        module = sys.modules[name]
-        if hasattr(module, 'validate'):
-            yield module
+    # we ignore deprecation warnings from transitional modules
+    with warnings.catch_warnings():
+        warnings.filterwarnings('ignore', category=DeprecationWarning, module='stdnum\..*')
+        for _loader, name, _is_pkg in pkgutil.walk_packages(
+                module.__path__, module.__name__ + '.'):
+            __import__(name)
+            module = sys.modules[name]
+            if hasattr(module, 'validate') and module.__name__ == name:
+                yield module
 
 
 def get_module_name(module):
