@@ -106,5 +106,5 @@ def application(environ, start_response):
         return [json.dumps(results, indent=2, sort_keys=True)]
     start_response('200 OK', [('Content-Type', 'text/html')])
     return _template % dict(
-        value=cgi.escape(number),
+        value=cgi.escape(number, True),
         results='\n'.join(format(data) for data in results))
