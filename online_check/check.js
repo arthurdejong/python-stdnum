@@ -63,13 +63,30 @@ $( document ).ready(function() {
   function checkfield(field) {
     var value = field.val();
     // only trigger update if value changed from previous validation
-    if (value != $(this).data("oldvalue")) {
-      $(this).data("oldvalue", value);
-      $.get('', {number: value}, function(data) {
+    if (value != field.data("oldvalue")) {
+      field.data("oldvalue", value);
+      $.get('', {"number": value}, function(data) {
+        window.history.pushState({"value": value, "data": data}, $(document).find("title").text(), "?number=" + encodeURIComponent(value));
         updateresults(field, data);
       });
     }
   }
+
+  // update results based on history navigation
+  window.onpopstate = function(e) {
+    var field = $(".stdnum_check");
+    if (e.state) {
+      var value = e.state.value;
+      var data = e.state.data;
+      field.val(value)
+      field.data("oldvalue", value);
+      updateresults(field, data);
+    } else {
+      field.val("")
+      field.data("oldvalue", "");
+      updateresults(field, []);
+    }
+  };
 
   // trigger a check when user stopped typing
   $(".stdnum_check").on("input propertychange", function (event) {
@@ -102,5 +119,12 @@ $( document ).ready(function() {
 
   // focus the text field
   $(".stdnum_check").focus();
+
+  // save current state
+  var value = $(".stdnum_check").val();
+  $(".stdnum_check").data("oldvalue", value);
+  $.get('', {number: value}, function(data) {
+    window.history.replaceState({"value": value, "data": data}, $(document).find("title").text(), "?number=" + encodeURIComponent(value));
+  })
 
 });
