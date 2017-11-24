@@ -76,9 +76,9 @@ def format(data):
     for name, conversion in data.get('conversions', {}).items():
         description += '\n<br/><b><i>%s</i></b>: %s' % (
             cgi.escape(name), cgi.escape(conversion))
-    return '<li><b>%s</b><br/>%s<p>%s</p></li>' % (
-        cgi.escape(data['name']),
+    return '<li>%s: <b>%s</b><p>%s</p></li>' % (
         cgi.escape(data['number']),
+        cgi.escape(data['name']),
         description)
 
 

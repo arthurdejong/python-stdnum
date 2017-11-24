@@ -37,10 +37,11 @@ $( document ).ready(function() {
     var h = ["<ul>"];
     $.each(results, function(index, result) {
       h.push(
-        "<li><b>",
-        $("<div/>").text(result["name"]).html(),
-        "</b><br/>",
+        "<li>",
         $("<div/>").text(result["number"]).html(),
+        ": <b>",
+        $("<div/>").text(result["name"]).html(),
+        "</b>",
         "<p>",
         format(result["description"]),
         $.map(result["conversions"], function(value, key){
