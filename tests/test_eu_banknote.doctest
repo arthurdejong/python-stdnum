@@ -50,7 +50,9 @@ These should all be valid serial numbers.
 
 >>> numbers = '''
 ...
+... EA4100181598
 ... F00172834112
+... P08392800367
 ... P36007033744
 ... S22227803764
 ... SD9103468574
@@ -65,7 +67,6 @@ These should all be valid serial numbers.
 ... Y12470649328
 ... Z10708476264
 ... Z34706855889
-... ZA1567572696
 ...
 ... '''
 >>> [x for x in numbers.splitlines() if x and not banknote.is_valid(x)]
