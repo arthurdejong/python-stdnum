@@ -9,6 +9,7 @@ Available formats
 
 Currently this package supports the following formats:
 
+ * Aadhaar (Indian digital identity number UID, Indian resident personal identity number)
  * NIPT (Numri i Identifikimit për Personin e Tatueshëm, Albanian VAT number)
  * CBU (Clave Bancaria Uniforme, Argentine bank account number)
  * CUIT (Código Único de Identificación Tributaria, Argentinian tax number)
