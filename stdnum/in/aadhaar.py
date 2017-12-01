@@ -82,3 +82,11 @@ def is_valid(number):
         return bool(validate(number))
     except (InvalidChecksum, InvalidFormat, ValidationError) as e:
         return False
+
+def mask(number):
+    """Masks the first 8 digits as per MeitY privacy / security guidelines on safe
+    handling of aadhaar number"""
+    if is_valid(number):
+        return "XXXX XXXX " + number[-4:]
+    else:
+        return "Invalid Aadhaar"
