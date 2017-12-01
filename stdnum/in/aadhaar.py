@@ -34,16 +34,22 @@ True
 >>> validate('234123412347')  # 12 digit non-1 starting invalid checksum (incorrect check)
 Traceback (most recent call last):
     ...
-InvalidChecksum: ...
+InvalidChecksum: The number's checksum or check digit is invalid.
 
 >>> validate('123412341234')  # 12 digit number starting with 1 (incorrect check)
 Traceback (most recent call last):
     ...
-InvalidFormat: ...
+InvalidFormat: The number has an invalid format.
 >>> validate('6433435VH')  # Non 12 digit number (incorrect check)
 Traceback (most recent call last):
     ...
-InvalidFormat: ...
+InvalidFormat: The number has an invalid format.
+
+>>> mask('6433435VH')
+'Invalid Aadhaar'
+
+>>> mask('234123412346')
+'XXXX XXXX 2346'
 """
 
 import re
