@@ -86,6 +86,8 @@ Currently this package supports the following formats:
  * IMSI (International Mobile Subscriber Identity)
  * Kennitala (Icelandic personal and organisation identity code)
  * VSK number (Virðisaukaskattsnúmer, Icelandic VAT number)
+ * Aadhaar (Indian digital identity number UID, Indian resident personal identity number)
+ * PAN (Permanent Account Number - Indian income tax identier)
  * ISAN (International Standard Audiovisual Number)
  * ISBN (International Standard Book Number)
  * ISIL (International Standard Identifier for Libraries)
