@@ -1,4 +1,4 @@
-# aadhaar.py - functions for handling Irish PPS numbers
+# aadhaar.py - functions for handling Indian Aadhaar numbers
 #
 # Copyright (C) 2017 Srikanth L
 #
@@ -76,7 +76,7 @@ def validate(number):
 
 
 def is_valid(number):
-    """Check if the number provided is a valid PPS number. This checks the
+    """Check if the number provided is a valid Aadhaar number. This checks the
     length, formatting and check digit."""
     try:
         return bool(validate(number))
