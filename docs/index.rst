@@ -1,15 +1,7 @@
 .. module:: stdnum
 
-python-stdnum
-=============
-
-A Python module to parse, validate and reformat standard numbers and codes
-in different formats. It contains a large collection of number formats.
-
-Basically any number or code that has some validation mechanism available
-or some common formatting is eligible for inclusion in this library.
-
-https://arthurdejong.org/python-stdnum/
+.. include:: ../README
+   :end-before: Available formats
 
 
 Common Interface
@@ -26,8 +18,8 @@ Most of the number format modules implement the following functions:
 
 .. function:: is_valid(number)
 
-   Return either True or False depending on whether the passed number is
-   in any supported and valid form and passes all embedded checks of the
+   Return either ``True`` or ``False`` depending on whether the passed number
+   is in any supported and valid form and passes all embedded checks of the
    number. This function should never raise an exception.
 
 .. function:: compact(number)

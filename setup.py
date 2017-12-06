@@ -32,10 +32,15 @@ if 'sdist' in sys.argv:
     os.system('chmod -R a+rX .')
     os.umask(int('022', 8))
 
+base_dir = os.path.dirname(__file__)
+
+with open(os.path.join(base_dir, 'README'), 'r') as fp:
+    long_description = fp.read()
+
 setup(name='python-stdnum',
       version=stdnum.__version__,
       description='Python module to handle standardized numbers and codes',
-      long_description=stdnum.__doc__,
+      long_description=long_description,
       author='Arthur de Jong',
       author_email='arthur@arthurdejong.org',
       url='https://arthurdejong.org/python-stdnum/',

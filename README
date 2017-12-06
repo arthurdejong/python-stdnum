@@ -2,7 +2,13 @@ python-stdnum
 =============
 
 A Python module to parse, validate and reformat standard numbers and codes
-in different formats.
+in different formats. It contains a large collection of number formats.
+
+Basically any number or code that has some validation mechanism available
+or some common formatting is eligible for inclusion in this library.
+
+https://arthurdejong.org/python-stdnum/
+
 
 Available formats
 -----------------
@@ -152,17 +158,29 @@ and use of the specified numbers, only parsing and handling functions.
 Interface
 ---------
 
+All modules implement a common interface. For example for ISBN validation:
+
+    >>> from stdnum import isbn
+    >>> isbn.validate('978-9024538270')
+    '9789024538270'
+    >>> isbn.validate('978-9024538271')
+    Traceback (most recent call last):
+        ...
+    InvalidChecksum: ...
+
 Most of these modules implement the following functions:
 
-validate() - validate the correctness of the passed number and return a
-             compact representation of the number
-             invalid numbers are rejected with one of the exceptions
-             from the stdnum.exceptions module
-compact() - return a compact representation of the number or code
-            this function generally does not do validation but may raise
-            exceptions for wildly incorrect numbers
-format() - return a formatted version of the number in the preferred format
-           this function generally expects to be passed a valid number or code
+ * `validate()`
+    validate the correctness of the passed number and return a compact
+    representation of the number invalid numbers are rejected with one of the
+    exceptions from the stdnum.exceptions module
+ * `compact()`
+   return a compact representation of the number or code this function
+   generally does not do validation but may raise exceptions for wildly
+   incorrect numbers
+ * `format()`
+   return a formatted version of the number in the preferred format this
+   function generally expects to be passed a valid number or code
 
 Apart from the above, the module may add extra parsing, validation or
 conversion functions.
