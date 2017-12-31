@@ -1,7 +1,7 @@
 # util.py - common utility functions
 # coding: utf-8
 #
-# Copyright (C) 2012-2016 Arthur de Jong
+# Copyright (C) 2012-2017 Arthur de Jong
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -135,7 +135,7 @@ def get_number_modules(base='stdnum'):
     module = sys.modules[base]
     # we ignore deprecation warnings from transitional modules
     with warnings.catch_warnings():
-        warnings.filterwarnings('ignore', category=DeprecationWarning, module='stdnum\..*')
+        warnings.filterwarnings('ignore', category=DeprecationWarning, module=r'stdnum\..*')
         for _loader, name, _is_pkg in pkgutil.walk_packages(
                 module.__path__, module.__name__ + '.'):
             __import__(name)
