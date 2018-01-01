@@ -110,9 +110,9 @@ def _convert_result(result):  # pragma: no cover
         'ESTATUS': 'status',
         'RNUM': 'result_number',
     }
-    return {
-        translation.get(key, key): value
-        for key, value in json.loads(result.replace('\t', '\\t')).items()}
+    return dict(
+        (translation.get(key, key), value)
+        for key, value in json.loads(result.replace('\t', '\\t')).items())
 
 
 def check_dgii(number):  # pragma: no cover

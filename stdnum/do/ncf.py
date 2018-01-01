@@ -94,9 +94,9 @@ def _convert_result(result):  # pragma: no cover
         'RNC': 'rnc',
         'NCF': 'ncf',
     }
-    return {
-        translation.get(key, key): value
-        for key, value in json.loads(result.replace('\t', '\\t')).items()}
+    return dict(
+        (translation.get(key, key), value)
+        for key, value in json.loads(result.replace('\t', '\\t')).items())
 
 
 def check_dgii(rnc, ncf):  # pragma: no cover
