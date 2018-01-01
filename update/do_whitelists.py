@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# getdowhitelists.py - script to update the do.rnc and do.cedula whitelists
+# update/do_whitelists.py - script to update do.rnc and do.cedula whitelists
 #
 # Copyright (C) 2017 Arthur de Jong
 #
@@ -25,13 +25,18 @@ Internos (DGII) web site with lists of all RNC and Cedula values and outputs
 new whitelists for these modules."""
 
 import os.path
+import shutil
+import sys
+import tempfile
 import textwrap
 import urllib
 import zipfile
-import tempfile
-import shutil
 
-from stdnum.do import cedula, rnc
+# Ensure that we use our local stdnum implementation is used
+sys.path.insert(0, os.path.normpath(
+    os.path.join(os.path.dirname(os.path.abspath(__file__)), '..')))
+
+from stdnum.do import cedula, rnc  # noqa
 
 
 # The URL of the zip file with all valid numbers

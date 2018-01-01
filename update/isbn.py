@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 
-# getisbn.py - script to get ISBN prefix data
+# update/isbn.py - script to get ISBN prefix data
 #
-# Copyright (C) 2010-2016 Arthur de Jong
+# Copyright (C) 2010-2018 Arthur de Jong
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -25,9 +25,9 @@ ranges for those prefixes suitable for the numdb module. This data is needed
 to correctly split ISBNs into an EAN.UCC prefix, a group prefix, a registrant,
 an item number and a check-digit."""
 
-from xml.etree import ElementTree
 import ssl
 import urllib.request
+from xml.etree import ElementTree
 
 
 # the location of the ISBN Ranges XML file
@@ -35,6 +35,7 @@ download_url = 'https://www.isbn-international.org/export_rangemessage.xml'
 
 
 def ranges(group):
+    """Provide the ranges for the group."""
     for rule in group.find('Rules').findall('Rule'):
         length = int(rule.find('Length').text.strip())
         if length:
@@ -44,6 +45,7 @@ def ranges(group):
 
 
 def wrap(text):
+    """Rewrap the provided text into lines."""
     while text:
         i = len(text)
         if i > 73:
@@ -52,21 +54,18 @@ def wrap(text):
         text = text[i + 1:]
 
 
-def get(f=None):
-    if f is None:
-        yield '# generated from RangeMessage.xml, downloaded from'
-        yield '# %s' % download_url
-        ctx = ssl.SSLContext(ssl.PROTOCOL_TLSv1)
-        f = urllib.request.urlopen(download_url, context=ctx)
-    else:
-        yield '# generated from %r' % f
+if __name__ == '__main__':
+    print('# generated from RangeMessage.xml, downloaded from')
+    print('# %s' % download_url)
+    ctx = ssl.SSLContext(ssl.PROTOCOL_TLSv1)
+    f = urllib.request.urlopen(download_url, context=ctx)
 
     # parse XML document
     msg = ElementTree.parse(f).getroot()
 
     # dump data from document
-    yield '# file serial %s' % msg.find('MessageSerialNumber').text.strip()
-    yield '# file date %s' % msg.find('MessageDate').text.strip()
+    print('# file serial %s' % msg.find('MessageSerialNumber').text.strip())
+    print('# file date %s' % msg.find('MessageDate').text.strip())
 
     top_groups = dict(
         (x.find('Prefix').text.strip(), x)
@@ -77,16 +76,10 @@ def get(f=None):
         top, prefix = group.find('Prefix').text.strip().split('-')
         agency = group.find('Agency').text.strip()
         if top != prevtop:
-            yield top
+            print(top)
             for line in wrap(','.join(ranges(top_groups[top]))):
-                yield ' %s' % line
+                print(' %s' % line)
             prevtop = top
-        yield ' %s agency="%s"' % (prefix, agency)
+        print(' %s agency="%s"' % (prefix, agency))
         for line in wrap(','.join(ranges(group))):
-            yield '  %s' % line
-
-
-if __name__ == '__main__':
-    # get('RangeMessage.xml')
-    for row in get():
-        print(row)
+            print('  %s' % line)
