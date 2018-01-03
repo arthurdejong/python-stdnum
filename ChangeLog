@@ -1,3 +1,241 @@
+2018-01-03  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [db9b278] tox.ini: Fix Sphinx dependency name
+
+2018-01-03  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [fbb9d24] docs/index.rst, stdnum/__init__.py: Move get_cc_module()
+	  function to package for public use
+
+2018-01-03  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [7bb0e5f] setup.py, stdnum/util.py: Try the non-caching zeep
+	  client on older versions
+
+	  This uses the "normal" Client class from zeep if CachingClient
+	  is not available (this is the case on older zeep versions).
+
+	  This also records (and documents) the dependencies for SOAP
+	  libraries in setup.py.
+
+2018-01-01  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [6d7ba46] .travis.yml: Add a Travis configuration file
+
+2018-01-01  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [db7be06] stdnum/do/ncf.py, stdnum/do/rnc.py, tox.ini: Fix Python
+	  2.6 compatibility
+
+2018-01-01  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [8107f08] stdnum/cn/loc.dat, stdnum/eu/nace.dat, stdnum/imsi.dat,
+	  stdnum/isbn.dat, stdnum/us/ein.dat: Update database files
+
+	  Note that the Swift IBAN Registry in txt format is currently
+	  unavailable so hasn't been updated.
+
+2018-01-01  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [e781eee] MANIFEST.in, tox.ini, update/README, update/cn_loc.py,
+	  update/do_whitelists.py, update/eu_nace.py, update/iban.py,
+	  update/imsi.py, update/isbn.py, update/isil.py, update/my_bp.py,
+	  update/numlist.py, update/requirements.txt: Move update scripts
+	  to own directory
+
+	  This moves all the update scripts to their own directory so they
+	  don't clutter the toplevel directory.
+
+	  This also ensures that the scripts are passed through flake8
+	  and makes some adjustments for that alongside a few other cleanups.
+
+2017-12-01  srikanthlogic <srik.lak@gmail.com>
+
+	* [442aa82] stdnum/in_/pan.py, tests/test_in_pan.doctest: Add
+	  Indian PAN
+
+	  Closes https://github.com/arthurdejong/python-stdnum/pull/57
+
+2017-12-31  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [8a34b4e] stdnum/util.py: Correctly quote regular expression
+
+	  Fixes a6ae1d0.
+
+2017-12-31  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [271b9e4] docs/stdnum.is_.kennitala.rst, docs/stdnum.is_.vsk.rst,
+	  tox.ini: Add Sphinx documentation checks
+
+	  This also fixes an escaping issue in the automatically generated
+	  documentation for modules that end with an underscore.
+
+2017-12-06  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [be094f8] README, docs/conf.py, docs/index.rst, getnumlist.py,
+	  setup.py, stdnum/__init__.py: Use README as package long
+	  description
+
+	  This also shortens the stdnum module docstring and updates the
+	  Sphinx configuration.
+
+2017-12-01  srikanthlogic <srik.lak@gmail.com>
+
+	* [c576bc4] stdnum/in_/__init__.py, stdnum/in_/aadhaar.py: Add
+	  Indian Aadhaar
+
+	  Closes https://github.com/arthurdejong/python-stdnum/pull/56
+
+2017-11-26  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [bafdb70] stdnum/casrn.py, tests/test_casrn.doctest: Add CAS
+	  Registry Number
+
+	  This adds validation of the Chemical Abstracts Service Registry
+	  Number.
+
+2017-11-24  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [d5f97e9] online_check/check.js, online_check/stdnum.wsgi:
+	  Change output of online lookups
+
+	  This puts the number before the number name to make it a little
+	  clearer.
+
+2017-11-24  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [f7b4615] online_check/check.js: Store online check numbers
+	  in history
+
+	  This updates the browser history with with the numbers that
+	  were checked so that you can easily go back and forth between
+	  checked number.
+
+2017-11-24  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [7cb114b] online_check/stdnum.wsgi: Correctly escape number for
+	  use in attribute
+
+2017-11-26  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [90067f7] tests/test_eu_banknote.doctest: Fix incorrect banknote
+	  test
+
+	  Also add a few verified correct numbers.
+
+	  Fixes b7b812c.
+
+2017-11-22  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [b7b812c] stdnum/eu/banknote.py, tests/test_eu_banknote.doctest:
+	  Add Euro bank notes serial number
+
+	  This adds validation of serial numbers that appear on Euro bills.
+
+2017-11-02  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [a6ae1d0] docs/index.rst, docs/stdnum.bic.rst,
+	  docs/stdnum.iso9362.rst, stdnum/bic.py, stdnum/iso9362.py,
+	  stdnum/util.py: Rename stdnum.iso9362 to stdnum.bic
+
+	  The new name is more descriptive and easier to remember. This
+	  makes stdnum.iso9362 a compatibility module that can be imported
+	  with the old name but provides a deprecation warning.
+
+2017-10-22  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [6be1754] stdnum/util.py: Support zeep as preferred SOAP library
+
+	  This tries zeep, suds (suds-jurko) and falls back to using
+	  pysimplesoap for performing the SOAP requests. From those zeep
+	  seems to be the best supported implementation.
+
+2017-10-22  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [9ab1d66] stdnum/eu/vat.py, tests/test_eu_vat.py: Add tests for
+	  the VIES VAT validation functions
+
+	  These tests are not normally run as part of the normal test suite
+	  and have to be explicitly enabled by setting the ONLINE_TESTS
+	  environment variable to avoid overloading these online services.
+
+2017-10-18  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [ab21159] stdnum/do/ncf.py, tests/test_do_ncf.py: Add
+	  stdnum.do.ncf.check_dgii()
+
+	  This adds functions for querying the Dirección General de
+	  Impuestos Internos (DGII) API to check if the RNC and NCF
+	  combination provided is valid.
+
+2017-10-18  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [6b09c5d] stdnum/do/rnc.py, tests/test_do_rnc.py, tox.ini:
+	  Add stdnum.do.rnc.check_dgii() and search_dgii()
+
+	  This adds functions for querying the Dirección General de
+	  Impuestos Internos (DGII) API to validate the RNC and search
+	  the register by keyword.
+
+2017-10-16  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [665bf7a] stdnum/do/ncf.py, tests/test_do_ncf.doctest: Add
+	  Dominican Republic receipt number (NCF)
+
+	  This number does not have a check digit but uses a distinctive
+	  enough format that it should not be too great of a problem.
+
+2017-10-14  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [4ab1e3b] stdnum/eu/vat.py, stdnum/tr/tckimlik.py, stdnum/util.py:
+	  Cache SOAP client in get_soap_client()
+
+	  This caches the instantiated SOAP client classes in the util
+	  module instead of doing the caching in every module that performs
+	  requests.
+
+2017-10-18  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [cecd35c] getdowhitelists.py: Add a script for updating RNC and
+	  Cedula whitelists
+
+2017-10-13  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [399321b] stdnum/do/rnc.py, tests/test_do_rnc.doctest: Also add
+	  a whitelist for Dominican Republic RNC
+
+	  Some RNCs are apparently valid while having an incorrect check
+	  digit (though most appear to be inactive). There also appear to
+	  be valid RNCs that do not have 9 digits.
+
+2017-10-13  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [58511dc] stdnum/do/cedula.py, tests/test_do_cedula.doctest:
+	  Add a few new numbers to the Cedula whitelist
+
+	  These numbers were found to be valid but had an invalid check
+	  digit nonetheless (though most appear to be inactive). Also
+	  there appear to be a few valid Cedula that do not have 11 digits.
+
+2017-10-13  David Arnold <dar@devco.co>
+
+	* [74c1721] stdnum/util.py, tests/test_util.doctest: Handle unicode
+	  arguments in get_cc_module()
+
+	  Closes https://github.com/arthurdejong/python-stdnum/issues/54
+
+2017-09-15  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [12cd072] stdnum/eu/at_02.py: Fix spelling errors
+
+2017-09-12  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [4496ffe] ChangeLog, NEWS, README, docs/index.rst,
+	  docs/stdnum.ca.bn.rst, docs/stdnum.ca.sin.rst,
+	  docs/stdnum.de.idnr.rst, docs/stdnum.ee.registrikood.rst,
+	  docs/stdnum.fi.veronumero.rst, docs/stdnum.gb.upn.rst,
+	  stdnum/__init__.py: Get files ready for 1.7 release
+
 2017-09-12  Arthur de Jong <arthur@arthurdejong.org>
 
 	* [28092b3] stdnum/damm.py: Add example with custom table to Damm

@@ -22,9 +22,15 @@
 """This script uses introspection to present a list of number formats
 suitable to be included in the README and stdnum package description."""
 
+import os.path
 import pydoc
+import sys
 
-from stdnum import util
+# Ensure that we use our local stdnum implementation is used
+sys.path.insert(0, os.path.normpath(
+    os.path.join(os.path.dirname(os.path.abspath(__file__)), '..')))
+
+from stdnum import util  # noqa
 
 
 # these are excluded

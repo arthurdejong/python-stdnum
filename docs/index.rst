@@ -114,6 +114,7 @@ Available formats
    br.cpf
    ca.bn
    ca.sin
+   casrn
    ch.ssn
    ch.uid
    ch.vat
@@ -130,6 +131,7 @@ Available formats
    dk.cpr
    dk.cvr
    do.cedula
+   do.ncf
    do.rnc
    ean
    ec.ci
@@ -146,6 +148,7 @@ Available formats
    es.nif
    es.referenciacatastral
    eu.at_02
+   eu.banknote
    eu.eic
    eu.nace
    eu.vat
@@ -173,6 +176,8 @@ Available formats
    imei
    imo
    imsi
+   in_.aadhaar
+   in_.pan
    is_.kennitala
    is_.vsk
    isan

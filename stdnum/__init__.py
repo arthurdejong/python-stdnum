@@ -1,7 +1,7 @@
 # __init__.py - main module
 # coding: utf-8
 #
-# Copyright (C) 2010-2017 Arthur de Jong
+# Copyright (C) 2010-2018 Arthur de Jong
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -42,4 +42,4 @@ from stdnum.util import get_cc_module
 __all__ = ('get_cc_module', '__version__')
 
 # the version number of the library
-__version__ = '1.7'
+__version__ = '1.8'

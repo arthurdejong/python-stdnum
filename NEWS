@@ -1,3 +1,28 @@
+changes from 1.7 to 1.8
+-----------------------
+
+* add modules for the following number formats:
+ - NCF (Números de Comprobante Fiscal, Dominican Republic receipt number)
+ - Euro banknote serial numbers
+ - CAS RN (Chemical Abstracts Service Registry Number)
+ - Aadhaar (Indian digital resident personal identity number)
+   (thanks Srikanth Lakshmanan)
+ - PAN (Permanent Account Number, Indian income tax identifier)
+   (thanks Srikanth Lakshmanan)
+* add functions for using the Dominican Republic DGII web service to validate
+  and search for RNC and NCF numbers
+* add/update whitelists for Dominican Republic RNC and Cedula
+* support zeep as preferred SOAP library (suds and pysimplesoap are tried
+  as fallback)
+* rename stdnum.iso9362 to stdnum.bic (iso9362 is deprecated but still
+  available for compatibility)
+* add tests for web services (not normally run to avoid unnecessary load)
+* fixes and improvement to the sample online validation service
+
+Development of the NCF format validation and DGII web service validation
+was funded by iterativo | http://iterativo.do
+
+
 changes from 1.6 to 1.7
 -----------------------
 
