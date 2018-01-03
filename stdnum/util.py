@@ -178,22 +178,28 @@ def get_soap_client(wsdlurl):  # pragma: no cover (not part of normal test suite
     # this function isn't automatically tested because the functions using
     # it are not automatically tested
     if wsdlurl not in _soap_clients:
-        try:
-            from urllib import getproxies
-        except ImportError:
-            from urllib.request import getproxies
         # try zeep first
         try:
             from zeep import CachingClient
             client = CachingClient(wsdlurl).service
         except ImportError:
-            # fall back to suds
+            # fall back to non-caching zeep client
             try:
-                from suds.client import Client
-                client = Client(wsdlurl, proxy=getproxies()).service
+                from zeep import Client
+                client = Client(wsdlurl).service
             except ImportError:
-                # use pysimplesoap as last resort
-                from pysimplesoap.client import SoapClient
-                client = SoapClient(wsdl=wsdlurl, proxy=getproxies())
+                # other implementations require passing the proxy config
+                try:
+                    from urllib import getproxies
+                except ImportError:
+                    from urllib.request import getproxies
+                # fall back to suds
+                try:
+                    from suds.client import Client
+                    client = Client(wsdlurl, proxy=getproxies()).service
+                except ImportError:
+                    # use pysimplesoap as last resort
+                    from pysimplesoap.client import SoapClient
+                    client = SoapClient(wsdl=wsdlurl, proxy=getproxies())
         _soap_clients[wsdlurl] = client
     return _soap_clients[wsdlurl]
