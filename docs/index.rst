@@ -9,26 +9,26 @@ Common Interface
 
 Most of the number format modules implement the following functions:
 
-.. function:: validate(number)
+.. function:: module.validate(number)
 
    Validate the number and return a compact, consistent representation of
    the number or code. If the validation fails,
    :mod:`an exception <.exceptions>` is raised that indicates the type of
    error.
 
-.. function:: is_valid(number)
+.. function:: module.is_valid(number)
 
    Return either ``True`` or ``False`` depending on whether the passed number
    is in any supported and valid form and passes all embedded checks of the
    number. This function should never raise an exception.
 
-.. function:: compact(number)
+.. function:: module.compact(number)
 
    Return a compact representation of the number or code. This function
    generally does not do validation but may raise exceptions for wildly
    invalid numbers.
 
-.. function:: format(number)
+.. function:: module.format(number)
 
    Return a formatted version of the number in the preferred format.
    This function generally expects to be passed a valid number or code and
@@ -36,13 +36,13 @@ Most of the number format modules implement the following functions:
 
 The check digit modules generally also provide the following functions:
 
-.. function:: checksum(number)
+.. function:: module.checksum(number)
 
    Calculate the checksum over the provided number. This is generally a
    number that can be used to determine whether the provided number is
    valid. It depends on the algorithm which checksum is considered valid.
 
-.. function:: calc_check_digit(number)
+.. function:: module.calc_check_digit(number)
 
    Calculate the check digit that should be added to the number to make it
    valid.
@@ -51,13 +51,32 @@ Apart from the above, the modules may add extra parsing, validation or
 conversion functions.
 
 
-Helper modules
---------------
+Helper functions and modules
+----------------------------
 
 .. autosummary::
    :toctree:
 
    exceptions
+
+.. autofunction:: get_cc_module
+
+   Searches the stdnum collection of modules for a number format for a
+   particular country. `name` may be an aliased name. For example:
+
+       >>> from stdnum import get_cc_module
+       >>> get_cc_module('nl', 'vat')
+       <module 'stdnum.nl.btw' from '...'>
+
+   Will return ``None`` if no module could be found. The generic names that
+   are currently in use:
+
+   * ``'vat'`` for value added tax numbers
+   * ``'businessid'`` for generic business identifiers (although some countries
+     may have multiple)
+   * ``'personalid'`` for generic personal identifiers (some countries may have
+     multiple, especially for tax purposes)
+   * ``'postcal_code'`` for address postal codes
 
 
 Generic check digit algorithms

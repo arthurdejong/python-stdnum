@@ -37,6 +37,9 @@ Apart from the validate() function, many modules provide extra
 parsing, validation, formatting or conversion functions.
 """
 
+from stdnum.util import get_cc_module
+
+__all__ = ('get_cc_module', '__version__')
 
 # the version number of the library
 __version__ = '1.7'
