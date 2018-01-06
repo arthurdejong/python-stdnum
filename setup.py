@@ -34,8 +34,8 @@ if 'sdist' in sys.argv:
 
 base_dir = os.path.dirname(__file__)
 
-with open(os.path.join(base_dir, 'README'), 'r', encoding='utf-8') as fp:
-    long_description = fp.read()
+with open(os.path.join(base_dir, 'README'), 'rb') as fp:
+    long_description = fp.read().decode('utf-8')
 
 setup(name='python-stdnum',
       version=stdnum.__version__,
