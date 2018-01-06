@@ -1,3 +1,30 @@
+2018-01-06  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [820c233] README: Fix feedback section in README to be valid RST
+
+2018-01-06  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [ab8a871] setup.py: Update long description in compatible way
+
+	  This ensures that the README is read correctly on all supported
+	  Python interpreters.
+
+	  Fixes 1304122
+
+2018-01-05  5j9 <5j9@users.noreply.github.com>
+
+	* [1304122] setup.py: setup.py: Open README with utf-8 encoding
+
+	  Fixes #59
+
+2018-01-03  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [ae89e82] ChangeLog, MANIFEST.in, NEWS, README, docs/conf.py,
+	  docs/index.rst, docs/stdnum.casrn.rst, docs/stdnum.do.ncf.rst,
+	  docs/stdnum.eu.banknote.rst, docs/stdnum.in_.aadhaar.rst,
+	  docs/stdnum.in_.pan.rst, setup.cfg, stdnum/__init__.py,
+	  update/numlist.py: Get files ready for 1.8 release
+
 2018-01-03  Arthur de Jong <arthur@arthurdejong.org>
 
 	* [db9b278] tox.ini: Fix Sphinx dependency name
