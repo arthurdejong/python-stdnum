@@ -1,7 +1,7 @@
 # tckimlik.py - functions for handling T.C. Kimlik No.
 # coding: utf-8
 #
-# Copyright (C) 2016-2017 Arthur de Jong
+# Copyright (C) 2016-2018 Arthur de Jong
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -89,14 +89,15 @@ def is_valid(number):
         return False
 
 
-def check_kps(number, name, surname, birth_year):  # pragma: no cover
+def check_kps(number, name, surname, birth_year, timeout):  # pragma: no cover
     """Query the online T.C. Kimlik validation service run by the Directorate
-    of Population and Citizenship Affairs. This returns a boolean but may
-    raise a SOAP exception for missing or invalid values."""
+    of Population and Citizenship Affairs. The timeout is in seconds. This
+    returns a boolean but may raise a SOAP exception for missing or invalid
+    values."""
     # this function isn't automatically tested because it would require
     # network access for the tests and unnecessarily load the online service
     number = compact(number)
-    client = get_soap_client(tckimlik_wsdl)
+    client = get_soap_client(tckimlik_wsdl, timeout)
     result = client.TCKimlikNoDogrula(
         TCKimlikNo=number, Ad=name, Soyad=surname, DogumYili=birth_year)
     if hasattr(result, 'get'):

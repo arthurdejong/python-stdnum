@@ -1,7 +1,7 @@
 # util.py - common utility functions
 # coding: utf-8
 #
-# Copyright (C) 2012-2017 Arthur de Jong
+# Copyright (C) 2012-2018 Arthur de Jong
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -173,20 +173,23 @@ def get_cc_module(cc, name):
 _soap_clients = {}
 
 
-def get_soap_client(wsdlurl):  # pragma: no cover (not part of normal test suite)
-    """Get a SOAP client for performing requests. The client is cached."""
+def get_soap_client(wsdlurl, timeout=30):  # pragma: no cover (not part of normal test suite)
+    """Get a SOAP client for performing requests. The client is cached. The
+    timeout is in seconds."""
     # this function isn't automatically tested because the functions using
     # it are not automatically tested
-    if wsdlurl not in _soap_clients:
+    if (wsdlurl, timeout) not in _soap_clients:
         # try zeep first
         try:
+            from zeep.transports import Transport
+            transport = Transport(timeout=timeout)
             from zeep import CachingClient
-            client = CachingClient(wsdlurl).service
+            client = CachingClient(wsdlurl, transport=transport).service
         except ImportError:
             # fall back to non-caching zeep client
             try:
                 from zeep import Client
-                client = Client(wsdlurl).service
+                client = Client(wsdlurl, transport=transport).service
             except ImportError:
                 # other implementations require passing the proxy config
                 try:
@@ -196,10 +199,16 @@ def get_soap_client(wsdlurl):  # pragma: no cover (not part of normal test suite
                 # fall back to suds
                 try:
                     from suds.client import Client
-                    client = Client(wsdlurl, proxy=getproxies()).service
+                    client = Client(
+                        wsdlurl, proxy=getproxies(), timeout=timeout).service
                 except ImportError:
                     # use pysimplesoap as last resort
-                    from pysimplesoap.client import SoapClient
-                    client = SoapClient(wsdl=wsdlurl, proxy=getproxies())
-        _soap_clients[wsdlurl] = client
-    return _soap_clients[wsdlurl]
+                    try:
+                        from pysimplesoap.client import SoapClient
+                        client = SoapClient(
+                            wsdl=wsdlurl, proxy=getproxies(), timeout=timeout)
+                    except ImportError:
+                        raise ImportError(
+                            'No SOAP library (such as zeep) found')
+        _soap_clients[(wsdlurl, timeout)] = client
+    return _soap_clients[(wsdlurl, timeout)]

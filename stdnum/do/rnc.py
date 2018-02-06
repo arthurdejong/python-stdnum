@@ -1,7 +1,7 @@
 # rnc.py - functions for handling Dominican Republic tax registration
 # coding: utf-8
 #
-# Copyright (C) 2015-2017 Arthur de Jong
+# Copyright (C) 2015-2018 Arthur de Jong
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -115,12 +115,12 @@ def _convert_result(result):  # pragma: no cover
         for key, value in json.loads(result.replace('\t', '\\t')).items())
 
 
-def check_dgii(number):  # pragma: no cover
+def check_dgii(number, timeout=30):  # pragma: no cover
     """Lookup the number using the DGII online web service.
 
     This uses the validation service run by the the Dirección General de
     Impuestos Internos, the Dominican Republic tax department to lookup
-    registration information for the number.
+    registration information for the number. The timeout is in seconds.
 
     Returns a dict with the following structure::
 
@@ -137,7 +137,7 @@ def check_dgii(number):  # pragma: no cover
     # this function isn't automatically tested because it would require
     # network access for the tests and unnecessarily load the online service
     number = compact(number)
-    client = get_soap_client(dgii_wsdl)
+    client = get_soap_client(dgii_wsdl, timeout)
     result = '%s' % client.GetContribuyentes(
         value=number,
         patronBusqueda=0,   # search type: 0=by number, 1=by name
@@ -149,7 +149,7 @@ def check_dgii(number):  # pragma: no cover
     return _convert_result(result)
 
 
-def search_dgii(keyword, end_at=10, start_at=1):  # pragma: no cover
+def search_dgii(keyword, end_at=10, start_at=1, timeout=30):  # pragma: no cover
     """Search the DGII online web service using the keyword.
 
     This uses the validation service run by the the Dirección General de
@@ -157,7 +157,7 @@ def search_dgii(keyword, end_at=10, start_at=1):  # pragma: no cover
     registration information using the keyword.
 
     The number of entries returned can be tuned with the `end_at` and
-    `start_at` arguments.
+    `start_at` arguments. The timeout is in seconds.
 
     Returns a list of dicts with the following structure::
 
@@ -177,7 +177,7 @@ def search_dgii(keyword, end_at=10, start_at=1):  # pragma: no cover
     Will return an empty list if the number is invalid or unknown."""
     # this function isn't automatically tested because it would require
     # network access for the tests and unnecessarily load the online service
-    client = get_soap_client(dgii_wsdl)
+    client = get_soap_client(dgii_wsdl, timeout)
     results = '%s' % client.GetContribuyentes(
         value=keyword,
         patronBusqueda=1,       # search type: 0=by number, 1=by name

@@ -1,7 +1,7 @@
 # vat.py - functions for handling European VAT numbers
 # coding: utf-8
 #
-# Copyright (C) 2012-2016 Arthur de Jong
+# Copyright (C) 2012-2018 Arthur de Jong
 # Copyright (C) 2015 Lionel Elie Mamane
 #
 # This library is free software; you can redistribute it and/or
@@ -109,29 +109,30 @@ def guess_country(number):
             if _get_cc_module(cc).is_valid(number)]
 
 
-def check_vies(number):  # pragma: no cover (not part of normal test suite)
+def check_vies(number, timeout=30):  # pragma: no cover (not part of normal test suite)
     """Query the online European Commission VAT Information Exchange System
     (VIES) for validity of the provided number. Note that the service has
-    usage limitations (see the VIES website for details). This returns a
-    dict-like object."""
+    usage limitations (see the VIES website for details). The timeout is in
+    seconds. This returns a dict-like object."""
     # this function isn't automatically tested because it would require
     # network access for the tests and unnecessarily load the VIES website
     number = compact(number)
-    client = get_soap_client(vies_wsdl)
+    client = get_soap_client(vies_wsdl, timeout)
     return client.checkVat(number[:2], number[2:])
 
 
-def check_vies_approx(number, requester):  # pragma: no cover
+def check_vies_approx(number, requester, timeout=30):  # pragma: no cover
     """Query the online European Commission VAT Information Exchange System
     (VIES) for validity of the provided number, providing a validity
     certificate as proof. You will need to give your own VAT number for this
     to work. Note that the service has usage limitations (see the VIES
-    website for details). This returns a dict-like object."""
+    website for details). The timeout is in seconds. This returns a dict-like
+    object."""
     # this function isn't automatically tested because it would require
     # network access for the tests and unnecessarily load the VIES website
     number = compact(number)
     requester = compact(requester)
-    client = get_soap_client(vies_wsdl)
+    client = get_soap_client(vies_wsdl, timeout)
     return client.checkVatApprox(
         countryCode=number[:2], vatNumber=number[2:],
         requesterCountryCode=requester[:2], requesterVatNumber=requester[2:])

@@ -1,7 +1,7 @@
 # ncf.py - functions for handling Dominican Republic invoice numbers
 # coding: utf-8
 #
-# Copyright (C) 2017 Arthur de Jong
+# Copyright (C) 2018 Arthur de Jong
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -99,12 +99,13 @@ def _convert_result(result):  # pragma: no cover
         for key, value in json.loads(result.replace('\t', '\\t')).items())
 
 
-def check_dgii(rnc, ncf):  # pragma: no cover
+def check_dgii(rnc, ncf, timeout=30):  # pragma: no cover
     """Validate the RNC, NCF combination on using the DGII online web service.
 
     This uses the validation service run by the the Dirección General de
     Impuestos Internos, the Dominican Republic tax department to check
-    whether the combination of RNC and NCF is valid.
+    whether the combination of RNC and NCF is valid. The timeout is in
+    seconds.
 
     Returns a dict with the following structure::
 
@@ -122,7 +123,7 @@ def check_dgii(rnc, ncf):  # pragma: no cover
     from stdnum.do.rnc import dgii_wsdl
     rnc = rnc_compact(rnc)
     ncf = compact(ncf)
-    client = get_soap_client(dgii_wsdl)
+    client = get_soap_client(dgii_wsdl, timeout)
     result = client.GetNCF(
         RNC=rnc,
         NCF=ncf,
