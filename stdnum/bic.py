@@ -30,6 +30,8 @@ branch code.
 
 >>> validate('AGRIFRPP882')
 'AGRIFRPP882'
+>>> validate('ABNA BE 2A')
+'ABNABE2A'
 >>> validate('AGRIFRPP')
 'AGRIFRPP'
 >>> validate('AGRIFRPP8')
@@ -56,7 +58,7 @@ _bic_re = re.compile(r'^[A-Z]{6}[0-9A-Z]{2}([0-9A-Z]{3})?$')
 def compact(number):
     """Convert the number to the minimal representation. This strips the
     number of any surrounding whitespace."""
-    return clean(number).strip().upper()
+    return clean(number, ' ').strip().upper()
 
 
 def validate(number):
