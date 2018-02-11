@@ -1,7 +1,7 @@
 # bic.py - functions for handling ISO 9362 Business identifier codes
 #
 # Copyright (C) 2015 Lifealike Ltd
-# Copyright (C) 2017 Arthur de Jong
+# Copyright (C) 2017-2018 Arthur de Jong
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -58,7 +58,7 @@ _bic_re = re.compile(r'^[A-Z]{6}[0-9A-Z]{2}([0-9A-Z]{3})?$')
 def compact(number):
     """Convert the number to the minimal representation. This strips the
     number of any surrounding whitespace."""
-    return clean(number, ' ').strip().upper()
+    return clean(number, ' -').strip().upper()
 
 
 def validate(number):

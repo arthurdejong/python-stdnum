@@ -61,7 +61,8 @@ format = iban.format
 
 def _calc_check_digits(number):
     """Calculate the check digits over the provided part of the number."""
-    return '%02d' % (int(number) % 97)
+    check = int(number) % 97
+    return '%02d' % (check or 97)
 
 
 def info(number):
