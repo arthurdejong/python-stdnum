@@ -21,4 +21,4 @@
 """Collection of Slovenian numbers."""
 
 # provide vat as an alias
-from stdnum.si import ddv as vat
+from stdnum.si import ddv as vat  # noqa: F401

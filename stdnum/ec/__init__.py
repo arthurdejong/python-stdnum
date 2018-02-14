@@ -21,4 +21,4 @@
 """Collection of Ecuadorian numbers."""
 
 # provide vat as an alias
-from stdnum.ec import ruc as vat
+from stdnum.ec import ruc as vat  # noqa: F401

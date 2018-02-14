@@ -27,7 +27,6 @@ import os
 import unittest
 
 from stdnum.do import ncf
-from stdnum.exceptions import *
 
 
 @unittest.skipIf(

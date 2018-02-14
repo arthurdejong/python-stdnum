@@ -21,5 +21,5 @@
 """Collection of Dutch numbers."""
 
 # provide aliases
-from stdnum.nl import btw as vat
-from stdnum.nl import postcode as postcal_code
+from stdnum.nl import btw as vat  # noqa: F401
+from stdnum.nl import postcode as postcal_code  # noqa: F401

@@ -27,7 +27,6 @@ import os
 import unittest
 
 from stdnum.do import rnc
-from stdnum.exceptions import *
 
 
 @unittest.skipIf(

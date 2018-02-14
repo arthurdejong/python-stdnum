@@ -21,5 +21,5 @@
 """Collection of Colombian numbers."""
 
 # provide vat and rut as an alias
-from stdnum.co import nit as vat
-from stdnum.co import nit as rut
+from stdnum.co import nit as vat  # noqa: F401
+from stdnum.co import nit as rut  # noqa: F401

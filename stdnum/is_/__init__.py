@@ -21,4 +21,4 @@
 """Collection of Icelandic numbers."""
 
 # provide vat as an alias
-from stdnum.is_ import vsk as vat
+from stdnum.is_ import vsk as vat  # noqa: F401

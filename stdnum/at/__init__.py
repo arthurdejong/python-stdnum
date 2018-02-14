@@ -21,4 +21,4 @@
 """Collection of Austrian numbers."""
 
 # provide vat as an alias
-from stdnum.at import uid as vat
+from stdnum.at import uid as vat  # noqa: F401

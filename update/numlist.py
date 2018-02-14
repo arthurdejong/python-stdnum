@@ -23,7 +23,6 @@
 suitable to be included in the README and stdnum package description."""
 
 import os.path
-import pydoc
 import sys
 
 # Ensure that we use our local stdnum implementation is used

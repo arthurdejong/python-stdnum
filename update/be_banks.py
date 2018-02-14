@@ -24,9 +24,7 @@
 IBAN and BIC codes as published by the Belgian National Bank."""
 
 import os.path
-import sys
 import urllib
-from collections import defaultdict
 
 import xlrd
 

@@ -21,4 +21,4 @@
 """Collection of Norwegian numbers."""
 
 # provide vat as an alias
-from stdnum.no import mva as vat
+from stdnum.no import mva as vat  # noqa: F401

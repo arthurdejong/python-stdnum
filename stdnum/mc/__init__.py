@@ -21,4 +21,4 @@
 """Collection of Monacan numbers."""
 
 # provide vat as an alias
-from stdnum.mc import tva as vat
+from stdnum.mc import tva as vat  # noqa: F401

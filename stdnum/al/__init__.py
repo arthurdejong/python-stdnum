@@ -21,4 +21,4 @@
 """Collection of Albanian numbers."""
 
 # provide vat as an alias
-from stdnum.al import nipt as vat
+from stdnum.al import nipt as vat  # noqa: F401

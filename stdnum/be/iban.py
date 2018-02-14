@@ -49,7 +49,6 @@ True
 
 from stdnum import iban
 from stdnum.exceptions import *
-from stdnum.iso7064 import mod_97_10
 
 
 __all__ = ['compact', 'format', 'validate', 'is_valid']

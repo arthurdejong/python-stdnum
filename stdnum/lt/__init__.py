@@ -21,4 +21,4 @@
 """Collection of Lithuanian numbers."""
 
 # provide vat as an alias
-from stdnum.lt import pvm as vat
+from stdnum.lt import pvm as vat  # noqa: F401

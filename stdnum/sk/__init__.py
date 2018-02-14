@@ -21,4 +21,4 @@
 """Collection of Slovak numbers."""
 
 # provide vat as an alias
-from stdnum.sk import dph as vat
+from stdnum.sk import dph as vat  # noqa: F401

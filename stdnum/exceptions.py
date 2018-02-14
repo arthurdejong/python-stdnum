@@ -32,6 +32,7 @@ class ValidationError(Exception):
     exception."""
 
     def __str__(self):
+        """Return the exception message."""
         return ''.join(self.args[:1]) or getattr(self, 'message', '')
 
 

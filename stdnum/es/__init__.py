@@ -21,4 +21,4 @@
 """Collection of Spanish numbers."""
 
 # provide vat as an alias
-from stdnum.es import nif as vat
+from stdnum.es import nif as vat  # noqa: F401

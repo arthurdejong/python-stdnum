@@ -21,4 +21,4 @@
 """Collection of Croatian numbers."""
 
 # provide vat as an alias
-from stdnum.hr import oib as vat
+from stdnum.hr import oib as vat  # noqa: F401

@@ -20,4 +20,4 @@
 
 """Collection of Dominican Republic numbers."""
 
-from stdnum.do import rnc as vat
+from stdnum.do import rnc as vat  # noqa: F401

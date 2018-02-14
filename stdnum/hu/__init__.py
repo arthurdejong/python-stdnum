@@ -21,4 +21,4 @@
 """Collection of Hungarian numbers."""
 
 # provide vat as an alias
-from stdnum.hu import anum as vat
+from stdnum.hu import anum as vat  # noqa: F401

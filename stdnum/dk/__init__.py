@@ -21,4 +21,4 @@
 """Collection of Danish numbers."""
 
 # provide vat as an alias
-from stdnum.dk import cvr as vat
+from stdnum.dk import cvr as vat  # noqa: F401

@@ -21,4 +21,4 @@
 """Collection of Belgian numbers."""
 
 # provide businessid as an alias
-from stdnum.be import vat as businessid
+from stdnum.be import vat as businessid  # noqa: F401

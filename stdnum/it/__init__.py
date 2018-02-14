@@ -21,4 +21,4 @@
 """Collection of Italian numbers."""
 
 # provide vat as an alias
-from stdnum.it import iva as vat
+from stdnum.it import iva as vat  # noqa: F401
