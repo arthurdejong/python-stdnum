@@ -133,17 +133,19 @@ def check_dgii(number, timeout=30):  # pragma: no cover
             'payment_regime': '2',  # 1: N/D, 2: NORMAL, 3: PST
         }
 
-    Will return none if the number is invalid or unknown."""
+    Will return None if the number is invalid or unknown."""
     # this function isn't automatically tested because it would require
     # network access for the tests and unnecessarily load the online service
     number = compact(number)
     client = get_soap_client(dgii_wsdl, timeout)
-    result = '%s' % client.GetContribuyentes(
+    result = client.GetContribuyentes(
         value=number,
         patronBusqueda=0,   # search type: 0=by number, 1=by name
         inicioFilas=1,      # start result (1-based)
         filaFilas=1,        # end result
         IMEI='')
+    if result and 'GetContribuyentesResult' in result:
+        result = result['GetContribuyentesResult']  # PySimpleSOAP only
     if result == '0':
         return
     return _convert_result(result)
@@ -178,12 +180,14 @@ def search_dgii(keyword, end_at=10, start_at=1, timeout=30):  # pragma: no cover
     # this function isn't automatically tested because it would require
     # network access for the tests and unnecessarily load the online service
     client = get_soap_client(dgii_wsdl, timeout)
-    results = '%s' % client.GetContribuyentes(
+    results = client.GetContribuyentes(
         value=keyword,
         patronBusqueda=1,       # search type: 0=by number, 1=by name
         inicioFilas=start_at,   # start result (1-based)
         filaFilas=end_at,       # end result
         IMEI='')
+    if results and 'GetContribuyentesResult' in results:
+        results = results['GetContribuyentesResult']  # PySimpleSOAP only
     if results == '0':
         return []
     return [_convert_result(result) for result in results.split('@@@')]

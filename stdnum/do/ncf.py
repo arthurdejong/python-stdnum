@@ -128,6 +128,8 @@ def check_dgii(rnc, ncf, timeout=30):  # pragma: no cover
         RNC=rnc,
         NCF=ncf,
         IMEI='')
+    if result and 'GetNCFResult' in result:
+        result = result['GetNCFResult']  # PySimpleSOAP only
     if result == '0':
         return
     return _convert_result(result)
