@@ -65,8 +65,11 @@ Helper functions and modules
    particular country. `name` may be an aliased name. For example:
 
        >>> from stdnum import get_cc_module
-       >>> get_cc_module('nl', 'vat')
+       >>> mod = get_cc_module('nl', 'vat')
+       >>> mod
        <module 'stdnum.nl.btw' from '...'>
+       >>> mod.validate('004495445B01')
+       '004495445B01'
 
    Will return ``None`` if no module could be found. The generic names that
    are currently in use:
