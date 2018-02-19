@@ -1,6 +1,7 @@
 # cedula.py - functions for handling Dominican Republic national identifier
+# coding: utf-8
 #
-# Copyright (C) 2015-2017 Arthur de Jong
+# Copyright (C) 2015-2018 Arthur de Jong
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -37,6 +38,7 @@ InvalidFormat: ...
 """
 
 from stdnum import luhn
+from stdnum.do import rnc
 from stdnum.exceptions import *
 from stdnum.util import clean
 
@@ -173,3 +175,31 @@ def format(number):
     """Reformat the number to the standard presentation format."""
     number = compact(number)
     return '-'.join((number[:3], number[3:-1], number[-1]))
+
+
+def check_dgii(number, timeout=30):  # pragma: no cover
+    """Lookup the number using the DGII online web service.
+
+    This uses the validation service run by the the Dirección General de
+    Impuestos Internos, the Dominican Republic tax department to lookup
+    registration information for the number. The timeout is in seconds.
+
+    Returns a dict with the following structure::
+
+        {
+            'cedula': '12345678901',  # The requested number
+            'name': 'The registered name',
+            'commercial_name': 'An additional commercial name',
+            'status': '2',            # 1: inactive, 2: active
+            'category': '0',          # always 0?
+            'payment_regime': '2',    # 1: N/D, 2: NORMAL, 3: PST
+        }
+
+    Will return None if the number is invalid or unknown."""
+    # this function isn't automatically tested because it would require
+    # network access for the tests and unnecessarily load the online service
+    # we use the RNC implementation and change the rnc result to cedula
+    result = rnc.check_dgii(number)
+    if result and 'rnc' in result:
+        result['cedula'] = result.pop('rnc')
+    return result
