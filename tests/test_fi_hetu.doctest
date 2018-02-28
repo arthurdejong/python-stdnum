@@ -78,10 +78,14 @@ Traceback (most recent call last):
 InvalidFormat: ...
 
 
-Invalid individual number:
-(for historical reasons individual IDs start from 002)
+Invalid individual number: (for historical reasons individual IDs start from
+002 and the range from 900 to 999 is used as temporary identifiers)
 
 >>> hetu.validate('131052-000V')
+Traceback (most recent call last):
+    ...
+InvalidComponent: ...
+>>> hetu.validate('131052-9993')
 Traceback (most recent call last):
     ...
 InvalidComponent: ...
