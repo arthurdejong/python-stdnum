@@ -61,6 +61,15 @@ _hetu_re = re.compile(r'^(?P<day>[0123]\d)(?P<month>[01]\d)(?P<year>\d\d)'
                       r'(?P<control>[0-9ABCDEFHJKLMNPRSTUVWXY])$')
 
 
+class InvalidSSN(ValidationError):
+    """The number space is reserved for test cases, no real person has this SSN.
+
+    If the individual part of SSN is within 900 and 999, the SSN belongs to a test subject and not a real person.
+    Even if the checksum is valid, this is not a real person."""
+
+    message = 'This hetu is for test purposes and not a real person.'
+
+
 def compact(number):
     """Convert the HETU to the minimal representation. This strips
     surrounding whitespace and converts it to upper case."""
@@ -94,6 +103,8 @@ def validate(number):
     checkable_number = '%02d%02d%02d%03d' % (day, month, year, individual)
     if match.group('control') != _calc_checksum(checkable_number):
         raise InvalidChecksum()
+    if 900 <= individual <= 999:
+        raise InvalidSSN()
     return number
 
 
