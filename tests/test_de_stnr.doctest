@@ -1,0 +1,193 @@
+test_de_stnr.doctest - more detailed doctests for the stdnum.de.stnr module
+
+Copyright (C) 2017 Holvi Payment Services
+Copyright (C) 2018 Arthur de Jong
+
+This library is free software; you can redistribute it and/or
+modify it under the terms of the GNU Lesser General Public
+License as published by the Free Software Foundation; either
+version 2.1 of the License, or (at your option) any later version.
+
+This library is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+Lesser General Public License for more details.
+
+You should have received a copy of the GNU Lesser General Public
+License along with this library; if not, write to the Free Software
+Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
+02110-1301 USA
+
+
+This file contains more detailed doctests for the stdnum.de.stnr module. It
+tries to validate a number of numbers that have been found online.
+
+>>> from stdnum.de import stnr
+
+
+Some simple tests.
+
+>>> stnr.validate('1123456789')
+'1123456789'
+>>> stnr.validate('1123456789', 'Berlin')
+'1123456789'
+>>> stnr.validate('12234567890', 'Berlin')
+Traceback (most recent call last):
+    ...
+InvalidFormat: ...
+>>> stnr.validate('1123456789', 'Unknown region')
+Traceback (most recent call last):
+    ...
+InvalidComponent: ...
+>>> stnr.validate('1234567890')  # 10-digit number
+'1234567890'
+>>> stnr.validate('12345678901')  # 11-digit number
+'12345678901'
+>>> stnr.validate('1123045678901')  # 13-digit number
+'1123045678901'
+>>> stnr.validate('123456789')  # short number
+Traceback (most recent call last):
+    ...
+InvalidLength: ...
+
+
+The module should handle various encodings of region names properly.
+
+>>> stnr.validate('9381508152', u'Baden-W\xfcrttemberg')  # Python unicode
+'9381508152'
+>>> stnr.validate('9381508152', 'Baden-W\xc3\xbcrttemberg')  # UTF-8
+'9381508152'
+>>> stnr.validate('9381508152', 'Baden-W\xfcrttemberg')  # ISO-8859-15
+'9381508152'
+>>> stnr.validate('9381508152', 'Baden Wurttemberg')  # ASCII with space
+'9381508152'
+
+
+Given a number we are able to find a region.
+
+>>> stnr.guess_regions('1123045678901')  # 13-digit number
+['Berlin']
+>>> stnr.guess_regions('98765432101')  # 11-digit number
+['Bayern', 'Nordrhein-Westfalen']
+>>> stnr.guess_regions('123')  # invalid number
+[]
+
+
+We can convert the 13-digit country number to a regional number without
+issues. We can also convert it back if we know the region.
+
+>>> stnr.guess_regions('2475081508152')
+['Bremen']
+>>> stnr.to_regional_number('2475081508152')
+'7581508152'
+>>> stnr.validate('7581508152', 'Bremen')
+'7581508152'
+>>> stnr.to_regional_number('123')
+Traceback (most recent call last):
+    ...
+InvalidFormat: ...
+>>> stnr.to_country_number('7581508152', 'Bremen')
+'2475081508152'
+>>> stnr.to_country_number('7581508152')  # not unique, need region
+Traceback (most recent call last):
+    ...
+InvalidComponent: ...
+>>> stnr.to_country_number('123')
+Traceback (most recent call last):
+    ...
+InvalidFormat: ...
+
+
+We can also format numbers by separating the groups with slashes. This is
+most often seen for regional numbers and the 13-digit numbers don't get the
+slashes.
+
+>>> stnr.format('18181508155', 'Bayern')
+'181/815/08155'
+>>> stnr.format('18181508155', 'Nordrhein-Westfalen')
+'181/8150/8155'
+>>> stnr.format('2181508150')
+'21/815/08150'
+>>> stnr.format('156 / 141 / 14808', 'Thuringen')
+'156/141/14808'
+>>> stnr.format('2893081508152')  # 13-digit number
+'2893081508152'
+>>> stnr.format('123')  # unknown format
+'123'
+
+
+These have been found online and should all be valid numbers.
+
+>>> numbers = '''
+...
+... 010/815/08182
+... 013 815 08153
+... 02/815/08156
+... 04 522 658 002
+... 042/213/02423
+... 048/815/08155
+... 079/815/08151
+... 101/5761/1744
+... 101/815/08154
+... 1010081508182
+... 1121081508150
+... 116/5701/1448
+... 123/456/7890
+... 133/5909/3295
+... 133/8150/8159
+... 14044/00050
+... 143/317/22090
+... 147/276/80579
+... 151/815/08156
+... 156 / 141 / 14808
+... 162/107/03482
+... 181/815/08155
+... 1929008636
+... 201/123/12340
+... 201/5902/3626
+... 201/5906/3686
+... 202/ 106/ 08312
+... 203/100/04333
+... 20418290688
+... 208/140/04075
+... 21/815/08150
+... 212/5730/0455
+... 2129081508158
+... 22/815/08154
+... 220/5769/0078
+... 2202081508156
+... 2324081508151
+... 24/815/08151
+... 2475081508152
+... 249/115/90057
+... 249/133/90020
+... 26 242 02421
+... 2613081508153
+... 27 173 00028
+... 27/673/50365
+... 2722081508154
+... 2893081508152
+... 29/815/08158
+... 3048081508155
+... 307/5904/0270
+... 3101081508154
+... 312/5120/1726
+... 313/5753/1315
+... 3201012312340
+... 332/5751/2 653
+... 332/5776/0076
+... 339/5822/0944
+... 342/5938/0307
+... 4079081508151
+... 4151081508156
+... 5133081508159
+... 75 815 08152
+... 76 001/12 885
+... 9181081508155
+... 93815/08152
+... 99015/28445
+... 99019132055
+...
+... '''
+>>> [x for x in numbers.splitlines() if x and not stnr.is_valid(x)]
+[]
