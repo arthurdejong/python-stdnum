@@ -1,0 +1,64 @@
+test_de_stnr.doctest - more detailed doctests for the stdnum.de.stnr module
+
+Copyright (C) 2017 Holvi Payment Services
+Copyright (C) 2017 Arthur de Jong
+
+This library is free software; you can redistribute it and/or
+modify it under the terms of the GNU Lesser General Public
+License as published by the Free Software Foundation; either
+version 2.1 of the License, or (at your option) any later version.
+
+This library is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+Lesser General Public License for more details.
+
+You should have received a copy of the GNU Lesser General Public
+License along with this library; if not, write to the Free Software
+Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
+02110-1301 USA
+
+
+This file contains more detailed doctests for the stdnum.de.stnr module. It
+tries to validate a number of numbers that have been found online.
+
+>>> from stdnum.de import stnr
+
+These have been found online and should all be valid numbers.
+>>> numbers = '''
+...
+... 93815/08152
+... 2893081508152
+... 181/815/08155
+... 9181081508155
+... 21/815/08150
+... 1121081508150
+... 048/815/08155
+... 3048081508155
+... 75 815 08152
+... 2475081508152
+... 02/815/08156
+... 2202081508156
+... 013 815 08153
+... 2613081508153
+... 079/815/08151
+... 4079081508151
+... 24/815/08151
+... 2324081508151
+... 133/8150/8159
+... 5133081508159
+... 22/815/08154
+... 2722081508154
+... 010/815/08182
+... 1010081508182
+... 201/123/12340
+... 3201012312340
+... 101/815/08154
+... 3101081508154
+... 29/815/08158
+... 2129081508158
+... 151/815/08156
+... 4151081508156
+... '''
+>>> [x for x in numbers.splitlines() if x and not stnr.is_valid(x)]
+[]
