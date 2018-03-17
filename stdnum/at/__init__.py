@@ -1,7 +1,7 @@
 # __init__.py - collection of Austrian numbers
 # coding: utf-8
 #
-# Copyright (C) 2012 Arthur de Jong
+# Copyright (C) 2012-2018 Arthur de Jong
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -22,3 +22,4 @@
 
 # provide vat as an alias
 from stdnum.at import uid as vat  # noqa: F401
+from stdnum.at import postleitzahl as postal_code  # noqa: F401
