@@ -59,7 +59,7 @@ def _min_fa(office):
     comparison without running into encoding issues."""
     return ''.join(
         x for x in office.lower()
-        if x in 'abcdefghijklmnopqrstvwxyz')
+        if x in 'abcdefghijklmnopqrstuvwxyz')
 
 
 def calc_check_digit(number):
