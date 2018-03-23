@@ -1,0 +1,207 @@
+test_de_handelsregisternummer.doctest - tests for German register number
+
+Copyright (C) 2018 Arthur de Jong
+
+This library is free software; you can redistribute it and/or
+modify it under the terms of the GNU Lesser General Public
+License as published by the Free Software Foundation; either
+version 2.1 of the License, or (at your option) any later version.
+
+This library is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+Lesser General Public License for more details.
+
+You should have received a copy of the GNU Lesser General Public
+License along with this library; if not, write to the Free Software
+Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
+02110-1301 USA
+
+
+>>> from stdnum.de import handelsregisternummer
+>>> import stdnum.exceptions
+
+
+Some basic tests for valid numbers.
+
+>>> handelsregisternummer.validate('Bad Homburg v.d.H. PR 11223')
+'Bad Homburg v.d.H. PR 11223'
+>>> handelsregisternummer.validate('Ludwigshafen a.Rhein (Ludwigshafen) VR 11223')
+'Ludwigshafen a.Rhein (Ludwigshafen) VR 11223'
+>>> handelsregisternummer.validate('Aachen HRA 11223', company_form='KG')
+'Aachen HRA 11223'
+>>> handelsregisternummer.validate('Frankfurt/Oder GnR 11223', company_form='e.G.')
+'Frankfurt/Oder GnR 11223'
+>>> handelsregisternummer.validate('Bad Homburg v.d.H. PR 11223', company_form='PartG')
+'Bad Homburg v.d.H. PR 11223'
+>>> handelsregisternummer.validate('Ludwigshafen a.Rhein (Ludwigshafen) VR 11223', company_form='e.V.')
+'Ludwigshafen a.Rhein (Ludwigshafen) VR 11223'
+>>> handelsregisternummer.validate('Berlin (Charlottenburg) HRA 11223 B')
+'Berlin (Charlottenburg) HRA 11223 B'
+>>> handelsregisternummer.validate('Berlin (Charlottenburg) HRB 11223B')
+'Berlin (Charlottenburg) HRB 11223 B'
+>>> handelsregisternummer.validate('Berlin (Charlottenburg) HRA 11223 B')
+'Berlin (Charlottenburg) HRA 11223 B'
+>>> handelsregisternummer.validate('Berlin (Charlottenburg) HRB 11223B')
+'Berlin (Charlottenburg) HRB 11223 B'
+
+
+The court name can also be shortened and various encodings are accepted but
+we only return either Unicode or UTF-8 (Python 2 only). The tests are a bit
+funky so they work both in Python 2 and Python 3.
+
+>>> handelsregisternummer.validate('Berlin HRB 11223 B')  # Charlottenburg missing
+'Berlin (Charlottenburg) HRB 11223 B'
+>>> number = u'K\xf6ln HRB 49263'  # Unicode
+>>> handelsregisternummer.validate(number) == number
+True
+>>> utf8 = 'K\xc3\xb6ln HRB 49263'  # UTF-8
+>>> handelsregisternummer.validate(utf8) == 'Köln HRB 49263'
+True
+>>> iso885915 = 'K\xf6ln HRB 49263'  # ISO-8859-15
+>>> handelsregisternummer.validate(iso885915) == 'Köln HRB 49263'
+True
+>>> ascii = 'Koln HRB 49263'  # ASCII replaced
+>>> handelsregisternummer.validate(ascii) == 'Köln HRB 49263'
+True
+>>> handelsregisternummer.validate('KXln HRB 49263')  # too wrong
+Traceback (most recent call last):
+  ...
+InvalidComponent: ...
+
+
+The compact function does minimal validation.
+>>> handelsregisternummer.compact('KXln HRB 49263')
+'KXln HRB 49263'
+
+
+These have been found online and should all be valid numbers.
+
+>>> numbers = """
+... Aachen   HRB   11214
+... Aachen   HRB   5360
+... Aachen   HRB   987
+... Bad Oeynhausen   HRA   5980
+... Bad Oeynhausen   HRB   14572
+... Bad Oeynhausen   HRB   5087
+... Bad Oeynhausen   HRB   8753
+... Berlin (Charlottenburg) HRB 178881
+... Berlin HRB 87447 B
+... Bochum   HRA   5582
+... Bochum   HRA   5828
+... Braunschweig   HRB   8057
+... Chemnitz   HRB   14011
+... Coesfeld   HRA   7092
+... Coesfeld   HRB   13681
+... Coesfeld   HRB   6930
+... Dortmund   HRA   18285
+... Dortmund   HRB   13762
+... Dortmund   HRB   25525
+... Dresden   HRB   29828
+... Düren   HRA   1971
+... Düren   HRA   3014
+... Düren   HRB   3138
+... Düsseldorf   HRB   16894
+... Düsseldorf   HRB   42518
+... Düsseldorf   HRB   45892
+... Düsseldorf   HRB   67311
+... Eschwege   HRA   2115
+... Essen   HRA   8158
+... Flensburg   HRB   4057  FL
+... Flensburg HRA 4057 FL
+... Friedberg   HRB   5519
+... Fulda   HRA   653
+... Fürth, HRB 7754
+... Gelsenkirchen   HRA   1838
+... Gelsenkirchen   HRB   3694
+... Gelsenkirchen   HRB   7246
+... Gießen   HRB   7519
+... Göttingen   HRA   130944
+... Göttingen   HRB   201633
+... Gütersloh   HRB   4290
+... HRA 350654, Mannheim
+... HRB 151080 B, Charlottenburg
+... HRB 178881 B, Charlottenburg
+... Hagen   HRB   4101
+... Hagen   HRB   8315
+... Hamm   HRB   5488
+... Hamm   HRB   942
+... Hanau   HRB   5015
+... Hannover   HRA   200593
+... Hannover   HRA   203664
+... Hannover   HRB   100146
+... Hannover   HRB   110948
+... Hildesheim   HRA   100692
+... Hildesheim   HRB   203244
+... Hildesheim   HRB   3587
+... Iserlohn   HRB   8669
+... Jena   HRA   102336
+... Jena   HRA   202638
+... Jena   HRA   301593
+... Jena   HRB   106960
+... Jena   HRB   112624
+... Jena   HRB   202400
+... Jena   HRB   207705
+... Jena   HRB   305494
+... Jena   HRB   405517
+... Koblenz   HRA   12710
+... Koblenz   HRB   3000
+... Korbach   HRA   659
+... Köln   HRA   22861
+... Köln   HRB   21508
+... Köln   HRB   33876
+... Köln   HRB   48349
+... Köln   HRB   52006
+... Landau   HRB   1668
+... Leipzig   HRA   15866
+... Leipzig   HRB   17256
+... Leipzig   HRB   24591
+... Ludwigshafen a.Rhein (Ludwigshafen)   HRB   65041
+... Lübeck   HRB   12065  HL
+... Lübeck   HRB   12067  HL
+... Lübeck   HRB   12068  HL
+... Lübeck   HRB   12085  HL
+... Lübeck   HRB   5873  HL
+... Mönchengladbach   HRA   3644
+... Mönchengladbach   HRB   5867
+... Mönchengladbach   HRB   6639
+... Mönchengladbach   HRB   7785
+... München HRB 178881
+... Münster   HRA   8289
+... Neubrandenburg   HRB   4956
+... Neuss   HRB   9817
+... Oldenburg (Oldenburg)   HRA   110612
+... Oldenburg (Oldenburg)   HRA   120361
+... Oldenburg (Oldenburg)   HRB   111147
+... Oldenburg (Oldenburg)   HRB   120757
+... Oldenburg (Oldenburg)   HRB   151060
+... Oldenburg (Oldenburg)   HRB   201016
+... Osnabrück   HRB   1090
+... Paderborn   HRA   1076
+... Paderborn   HRA   1364
+... Paderborn   HRA   3549
+... Paderborn   HRB   361
+... Paderborn   HRB   3659
+... Paderborn   HRB   653
+... Paderborn   HRB   6774
+... Pinneberg   HRB   12700  PI
+... Recklinghausen   HRB   4702
+... Rostock   HRA   887
+... Saarbrücken   HRB   102069
+... Siegen   HRA   7881
+... Siegen   HRB   10955
+... Siegen   HRB   5398
+... Siegen   HRB   7426
+... Stuttgart   HRB   460675
+... Tostedt   HRB   100870
+... Walsrode   HRB   202134
+... Wiesbaden   HRB   11946
+... Wittlich   HRB   42489
+... Wuppertal   HRA   22088
+... Wuppertal   HRB   13986
+... Wuppertal   HRB   14596
+... Wuppertal   HRB   16127
+... Zweibrücken   HRB   22575
+... """
+>>> [x for x in numbers.splitlines() if x and not handelsregisternummer.is_valid(x)]
+[]
