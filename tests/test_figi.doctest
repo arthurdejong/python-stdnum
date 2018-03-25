@@ -1,0 +1,161 @@
+test_figi.doctest - more detailed doctests for the stdnum.figi module
+
+Copyright (C) 2018 Arthur de Jong
+
+This library is free software; you can redistribute it and/or
+modify it under the terms of the GNU Lesser General Public
+License as published by the Free Software Foundation; either
+version 2.1 of the License, or (at your option) any later version.
+
+This library is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+Lesser General Public License for more details.
+
+You should have received a copy of the GNU Lesser General Public
+License along with this library; if not, write to the Free Software
+Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
+02110-1301 USA
+
+
+This file contains more detailed doctests for the stdnum.figi module. It
+tries to validate a number of numbers that have been found online.
+
+>>> from stdnum import figi
+>>> from stdnum.exceptions import *
+
+
+The number should start with two letters (no numbers) and should not contain
+one of the letter combinations on the blacklist to avoid clashes with the
+ISIN.
+
+>>> figi.validate('BBG000BLNR78')
+'BBG000BLNR78'
+>>> figi.validate('B2G000BLNR78')
+Traceback (most recent call last):
+    ...
+InvalidFormat: ...
+>>> figi.validate('BSG000BLNR71')
+Traceback (most recent call last):
+    ...
+InvalidComponent: ...
+
+
+The third position should always be a G:
+
+>>> figi.validate('BBG000BLNR78')
+'BBG000BLNR78'
+>>> figi.validate('BBP000BLNR78')
+Traceback (most recent call last):
+    ...
+InvalidComponent: ...
+
+
+These have been found online and should all be valid numbers.
+
+>>> numbers = '''
+...
+... BBG000002KG4
+... BBG00002MG40
+... BBG00008PH06
+... BBG0000BYL37
+... BBG0000CKTZ8
+... BBG0000HSV39
+... BBG0000PTG33
+... BBG0000Z40Y9
+... BBG00010C6H2
+... BBG00011PKQ5
+... BBG00011QNR7
+... BBG00015DJD6
+... BBG00016PLG3
+... BBG00017MGS2
+... BBG00017S1T8
+... BBG00018BDZ1
+... BBG00018TBL1
+... BBG00019TTZ5
+... BBG00019XXF3
+... BBG0001BRPC5
+... BBG0001BTYQ9
+... BBG0001DDLR9
+... BBG0001DJNW3
+... BBG000435D86
+... BBG0005FQS91
+... BBG0005GN2W3
+... BBG000702GF7
+... BBG0007CBFS9
+... BBG0007T7L86
+... BBG0007VC3H5
+... BBG0007VS3D2
+... BBG0008C9YV6
+... BBG0008QB509
+... BBG00094V471
+... BBG0009BLLK3
+... BBG0009HJVG6
+... BBG0009KW1N2
+... BBG0009QBMN6
+... BBG0009X4W48
+... BBG0009XGDL8
+... BBG000B1LV75
+... BBG000BVRLT1
+... BBG000GL6ZK9
+... BBG000H3TGD3
+... BBG000PSJRK8
+... BBG0018YXKG6
+... BBG001F8NZN5
+... BBG001NND649
+... BBG001QLGGK7
+... BBG002G4T7H4
+... BBG00337N482
+... BBG003LQ9342
+... BBG0042V1BP7
+... BBG004D1ZCV5
+... BBG004FFN844
+... BBG004QGWGV2
+... BBG0058191D1
+... BBG0058YBK71
+... BBG005THWTJ0
+... BBG0068HLCV6
+... BBG006T9T7D4
+... BBG0077H27R2
+... BBG007N2K8V0
+... BBG007TDLWP3
+... BBG0086KJ938
+... BBG008D76KY4
+... BBG008H2RPR5
+... BBG008KW8457
+... BBG008NX9YV6
+... BBG009S58T33
+... BBG00B3H3RC8
+... BBG00B9D0KL9
+... BBG00BDRD8J9
+... BBG00CNPD178
+... BBG00CTTCVG9
+... BBG00CY386Z9
+... BBG00CY38778
+... BBG00D6PL498
+... BBG00D6RQY20
+... BBG00FBYLY56
+... BBG00FZRBX30
+... BBG00GBVG247
+... BBG00GKR5DB6
+... BBG00GKR5G29
+... BBG00GQ99RN2
+... BBG00GVQVFN9
+... BBG00GW3Q897
+... BBG00H450NQ7
+... BBG00H8ZVML0
+... BBG00H9SZ431
+... BBG00HKBYTG7
+... BBG00HLDPLJ6
+... BBG00HTVPPR0
+... BBG00HTVPSZ5
+... BBG00JGBJZT7
+... BBG00JJC69W0
+... BBG00JQ6F6S6
+... BBG00JXQRJ76
+... BBG00K87P6B8
+... BBG00K87P6K8
+...
+... '''
+>>> [x for x in numbers.splitlines() if x and not figi.is_valid(x)]
+[]
