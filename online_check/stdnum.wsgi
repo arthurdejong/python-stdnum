@@ -1,6 +1,6 @@
 # stdnum.wsgi - simple WSGI application to check numbers
 #
-# Copyright (C) 2017 Arthur de Jong.
+# Copyright (C) 2017-2018 Arthur de Jong.
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -102,9 +102,13 @@ def application(environ, start_response):
             for module in get_number_modules()
             if module.is_valid(number)]
     if 'HTTP_X_REQUESTED_WITH' in environ:
-        start_response('200 OK', [('Content-Type', 'application/json')])
+        start_response('200 OK', [
+            ('Content-Type', 'application/json'),
+            ('Vary', 'X-Requested-With')])
         return [json.dumps(results, indent=2, sort_keys=True)]
-    start_response('200 OK', [('Content-Type', 'text/html')])
+    start_response('200 OK', [
+        ('Content-Type', 'text/html'),
+        ('Vary', 'X-Requested-With')])
     return _template % dict(
         value=cgi.escape(number, True),
         results='\n'.join(format(data) for data in results))
