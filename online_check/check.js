@@ -1,7 +1,7 @@
 /*
  # check.js - simple application to check numbers
  #
- # Copyright (C) 2017 Arthur de Jong.
+ # Copyright (C) 2017-2018 Arthur de Jong.
  #
  # This library is free software; you can redistribute it and/or
  # modify it under the terms of the GNU Lesser General Public
@@ -55,10 +55,7 @@ $( document ).ready(function() {
     });
     h.push("</ul>");
     // replace the results div
-    $("#" + $(field).attr("id") + "_results").slideUp("quick", function() {
-      $(this).html(h.join(""));
-      $(this).slideDown("quick");
-    });
+    $("#" + $(field).attr("id") + "_results").html(h.join(""));
   }
 
   function checkfield(field) {
@@ -66,9 +63,12 @@ $( document ).ready(function() {
     // only trigger update if value changed from previous validation
     if (value != field.data("oldvalue")) {
       field.data("oldvalue", value);
-      $.get('', {"number": value}, function(data) {
-        window.history.pushState({"value": value, "data": data}, $(document).find("title").text(), "?number=" + encodeURIComponent(value));
-        updateresults(field, data);
+      $("#" + $(field).attr("id") + "_results").slideUp(200, function() {
+        $.get('', {"number": value}, function(data) {
+          window.history.pushState({"value": value, "data": data}, $(document).find("title").text(), "?number=" + encodeURIComponent(value));
+          updateresults(field, data);
+        });
+        $(this).slideDown(300);
       });
     }
   }
