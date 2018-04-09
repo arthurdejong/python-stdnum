@@ -1,7 +1,7 @@
 # ncf.py - functions for handling Dominican Republic invoice numbers
 # coding: utf-8
 #
-# Copyright (C) 2018 Arthur de Jong
+# Copyright (C) 2017-2018 Arthur de Jong
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -30,11 +30,13 @@ identifier, a 2-digit document type and a 8-digit serial number.
 
 More information:
 
- * https://www.dgii.gov.do/et/nivelContribuyentes/Presentaciones%20contribuyentes/Número%20de%20Comprobantes%20Fiscales%20(NCF).pdf
+ * https://www.dgii.gov.do/
 
->>> validate('A020010210100000005')
+>>> validate('B0100000005')  # format since 2018-05-01
+'B0100000005'
+>>> validate('A020010210100000005')  # format before 2018-05-01
 'A020010210100000005'
->>> validate('Z020010210100000005')
+>>> validate('Z0100000005')
 Traceback (most recent call last):
     ...
 InvalidFormat: ...
@@ -66,11 +68,15 @@ def compact(number):
 def validate(number):
     """Check if the number provided is a valid NCF."""
     number = compact(number)
-    if len(number) != 19:
+    if len(number) == 11:
+        if number[0] != 'B' or not number[1:].isdigit():
+            raise InvalidFormat()
+    elif len(number) == 19:
+        if number[0] not in 'AP' or not number[1:].isdigit():
+            raise InvalidFormat()
+    else:
         raise InvalidLength()
-    if number[0] not in 'AP' or not number[1:].isdigit():
-        raise InvalidFormat()
-    if number[9:11] not in (
+    if number[-10:-8] not in (
             '01', '02', '03', '04', '11', '12', '13', '14', '15'):
         raise InvalidComponent()
     return number
