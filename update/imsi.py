@@ -183,10 +183,11 @@ if __name__ == '__main__':
             info = data[mcc][mnc]
             infokeys = info.keys()
             infokeys.sort()
-            print(' %s%s' % (mnc, ''.join([' %s="%s"' % (k, info[k]) for k in infokeys])))
+            print(' %s%s' % (mnc, ''.join([' %s="%s"' % (k, info[k]) for k in infokeys if info[k]])))
         # try to get the length of mnc's
         try:
             length = len(mnc_list[0])
-            print(' %s-%s' % (length * '0', length * '9'))
+            if all(len(x) == length for x in mnc_list):
+                print(' %s-%s' % (length * '0', length * '9'))
         except IndexError:
             pass  # ignore

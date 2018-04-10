@@ -66,8 +66,8 @@ def validate(number):
         raise InvalidFormat()
     if len(number) not in (14, 15):
         raise InvalidLength()
-    if len(split(number)) != 3:
-        raise InvalidComponent()
+    if len(split(number)) < 2:
+        raise InvalidComponent()  # unknown MCC
     return number
 
 
