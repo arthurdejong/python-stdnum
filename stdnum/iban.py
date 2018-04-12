@@ -89,8 +89,7 @@ def _struct_to_re(structure):
 
 
 def _get_cc_module(cc):
-    """Get the VAT number module based on the country code."""
-    # Greece uses a "wrong" country code
+    """Get the IBAN module based on the country code."""
     cc = cc.lower()
     if cc not in _country_modules:
         _country_modules[cc] = get_cc_module(cc, 'iban')

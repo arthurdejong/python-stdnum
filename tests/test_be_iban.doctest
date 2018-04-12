@@ -26,6 +26,17 @@ useful as module documentation.
 >>> from stdnum.be import iban
 
 
+An IBAN should not end in 00 but should end with 97 instead to have a valid
+checksum.
+
+>>> iban.validate('BE54310100270097')
+'BE54310100270097'
+>>> iban.validate('BE54310100270000')
+Traceback (most recent call last):
+    ...
+InvalidChecksum: ...
+
+
 These should all be valid numbers combined with the appropriate BIC code for
 the IBAN.
 
