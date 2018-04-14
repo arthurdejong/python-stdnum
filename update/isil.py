@@ -32,7 +32,7 @@ import BeautifulSoup
 spaces_re = re.compile(r'\s+', re.UNICODE)
 
 # the web page that holds information on the ISIL authorities
-download_url = 'http://biblstandard.dk/isil/'
+download_url = 'https://english.slks.dk/libraries/library-standards/isil/'
 
 
 def clean(s):
@@ -44,7 +44,9 @@ def parse(f):
     """Parse the specified file."""
     print('# generated from ISIL Registration Authority, downloaded from')
     print('# %s' % download_url)
-    soup = BeautifulSoup.BeautifulSoup(f, convertEntities='html')
+    # We hack the HTML to insert missing <TR> elements
+    content = f.read().replace('</TR>', '</TR><TR>')
+    soup = BeautifulSoup.BeautifulSoup(content, convertEntities='html')
     # find all table rows
     for tr in soup.findAll('tr'):
         # find the rows with four columns of text

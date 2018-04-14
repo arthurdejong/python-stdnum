@@ -1,3 +1,257 @@
+2018-04-12  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [e200656] stdnum/iban.py, tests/test_be_iban.doctest: Add an
+	  extra test for Belgian IBANs
+
+	  A Belgian IBAN should not end with 00. This also fixes a docstring
+	  and comment in the IBAN module.
+
+2018-04-10  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [e6739be] stdnum/imsi.dat, stdnum/imsi.py, tests/test_imsi.doctest,
+	  update/imsi.py: Correctly split IMSI with multi-length MNC
+
+	  Ensures that imsi.split() will correctly split the IMSI into
+	  an MCC, MNC and MSIN even if not all MNCs within a single MCC
+	  have the same length.  This has the downside of not being able
+	  to guess the MNC length in some cases.
+
+	  This also omits empty information from the data file and updates
+	  the data file from Wikipedia.
+
+	  Closes https://github.com/arthurdejong/python-stdnum/issues/68
+
+2018-04-09  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [2541a22] online_check/check.js: Improve online check animation
+
+	  This speeds up the animation, collapsing the list before
+	  performing the server request and disable the slide animation
+	  on history navigation.
+
+2018-04-09  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [147b84b] online_check/stdnum.wsgi: Ensure API requests are
+	  cached separately
+
+	  This ensures that requests that browsers make using XMLHttpRequest
+	  (they set the X-Requested-With header) are cached separately
+	  from normal requests.
+
+2018-04-09  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [8204ac6] stdnum/do/ncf.py: Support new style of NCF numbers
+
+	  This adds support for validating Dominican Republic invoice
+	  numbers that should be used since from 2018-05-01.
+
+	  http://www.dgii.gov.do/contribuyentes/personasFisicas/inicioOperaciones/ComprobantesFiscales/Paginas/SecuenciaDeNCF.aspx
+
+	  Closes https://github.com/arthurdejong/python-stdnum/issues/69
+
+2018-03-25  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [918d483] stdnum/figi.py, tests/test_figi.doctest: Add Financial
+	  Instrument Global Identifier
+
+2018-03-23  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [ceb3c62] stdnum/de/__init__.py,
+	  stdnum/de/handelsregisternummer.py,
+	  tests/test_de_handelsregisternummer.doctest: Add German company
+	  registry numbers
+
+	  Based on the implementation provided by Markus Törnqvist and
+	  Lari Haataja of Holvi Payment Services.
+
+2018-03-19  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [fec1685] stdnum/at/tin.py: Also ignore other letters with
+	  possible umlaut
+
+	  Fixes 98d11a3
+
+	  Closes https://github.com/arthurdejong/python-stdnum/pull/67
+
+2018-03-18  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [98d11a3] stdnum/at/fa.dat, stdnum/at/tin.py,
+	  tests/test_at_tin.doctest: Add Austrian Abgabenkontonummer
+
+	  Based on the implementation provided by Mohammed Salman of Holvi.
+
+	  Closes https://github.com/arthurdejong/python-stdnum/pull/50
+
+2018-03-17  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [ab15e20] stdnum/at/__init__.py: Fix import order
+
+	  Fixes ee263a5
+
+2018-03-17  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [ee263a5] setup.cfg, stdnum/at/__init__.py,
+	  stdnum/at/postleitzahl.dat, stdnum/at/postleitzahl.py,
+	  stdnum/nl/__init__.py, update/at_postleitzahl.py: Add Austrian
+	  postal code
+
+	  This also fixes the name of the Dutch postal_code alias and
+	  tunes the tests.
+
+2018-03-17  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [8c29fbf] stdnum/me/__init__.py, stdnum/me/iban.py,
+	  tests/test_iban.doctest: Add support for Montenegro IBAN format
+
+	  This adds further checks to the country-specific part of the
+	  IBAN for Montenegro IBANs.
+
+2018-03-11  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [647dfea] stdnum/de/stnr.py, tests/test_de_stnr.doctest: Add
+	  German Steuernummer
+
+	  Based on the implementation provided by Mohammed Salman of Holvi.
+
+	  This is the old tax number that is being replaced by the
+	  Steuerliche Identifikationsnummer. The number has a regional form
+	  (which is used most often) and a national form.
+
+	  Closes https://github.com/arthurdejong/python-stdnum/pull/49
+
+2018-02-28  Esa Halsti <esa.halsti@taitoa.fi>
+
+	* [6e30cf5] stdnum/fi/hetu.py, tests/test_fi_hetu.doctest: Add
+	  validation for "individual" part of hetu
+
+	  The range between 900 and 999 is reserved for temporary identifiers
+	  and is not given to any real person.
+
+	  Closes https://github.com/arthurdejong/python-stdnum/pull/66
+
+2018-03-10  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [70dc091] setup.cfg: Support building a universal wheel
+
+2018-02-19  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [75138a4] stdnum/do/cedula.py, tests/test_do_cedula.py: Add
+	  check_dgii() to stdnum.do.cedula module
+
+	  This exposes the stdnum.do.rnc.check_dgii() in the stdnum.do.cedula
+	  module with but rename the rnc result entry to cedula.
+
+	  Closes https://github.com/arthurdejong/python-stdnum/issues/63
+
+2018-02-19  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [92d751c] stdnum/do/ncf.py, stdnum/do/rnc.py: Fix PySimpleSOAP
+	  DGII result parsing issue
+
+	  This strips the wrapper that PySimpleSOAP puts around results
+	  from the DGII PySimpleSOAP SOAP call.
+
+	  Closes https://github.com/arthurdejong/python-stdnum/issues/64
+	  Closes https://github.com/arthurdejong/python-stdnum/issues/65
+
+2018-02-19  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [81947a2] docs/index.rst: Improve get_cc_module() documentation
+
+2018-02-14  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [5cbba25] setup.cfg, stdnum/al/__init__.py, stdnum/ar/__init__.py,
+	  stdnum/at/__init__.py, stdnum/be/__init__.py, stdnum/be/iban.py,
+	  stdnum/cl/__init__.py, stdnum/co/__init__.py,
+	  stdnum/cz/__init__.py, stdnum/dk/__init__.py,
+	  stdnum/do/__init__.py, stdnum/ec/__init__.py,
+	  stdnum/ee/__init__.py, stdnum/es/__init__.py, stdnum/exceptions.py,
+	  stdnum/fi/__init__.py, stdnum/fr/__init__.py,
+	  stdnum/hr/__init__.py, stdnum/hu/__init__.py,
+	  stdnum/is_/__init__.py, stdnum/it/__init__.py,
+	  stdnum/lt/__init__.py, stdnum/lu/__init__.py,
+	  stdnum/lv/__init__.py, stdnum/mc/__init__.py,
+	  stdnum/mx/__init__.py, stdnum/nl/__init__.py,
+	  stdnum/no/__init__.py, stdnum/pl/__init__.py,
+	  stdnum/pt/__init__.py, stdnum/ro/__init__.py,
+	  stdnum/rs/__init__.py, stdnum/si/__init__.py,
+	  stdnum/sk/__init__.py, stdnum/sm/__init__.py, tests/test_do_ncf.py,
+	  tests/test_do_rnc.py, update/be_banks.py, update/numlist.py:
+	  Update the flake8 ignore list
+
+	  Re-enable the flake8 test for unused imports by explicitly marking
+	  imports for namespace purposes. This allows us to remove a few
+	  unused imports.
+
+	  A few more cleanups that allow us to reduce the number of
+	  ignored flake8 ignored tests. The remaining ignored tests are
+	  now documented.
+
+	  Ignore a flake8 warning about print statements because we use
+	  print in the update scripts.
+
+2018-02-11  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [201960c] stdnum/be/iban.py, stdnum/bic.py, stdnum/iban.py,
+	  tests/test_be_iban.doctest: Add test for Belgian IBANs
+
+	  This adds a test for IBANs that were found online together with
+	  a BIC code to test the IBAN to swift code mapping.
+
+	  This also supports some extra separators in IBAN and BIC numbers
+	  and fixes a check digit calculation issue in the Belgian account
+	  number check digits.
+
+2018-02-10  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [56002fa] stdnum/be/banks.dat, stdnum/be/iban.py,
+	  tests/test_iban.doctest, update/be_banks.py,
+	  update/requirements.txt: Add support for Belgian IBAN format
+
+	  This adds further checks to the country-specific part of the
+	  IBAN for Belgian IBANs.
+
+	  Closes https://github.com/arthurdejong/python-stdnum/issues/62
+
+2018-02-10  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [c611b27] stdnum/bic.py: Support spaces in BIC codes
+
+	  BIC codes are sometimes written in a space-separated form this
+	  correctly cleans the spaces for compact representation.
+
+2018-02-06  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [5fd1ae0] stdnum/do/ncf.py, stdnum/do/rnc.py, stdnum/eu/vat.py,
+	  stdnum/tr/tckimlik.py, stdnum/util.py: Allow configuring SOAP
+	  request timeout
+
+	  This adds a timeout parameter to all checks that use a SOAP web
+	  service to reduce the blocking time. The default timeout for
+	  all checks is 30 seconds.
+
+2018-01-07  Chris Lamb <chris@chris-lamb.co.uk>
+
+	* [c113613] stdnum/eu/vat.py: Exclude EU country codes from
+	  documentation
+
+	  Whilst working on the Reproducible Builds effort [0], we noticed
+	  that python-stdnum could not be built reproducibly as it relies
+	  on a stable set ordering when generating the documentation.
+
+	  This has been filed in Debian as #88652
+
+	   [0] https://reproducible-builds.org/ [1]
+	   https://bugs.debian.org/886522
+
+	  Closes: https://github.com/arthurdejong/python-stdnum/pull/61
+	  Signed-off-by: Chris Lamb <chris@chris-lamb.co.uk>
+
+2018-01-06  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [9841bae] ChangeLog, NEWS, stdnum/__init__.py: Get files ready
+	  for 1.8.1 release
+
 2018-01-06  Arthur de Jong <arthur@arthurdejong.org>
 
 	* [820c233] README: Fix feedback section in README to be valid RST

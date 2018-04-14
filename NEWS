@@ -1,3 +1,26 @@
+changes from 1.8.1 to 1.9
+-------------------------
+
+* add modules for the following number formats:
+  - Postleitzahl (Austrian postal code)
+  - Abgabenkontonummer (Austrian tax identification number)
+  - Belgian IBAN (International Bank Account Number)
+  - Handelsregisternummer (German company register number)
+  - St.-Nr. (Steuernummer, German tax number)
+  - FIGI (Financial Instrument Global Identifier)
+  - Montenegro IBAN (International Bank Account Number)
+* Have documentation rebuilt reproducibly (thanks Chris Lamb)
+* Allow configuring the SOAP request timeout
+* Support spaces in ISO 9362 (SWIFT) BIC codes
+* Add check_dgii() to stdnum.do.cedula module
+* Add validation for "individual" part of hetu (thanks Esa Halsti)
+* Support new style of Dominican Republic NCF numbers
+* Fix issue when using PySimpleSOAP for DGII lookups
+* Fix an issue in splitting certain IMSI values
+* Support building a universal wheel
+* Documentation and code style improvements
+
+
 changes from 1.8 to 1.8.1
 -------------------------
 

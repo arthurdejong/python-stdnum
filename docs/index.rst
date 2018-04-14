@@ -104,10 +104,13 @@ Available formats
    ar.cbu
    ar.cuit
    at.businessid
+   at.postleitzahl
+   at.tin
    at.uid
    au.abn
    au.acn
    au.tfn
+   be.iban
    be.vat
    bg.egn
    bg.pnf
@@ -128,7 +131,9 @@ Available formats
    cy.vat
    cz.dic
    cz.rc
+   de.handelsregisternummer
    de.idnr
+   de.stnr
    de.vat
    de.wkn
    dk.cpr
@@ -160,6 +165,7 @@ Available formats
    fi.hetu
    fi.veronumero
    fi.ytunnus
+   figi
    fr.nif
    fr.nir
    fr.siren
@@ -197,6 +203,7 @@ Available formats
    lu.tva
    lv.pvn
    mc.tva
+   me.iban
    meid
    mt.vat
    mx.rfc

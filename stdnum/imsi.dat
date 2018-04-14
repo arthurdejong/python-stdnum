@@ -618,7 +618,7 @@
 255
  01 bands="GSM 900 / GSM 1800 / UMTS 2100 / LTE 2600" brand="Vodafone" cc="ua" country="Ukraine" operator="PRJSC VF Ukraine" status="Operational"
  02 bands="GSM 900 / GSM 1800" brand="Beeline" cc="ua" country="Ukraine" operator="Kyivstar GSM JSC" status="Not operational"
- 03 bands="GSM 900 / GSM 1800 / UMTS 2100" brand="Kyivstar" cc="ua" country="Ukraine" operator="Kyivstar JSC" status="Operational"
+ 03 bands="GSM 900 / GSM 1800 / UMTS 2100 / LTE 2600" brand="Kyivstar" cc="ua" country="Ukraine" operator="Kyivstar JSC" status="Operational"
  04 bands="CDMA 800" brand="IT" cc="ua" country="Ukraine" operator="Intertelecom LLC" status="Operational"
  05 bands="GSM 1800" brand="Golden Telecom" cc="ua" country="Ukraine" operator="Kyivstar GSM JSC" status="Not operational"
  06 bands="GSM 900 / GSM 1800 / UMTS 2100 / LTE 2600" brand="lifecell" cc="ua" country="Ukraine" operator="Turkcell" status="Operational"
@@ -805,9 +805,9 @@
 278
  01 bands="GSM 900 / UMTS 2100 / LTE 1800" brand="Vodafone" cc="mt" country="Malta" operator="Vodafone Malta" status="Operational"
  11 bands="MVNO" cc="mt" country="Malta" operator="YOM Ltd." status="Operational"
- 21 bands="GSM 1800 / UMTS 2100 / LTE 1800" brand="GO" cc="mt" country="Malta" operator="Mobile Communications Limited" status="Operational"
+ 21 bands="GSM 900 / GSM 1800 / UMTS 2100 / LTE 1800" brand="GO" cc="mt" country="Malta" operator="Mobile Communications Limited" status="Operational"
  30 brand="GO" cc="mt" country="Malta" operator="Mobile Communications Limited"
- 77 bands="UMTS 2100" brand="Melita" cc="mt" country="Malta" operator="Melita" status="Operational"
+ 77 bands="UMTS 900 / UMTS 2100" brand="Melita" cc="mt" country="Malta" operator="Melita" status="Operational"
  00-99
 280
  01 bands="GSM 900 / GSM 1800 / UMTS 2100 / LTE 800 / LTE 1800 / LTE 2600" brand="Cytamobile-Vodafone" cc="cy" country="Cyprus" operator="Cyprus Telecommunications Authority" status="Operational"
@@ -1487,7 +1487,7 @@
 372
  01 bands="GSM 850" brand="Voila" cc="ht" country="Haiti" operator="Communication Cellulaire d'Haiti S.A." status="Not operational"
  02 bands="GSM 1800" brand="Digicel" cc="ht" country="Haiti" operator="Unigestion Holding S.A." status="Operational"
- 03 bands="GSM 900 / GSM 1800 / UTMS 2100" brand="Natcom" cc="ht" country="Haiti" operator="NATCOM S.A." status="Operational"
+ 03 bands="GSM 900 / GSM 1800 / UTMS 2100 / LTE" brand="Natcom" cc="ht" country="Haiti" operator="NATCOM S.A." status="Operational"
  00-99
 374
  12 bands="GSM 850 / GSM 1900 / UMTS 1900 / LTE 1900 / TD-LTE 2600" brand="bmobile" cc="tt" country="Trinidad and Tobago" operator="TSTT" status="Operational"
@@ -1835,7 +1835,7 @@
  06 bands="GSM 900 / GSM 1800" brand="Wataniya" cc="ps" country="Palestine" operator="Wataniya Palestine Mobile Telecommunications Company" status="Operational"
  07 bands="iDEN 800 / UMTS 2100" brand="Hot Mobile" cc="il" country="Israel" operator="Hot Mobile Ltd." status="Operational"
  08 bands="UMTS 2100 / LTE 1800" brand="Golan Telecom" cc="il" country="Israel" operator="Golan Telecom Ltd" status="Operational"
- 09 brand="018 Xphone" cc="il" country="Israel" operator="Marathon 018 Xphone Ltd."
+ 09 bands="LTE 1800" brand="018 Xphone" cc="il" country="Israel" operator="Marathon 018 Xphone Ltd." status="Operational"
  11 bands="MVNO" cc="il" country="Israel" operator="365 Telecom"
  12 bands="MVNO" cc="il" country="Israel" operator="Free Telecom"
  13 cc="il" country="Israel" operator="Ituran Cellular Communications"

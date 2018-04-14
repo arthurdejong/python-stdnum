@@ -1,6 +1,6 @@
 # generated from current_codes.xls downloaded from
 # https://www.nbb.be/doc/be/be/protocol/current_codes.xls
-# version 03/01/2018
+# version 15/03/2018
 000-000 bic="BPOTBEB1" bank="bpost bank"
 001-049 bic="GEBABEBB" bank="BNP Paribas Fortis"
 050-099 bic="GKCCBEBB" bank="BELFIUS BANK"
@@ -66,7 +66,7 @@
 581-581 bic="MHCBBEBB" bank="Mizuho Bank Europe N.V. Brussels Branch"
 583-583 bic="DEGRBEBB" bank="Banque Degroof Petercam Luxembourg"
 584-584 bic="ICICBE2X" bank="ICICI Bank UK Limited"
-585-585 bic="RCBPBEBB" bank="Rothschild & Cie Banque GCV"
+585-585 bic="RCBPBEBB" bank="Rothschild Belgique Succursale Rothschild Martin Maurel"
 586-586 bic="CFFRBEB1" bank="Crédit Foncier de France"
 587-587 bic="BIBLBE21" bank="BinckBank"
 588-588 bic="CMCIBEB1BTB" bank="Banque Transatlantique Belgium"
@@ -164,6 +164,7 @@
 920-923 bic="HBKABE22" bank="Record Bank"
 924-924 bic="FMMSBEB1" bank="Fimaser"
 925-925 bic="HBKABE22" bank="Record Bank"
+926-926 bic="EBPBBEB1" bank="Ebury Partners Belgium"
 929-939 bic="HBKABE22" bank="Record Bank"
 940-940 bic="CLIQBEB1" bank="Banque Centrale de Compensation (Clearnet)"
 941-941 bic="CVMCBEBB" bank="C A Indosuez Wealth (Europe)"
