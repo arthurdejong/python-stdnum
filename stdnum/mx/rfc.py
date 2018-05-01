@@ -67,14 +67,6 @@ from stdnum.exceptions import *
 from stdnum.util import clean, to_unicode
 
 
-# regular expression for matching numbers
-_rfc_re = re.compile(u'^[A-Z&Ñ]{3,4}[0-9]{6}[0-9A-Z]{0,5}$')
-
-
-# regular expression for matching the last 3 check digits
-_check_digits_re = re.compile(u'^[1-9A-V][1-9A-Z][0-9A]$')
-
-
 # these values should not appear as first part of a personal number
 _name_blacklist = set([
     'BUEI', 'BUEY', 'CACA', 'CACO', 'CAGA', 'CAGO', 'CAKA', 'CAKO', 'COGE',
@@ -120,20 +112,22 @@ def validate(number, validate_check_digits=False):
     """Check if the number is a valid RFC."""
     number = compact(number)
     n = to_unicode(number)
-    if not _rfc_re.match(n):
-        raise InvalidFormat()
     if len(n) in (10, 13):
         # number assigned to person
+        if not re.match(u'^[A-Z&Ñ]{4}[0-9]{6}[0-9A-Z]{0,3}$', n):
+            raise InvalidFormat()
         if n[:4] in _name_blacklist:
             raise InvalidComponent()
         _get_date(n[4:10])
     elif len(n) == 12:
         # number assigned to company
+        if not re.match(u'^[A-Z&Ñ]{3}[0-9]{6}[0-9A-Z]{3}$', n):
+            raise InvalidFormat()
         _get_date(n[3:9])
     else:
         raise InvalidLength()
     if validate_check_digits and len(n) >= 12:
-        if not _check_digits_re.match(n[-3:]):
+        if not re.match(u'^[1-9A-V][1-9A-Z][0-9A]$', n[-3:]):
             raise InvalidComponent()
         if n[-1] != calc_check_digit(n[:-1]):
             raise InvalidChecksum()

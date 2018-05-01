@@ -41,6 +41,14 @@ Traceback (most recent call last):
 InvalidFormat: ...
 
 
+The first four digits should only be letters for 10 or 13-digit numbers.
+
+>>> rfc.validate('ABCD 12345678')
+Traceback (most recent call last):
+    ...
+InvalidFormat: ...
+
+
 The first four digits of a personal number should not be one of the
 blacklisted words.
 
