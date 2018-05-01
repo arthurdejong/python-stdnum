@@ -55,7 +55,7 @@ InvalidChecksum: ...
 """
 
 from stdnum.exceptions import *
-from stdnum.util import clean
+from stdnum.util import clean, to_unicode
 
 
 alphabet = u'ABCDEFGHIJKLMNÑOPQRSTUVWXYZ0123456789'
@@ -89,16 +89,9 @@ def _check_digit(number):
     return 'MQWERTYUIOPASDFGHJKLBZX'[s % 23]
 
 
-def _force_unicode(number):
-    """Convert the number to unicode."""
-    if not hasattr(number, 'isnumeric'):  # pragma: no cover (Python 2 code)
-        number = number.decode('utf-8')
-    return number
-
-
 def calc_check_digits(number):
     """Calculate the check digits for the number."""
-    number = _force_unicode(compact(number))
+    number = to_unicode(compact(number))
     return (
         _check_digit(number[0:7] + number[14:18]) +
         _check_digit(number[7:14] + number[14:18]))
@@ -108,7 +101,7 @@ def validate(number):
     """Check if the number is a valid Cadastral Reference. This checks the
     length, formatting and check digits."""
     number = compact(number)
-    n = _force_unicode(number)
+    n = to_unicode(number)
     if not all(c in alphabet for c in n):
         raise InvalidFormat()
     if len(n) != 20:

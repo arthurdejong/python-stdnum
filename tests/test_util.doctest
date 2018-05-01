@@ -24,7 +24,21 @@ meant for internal use by stdnum modules and is not guaranteed to remain
 stable and as such not part of the public API of stdnum.
 
 >>> from stdnum.util import (
-...     get_number_modules, get_module_name, get_module_description)
+...     get_number_modules, get_module_name, get_module_description,
+...     to_unicode)
+
+
+The to_unicode() function is used to force conversion of a string to unicode
+if it is not already a unicode string. This is mostly used to convert numbers
+with non-ASCII characters in it.
+
+>>> n_str = b'\xc3\x91'.decode('utf-8')  # Ñ character as unicode string
+>>> to_unicode(n_str) ==  n_str
+True
+>>> to_unicode(n_str.encode('utf-8')) ==  n_str
+True
+>>> to_unicode(n_str.encode('iso-8859-1')) ==  n_str
+True
 
 
 The get_module_name() function is used in the example WSGI application and

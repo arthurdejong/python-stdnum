@@ -129,6 +129,16 @@ def clean(number, deletechars=''):
     return ''.join(x for x in number if x not in deletechars)
 
 
+def to_unicode(text):
+    """Convert the specified text to a unicode string."""
+    if not isinstance(text, type(u'')):
+        try:
+            return text.decode('utf-8')
+        except UnicodeDecodeError:
+            return text.decode('iso-8859-15')
+    return text
+
+
 def get_number_modules(base='stdnum'):
     """Yield all the number validation modules under the specified module."""
     __import__(base)

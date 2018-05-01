@@ -64,15 +64,15 @@ import datetime
 import re
 
 from stdnum.exceptions import *
-from stdnum.util import clean
+from stdnum.util import clean, to_unicode
 
 
 # regular expression for matching numbers
-_rfc_re = re.compile(r'^[A-Z&Ñ]{3,4}[0-9]{6}[0-9A-Z]{0,5}$')
+_rfc_re = re.compile(u'^[A-Z&Ñ]{3,4}[0-9]{6}[0-9A-Z]{0,5}$')
 
 
 # regular expression for matching the last 3 check digits
-_check_digits_re = re.compile(r'^[1-9A-V][1-9A-Z][0-9A]$')
+_check_digits_re = re.compile(u'^[1-9A-V][1-9A-Z][0-9A]$')
 
 
 # these values should not appear as first part of a personal number
@@ -86,7 +86,7 @@ _name_blacklist = set([
 
 
 # characters used for checksum calculation,
-_alphabet = '0123456789ABCDEFGHIJKLMN&OPQRSTUVWXYZ Ñ'
+_alphabet = u'0123456789ABCDEFGHIJKLMN&OPQRSTUVWXYZ Ñ'
 
 
 def compact(number):
@@ -110,6 +110,7 @@ def _get_date(number):
 def calc_check_digit(number):
     """Calculate the check digit. The number passed should not have the
     check digit included."""
+    number = to_unicode(number)
     number = ('   ' + number)[-12:]
     check = sum(_alphabet.index(n) * (13 - i) for i, n in enumerate(number))
     return _alphabet[(11 - check) % 11]
@@ -118,22 +119,23 @@ def calc_check_digit(number):
 def validate(number, validate_check_digits=False):
     """Check if the number is a valid RFC."""
     number = compact(number)
-    if not _rfc_re.match(number):
+    n = to_unicode(number)
+    if not _rfc_re.match(n):
         raise InvalidFormat()
-    if len(number) in (10, 13):
+    if len(n) in (10, 13):
         # number assigned to person
-        if number[:4] in _name_blacklist:
+        if n[:4] in _name_blacklist:
             raise InvalidComponent()
-        _get_date(number[4:10])
-    elif len(number) == 12:
+        _get_date(n[4:10])
+    elif len(n) == 12:
         # number assigned to company
-        _get_date(number[3:9])
+        _get_date(n[3:9])
     else:
         raise InvalidLength()
-    if validate_check_digits and len(number) >= 12:
-        if not _check_digits_re.match(number[-3:]):
+    if validate_check_digits and len(n) >= 12:
+        if not _check_digits_re.match(n[-3:]):
             raise InvalidComponent()
-        if number[-1] != calc_check_digit(number[:-1]):
+        if n[-1] != calc_check_digit(n[:-1]):
             raise InvalidChecksum()
     return number
 
