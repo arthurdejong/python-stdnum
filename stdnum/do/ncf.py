@@ -42,10 +42,8 @@ Traceback (most recent call last):
 InvalidFormat: ...
 """
 
-import json
-
 from stdnum.exceptions import *
-from stdnum.util import clean, get_soap_client
+from stdnum.util import clean
 
 
 def compact(number):
@@ -99,10 +97,14 @@ def _convert_result(result):  # pragma: no cover
         'MENSAJE_VALIDACION': 'validation_message',
         'RNC': 'rnc',
         'NCF': 'ncf',
+        u'RNC/Cédula': 'rnc',
+        u'Nombre/Razón Social': 'name',
+        'Estado': 'status',
+        'Tipo de comprobante': 'type',
     }
     return dict(
         (translation.get(key, key), value)
-        for key, value in json.loads(result.replace('\t', '\\t')).items())
+        for key, value in result.items())
 
 
 def check_dgii(rnc, ncf, timeout=30):  # pragma: no cover
@@ -117,25 +119,41 @@ def check_dgii(rnc, ncf, timeout=30):  # pragma: no cover
 
         {
             'name': 'The registered name',
-            'proof': 'Source of the information',
-            'is_valid': '1',
-            'validation_message': '',
+            'status': 'VIGENTE',
+            'type': 'FACTURAS DE CREDITO FISCAL',
             'rnc': '123456789',
-            'ncf': 'A020010210100000005'
+            'ncf': 'A020010210100000005',
+            'validation_message': 'El NCF digitado es válido.',
         }
 
     Will return None if the number is invalid or unknown."""
+    import requests
+    try:
+        from bs4 import BeautifulSoup
+    except ImportError:
+        from BeautifulSoup import BeautifulSoup
     from stdnum.do.rnc import compact as rnc_compact
-    from stdnum.do.rnc import dgii_wsdl
     rnc = rnc_compact(rnc)
     ncf = compact(ncf)
-    client = get_soap_client(dgii_wsdl, timeout)
-    result = client.GetNCF(
-        RNC=rnc,
-        NCF=ncf,
-        IMEI='')
-    if result and 'GetNCFResult' in result:
-        result = result['GetNCFResult']  # PySimpleSOAP only
-    if result == '0':
-        return
-    return _convert_result(result)
+    url = 'http://www.dgii.gov.do/app/WebApps/ConsultasWeb/consultas/ncf.aspx'
+    headers = {
+        'User-Agent': 'Mozilla/5.0 (python-stdnum)',
+    }
+    data = {
+        '__EVENTVALIDATION': '/wEWBAKh8pDuCgK+9LSUBQLfnOXIDAKErv7SBhjZB34//pbvvJzrbkFCGGPRElcd',
+        '__VIEWSTATE': '/wEPDwUJNTM1NDc0MDQ5ZGRCFUYoDcVRgzEntcKfSuvPnC2VhA==',
+        'ctl00$cphMain$btnConsultar': 'Consultar',
+        'ctl00$cphMain$txtNCF': ncf,
+        'ctl00$cphMain$txtRNC': rnc,
+    }
+    result = BeautifulSoup(
+        requests.post(url, headers=headers, data=data, timeout=timeout).text)
+    results = result.find(id='ctl00_cphMain_pResultado')
+    if results:
+        data = {
+            'validation_message': result.find(id='ctl00_cphMain_lblInformacion').get_text().strip(),
+        }
+        data.update(zip(
+            [x.get_text().strip().rstrip(':') for x in results.find_all('strong')],
+            [x.get_text().strip() for x in results.find_all('span')]))
+        return _convert_result(data)

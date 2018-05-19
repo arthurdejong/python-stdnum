@@ -40,9 +40,11 @@ class TestDGII(unittest.TestCase):
         """Test stdnum.do.ncf.check_dgii()"""
         # Test a normal valid number
         result = ncf.check_dgii('130546312', 'A010010011500000038')
-        self.assertTrue(all(
-            key in result.keys()
-            for key in ['name', 'proof', 'is_valid', 'validation_message', 'rnc', 'ncf']))
+        self.assertTrue(result)
+        self.assertIn('name', result.keys())
+        self.assertIn('rnc', result.keys())
+        self.assertIn('ncf', result.keys())
+        self.assertIn('validation_message', result.keys())
         self.assertEqual(result['rnc'], '130546312')
         self.assertEqual(result['ncf'], 'A010010011500000038')
         # Test an invalid combination
@@ -53,3 +55,12 @@ class TestDGII(unittest.TestCase):
         # These types have not been requested with the regulator
         self.assertFalse(ncf.check_dgii('1-31-56633-2', 'A030010010100000001'))
         self.assertFalse(ncf.check_dgii('1-31-56633-2', 'A010020010100000001'))
+        # Test the new format
+        result = ncf.check_dgii('130546312', 'B0100000005')
+        self.assertTrue(result)
+        self.assertIn('name', result.keys())
+        self.assertIn('rnc', result.keys())
+        self.assertIn('ncf', result.keys())
+        self.assertIn('validation_message', result.keys())
+        self.assertEqual(result['rnc'], '130546312')
+        self.assertEqual(result['ncf'], 'B0100000005')
