@@ -38,9 +38,9 @@ Traceback (most recent call last):
 InvalidChecksum: ...
 """
 
-from stdnum.util import clean
-import stdnum.iso7064.mod_97_10 as mod_97_10
 from stdnum.exceptions import *
+from stdnum.iso7064 import mod_97_10
+from stdnum.util import clean
 
 
 def compact(number):
