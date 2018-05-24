@@ -19,10 +19,12 @@
 # 02110-1301 USA
 
 """The ISO 11649 structured creditor reference number consists of 'RF' followed
-by two check digits and a number of 2(needs confirmation)-21 digits. The number
+by two check digits and a number of 1-21 digits. The number
 may contain letters.
 
-The reference number is validated using the iso7064 mod_97_10.
+The reference number is validated by moving RF and the check digits to the end
+of the number, and checking that the iso7064 mod_97_10 checksum of this string
+is 1.
 
 >>> validate('RF18 5390 0754 7034')
 'RF18539007547034'
@@ -49,18 +51,19 @@ def compact(number):
 
 def checksum(number):
     """Calculate the checksum."""
-    return mod_97_10.checksum(number[4:])
+
+    return mod_97_10.checksum(number[4:] + number[:4])
 
 
 def validate(number):
     """Check if the number provided is a valid iso11649 structured creditor
     reference number."""
     number = compact(number)
-    if len(number) < 6 or len(number) > 25:
+    if len(number) < 5 or len(number) > 25:
         raise InvalidLength()
-    if number[:2] != 'RF' or not number[2:4].isdigit():
+    if number[:2] != 'RF':
         raise InvalidFormat()
-    if checksum(number) != int(number[2:4]):
+    if checksum(number) != 1:
         raise InvalidChecksum()
     return number
 
