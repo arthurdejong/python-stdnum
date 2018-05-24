@@ -152,6 +152,7 @@ Currently this package supports the following formats:
  * RTN (Routing transport number)
  * SSN (U.S. Social Security Number)
  * TIN (U.S. Taxpayer Identification Number)
+ * ISO 11649 (Structured Creditor Reference)
 
 Furthermore a number of generic check digit algorithms are available:
 
