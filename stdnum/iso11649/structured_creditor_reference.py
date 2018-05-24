@@ -51,7 +51,6 @@ def compact(number):
 
 def checksum(number):
     """Calculate the checksum."""
-
     return mod_97_10.checksum(number[4:] + number[:4])
 
 
