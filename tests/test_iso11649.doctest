@@ -1,0 +1,139 @@
+test_iso11649.doctest - more detailed doctests for the stdnum.iso11649 module
+
+Copyright (C) 2018 Esben Toke Christensen
+
+This library is free software; you can redistribute it and/or
+modify it under the terms of the GNU Lesser General Public
+License as published by the Free Software Foundation; either
+version 2.1 of the License, or (at your option) any later version.
+
+This library is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+Lesser General Public License for more details.
+
+You should have received a copy of the GNU Lesser General Public
+License along with this library; if not, write to the Free Software
+Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
+02110-1301 USA
+
+
+This file contains more detailed doctests for the stdnum.iso11649 module. It
+tries to validate a number of numbers that have been generated online.
+
+>>> import stdnum.iso11649
+>>> from stdnum.exceptions import *
+
+
+The following numbers have been randomly generated at:
+https://www.mobilefish.com/services/creditor_reference/creditor_reference.php
+
+They should all be valid iso11649 structured creditor reference numbers
+
+
+>>> numbers = '''
+...
+... RF03SW3EZRUFBK
+... RF20QQHM7PAW61EOWO
+... RF206KCJWVH20
+... RF97XX5ZIC
+... RF66A4E7BF6OI8F23P9
+... RF888F7P5VQ8TOFTY3LZ
+... RF41778UFIFX6LGFHAX
+... RF8676YM2Q3UWC9
+... RF056TXFK
+... RF800PAG6O89TAU8M5H
+... RF20AN1IJBLFGA
+... RF23EF4UHBVNPLHKG3HZ9SGGT
+... RF79KDFLO48OJW9TSCUP7L
+... RF72YW
+... RF14GE30YOI8
+... RF95SVO25ZY0J
+... RF38W1PAA2QLIPIQVMAYLOH
+... RF80A0CPH
+... RF15O27ZC6D86DZGO
+... RF30VXZSLA8
+... RF87PBDPC22JTUPL98AYLOCK
+... RF14QS8OSM0SGZJHDAJI2S1
+... RF724P
+... RF0717UP2X0DO9UF6JGIPG8
+... RF42J8H8Y0VB5MXP1T24RHM3
+... RF70JNR
+... RF949BJ0SHL5OELQ0M16
+... RF75TR2ACY3PGL
+... RF0891RPECRY4EKAIWQK4UZUP
+... RF95079AYKHK4C6D8SF
+... RF63RPP1PYBH4K
+... RF28JGS
+... RF80I4
+... RF55IJ37T88JU5D0XUR6Z3N
+... RF08P
+... RF315S3SM4CXHLHPCCJULF36
+... RF25GKZ943I
+... RF10XHXROQ2ZS1
+... RF032KW3MG
+... RF03Z55N
+... RF93SYT6JCX9BF8STKZTF
+... RF910KN
+... RF4480GWBS4ON16IRYL7T5VN2
+... RF02YFL1INOWMIYT2AN
+... RF23PCSFK51V1XJALP
+... RF37K91OEQE0FMBZSBN
+... RF96QP1V07AYT
+... RF2939KX5US7LX3PAN1BNWC0H
+... RF02RLPTC78WPBRBZFWSU
+... RF85QEZRRD82
+... RF529
+... RF813OATFTW
+... RF02MT56MM6RK3NSA88RKVK
+... RF81WGYFUZZ0TWXHQK
+... RF21FYKWJSLDSEV5P8XGPE2
+... RF75B2UCA8B3KLEP4PNTJA
+... RF401ETPTNN0E83ASNVVNPWU
+... RF11JB
+... RF48T7F6BF5F4H9F9JG
+... RF68C
+... RF53AVDW8QM7M6A62
+... RF382LJGQV501HHZQ6ZS1
+... RF097
+... RF73XJXLAL
+... RF95B
+... RF57G
+... RF25282M4CZ5GHSGY3G85G
+... RF498F8Q7S17
+... RF701XP4QUW0YV62EI5DQ
+... RF16V1A2WFZ6U8RMNVLE
+... RF78DB1FAB
+... RF7522DRITKFXLL97L45F
+... RF11A8Z
+... RF04X2OY4TYLNF
+... RF607WBLIGJT8FLEPYJ
+... RF07YDRKBYAAJTZ9IEMA
+... RF186L
+... RF409UF6078QP
+... RF82K6F
+... RF28AGC
+... RF57G
+... RF1492GE4TE5I7
+... RF12EMD86TLG46QZT9Z0WA3I
+... RF056PZYKELS9JY35QWH11
+... RF288UQN77O6QWX5565
+... RF12Z7WS5GR9S4
+... RF17B6V83RKUJCKYSIV
+... RF489L8GK4
+... RF41FWLX
+... RF98FIKGWHA2AK04NMI
+... RF86V26RQ3Z
+... RF72813
+... RF59OG39OS05B0RBMT
+... RF67B3TIEBWV82
+... RF73UYAE6PKWKA7MMR62S0B
+... RF92DIALM
+... RF04J4
+... RF60OG76HU1XGBIHRU94K
+... RF22EM
+... RF67J7L
+...
+... '''
+>>> [x for x in numbers.splitlines() if x and not stdnum.iso11649.is_valid(x)]
+[]
