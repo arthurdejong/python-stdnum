@@ -17,10 +17,10 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 # 02110-1301 USA
 
-"""Onderwijsnummer (Dutch student school number).
+"""Onderwijsnummer (the Dutch student identification number).
 
 The onderwijsnummers (education number) is very similar to the BSN (Dutch
-national identification number) for students without a BSN. It uses a
+citizen identification number), but is for students without a BSN. It uses a
 checksum mechanism similar to the BSN.
 
 More information:
