@@ -17,9 +17,14 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 # 02110-1301 USA
 
-"""Postcode (Dutch postal code).
+"""Postcode (the Dutch postal code).
 
-The Dutch postal code consists of four numbers followed by two letters.
+The Dutch postal code consists of four numbers followed by two letters,
+separated by a single space.
+
+More information:
+* https://en.wikipedia.org/wiki/Postal_codes_in_the_Netherlands
+* https://nl.wikipedia.org/wiki/Postcodes_in_Nederland
 
 >>> validate('2601 DC')
 '2601 DC'

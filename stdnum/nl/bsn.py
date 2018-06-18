@@ -17,11 +17,12 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 # 02110-1301 USA
 
-"""BSN (Burgerservicenummer, Dutch national identification number).
+"""BSN (Burgerservicenummer, the Dutch citizen identification number).
 
 The BSN is a unique personal identifier and has been introduced as the
-successor to the sofinummer. The number consists of up to 9 digits (the
-leading 0's are commonly left out) and contains a simple checksum.
+successor to the sofinummer. It is issued to each Dutch national. The number
+consists of up to nine digits (the leading zeros are commonly omitted) and
+contains a simple checksum.
 
 More information:
 
