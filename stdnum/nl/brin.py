@@ -17,15 +17,19 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 # 02110-1301 USA
 
-"""Brin number (Dutch number for schools).
+"""BRIN number (the Dutch school identification number).
 
-The Brin (Basis Registratie Instellingen) is a number to identify schools
-and related institutions. The number consists of four alphanumeric
-characters, sometimes extended with two digits to indicate the site (this
-complete code is called the vestigingsnummer).
+The BRIN (Basisregistratie Instellingen) is a number to identify schools and
+related institutions. The number consists of four alphanumeric characters,
+sometimes extended with two digits to indicate the site (this complete code
+is called the vestigingsnummer).
 
 The register of these numbers can be downloaded from:
 https://www.duo.nl/open_onderwijsdata/databestanden/
+
+More information:
+
+* https://nl.wikipedia.org/wiki/Basisregistratie_Instellingen
 
 >>> validate('05 KO')
 '05KO'
