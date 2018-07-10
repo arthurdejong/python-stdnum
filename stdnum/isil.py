@@ -71,7 +71,7 @@ def compact(number):
 
 
 def _is_known_agency(agency):
-    """Checks whether the specified agency is valid."""
+    """Check whether the specified agency is valid."""
     # look it up in the db
     from stdnum import numdb
     results = numdb.get('isil').info(agency.upper() + '$')
@@ -80,7 +80,7 @@ def _is_known_agency(agency):
 
 
 def validate(number):
-    """Checks to see if the number provided is a valid ISIL."""
+    """Check if the number provided is a valid ISIL."""
     number = compact(number)
     if not all(x in _alphabet for x in number):
         raise InvalidFormat()
@@ -92,7 +92,7 @@ def validate(number):
 
 
 def is_valid(number):
-    """Checks to see if the number provided is a valid ISIL."""
+    """Check if the number provided is a valid ISIL."""
     try:
         return bool(validate(number))
     except ValidationError:
@@ -100,7 +100,7 @@ def is_valid(number):
 
 
 def format(number):
-    """Reformat the passed number to the standard format."""
+    """Reformat the number to the standard presentation format."""
     number = compact(number)
     parts = number.split('-')
     if len(parts) > 1 and _is_known_agency(parts[0]):

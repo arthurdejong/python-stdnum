@@ -58,8 +58,7 @@ def compact(number):
 
 
 def validate(number):
-    """Checks to see if the number provided is a valid IMEI (or IMEISV)
-    number."""
+    """Check if the number provided is a valid IMEI (or IMEISV) number."""
     number = compact(number)
     if not number.isdigit():
         raise InvalidFormat()
@@ -73,7 +72,7 @@ def validate(number):
 
 
 def imei_type(number):
-    """Check the passed number and returns 'IMEI', 'IMEISV' or None (for
+    """Check the passed number and return 'IMEI', 'IMEISV' or None (for
     invalid) for checking the type of number passed."""
     try:
         number = validate(number)
@@ -86,8 +85,7 @@ def imei_type(number):
 
 
 def is_valid(number):
-    """Checks to see if the number provided is a valid IMEI (or IMEISV)
-    number."""
+    """Check if the number provided is a valid IMEI (or IMEISV) number."""
     try:
         return bool(validate(number))
     except ValidationError:
@@ -103,7 +101,7 @@ def split(number):
 
 
 def format(number, separator='-', add_check_digit=False):
-    """Reformat the passed number to the standard format."""
+    """Reformat the number to the standard presentation format."""
     number = compact(number)
     if len(number) == 14 and add_check_digit:
         number += luhn.calc_check_digit(number)

@@ -75,8 +75,8 @@ def get_birth_date(number):
 
 
 def validate(number):
-    """Checks to see if the number provided is a valid VAT number. This checks
-    the length, formatting and check digit."""
+    """Check if the number is a valid VAT number. This checks the length,
+    formatting and check digit."""
     number = compact(number)
     # first digit should be a known one (9=foreigner)
     if not number.isdigit() or number[0] not in '1234569':
@@ -84,7 +84,7 @@ def validate(number):
     if len(number) != 13:
         raise InvalidLength()
     # check if birth date is valid
-    birth_date = get_birth_date(number)
+    get_birth_date(number)
     # TODO: check that the birth date is not in the future
     # number[7:9] is the county, we ignore it for now, just check last digit
     if calc_check_digit(number[:-1]) != number[-1]:
@@ -93,8 +93,7 @@ def validate(number):
 
 
 def is_valid(number):
-    """Checks to see if the number provided is a valid VAT number. This checks
-    the length, formatting and check digit."""
+    """Check if the number is a valid VAT number."""
     try:
         return bool(validate(number))
     except ValidationError:

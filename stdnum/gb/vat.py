@@ -35,8 +35,8 @@ InvalidChecksum: ...
 '980 7806 84'
 """
 
-from stdnum.util import clean
 from stdnum.exceptions import *
+from stdnum.util import clean
 
 
 def compact(number):
@@ -56,8 +56,8 @@ def checksum(number):
 
 
 def validate(number):
-    """Checks to see if the number provided is a valid VAT number. This
-    checks the length, formatting and check digit."""
+    """Check if the number is a valid VAT number. This checks the length,
+    formatting and check digit."""
     number = compact(number)
     if len(number) == 5:
         if not number[2:].isdigit():
@@ -101,8 +101,7 @@ def validate(number):
 
 
 def is_valid(number):
-    """Checks to see if the number provided is a valid VAT number. This
-    checks the length, formatting and check digit."""
+    """Check if the number is a valid VAT number."""
     try:
         return bool(validate(number))
     except ValidationError:
@@ -110,7 +109,7 @@ def is_valid(number):
 
 
 def format(number):
-    """Reformat the passed number to the standard format."""
+    """Reformat the number to the standard presentation format."""
     number = compact(number)
     if len(number) == 5:
         # government department or health authority

@@ -17,16 +17,16 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 # 02110-1301 USA
 
-""" SEPA Identifier of the Creditor (AT-02)
+"""SEPA Identifier of the Creditor (AT-02).
 
 This identifier is indicated in the ISO 20022 data element `Creditor Scheme
 Identification`. The creditor can be a legal entity, or an association that
 is not a legal entity, or a person.
 
-Ther first two digits contain the ISO country code, the nex two are check
+The first two digits contain the ISO country code, the next two are check
 digits for the ISO 7064 Mod 97, 10 checksum, the next tree contain the
-Creditor Bussines Code (or `ZZZ` if no bussness code used) and the remainder
-contain the country-specific identifier.
+Creditor Business Code (or `ZZZ` if no business code used) and the remainder
+contains the country-specific identifier.
 
 >>> validate('ES 23 ZZZ 47690558N')
 'ES23ZZZ47690558N'
@@ -60,7 +60,7 @@ def _to_base10(number):
 
 
 def validate(number):
-    """Checks to see if the number provided is a valid AT-02."""
+    """Check if the number provided is a valid AT-02."""
     number = compact(number)
     try:
         test_number = _to_base10(number)
@@ -72,7 +72,7 @@ def validate(number):
 
 
 def is_valid(number):
-    """Checks to see if the number provided is a valid AT-02."""
+    """Check if the number provided is a valid AT-02."""
     try:
         return bool(validate(number))
     except ValidationError:

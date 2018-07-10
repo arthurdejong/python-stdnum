@@ -21,5 +21,6 @@
 """Collection of Finnish numbers."""
 
 # provide vat as an alias
-from stdnum.fi import alv as vat
-from stdnum.fi import ytunnus as businessid
+from stdnum.fi import alv as vat  # noqa: F401
+from stdnum.fi import hetu as personalid  # noqa: F401
+from stdnum.fi import ytunnus as businessid  # noqa: F401

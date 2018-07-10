@@ -21,4 +21,4 @@
 """Collection of French numbers."""
 
 # provide vat as an alias
-from stdnum.fr import tva as vat
+from stdnum.fr import tva as vat  # noqa: F401

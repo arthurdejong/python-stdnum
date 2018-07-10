@@ -55,8 +55,8 @@ def compact(number):
 
 
 def validate(number):
-    """Checks to see if the number provided is a valid SIN. This checks the
-    length, formatting and check digit."""
+    """Check if the number is a valid SIN. This checks the length, formatting
+    and check digit."""
     number = compact(number)
     if len(number) != 9:
         raise InvalidLength()
@@ -66,8 +66,7 @@ def validate(number):
 
 
 def is_valid(number):
-    """Checks to see if the number provided is a valid SIN. This checks the
-    length, formatting and check digit."""
+    """Check if the number is a valid SIN."""
     try:
         return bool(validate(number))
     except ValidationError:
@@ -75,6 +74,6 @@ def is_valid(number):
 
 
 def format(number):
-    """Reformat the passed number to the standard format."""
+    """Reformat the number to the standard presentation format."""
     number = compact(number)
     return '-'.join((number[0:3], number[3:6], number[6:]))

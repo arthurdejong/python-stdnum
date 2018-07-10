@@ -2,7 +2,7 @@
 
 # setup.py - python-stdnum installation script
 #
-# Copyright (C) 2010-2017 Arthur de Jong
+# Copyright (C) 2010-2018 Arthur de Jong
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -32,10 +32,15 @@ if 'sdist' in sys.argv:
     os.system('chmod -R a+rX .')
     os.umask(int('022', 8))
 
+base_dir = os.path.dirname(__file__)
+
+with open(os.path.join(base_dir, 'README'), 'rb') as fp:
+    long_description = fp.read().decode('utf-8')
+
 setup(name='python-stdnum',
       version=stdnum.__version__,
       description='Python module to handle standardized numbers and codes',
-      long_description=stdnum.__doc__,
+      long_description=long_description,
       author='Arthur de Jong',
       author_email='arthur@arthurdejong.org',
       url='https://arthurdejong.org/python-stdnum/',
@@ -63,7 +68,11 @@ setup(name='python-stdnum',
       packages=find_packages(),
       package_data={'': ['*.dat']},
       extras_require={
-          'VIES':  ['suds'],
-          'VIES-ALT':  ['PySimpleSOAP'],
+          # The SOAP feature is only required for a number of online tests
+          # of numbers such as the EU VAT VIES lookup, the Dominican Republic
+          # DGII services or the Turkish T.C. Kimlik validation.
+          'SOAP':  ['zeep'],     # recommended implementation
+          'SOAP-ALT': ['suds'],  # but this should also work
+          'SOAP-FALLBACK':  ['PySimpleSOAP'],  # this is a fallback
           },
       )

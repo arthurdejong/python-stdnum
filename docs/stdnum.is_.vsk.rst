@@ -1,5 +1,5 @@
-stdnum.is_.vsk
-==============
+stdnum.is\_.vsk
+===============
 
 .. automodule:: stdnum.is_.vsk
    :members:

@@ -73,7 +73,7 @@ def compact(number):
 
 
 def format(number):
-    """Reformat the passed number to the standard format."""
+    """Reformat the number to the standard presentation format."""
     number = compact(number)
     return ' '.join([
         number[0:4],
@@ -99,7 +99,7 @@ def calc_check_digits(number):
 
 
 def validate(number):
-    """Checks to see if the number provided is a valid CCC."""
+    """Check if the number provided is a valid CCC."""
     number = compact(number)
     if len(number) != 20:
         raise InvalidLength()
@@ -111,7 +111,7 @@ def validate(number):
 
 
 def is_valid(number):
-    """Checks to see if the number provided is a valid CCC."""
+    """Check if the number provided is a valid CCC."""
     try:
         return bool(validate(number))
     except ValidationError:

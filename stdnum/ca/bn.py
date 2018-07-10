@@ -55,8 +55,8 @@ def compact(number):
 
 
 def validate(number):
-    """Checks to see if the number provided is a valid BN or BN15. This
-    checks the length, formatting and check digit."""
+    """Check if the number is a valid BN or BN15. This checks the length,
+    formatting and check digit."""
     number = compact(number)
     if len(number) not in (9, 15):
         raise InvalidLength()
@@ -72,8 +72,7 @@ def validate(number):
 
 
 def is_valid(number):
-    """Checks to see if the number provided is a valid BN or BN15. This
-    checks the length, formatting and check digit."""
+    """Check if the number is a valid BN or BN15."""
     try:
         return bool(validate(number))
     except ValidationError:

@@ -64,7 +64,7 @@ def compact(number):
 
 
 def format(number):
-    """Reformat the passed number to the standard format."""
+    """Reformat the number to the standard presentation format."""
     number = compact(number)
     return ' '.join((
         number[:2],
@@ -74,7 +74,7 @@ def format(number):
         number[14:18],
         number[18:20],
         number[20:],
-        )).strip()
+    )).strip()
 
 
 def calc_check_digits(number):
@@ -85,8 +85,8 @@ def calc_check_digits(number):
 
 
 def validate(number):
-    """Check to see if the number provided is a valid CUPS. This checks
-    length, formatting and check digits."""
+    """Check if the number provided is a valid CUPS. This checks length,
+    formatting and check digits."""
     number = compact(number)
     if len(number) not in (20, 22):
         raise InvalidLength()
@@ -106,7 +106,7 @@ def validate(number):
 
 
 def is_valid(number):
-    """Check to see if the number provided is a valid CUPS."""
+    """Check if the number provided is a valid CUPS."""
     try:
         return bool(validate(number))
     except ValidationError:

@@ -48,8 +48,8 @@ Traceback (most recent call last):
 InvalidComponent: ...
 """
 
-from stdnum.util import clean
 from stdnum.exceptions import *
+from stdnum.util import clean
 
 
 # The allowed characters in an UPN.
@@ -86,8 +86,8 @@ def calc_check_digit(number):
 
 
 def validate(number):
-    """Check to see if the number provided is a valid UPN. This checks
-    length, formatting and check digits."""
+    """Check if the number is a valid UPN. This checks length, formatting and
+    check digits."""
     number = compact(number)
     if len(number) != 13:
         raise InvalidLength()
@@ -101,8 +101,7 @@ def validate(number):
 
 
 def is_valid(number):
-    """Check to see if the number provided is a valid UPN. This checks
-    length, formatting and check digits."""
+    """Check if the number is a valid UPN."""
     try:
         return bool(validate(number))
     except ValidationError:

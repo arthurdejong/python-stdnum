@@ -21,5 +21,5 @@
 """Collection of Chilean numbers."""
 
 # provide vat and run as an alias
-from stdnum.cl import rut as vat
-from stdnum.cl import rut as run
+from stdnum.cl import rut as vat  # noqa: F401
+from stdnum.cl import rut as run  # noqa: F401

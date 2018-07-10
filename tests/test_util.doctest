@@ -24,7 +24,21 @@ meant for internal use by stdnum modules and is not guaranteed to remain
 stable and as such not part of the public API of stdnum.
 
 >>> from stdnum.util import (
-...     get_number_modules, get_module_name, get_module_description)
+...     get_number_modules, get_module_name, get_module_description,
+...     to_unicode)
+
+
+The to_unicode() function is used to force conversion of a string to unicode
+if it is not already a unicode string. This is mostly used to convert numbers
+with non-ASCII characters in it.
+
+>>> n_str = b'\xc3\x91'.decode('utf-8')  # Ñ character as unicode string
+>>> to_unicode(n_str) ==  n_str
+True
+>>> to_unicode(n_str.encode('utf-8')) ==  n_str
+True
+>>> to_unicode(n_str.encode('iso-8859-1')) ==  n_str
+True
 
 
 The get_module_name() function is used in the example WSGI application and
@@ -48,3 +62,22 @@ The doctests should not be present in the descriptions.
 True
 >>> any('>>>' in get_module_description(mod) for mod in get_number_modules())
 False
+
+
+The get_cc_module() function can be used to find a country-specific
+validation module that can be used to validate the number format. It should
+handle aliases properly.
+
+>>> from stdnum.util import get_cc_module
+>>> get_cc_module('gb', 'vat').__name__
+'stdnum.gb.vat'
+>>> get_cc_module('nl', 'vat').__name__
+'stdnum.nl.btw'
+>>> get_cc_module('is', 'vat').__name__
+'stdnum.is_.vsk'
+>>> get_cc_module(u'nl', u'vat').__name__
+'stdnum.nl.btw'
+>>> get_cc_module('unknown', 'vat') is None
+True
+>>> get_cc_module('nl', 'unknown') is None
+True

@@ -1,8 +1,8 @@
 #!/usr/bin/env python
 
-# getnumlist.py - script to get a list of number formats in stdnum
+# update/numlist.py - script to get a list of number formats in stdnum
 #
-# Copyright (C) 2012-2016 Arthur de Jong
+# Copyright (C) 2012-2018 Arthur de Jong
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -22,9 +22,14 @@
 """This script uses introspection to present a list of number formats
 suitable to be included in the README and stdnum package description."""
 
-import pydoc
+import os.path
+import sys
 
-from stdnum import util
+# Ensure that we use our local stdnum implementation is used
+sys.path.insert(0, os.path.normpath(
+    os.path.join(os.path.dirname(os.path.abspath(__file__)), '..')))
+
+from stdnum import util  # noqa
 
 
 # these are excluded
@@ -33,32 +38,25 @@ algortihms = (
 
 
 def get_number_modules():
-    """Provides the number modules that are not algorithms."""
+    """Provide the number modules that are not algorithms."""
     for module in util.get_number_modules():
         if module.__name__ not in algortihms and \
            not module.__name__.startswith('stdnum.iso7064'):
             yield module
 
+
 if __name__ == '__main__':
-    print 'For README:'
-    print ''
+    print('For README:')
+    print('')
     for module in get_number_modules():
-        print ' * %s' % util.get_module_name(module)
-    print ''
-    print 'For stdnum/__init__.py:'
-    print ''
+        print(' * %s' % util.get_module_name(module))
+    print('')
+    print('For docs/index.rst:')
+    print('')
     for module in get_number_modules():
-        print '* %s: %s' % (
-            module.__name__.replace('stdnum.', ''),
-            util.get_module_name(module),
-        )
-    print ''
-    print 'For docs/index.rst:'
-    print ''
+        print('   %s' % module.__name__.replace('stdnum.', ''))
+    print('')
+    print('For formats.xml:')
+    print('')
     for module in get_number_modules():
-        print '   %s' % module.__name__.replace('stdnum.', '')
-    print ''
-    print 'For formats.xml:'
-    print ''
-    for module in get_number_modules():
-        print '  <li>%s</li>' % util.get_module_name(module)
+        print('  <li>%s</li>' % util.get_module_name(module))

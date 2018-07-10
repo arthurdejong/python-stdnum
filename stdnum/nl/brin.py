@@ -60,9 +60,8 @@ def compact(number):
 
 
 def validate(number):
-    """Checks to see if the number provided is in the correct format.
-    This currently does not check whether the number points to a
-    registered school."""
+    """Check if the number is a valid Brun number. This currently does not
+    check whether the number points to a registered school."""
     number = compact(number)
     if len(number) not in (4, 6):
         raise InvalidLength()
@@ -73,7 +72,7 @@ def validate(number):
 
 
 def is_valid(number):
-    """Checks to see if the number provided is a valid Brin number."""
+    """Check if the number is a valid Brun number."""
     try:
         return bool(validate(number))
     except ValidationError:

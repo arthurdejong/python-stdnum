@@ -51,7 +51,7 @@ def compact(number):
 
 
 def validate(number):
-    """Checks to see if the number provided is a valid GRid."""
+    """Check if the number is a valid GRid."""
     from stdnum.iso7064 import mod_37_36
     number = compact(number)
     if len(number) != 18:
@@ -60,7 +60,7 @@ def validate(number):
 
 
 def is_valid(number):
-    """Checks to see if the number provided is a valid GRid."""
+    """Check if the number is a valid GRid."""
     try:
         return bool(validate(number))
     except ValidationError:
@@ -68,7 +68,7 @@ def is_valid(number):
 
 
 def format(number, separator='-'):
-    """Reformat the passed number to the standard format."""
+    """Reformat the number to the standard presentation format."""
     number = compact(number)
     number = (number[0:2], number[2:7], number[7:17], number[17:])
     return separator.join(x for x in number if x)

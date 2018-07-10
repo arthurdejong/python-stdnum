@@ -50,8 +50,8 @@ def compact(number):
 
 
 def validate(number):
-    """Checks to see if the number provided is a valid PTIN. This checks
-    the length, groups and formatting if it is present."""
+    """Check if the number is a valid PTIN. This checks the length, groups
+    and formatting if it is present."""
     number = compact(number).upper()
     if not _ptin_re.search(number):
         raise InvalidFormat()
@@ -60,8 +60,7 @@ def validate(number):
 
 
 def is_valid(number):
-    """Checks to see if the number provided is a valid ATIN. This checks
-    the length, groups and formatting if it is present."""
+    """Check if the number is a valid ATIN."""
     try:
         return bool(validate(number))
     except ValidationError:

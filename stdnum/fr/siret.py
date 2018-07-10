@@ -55,8 +55,8 @@ def compact(number):
 
 
 def validate(number):
-    """Checks to see if the number provided is a valid number. This checks
-    the length, formatting and check digit."""
+    """Check if the number is a valid SIRET. This checks the length,
+    formatting and check digit."""
     number = compact(number)
     if not number.isdigit():
         raise InvalidFormat()
@@ -68,8 +68,7 @@ def validate(number):
 
 
 def is_valid(number):
-    """Checks to see if the number provided is a valid number. This checks
-    the length, formatting and check digit."""
+    """Check if the number is a valid SIRET."""
     try:
         return bool(validate(number))
     except ValidationError:
@@ -77,7 +76,7 @@ def is_valid(number):
 
 
 def to_siren(number):
-    """Return SIREN number from the given SIRET number.
+    """Convert the SIRET number to a SIREN number.
 
     The SIREN number is the 9 first digits of the SIRET number.
     """
@@ -92,7 +91,7 @@ def to_siren(number):
 
 
 def to_tva(number):
-    """Return TVA number from the given SIRET number.
+    """Convert the SIRET number to a TVA number.
 
     The TVA number is built from the SIREN number, prepended by two extra
     error checking digits.
@@ -101,6 +100,6 @@ def to_tva(number):
 
 
 def format(number, separator=' '):
-    """Reformat the passed number to the standard format."""
+    """Reformat the number to the standard presentation format."""
     number = compact(number)
     return separator.join((number[0:3], number[3:6], number[6:9], number[9:]))

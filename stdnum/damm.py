@@ -38,6 +38,19 @@ InvalidChecksum: ...
 '4'
 >>> validate('5724')
 '5724'
+>>> table = (
+...     (0, 2, 3, 4, 5, 6, 7, 8, 9, 1),
+...     (2, 0, 4, 1, 7, 9, 5, 3, 8, 6),
+...     (3, 7, 0, 5, 2, 8, 1, 6, 4, 9),
+...     (4, 1, 8, 0, 6, 3, 9, 2, 7, 5),
+...     (5, 6, 2, 9, 0, 7, 4, 1, 3, 8),
+...     (6, 9, 7, 3, 1, 0, 8, 5, 2, 4),
+...     (7, 5, 1, 8, 4, 2, 0, 9, 6, 3),
+...     (8, 4, 6, 2, 9, 5, 3, 0, 1, 7),
+...     (9, 8, 5, 7, 3, 1, 6, 4, 0, 2),
+...     (1, 3, 9, 6, 8, 4, 2, 7, 5, 0))
+>>> checksum('816', table=table)
+9
 """
 
 from stdnum.exceptions import *
@@ -67,7 +80,7 @@ def checksum(number, table=None):
 
 
 def validate(number, table=None):
-    """Checks to see if the number provided passes the Damm algorithm."""
+    """Check if the number provided passes the Damm algorithm."""
     if not bool(number):
         raise InvalidFormat()
     try:
@@ -80,7 +93,7 @@ def validate(number, table=None):
 
 
 def is_valid(number, table=None):
-    """Checks to see if the number provided passes the Damm algorithm."""
+    """Check if the number provided passes the Damm algorithm."""
     try:
         return bool(validate(number, table=table))
     except ValidationError:
@@ -88,6 +101,6 @@ def is_valid(number, table=None):
 
 
 def calc_check_digit(number, table=None):
-    """With the provided number, calculate the extra digit that should be
-    appended to make it pass the Damm check."""
+    """Calculate the extra digit that should be appended to the number to
+    make it a valid number."""
     return str(checksum(number, table=table))

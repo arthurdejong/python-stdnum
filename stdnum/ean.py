@@ -46,9 +46,9 @@ def calc_check_digit(number):
 
 
 def validate(number):
-    """Checks to see if the number provided is a valid EAN-13. This checks
-    the length and the check bit but does not check whether a known GS1
-    Prefix and company identifier are referenced."""
+    """Check if the number provided is a valid EAN-13. This checks the length
+    and the check bit but does not check whether a known GS1 Prefix and
+    company identifier are referenced."""
     number = compact(number)
     if not number.isdigit():
         raise InvalidFormat()
@@ -60,9 +60,9 @@ def validate(number):
 
 
 def is_valid(number):
-    """Checks to see if the number provided is a valid EAN-13. This checks
-    the length and the check bit but does not check whether a known GS1
-    Prefix and company identifier are referenced."""
+    """Check if the number provided is a valid EAN-13. This checks the length
+    and the check bit but does not check whether a known GS1 Prefix and
+    company identifier are referenced."""
     try:
         return bool(validate(number))
     except ValidationError:

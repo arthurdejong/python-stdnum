@@ -21,4 +21,4 @@
 """Collection of Luxembourgian numbers."""
 
 # provide vat as an alias
-from stdnum.lu import tva as vat
+from stdnum.lu import tva as vat  # noqa: F401

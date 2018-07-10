@@ -1,7 +1,7 @@
 # vat.py - functions for handling European VAT numbers
 # coding: utf-8
 #
-# Copyright (C) 2012-2016 Arthur de Jong
+# Copyright (C) 2012-2018 Arthur de Jong
 # Copyright (C) 2015 Lionel Elie Mamane
 #
 # This library is free software; you can redistribute it and/or
@@ -43,7 +43,7 @@ from stdnum.exceptions import *
 from stdnum.util import clean, get_cc_module, get_soap_client
 
 
-country_codes = set([
+_country_codes = set([
     'at', 'be', 'bg', 'cy', 'cz', 'de', 'dk', 'ee', 'es', 'fi', 'fr', 'gb',
     'gr', 'hr', 'hu', 'ie', 'it', 'lt', 'lu', 'lv', 'mt', 'nl', 'pl', 'pt',
     'ro', 'se', 'si', 'sk',
@@ -56,9 +56,6 @@ _country_modules = dict()
 vies_wsdl = 'http://ec.europa.eu/taxation_customs/vies/checkVatService.wsdl'
 """The WSDL URL of the VAT Information Exchange System (VIES)."""
 
-# a cached version of the suds client for VIES
-_vies_client = None
-
 
 def _get_cc_module(cc):
     """Get the VAT number module based on the country code."""
@@ -66,7 +63,7 @@ def _get_cc_module(cc):
     cc = cc.lower()
     if cc == 'el':
         cc = 'gr'
-    if cc not in country_codes:
+    if cc not in _country_codes:
         return
     if cc not in _country_modules:
         _country_modules[cc] = get_cc_module(cc, 'vat')
@@ -84,8 +81,8 @@ def compact(number):
 
 
 def validate(number):
-    """Checks to see if the number provided is a valid VAT number. This
-    performs the country-specific check for the number."""
+    """Check if the number is a valid VAT number. This performs the
+    country-specific check for the number."""
     number = clean(number, '').upper().strip()
     module = _get_cc_module(number[:2])
     if not module:
@@ -94,8 +91,8 @@ def validate(number):
 
 
 def is_valid(number):
-    """Checks to see if the number provided is a valid VAT number. This
-    performs the country-specific check for the number."""
+    """Check if the number is a valid VAT number. This performs the
+    country-specific check for the number."""
     try:
         return bool(validate(number))
     except ValidationError:
@@ -103,46 +100,39 @@ def is_valid(number):
 
 
 def guess_country(number):
-    """Guess the country code based on the provided number. This checks the
-    provided number against each of the validation routines and returns
-    the list of countries for which it is valid. This returns lower case
-    codes and returns gr (not el) for Greece."""
+    """Guess the country code based on the number. This checks the number
+    against each of the validation routines and returns the list of countries
+    for which it is valid. This returns lower case codes and returns gr (not
+    el) for Greece."""
     return [cc
-            for cc in country_codes
+            for cc in _country_codes
             if _get_cc_module(cc).is_valid(number)]
 
 
-def _get_client():  # pragma: no cover (no tests for this function)
-    """Get a SOAP client for performing VIES requests."""
-    # this function isn't automatically tested because the functions using
-    # it are not automatically tested
-    global _vies_client
-    if _vies_client is None:
-        _vies_client = get_soap_client(vies_wsdl)
-    return _vies_client
-
-
-def check_vies(number):  # pragma: no cover (no tests for this function)
-    """Queries the online European Commission VAT Information Exchange
-    System (VIES) for validity of the provided number. Note that the
-    service has usage limitations (see the VIES website for details).
-    This returns a dict-like object."""
+def check_vies(number, timeout=30):  # pragma: no cover (not part of normal test suite)
+    """Query the online European Commission VAT Information Exchange System
+    (VIES) for validity of the provided number. Note that the service has
+    usage limitations (see the VIES website for details). The timeout is in
+    seconds. This returns a dict-like object."""
     # this function isn't automatically tested because it would require
     # network access for the tests and unnecessarily load the VIES website
     number = compact(number)
-    return _get_client().checkVat(number[:2], number[2:])
+    client = get_soap_client(vies_wsdl, timeout)
+    return client.checkVat(number[:2], number[2:])
 
 
-def check_vies_approx(number, requester):  # pragma: no cover
-    """Queries the online European Commission VAT Information Exchange System
+def check_vies_approx(number, requester, timeout=30):  # pragma: no cover
+    """Query the online European Commission VAT Information Exchange System
     (VIES) for validity of the provided number, providing a validity
     certificate as proof. You will need to give your own VAT number for this
     to work. Note that the service has usage limitations (see the VIES
-    website for details). This returns a dict-like object."""
+    website for details). The timeout is in seconds. This returns a dict-like
+    object."""
     # this function isn't automatically tested because it would require
     # network access for the tests and unnecessarily load the VIES website
     number = compact(number)
     requester = compact(requester)
-    return _get_client().checkVatApprox(
+    client = get_soap_client(vies_wsdl, timeout)
+    return client.checkVatApprox(
         countryCode=number[:2], vatNumber=number[2:],
         requesterCountryCode=requester[:2], requesterVatNumber=requester[2:])

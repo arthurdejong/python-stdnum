@@ -2,6 +2,7 @@
 # coding: utf-8
 #
 # Copyright (C) 2015 Holvi Payment Services Oy
+# Copyright (C) 2018 Arthur de Jong
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public

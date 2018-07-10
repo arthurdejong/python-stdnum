@@ -1,7 +1,7 @@
 # util.py - common utility functions
 # coding: utf-8
 #
-# Copyright (C) 2012-2016 Arthur de Jong
+# Copyright (C) 2012-2018 Arthur de Jong
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -23,11 +23,6 @@
 This module is meant for internal use by stdnum modules and is not
 guaranteed to remain stable and as such not part of the public API of
 stdnum.
-
->>> get_cc_module('nl', 'vat').__name__
-'stdnum.nl.btw'
->>> get_cc_module('is', 'vat').__name__
-'stdnum.is_.vsk'
 """
 
 import pkgutil
@@ -35,6 +30,7 @@ import pydoc
 import re
 import sys
 import unicodedata
+import warnings
 
 from stdnum.exceptions import *
 
@@ -133,16 +129,29 @@ def clean(number, deletechars=''):
     return ''.join(x for x in number if x not in deletechars)
 
 
+def to_unicode(text):
+    """Convert the specified text to a unicode string."""
+    if not isinstance(text, type(u'')):
+        try:
+            return text.decode('utf-8')
+        except UnicodeDecodeError:
+            return text.decode('iso-8859-15')
+    return text
+
+
 def get_number_modules(base='stdnum'):
-    """Yield all the module and package names under the specified module."""
+    """Yield all the number validation modules under the specified module."""
     __import__(base)
     module = sys.modules[base]
-    for loader, name, is_pkg in pkgutil.walk_packages(
-            module.__path__, module.__name__ + '.'):
-        __import__(name)
-        module = sys.modules[name]
-        if hasattr(module, 'validate'):
-            yield module
+    # we ignore deprecation warnings from transitional modules
+    with warnings.catch_warnings():
+        warnings.filterwarnings('ignore', category=DeprecationWarning, module=r'stdnum\..*')
+        for _loader, name, _is_pkg in pkgutil.walk_packages(
+                module.__path__, module.__name__ + '.'):
+            __import__(name)
+            module = sys.modules[name]
+            if hasattr(module, 'validate') and module.__name__ == name:
+                yield module
 
 
 def get_module_name(module):
@@ -164,25 +173,52 @@ def get_cc_module(cc, name):
     if cc in ('in', 'is', 'if'):
         cc += '_'
     try:
-        mod = __import__('stdnum.%s' % cc, globals(), locals(), [name])
+        mod = __import__('stdnum.%s' % cc, globals(), locals(), [str(name)])
         return getattr(mod, name, None)
     except ImportError:
         return
 
 
-def get_soap_client(wsdlurl):  # pragma: no cover (no tests for this function)
-    """Get a SOAP client for performing requests."""
+# this is a cache of SOAP clients
+_soap_clients = {}
+
+
+def get_soap_client(wsdlurl, timeout=30):  # pragma: no cover (not part of normal test suite)
+    """Get a SOAP client for performing requests. The client is cached. The
+    timeout is in seconds."""
     # this function isn't automatically tested because the functions using
     # it are not automatically tested
-    try:
-        from urllib import getproxies
-    except ImportError:
-        from urllib.request import getproxies
-    # try suds first
-    try:
-        from suds.client import Client
-        return Client(wsdlurl, proxy=getproxies()).service
-    except ImportError:
-        # fall back to using pysimplesoap
-        from pysimplesoap.client import SoapClient
-        return SoapClient(wsdl=wsdlurl, proxy=getproxies())
+    if (wsdlurl, timeout) not in _soap_clients:
+        # try zeep first
+        try:
+            from zeep.transports import Transport
+            transport = Transport(timeout=timeout)
+            from zeep import CachingClient
+            client = CachingClient(wsdlurl, transport=transport).service
+        except ImportError:
+            # fall back to non-caching zeep client
+            try:
+                from zeep import Client
+                client = Client(wsdlurl, transport=transport).service
+            except ImportError:
+                # other implementations require passing the proxy config
+                try:
+                    from urllib import getproxies
+                except ImportError:
+                    from urllib.request import getproxies
+                # fall back to suds
+                try:
+                    from suds.client import Client
+                    client = Client(
+                        wsdlurl, proxy=getproxies(), timeout=timeout).service
+                except ImportError:
+                    # use pysimplesoap as last resort
+                    try:
+                        from pysimplesoap.client import SoapClient
+                        client = SoapClient(
+                            wsdl=wsdlurl, proxy=getproxies(), timeout=timeout)
+                    except ImportError:
+                        raise ImportError(
+                            'No SOAP library (such as zeep) found')
+        _soap_clients[(wsdlurl, timeout)] = client
+    return _soap_clients[(wsdlurl, timeout)]

@@ -1,9 +1,9 @@
 #!/usr/bin/env python
 
-# getcnloc.py - script to fetch data from the CN Open Data community
+# update/cn_loc.py - script to fetch data from the CN Open Data community
 #
 # Copyright (C) 2014-2015 Jiangge Zhang
-# Copyright (C) 2015-2016 Arthur de Jong
+# Copyright (C) 2015-2018 Arthur de Jong
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -20,10 +20,13 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 # 02110-1301 USA
 
+"""This script downloads birth place codes from the CN Open Data community on
+Github."""
+
 from __future__ import print_function, unicode_literals
 
-import sys
 import codecs
+import sys
 from collections import OrderedDict
 from datetime import datetime
 
@@ -51,7 +54,9 @@ data_revisions = [
     'GB2260-2014',
 ]
 
+
 def fetch_data():
+    """Return the data from tab-separated revisions as one code/name dict."""
     data_collection = OrderedDict()
     for revision in data_revisions:
         response = requests.get('%s/raw/release/%s.txt' % (data_url, revision))
@@ -67,6 +72,7 @@ def fetch_data():
 
 
 def group_data(data_collection):
+    """Filter the data and return codes with names."""
     for code, name in sorted(data_collection.items()):
         if code.endswith('00'):
             continue  # county only
@@ -78,6 +84,7 @@ def group_data(data_collection):
 
 
 def print_data_file(file):
+    """Output a data file in the right format."""
     print("# generated from National Bureau of Statistics of the People's",
           file=file)
     print('# Republic of China, downloaded from %s' % data_url, file=file)

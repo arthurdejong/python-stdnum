@@ -21,4 +21,4 @@
 """Collection of Serbian numbers."""
 
 # provide vat as an alias
-from stdnum.rs import pib as vat
+from stdnum.rs import pib as vat  # noqa: F401

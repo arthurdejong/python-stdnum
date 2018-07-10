@@ -60,12 +60,8 @@ def compact(number):
 
 
 def validate(number):
-    """
-    Validate the format of a Finnish association register number.
-
-    First strip all separators and spaces from the number and then checks
-    that it has a correct length and is only numeric.
-    """
+    """Check if the number is a valid Finnish association register number.
+    This checks the length and format."""
     number = compact(number)
     if not number.isdigit():
         raise InvalidFormat()
@@ -77,8 +73,7 @@ def validate(number):
 
 
 def is_valid(number):
-    """Checks to see if the number provided is a valid association register
-    number. This checks that the format is correct."""
+    """Check if the number is a valid association register number."""
     try:
         return bool(validate(number))
     except ValidationError:
@@ -86,7 +81,7 @@ def is_valid(number):
 
 
 def format(number):
-    """Reformat the passed number to the standard format."""
+    """Reformat the number to the standard presentation format."""
     number = compact(number)
     if len(number) <= 3:
         return number

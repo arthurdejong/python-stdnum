@@ -1,3 +1,79 @@
+changes from 1.8.1 to 1.9
+-------------------------
+
+* add modules for the following number formats:
+  - Postleitzahl (Austrian postal code)
+  - Abgabenkontonummer (Austrian tax identification number)
+  - Belgian IBAN (International Bank Account Number)
+  - Handelsregisternummer (German company register number)
+  - St.-Nr. (Steuernummer, German tax number)
+  - FIGI (Financial Instrument Global Identifier)
+  - Montenegro IBAN (International Bank Account Number)
+* Have documentation rebuilt reproducibly (thanks Chris Lamb)
+* Allow configuring the SOAP request timeout
+* Support spaces in ISO 9362 (SWIFT) BIC codes
+* Add check_dgii() to stdnum.do.cedula module
+* Add validation for "individual" part of hetu (thanks Esa Halsti)
+* Support new style of Dominican Republic NCF numbers
+* Fix issue when using PySimpleSOAP for DGII lookups
+* Fix an issue in splitting certain IMSI values
+* Support building a universal wheel
+* Documentation and code style improvements
+
+
+changes from 1.8 to 1.8.1
+-------------------------
+
+* fix a packaging issue in the long description
+
+
+changes from 1.7 to 1.8
+-----------------------
+
+* add modules for the following number formats:
+ - NCF (Números de Comprobante Fiscal, Dominican Republic receipt number)
+ - Euro banknote serial numbers
+ - CAS RN (Chemical Abstracts Service Registry Number)
+ - Aadhaar (Indian digital resident personal identity number)
+   (thanks Srikanth Lakshmanan)
+ - PAN (Permanent Account Number, Indian income tax identifier)
+   (thanks Srikanth Lakshmanan)
+* add functions for using the Dominican Republic DGII web service to validate
+  and search for RNC and NCF numbers
+* add/update whitelists for Dominican Republic RNC and Cedula
+* support zeep as preferred SOAP library (suds and pysimplesoap are tried
+  as fallback)
+* rename stdnum.iso9362 to stdnum.bic (iso9362 is deprecated but still
+  available for compatibility)
+* add tests for web services (not normally run to avoid unnecessary load)
+* fixes and improvement to the sample online validation service
+
+Development of the NCF format validation and DGII web service validation
+was funded by iterativo | http://iterativo.do
+
+
+changes from 1.6 to 1.7
+-----------------------
+
+* add modules for the following number formats:
+  - BN (Canadian Business Number)
+  - SIN (Canadian Social Insurance Number)
+  - IdNr (Steuerliche Identifikationsnummer, German personal tax number)
+    (thanks Mohammed Salman of Holvi)
+  - Registrikood (Estonian organisation registration code)
+    (thanks Mohammed Salman of Holvi)
+  - Veronumero (Finnish individual tax number)
+    (thanks Mohammed Salman of Holvi)
+  - UPN (English Unique Pupil Number)
+* fix a bug in the Czech DIČ check digit calculation
+* fix conversion of 9 digit ISBN to ISBN13
+* fix a bug in the Damm is_valid() function
+* more validation of 13-digit ISBN values
+* more validation of ISMN values
+* various code and test improvements (100% branch coverage now)
+* documentation improvements
+
+
 changes from 1.5 to 1.6
 -----------------------
 

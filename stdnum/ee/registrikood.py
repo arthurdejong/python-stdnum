@@ -47,9 +47,9 @@ Traceback (most recent call last):
 InvalidComponent: ...
 """
 
+from stdnum.ee.ik import calc_check_digit
 from stdnum.exceptions import *
 from stdnum.util import clean
-from stdnum.ee.ik import calc_check_digit
 
 
 def compact(number):
@@ -59,8 +59,8 @@ def compact(number):
 
 
 def validate(number):
-    """Checks if the number provided is valid. This checks the length,
-    and check digit."""
+    """Check if the number provided is valid. This checks the length and
+    check digit."""
     number = compact(number)
     if not number.isdigit():
         raise InvalidFormat()
@@ -74,10 +74,8 @@ def validate(number):
 
 
 def is_valid(number):
-    """
-    Checks if the number provided is valid. This checks the length,
-    and check digit.
-    """
+    """Check if the number provided is valid. This checks the length and
+    check digit."""
     try:
         return bool(validate(number))
     except ValidationError:

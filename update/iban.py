@@ -1,8 +1,8 @@
 #!/usr/bin/env python
 
-# getiban.py - script to donwload and parse data from the IBAN registry
+# update/iban.py - script to donwload and parse data from the IBAN registry
 #
-# Copyright (C) 2011-2016 Arthur de Jong
+# Copyright (C) 2011-2018 Arthur de Jong
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -23,9 +23,9 @@
 Financial Telecommunication which is the official IBAN registrar) to get
 the data needed to correctly parse and validate IBANs."""
 
-from collections import defaultdict
 import csv
 import urllib
+from collections import defaultdict
 
 
 # The place where the current version of
@@ -44,8 +44,8 @@ def get_country_codes(line):
 
 def parse(f):
     """Parse the specified file."""
-    print '# generated from swift_standards_infopaper_ibanregistry_1.txt,'
-    print '# downloaded from %s' % download_url
+    print('# generated from swift_standards_infopaper_ibanregistry_1.txt,')
+    print('# downloaded from %s' % download_url)
     values = defaultdict(dict)
     # the file is CSV but the data is in columns instead of rows
     for row in csv.reader(f, delimiter='\t', quotechar='"'):
@@ -65,7 +65,7 @@ def parse(f):
         if bban.startswith(cc + '2!n'):
             bban = bban[5:]
         # print country line
-        print '%s country="%s" bban="%s"' % (cc, cname, bban)
+        print('%s country="%s" bban="%s"' % (cc, cname, bban))
         # TODO: some countries have a fixed check digit value
         # TODO: some countries have extra check digits
         # TODO: use "Bank identifier position within the BBAN" field

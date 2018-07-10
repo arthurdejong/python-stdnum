@@ -1,8 +1,8 @@
 #!/usr/bin/env python
 
-# getismsi.py - script to donwload data from Wikipedia to build the database
+# update/imsi.py - script to donwload from Wikipedia to build the database
 #
-# Copyright (C) 2011, 2013 Arthur de Jong
+# Copyright (C) 2011-2018 Arthur de Jong
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -19,9 +19,11 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 # 02110-1301 USA
 
-from collections import defaultdict
+"""This extracts a IMSI country and operator code from Wikipedia."""
+
 import re
 import urllib
+from collections import defaultdict
 
 
 # URLs that are downloaded
@@ -82,11 +84,12 @@ cleanup_replacements = {
 
 remove_ref_re = re.compile(r'<ref>.*?</ref>')
 remove_comment_re = re.compile(r'{{.*?}}')
-remove_href_re = re.compile(ur'(?i)\b((?:https?://|www\d{0,3}[.]|[a-z0-9.\-]+' +
-                            ur'[.][a-z]{2,4}/)(?:[^\s()<>]+|\(([^\s()<>]+|' +
-                            ur'(\([^\s()<>]+\)))*\))+(?:\(([^\s()<>]+|' +
-                            ur'(\([^\s()<>]+\)))*\)|[^\s`!()\[\]{};:\'".,<>' +
-                            ur'?\xab\xbb\u201c\u201d\u2018\u2019]))')
+quotes = u'\xab\xbb\u201c\u201d\u2018\u2019'
+remove_href_re = re.compile(r'(?i)\b((?:https?://|www\d{0,3}[.]|[a-z0-9.\-]+' +
+                            r'[.][a-z]{2,4}/)(?:[^\s()<>]+|\(([^\s()<>]+|' +
+                            r'(\([^\s()<>]+\)))*\))+(?:\(([^\s()<>]+|' +
+                            r'(\([^\s()<>]+\)))*\)|[^\s`!()\[\]{};:\'".,<>' +
+                            r'?' + quotes + ']))')
 
 
 def cleanup_value(val):
@@ -137,8 +140,7 @@ def get_mncs_from_wikipedia(data):
         line = line.replace('||', '\\\\')
         match = mnc_line_re.match(line)
         if match:
-            mnc_list = str2range(match.group('mnc'))
-            for mnc in mnc_list:
+            for mnc in str2range(match.group('mnc')):
                 update_mncs(data, match.group('mcc'), mnc,
                             country=country, cc=cc, brand=match.group('brand'),
                             operator=match.group('operator'),
@@ -147,6 +149,7 @@ def get_mncs_from_wikipedia(data):
 
 
 def str2range(x):
+    """Convert the comma-separated list of ranges to a list of numbers."""
     result = []
     for part in x.split(','):
         if '-' in part:
@@ -156,7 +159,6 @@ def str2range(x):
             for i in range(a, b + 1):
                 result.append(f % (i))
         else:
-            a = part
             result.append(part)
     return result
 
@@ -166,14 +168,14 @@ if __name__ == '__main__':
     data = defaultdict(lambda: defaultdict(dict))
     get_mncs_from_wikipedia(data)
     # print header
-    print '# generated from various sources'
-    print '# %s' % mcc_list_url
+    print('# generated from various sources')
+    print('# %s' % mcc_list_url)
     # build an ordered list of mccs
     mcc_list = list(data.keys())
     mcc_list.sort()
     # go over mccs
     for mcc in mcc_list:
-        print '%s' % mcc
+        print('%s' % mcc)
         # build an ordered list of mncs
         mnc_list = data[mcc].keys()
         mnc_list.sort()
@@ -181,10 +183,11 @@ if __name__ == '__main__':
             info = data[mcc][mnc]
             infokeys = info.keys()
             infokeys.sort()
-            print ' %s%s' % (mnc, ''.join([' %s="%s"' % (k, info[k]) for k in infokeys]))
+            print(' %s%s' % (mnc, ''.join([' %s="%s"' % (k, info[k]) for k in infokeys if info[k]])))
         # try to get the length of mnc's
         try:
-            l = len(mnc_list[0])
-            print ' %s-%s' % (l * '0', l * '9')
+            length = len(mnc_list[0])
+            if all(len(x) == length for x in mnc_list):
+                print(' %s-%s' % (length * '0', length * '9'))
         except IndexError:
             pass  # ignore

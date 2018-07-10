@@ -21,5 +21,4 @@
 """Collection of Estonian numbers."""
 
 # provide vat as an alias
-from stdnum.ee import kmkr as vat
-from stdnum.ee import registrikoodi as registery_code
+from stdnum.ee import kmkr as vat  # noqa: F401

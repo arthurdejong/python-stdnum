@@ -21,4 +21,4 @@
 """Collection of Romanian numbers."""
 
 # provide vat as an alias
-from stdnum.ro import cf as vat
+from stdnum.ro import cf as vat  # noqa: F401

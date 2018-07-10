@@ -1,0 +1,73 @@
+test_eu_banknote.doctest - more detailed doctests for the stdnum.eu.banknote module
+
+Copyright (C) 2017 Arthur de Jong
+
+This library is free software; you can redistribute it and/or
+modify it under the terms of the GNU Lesser General Public
+License as published by the Free Software Foundation; either
+version 2.1 of the License, or (at your option) any later version.
+
+This library is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+Lesser General Public License for more details.
+
+You should have received a copy of the GNU Lesser General Public
+License along with this library; if not, write to the Free Software
+Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
+02110-1301 USA
+
+
+This file contains more detailed doctests for the stdnum.eu.banknote module.
+It contains some corner case tests and tries to validate a serial numbers
+that have been found online.
+
+>>> from stdnum.eu import banknote
+>>> from stdnum.exceptions import *
+
+
+Some basic tests for invalid numbers.
+
+>>> banknote.validate('RABCDEFGHIJN')
+Traceback (most recent call last):
+    ...
+InvalidFormat: ...
+>>> banknote.validate('Z123')
+Traceback (most recent call last):
+    ...
+InvalidLength: ...
+>>> banknote.validate('A71220515713')
+Traceback (most recent call last):
+    ...
+InvalidComponent: ...
+>>> banknote.validate('P36007033742')
+Traceback (most recent call last):
+    ...
+InvalidChecksum: ...
+
+
+These should all be valid serial numbers.
+
+>>> numbers = '''
+...
+... EA4100181598
+... F00172834112
+... P08392800367
+... P36007033744
+... S22227803764
+... SD9103468574
+... U36749787719
+... U71220515711
+... V37421817898
+... VA0436214792
+... X14234175767
+... X45370810262
+... X64709081183
+... X80420825306
+... Y12470649328
+... Z10708476264
+... Z34706855889
+...
+... '''
+>>> [x for x in numbers.splitlines() if x and not banknote.is_valid(x)]
+[]

@@ -60,14 +60,14 @@ def split(number):
 
 
 def validate(number):
-    """Checks to see if the number provided is a valid IMSI."""
+    """Check if the number provided is a valid IMSI."""
     number = compact(number)
     if not number.isdigit():
         raise InvalidFormat()
     if len(number) not in (14, 15):
         raise InvalidLength()
-    if len(split(number)) != 3:
-        raise InvalidComponent()
+    if len(split(number)) < 2:
+        raise InvalidComponent()  # unknown MCC
     return number
 
 
@@ -89,7 +89,7 @@ def info(number):
 
 
 def is_valid(number):
-    """Checks to see if the number provided is a valid IMSI."""
+    """Check if the number provided is a valid IMSI."""
     try:
         return bool(validate(number))
     except ValidationError:

@@ -21,4 +21,4 @@
 """Collection of Czech numbers."""
 
 # provide vat as an alias
-from stdnum.cz import dic as vat
+from stdnum.cz import dic as vat  # noqa: F401

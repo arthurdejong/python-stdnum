@@ -21,4 +21,4 @@
 """Collection of Mexican numbers."""
 
 # provide vat as an alias
-from stdnum.mx import rfc as vat
+from stdnum.mx import rfc as vat  # noqa: F401

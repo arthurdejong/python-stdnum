@@ -1,8 +1,8 @@
 #!/usr/bin/env python
 
-# getmybp.py - script to donwnload data from Malaysian government site
+# update/my_bp.py - script to download data from Malaysian government site
 #
-# Copyright (C) 2013-2016 Arthur de Jong
+# Copyright (C) 2013-2018 Arthur de Jong
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -19,9 +19,12 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 # 02110-1301 USA
 
-from collections import defaultdict
+"""This script downloads the list of states and countries and their
+birthplace code from the National Registration Department of Malaysia."""
+
 import re
 import urllib
+from collections import defaultdict
 
 import BeautifulSoup
 
@@ -31,11 +34,11 @@ state_list_url = 'http://www.jpn.gov.my/informasi/kod-negeri/'
 country_list_url = 'http://www.jpn.gov.my/en/informasi/kod-negara/'
 
 
-spaces_re = re.compile('\s+', re.UNICODE)
+spaces_re = re.compile(r'\s+', re.UNICODE)
 
 
 def clean(s):
-    """Cleans up the string removing unneeded stuff from it."""
+    """Clean up the string removing unneeded stuff from it."""
     return spaces_re.sub(' ', s.replace(u'\u0096', '')).strip().encode('utf-8')
 
 
@@ -56,24 +59,24 @@ def parse(f):
 
 
 if __name__ == '__main__':
-    results = defaultdict(lambda : defaultdict(set))
+    results = defaultdict(lambda: defaultdict(set))
     # read the states
-    #f = open('/tmp/states.html', 'r')
+    # f = open('/tmp/states.html', 'r')
     f = urllib.urlopen(state_list_url)
     for state, bps in parse(f):
         for bp in bps.split(','):
             results[bp.strip()]['state'] = state
             results[bp.strip()]['countries'].add('Malaysia')
     # read the countries
-    #f = open('/tmp/countries.html', 'r')
+    # f = open('/tmp/countries.html', 'r')
     f = urllib.urlopen(country_list_url)
     for country, bp in parse(f):
         results[bp]['countries'].add(country)
     # print the results
-    print '# generated from National Registration Department of Malaysia, downloaded from'
-    print '# %s' % state_list_url
-    print '# %s' % country_list_url
-    print
+    print('# generated from National Registration Department of Malaysia, downloaded from')
+    print('# %s' % state_list_url)
+    print('# %s' % country_list_url)
+    print('')
     for bp in sorted(results.iterkeys()):
         res = bp
         row = results[bp]
@@ -85,4 +88,4 @@ if __name__ == '__main__':
             res += ' country="%s"' % countries[0]
         if len(countries) > 0:
             res += ' countries="%s"' % (', '.join(countries))
-        print res
+        print(res)

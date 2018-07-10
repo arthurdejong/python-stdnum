@@ -76,8 +76,8 @@ def compact(number):
 
 
 def validate(number):
-    """Checks to see if the number provided is a valid company register number.
-    This checks only the formatting."""
+    """Check if the number is a valid company register number. This only
+    checks the formatting."""
     number = compact(number)
     if not number[-1:].isalpha() or not number[:-1].isdigit():
         raise InvalidFormat()
@@ -85,8 +85,7 @@ def validate(number):
 
 
 def is_valid(number):
-    """Checks to see if the number provided is a valid company register number.
-    This checks only the formatting."""
+    """Check if the number is a valid company register number."""
     try:
         return bool(validate(number))
     except ValidationError:

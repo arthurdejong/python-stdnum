@@ -65,14 +65,14 @@ def to_ccc(number):
 
 
 def validate(number):
-    """Checks to see if the number provided is a valid Spanish IBAN."""
+    """Check if the number provided is a valid Spanish IBAN."""
     number = iban.validate(number, check_country=False)
     ccc.validate(to_ccc(number))
     return number
 
 
 def is_valid(number):
-    """Checks to see if the number provided is a valid Spanish IBAN."""
+    """Check if the number provided is a valid Spanish IBAN."""
     try:
         return bool(validate(number))
     except ValidationError:

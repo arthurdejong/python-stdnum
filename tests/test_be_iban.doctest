@@ -1,0 +1,169 @@
+test_be_iban.doctest - more detailed doctests for the stdnum.be.iban module
+
+Copyright (C) 2018 Arthur de Jong
+
+This library is free software; you can redistribute it and/or
+modify it under the terms of the GNU Lesser General Public
+License as published by the Free Software Foundation; either
+version 2.1 of the License, or (at your option) any later version.
+
+This library is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+Lesser General Public License for more details.
+
+You should have received a copy of the GNU Lesser General Public
+License along with this library; if not, write to the Free Software
+Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
+02110-1301 USA
+
+
+This file contains more detailed doctests for the stdnum.be.iban module. It
+tries to test more corner cases and detailed functionality that is not really
+useful as module documentation.
+
+>>> from stdnum import bic
+>>> from stdnum.be import iban
+
+
+An IBAN should not end in 00 but should end with 97 instead to have a valid
+checksum.
+
+>>> iban.validate('BE54310100270097')
+'BE54310100270097'
+>>> iban.validate('BE54310100270000')
+Traceback (most recent call last):
+    ...
+InvalidChecksum: ...
+
+
+These should all be valid numbers combined with the appropriate BIC code for
+the IBAN.
+
+>>> numbers = '''
+... BE 03 7310 1866 4084    KREDBEBB
+... BE 04 4348 1414 3131    KREDBEBB
+... BE 05 0013 6299 3375    GEBABEBB
+... BE 05 7350 2212 4775    KREDBEBB
+... BE 06 0689 0671 6722    GKCC BE BB
+... BE 07 3751 1110 2566    BBRUBEBB
+... BE 07 7370 2293 3166    KREDBEBB
+... BE 07-0682455012-66     GKCCBEBB
+... BE 08 0682 0620 1213    GKCCBEBB
+... BE 099790 8568 5357     ARSPBE22
+... BE 10 0000 0000 0404    BPOTBEB1
+... BE 10 1030 4164 5404    NICABEBB
+... BE 10850818312004       NICABEBB
+... BE 11 2300 1259 3448    GEBABEBB
+... BE 11 4715 0060 2148    KREDBEBB
+... BE 12 7340 2513 1392    KREDBEBB
+... BE 13 3200 1620 5639    BBRUBEBB
+... BE 13 4185 0462 2139    KREDBEBB
+... BE 15733038344130       KREDBEBB
+... BE 17630067314221       BBRUBEBB
+... BE 18 3100 7494 0165    BBRUBEBB
+... BE 18 7512 0627 3065    AXABBE22
+... BE 19 0010 6151 1012    GEBABEBB
+... BE 19 7380 3475 4112    KREDBEBB
+... BE 19737426001512       KREDBEBB
+... BE 20 3200 68 35 4556   BBRUBEBB
+... BE 20 3630 3062 4556    BBRUBEBB
+... BE 21 0012 4611 0803    GEBABEBB
+... BE 26 3900 3439 3629    BBRU BEBB
+... BE 28 2930 1021 0620    GEBABEBB
+... BE 29 2710 3664 0164    GEBABEBB
+... BE 30 6451 0272 0611    JVBABE22
+... BE 32 7310 2089 6502    KREDBEBB
+... BE 34 0012 3765 1490    GEBA BEBB
+... BE 35 0011 2595 0637    GEBABEBB
+... BE 36 0910 0060 6681    GKCCBEBB
+... BE 36310180497181       BBRUBEBB
+... BE 3773 103 388 7428    KREDBEBB
+... BE 38 0000 1315 0772    BPO TBE B1
+... BE 38 0016 8887 4272    GEBABEBB
+... BE 40 0631 6189 5863    GKCCBEBB
+... BE 40 7380 1475 7863    KREDBEBB
+... BE 41 0003 2556 2110    BPOTBEB1
+... BE 43.4679.1170.4101    KREDBEBB
+... BE 44 2200 4529 0245    GEBABEBB
+... BE 45 2100 0760 8589    GEBABEBB
+... BE 45 4162 0698 8189    KREDBEBB
+... BE 46 4214 1888 0136    KREDBEBB
+... BE 46 6528 2264 2736    HBKABE22
+... BE 46 7380 3139 0636    KREDBEBB
+... BE 47 0001 0350 7080    BPOTBEB1
+... BE 48 3200 7018 4927    BBRUBEBB
+... BE 48 6792 0055 0227    PCHQ BE BB
+... BE 48 6792 0055 0227    PCHQBEBB
+... BE 49 7330 3109 2671    KRED BE BB
+... BE 49 8601 1076 3571    NICABEBB
+... BE 50 7370 3771 1118    KREDBEBB
+... BE 50363093903518       BBRU BE BB
+... BE 51 4738 1277 3162    KREDBEBB
+... BE 52 3100 2367 0009    BBRUBEBB
+... BE 52 7330 4855 6109    KREDBEBB
+... BE 54 0011 6600 7997    GEBA BE BB
+... BE 55 0016 0000 0044    GEBA BE BB
+... BE 55 552-3281700-44    GKCCBEBB
+... BE 55 7380 1810 2444    KREDBEBB
+... BE 57 0910 0535 5035    GKCCBEBB
+... BE 59 7340 3846 2226    KREDBEBB
+... BE 61 363163180817      BBRUBEBB
+... BE 61 7343 110 410 17   KREDBEBB
+... BE 62 0682 0026 9661    GKCCBEBB
+... BE 62 0689 3050 5061    GKCCBEBB
+... BE 63 001 344 1880 08   GEBABEBB
+... BE 64 3630 7212 0752    BBRU BE BB
+... BE 65 7360 2240 0596    KREDBEBB
+... BE 68 735 0015372 34    KREDBEBB
+... BE 69 2200 6901 0078    GEBABEBB
+... BE 70 2930 2739 9525    GEBABEBB
+... BE 73 7370 3778 3260    KREDBEBB
+... BE 76 7310 1774 3695    KREDBEBB
+... BE 77 0017 8594 8842    GEBABEBB
+... BE 77 3631 1772 9142    BBRUBEBB
+... BE 80 293-0175980-77    GEBABEBB
+... BE 80 3101 5675 1177    BBRUBEBB
+... BE 80.3850.5900.6577    BBRUBEBB
+... BE 81 4171 0398 9124    KREDBEBB
+... BE 81 731001139824      KREDBEBB
+... BE 82 1796 3107 6768    COBABEBX
+... BE 84375084291059       BBRU BE BB
+... BE 85 0017 1352 5006    GEBABEBB
+... BE 85 7310 4209 1406    KREDBEBB
+... BE 87 0015 4520 0094    GEBABEBB
+... BE 88 0000 0000 4141    BPOTBEB1
+... BE 88 0000 1820 1341    BPOTBEB1
+... BE 88 3200 2887 4041    BBRUBEBB
+... BE 88733 0477639 41     KREDBEBB
+... BE 89 0013 0131 2085    GEBABEBB
+... BE 89 2800 2298 4185    GEBABEBB
+... BE 89 3100 60925685     BBRUBEBB
+... BE 90 735007997232      KRE DBEBB
+... BE 90 7510 0079 4632    AXABBE22
+... BE 90 9730 2935 2032    ARS PBE 22
+... BE 90645110734932       JVBABE22
+... BE 91 733-0204328-76    KREDBEBB
+... BE 91733049319476       KREDBEBB
+... BE 92 6528 3175 9423    HBK ABE22
+... BE 94 4324 0214 9114    KREDBEBB
+... BE 95 3800 4313 4658    BBRUBEBB
+... BE 96 2100 6808 9305    GEBA-BEBB
+... BE 962300 1003 8005     GEBABEBB
+... BE 97 2930 1249 3049    GEBABEBB
+... BE10 0000 0000 0404     BPOTBEB1
+... BE52 3100 2234 1109     BBRUBEBB
+... BE58 7310 2144 7479     KREDBEBB
+... BE59 65283724 9926      HBKABE22
+... BE65 0910 0060 8196     GKCCBEBB
+... BE79 0689 0189 6933     GKCCBEBB
+... BE88 0000 0000 4141     BPOTBEB1
+... BE89 0000 1076 5885     BPOTBEB1
+... BE97 0017 6310 6049     GEBABEBB
+... be 54 9799 7279 3197    arspbe22
+... '''
+>>> numbers = [(x[:24].strip(), x[24:]) for x in numbers.splitlines() if x]
+>>> [ x[0] for x in numbers if not iban.is_valid(x[0]) ]
+[]
+>>> [ x for x in numbers if iban.to_bic(x[0]) != bic.compact(x[1]) ]
+[]

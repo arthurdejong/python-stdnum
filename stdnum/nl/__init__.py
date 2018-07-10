@@ -1,7 +1,7 @@
 # __init__.py - collection of Dutch numbers
 # coding: utf-8
 #
-# Copyright (C) 2012, 2013 Arthur de Jong
+# Copyright (C) 2012-2018 Arthur de Jong
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -21,5 +21,5 @@
 """Collection of Dutch numbers."""
 
 # provide aliases
-from stdnum.nl import btw as vat
-from stdnum.nl import postcode as postcal_code
+from stdnum.nl import btw as vat  # noqa: F401
+from stdnum.nl import postcode as postal_code  # noqa: F401

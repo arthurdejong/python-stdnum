@@ -57,9 +57,8 @@ def compact(number):
 
 
 def validate(number):
-    """Checks to see if the number provided is in the correct format.
-    This currently does not check whether the code corresponds to a real
-    address."""
+    """Check if the number is in the correct format. This currently does not
+    check whether the code corresponds to a real address."""
     number = compact(number)
     match = _postcode_re.search(number)
     if not match:
@@ -70,7 +69,7 @@ def validate(number):
 
 
 def is_valid(number):
-    """Checks to see if the number provided is a valid postal code."""
+    """Check if the number is a valid postal code."""
     try:
         return bool(validate(number))
     except ValidationError:

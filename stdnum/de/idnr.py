@@ -59,8 +59,8 @@ def compact(number):
 
 
 def validate(number):
-    """Checks to see if the number provided is a valid tax identification
-    number. This checks the length, formatting and check digit."""
+    """Check if the number provided is a valid tax identification number.
+    This checks the length, formatting and check digit."""
     number = compact(number)
     if len(number) != 11:
         raise InvalidLength()
@@ -80,8 +80,8 @@ def validate(number):
 
 
 def is_valid(number):
-    """Checks to see if the number provided is a valid tax identification
-    number. This checks the length, formatting and check digit."""
+    """Check if the number provided is a valid tax identification number.
+    This checks the length, formatting and check digit."""
     try:
         return bool(validate(number))
     except ValidationError:
@@ -89,6 +89,6 @@ def is_valid(number):
 
 
 def format(number):
-    """Reformat the passed number to the standard format."""
+    """Reformat the number to the standard presentation format."""
     number = compact(number)
     return ' '.join((number[:2], number[2:5], number[5:8], number[8:]))

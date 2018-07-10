@@ -37,8 +37,8 @@ datetime.date(1968, 5, 28)
 
 import datetime
 
-from stdnum.util import clean
 from stdnum.exceptions import *
+from stdnum.util import clean
 
 
 def compact(number):
@@ -91,7 +91,7 @@ def calc_check_digit(number):
 
 
 def validate(number):
-    """Checks if the number provided is valid. This checks the length,
+    """Check if the number provided is valid. This checks the length,
     formatting, embedded date and check digit."""
     number = compact(number)
     if not number.isdigit():
@@ -105,7 +105,7 @@ def validate(number):
 
 
 def is_valid(number):
-    """Checks if the number provided is valid. This checks the length,
+    """Check if the number provided is valid. This checks the length,
     formatting, embedded date and check digit."""
     try:
         return bool(validate(number))

@@ -21,4 +21,4 @@
 """Collection of Latvian numbers."""
 
 # provide vat as an alias
-from stdnum.lv import pvn as vat
+from stdnum.lv import pvn as vat  # noqa: F401

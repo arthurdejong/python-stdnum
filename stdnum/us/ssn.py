@@ -81,8 +81,8 @@ def compact(number):
 
 
 def validate(number):
-    """Checks to see if the number provided is a valid SSN. This checks
-    the length, groups and formatting if it is present."""
+    """Check if the number is a valid SSN. This checks the length, groups and
+    formatting if it is present."""
     match = _ssn_re.search(clean(number, '').strip())
     if not match:
         raise InvalidFormat()
@@ -101,8 +101,7 @@ def validate(number):
 
 
 def is_valid(number):
-    """Checks to see if the number provided is a valid SSN. This checks
-    the length, groups and formatting if it is present."""
+    """Check if the number is a valid SSN."""
     try:
         return bool(validate(number))
     except ValidationError:
@@ -110,7 +109,7 @@ def is_valid(number):
 
 
 def format(number):
-    """Reformat the passed number to the standard format."""
+    """Reformat the number to the standard presentation format."""
     if len(number) == 9:
         number = number[:3] + '-' + number[3:5] + '-' + number[5:]
     return number

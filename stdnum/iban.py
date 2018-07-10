@@ -1,6 +1,6 @@
 # iban.py - functions for handling International Bank Account Numbers (IBANs)
 #
-# Copyright (C) 2011-2017 Arthur de Jong
+# Copyright (C) 2011-2018 Arthur de Jong
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -59,13 +59,13 @@ _ibandb = numdb.get('iban')
 _struct_re = re.compile(r'([1-9][0-9]*)!([nac])')
 
 # cache of country codes to modules
-_country_modules = dict()
+_country_modules = {}
 
 
 def compact(number):
     """Convert the iban number to the minimal representation. This strips the
     number of any valid separators and removes surrounding whitespace."""
-    return clean(number, ' -').strip().upper()
+    return clean(number, ' -.').strip().upper()
 
 
 def calc_check_digits(number):
@@ -89,8 +89,7 @@ def _struct_to_re(structure):
 
 
 def _get_cc_module(cc):
-    """Get the VAT number module based on the country code."""
-    # Greece uses a "wrong" country code
+    """Get the IBAN module based on the country code."""
     cc = cc.lower()
     if cc not in _country_modules:
         _country_modules[cc] = get_cc_module(cc, 'iban')
@@ -98,8 +97,8 @@ def _get_cc_module(cc):
 
 
 def validate(number, check_country=True):
-    """Checks to see if the number provided is a valid IBAN. The country-
-    specific check can be disabled with the check_country argument."""
+    """Check if the number provided is a valid IBAN. The country-specific
+    check can be disabled with the check_country argument."""
     number = compact(number)
     # ensure that checksum is valid
     mod_97_10.validate(number[4:] + number[:4])
@@ -119,7 +118,7 @@ def validate(number, check_country=True):
 
 
 def is_valid(number, check_country=True):
-    """Checks to see if the number provided is a valid IBAN."""
+    """Check if the number provided is a valid IBAN."""
     try:
         return bool(validate(number, check_country=check_country))
     except ValidationError:

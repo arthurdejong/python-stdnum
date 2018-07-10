@@ -1,0 +1,105 @@
+test_casrn.doctest - more detailed doctests for the stdnum.casrn module
+
+Copyright (C) 2017 Arthur de Jong
+
+This library is free software; you can redistribute it and/or
+modify it under the terms of the GNU Lesser General Public
+License as published by the Free Software Foundation; either
+version 2.1 of the License, or (at your option) any later version.
+
+This library is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+Lesser General Public License for more details.
+
+You should have received a copy of the GNU Lesser General Public
+License along with this library; if not, write to the Free Software
+Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
+02110-1301 USA
+
+
+This file contains more detailed doctests for the stdnum.casrn module. It
+contains some corner case tests and tries to validate numbers that have been
+found online.
+
+>>> from stdnum import casrn
+>>> from stdnum.exceptions import *
+
+
+The number seems to always include separators so we introduce them if they
+are not present (but will fail validation if they are in the incorrect
+place or are inconsistently placed).
+
+>>> casrn.validate('329-65-7')
+'329-65-7'
+>>> casrn.validate('329657')
+'329-65-7'
+>>> casrn.validate('32-96-57')
+Traceback (most recent call last):
+    ...
+InvalidFormat: ...
+>>> casrn.validate('32965-7')
+Traceback (most recent call last):
+    ...
+InvalidFormat: ...
+
+
+The first component of a CAS RN can be 2 to 7 digits long.
+
+>>> casrn.validate('51-43-4')
+'51-43-4'
+>>> casrn.validate('1-43-4')
+Traceback (most recent call last):
+    ...
+InvalidLength: ...
+>>> casrn.validate('2040295-03-0')
+'2040295-03-0'
+>>> casrn.validate('12040295-03-0')
+Traceback (most recent call last):
+    ...
+InvalidLength: ...
+
+
+These should all be valid CAS Registry Numbers.
+
+>>> numbers = '''
+...
+... 51-43-4
+... 87-86-5
+... 150-05-0
+... 329-65-7
+... 608-93-5
+... 1305-78-8
+... 1344-09-8
+... 1972-08-3
+... 2650-18-2
+... 3087-16-9
+... 3524-62-7
+... 6104-58-1
+... 7440-44-0
+... 7440-47-3
+... 7732-18-5
+... 7782-40-3
+... 7782-42-5
+... 8007-40-7
+... 9031-72-5
+... 9032-02-4
+... 9035-40-9
+... 12627-53-1
+... 14314-42-2
+... 16065-83-1
+... 18540-29-9
+... 49863-03-8
+... 55480-22-3
+... 56182-07-1
+... 60679-64-3
+... 70051-97-7
+... 126266-35-1
+... 126371-03-7
+... 153250-52-3
+... 308067-58-5
+... 2040295-03-0
+...
+... '''
+>>> [x for x in numbers.splitlines() if x and not casrn.is_valid(x)]
+[]

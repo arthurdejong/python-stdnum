@@ -1,8 +1,8 @@
 #!/usr/bin/env python
 
-# getisil.py - script to donwload ISIL agencies
+# update/isil.py - script to donwload ISIL agencies
 #
-# Copyright (C) 2011 Arthur de Jong
+# Copyright (C) 2011-2018 Arthur de Jong
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -23,26 +23,30 @@
 and screen-scrapes the national and non-national ISIL agencies and
 code prefixes."""
 
-import urllib
-import BeautifulSoup
 import re
+import urllib
 
-spaces_re = re.compile('\s+', re.UNICODE)
+import BeautifulSoup
+
+
+spaces_re = re.compile(r'\s+', re.UNICODE)
 
 # the web page that holds information on the ISIL authorities
-download_url = 'http://biblstandard.dk/isil/'
+download_url = 'https://english.slks.dk/libraries/library-standards/isil/'
 
 
 def clean(s):
-    """Cleans up the string removing unneeded stuff from it."""
+    """Clean up the string removing unneeded stuff from it."""
     return spaces_re.sub(' ', s.replace(u'\u0096', '')).strip().encode('utf-8')
 
 
 def parse(f):
     """Parse the specified file."""
-    print '# generated from ISIL Registration Authority, downloaded from'
-    print '# %s' % download_url
-    soup = BeautifulSoup.BeautifulSoup(f, convertEntities='html')
+    print('# generated from ISIL Registration Authority, downloaded from')
+    print('# %s' % download_url)
+    # We hack the HTML to insert missing <TR> elements
+    content = f.read().replace('</TR>', '</TR><TR>')
+    soup = BeautifulSoup.BeautifulSoup(content, convertEntities='html')
     # find all table rows
     for tr in soup.findAll('tr'):
         # find the rows with four columns of text
@@ -59,13 +63,13 @@ def parse(f):
             elif tds[2].string:
                 props['ra'] = clean(tds[2].string)
             # we could also get the search urls from tds[3].findAll('a')
-            print '%s$ %s' % (
-                      cc,
-                      ' '.join(['%s="%s"' % (x, y)
-                                for x, y in props.iteritems()]))
+            print(
+                '%s$ %s' % (
+                    cc, ' '.join(
+                        ['%s="%s"' % (x, y) for x, y in props.iteritems()])))
 
 
 if __name__ == '__main__':
-    #f = open('isil.html', 'r')
+    # f = open('isil.html', 'r')
     f = urllib.urlopen(download_url)
     parse(f)

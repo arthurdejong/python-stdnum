@@ -1,7 +1,7 @@
 /*
  # check.js - simple application to check numbers
  #
- # Copyright (C) 2017 Arthur de Jong.
+ # Copyright (C) 2017-2018 Arthur de Jong.
  #
  # This library is free software; you can redistribute it and/or
  # modify it under the terms of the GNU Lesser General Public
@@ -37,10 +37,11 @@ $( document ).ready(function() {
     var h = ["<ul>"];
     $.each(results, function(index, result) {
       h.push(
-        "<li><b>",
-        $("<div/>").text(result["name"]).html(),
-        "</b><br/>",
+        "<li>",
         $("<div/>").text(result["number"]).html(),
+        ": <b>",
+        $("<div/>").text(result["name"]).html(),
+        "</b>",
         "<p>",
         format(result["description"]),
         $.map(result["conversions"], function(value, key){
@@ -54,22 +55,39 @@ $( document ).ready(function() {
     });
     h.push("</ul>");
     // replace the results div
-    $("#" + $(field).attr("id") + "_results").slideUp("quick", function() {
-      $(this).html(h.join(""));
-      $(this).slideDown("quick");
-    });
+    $("#" + $(field).attr("id") + "_results").html(h.join(""));
   }
 
   function checkfield(field) {
     var value = field.val();
     // only trigger update if value changed from previous validation
-    if (value != $(this).data("oldvalue")) {
-      $(this).data("oldvalue", value);
-      $.get('', {number: value}, function(data) {
-        updateresults(field, data);
+    if (value != field.data("oldvalue")) {
+      field.data("oldvalue", value);
+      $("#" + $(field).attr("id") + "_results").slideUp(200, function() {
+        $.get('', {"number": value}, function(data) {
+          window.history.pushState({"value": value, "data": data}, $(document).find("title").text(), "?number=" + encodeURIComponent(value));
+          updateresults(field, data);
+        });
+        $(this).slideDown(300);
       });
     }
   }
+
+  // update results based on history navigation
+  window.onpopstate = function(e) {
+    var field = $(".stdnum_check");
+    if (e.state) {
+      var value = e.state.value;
+      var data = e.state.data;
+      field.val(value)
+      field.data("oldvalue", value);
+      updateresults(field, data);
+    } else {
+      field.val("")
+      field.data("oldvalue", "");
+      updateresults(field, []);
+    }
+  };
 
   // trigger a check when user stopped typing
   $(".stdnum_check").on("input propertychange", function (event) {
@@ -102,5 +120,12 @@ $( document ).ready(function() {
 
   // focus the text field
   $(".stdnum_check").focus();
+
+  // save current state
+  var value = $(".stdnum_check").val();
+  $(".stdnum_check").data("oldvalue", value);
+  $.get('', {number: value}, function(data) {
+    window.history.replaceState({"value": value, "data": data}, $(document).find("title").text(), "?number=" + encodeURIComponent(value));
+  })
 
 });

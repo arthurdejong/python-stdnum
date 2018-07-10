@@ -61,8 +61,8 @@ def calc_check_digit(number):
 
 
 def validate(number):
-    """Checks to see if the number provided is a valid number. This checks
-    the length, formatting and check digit."""
+    """Check if the number is a valid UID. This checks the length, formatting
+    and check digit."""
     number = compact(number)
     if len(number) != 12:
         raise InvalidLength()
@@ -76,8 +76,7 @@ def validate(number):
 
 
 def is_valid(number):
-    """Checks to see if the number provided is a valid number. This checks
-    the length, formatting and check digit."""
+    """Check if the number is a valid UID."""
     try:
         return bool(validate(number))
     except ValidationError:
@@ -85,7 +84,7 @@ def is_valid(number):
 
 
 def format(number):
-    """Reformat the passed number to the standard format."""
+    """Reformat the number to the standard presentation format."""
     number = compact(number)
     return number[:3] + '-' + '.'.join(
         number[i:i + 3] for i in range(3, len(number), 3))

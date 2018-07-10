@@ -64,15 +64,7 @@ import datetime
 import re
 
 from stdnum.exceptions import *
-from stdnum.util import clean
-
-
-# regular expression for matching numbers
-_rfc_re = re.compile(r'^[A-Z&Ñ]{3,4}[0-9]{6}[0-9A-Z]{0,5}$')
-
-
-# regular expression for matching the last 3 check digits
-_check_digits_re = re.compile(r'^[1-9A-V][1-9A-Z][0-9A]$')
+from stdnum.util import clean, to_unicode
 
 
 # these values should not appear as first part of a personal number
@@ -86,7 +78,7 @@ _name_blacklist = set([
 
 
 # characters used for checksum calculation,
-_alphabet = '0123456789ABCDEFGHIJKLMN&OPQRSTUVWXYZ Ñ'
+_alphabet = u'0123456789ABCDEFGHIJKLMN&OPQRSTUVWXYZ Ñ'
 
 
 def compact(number):
@@ -110,36 +102,40 @@ def _get_date(number):
 def calc_check_digit(number):
     """Calculate the check digit. The number passed should not have the
     check digit included."""
+    number = to_unicode(number)
     number = ('   ' + number)[-12:]
     check = sum(_alphabet.index(n) * (13 - i) for i, n in enumerate(number))
     return _alphabet[(11 - check) % 11]
 
 
 def validate(number, validate_check_digits=False):
-    """Checks to see if the number provided is a valid number."""
+    """Check if the number is a valid RFC."""
     number = compact(number)
-    if not _rfc_re.match(number):
-        raise InvalidFormat()
-    if len(number) in (10, 13):
+    n = to_unicode(number)
+    if len(n) in (10, 13):
         # number assigned to person
-        if number[:4] in _name_blacklist:
+        if not re.match(u'^[A-Z&Ñ]{4}[0-9]{6}[0-9A-Z]{0,3}$', n):
+            raise InvalidFormat()
+        if n[:4] in _name_blacklist:
             raise InvalidComponent()
-        _get_date(number[4:10])
-    elif len(number) == 12:
+        _get_date(n[4:10])
+    elif len(n) == 12:
         # number assigned to company
-        _get_date(number[3:9])
+        if not re.match(u'^[A-Z&Ñ]{3}[0-9]{6}[0-9A-Z]{3}$', n):
+            raise InvalidFormat()
+        _get_date(n[3:9])
     else:
         raise InvalidLength()
-    if validate_check_digits and len(number) >= 12:
-        if not _check_digits_re.match(number[-3:]):
+    if validate_check_digits and len(n) >= 12:
+        if not re.match(u'^[1-9A-V][1-9A-Z][0-9A]$', n[-3:]):
             raise InvalidComponent()
-        if number[-1] != calc_check_digit(number[:-1]):
+        if n[-1] != calc_check_digit(n[:-1]):
             raise InvalidChecksum()
     return number
 
 
 def is_valid(number, validate_check_digits=False):
-    """Checks to see if the number provided is a valid number."""
+    """Check if the number provided is a valid RFC."""
     try:
         return bool(validate(number, validate_check_digits))
     except ValidationError:
@@ -147,7 +143,7 @@ def is_valid(number, validate_check_digits=False):
 
 
 def format(number, separator=' '):
-    """Reformat the passed number to the standard format."""
+    """Reformat the number to the standard presentation format."""
     number = compact(number)
     if len(number) == 12:
         return separator.join((

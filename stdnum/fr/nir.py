@@ -49,6 +49,14 @@ InvalidChecksum: ...
 '253072B07300470'
 >>> validate('253072A07300443')
 '253072A07300443'
+>>> validate('253072C07300443')
+Traceback (most recent call last):
+    ...
+InvalidFormat: ...
+>>> validate('6546546546546703')
+Traceback (most recent call last):
+    ...
+InvalidLength: ...
 >>> format('295109912611193')
 '2 95 10 99 126 111 93'
 """
@@ -74,12 +82,12 @@ def calc_check_digits(number):
 
 
 def validate(number):
-    """Checks to see if the number provided is valid. This checks the length
+    """Check if the number provided is valid. This checks the length
     and check digits."""
     number = compact(number)
-    if not (number.isdigit() or (
-                number[:5].isdigit() and number[7:].isdigit() and
-                number[5:7] in ('2A', '2B'))):
+    if not number[:5].isdigit() or not number[7:].isdigit():
+        raise InvalidFormat()
+    if not number[5:7].isdigit() and number[5:7] not in ('2A', '2B'):
         raise InvalidFormat()
     if len(number) != 15:
         raise InvalidLength()
@@ -89,8 +97,7 @@ def validate(number):
 
 
 def is_valid(number):
-    """Checks to see if the number provided is valid. This checks the length
-    and check digits."""
+    """Check if the number provided is valid."""
     try:
         return bool(validate(number))
     except ValidationError:
@@ -98,7 +105,8 @@ def is_valid(number):
 
 
 def format(number, separator=' '):
-    """Reformat the passed number to the standard format."""
+    """Reformat the number to the standard presentation format."""
     number = compact(number)
-    return separator.join((number[:1], number[1:3], number[3:5], number[5:7],
-                           number[7:10], number[10:13], number[13:]))
+    return separator.join((
+        number[:1], number[1:3], number[3:5], number[5:7], number[7:10],
+        number[10:13], number[13:]))

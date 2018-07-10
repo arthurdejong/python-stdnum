@@ -21,4 +21,4 @@
 """Collection of Portuguese numbers."""
 
 # provide vat as an alias
-from stdnum.pt import nif as vat
+from stdnum.pt import nif as vat  # noqa: F401

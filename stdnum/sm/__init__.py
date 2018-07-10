@@ -21,4 +21,4 @@
 """Collection of San Marino numbers."""
 
 # provide vat as an alias
-from stdnum.sm import coe as vat
+from stdnum.sm import coe as vat  # noqa: F401

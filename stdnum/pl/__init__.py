@@ -21,4 +21,4 @@
 """Collection of Polish numbers."""
 
 # provide vat as an alias
-from stdnum.pl import nip as vat
+from stdnum.pl import nip as vat  # noqa: F401

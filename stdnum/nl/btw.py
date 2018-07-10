@@ -48,8 +48,8 @@ def compact(number):
 
 
 def validate(number):
-    """Checks to see if the number provided is a valid BTW number. This checks
-    the length, formatting and check digit."""
+    """Check if the number is a valid BTW number. This checks the length,
+    formatting and check digit."""
     number = compact(number)
     if not number[10:].isdigit() or int(number[10:]) <= 0:
         raise InvalidFormat()
@@ -62,8 +62,7 @@ def validate(number):
 
 
 def is_valid(number):
-    """Checks to see if the number provided is a valid BTW number. This checks
-    the length, formatting and check digit."""
+    """Check if the number is a valid BTW number."""
     try:
         return bool(validate(number))
     except ValidationError:

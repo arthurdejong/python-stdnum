@@ -1,4 +1,5 @@
 include README NEWS ChangeLog COPYING *.py tox.ini
-recursive-include tests *.doctest *.dat
+recursive-include tests *.doctest *.dat *.py
 recursive-include docs *.rst *.py
 recursive-include online_check *
+recursive-include update README requirements.txt *.py

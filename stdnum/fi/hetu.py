@@ -40,8 +40,8 @@ InvalidComponent: ...
 '131052A308T'
 """
 
-import re
 import datetime
+import re
 
 from stdnum.exceptions import *
 from stdnum.util import clean
@@ -72,9 +72,8 @@ def _calc_checksum(number):
 
 
 def validate(number):
-    """Checks to see if the number provided is a valid HETU. It checks the
-    format, whether a valid date is given and whether the check digit is
-    correct."""
+    """Check if the number is a valid HETU. It checks the format, whether a
+    valid date is given and whether the check digit is correct."""
     number = compact(number)
     match = _hetu_re.search(number)
     if not match:
@@ -92,6 +91,9 @@ def validate(number):
     # for historical reasons individual IDs start from 002
     if individual < 2:
         raise InvalidComponent()
+    # this range is for temporary identifiers
+    if 900 <= individual <= 999:
+        raise InvalidComponent()
     checkable_number = '%02d%02d%02d%03d' % (day, month, year, individual)
     if match.group('control') != _calc_checksum(checkable_number):
         raise InvalidChecksum()
@@ -99,9 +101,7 @@ def validate(number):
 
 
 def is_valid(number):
-    """Checks to see if the number provided is a valid HETU. It checks the
-    format, whether a valid date is given and whether the check digit is
-    correct."""
+    """Check if the number is a valid HETU."""
     try:
         return bool(validate(number))
     except ValidationError:

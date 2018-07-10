@@ -21,4 +21,4 @@
 """Collection of Argentinian numbers."""
 
 # provide vat as an alias
-from stdnum.ar import cuit as vat
+from stdnum.ar import cuit as vat  # noqa: F401
