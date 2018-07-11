@@ -1,7 +1,6 @@
-# businessid.py - functions for handling Austrian company register numbers
+# vsk.py - functions for handling Icelandic VAT numbers
 # coding: utf-8
 #
-# Copyright (C) 2015 Holvi Payment Services Oy
 # Copyright (C) 2012, 2013 Arthur de Jong
 #
 # This library is free software; you can redistribute it and/or
@@ -19,73 +18,53 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 # 02110-1301 USA
 
-"""Austrian Company Register Numbers
+"""VSK number (Virðisaukaskattsnúmer, Icelandic VAT number).
 
-The Austrian company register number consist of digits followed by
-a single letter, e.g. "122119m". Sometimes it is presented with preceding
-"FN", e.g. "FN 122119m".
+The Icelandic VAT number is five or six digits.
 
->>> validate('FN 122119m')
-'122119m'
->>> validate('122119m')
-'122119m'
->>> validate('m123123')
+>>> validate('IS 00621')
+'00621'
+>>> validate('IS 0062199')  # invalid length
+Traceback (most recent call last):
+    ...
+InvalidLength: ...
+>>> validate('IS land')  # invalid format
 Traceback (most recent call last):
     ...
 InvalidFormat: ...
->>> validate('abc')
+>>> validate('Island')  # invalid format
 Traceback (most recent call last):
     ...
 InvalidFormat: ...
 """
 
-from stdnum import luhn
 from stdnum.exceptions import *
 from stdnum.util import clean
 
 
-# https://www.wko.at/service/wirtschaftsrecht-gewerberecht/Das_Firmenbuch.html
-AUSTRIAN_COURTS = [
-    u'Wien',
-    u'Wiener Neustadt',
-    u'St. Pölten',
-    u'Krems an der Donau',
-    u'Korneuburg',
-    u'Linz',
-    u'Ried im Innkreis',
-    u'Steyr',
-    u'Wels',
-    u'Salzburg',
-    u'Eisenstadt',
-    u'Graz',
-    u'Leoben',
-    u'Klagenfurt',
-    u'Innsbruck',
-    u'Feldkirch',
-]
-
-
 def compact(number):
     """Convert the number to the minimal representation. This strips the
-    number of any valid separators and removes surrounding whitespace.
-    Preceding "FN" is also removed."""
-    number = clean(number, ' -./').strip()
-    if number.upper().startswith('FN'):
+    number of any valid separators and removes surrounding whitespace."""
+    number = clean(number, ' ').upper().strip()
+    if number.startswith('IS'):
         number = number[2:]
     return number
 
 
 def validate(number):
-    """Check if the number is a valid company register number. This only
-    checks the formatting."""
+    """Checks to see if the number provided is a valid VAT number. This
+    checks the length, formatting and check digit."""
     number = compact(number)
-    if not number[-1:].isalpha() or not number[:-1].isdigit():
+    if not number.isdigit():
         raise InvalidFormat()
+    if len(number) != 5 and len(number) != 6:
+        raise InvalidLength()
     return number
 
 
 def is_valid(number):
-    """Check if the number is a valid company register number."""
+    """Checks to see if the number provided is a valid VAT number. This
+    checks the length, formatting and check digit."""
     try:
         return bool(validate(number))
     except ValidationError:

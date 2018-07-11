@@ -2,7 +2,7 @@
 # coding: utf-8
 #
 # Copyright (C) 2015 Holvi Payment Services Oy
-# Copyright (C) 2015 Arthur de Jong
+# Copyright (C) 2012, 2013 Arthur de Jong
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -19,28 +19,28 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 # 02110-1301 USA
 
-"""Y-tunnus (Finnish business identifier).
+"""Y-tunnus (Finnish business identifier)
 
 The number is an 8-digit code with a weighted checksum.
 
 >>> validate('2077474-0')
-'20774740'
+'2077474-0'
 >>> validate('2077474-1')  # invalid check digit
 Traceback (most recent call last):
     ...
 InvalidChecksum: ...
->>> format('2077474-0')
-'2077474-0'
 """
 
 from stdnum.exceptions import *
+from stdnum.util import clean
 from stdnum.fi import alv
 
 
 def compact(number):
     """Convert the number to the minimal representation. This strips the
     number of any valid separators and removes surrounding whitespace."""
-    return alv.compact(number)
+    number = clean(number, ' -').upper().strip()
+    return number
 
 
 def validate(number):
