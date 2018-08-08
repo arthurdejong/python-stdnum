@@ -1,0 +1,94 @@
+test_mu_nid.doctest - more detailed doctests for the stdnum.mu.nid module
+
+Copyright (C) 2018 Arthur de Jong
+
+This library is free software; you can redistribute it and/or
+modify it under the terms of the GNU Lesser General Public
+License as published by the Free Software Foundation; either
+version 2.1 of the License, or (at your option) any later version.
+
+This library is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+Lesser General Public License for more details.
+
+You should have received a copy of the GNU Lesser General Public
+License along with this library; if not, write to the Free Software
+Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
+02110-1301 USA
+
+
+This file contains more detailed doctests for the stdnum.mu.nid module. It
+tries handle more corner cases than are useful as module documentation.
+
+>>> from stdnum.mu import nid
+
+
+Some simple tests.
+
+>>> nid.validate('12345678901234')  # all-digits
+Traceback (most recent call last):
+    ...
+InvalidFormat: ...
+>>> nid.validate('ABCDEFGHIJKLMN')  # all-alhpa
+Traceback (most recent call last):
+    ...
+InvalidFormat: ...
+>>> nid.validate('A311299123456')  # missing check digit
+Traceback (most recent call last):
+    ...
+InvalidLength: ...
+>>> nid.validate('A999999123456F')  # invalid date
+Traceback (most recent call last):
+    ...
+InvalidComponent: ...
+>>> nid.validate('A3112991234565')  # invalid check digit
+Traceback (most recent call last):
+    ...
+InvalidChecksum: ...
+>>> nid.validate('A3112991234567')
+'A3112991234567'
+
+These have been randomly generated and tested against the validator at
+https://eservices.mra.mu/apptan/feedpdfapptan
+
+>>> numbers = '''
+...
+... A0503022303817
+... A2103451905713
+... B120106274060E
+... B2209251149773
+... C0302977326799
+... C090939529731G
+... D0906040423734
+... D110163477627F
+... G270634609988D
+... H070461221669C
+... H100257938348B
+... I050125386993D
+... J1205062398729
+... K210220118460G
+... L2410001918056
+... M2206357474780
+... N160734180180A
+... N1806401273261
+... O190339068436F
+... P0301682918358
+... Q300706590045E
+... R2307179551405
+... S0408513643074
+... S180622940994C
+... T1801758951565
+... U1010291604172
+... U1507158217746
+... U1605075318231
+... V180331350210A
+... W2304253291007
+... X1111599499508
+... X2402942866912
+... Y2504945824300
+... Z170971799359B
+...
+... '''
+>>> [x for x in numbers.splitlines() if x and not nid.is_valid(x)]
+[]
