@@ -1,0 +1,57 @@
+test_es_nif.doctest - more detailed doctests for stdnum.es.nif module
+
+Copyright (C) 2018 Gerard Dalmau
+
+This library is free software; you can redistribute it and/or
+modify it under the terms of the GNU Lesser General Public
+License as published by the Free Software Foundation; either
+version 2.1 of the License, or (at your option) any later version.
+
+This library is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+Lesser General Public License for more details.
+
+You should have received a copy of the GNU Lesser General Public
+License along with this library; if not, write to the Free Software
+Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
+02110-1301 USA
+
+
+This file contains more detailed doctests for the stdnum.es.nif and related
+modules. It tries to cover more corner cases and detailed functionality that
+is not really useful as module documentation.
+
+>>> from stdnum.es import nif, dni, nie, cif
+>>> from stdnum.exceptions import *
+
+
+>>> def check(number):
+...     ok = []
+...     if nif.is_valid(number):
+...         ok.append('nif')
+...     if dni.is_valid(number):
+...         ok.append('dni')
+...     if nie.is_valid(number):
+...         ok.append('nie')
+...     if cif.is_valid(number):
+...         ok.append('cif')
+...     return ok
+
+
+>>> check('11111111H')  # valid DNI
+['nif', 'dni']
+>>> check('11111111T')  # invalid DNI
+[]
+>>> check('A11111119')  # valid CIF
+['nif', 'cif']
+>>> check('A11111118')  # invalid CIF
+[]
+>>> check('X1111111G')  # valid NIE
+['nif', 'nie']
+>>> check('X1111111A')  # invalid NIE
+[]
+>>> check('L1111111G')  # valid NIF, not classified as DNI, CIF or NIE
+['nif']
+>>> check('L1111111C')  # invalid NIF
+[]

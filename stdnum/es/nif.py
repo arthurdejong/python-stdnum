@@ -40,6 +40,8 @@ InvalidChecksum: ...
 '54362315K'
 >>> validate('X-5253868-R')  # foreign person
 'X5253868R'
+>>> validate('M-1234567-L')  # foreign person without NIE
+'M1234567L'
 """
 
 from stdnum.es import cif, dni, nie
@@ -64,7 +66,14 @@ def validate(number):
         raise InvalidFormat()
     if len(number) != 9:
         raise InvalidLength()
-    if number[0].isdigit():
+    if number[0] in 'KLM':
+        # K: Spanish younger than 14 year old
+        # L: Spanish living outside Spain without DNI
+        # M: granted the tax to foreigners who have no NIE
+        # these use the old checkdigit algorithm (the DNI one)
+        if number[-1] != dni.calc_check_digit(number[1:-1]):
+            raise InvalidChecksum()
+    elif number[0].isdigit():
         # natural resident
         dni.validate(number)
     elif number[0] in 'XYZ':
