@@ -1,4 +1,5 @@
-test_es_referenciacatastral.doctest - more detailed doctests
+test_es_referenciacatastral.doctest - more detailed doctests for
+stdnum.es.referenciacatastral module
 
 Copyright (C) 2016 David García Garzón
 Copyright (C) 2015-2017 Arthur de Jong

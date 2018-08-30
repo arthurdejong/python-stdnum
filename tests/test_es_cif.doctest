@@ -1,0 +1,74 @@
+test_es_cif.doctest - more detailed doctests for stdnum.es.cif module
+
+Copyright (C) 2018 Gerard Dalmau
+
+This library is free software; you can redistribute it and/or
+modify it under the terms of the GNU Lesser General Public
+License as published by the Free Software Foundation; either
+version 2.1 of the License, or (at your option) any later version.
+
+This library is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+Lesser General Public License for more details.
+
+You should have received a copy of the GNU Lesser General Public
+License along with this library; if not, write to the Free Software
+Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
+02110-1301 USA
+
+
+This file contains more detailed doctests for the stdnum.es.cif. It
+tries to cover more corner cases and detailed functionality that is not
+really useful as module documentation.
+
+>>> from stdnum.es import cif
+>>> from stdnum.exceptions import *
+
+
+Valid DNI
+
+>>> cif.is_valid('11111111H')
+False
+
+
+Invalid DNI
+
+>>> cif.is_valid('11111111T')
+False
+
+
+Valid CIF
+
+>>> cif.is_valid('A11111119')
+True
+
+
+Invalid CIF
+
+>>> cif.is_valid('A11111118')
+False
+
+
+Valid NIE
+
+>>> cif.is_valid('X1111111G')
+False
+
+
+Invalid NIE
+
+>>> cif.is_valid('X1111111A')
+False
+
+
+Valid NIF - Not classified as DNI, CIF or NIE
+
+>>> cif.is_valid('L1111111G')
+False
+
+
+Invalid NIF
+
+>>> cif.is_valid('L1111111C')
+False
