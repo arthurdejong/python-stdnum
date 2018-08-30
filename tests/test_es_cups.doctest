@@ -1,4 +1,4 @@
-test_my_nric.doctest - more detailed doctests for stdnum.es.cups module
+test_es_cups.doctest - more detailed doctests for stdnum.es.cups module
 
 Copyright (C) 2016 David García Garzón
 Copyright (C) 2016 Arthur de Jong
