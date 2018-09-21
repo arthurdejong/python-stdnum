@@ -19,3 +19,6 @@
 # 02110-1301 USA
 
 """Collection of Russian numbers."""
+
+# provide vat as an alias
+from stdnum.ru import inn as vat  # noqa: F401
