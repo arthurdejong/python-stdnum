@@ -1,0 +1,119 @@
+test_bitcoin.doctest - more detailed doctests for stdnum.bitcoin module
+
+Copyright (C) 2018 Arthur de Jong
+
+This library is free software; you can redistribute it and/or
+modify it under the terms of the GNU Lesser General Public
+License as published by the Free Software Foundation; either
+version 2.1 of the License, or (at your option) any later version.
+
+This library is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+Lesser General Public License for more details.
+
+You should have received a copy of the GNU Lesser General Public
+License along with this library; if not, write to the Free Software
+Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
+02110-1301 USA
+
+
+This file contains more detailed doctests for the stdnum.bitcoin module. It
+tries to test more corner cases and detailed functionality that is not really
+useful as module documentation.
+
+>>> from stdnum import bitcoin
+
+
+These are found and constructed P2PKH addresses (P2SH addresses are basically
+the same because they follow the same validation, except that the first digit
+is a 3).
+
+>>> bitcoin.validate('1NEDqZPvTWRaoho48qXuLLsrYomMXPABfD')
+'1NEDqZPvTWRaoho48qXuLLsrYomMXPABfD'
+>>> bitcoin.validate('1NEDqZPvTWRaoho48qXuLLsrYomMXPABfA')  # mangled digit
+Traceback (most recent call last):
+    ...
+InvalidChecksum: ...
+>>> bitcoin.validate('1NEDqZPvTWRaoho48qXu==srYomMXPABfD')  # invalid digit
+Traceback (most recent call last):
+    ...
+InvalidFormat: ...
+>>> bitcoin.validate('1111111111111111111114oLvT2')  # constructed but valid
+'1111111111111111111114oLvT2'
+>>> bitcoin.validate('111111111111111111aGQAo')  # invalid binary length
+Traceback (most recent call last):
+    ...
+InvalidLength: ...
+
+
+Bech32 are more recent but also supported. Uppercase addresses will be
+automatically lowercased.
+
+>>> bitcoin.validate('BC1QARDV855YJNGSPVXUTTQ897AQCA3LXJU2Y69JCE')
+'bc1qardv855yjngspvxuttq897aqca3lxju2y69jce'
+>>> bitcoin.validate('bc1qardv855yjngspvxuttq897aqca3lxju2y69jZZ')  # some digits changed
+Traceback (most recent call last):
+    ...
+InvalidChecksum: ...
+>>> bitcoin.validate('bc1qardv855yjngspvxuttq897aqca3lxju2y69j11')  # non-bech32 characters
+Traceback (most recent call last):
+    ...
+InvalidFormat: ...
+>>> bitcoin.validate('bc1pc54a7w')  # too short but valid checksum
+Traceback (most recent call last):
+    ...
+InvalidLength: ...
+>>> bitcoin.validate('bc1qv93xxeqnnq0uz')  # too short for witness version
+Traceback (most recent call last):
+    ...
+InvalidLength: ...
+>>> bitcoin.validate('bc1lv93xxer9venks6t2ddkx6mn0wpchyum5rtc42k')  # invalid witness version
+Traceback (most recent call last):
+    ...
+InvalidComponent: ...
+>>> bitcoin.validate('bc1pv93xxer9venks6t2ddkx6mn0wpchyum5w4m8w7re0fq5ys6yg4rywjzfff95cn2wfumys6cj')  # too long witness program
+Traceback (most recent call last):
+    ...
+InvalidLength: ...
+>>> bitcoin.validate('bc1ppzry7g5z8k')  # invalid Base32 padding
+Traceback (most recent call last):
+    ...
+InvalidComponent: ...
+
+
+Test for unknown address type.
+
+>>> bitcoin.validate('gzXESMi1caU4L4CWEV96kQMkn5TKLsMzuX')
+Traceback (most recent call last):
+    ...
+InvalidComponent: ...
+
+
+These have been found online and should all be valid numbers.
+
+>>> numbers = '''
+...
+... 16UwLL9Risc3QfPqBUvKofHmBQ7wMtjvM
+... 1BvBMSEYstWetqTFn5Au4m4GFg7xJaNVN2
+... 1G5Tjyznf4hmWoStygje9h2u1Y7rFBjtmS
+... 1NEDqZPvTWRaoho48qXuLLsrYomMXPABfD
+... 1NXYoJ5xU91Jp83XfVMHwwTUyZFK64BoAD
+... 1P2c1W3x1TCUFvyDmVyVmUxrRqFtuF2w6
+... 39y1UjCMmxzMYtt4S4wii9e3xmfHngKncL
+... 3J98t1WpEZ73CNmQviecrnyiWrnqRhWNLy
+... 3KwLBFMtU9Wtn9Yys3imuU2hs2oSDsfZY4
+... BC1QW508D6QEJXTDG4Y5R3ZARVARY0C5XW7KV8F3T4
+... BC1SW50QA3JX3S
+... bc1pw508d6qejxtdg4y5r3zarvary0c5xw7kw508d6qejxtdg4y5r3zarvary0c5xw7k7grplx
+... bc1q362mcakh9p0zr380s4uhhz26263yjep36c8se8
+... bc1qar0srrr7xfkvy5l643lydnw9re59gtzzwf5mdq
+... bc1qardv855yjngspvxuttq897aqca3lxju2y69jce
+... bc1qc7slrfxkknqcq2jevvvkdgvrt8080852dfjewde450xdlk4ugp7szw5tk9
+... bc1qrp33g0q5c5txsp9arysrx4k6zdkfs4nce4xj0gdcccefvpysxf3qccfmv3
+... bc1qw508d6qejxtdg4y5r3zarvary0c5xw7kv8f3t4
+... bc1zw508d6qejxtdg4y5r3zarvaryvg6kdaj
+...
+... '''
+>>> [x for x in numbers.splitlines() if x and not bitcoin.is_valid(x)]
+[]
