@@ -106,7 +106,7 @@ def validate(number, check_country=True):
     info = _ibandb.info(number)
     # check if the bban part of number has the correct structure
     bban = number[4:]
-    if not _struct_to_re(info[0][1].get('bban', '')).match(bban):
+    if not _struct_to_re(info[0][1].get('bban', '-')).match(bban):
         raise InvalidFormat()
     # check the country-specific module if it exists
     if check_country:

@@ -25,6 +25,15 @@ really useful as module documentation.
 >>> from stdnum import iban
 
 
+Test for IBAN corner case that happens when the bban part is empty, the
+country code is unknown and the checksum is still valid.
+
+>>> iban.validate('0001')
+Traceback (most recent call last):
+    ...
+InvalidFormat: ...
+
+
 These should all be valid numbers and are from the IBAN REGISTRY as sample
 numbers:
 
