@@ -23,15 +23,20 @@
 birthplace code from the National Registration Department of Malaysia."""
 
 import re
-import urllib
 from collections import defaultdict
 
 import BeautifulSoup
+
+import requests
 
 
 # URLs that are downloaded
 state_list_url = 'http://www.jpn.gov.my/informasi/kod-negeri/'
 country_list_url = 'http://www.jpn.gov.my/en/informasi/kod-negara/'
+
+
+# The user agent that will be passed in requests
+user_agent = 'Mozilla/5.0 (compatible; python-stdnum updater; +https://arthurdejong.org/python-stdnum/)'
 
 
 spaces_re = re.compile(r'\s+', re.UNICODE)
@@ -59,18 +64,19 @@ def parse(f):
 
 
 if __name__ == '__main__':
+    headers = {
+        'User-Agent': user_agent,
+    }
     results = defaultdict(lambda: defaultdict(set))
     # read the states
-    # f = open('/tmp/states.html', 'r')
-    f = urllib.urlopen(state_list_url)
-    for state, bps in parse(f):
+    response = requests.get(state_list_url, headers=headers)
+    for state, bps in parse(response.text):
         for bp in bps.split(','):
             results[bp.strip()]['state'] = state
             results[bp.strip()]['countries'].add('Malaysia')
     # read the countries
-    # f = open('/tmp/countries.html', 'r')
-    f = urllib.urlopen(country_list_url)
-    for country, bp in parse(f):
+    response = requests.get(country_list_url, headers=headers)
+    for country, bp in parse(response.text):
         results[bp]['countries'].add(country)
     # print the results
     print('# generated from National Registration Department of Malaysia, downloaded from')

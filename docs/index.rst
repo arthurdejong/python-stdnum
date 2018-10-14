@@ -116,6 +116,7 @@ Available formats
    bg.pnf
    bg.vat
    bic
+   bitcoin
    br.cnpj
    br.cpf
    ca.bn
@@ -194,6 +195,7 @@ Available formats
    isil
    isin
    ismn
+   iso11649
    iso6346
    issn
    it.codicefiscale
@@ -206,6 +208,7 @@ Available formats
    me.iban
    meid
    mt.vat
+   mu.nid
    mx.rfc
    my.nric
    nl.brin
@@ -213,6 +216,8 @@ Available formats
    nl.btw
    nl.onderwijsnummer
    nl.postcode
+   no.iban
+   no.kontonr
    no.mva
    no.orgnr
    pl.nip

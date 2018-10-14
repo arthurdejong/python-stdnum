@@ -1,3 +1,21 @@
+changes from 1.9 to 1.10
+------------------------
+
+* Add modules for the following number formats:
+  - Bitcoin address
+  - ISO 11649 (Structured Creditor Reference)
+  - ID number (Mauritian national identifier)
+  - Norwegian IBAN (International Bank Account Number)
+  - Konto nr. (Norwegian bank account number)
+* Fix a bug in handling of Mexican tax numbers
+* Improve Spanish CIF and NIF validation
+* Update Dominican Republic NCF numbers online check
+* Improve Unicode conversion for bytestrings
+* Improvements to some corner cases in IBAN validation
+* Documentation improvements
+* Add stdnum.ru.vat as an alias for stdnum.ru.inn
+
+
 changes from 1.8.1 to 1.9
 -------------------------
 

@@ -1,3 +1,139 @@
+2018-10-14  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [6b85f91] stdnum/iban.py, tests/test_iban.doctest: Raise
+	  InvalidComponent on unknown IBAN country
+
+	  This partially reverts 58ea7b2.
+
+	  Closes https://github.com/arthurdejong/python-stdnum/issues/82
+
+2018-10-09  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [58ea7b2] stdnum/iban.py, tests/test_iban.doctest: Fix issue
+	  with minimal IBAN
+
+	  This ensures that an IBAN with a missing bban part and unknown
+	  country code (while still having a valid MOD 97,10 checksum)
+	  is considered valid.
+
+	  Closes https://github.com/arthurdejong/python-stdnum/issues/84
+
+2018-09-30  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [54c3650] stdnum/bitcoin.py, tests/test_bitcoin.doctest:
+	  Bitcoin address
+
+	  This adds validation of Bitcoin addresses. No check is done that
+	  the addresses actually exist but only that they are syntactically
+	  correct.
+
+	  Closes https://github.com/arthurdejong/python-stdnum/issues/80
+
+2018-09-21  Levin Rickert <me@levrik.io>
+
+	* [510ee93] stdnum/ru/__init__.py: Add vat alias for Russia
+
+2018-08-30  Gerard Dalmau <gdalmau@gisce.net>
+
+	* [e58c09a] tests/test_es_cups.doctest,
+	  tests/test_es_referenciacatastral.doctest: Fix ES test descriptions
+
+2018-08-30  Gerard Dalmau <gdalmau@gisce.net>
+
+	* [4a76779] stdnum/es/cif.py, stdnum/es/nif.py,
+	  tests/test_es_nif.doctest: Improve CIF and NIF validation
+
+	  NIF starting with K, L or M are NIF instead of CIF.
+
+	  This also adds NIF-DNI-CIF-NIE classification tests.
+
+	  Closes https://github.com/arthurdejong/python-stdnum/pull/81
+
+2018-08-22  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [5af712b] stdnum/no/iban.py, stdnum/no/kontonr.py,
+	  tests/test_iban.doctest: Add Norwegian bank account number
+
+	  This includes validation of Norwegian bank account numbers and
+	  conversion to IBAN.
+
+	  Closes https://github.com/arthurdejong/python-stdnum/issues/79
+
+2018-08-08  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [ec39d86] stdnum/mu/__init__.py, stdnum/mu/nid.py,
+	  tests/test_mu_nid.doctest: Add Mauritian national ID number
+
+	  Thans to Bradley Smith for providing the needed information to
+	  implement this.
+
+	  See
+	  https://lists.arthurdejong.org/python-stdnum-users/2018/msg00003.html
+
+2018-05-24  Esben Toke Christensen <esben.christensen@visma.com>
+
+	* [676d62c] stdnum/iso11649.py, tests/test_iso11649.doctest:
+	  Add iso11649 structured creditor reference
+
+	  Closes https://github.com/arthurdejong/python-stdnum/pull/72
+
+2018-06-18  PanderMusubi <pander@users.sourceforge.net>
+
+	* [65b5bfe] README, stdnum/nl/brin.py, stdnum/nl/bsn.py,
+	  stdnum/nl/btw.py, stdnum/nl/onderwijsnummer.py,
+	  stdnum/nl/postcode.py: Improved texts and added links
+
+	  Closes https://github.com/arthurdejong/python-stdnum/pull/75
+
+2018-05-19  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [6e776ae] stdnum/do/ncf.py, tests/test_do_ncf.py: Switch the
+	  NCF online check to the new form
+
+	  This tries to screen-scrape the new DGII form that is used to
+	  validate the new format of NCF numbers.
+
+	  Closes https://github.com/arthurdejong/python-stdnum/issues/71
+
+2018-05-01  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [04f78fb] online_check/stdnum.wsgi: Fix encoding issues in
+	  online check
+
+	  This ensures that all text is unicode internally and encoded to
+	  UTF-8 on response.
+
+2018-05-01  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [bae6f19] stdnum/mx/rfc.py, tests/test_mx_rfc.doctest: Fix an
+	  issue with format of Mexican tax numbers
+
+	  Fix an issue where the format accepted a mix of personal and
+	  company numberer in validation causing in a raised ValueError
+	  exception.
+
+2018-05-01  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [08d1053] stdnum/es/referenciacatastral.py, stdnum/mx/rfc.py,
+	  stdnum/util.py, tests/test_util.doctest: Make unicode conversion
+	  standard
+
+	  A few modules use non-ASCII characters in numbers. This
+	  introduces a to_unicode() function in util so that it can be
+	  used by multiple modules.
+
+2018-04-14  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [d9defc8] ChangeLog, NEWS, README, docs/index.rst,
+	  docs/stdnum.at.postleitzahl.rst, docs/stdnum.at.tin.rst,
+	  docs/stdnum.be.iban.rst, docs/stdnum.de.handelsregisternummer.rst,
+	  docs/stdnum.de.stnr.rst, docs/stdnum.figi.rst,
+	  docs/stdnum.me.iban.rst, setup.py, stdnum/__init__.py,
+	  stdnum/at/postleitzahl.dat, stdnum/be/banks.dat, stdnum/cn/loc.dat,
+	  stdnum/eu/nace.dat, stdnum/imsi.dat, stdnum/isbn.dat,
+	  stdnum/isil.dat, stdnum/us/ein.dat, update/isil.py: Get files
+	  ready for 1.9 release
+
 2018-04-12  Arthur de Jong <arthur@arthurdejong.org>
 
 	* [e200656] stdnum/iban.py, tests/test_be_iban.doctest: Add an
