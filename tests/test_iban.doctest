@@ -31,7 +31,15 @@ country code is unknown and the checksum is still valid.
 >>> iban.validate('0001')
 Traceback (most recent call last):
     ...
-InvalidFormat: ...
+InvalidComponent: ...
+
+
+IBAN for an unknown country code.
+
+>>> iban.validate('XX431234')
+Traceback (most recent call last):
+    ...
+InvalidComponent: ...
 
 
 These should all be valid numbers and are from the IBAN REGISTRY as sample
