@@ -135,7 +135,7 @@ def check_dgii(rnc, ncf, timeout=30):  # pragma: no cover
     from stdnum.do.rnc import compact as rnc_compact
     rnc = rnc_compact(rnc)
     ncf = compact(ncf)
-    url = 'http://www.dgii.gov.do/app/WebApps/ConsultasWeb/consultas/ncf.aspx'
+    url = 'https://www.dgii.gov.do/app/WebApps/ConsultasWeb/consultas/ncf.aspx'
     headers = {
         'User-Agent': 'Mozilla/5.0 (python-stdnum)',
     }
