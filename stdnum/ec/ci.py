@@ -60,7 +60,7 @@ def validate(number):
         raise InvalidLength()
     if not number.isdigit():
         raise InvalidFormat()
-    if number[:2] < '01' or number[:2] > '24':
+    if (number[:2] < '01' or number[:2] > '24') and (number[:2] not in ('30', '50')):
         raise InvalidComponent()  # invalid province code
     if number[2] > '5':
         raise InvalidComponent()  # third digit wrong
