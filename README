@@ -132,6 +132,7 @@ Currently this package supports the following formats:
  * Onderwijsnummer (the Dutch student identification number)
  * Postcode (the Dutch postal code)
  * Norwegian IBAN (International Bank Account Number)
+ * Norwegian eleven-digit birth number (fødselsnummer) 
  * Konto nr. (Norwegian bank account number)
  * MVA (Merverdiavgift, Norwegian VAT number)
  * Orgnr (Organisasjonsnummer, Norwegian organisation number)
