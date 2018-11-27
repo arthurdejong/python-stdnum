@@ -40,16 +40,16 @@ class PersonNumber(object):
         if n.k1 == checksum_1 and n.k2 == checksum_2:
             return self.number_str
         else:
-            raise ValidationError
+            raise ValidationError()
 
 
 def validate(number, gender=None):
     """Check if the number is a valid Norwegian PersonNumber."""
     number = clean(number, ' -:')
     if len(number) != 11:
-        raise InvalidLength
+        raise InvalidLength()
     if not number.isdigit():
-        raise InvalidFormat
+        raise InvalidFormat()
     return PersonNumber(number).validate(gender)
 
 

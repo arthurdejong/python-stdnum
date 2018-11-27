@@ -11,9 +11,9 @@ from stdnum import luhn
 def validate(number):
     number = clean(number, ' -+:')
     if len(number) != 10:
-        raise InvalidLength
+        raise InvalidLength()
     if not number.isdigit():
-        raise InvalidFormat
+        raise InvalidFormat()
     return luhn.validate(number)
 
 
