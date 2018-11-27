@@ -1,0 +1,77 @@
+test_se_personnummer.doctest - more detailed doctests for stdnum.se.personnummer module
+
+Copyright (C) 2018 Ilya Vihtinsky
+Copyright (C) 2018 Arthur de Jong
+
+This library is free software; you can redistribute it and/or
+modify it under the terms of the GNU Lesser General Public
+License as published by the Free Software Foundation; either
+version 2.1 of the License, or (at your option) any later version.
+
+This library is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+Lesser General Public License for more details.
+
+You should have received a copy of the GNU Lesser General Public
+License along with this library; if not, write to the Free Software
+Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
+02110-1301 USA
+
+
+This file contains more detailed doctests for the stdnum.se.personnummer
+module. It tries to cover more corner cases and detailed functionality that
+is not really useful as module documentation.
+
+>>> from stdnum.se import personnummer
+
+
+Test for non-digit number.
+
+>>> personnummer.validate('a' * 10)
+Traceback (most recent call last):
+    ...
+InvalidFormat: ...
+
+
+These numbers should be detected as male or female.
+
+>>> personnummer.get_gender('670919-9530')
+'M'
+>>> personnummer.get_gender('8803200420')
+'F'
+
+
+The birth date can be extracted from the number and invalid dates are
+rejected.
+
+>>> personnummer.get_birth_date('8803200420')
+datetime.date(1988, 3, 20)
+>>> personnummer.get_birth_date('191705120424')
+datetime.date(1917, 5, 12)
+>>> personnummer.validate('8899200425')
+Traceback (most recent call last):
+    ...
+InvalidComponent: ...
+
+
+These have been found online and should all be valid numbers.
+
+>>> numbers = '''
+...
+... 670919-9530
+... 811228-9874
+... 880320-0016
+... 880320-0057
+... 8803200073
+... 8803200099
+... 8803200115
+... 8803200131
+... 8803200156
+... 8803200172
+... 8803200198
+... 8803200420
+...
+... '''
+>>> [x for x in numbers.splitlines() if x and not personnummer.is_valid(x)]
+[]

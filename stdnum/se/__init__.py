@@ -19,3 +19,6 @@
 # 02110-1301 USA
 
 """Collection of Swedish numbers."""
+
+# provide aliases
+from stdnum.se import personnummer as personalid  # noqa: F401
