@@ -76,7 +76,7 @@ class TestNorwaySSN(unittest.TestCase):
         for num, gender in VALID_SSN:
             checksum = int(num[-2:])
 
-            for n in xrange(0, 100):
+            for n in range(0, 100):
                 if n == checksum:
                     continue
                 number = num[:-2] + '%02d' % n
