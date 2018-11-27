@@ -75,7 +75,7 @@ def calc_check_digit(number):
     return 'X' if checksum == 10 else str(checksum)
 
 
-def validate(number):
+def validate(number, validate_region=False):
     """Check if the number is a valid RIC number. This checks the length,
     formatting and birth date and place."""
     number = compact(number)
@@ -88,11 +88,12 @@ def validate(number):
     if number[-1] != calc_check_digit(number):
         raise InvalidChecksum()
     get_birth_date(number)
-    get_birth_place(number)
+    if validate_region:
+        get_birth_place(number)
     return number
 
 
-def is_valid(number):
+def is_valid(number, validate_region=False):
     """Check if the number is a valid RIC number."""
     try:
         return bool(validate(number))
