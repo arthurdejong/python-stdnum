@@ -68,10 +68,16 @@ class TestNorwaySSN(unittest.TestCase):
             self.assertFalse(ssn.is_valid(number, 0 if gender else 1))
 
     def test_invalid_checksum(self):
-        for num, gender in VALID_SSN:
-            k2 = int(num[-1])
-            k2 = k2 - 1 if k2 > 0 else 1
-            number = num[:-1] + str(k2)
+        def check_number(number, gender):
             self.assertFalse(ssn.is_valid(number))
             self.assertFalse(ssn.is_valid(number, 0 if gender else 1))
             self.assertFalse(ssn.is_valid(number, gender))
+
+        for num, gender in VALID_SSN:
+            checksum = int(num[-2:])
+
+            for n in xrange(0, 100):
+                if n == checksum:
+                    continue
+                number = num[:-2] + '%02d' % n
+                check_number(number, gender)
