@@ -1,0 +1,112 @@
+test_no_fodselsnummer.doctest - more detailed doctests for stdnum.no.fodselsnummer module
+
+Copyright (C) 2018 Ilya Vihtinsky
+Copyright (C) 2018 Arthur de Jong
+
+This library is free software; you can redistribute it and/or
+modify it under the terms of the GNU Lesser General Public
+License as published by the Free Software Foundation; either
+version 2.1 of the License, or (at your option) any later version.
+
+This library is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+Lesser General Public License for more details.
+
+You should have received a copy of the GNU Lesser General Public
+License along with this library; if not, write to the Free Software
+Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
+02110-1301 USA
+
+
+This file contains more detailed doctests for the stdnum.no.fodselsnummer
+module. It tries to cover more corner cases and detailed functionality that
+is not really useful as module documentation.
+
+>>> from stdnum.no import fodselsnummer
+
+
+These numbers should be detected as male or female.
+
+>>> fodselsnummer.get_gender('70624830529')
+'M'
+>>> fodselsnummer.get_gender('56403643756')
+'M'
+>>> fodselsnummer.get_gender('70341666064')
+'F'
+>>> fodselsnummer.get_gender('82938389280')
+'F'
+
+
+The last two check digits are validated independently of each other.
+
+>>> fodselsnummer.is_valid('42485176432')
+True
+>>> fodselsnummer.is_valid('42485176431')  # only change last digit
+False
+>>> fodselsnummer.is_valid('42485176412')  # only change first digit
+False
+>>> fodselsnummer.is_valid('42485176416')  # change first, correct second
+False
+
+
+Length and format are also validated.
+
+>>> fodselsnummer.validate('42485176432123')
+Traceback (most recent call last):
+    ...
+InvalidLength: ...
+>>> fodselsnummer.validate('a0gzaB30529')
+Traceback (most recent call last):
+    ...
+InvalidFormat: ...
+
+
+These have been found online and should all be valid numbers.
+
+>>> numbers = '''
+...
+... 11027794191
+... 11051996811
+... 19575770838
+... 21918484865
+... 24396859900
+... 27213364885
+... 27389446152
+... 30383131118
+... 30777674125
+... 31042639152
+... 34831582121
+... 39043009846
+... 40070897972
+... 40673759612
+... 42115114470
+... 42485176432
+... 42957044500
+... 44207789809
+... 45014054018
+... 46929323343
+... 50067834221
+... 56403643756
+... 56653047547
+... 63282310041
+... 68413152112
+... 70031073454
+... 70341666064
+... 70624830529
+... 71494457037
+... 71946503120
+... 75442702381
+... 79189404641
+... 79318270827
+... 82938389280
+... 83814827871
+... 89829529360
+... 92782833709
+... 95700625908
+... 96517753502
+... 98576936818
+...
+... '''
+>>> [x for x in numbers.splitlines() if x and not fodselsnummer.is_valid(x)]
+[]

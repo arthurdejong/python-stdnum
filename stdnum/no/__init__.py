@@ -20,5 +20,6 @@
 
 """Collection of Norwegian numbers."""
 
-# provide vat as an alias
+# provide aliases
+from stdnum.no import fodselsnummer as personalid  # noqa: F401
 from stdnum.no import mva as vat  # noqa: F401
