@@ -1,10 +1,13 @@
 # coding: utf-8
+"""Norwegian eleven-digit birth number (fødselsnummer)"""
 
-from stdnum.util import clean
 from stdnum.exceptions import *
+from stdnum.util import clean
 
 
 class PersonNumber(object):
+    """Helper class to validate birth number"""
+
     mapping = {
         0: 'd1',
         1: 'd2',
@@ -16,15 +19,15 @@ class PersonNumber(object):
         7: 'i2',
         8: 'i3',
         9: 'k1',
-        10: 'k2'
+        10: 'k2',
     }
 
-    def __init__(self, number_str):
+    def __init__(self, number_str):  # noqa
         self.number_str = number_str
         for index, item in self.mapping.items():
             setattr(self, item, int(number_str[index]))
 
-    def validate(self, gender=None):
+    def validate(self, gender=None):  # noqa
         n = self
         if gender is not None and n.i3 % 2 != gender:
             raise ValidationError('Gender check failed')
@@ -53,7 +56,7 @@ def validate(number, gender=None):
     return PersonNumber(number).validate(gender)
 
 
-def is_valid(number, gender=None):
+def is_valid(number, gender=None):  # noqa
     try:
         return bool(validate(number, gender))
     except ValidationError:

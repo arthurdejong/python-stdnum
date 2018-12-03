@@ -1,3 +1,8 @@
+# flake8: noqa
+"""
+Test for Swedish Personal identity number
+"""
+
 import unittest
 
 from stdnum.se import ssn
@@ -9,9 +14,12 @@ VALID_SSN = ['880320-0016', '880320-0057', '8803200073', '8803200099', '88032004
 
 
 class TestSwedenSSN(unittest.TestCase):
+    """
+    Test for Swedish Personal identity number
+    """
     def test_non_digit(self):
         try:
-            ssn.validate('It is a bad SSN')
+            ssn.validate('a' * 10)
             self.assertTrue(False, 'Should throw ValidationError')
         except ValidationError:
             self.assertTrue(True, 'Should throw ValidationError')
