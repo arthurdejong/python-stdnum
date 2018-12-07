@@ -81,6 +81,7 @@ def is_valid(number):
     except ValidationError:
         return False
 
+
 def format(number):
     """Reformat the number to the standard presentation format."""
     number = compact(number)
