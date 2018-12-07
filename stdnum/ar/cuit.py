@@ -41,6 +41,8 @@ InvalidFormat: ...
 Traceback (most recent call last):
     ...
 InvalidChecksum: ...
+>>> format('20267565393')
+'20-26756539-3'
 """
 
 from stdnum.exceptions import *
@@ -78,3 +80,9 @@ def is_valid(number):
         return bool(validate(number))
     except ValidationError:
         return False
+
+
+def format(number):
+    """Reformat the number to the standard presentation format."""
+    number = compact(number)
+    return (number[0:2] + '-' + number[2:10] + '-' + number[10:])
