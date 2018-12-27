@@ -20,5 +20,6 @@
 
 """Collection of Argentinian numbers."""
 
-# provide vat as an alias
+# provide aliases
 from stdnum.ar import cuit as vat  # noqa: F401
+from stdnum.ar import dni as personalid  # noqa: F401
