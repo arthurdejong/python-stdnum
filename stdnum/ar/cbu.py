@@ -28,7 +28,6 @@ identifier and another check digit.
 More information:
 
 * https://es.wikipedia.org/wiki/Clave_Bancaria_Uniforme
-* http://www.clientebancario.gov.ar/mediospago/mp080000.asp
 
 >>> validate('2850590940090418135201')
 '2850590940090418135201'
