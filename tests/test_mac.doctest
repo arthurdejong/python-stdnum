@@ -1,0 +1,104 @@
+test_mac.doctest - more detailed doctests for the stdnum.mac module
+
+Copyright (C) 2018 Arthur de Jong
+
+This library is free software; you can redistribute it and/or
+modify it under the terms of the GNU Lesser General Public
+License as published by the Free Software Foundation; either
+version 2.1 of the License, or (at your option) any later version.
+
+This library is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+Lesser General Public License for more details.
+
+You should have received a copy of the GNU Lesser General Public
+License along with this library; if not, write to the Free Software
+Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
+02110-1301 USA
+
+
+This file contains more detailed doctests for the stdnum.mac module. It
+tries to test more corner cases and detailed functionality that is not
+really useful as module documentation.
+
+>>> from stdnum import mac
+
+
+The module should properly convert numbers in various formats to a canonical
+representation.
+
+>>> mac.compact('d0:50:99:84:a2:a0')
+'d0:50:99:84:a2:a0'
+>>> mac.compact('D0-50-99-84-A2-A0')
+'d0:50:99:84:a2:a0'
+>>> mac.compact('D0:50:99:84:A2:A0')
+'d0:50:99:84:a2:a0'
+>>> mac.compact('d0:5:9:04:a2:a0')
+'d0:05:09:04:a2:a0'
+
+
+Various formatting problems are checked.
+
+>>> mac.validate('d0:50:99:84:a2:a0:ff')
+Traceback (most recent call last):
+    ...
+InvalidLength: ...
+>>> mac.validate('zz:50:99:84:a2:a0')
+Traceback (most recent call last):
+    ...
+InvalidFormat: ...
+>>> mac.validate('00:00:00:00:00')
+Traceback (most recent call last):
+    ...
+InvalidLength: ...
+>>> mac.validate('123:23:45:67:89:00')
+Traceback (most recent call last):
+    ...
+InvalidLength: ...
+
+
+The module also has a few address classification functions.
+
+>>> mac.is_unicast('d0:50:99:84:a2:a0')
+True
+>>> mac.is_multicast('d0:50:99:84:a2:a0')
+False
+>>> mac.is_broadcast('d0:50:99:84:a2:a0')
+False
+>>> mac.is_broadcast('FF-FF-FF-FF-FF-FF')
+True
+>>> mac.is_universally_administered('d0:50:99:84:a2:a0')
+True
+>>> mac.is_locally_administered('fe:54:00:76:07:0a')
+True
+
+
+We can lookup the organisation that registered the OUI part of the MAC
+address.
+
+>>> str(mac.get_manufacturer('2c:76:8a:ad:f2:74'))
+'Hewlett Packard'
+>>> str(mac.get_manufacturer('fe:54:00:76:07:0a'))  # libvirt MAC address
+Traceback (most recent call last):
+    ...
+InvalidComponent: ...
+
+
+The organisation lookup is performed by default on universally administered
+addresses but can be forced or disabled.
+
+>>> mac.validate('d0:50:99:84:a2:a0')
+'d0:50:99:84:a2:a0'
+>>> mac.validate('fd:ff:ff:84:a2:a0')  # constructed universally administered
+Traceback (most recent call last):
+    ...
+InvalidComponent: ...
+>>> mac.validate('fd:ff:ff:84:a2:a0', check_manufacturer=False)
+'fd:ff:ff:84:a2:a0'
+>>> mac.validate('fe:54:00:76:07:0a')  # locally administered
+'fe:54:00:76:07:0a'
+>>> mac.validate('fe:54:00:76:07:0a', check_manufacturer=True)
+Traceback (most recent call last):
+    ...
+InvalidComponent: ...
