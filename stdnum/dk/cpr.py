@@ -1,6 +1,6 @@
 # cpr.py - functions for handling Danish CPR numbers
 #
-# Copyright (C) 2012-2015 Arthur de Jong
+# Copyright (C) 2012-2019 Arthur de Jong
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -73,6 +73,7 @@ def checksum(number):
 
 def get_birth_date(number):
     """Split the date parts from the number and return the birth date."""
+    number = compact(number)
     day = int(number[0:2])
     month = int(number[2:4])
     year = int(number[4:6])

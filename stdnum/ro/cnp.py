@@ -1,7 +1,7 @@
 # cnp.py - functions for handling Romanian CNP numbers
 # coding: utf-8
 #
-# Copyright (C) 2012-2015 Arthur de Jong
+# Copyright (C) 2012-2019 Arthur de Jong
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -62,6 +62,7 @@ def calc_check_digit(number):
 
 def get_birth_date(number):
     """Split the date parts from the number and return the birth date."""
+    number = compact(number)
     centuries = {
         '1': 1900, '2': 1900, '3': 1800, '4': 1800, '5': 2000, '6': 2000,
     }  # we assume 1900 for the others in order to try to construct a date

@@ -1,7 +1,7 @@
 # egn.py - functions for handling Bulgarian national identification numbers
 # coding: utf-8
 #
-# Copyright (C) 2012-2015 Arthur de Jong
+# Copyright (C) 2012-2019 Arthur de Jong
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -62,6 +62,7 @@ def calc_check_digit(number):
 
 def get_birth_date(number):
     """Split the date parts from the number and return the birth date."""
+    number = compact(number)
     year = int(number[0:2]) + 1900
     month = int(number[2:4])
     day = int(number[4:6])

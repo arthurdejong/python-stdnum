@@ -1,7 +1,7 @@
 # rc.py - functions for handling Czech birth numbers
 # coding: utf-8
 #
-# Copyright (C) 2012, 2013 Arthur de Jong
+# Copyright (C) 2012-2019 Arthur de Jong
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -61,6 +61,7 @@ def compact(number):
 
 def get_birth_date(number):
     """Split the date parts from the number and return the birth date."""
+    number = compact(number)
     year = 1900 + int(number[0:2])
     # females have 50 added to the month value, 20 is added when the serial
     # overflows (since 2004)
