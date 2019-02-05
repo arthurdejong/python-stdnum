@@ -1,7 +1,7 @@
 # __init__.py - collection of Mexican numbers
 # coding: utf-8
 #
-# Copyright (C) 2015 Arthur de Jong
+# Copyright (C) 2015-2019 Arthur de Jong
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -20,5 +20,6 @@
 
 """Collection of Mexican numbers."""
 
-# provide vat as an alias
+# provide aliases
+from stdnum.mx import curp as personalid  # noqa: F401
 from stdnum.mx import rfc as vat  # noqa: F401

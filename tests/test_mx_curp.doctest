@@ -1,0 +1,118 @@
+test_mx_curp.doctest - more detailed doctests for the stdnum.mx.curp module
+
+Copyright (C) 2019 Arthur de Jong
+
+This library is free software; you can redistribute it and/or
+modify it under the terms of the GNU Lesser General Public
+License as published by the Free Software Foundation; either
+version 2.1 of the License, or (at your option) any later version.
+
+This library is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+Lesser General Public License for more details.
+
+You should have received a copy of the GNU Lesser General Public
+License along with this library; if not, write to the Free Software
+Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
+02110-1301 USA
+
+
+This file contains more detailed doctests for the stdnum.mx.curp module.
+
+>>> from stdnum.mx import curp
+>>> from stdnum.exceptions import *
+
+
+Below are a few tests that were found from various sources. They are all
+expected to be hypothetical and examples and not likely be real persons.
+
+
+Gloria Hernández García, female, born on 27 April 1956 in the state of
+Veracruz.
+
+>>> curp.validate('HEGG560427MVZRRL04')
+'HEGG560427MVZRRL04'
+>>> curp.get_gender('HEGG560427MVZRRL04')
+'F'
+>>> curp.get_birth_date('HEGG560427MVZRRL04')
+datetime.date(1956, 4, 27)
+
+
+Luis Raúl Bello Mena, male, born on March 13 1992 in the state of Mexico.
+
+>>> curp.validate('BEML920313HMCLNS09')
+'BEML920313HMCLNS09'
+>>> curp.get_gender('BEML920313HMCLNS09')
+'M'
+>>> curp.get_birth_date('BEML920313HMCLNS09')
+datetime.date(1992, 3, 13)
+
+
+Luis Perez Gomez, female, born on September 9 1989 in the state of Jalisco.
+
+>>> curp.validate('PEGL890909MJCRMS08')
+'PEGL890909MJCRMS08'
+>>> curp.get_gender('PEGL890909MJCRMS08')
+'F'
+>>> curp.get_birth_date('PEGL890909MJCRMS08')
+datetime.date(1989, 9, 9)
+
+
+This tests several corner cases in the validation.
+
+>>> curp.validate('PEGL890909MJCRMS08')
+'PEGL890909MJCRMS08'
+>>> curp.validate('1230')
+Traceback (most recent call last):
+    ...
+InvalidLength: ...
+>>> curp.validate('123ZZZZZZZZZZZZZ90')
+Traceback (most recent call last):
+    ...
+InvalidFormat: ...
+>>> curp.validate('BACA890909MJCRMS05')  # bad word used
+Traceback (most recent call last):
+    ...
+InvalidComponent: ...
+>>> curp.validate('PEGL891313MJCRMS06')  # invalid date
+Traceback (most recent call last):
+    ...
+InvalidComponent: ...
+>>> curp.validate('PEGL890909QJCRMS08')  # invalid gender
+Traceback (most recent call last):
+    ...
+InvalidComponent: ...
+>>> curp.validate('PEGL890909MQQRMS02')  # invalid state
+Traceback (most recent call last):
+    ...
+InvalidComponent: ...
+>>> curp.validate('PEGL890909MJCRMS09')  # invalid check digit
+Traceback (most recent call last):
+    ...
+InvalidChecksum: ...
+
+
+These have been found online and should all be valid numbers. Note that these
+numbers all have valid check digits (also see the list below).
+
+>>> numbers = '''
+...
+... AAAA000101HDFCCC09
+... AAMG890608HDFLJL00
+... BAAA890317HDFRLL03
+... BAAD890419HMNRRV07
+... BEML920313HMCLNS09
+... HEGG560427MVZRRL04
+... HEGR891009HMNRRD09
+... MARR890512HMNRMN09
+... MESJ890928HMNZNS00
+... OOMG890727HMNRSR06
+... PEGL890909MJCRMS08
+... TOMA880125HMNRRN02
+... TOMA880125HMNRRNO2
+... VIAA900930MMNCLL08
+...
+... '''
+>>> [x for x in numbers.splitlines() if x and not curp.is_valid(x, validate_check_digits=True)]
+[]
