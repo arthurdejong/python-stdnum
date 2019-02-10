@@ -8,11 +8,14 @@ python:
   - 3.5
   - 3.6
   - pypy
+  - pypy3
 matrix:
   include:
-  - python: 3.5
+  - python: 3.6
     env: TOXENV=flake8
-  - python: 3.5
+  - python: 3.6
     env: TOXENV=docs
+  - python: 3.7
+    dist: xenial
 install: pip install tox
 script: tox -e "${TOXENV:-$(echo py$TRAVIS_PYTHON_VERSION | tr -d . | sed -e 's/pypypy/pypy/')}"
