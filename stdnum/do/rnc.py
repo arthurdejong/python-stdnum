@@ -148,7 +148,8 @@ def check_dgii(number, timeout=30):  # pragma: no cover
         result = result['GetContribuyentesResult']  # PySimpleSOAP only
     if result == '0':
         return
-    return _convert_result(result)
+    result = [x for x in result.split('@@@')]
+    return _convert_result(result[0])
 
 
 def search_dgii(keyword, end_at=10, start_at=1, timeout=30):  # pragma: no cover
