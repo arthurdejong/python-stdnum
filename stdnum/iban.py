@@ -76,7 +76,7 @@ def calc_check_digits(number):
 
 
 def _struct_to_re(structure):
-    """Convert an IBAN structure to a refular expression that can be used
+    """Convert an IBAN structure to a regular expression that can be used
     to validate the number."""
     def conv(match):
         chars = {

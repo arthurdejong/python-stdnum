@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 
-# update/iban.py - script to donwload and parse data from the IBAN registry
+# update/iban.py - script to download and parse data from the IBAN registry
 #
 # Copyright (C) 2011-2018 Arthur de Jong
 #

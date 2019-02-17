@@ -20,10 +20,10 @@
 
 """CBU (Clave Bancaria Uniforme, Argentine bank account number).
 
-CBU it s a code of the Banks of Argentina to identify customer
-accounts. The number consists of 22 digits and consists of a 3 digit
-bank identiefyer, followed by a 4 digit branch identifyer, a check
-digit, a 13 digit account identifyer and another check digit.
+CBU it s a code of the Banks of Argentina to identify customer accounts. The
+number consists of 22 digits and consists of a 3 digit bank identifier,
+followed by a 4 digit branch identifier, a check digit, a 13 digit account
+identifier and another check digit.
 
 More information:
 

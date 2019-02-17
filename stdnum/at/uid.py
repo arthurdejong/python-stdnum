@@ -1,4 +1,4 @@
-# vat.py - functions for handling Austrian VAT numbers
+# uid.py - functions for handling Austrian VAT numbers
 #
 # Copyright (C) 2012, 2013 Arthur de Jong
 #
