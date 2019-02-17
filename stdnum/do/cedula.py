@@ -1,7 +1,7 @@
 # cedula.py - functions for handling Dominican Republic national identifier
 # coding: utf-8
 #
-# Copyright (C) 2015-2018 Arthur de Jong
+# Copyright (C) 2015-2019 Arthur de Jong
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -199,7 +199,7 @@ def check_dgii(number, timeout=30):  # pragma: no cover
     # this function isn't automatically tested because it would require
     # network access for the tests and unnecessarily load the online service
     # we use the RNC implementation and change the rnc result to cedula
-    result = rnc.check_dgii(number)
+    result = rnc.check_dgii(number, timeout)
     if result and 'rnc' in result:
         result['cedula'] = result.pop('rnc')
     return result

@@ -1,6 +1,6 @@
 # numdb.py - module for handling hierarchically organised numbers
 #
-# Copyright (C) 2010-2017 Arthur de Jong
+# Copyright (C) 2010-2019 Arthur de Jong
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -106,7 +106,7 @@ _open_databases = {}
 # (there is no expected ordering within the list)
 
 
-class NumDB(object):
+class NumDB():
     """Number database."""
 
     def __init__(self):

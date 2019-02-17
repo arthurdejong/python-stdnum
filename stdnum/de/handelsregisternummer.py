@@ -2,7 +2,7 @@
 # coding: utf-8
 #
 # Copyright (C) 2015 Holvi Payment Services Oy
-# Copyright (C) 2018 Arthur de Jong
+# Copyright (C) 2018-2019 Arthur de Jong
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -292,7 +292,7 @@ def validate(number, company_form=None):
     court = _courts.get(_to_min(court))
     if not court:
         raise InvalidComponent()
-    if type(court) != type(number):  # pragma: no cover (Python 2 code)
+    if not isinstance(court, type(number)):  # pragma: no cover (Python 2 code)
         court = court.decode('utf-8')
     if company_form and COMPANY_FORM_REGISTRY_TYPES.get(company_form) != registry:
         raise InvalidComponent()

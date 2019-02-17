@@ -2,7 +2,7 @@
 # coding: utf-8
 #
 # Copyright (C) 2017 Holvi Payment Services
-# Copyright (C) 2018 Arthur de Jong
+# Copyright (C) 2018-2019 Arthur de Jong
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -88,7 +88,7 @@ def _clean_region(region):
         if x in 'abcdefghijklmnopqrstvwxyz')
 
 
-class _Format(object):
+class _Format():
 
     def __init__(self, fmt):
         self._fmt = fmt
@@ -137,7 +137,7 @@ def validate(number, region=None):
     if len(number) not in (10, 11, 13):
         raise InvalidLength()
     if not any(region_fmt.match(number) or country_fmt.match(number)
-               for region, region_fmt, country_fmt in _get_formats(region)):
+               for _region, region_fmt, country_fmt in _get_formats(region)):
         raise InvalidFormat()
     return number
 
@@ -163,7 +163,7 @@ def guess_regions(number):
 def to_regional_number(number):
     """Convert the number to a regional (10 or 11 digit) number."""
     number = compact(number)
-    for region, region_fmt, country_fmt in _get_formats():
+    for _region, region_fmt, country_fmt in _get_formats():
         m = country_fmt.match(number)
         if m:
             return region_fmt.replace(*m.groups())
@@ -176,7 +176,7 @@ def to_country_number(number, region=None):
     number = compact(number)
     formats = (
         (region_fmt.match(number), country_fmt)
-        for region, region_fmt, country_fmt in _get_formats(region))
+        for _region, region_fmt, country_fmt in _get_formats(region))
     formats = [
         (region_match, country_fmt)
         for region_match, country_fmt in formats
@@ -191,7 +191,7 @@ def to_country_number(number, region=None):
 def format(number, region=None):
     """Reformat the passed number to the standard format."""
     number = compact(number)
-    for region, region_fmt, country_fmt in _get_formats(region):
+    for _region, region_fmt, _country_fmt in _get_formats(region):
         m = region_fmt.match(number)
         if m:
             f, b, u, p = m.groups()
