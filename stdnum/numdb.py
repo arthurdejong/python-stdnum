@@ -87,6 +87,7 @@ import re
 
 from pkg_resources import resource_stream
 
+
 _line_re = re.compile(
     r'^(?P<indent> *)'
     r'(?P<ranges>([^-,\s]+(-[^-,\s]+)?)(,[^-,\s]+(-[^-,\s]+)?)*)\s*'

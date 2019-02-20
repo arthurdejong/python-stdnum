@@ -25,11 +25,12 @@ suitable to be included in the README and stdnum package description."""
 import os.path
 import sys
 
-# Ensure that we use our local stdnum implementation is used
+
+# Ensure that our local stdnum implementation is used
 sys.path.insert(0, os.path.normpath(
     os.path.join(os.path.dirname(os.path.abspath(__file__)), '..')))
 
-from stdnum import util  # noqa
+from stdnum import util  # noqa, isort:skip
 
 
 # these are excluded

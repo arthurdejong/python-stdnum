@@ -44,8 +44,7 @@ InvalidChecksum: ...
 
 import re
 
-from stdnum.exceptions import InvalidChecksum, InvalidFormat, InvalidLength, \
-    ValidationError
+from stdnum.exceptions import *
 from stdnum.util import clean
 
 

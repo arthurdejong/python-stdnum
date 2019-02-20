@@ -29,5 +29,5 @@ warnings.warn(
 
 
 # We ensure that stdnum.bic is exposed in this module's place
-import stdnum.bic
+import stdnum.bic  # isort:skip
 sys.modules[__name__] = stdnum.bic

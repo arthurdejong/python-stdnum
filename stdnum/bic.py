@@ -52,6 +52,7 @@ import re
 from stdnum.exceptions import *
 from stdnum.util import clean
 
+
 _bic_re = re.compile(r'^[A-Z]{6}[0-9A-Z]{2}([0-9A-Z]{3})?$')
 
 

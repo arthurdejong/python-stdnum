@@ -29,14 +29,14 @@ import os.path
 import re
 import urllib
 
+import BeautifulSoup
+import xlrd
+
+
 try:
     from urllib.parse import urljoin
 except ImportError:
     from urlparse import urljoin
-
-import BeautifulSoup
-
-import xlrd
 
 
 # The page that contains a link to the downloadable spreadsheet with current

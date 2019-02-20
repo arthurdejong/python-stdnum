@@ -32,11 +32,12 @@ import textwrap
 import urllib
 import zipfile
 
-# Ensure that we use our local stdnum implementation is used
+
+# Ensure that our local stdnum implementation is used
 sys.path.insert(0, os.path.normpath(
     os.path.join(os.path.dirname(os.path.abspath(__file__)), '..')))
 
-from stdnum.do import cedula, rnc  # noqa
+from stdnum.do import cedula, rnc  # noqa, isort:skip
 
 
 # The URL of the zip file with all valid numbers

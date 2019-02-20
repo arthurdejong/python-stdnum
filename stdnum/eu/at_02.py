@@ -42,6 +42,7 @@ from stdnum.exceptions import *
 from stdnum.iso7064 import mod_97_10
 from stdnum.util import clean
 
+
 # the valid characters we have
 _alphabet = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ'
 

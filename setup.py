@@ -23,9 +23,11 @@
 
 import os
 import sys
-from setuptools import setup, find_packages
+
+from setuptools import find_packages, setup
 
 import stdnum
+
 
 # fix permissions for sdist
 if 'sdist' in sys.argv:
