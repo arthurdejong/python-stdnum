@@ -1,0 +1,147 @@
+test_gr_amka.doctest - more detailed doctests for stdnum.gr.amka module
+
+Copyright (C) 2019 Arthur de Jong
+
+This library is free software; you can redistribute it and/or
+modify it under the terms of the GNU Lesser General Public
+License as published by the Free Software Foundation; either
+version 2.1 of the License, or (at your option) any later version.
+
+This library is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+Lesser General Public License for more details.
+
+You should have received a copy of the GNU Lesser General Public
+License along with this library; if not, write to the Free Software
+Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
+02110-1301 USA
+
+
+This file contains more detailed doctests for the stdnum.gr.amka module. It
+tries to test more corner cases and detailed functionality that is not really
+useful as module documentation.
+
+>>> from stdnum.gr import amka
+
+
+Tests for some corner cases.
+
+>>> amka.get_gender('01014719866')
+'F'
+>>> amka.get_birth_date('29020012349')  # the year 1900 wasn't a leap year
+datetime.date(2000, 2, 29)
+>>> amka.get_birth_date('99887712349')
+Traceback (most recent call last):
+    ...
+InvalidComponent: ...
+
+
+These have been found online and should all be valid numbers.
+
+>>> numbers = '''
+...
+... 01015734500
+... 01017902501
+... 01037200308
+... 01086004429
+... 01086104112
+... 01115904128
+... 02027000252
+... 02037500945
+... 02065702405
+... 03016601845
+... 03026603674
+... 03037202441
+... 03076103047
+... 03106501681
+... 03117200869
+... 04087402360
+... 04116301831
+... 05086500989
+... 06067504867
+... 06097603465
+... 06105502253
+... 07017100129
+... 07018502224
+... 07106303022
+... 07107300886
+... 08016701602
+... 08017702609
+... 08017704126
+... 08036603580
+... 08116303002
+... 08117501117
+... 09106001291
+... 09116602260
+... 10026004050
+... 10047602601
+... 10096900187
+... 11014803107
+... 11016400969
+... 11025702967
+... 11046703861
+... 12047200899
+... 12105704402
+... 13077802109
+... 13096701340
+... 13125502677
+... 14025500902
+... 14046001336
+... 14066303158
+... 14067000407
+... 15017306430
+... 16016804169
+... 16056702307
+... 16077801260
+... 17025100797
+... 17116903224
+... 18025400765
+... 18058302342
+... 19017803057
+... 19025503111
+... 19055702252
+... 19076801638
+... 20017802123
+... 20035603156
+... 20036305348
+... 20057401257
+... 21028001986
+... 21086800642
+... 21117500724
+... 22016501151
+... 22027901325
+... 22065701165
+... 22105800084
+... 23096100682
+... 24047005699
+... 24086202793
+... 25036505284
+... 25047902066
+... 25088700387
+... 25098700203
+... 25125700721
+... 26107300183
+... 26126301089
+... 27056500807
+... 27065801162
+... 27087200989
+... 27116400865
+... 27126702243
+... 28036104546
+... 28057902661
+... 28087800729
+... 28096101861
+... 28126002196
+... 29095401419
+... 30046801046
+... 30067201225
+... 30096101065
+... 30126002077
+... 31035902076
+... 31057004512
+... 31085501570
+...
+... '''
+>>> [x for x in numbers.splitlines() if x and not amka.is_valid(x)]
+[]
