@@ -25,6 +25,10 @@ The number consists of 11 digits: the first indicates the gender and century
 the person was born in, the following 6 digits the birth date, followed by a
 3 digit serial and a check digit.
 
+More information:
+
+* https://www.riigiteataja.ee/akt/106032012004
+
 >>> validate('36805280109')
 '36805280109'
 >>> validate('36805280108')  # incorrect check digit
