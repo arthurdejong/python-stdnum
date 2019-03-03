@@ -123,28 +123,28 @@ def is_locally_administered(number):
     return not is_universally_administered(number)
 
 
-def validate(number, check_manufacturer=None):
+def validate(number, validate_manufacturer=None):
     """Check if the number provided is a valid MAC address.
 
     The existence of the manufacturer is by default only checked for
     universally administered addresses but can be explicitly set with the
-    `check_manufacturer` argument.
+    `validate_manufacturer` argument.
     """
     number = compact(number)
     if len(number) != 17:
         raise InvalidLength()
     if not _mac_re.match(number):
         raise InvalidFormat()
-    if check_manufacturer is not False:
-        if check_manufacturer or is_universally_administered(number):
+    if validate_manufacturer is not False:
+        if validate_manufacturer or is_universally_administered(number):
             get_manufacturer(number)
     return number
 
 
-def is_valid(number, check_manufacturer=None):
+def is_valid(number, validate_manufacturer=None):
     """Check if the number provided is a valid IBAN."""
     try:
-        return bool(validate(number, check_manufacturer=check_manufacturer))
+        return bool(validate(number, validate_manufacturer=validate_manufacturer))
     except ValidationError:
         return False
 

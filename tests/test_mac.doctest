@@ -94,11 +94,11 @@ addresses but can be forced or disabled.
 Traceback (most recent call last):
     ...
 InvalidComponent: ...
->>> mac.validate('fd:ff:ff:84:a2:a0', check_manufacturer=False)
+>>> mac.validate('fd:ff:ff:84:a2:a0', validate_manufacturer=False)
 'fd:ff:ff:84:a2:a0'
 >>> mac.validate('fe:54:00:76:07:0a')  # locally administered
 'fe:54:00:76:07:0a'
->>> mac.validate('fe:54:00:76:07:0a', check_manufacturer=True)
+>>> mac.validate('fe:54:00:76:07:0a', validate_manufacturer=True)
 Traceback (most recent call last):
     ...
 InvalidComponent: ...
