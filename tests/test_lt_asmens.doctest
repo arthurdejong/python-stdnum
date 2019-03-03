@@ -1,0 +1,51 @@
+test_lt_asmens.doctest - more detailed doctests for stdnum.lt.asmens module
+
+Copyright (C) 2019 Arthur de Jong
+
+This library is free software; you can redistribute it and/or
+modify it under the terms of the GNU Lesser General Public
+License as published by the Free Software Foundation; either
+version 2.1 of the License, or (at your option) any later version.
+
+This library is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+Lesser General Public License for more details.
+
+You should have received a copy of the GNU Lesser General Public
+License along with this library; if not, write to the Free Software
+Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
+02110-1301 USA
+
+
+This file contains more detailed doctests for the stdnum.lt.asmens. It tries
+to cover more corner cases and detailed functionality that is not really
+useful as module documentation.
+
+>>> from stdnum.lt import asmens
+
+
+>>> asmens.validate('36805280109')
+'36805280109'
+>>> asmens.validate('36813280103')  # invalid date
+Traceback (most recent call last):
+    ...
+InvalidComponent: ...
+>>> asmens.validate('36813280103', validate_birth_date=False)  # invalid date
+'36813280103'
+>>> asmens.validate('96813280109')  # invalid date but starts with a 9
+'96813280109'
+
+
+These have been found online and should all be valid numbers.
+
+>>> numbers = '''
+...
+... 33309240064
+... 35002125431
+... 48504140959
+... 61205010081
+...
+... '''
+>>> [x for x in numbers.splitlines() if x and not asmens.is_valid(x)]
+[]
