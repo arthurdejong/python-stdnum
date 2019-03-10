@@ -1,0 +1,163 @@
+test_nz_bankaccount.doctest - more detailed doctests for stdnum.nz.bankaccount
+
+Copyright (C) 2019 Arthur de Jong
+
+This library is free software; you can redistribute it and/or
+modify it under the terms of the GNU Lesser General Public
+License as published by the Free Software Foundation; either
+version 2.1 of the License, or (at your option) any later version.
+
+This library is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+Lesser General Public License for more details.
+
+You should have received a copy of the GNU Lesser General Public
+License along with this library; if not, write to the Free Software
+Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
+02110-1301 USA
+
+
+This file contains more detailed doctests for the stdnum.nz.bankaccount
+module. It tries to cover more corner cases and detailed functionality that
+is not really useful as module documentation.
+
+>>> from stdnum.nz import bankaccount
+
+
+Algorithm examples taken from
+https://www.ird.govt.nz/software-providers/explore-products-contents/reporting/withholding-taxes/rwt-and-nrwt-certificate-filing-options.html#02
+
+>>> bankaccount.validate('01-902-0068389-00')  # algorithm A
+'0109020068389000'
+>>> bankaccount.validate('08-6523-1954512-001')  # algorithm D
+'0865231954512001'
+
+There does not seem to be a current bank with the 26 bank code, so we
+only validate the check digit algorithm here:
+
+>>> def checksum_is_valid(number):
+...     return bankaccount._calc_checksum(bankaccount.compact(number)) == 0
+>>> checksum_is_valid('26-2600-0320871-032')  # algorithm G
+True
+
+
+These are constructed numbers that test some corner cases. No actual numbers
+were found to cover these tests:
+
+>>> bankaccount.validate('01-902-0998384-00')  # algorithm B, high account nr
+'0109020998384000'
+>>> checksum_is_valid('09-0-37331-00')  # algorithm E, unknown bank
+True
+>>> checksum_is_valid('25-2545-3153624-00')  # algorithm F, unknown bank
+True
+
+
+These have been found online and should all be valid numbers.
+
+>>> numbers = '''
+...
+... 01 0137 0026279 00
+... 01 0362 0034224 00
+... 01 0535 0089638-28
+... 01 0650 0007386 000
+... 01 0745 0314717 29
+... 01 0755 0215050-00
+... 01-0274-0139683-00
+... 01-0277-0769568-00
+... 01-0427-0125670-00
+... 01-0451-0097059-00
+... 01-0564-0070266-00
+... 01-0564-0070266-000
+... 01-0811-0039398-10
+... 01-0819-0120-238-00
+... 01-1823-0066056-000
+... 01-1839-0188939-00
+... 01-1839-0329105-01
+... 01-1839-0925652-00
+... 02 0392 0018241 00
+... 02 0644 0262700 001
+... 02 0820 0113537 97
+... 02 0865 0057217 03
+... 02 1223 0852977 00
+... 02-0108-0333798-029
+... 02-0192-0115055-02
+... 02-0214-0186752-000
+... 02-0316-0030142-006
+... 02-0428-0086124-000
+... 02-0466-0017349-000
+... 02-0500-0017474-00
+... 02-0500-0652822-02
+... 02-0506-0139835-00
+... 02-1246-0812417-031
+... 02-1258-0000707-000
+... 03 0049 0005128 26
+... 03 0502 0008598 00
+... 03 0502 0525755 000
+... 03 0584 0198216 00
+... 03 1322 0132588 00
+... 03-0049-0001055-01
+... 03-0104-0484126-00
+... 03-0104-0934457-02
+... 03-1592-0521970-000
+... 03-1707-0080686-00
+... 030175 0660238 00
+... 03‐1355‐0659087‐00
+... 06 0115 0427303 00
+... 06 0746 0307308 00
+... 06 0901 0001203 00
+... 06 0927 0030061 00
+... 06 0942 0203194 00
+... 06 – 0177 – 0140 367 – 01
+... 06-0229-0393666-02
+... 06-0266-0924227-02
+... 06-0529-0687172-00
+... 06-0596-0110859-00
+... 06-0701-0528844-00
+... 06-0705-0360364-000
+... 06-0837-0279242-01
+... 06-0837-0334774-00
+... 06-0869-0548507-00
+... 06-0911-0956150-00
+... 11 6100 0017915 11
+... 11 7200 0088096 11
+... 11 7800 0037786 11
+... 11-7892-0111532-01
+... 12 3011 0820075 00
+... 12 3045 0389711 00
+... 12-3046-0203560-57
+... 12-3083-0357534-00
+... 12-3106-0062510-00
+... 12-3115-0040516-002
+... 12-3123-0008807-000
+... 12-3233-0009325-50
+... 12-3244-0022509-00
+... 15 3973 0029065 000
+... 15-3947-0487353-26
+... 15-3948-0311202-00
+... 15-3949-0452082-10
+... 15-3952-0379031-00
+... 15-3953-0512826-000
+... 15-3973-0029065-000
+... 38 9006 0588934 00
+... 38 9013 000 98 73 00
+... 38 9017 0788325 00
+... 38 9018 0232468 00
+... 38 9019 0280883 01
+... 38-9000-0392156-03
+... 38-9000-0593257-00
+... 38-9000-0625933-00
+... 38-9003-0018047-00
+... 38-9006 0413325-00
+... 38-9006-0772598-00
+... 38-9008-0242371-0
+... 38-9009-0000796-00
+... 38-9009-0266543-00
+... 38-9014-0718647-00
+... 38-9015-0189230-00
+... 38-9018-0067108-03
+... 38-9019-0330051-00
+...
+... '''
+>>> [x for x in numbers.splitlines() if x and not bankaccount.is_valid(x)]
+[]
