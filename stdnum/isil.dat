@@ -16,6 +16,7 @@ FI$ country="Finland" ra_url="http://isil.kansalliskirjasto.fi/en/" ra="The Nati
 FR$ country="France" ra_url="http://www.abes.fr" ra="Agence Bibliographique de l'Enseignement Superieur"
 GB$ country="United Kingdom" ra_url="http://www.bl.uk/bibliographic/isilagency.html" ra="British Library"
 GL$ country="Greenland" ra_url="http://www.katak.gl/ISIL/Greenlandic_library_identifiers.html" ra="Central and Public Library of Greenland"
+HU$ country="Hungary" ra_url="http://www.oszk.hu/orszagos-konyvtari-szabvanyositas/isil-kodok" ra="National Széchényi Library"
 IL$ country="Israel" ra_url="http://nli.org.il/eng" ra="National Library of Israel"
 IR$ country="Islamic Republic of Iran" ra_url="http://www.nlai.ir/special_services/stds/isil.htm" ra="National Library and Archives of Islamic Republic of Iran of Iran"
 IT$ country="Italy" ra_url="http://www.iccu.sbn.it/genera.jsp?id=78&l=en" ra="Istituto Centrale per il Catalogo Unico delle biblioteche italiane e per le informazioni bibliografiche"

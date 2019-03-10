@@ -1,6 +1,6 @@
 # generated from current_codes.xls downloaded from
 # https://www.nbb.be/doc/be/be/protocol/current_codes.xls
-# version 04/09/2018
+# version 28/02/2019
 000-000 bic="BPOTBEB1" bank="bpost bank"
 001-049 bic="GEBABEBB" bank="BNP Paribas Fortis"
 050-099 bic="GKCCBEBB" bank="BELFIUS BANK"
@@ -42,7 +42,7 @@
 509-509 bic="ABNABE2AIPC" bank="ABN AMRO Bank N.V."
 510-510 bic="VAPEBE22" bank="VAN DE PUT & CO Privaatbankiers"
 512-512 bic="DNIBBE21" bank="NIBC BANK"
-513-513 bic="SGPBBE99" bank="Société Générale Private Banking"
+513-513 bic="SGPBBE99" bank="ABN AMRO Private Banking Belgium"
 514-514 bic="PUILBEBB" bank="Puilaetco Dewaay Private Bankers"
 515-515 bic="IRVTBEBB" bank="The Bank of New York Mellon NV/SA"
 517-517 bic="FORDBE21" bank="FCE Bank"
@@ -52,7 +52,6 @@
 523-523 bic="TRIOBEBB" bank="Triodos Bank"
 524-524 bic="WAFABEBB" bank="Attijariwafa bank Europe"
 525-525 bic="FVLBBE2E" bank="F. van Lanschot Bankiers"
-529-529 bank="Adyen B.V. - Belgian Branch"
 530-530 bic="SHIZBEBB" bank="Shizuoka Bank (Europe)"
 535-535 bic="FBHLBE22" bank="CREDIT EUROPE BANK NV"
 538-538 bank="Hoist Finance AB"
@@ -111,7 +110,7 @@
 679-679 bic="PCHQBEBB" bank="bpost"
 680-680 bic="GKCCBEBB" bank="BELFIUS BANK"
 682-683 bic="GKCCBEBB" bank="BELFIUS BANK"
-685-686 bic="BOFABE3X" bank="Bank of Amerika Merrill Lynch International Ltd"
+685-686 bic="BOFABE3X" bank="Bank of Amerika Merrill Lynch International DAC - Brussels Branch"
 687-687 bic="MGTCBEBE" bank="Euroclear Bank"
 688-688 bic="SGABBEB2" bank="Société Générale (Paris)"
 693-693 bic="BOTKBEBX" bank="MUFG Bank (Europe)"
@@ -172,8 +171,8 @@
 942-942 bic="PUILBEBB" bank="Puilaetco Dewaay Private Bankers"
 943-943 bank="CNH Industrial Financial Services SAS"
 944-944 bank="J.P. Morgan Europe Ltd ."
-945-945 bic="JPMGBEBB" bank="J.P. Morgan International Bank Limited"
-949-949 bic="HSBCBEBB" bank="HSBC Bank"
+945-945 bic="JPMGBEBB" bank="J.P. Morgan Bank Luxembourg - Brussels Branch"
+949-949 bic="HSBCBEBB" bank="HSBC France Belgian Branch"
 950-959 bic="CTBKBEBX" bank="Beobank"
 960-960 bic="ABNABE2AIPC" bank="ABN AMRO Bank N.V."
 961-961 bic="HBKABE22" bank="ING België"
