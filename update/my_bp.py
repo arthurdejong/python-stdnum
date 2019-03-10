@@ -2,7 +2,7 @@
 
 # update/my_bp.py - script to download data from Malaysian government site
 #
-# Copyright (C) 2013-2018 Arthur de Jong
+# Copyright (C) 2013-2019 Arthur de Jong
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -25,8 +25,13 @@ birthplace code from the National Registration Department of Malaysia."""
 import re
 from collections import defaultdict
 
-import BeautifulSoup
 import requests
+
+
+try:
+    from bs4 import BeautifulSoup
+except ImportError:
+    from BeautifulSoup import BeautifulSoup
 
 
 # URLs that are downloaded
@@ -48,7 +53,7 @@ def clean(s):
 
 def parse(f):
     """Parse the specified file."""
-    soup = BeautifulSoup.BeautifulSoup(f, convertEntities='html')
+    soup = BeautifulSoup(f)
     # find all table rows
     for tr in soup.find('div', {'class': 'box-content'}).findAll('tr'):
         # find the rows with four columns of text

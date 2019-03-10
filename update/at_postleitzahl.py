@@ -3,7 +3,7 @@
 
 # update/at_postleitzahl.py - download list of Austrian postal codes
 #
-# Copyright (C) 2018 Arthur de Jong
+# Copyright (C) 2018-2019 Arthur de Jong
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -29,7 +29,6 @@ import os.path
 import re
 import urllib
 
-import BeautifulSoup
 import xlrd
 
 
@@ -37,6 +36,11 @@ try:
     from urllib.parse import urljoin
 except ImportError:
     from urlparse import urljoin
+
+try:
+    from bs4 import BeautifulSoup
+except ImportError:
+    from BeautifulSoup import BeautifulSoup
 
 
 # The page that contains a link to the downloadable spreadsheet with current
@@ -60,7 +64,7 @@ regions = {
 def find_download_url():
     """Extract the spreadsheet URL from the Austrian Post website."""
     f = urllib.urlopen(base_url)
-    soup = BeautifulSoup.BeautifulSoup(f, convertEntities='html')
+    soup = BeautifulSoup(f)
     url = soup.find(
         'a',
         attrs=dict(

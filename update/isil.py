@@ -2,7 +2,7 @@
 
 # update/isil.py - script to donwload ISIL agencies
 #
-# Copyright (C) 2011-2018 Arthur de Jong
+# Copyright (C) 2011-2019 Arthur de Jong
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -26,7 +26,11 @@ code prefixes."""
 import re
 import urllib
 
-import BeautifulSoup
+
+try:
+    from bs4 import BeautifulSoup
+except ImportError:
+    from BeautifulSoup import BeautifulSoup
 
 
 spaces_re = re.compile(r'\s+', re.UNICODE)
@@ -46,7 +50,7 @@ def parse(f):
     print('# %s' % download_url)
     # We hack the HTML to insert missing <TR> elements
     content = f.read().replace('</TR>', '</TR><TR>')
-    soup = BeautifulSoup.BeautifulSoup(content, convertEntities='html')
+    soup = BeautifulSoup(content)
     # find all table rows
     for tr in soup.findAll('tr'):
         # find the rows with four columns of text
