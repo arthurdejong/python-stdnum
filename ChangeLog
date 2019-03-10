@@ -1,3 +1,194 @@
+2019-03-10  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [fdeeb9a] stdnum/at/postleitzahl.dat, stdnum/be/banks.dat,
+	  stdnum/cn/loc.dat, stdnum/eu/nace.dat, stdnum/iban.dat,
+	  stdnum/imsi.dat, stdnum/isbn.dat, stdnum/isil.dat, stdnum/oui.dat:
+	  Update database files
+
+2019-03-10  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [fbbb550] update/at_postleitzahl.py, update/isil.py,
+	  update/my_bp.py, update/requirements.txt: Switch update scripts
+	  to beautifulsoup4
+
+2019-02-27  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [61a8a94] stdnum/ee/ik.py: Add documentation
+
+2018-12-27  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [151e0d8] stdnum/ar/cbu.py: Remove broken link
+
+2019-03-10  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [3f953f3] stdnum/nz/__init__.py, stdnum/nz/bankaccount.py,
+	  stdnum/nz/banks.dat, tests/test_nz_bankaccount.doctest,
+	  update/nz_banks.py: Add New Zealand bank account number
+
+2019-03-03  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [4e25e31] stdnum/md/__init__.py, stdnum/md/idno.py,
+	  tests/test_md_idno.doctest: Add Moldavian IDNO
+
+2019-03-03  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [d5d812b] tests/test_bg_egn.doctest: Add more tests for
+	  Bulgarian EGN
+
+2019-03-03  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [60cb887] stdnum/mac.py, tests/test_mac.doctest: Rename MAC
+	  check_manufacturer to validate_manufacturer
+
+	  For consistency with the other validation modules that have
+	  an extra argument to disable or enable certain parts of the
+	  validation.
+
+2019-03-03  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [39b8ace] stdnum/lt/asmens.py, tests/test_lt_asmens.doctest:
+	  Add Lithuanian Asmens kodas
+
+2019-02-27  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [ab91d87] stdnum/gr/amka.py, tests/test_gr_amka.doctest: Add
+	  Greek AMKA social security number
+
+2019-02-20  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [6eadca1] setup.cfg, setup.py, stdnum/__init__.py,
+	  stdnum/bic.py, stdnum/cl/__init__.py, stdnum/co/__init__.py,
+	  stdnum/eu/at_02.py, stdnum/iso6346.py, stdnum/iso9362.py,
+	  stdnum/numdb.py, stdnum/sk/rc.py, stdnum/us/tin.py,
+	  tox.ini, update/at_postleitzahl.py, update/do_whitelists.py,
+	  update/my_bp.py, update/numlist.py: Switch from import-order
+	  to isort
+
+2019-02-17  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [9daa1b0] stdnum/ar/cbu.py, stdnum/at/uid.py, stdnum/iban.py,
+	  update/iban.py: Fix typos
+
+2019-02-17  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [cc6ffec] stdnum/de/handelsregisternummer.py, stdnum/de/stnr.py,
+	  stdnum/do/cedula.py, stdnum/numdb.py: Improvements reported
+	  by pylint
+
+2019-02-17  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [be8e258] stdnum/cu/__init__.py, stdnum/cu/ni.py: Add Cuban
+	  número de identidad
+
+2019-02-11  Andrés R <androdriguez14@gmail.com>
+
+	* [0fc0c30] stdnum/do/rnc.py: Return only first response from
+	  DGII lookup
+
+	  This fixes an issue when response for check_dgii() comes with
+	  2 records instead of one for same RNC.
+
+	  Closes https://github.com/arthurdejong/python-stdnum/pull/95
+
+2019-02-10  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [b4773ae] .travis.yml, setup.py, tox.ini: Add Python 3.7 tests
+
+2019-02-05  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [50874a9] stdnum/mx/__init__.py, stdnum/mx/curp.py,
+	  tests/test_mx_curp.doctest: Add Mexican CURP
+
+2019-01-29  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [4cb44aa] stdnum/bg/egn.py, stdnum/cz/rc.py, stdnum/dk/cpr.py,
+	  stdnum/lv/pvn.py, stdnum/ro/cnp.py: Call compact in
+	  get_birth_date() functions
+
+	  This ensures that formatting characters are also removed when
+	  formatted numbers are passed to the get_birth_date() functions.
+
+	  Closes https://github.com/arthurdejong/python-stdnum/issues/94
+
+2018-12-28  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [3f4a08a] stdnum/mac.py, stdnum/oui.dat, tests/test_mac.doctest,
+	  update/oui.py: Add MAC address
+
+	  This adds validation of MAC (Ethernet) addresses. It will perform
+	  lookups in the IEEE registry for manufacturer names for universally
+	  administered addresses.
+
+	  Closes https://github.com/arthurdejong/python-stdnum/issues/93
+
+2018-12-27  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [d7f7b8e] stdnum/ar/__init__.py, stdnum/ar/dni.py: Add Argentinian
+	  DNI
+
+	  Closes https://github.com/arthurdejong/python-stdnum/issues/90
+
+2018-12-26  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [375f63b] stdnum/at/vnr.py: Add Austrian Versicherungsnummer
+
+2018-11-27  Ilya Vihtinsky <iliaviht@gmail.com>
+
+	* [b77c9cd] stdnum/se/__init__.py, stdnum/se/personnummer.py,
+	  tests/test_se_personnummer.doctest: Add Swedish Personnummer
+
+	  Closes https://github.com/arthurdejong/python-stdnum/pull/88
+
+2018-11-27  Ilya Vihtinsky <iliaviht@gmail.com>
+
+	* [d11e5c4] stdnum/no/__init__.py, stdnum/no/fodselsnummer.py,
+	  tests/test_no_fodselsnummer.doctest: Add Norwegian Fødselsnummer
+
+	  Closes https://github.com/arthurdejong/python-stdnum/pull/88
+
+2018-12-07  Mario Puntin <mario@silix.com.ar>
+
+	* [bb24c2f] stdnum/ar/cuit.py: Add format for Argentinian CUIT number
+
+	  Closes https://github.com/arthurdejong/python-stdnum/pull/89
+
+2018-11-24  Christopher Ormaza <chris.ormaza@gmail.com>
+
+	* [069279a] stdnum/ec/ci.py, stdnum/ec/ruc.py: Support Cedula and
+	  RUC of foreigners
+
+	  Add the case of Cedulas and RUCs of foreigners in Ecuador,
+	  as Venezuelans and Colombians
+
+	  Closes https://github.com/arthurdejong/python-stdnum/pull/87
+
+2018-11-12  Gustavo Valverde <gustavo@iterativo.do>
+
+	* [e31ff95] stdnum/do/ncf.py, stdnum/do/rnc.py: Use HTTPS for WSDL
+	  as HTTP was deprecated
+
+	  The regulator changed their site to use HTTPS by default; making
+	  this resource unavailable through HTTP.
+
+	  Closes https://github.com/arthurdejong/python-stdnum/pull/85
+
+2018-11-11  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [8677d04] setup.cfg: Make the multi-line operator place explicit
+
+	  Recent versions of flake8 changed the defaults of the errors
+	  to ignore.
+
+2018-10-14  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [a68f3ca] ChangeLog, NEWS, README, docs/index.rst,
+	  docs/stdnum.bitcoin.rst, docs/stdnum.iso11649.rst,
+	  docs/stdnum.mu.nid.rst, docs/stdnum.no.iban.rst,
+	  docs/stdnum.no.kontonr.rst, stdnum/__init__.py,
+	  stdnum/at/postleitzahl.dat, stdnum/be/banks.dat, stdnum/cn/loc.dat,
+	  stdnum/eu/nace.dat, stdnum/imsi.dat, stdnum/isbn.dat,
+	  update/my_bp.py: Get files ready for 1.10 release
+
 2018-10-14  Arthur de Jong <arthur@arthurdejong.org>
 
 	* [6b85f91] stdnum/iban.py, tests/test_iban.doctest: Raise

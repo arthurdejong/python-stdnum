@@ -103,10 +103,12 @@ Available formats
    al.nipt
    ar.cbu
    ar.cuit
+   ar.dni
    at.businessid
    at.postleitzahl
    at.tin
    at.uid
+   at.vnr
    au.abn
    au.acn
    au.tfn
@@ -128,6 +130,7 @@ Available formats
    cl.rut
    cn.ric
    co.nit
+   cu.ni
    cusip
    cy.vat
    cz.dic
@@ -176,6 +179,7 @@ Available formats
    gb.sedol
    gb.upn
    gb.vat
+   gr.amka
    gr.vat
    grid
    hr.oib
@@ -201,14 +205,18 @@ Available formats
    it.codicefiscale
    it.iva
    lei
+   lt.asmens
    lt.pvm
    lu.tva
    lv.pvn
+   mac
    mc.tva
+   md.idno
    me.iban
    meid
    mt.vat
    mu.nid
+   mx.curp
    mx.rfc
    my.nric
    nl.brin
@@ -216,10 +224,12 @@ Available formats
    nl.btw
    nl.onderwijsnummer
    nl.postcode
+   no.fodselsnummer
    no.iban
    no.kontonr
    no.mva
    no.orgnr
+   nz.bankaccount
    pl.nip
    pl.pesel
    pl.regon
@@ -229,6 +239,7 @@ Available formats
    rs.pib
    ru.inn
    se.orgnr
+   se.personnummer
    se.vat
    si.ddv
    sk.dph
@@ -242,3 +253,12 @@ Available formats
    us.rtn
    us.ssn
    us.tin
+
+
+Changes in python-stdnum
+------------------------
+
+.. toctree::
+   :maxdepth: 2
+
+   changes

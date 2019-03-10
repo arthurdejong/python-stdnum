@@ -1,12 +1,39 @@
+changes from 1.10 to 1.11
+-------------------------
+
+* Add modules for the following number formats:
+
+  - DNI (Documento Nacional de Identidad, Argentinian national identity nr.)
+  - VNR, SVNR, VSNR (Versicherungsnummer, Austrian social security number)
+  - NI (Número de identidad, Cuban identity card numbers)
+  - AMKA (Αριθμός Μητρώου Κοινωνικής Ασφάλισης, Greek social security number)
+  - Asmens kodas (Lithuanian, personal numbers)
+  - MAC address (Media Access Control address)
+  - IDNO (Moldavian company identification number)
+  - CURP (Clave Única de Registro de Población, Mexican personal ID)
+  - Fødselsnummer (Norwegian birth number, the national identity number) (thanks Ilya Vihtinsky)
+  - New Zealand bank account number
+  - Personnummer (Swedish personal identity number) (thanks Ilya Vihtinsky)
+
+* Code style improvements
+* Change Dominican Republic DGII check URL to HTTPS (thanks Gustavo Valverde)
+* Support Ecuadorian Cedula and RUC of foreigners (thanks Christopher Ormaza)
+* Add format() function for Argentinian CUIT number (thanks Mario Puntin)
+* Support passing formatted numbers to all get_birth_date() and similar functions
+* Handle Dominican Republic DGII lookup returning multiple entities (thanks Andrés R)
+
+
 changes from 1.9 to 1.10
 ------------------------
 
 * Add modules for the following number formats:
+
   - Bitcoin address
   - ISO 11649 (Structured Creditor Reference)
   - ID number (Mauritian national identifier)
   - Norwegian IBAN (International Bank Account Number)
   - Konto nr. (Norwegian bank account number)
+
 * Fix a bug in handling of Mexican tax numbers
 * Improve Spanish CIF and NIF validation
 * Update Dominican Republic NCF numbers online check
@@ -19,7 +46,8 @@ changes from 1.9 to 1.10
 changes from 1.8.1 to 1.9
 -------------------------
 
-* add modules for the following number formats:
+* Add modules for the following number formats:
+
   - Postleitzahl (Austrian postal code)
   - Abgabenkontonummer (Austrian tax identification number)
   - Belgian IBAN (International Bank Account Number)
@@ -27,6 +55,7 @@ changes from 1.8.1 to 1.9
   - St.-Nr. (Steuernummer, German tax number)
   - FIGI (Financial Instrument Global Identifier)
   - Montenegro IBAN (International Bank Account Number)
+
 * Have documentation rebuilt reproducibly (thanks Chris Lamb)
 * Allow configuring the SOAP request timeout
 * Support spaces in ISO 9362 (SWIFT) BIC codes
@@ -42,29 +71,31 @@ changes from 1.8.1 to 1.9
 changes from 1.8 to 1.8.1
 -------------------------
 
-* fix a packaging issue in the long description
+* Fix a packaging issue in the long description
 
 
 changes from 1.7 to 1.8
 -----------------------
 
-* add modules for the following number formats:
- - NCF (Números de Comprobante Fiscal, Dominican Republic receipt number)
- - Euro banknote serial numbers
- - CAS RN (Chemical Abstracts Service Registry Number)
- - Aadhaar (Indian digital resident personal identity number)
-   (thanks Srikanth Lakshmanan)
- - PAN (Permanent Account Number, Indian income tax identifier)
-   (thanks Srikanth Lakshmanan)
-* add functions for using the Dominican Republic DGII web service to validate
+* Add modules for the following number formats:
+
+  - NCF (Números de Comprobante Fiscal, Dominican Republic receipt number)
+  - Euro banknote serial numbers
+  - CAS RN (Chemical Abstracts Service Registry Number)
+  - Aadhaar (Indian digital resident personal identity number)
+    (thanks Srikanth Lakshmanan)
+  - PAN (Permanent Account Number, Indian income tax identifier)
+    (thanks Srikanth Lakshmanan)
+
+* Add functions for using the Dominican Republic DGII web service to validate
   and search for RNC and NCF numbers
-* add/update whitelists for Dominican Republic RNC and Cedula
-* support zeep as preferred SOAP library (suds and pysimplesoap are tried
+* Add/update whitelists for Dominican Republic RNC and Cedula
+* Support zeep as preferred SOAP library (suds and pysimplesoap are tried
   as fallback)
-* rename stdnum.iso9362 to stdnum.bic (iso9362 is deprecated but still
+* Rename stdnum.iso9362 to stdnum.bic (iso9362 is deprecated but still
   available for compatibility)
-* add tests for web services (not normally run to avoid unnecessary load)
-* fixes and improvement to the sample online validation service
+* Add tests for web services (not normally run to avoid unnecessary load)
+* Fixes and improvement to the sample online validation service
 
 Development of the NCF format validation and DGII web service validation
 was funded by iterativo | http://iterativo.do
@@ -73,7 +104,8 @@ was funded by iterativo | http://iterativo.do
 changes from 1.6 to 1.7
 -----------------------
 
-* add modules for the following number formats:
+* Add modules for the following number formats:
+
   - BN (Canadian Business Number)
   - SIN (Canadian Social Insurance Number)
   - IdNr (Steuerliche Identifikationsnummer, German personal tax number)
@@ -83,19 +115,21 @@ changes from 1.6 to 1.7
   - Veronumero (Finnish individual tax number)
     (thanks Mohammed Salman of Holvi)
   - UPN (English Unique Pupil Number)
-* fix a bug in the Czech DIČ check digit calculation
-* fix conversion of 9 digit ISBN to ISBN13
-* fix a bug in the Damm is_valid() function
-* more validation of 13-digit ISBN values
-* more validation of ISMN values
-* various code and test improvements (100% branch coverage now)
-* documentation improvements
+
+* Fix a bug in the Czech DIČ check digit calculation
+* Fix conversion of 9 digit ISBN to ISBN13
+* Fix a bug in the Damm is_valid() function
+* More validation of 13-digit ISBN values
+* More validation of ISMN values
+* Various code and test improvements (100% branch coverage now)
+* Documentation improvements
 
 
 changes from 1.5 to 1.6
 -----------------------
 
-* add modules for the following number formats:
+* Add modules for the following number formats:
+
   - CBU (Clave Bancaria Uniforme, Argentine bank account number)
     (thanks Luciano Rossi)
   - EIC (European Energy Identification Code)
@@ -103,16 +137,18 @@ changes from 1.5 to 1.6
   - LEI (Legal Entity Identifier)
   - n° TVA (taxe sur la valeur ajoutée, Monacan VAT number)
   - PIB (Poreski Identifikacioni Broj, Serbian tax identification number)
-* add online check example that finds valid formats for a given number
-* fix support for Ñ in Spanish Referencia Catastral
-* updates to U.S. Employer Identification Number (thanks Greg Kuwaye)
-* various minor improvements
+
+* Add online check example that finds valid formats for a given number
+* Fix support for Ñ in Spanish Referencia Catastral
+* Updates to U.S. Employer Identification Number (thanks Greg Kuwaye)
+* Various minor improvements
 
 
 changes from 1.4 to 1.5
 -----------------------
 
-* add modules for the following number formats:
+* Add modules for the following number formats:
+
   - ABN (Australian Business Number)
   - ACN (Australian Company Number)
   - TFN (Australian Tax File Number)
@@ -120,15 +156,17 @@ changes from 1.4 to 1.5
   - CUPS (Código Unificado de Punto de Suministro, Supply Point Unified Code)
   - Spanish IBAN (International Bank Account Number)
   - Referencia Catastral (Spanish real estate property id)
-* the IBAN module now support validating the country-specific part
-* the Belgian VAT number is now also referenced as businessid
-* add a Tox configuration file
+
+* The IBAN module now support validating the country-specific part
+* The Belgian VAT number is now also referenced as businessid
+* Add a Tox configuration file
 
 
 changes from 1.3 to 1.4
 -----------------------
 
-* add modules for the following number formats:
+* Add modules for the following number formats:
+
   - NIF (Numéro d'Immatriculation Fiscale, French tax identification number)
     provided by Dimitri Papadopoulos
   - NIR (French personal identification number) provided by Dimitri
@@ -137,26 +175,28 @@ changes from 1.3 to 1.4
     Yoann Aubineau
   - NHS (United Kingdom National Health Service patient identifier)
   - T.C. Kimlik No. (Turkish personal identification number)
-* add an implementation of the Damm algorithm
-* ensure data files are properly closed
-* documentation improvements
-* extend test suite
-* a number of minor bug fixes and improvements
+
+* Add an implementation of the Damm algorithm
+* Ensure data files are properly closed
+* Documentation improvements
+* Extend test suite
+* A number of minor bug fixes and improvements
 
 
 changes from 1.2 to 1.3
 -----------------------
 
-* fix ISO 6346 check digit calculation (thanks Ronald Paloschi)
-* fix problem with check_vies_approx() (thanks Lionel Elie Mamane)
-* fix problem with SOAP client when using suds
-* include documentation that was previously on the Trac wiki
+* Fix ISO 6346 check digit calculation (thanks Ronald Paloschi)
+* Fix problem with check_vies_approx() (thanks Lionel Elie Mamane)
+* Fix problem with SOAP client when using suds
+* Include documentation that was previously on the Trac wiki
 
 
 changes from 1.1 to 1.2
 -----------------------
 
-* add modules for the following number formats:
+* Add modules for the following number formats:
+
   - Austrian Company Register Numbers
   - CNPJ (Cadastro Nacional da Pessoa Jurídica, Brazillian company identifier)
   - UID (Unternehmens-Identifikationsnummer, Swiss business identifier)
@@ -173,22 +213,26 @@ changes from 1.1 to 1.2
   - PESEL (Polish national identification number)
   - REGON (Rejestr Gospodarki Narodowej, Polish register of economic units)
   - ИНН (Идентификационный номер налогоплательщика, Russian tax identifier)
-* add an alternate VIES check (check_vies_approx()) that includes a proof
+
+* Add an alternate VIES check (check_vies_approx()) that includes a proof
   (certificate) that the check was performed
-* fall back to pysimplesoap if suds is unavailable
-* test and code quality improvements
+* Fall back to pysimplesoap if suds is unavailable
+* Test and code quality improvements
 
 
 changes from 1.0 to 1.1
 -----------------------
 
-* add number formats based on the implementation in the vatnumber module:
+* Add number formats based on the implementation in the vatnumber module:
+
   - NIPT (Numri i Identifikimit për Personin e Tatueshëm, Albanian VAT number)
   - CUIT (Código Único de Identificación Tributaria, Argentinian tax number)
   - RUT (Rol Único Tributario, Chilean national tax number)
   - NIT (Número De Identificación Tributaria, Colombian identity code)
   - COE (Codice operatore economico, San Marino national tax number)
-* add modules for the following number formats:
+
+* Add modules for the following number formats:
+
   - Cedula (Dominican Republic national identification number)
   - RNC (Registro Nacional del Contribuyente, Dominican Republic tax number)
   - Kennitala (Icelandic personal and organisation identity code, provided by
@@ -201,15 +245,17 @@ changes from 1.0 to 1.1
     Tuomas Toivonen)
   - Orgnr (Organisationsnummer, Swedish company number, provided by Tomas
     Thor Jonsson)
-* add Croatia to list of EU VAT numbers
-* update getcnloc script
-* various small fixes and additional tests for existing modules
+
+* Add Croatia to list of EU VAT numbers
+* Update getcnloc script
+* Various small fixes and additional tests for existing modules
 
 
 changes from 0.9 to 1.0
 -----------------------
 
-* add modules for the following number formats:
+* Add modules for the following number formats:
+
   - Swiss social security number ("Sozialversicherungsnummer")
   - RIC No. (Chinese Resident Identity Card Number)
   - CI (Cédula de identidad, Ecuadorian personal identity code)
@@ -218,16 +264,18 @@ changes from 0.9 to 1.0
   - ISO 6346 (International standard for container identification)
   - Codice Fiscale (Italian tax code for individuals)
   - RTN (Routing transport number)
+
 * Add support for 2013 extension of Irish PPS Numbers
-* update getisbn script
-* update getmybp URLs for Malaysian code lists
-* various other minor improvements
+* Update getisbn script
+* Update getmybp URLs for Malaysian code lists
+* Various other minor improvements
 
 
 changes from 0.8.1 to 0.9
 -------------------------
 
-* add modules for the following number formats:
+* Add modules for the following number formats:
+
   - Brin number (Dutch number for schools)
   - Postcode (Dutch postal code)
   - ATIN (U.S. Adoption Taxpayer Identification Number)
@@ -235,37 +283,41 @@ changes from 0.8.1 to 0.9
   - ITIN (U.S. Individual Taxpayer Identification Number)
   - PTIN (U.S. Preparer Tax Identification Number)
   - TIN (U.S. Taxpayer Identification Number)
-* try to replace Unicode characters with similar-looking ASCII characters
-* update getimsi script (thanks eneq123)
-* update getiban script
-* add proxy support to the stdnum.eu.vat.check_vies() function (thanks
+
+* Try to replace Unicode characters with similar-looking ASCII characters
+* Update getimsi script (thanks eneq123)
+* Update getiban script
+* Add proxy support to the stdnum.eu.vat.check_vies() function (thanks
   Cédric Krier)
-* support newer United Kingdom VAT numbers
+* Support newer United Kingdom VAT numbers
 
 
 changes from 0.8 to 0.8.1
 -------------------------
 
-* include some files that were missing from the source tarball
+* Include some files that were missing from the source tarball
 
 
 changes from 0.7 to 0.8
 -----------------------
 
-* add modules for the following number formats:
+* Add modules for the following number formats:
+
   - NRIC No. (Malaysian National Registration Identity Card Number)
-* all modules now provide a validate() function that throws an exception
+
+* All modules now provide a validate() function that throws an exception
   that contains more information on the failure reason
-* documentation improvements
-* remove add_check_digit parameter from GRid's format() function
-* improvements to the tests
-* re-add Python3 support (now tested with Python 2.7, 3.2 and 3.3)
+* Documentation improvements
+* Remove add_check_digit parameter from GRid's format() function
+* Improvements to the tests
+* Re-add Python3 support (now tested with Python 2.7, 3.2 and 3.3)
 
 
 changes from 0.6 to 0.7
 -----------------------
 
-* add modules for the following number formats:
+* Add modules for the following number formats:
+
   - Onderwijsnummer (Dutch school number)
   - BTW-nummer (Omzetbelastingnummer, the Dutch VAT number)
   - HETU (Finnish personal identity code) as provided by Jussi Judin (#5)
@@ -307,49 +359,54 @@ changes from 0.6 to 0.7
   - OIB (Osobni identifikacijski broj, Croatian identification number)
   - PPS No (Personal Public Service Number, Irish personal number)
   - CPR (personnummer, the Danish citizen number)
-* additional tests for robustness and use introspection to test all modules
-* some code refactoring with the introduction of an internal utility module
-* improvements to the docstring documentation
-* generate API documentation using Sphinx
+
+* Additional tests for robustness and use introspection to test all modules
+* Some code refactoring with the introduction of an internal utility module
+* Improvements to the docstring documentation
+* Generate API documentation using Sphinx
 
 
 changes from 0.5 to 0.6
 -----------------------
 
-* fix a problem with handling an ISBN13 with a valid check digit but with an
+* Fix a problem with handling an ISBN13 with a valid check digit but with an
   unknown bookland prefix
-* add an IMSI (International Mobile Subscriber Identity) module
-* implement a conversion function from ISBN13 to ISBN10
-* implement an ismn.ismn_type() function
-* implement an imei.split() function that splits the number into a TAC, serial
+* Add an IMSI (International Mobile Subscriber Identity) module
+* Implement a conversion function from ISBN13 to ISBN10
+* Implement an ismn.ismn_type() function
+* Implement an imei.split() function that splits the number into a TAC, serial
   number and checksum or software version
-* source code layout changes to better follow PEP8
+* Source code layout changes to better follow PEP8
 
 
 changes from 0.4 to 0.5
 -----------------------
 
-* add modules for the following number formats:
+* Add modules for the following number formats:
+
   - EAN (International Article Number)
-* refactoring to use the EAN check digit code for ISBN and ISMN checks
-* implement a conversion function from ISSN to EAN
-* support Python3 with the same codebase
+
+* Refactoring to use the EAN check digit code for ISBN and ISMN checks
+* Implement a conversion function from ISSN to EAN
+* Support Python3 with the same codebase
 * Python 2.5 compatibility improvement
 
 
 changes from 0.3 to 0.4
 -----------------------
 
-* add modules for the following number formats:
+* Add modules for the following number formats:
+
   - CPF (Cadastro de Pessoas Físicas, the Brazillian national identification
     number)
   - IBAN (International Bank Account Number)
   - ISIL (International Standard Identifier for Libraries and Related
     Organizations)
   - SSN (U.S. Social Security Number)
-* implement an internal module to store and handle hierarchically organised
+
+* Implement an internal module to store and handle hierarchically organised
   data structures efficiently
-* regional-specific numbers are now in ISO 3166 packages (the BSN module
+* Regional-specific numbers are now in ISO 3166 packages (the BSN module
   is now in stdnum.nl.bsn)
 * ISBN module functions now have a convert flag to convert to ISBN-13 on
   the fly
@@ -358,23 +415,27 @@ changes from 0.3 to 0.4
 changes from 0.2 to 0.3
 -----------------------
 
-* add modules for the following number formats:
+* Add modules for the following number formats:
+
   - ISMN (International Standard Music Number)
   - ISAN (International Standard Audiovisual Number)
   - IMEI (International Mobile Equipment Identity)
   - MEID (Mobile Equipment Identifier)
   - GRid (Global Release Identifier)
-* add modules for handling the following check digit algorithms:
+
+* Add modules for handling the following check digit algorithms:
+
   - the Verhoeff algorithm
   - the Luhn and Luhn mod N algorithms
   - some algorithms described in ISO/IEC 7064: Mod 11, 2, Mod 37, 2,
     Mod 97, 10, Mod 11, 10 and Mod 37, 36
-* added more unit tests
+
+* Added more unit tests
 
 
 changes from 0.1 to 0.2
 -----------------------
 
-* rename validate() function to is_valid() for all modules
-* handle wrong types passed to is_valid() more gracefully
-* add more tests and fix some minor bugs
+* Rename validate() function to is_valid() for all modules
+* Handle wrong types passed to is_valid() more gracefully
+* Add more tests and fix some minor bugs
