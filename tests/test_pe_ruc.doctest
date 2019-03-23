@@ -1,0 +1,171 @@
+test_pe_ruc.doctest - more detailed doctests for stdnum.pe.ruc module
+
+Copyright (C) 2019 Arthur de Jong
+
+This library is free software; you can redistribute it and/or
+modify it under the terms of the GNU Lesser General Public
+License as published by the Free Software Foundation; either
+version 2.1 of the License, or (at your option) any later version.
+
+This library is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+Lesser General Public License for more details.
+
+You should have received a copy of the GNU Lesser General Public
+License along with this library; if not, write to the Free Software
+Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
+02110-1301 USA
+
+
+This file contains more detailed doctests for the stdnum.pe.ruc module. It
+tries to test more corner cases and detailed functionality that is not really
+useful as module documentation.
+
+>>> from stdnum.pe import ruc
+
+
+Tests for some corner cases.
+
+>>> ruc.validate('20512333797')
+'20512333797'
+>>> ruc.validate('2051233379')
+Traceback (most recent call last):
+    ...
+InvalidLength: ...
+>>> ruc.validate('99512333792')
+Traceback (most recent call last):
+    ...
+InvalidComponent: ...
+>>> ruc.validate('20A12333797')
+Traceback (most recent call last):
+    ...
+InvalidFormat: ...
+>>> ruc.to_dni('10054148289')
+'05414828'
+>>> ruc.to_dni('20512333797')
+Traceback (most recent call last):
+    ...
+InvalidComponent: ...
+
+
+These have been found online and should all be valid numbers.
+
+>>> numbers = '''
+...
+... 10000655959
+... 10010734121
+... 10040578108
+... 10053358671
+... 10054148289
+... 10058437277
+... 10060535138
+... 10098295343
+... 10103206851
+... 10108344739
+... 10156612001
+... 10164655909
+... 10165791474
+... 10166518861
+... 10167089505
+... 10167323290
+... 10198029632
+... 10214859268
+... 10243761927
+... 10254430752
+... 10266040640
+... 10266906451
+... 10277354981
+... 10411119373
+... 10414493071
+... 10425240311
+... 10427556960
+... 10433604640
+... 10436581772
+... 10452880437
+... 15484032987
+... 15501941597
+... 17155542071
+... 17322796196
+... 20100255325
+... 20109980936
+... 20113732084
+... 20123458444
+... 20131372770
+... 20134636972
+... 20137663474
+... 20139490691
+... 20142529913
+... 20145391076
+... 20154546520
+... 20171312141
+... 20171781648
+... 20172245065
+... 20172284044
+... 20193655492
+... 20198432386
+... 20201571350
+... 20206309815
+... 20209462452
+... 20212025179
+... 20212516661
+... 20222194564
+... 20222955433
+... 20252290029
+... 20253602571
+... 20296742563
+... 20312356776
+... 20347268683
+... 20354374286
+... 20357089795
+... 20382245068
+... 20393125064
+... 20401283952
+... 20406257127
+... 20421551520
+... 20429794146
+... 20438510398
+... 20448098932
+... 20450258882
+... 20450417433
+... 20451063902
+... 20451392710
+... 20451408811
+... 20451420276
+... 20451428170
+... 20453836364
+... 20454368453
+... 20455554617
+... 20462300787
+... 20472972571
+... 20480597754
+... 20480615329
+... 20481149119
+... 20482221450
+... 20489418933
+... 20493238087
+... 20493298900
+... 20493374002
+... 20495188389
+... 20496055285
+... 20498592521
+... 20504684378
+... 20508379049
+... 20510299761
+... 20512525432
+... 20514261262
+... 20514397245
+... 20518376145
+... 20524105501
+... 20524305004
+... 20524354129
+... 20525274226
+... 20525413447
+... 20530815847
+... 20537999731
+... 20541492047
+... 20552756453
+...
+... '''
+>>> [x for x in numbers.splitlines() if x and not ruc.is_valid(x)]
+[]
