@@ -1,0 +1,89 @@
+test_pe_cui.doctest - more detailed doctests for stdnum.pe.cui module
+
+Copyright (C) 2019 Arthur de Jong
+
+This library is free software; you can redistribute it and/or
+modify it under the terms of the GNU Lesser General Public
+License as published by the Free Software Foundation; either
+version 2.1 of the License, or (at your option) any later version.
+
+This library is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+Lesser General Public License for more details.
+
+You should have received a copy of the GNU Lesser General Public
+License along with this library; if not, write to the Free Software
+Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
+02110-1301 USA
+
+
+This file contains more detailed doctests for the stdnum.pe.ruc module. It
+tries to test more corner cases and detailed functionality that is not really
+useful as module documentation.
+
+>>> from stdnum.pe import cui
+
+
+Tests for some corner cases.
+
+>>> cui.validate('10812543-3')
+'108125433'
+>>> cui.validate('10812543-H')
+'10812543H'
+>>> cui.validate('1081254332')
+Traceback (most recent call last):
+    ...
+InvalidLength: ...
+>>> cui.validate('108125H3-3')
+Traceback (most recent call last):
+    ...
+InvalidFormat: ...
+>>> cui.to_ruc('10812543-3')
+'10108125433'
+
+
+These 9-digit numbers have been found online and should all be valid numbers.
+
+>>> numbers = '''
+...
+...
+... 05209244-8
+... 05337812-4
+... 06009893-5
+... 06224656-7
+... 06416641-2
+... 06477277-1
+... 06770169-6
+... 07750457-1
+... 07881352-6
+... 09482447-3
+... 09537333-5
+... 10117410-2
+... 10123558-6
+... 10586119B
+... 17859853-3
+... 25465832-0
+... 25543680E
+... 25735046-6
+... 32023446H
+... 33562458-6
+... 40812023-9
+... 42189197-0
+... 42388604-3
+... 43381907-7
+... 43451826-7
+... 45055499E
+... 46788632-6
+... 46967914-0
+... 47205319-7
+... 474996072
+... 63109177-1
+... 70025425-4
+... 71347545-4
+... 72641234-6
+... 72859897-8
+...
+... '''
+>>> [x for x in numbers.splitlines() if x and not cui.is_valid(x)]
+[]
