@@ -44,7 +44,7 @@ InvalidChecksum: ...
 
 from stdnum import luhn
 from stdnum.exceptions import *
-from stdnum.util import clean
+from stdnum.util import clean, isdigits
 
 
 def compact(number):
@@ -65,7 +65,7 @@ def _calc_check_digit(number):
 def validate(number):
     """Check if the number provided is a valid bank account number."""
     number = compact(number)
-    if not number.isdigit():
+    if not isdigits(number):
         raise InvalidFormat()
     if len(number) == 7:
         luhn.validate(number)

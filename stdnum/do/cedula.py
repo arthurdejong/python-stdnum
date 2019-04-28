@@ -40,7 +40,7 @@ InvalidFormat: ...
 from stdnum import luhn
 from stdnum.do import rnc
 from stdnum.exceptions import *
-from stdnum.util import clean
+from stdnum.util import clean, isdigits
 
 
 # list of Cedulas that do not match the checksum but are nonetheless valid
@@ -154,7 +154,7 @@ def compact(number):
 def validate(number):
     """Check if the number provided is a valid cedula."""
     number = compact(number)
-    if not number.isdigit():
+    if not isdigits(number):
         raise InvalidFormat()
     if number in whitelist:
         return number

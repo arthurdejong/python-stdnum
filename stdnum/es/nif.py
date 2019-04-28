@@ -46,7 +46,7 @@ InvalidChecksum: ...
 
 from stdnum.es import cif, dni, nie
 from stdnum.exceptions import *
-from stdnum.util import clean
+from stdnum.util import clean, isdigits
 
 
 def compact(number):
@@ -62,7 +62,7 @@ def validate(number):
     """Check if the number provided is a valid VAT number. This checks the
     length, formatting and check digit."""
     number = compact(number)
-    if not number[1:-1].isdigit():
+    if not isdigits(number[1:-1]):
         raise InvalidFormat()
     if len(number) != 9:
         raise InvalidLength()
@@ -73,7 +73,7 @@ def validate(number):
         # these use the old checkdigit algorithm (the DNI one)
         if number[-1] != dni.calc_check_digit(number[1:-1]):
             raise InvalidChecksum()
-    elif number[0].isdigit():
+    elif isdigits(number[0]):
         # natural resident
         dni.validate(number)
     elif number[0] in 'XYZ':

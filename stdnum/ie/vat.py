@@ -42,7 +42,7 @@ InvalidFormat: ...
 """
 
 from stdnum.exceptions import *
-from stdnum.util import clean
+from stdnum.util import clean, isdigits
 
 
 def compact(number):
@@ -70,13 +70,13 @@ def validate(number):
     """Check if the number provided is a valid VAT number. This checks the
     length, formatting and check digit."""
     number = compact(number)
-    if not number[:1].isdigit() or not number[2:7].isdigit():
+    if not isdigits(number[:1]) or not isdigits(number[2:7]):
         raise InvalidFormat()
     if not all(x in _alphabet for x in number[7:]):
         raise InvalidFormat()
     if len(number) not in (8, 9):
         raise InvalidLength()
-    if number[:7].isdigit():
+    if isdigits(number[:7]):
         # new system (7 digits followed by 1 or 2 letters)
         if number[7] != calc_check_digit(number[:7] + number[8:]):
             raise InvalidChecksum()
@@ -103,6 +103,6 @@ def convert(number):
     is a letter to the new 8-digit format where only the last digit is a
     character."""
     number = compact(number)
-    if len(number) == 8 and not number[1].isdigit():
+    if len(number) == 8 and not isdigits(number[1]):
         number = '0' + number[2:7] + number[0] + number[7:]
     return number

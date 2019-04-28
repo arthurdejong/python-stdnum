@@ -56,10 +56,6 @@ True
 
 Invalid format:
 
->>> ric.validate('36042619910101007V')
-Traceback (most recent call last):
-    ...
-InvalidFormat: ...
 >>> ric.validate('T60426199101010078')
 Traceback (most recent call last):
     ...

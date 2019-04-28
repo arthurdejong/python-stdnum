@@ -63,7 +63,7 @@ InvalidChecksum: ...
 """
 
 from stdnum.exceptions import *
-from stdnum.util import clean
+from stdnum.util import clean, isdigits
 
 
 def compact(number):
@@ -103,7 +103,7 @@ def validate(number):
     number = compact(number)
     if len(number) != 20:
         raise InvalidLength()
-    if not number.isdigit():
+    if not isdigits(number):
         raise InvalidFormat()
     if number[8:10] != calc_check_digits(number):
         raise InvalidChecksum()

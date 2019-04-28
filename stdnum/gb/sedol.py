@@ -34,7 +34,7 @@ InvalidChecksum: ...
 """
 
 from stdnum.exceptions import *
-from stdnum.util import clean
+from stdnum.util import clean, isdigits
 
 
 # the letters allowed in an SEDOL (vowels are never used)
@@ -62,7 +62,7 @@ def validate(number):
         raise InvalidFormat()
     if len(number) != 7:
         raise InvalidLength()
-    if number[0].isdigit() and not number.isdigit():
+    if isdigits(number[0]) and not isdigits(number):
         # new style SEDOLs are supposed to start with a letter, old-style
         # numbers should be fully numeric
         raise InvalidFormat()

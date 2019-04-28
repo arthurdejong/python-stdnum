@@ -51,7 +51,7 @@ InvalidLength: ...
 
 from stdnum import ean
 from stdnum.exceptions import *
-from stdnum.util import clean
+from stdnum.util import clean, isdigits
 
 
 def compact(number):
@@ -72,7 +72,7 @@ def validate(number):
     """Check if the number is a valid ISSN. This checks the length and
     whether the check digit is correct."""
     number = compact(number)
-    if not number[:-1].isdigit():
+    if not isdigits(number[:-1]):
         raise InvalidFormat()
     if len(number) != 8:
         raise InvalidLength()

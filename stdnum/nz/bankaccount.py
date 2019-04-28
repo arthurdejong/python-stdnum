@@ -43,7 +43,7 @@ InvalidComponent: ...
 """
 
 from stdnum.exceptions import *
-from stdnum.util import clean
+from stdnum.util import clean, isdigits
 
 
 # The following algorithms and weights were taken from:
@@ -125,7 +125,7 @@ def _calc_checksum(number):
 def validate(number):
     """Check if the number provided is a valid bank account number."""
     number = compact(number)
-    if not number.isdigit():
+    if not isdigits(number):
         raise InvalidFormat()
     if len(number) != 16:
         raise InvalidLength()

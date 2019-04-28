@@ -38,7 +38,7 @@ InvalidChecksum: ...
 """
 
 from stdnum.exceptions import *
-from stdnum.util import clean
+from stdnum.util import clean, isdigits
 
 
 def compact(number):
@@ -65,7 +65,7 @@ def validate(number):
         raise InvalidFormat()
     if len(number) != 12:
         raise InvalidLength()
-    if number[0].isdigit() or number[1].isdigit():
+    if isdigits(number[0]) or isdigits(number[1]):
         raise InvalidFormat()
     if number[:2] in ('BS', 'BM', 'GG', 'GB', 'VG'):
         raise InvalidComponent()

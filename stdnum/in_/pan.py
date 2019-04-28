@@ -56,7 +56,7 @@ from stdnum.exceptions import *
 from stdnum.util import clean
 
 
-_pan_re = re.compile(r'^[A-Z]{3}[ABCFGHLJPTK][A-Z]\d{4}[A-Z]$')
+_pan_re = re.compile(r'^[A-Z]{5}[0-9]{4}[A-Z]$')
 
 
 def compact(number):
@@ -71,8 +71,7 @@ def validate(number):
     number = compact(number)
     if len(number) != 10:
         raise InvalidLength()
-    if not (number[:5].isalpha() and number[5:-1].isdigit() and
-            number[-1].isalpha()):
+    if not _pan_re.match(number):
         raise InvalidFormat()
     info(number)  # used to check 4th digit
     return number

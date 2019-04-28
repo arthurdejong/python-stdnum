@@ -38,7 +38,7 @@ InvalidChecksum: ...
 
 from stdnum import luhn
 from stdnum.exceptions import *
-from stdnum.util import clean
+from stdnum.util import clean, isdigits
 
 
 # An online validation function is available but it does not provide an
@@ -57,7 +57,7 @@ def validate(number):
     """Check if the number provided is a valid SIREN. This checks the length,
     formatting and check digit."""
     number = compact(number)
-    if not number.isdigit():
+    if not isdigits(number):
         raise InvalidFormat()
     if len(number) != 9:
         raise InvalidLength()

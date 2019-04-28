@@ -42,7 +42,7 @@ InvalidChecksum: ...
 import datetime
 
 from stdnum.exceptions import *
-from stdnum.util import clean
+from stdnum.util import clean, isdigits
 
 
 def compact(number):
@@ -80,7 +80,7 @@ def validate(number):
     formatting and check digit."""
     number = compact(number)
     # first digit should be a known one (9=foreigner)
-    if not number.isdigit() or number[0] not in '1234569':
+    if not isdigits(number) or number[0] not in '1234569':
         raise InvalidFormat()
     if len(number) != 13:
         raise InvalidLength()

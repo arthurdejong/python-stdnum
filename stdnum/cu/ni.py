@@ -53,7 +53,7 @@ InvalidComponent: ...
 import datetime
 
 from stdnum.exceptions import *
-from stdnum.util import clean
+from stdnum.util import clean, isdigits
 
 
 def compact(number):
@@ -95,7 +95,7 @@ def validate(number):
     number = compact(number)
     if len(number) != 11:
         raise InvalidLength()
-    if not number.isdigit():
+    if not isdigits(number):
         raise InvalidFormat()
     get_birth_date(number)
     return number

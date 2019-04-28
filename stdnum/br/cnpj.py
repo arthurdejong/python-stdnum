@@ -39,7 +39,7 @@ InvalidFormat: ...
 """
 
 from stdnum.exceptions import *
-from stdnum.util import clean
+from stdnum.util import clean, isdigits
 
 
 def compact(number):
@@ -62,7 +62,7 @@ def validate(number):
     """Check if the number is a valid CNPJ. This checks the length and
     whether the check digits are correct."""
     number = compact(number)
-    if not number.isdigit() or int(number) <= 0:
+    if not isdigits(number) or int(number) <= 0:
         raise InvalidFormat()
     if len(number) != 14:
         raise InvalidLength()

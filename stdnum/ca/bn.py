@@ -45,7 +45,7 @@ InvalidFormat: ...
 
 from stdnum import luhn
 from stdnum.exceptions import *
-from stdnum.util import clean
+from stdnum.util import clean, isdigits
 
 
 def compact(number):
@@ -60,13 +60,13 @@ def validate(number):
     number = compact(number)
     if len(number) not in (9, 15):
         raise InvalidLength()
-    if not number[:9].isdigit():
+    if not isdigits(number[:9]):
         raise InvalidFormat()
     luhn.validate(number[:9])
     if len(number) == 15:
         if number[9:11] not in ('RC', 'RM', 'RP', 'RT'):
             raise InvalidComponent()
-        if not number[11:].isdigit():
+        if not isdigits(number[11:]):
             raise InvalidFormat()
     return number
 

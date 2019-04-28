@@ -49,7 +49,7 @@ from collections import defaultdict
 
 from stdnum.exceptions import *
 from stdnum.iso7064 import mod_11_10
-from stdnum.util import clean
+from stdnum.util import clean, isdigits
 
 
 def compact(number):
@@ -64,7 +64,7 @@ def validate(number):
     number = compact(number)
     if len(number) != 11:
         raise InvalidLength()
-    if not number.isdigit():
+    if not isdigits(number):
         raise InvalidFormat()
     if number.startswith('0'):
         raise InvalidFormat()

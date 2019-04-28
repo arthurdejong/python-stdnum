@@ -38,6 +38,7 @@ InvalidLength: ...
 
 from stdnum.ec import ci
 from stdnum.exceptions import *
+from stdnum.util import isdigits
 
 
 __all__ = ['compact', 'validate', 'is_valid']
@@ -58,7 +59,7 @@ def validate(number):
     number = compact(number)
     if len(number) != 13:
         raise InvalidLength()
-    if not number.isdigit():
+    if not isdigits(number):
         raise InvalidFormat()
     if (number[:2] < '01' or number[:2] > '24') and (number[:2] not in ('30', '50')):
         raise InvalidComponent()  # invalid province code

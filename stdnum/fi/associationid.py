@@ -43,7 +43,7 @@ InvalidFormat: The number has an invalid format.
 """
 
 from stdnum.exceptions import *
-from stdnum.util import clean
+from stdnum.util import clean, isdigits
 
 
 # a collection of all registered numbers with 2 or less digits
@@ -63,7 +63,7 @@ def validate(number):
     """Check if the number is a valid Finnish association register number.
     This checks the length and format."""
     number = compact(number)
-    if not number.isdigit():
+    if not isdigits(number):
         raise InvalidFormat()
     if len(number) < 1 or len(number) > 6:
         raise InvalidLength()

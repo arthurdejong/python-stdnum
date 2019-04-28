@@ -34,7 +34,7 @@ InvalidChecksum: ...
 
 from stdnum.exceptions import *
 from stdnum.se import orgnr
-from stdnum.util import clean
+from stdnum.util import clean, isdigits
 
 
 def compact(number):
@@ -50,7 +50,7 @@ def validate(number):
     """Check if the number is a valid VAT number. This checks the length,
     formatting and check digit."""
     number = compact(number)
-    if not number.isdigit() or number[-2:] != '01':
+    if not isdigits(number) or number[-2:] != '01':
         raise InvalidFormat()
     orgnr.validate(number[:-2])
     return number

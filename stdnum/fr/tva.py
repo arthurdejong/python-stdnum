@@ -45,7 +45,7 @@ InvalidFormat: ...
 
 from stdnum.exceptions import *
 from stdnum.fr import siren
-from stdnum.util import clean
+from stdnum.util import clean, isdigits
 
 
 # the valid characters for the first two digits (O and I are missing)
@@ -67,20 +67,20 @@ def validate(number):
     number = compact(number)
     if not all(x in _alphabet for x in number[:2]):
         raise InvalidFormat()
-    if not number[2:].isdigit():
+    if not isdigits(number[2:]):
         raise InvalidFormat()
     if len(number) != 11:
         raise InvalidLength()
     if number[2:5] != '000':
         # numbers from Monaco are valid TVA but not SIREN
         siren.validate(number[2:])
-    if number.isdigit():
+    if isdigits(number):
         # all-numeric digits
         if int(number[:2]) != (int(number[2:] + '12') % 97):
             raise InvalidChecksum()
     else:
         # one of the first two digits isn't a number
-        if number[0].isdigit():
+        if isdigits(number[0]):
             check = (
                 _alphabet.index(number[0]) * 24 +
                 _alphabet.index(number[1]) - 10)

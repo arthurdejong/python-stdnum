@@ -35,7 +35,7 @@ digit is the checksum.
 import datetime
 
 from stdnum.exceptions import *
-from stdnum.util import clean
+from stdnum.util import clean, isdigits
 
 
 def compact(number):
@@ -81,9 +81,7 @@ def validate(number):
     number = compact(number)
     if len(number) != 18:
         raise InvalidLength()
-    if not number[:-1].isdigit():
-        raise InvalidFormat()
-    if not number[-1].isdigit() and number[-1] != 'X':
+    if not isdigits(number[:-1]):
         raise InvalidFormat()
     if number[-1] != calc_check_digit(number):
         raise InvalidChecksum()

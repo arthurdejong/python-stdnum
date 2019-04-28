@@ -1,7 +1,7 @@
 # businessid.py - functions for handling Austrian company register numbers
 #
 # Copyright (C) 2015 Holvi Payment Services Oy
-# Copyright (C) 2012, 2013 Arthur de Jong
+# Copyright (C) 2012-2019 Arthur de Jong
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -38,8 +38,13 @@ Traceback (most recent call last):
 InvalidFormat: ...
 """
 
+import re
+
 from stdnum.exceptions import *
 from stdnum.util import clean
+
+
+_businessid_re = re.compile('^[0-9]+[a-z]$')
 
 
 def compact(number):
@@ -56,7 +61,7 @@ def validate(number):
     """Check if the number is a valid company register number. This only
     checks the formatting."""
     number = compact(number)
-    if not number[-1:].isalpha() or not number[:-1].isdigit():
+    if not _businessid_re.match(number):
         raise InvalidFormat()
     return number
 

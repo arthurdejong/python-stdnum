@@ -39,7 +39,7 @@ InvalidChecksum: ...
 """
 
 from stdnum.exceptions import *
-from stdnum.util import clean
+from stdnum.util import clean, isdigits
 
 
 def compact(number):
@@ -70,7 +70,7 @@ def validate(number):
     """Check if the number is a valid ИНН. This checks the length, formatting
     and check digit."""
     number = compact(number)
-    if not number.isdigit():
+    if not isdigits(number):
         raise InvalidFormat()
     if len(number) == 10:
         if calc_company_check_digit(number) != number[-1]:

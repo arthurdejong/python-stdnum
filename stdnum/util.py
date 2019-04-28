@@ -1,7 +1,7 @@
 # util.py - common utility functions
 # coding: utf-8
 #
-# Copyright (C) 2012-2018 Arthur de Jong
+# Copyright (C) 2012-2019 Arthur de Jong
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -35,7 +35,12 @@ import warnings
 from stdnum.exceptions import *
 
 
+# Regular expression to match doctests in docstrings
 _strip_doctest_re = re.compile(r'^>>> .*\Z', re.DOTALL | re.MULTILINE)
+
+
+# Regular expression to match digits
+_digits_re = re.compile(r'^[0-9]+$')
 
 
 def _mk_char_map(mapping):
@@ -127,6 +132,13 @@ def clean(number, deletechars=''):
     else:  # pragma: no cover (Python 3 specific code)
         number = _clean_chars(number)
     return ''.join(x for x in number if x not in deletechars)
+
+
+def isdigits(number):
+    """Check whether the provided string only consists of digits."""
+    # This function is meant to replace str.isdigit() which will also return
+    # True for all kind of unicode digits which is generally not what we want
+    return bool(_digits_re.match(number))
 
 
 def to_unicode(text):

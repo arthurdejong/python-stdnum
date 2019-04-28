@@ -39,9 +39,13 @@ More information:
 """
 
 import datetime
+import re
 
 from stdnum.exceptions import *
 from stdnum.util import clean
+
+
+_nid_re = re.compile('^[A-Z][0-9]+[0-9A-Z]$')
 
 
 # characters used for checksum calculation
@@ -78,7 +82,7 @@ def validate(number):
     number = compact(number)
     if len(number) != 14:
         raise InvalidLength()
-    if not number[0].isalpha() or not number[1:-1].isdigit():
+    if not _nid_re.match(number):
         raise InvalidFormat()
     if calc_check_digit(number) != number[-1]:
         raise InvalidChecksum()

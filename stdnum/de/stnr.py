@@ -53,7 +53,7 @@ InvalidLength: ...
 import re
 
 from stdnum.exceptions import *
-from stdnum.util import clean
+from stdnum.util import clean, isdigits
 
 
 # The number formats per region (regional and country-wide format)
@@ -132,7 +132,7 @@ def validate(number, region=None):
     formatting. The region can be supplied to verify that the number is
     assigned in that region."""
     number = compact(number)
-    if not number.isdigit():
+    if not isdigits(number):
         raise InvalidFormat()
     if len(number) not in (10, 11, 13):
         raise InvalidLength()

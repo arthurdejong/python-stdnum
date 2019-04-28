@@ -36,7 +36,7 @@ InvalidChecksum: ...
 """
 
 from stdnum.exceptions import *
-from stdnum.util import clean
+from stdnum.util import clean, isdigits
 
 
 def compact(number):
@@ -60,7 +60,7 @@ def validate(number):
     formatting and check digit."""
     number = compact(number)
     if len(number) == 5:
-        if not number[2:].isdigit():
+        if not isdigits(number[2:]):
             raise InvalidFormat()
         if number.startswith('GD') and int(number[2:]) < 500:
             # government department
@@ -71,7 +71,7 @@ def validate(number):
         else:
             raise InvalidComponent()
     elif len(number) == 11 and number[0:6] in ('GD8888', 'HA8888'):
-        if not number[6:].isdigit():
+        if not isdigits(number[6:]):
             raise InvalidFormat()
         if number.startswith('GD') and int(number[6:9]) < 500:
             # government department
@@ -84,7 +84,7 @@ def validate(number):
         if int(number[6:9]) % 97 != int(number[9:11]):
             raise InvalidChecksum()
     elif len(number) in (9, 12):
-        if not number.isdigit():
+        if not isdigits(number):
             raise InvalidFormat()
         # standard number: nnn nnnn nn
         # branch trader: nnn nnnn nn nnn (ignore the last thee digits)

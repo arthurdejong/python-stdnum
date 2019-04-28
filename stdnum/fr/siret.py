@@ -45,7 +45,7 @@ InvalidChecksum: ...
 from stdnum import luhn
 from stdnum.exceptions import *
 from stdnum.fr import siren
-from stdnum.util import clean
+from stdnum.util import clean, isdigits
 
 
 def compact(number):
@@ -58,7 +58,7 @@ def validate(number):
     """Check if the number is a valid SIRET. This checks the length,
     formatting and check digit."""
     number = compact(number)
-    if not number.isdigit():
+    if not isdigits(number):
         raise InvalidFormat()
     if len(number) != 14:
         raise InvalidLength()
@@ -85,7 +85,7 @@ def to_siren(number):
     for char in number:
         if digit_count < 9:
             _siren.append(char)
-            if char.isdigit():
+            if isdigits(char):
                 digit_count += 1
     return ''.join(_siren)
 

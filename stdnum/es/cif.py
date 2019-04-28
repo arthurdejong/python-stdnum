@@ -49,6 +49,7 @@ InvalidFormat: ...
 from stdnum import luhn
 from stdnum.es import dni
 from stdnum.exceptions import *
+from stdnum.util import isdigits
 
 
 __all__ = ['compact', 'validate', 'is_valid', 'split']
@@ -70,7 +71,7 @@ def validate(number):
     """Check if the number provided is a valid DNI number. This checks the
     length, formatting and check digit."""
     number = compact(number)
-    if not number[1:-1].isdigit():
+    if not isdigits(number[1:-1]):
         raise InvalidFormat()
     if len(number) != 9:
         raise InvalidLength()

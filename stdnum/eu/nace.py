@@ -53,7 +53,7 @@ InvalidLength: ...
 """
 
 from stdnum.exceptions import *
-from stdnum.util import clean
+from stdnum.util import clean, isdigits
 
 
 def compact(number):
@@ -89,7 +89,7 @@ def validate(number):
         if not number.isalpha():
             raise InvalidFormat()
     else:
-        if not number.isdigit():
+        if not isdigits(number):
             raise InvalidFormat()
     info(number)
     return number

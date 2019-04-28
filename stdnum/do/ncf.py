@@ -43,7 +43,7 @@ InvalidFormat: ...
 """
 
 from stdnum.exceptions import *
-from stdnum.util import clean
+from stdnum.util import clean, isdigits
 
 
 def compact(number):
@@ -67,10 +67,10 @@ def validate(number):
     """Check if the number provided is a valid NCF."""
     number = compact(number)
     if len(number) == 11:
-        if number[0] != 'B' or not number[1:].isdigit():
+        if number[0] != 'B' or not isdigits(number[1:]):
             raise InvalidFormat()
     elif len(number) == 19:
-        if number[0] not in 'AP' or not number[1:].isdigit():
+        if number[0] not in 'AP' or not isdigits(number[1:]):
             raise InvalidFormat()
     else:
         raise InvalidLength()

@@ -39,7 +39,7 @@ InvalidChecksum: ...
 
 from stdnum.ee.ik import calc_check_digit, get_birth_date
 from stdnum.exceptions import *
-from stdnum.util import clean
+from stdnum.util import clean, isdigits
 
 
 def compact(number):
@@ -52,7 +52,7 @@ def validate(number, validate_birth_date=True):
     """Check if the number provided is valid. This checks the length,
     formatting, embedded date and check digit."""
     number = compact(number)
-    if not number.isdigit():
+    if not isdigits(number):
         raise InvalidFormat()
     if len(number) != 11:
         raise InvalidLength()

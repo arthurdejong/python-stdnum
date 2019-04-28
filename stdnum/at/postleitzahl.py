@@ -46,7 +46,7 @@ InvalidFormat: ...
 """
 
 from stdnum.exceptions import *
-from stdnum.util import clean
+from stdnum.util import clean, isdigits
 
 
 def compact(number):
@@ -66,7 +66,7 @@ def info(number):
 def validate(number):
     """Check if the number is a valid postal code."""
     number = compact(number)
-    if not number.isdigit():
+    if not isdigits(number):
         raise InvalidFormat()
     if len(number) != 4:
         raise InvalidLength()

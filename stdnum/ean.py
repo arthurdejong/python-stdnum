@@ -29,7 +29,7 @@ module handles numbers EAN-13, EAN-8 and UPC (12-digit) format.
 """
 
 from stdnum.exceptions import *
-from stdnum.util import clean
+from stdnum.util import clean, isdigits
 
 
 def compact(number):
@@ -50,7 +50,7 @@ def validate(number):
     and the check bit but does not check whether a known GS1 Prefix and
     company identifier are referenced."""
     number = compact(number)
-    if not number.isdigit():
+    if not isdigits(number):
         raise InvalidFormat()
     if len(number) not in (13, 12, 8):
         raise InvalidLength()

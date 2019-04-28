@@ -40,7 +40,7 @@ InvalidChecksum: ...
 
 from stdnum.exceptions import *
 from stdnum.nl import bsn
-from stdnum.util import clean
+from stdnum.util import clean, isdigits
 
 
 def compact(number):
@@ -56,7 +56,7 @@ def validate(number):
     """Check if the number is a valid BTW number. This checks the length,
     formatting and check digit."""
     number = compact(number)
-    if not number[10:].isdigit() or int(number[10:]) <= 0:
+    if not isdigits(number[10:]) or int(number[10:]) <= 0:
         raise InvalidFormat()
     if len(number) != 12:
         raise InvalidLength()

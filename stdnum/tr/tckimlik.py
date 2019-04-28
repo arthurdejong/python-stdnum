@@ -46,7 +46,7 @@ InvalidFormat: ...
 """
 
 from stdnum.exceptions import *
-from stdnum.util import clean, get_soap_client
+from stdnum.util import clean, get_soap_client, isdigits
 
 
 tckimlik_wsdl = 'https://tckimlik.nvi.gov.tr/Service/KPSPublic.asmx?WSDL'
@@ -72,7 +72,7 @@ def validate(number):
     """Check if the number is a valid .C. Kimlik number. This checks the
     length and check digits."""
     number = compact(number)
-    if not number.isdigit() or number[0] == '0':
+    if not isdigits(number) or number[0] == '0':
         raise InvalidFormat()
     if len(number) != 11:
         raise InvalidLength()

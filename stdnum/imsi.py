@@ -40,7 +40,7 @@ InvalidComponent: ...
 """
 
 from stdnum.exceptions import *
-from stdnum.util import clean
+from stdnum.util import clean, isdigits
 
 
 def compact(number):
@@ -62,7 +62,7 @@ def split(number):
 def validate(number):
     """Check if the number provided is a valid IMSI."""
     number = compact(number)
-    if not number.isdigit():
+    if not isdigits(number):
         raise InvalidFormat()
     if len(number) not in (14, 15):
         raise InvalidLength()

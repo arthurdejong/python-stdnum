@@ -39,7 +39,7 @@ InvalidChecksum: ...
 """
 
 from stdnum.exceptions import *
-from stdnum.util import clean
+from stdnum.util import clean, isdigits
 
 
 _hex_alphabet = '0123456789ABCDEF'
@@ -67,7 +67,7 @@ def _parse(number):
         return number[0:14], number[14:]
     elif len(number) in (18, 19):
         # 18-digit decimal representation
-        if not number.isdigit():
+        if not isdigits(number):
             raise InvalidFormat()
         return number[0:18], number[18:]
     else:
@@ -80,7 +80,7 @@ def calc_check_digit(number):
     # both the 18-digit decimal format and the 14-digit hex format
     # containing only decimal digits should use the decimal Luhn check
     from stdnum import luhn
-    if number.isdigit():
+    if isdigits(number):
         return luhn.calc_check_digit(number)
     else:
         return luhn.calc_check_digit(number, alphabet=_hex_alphabet)
@@ -132,7 +132,7 @@ def validate(number, strip_check_digit=True):
             raise InvalidComponent()
         number = '%08X%06X' % (manufacturer_code, serial_num)
         cd = calc_check_digit(number)
-    elif number.isdigit():
+    elif isdigits(number):
         # if the remaining hex format is fully decimal it is an IMEI number
         from stdnum import imei
         imei.validate(number + cd)

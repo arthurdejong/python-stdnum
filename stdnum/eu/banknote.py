@@ -35,7 +35,7 @@ InvalidChecksum: ...
 """
 
 from stdnum.exceptions import *
-from stdnum.util import clean
+from stdnum.util import clean, isdigits
 
 
 def compact(number):
@@ -47,13 +47,13 @@ def compact(number):
 def checksum(number):
     """Calculate the checksum over the number."""
     # replace letters by their ASCII number
-    return sum(int(x) if x.isdigit() else ord(x) for x in number) % 9
+    return sum(int(x) if isdigits(x) else ord(x) for x in number) % 9
 
 
 def validate(number):
     """Check if the number is a valid banknote serial number."""
     number = compact(number)
-    if not number[:2].isalnum() or not number[2:].isdigit():
+    if not number[:2].isalnum() or not isdigits(number[2:]):
         raise InvalidFormat()
     if len(number) != 12:
         raise InvalidLength()

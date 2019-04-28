@@ -48,7 +48,7 @@ InvalidChecksum: ...
 
 from stdnum import luhn
 from stdnum.exceptions import *
-from stdnum.util import clean
+from stdnum.util import clean, isdigits
 
 
 def compact(number):
@@ -60,7 +60,7 @@ def compact(number):
 def validate(number):
     """Check if the number provided is a valid IMEI (or IMEISV) number."""
     number = compact(number)
-    if not number.isdigit():
+    if not isdigits(number):
         raise InvalidFormat()
     if len(number) == 15:
         # only 15 digit IMEI has check digit

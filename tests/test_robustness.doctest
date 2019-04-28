@@ -1,6 +1,6 @@
 test_robustness.doctest - test is_valid() functions to not break
 
-Copyright (C) 2011-2017 Arthur de Jong
+Copyright (C) 2011-2019 Arthur de Jong
 
 This library is free software; you can redistribute it and/or
 modify it under the terms of the GNU Lesser General Public
@@ -24,7 +24,7 @@ invalid junk.
 
 >>> testvalues = (
 ...     None, '*&^%$', '', 0, False, object(), 'Z', 'QQ', '3', '€', u'€',
-...     '😴', '¥')
+...     '😴', '¥', '3²', 'ⅷ', '⑱', '᭓', b'\xc2\xb2'.decode('utf-8'))
 >>> from stdnum.util import get_number_modules
 
 Go over each module and try every value.

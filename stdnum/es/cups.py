@@ -54,7 +54,7 @@ InvalidChecksum: ...
 """
 
 from stdnum.exceptions import *
-from stdnum.util import clean
+from stdnum.util import clean, isdigits
 
 
 def compact(number):
@@ -92,11 +92,11 @@ def validate(number):
         raise InvalidLength()
     if number[:2] != 'ES':
         raise InvalidComponent()
-    if not number[2:18].isdigit():
+    if not isdigits(number[2:18]):
         raise InvalidFormat()
     if number[20:]:
         pnumber, ptype = number[20:]
-        if not pnumber.isdigit():
+        if not isdigits(pnumber):
             raise InvalidFormat()
         if ptype not in 'FPRCXYZ':
             raise InvalidFormat()

@@ -39,7 +39,7 @@ InvalidLength: ...
 """
 
 from stdnum.exceptions import *
-from stdnum.util import clean
+from stdnum.util import clean, isdigits
 
 
 def compact(number):
@@ -51,7 +51,7 @@ def compact(number):
 def validate(number):
     """Check if the number is a valid DNI."""
     number = compact(number)
-    if not number.isdigit():
+    if not isdigits(number):
         raise InvalidFormat()
     if len(number) not in (7, 8):
         raise InvalidLength()

@@ -34,7 +34,7 @@ InvalidChecksum: ...
 
 from stdnum.exceptions import *
 from stdnum.iso7064 import mod_11_10
-from stdnum.util import clean
+from stdnum.util import clean, isdigits
 
 
 def compact(number):
@@ -50,7 +50,7 @@ def validate(number):
     """Check if the number provided is a valid VAT number. This checks the
     length, formatting and check digit."""
     number = compact(number)
-    if not number.isdigit() or number[0] == '0':
+    if not isdigits(number) or number[0] == '0':
         raise InvalidFormat()
     if len(number) != 9:
         raise InvalidLength()

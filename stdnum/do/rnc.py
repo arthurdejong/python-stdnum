@@ -42,7 +42,7 @@ InvalidChecksum: ...
 import json
 
 from stdnum.exceptions import *
-from stdnum.util import clean, get_soap_client
+from stdnum.util import clean, get_soap_client, isdigits
 
 
 # list of RNCs that do not match the checksum but are nonetheless valid
@@ -74,7 +74,7 @@ def calc_check_digit(number):
 def validate(number):
     """Check if the number provided is a valid RNC."""
     number = compact(number)
-    if not number.isdigit():
+    if not isdigits(number):
         raise InvalidFormat()
     if number in whitelist:
         return number

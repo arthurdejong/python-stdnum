@@ -38,6 +38,7 @@ InvalidLength: ...
 
 from stdnum.es import dni
 from stdnum.exceptions import *
+from stdnum.util import isdigits
 
 
 __all__ = ['compact', 'calc_check_digit', 'validate', 'is_valid']
@@ -59,7 +60,7 @@ def validate(number):
     """Check if the number provided is a valid NIE. This checks the length,
     formatting and check digit."""
     number = compact(number)
-    if not number[1:-1].isdigit() or number[:1] not in 'XYZ':
+    if not isdigits(number[1:-1]) or number[:1] not in 'XYZ':
         raise InvalidFormat()
     if len(number) != 9:
         raise InvalidLength()

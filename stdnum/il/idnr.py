@@ -45,7 +45,7 @@ InvalidLength: ...
 
 from stdnum import luhn
 from stdnum.exceptions import *
-from stdnum.util import clean
+from stdnum.util import clean, isdigits
 
 
 def compact(number):
@@ -62,7 +62,7 @@ def validate(number):
     number = compact(number)
     if len(number) > 9:
         raise InvalidLength()
-    if not number.isdigit() or int(number) <= 0:
+    if not isdigits(number) or int(number) <= 0:
         raise InvalidFormat()
     luhn.validate(number)
     return number

@@ -40,7 +40,7 @@ InvalidLength: ...
 """
 
 from stdnum.exceptions import *
-from stdnum.util import clean
+from stdnum.util import clean, isdigits
 
 
 # a collection of all registered numbers with 2 or less digits
@@ -63,7 +63,7 @@ def validate(number):
     number = compact(number)
     if len(number) > 5 or len(number) == 0:
         raise InvalidLength()
-    if not number.isdigit():
+    if not isdigits(number):
         raise InvalidFormat()
     if len(number) < 3 and int(number) not in _lownumbers:
         raise InvalidComponent()

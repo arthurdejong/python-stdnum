@@ -1,6 +1,6 @@
 test_isbn.doctest - more detailed doctests for stdnum.isbn module
 
-Copyright (C) 2010-2017 Arthur de Jong
+Copyright (C) 2010-2019 Arthur de Jong
 
 This library is free software; you can redistribute it and/or
 modify it under the terms of the GNU Lesser General Public
@@ -105,6 +105,18 @@ Regrouping tests.
 ('979', '', '', '201234567', '8')
 >>> isbn.split('5413170121522')  # valid check digit, unknown prefix
 ('', '', '', '541317012152', '2')
+
+
+Explicit tests for invalid characters.
+
+>>> isbn.validate('978-90245᭓8270')
+Traceback (most recent call last):
+    ...
+InvalidFormat: ...
+>>> isbn.validate('978-9024538²70')
+Traceback (most recent call last):
+    ...
+InvalidFormat: ...
 
 
 These have been found online and should all be valid numbers.

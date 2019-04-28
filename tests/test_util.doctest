@@ -1,6 +1,6 @@
 test_util.doctest - more detailed doctests for the stdnum.util package
 
-Copyright (C) 2017 Arthur de Jong
+Copyright (C) 2017-2019 Arthur de Jong
 
 This library is free software; you can redistribute it and/or
 modify it under the terms of the GNU Lesser General Public
@@ -25,7 +25,7 @@ stable and as such not part of the public API of stdnum.
 
 >>> from stdnum.util import (
 ...     get_number_modules, get_module_name, get_module_description,
-...     to_unicode)
+...     isdigits, to_unicode)
 
 
 The to_unicode() function is used to force conversion of a string to unicode
@@ -39,6 +39,31 @@ True
 True
 >>> to_unicode(n_str.encode('iso-8859-1')) ==  n_str
 True
+
+
+The clean function will also convert all kinds of unicode special characters
+to normal ASCII variations of the same characters to partially support OCR'ed
+text and text copy-pasted from other applications.
+
+>>> clean('０𝟽—𝟴𝟧 𝟟𝟑')  # various digits, a weird minus and a non-breaking space
+'07-85 73'
+
+
+The isdigits() function is used to replace the str.isdigit() function which
+will also return True for all kinds on non-ASCII digits.
+
+>>> three = b'\xe1\xad\x93'.decode('utf-8')  # ᭓  Balinese digit three
+>>> three.isdigit()
+True
+>>> isdigits(three)
+False
+>>> isdigits('3')
+True
+>>> super_two = b'\xc2\xb2'.decode('utf-8')  # ² to the power of two
+>>> super_two.isdigit()
+True
+>>> isdigits(super_two)
+False
 
 
 The get_module_name() function is used in the example WSGI application and

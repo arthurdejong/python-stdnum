@@ -63,7 +63,7 @@ InvalidChecksum: ...
 
 from stdnum import ean
 from stdnum.exceptions import *
-from stdnum.util import clean
+from stdnum.util import clean, isdigits
 
 
 def compact(number, convert=False):
@@ -92,7 +92,7 @@ def validate(number, convert=False):
     one or a 13-digit one). This checks the length and the check bit but does
     not check if the group and publisher are valid (use split() for that)."""
     number = compact(number, convert=False)
-    if not number[:-1].isdigit():
+    if not isdigits(number[:-1]):
         raise InvalidFormat()
     if len(number) == 10:
         if _calc_isbn10_check_digit(number[:-1]) != number[-1]:

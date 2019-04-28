@@ -49,7 +49,7 @@ InvalidComponent: ...
 """
 
 from stdnum.exceptions import *
-from stdnum.util import clean
+from stdnum.util import clean, isdigits
 
 
 # The allowed characters in an UPN.
@@ -91,7 +91,7 @@ def validate(number):
     number = compact(number)
     if len(number) != 13:
         raise InvalidLength()
-    if not number[1:-1].isdigit() or number[-1] not in _alphabet:
+    if not isdigits(number[1:-1]) or number[-1] not in _alphabet:
         raise InvalidFormat()
     if int(number[1:4]) not in _la_numbers:
         raise InvalidComponent()
