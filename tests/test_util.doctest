@@ -25,7 +25,7 @@ stable and as such not part of the public API of stdnum.
 
 >>> from stdnum.util import (
 ...     get_number_modules, get_module_name, get_module_description,
-...     isdigits, to_unicode)
+...     clean, isdigits, to_unicode)
 
 
 The to_unicode() function is used to force conversion of a string to unicode
