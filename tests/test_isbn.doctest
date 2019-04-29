@@ -109,11 +109,11 @@ Regrouping tests.
 
 Explicit tests for invalid characters.
 
->>> isbn.validate('978-90245᭓8270')
+>>> isbn.validate('b'978-90245\xe1\xad\x938270'.decode('utf-8')')  # 978-90245᭓8270
 Traceback (most recent call last):
     ...
 InvalidFormat: ...
->>> isbn.validate('978-9024538²70')
+>>> isbn.validate(b'978-9024538\xc2\xb270'.decode('utf-8'))  # 978-9024538²70
 Traceback (most recent call last):
     ...
 InvalidFormat: ...
