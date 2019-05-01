@@ -107,13 +107,14 @@ Regrouping tests.
 ('', '', '', '541317012152', '2')
 
 
-Explicit tests for invalid characters.
+Explicit tests for invalid characters. The first number is 978-90245᭓8270,
+the second is 978-9024538²70.
 
->>> isbn.validate('b'978-90245\xe1\xad\x938270'.decode('utf-8')')  # 978-90245᭓8270
+>>> isbn.validate(b'978-90245\xe1\xad\x938270'.decode('utf-8'))
 Traceback (most recent call last):
     ...
 InvalidFormat: ...
->>> isbn.validate(b'978-9024538\xc2\xb270'.decode('utf-8'))  # 978-9024538²70
+>>> isbn.validate(b'978-9024538\xc2\xb270'.decode('utf-8'))
 Traceback (most recent call last):
     ...
 InvalidFormat: ...
