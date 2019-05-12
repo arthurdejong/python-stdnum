@@ -1,0 +1,258 @@
+test_ve_nitp.doctest - more detailed doctests stdnum.ve.rif
+
+Copyright (C) 2015-2017 Arthur de Jong
+
+This library is free software; you can redistribute it and/or
+modify it under the terms of the GNU Lesser General Public
+License as published by the Free Software Foundation; either
+version 2.1 of the License, or (at your option) any later version.
+
+This library is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+Lesser General Public License for more details.
+
+You should have received a copy of the GNU Lesser General Public
+License along with this library; if not, write to the Free Software
+Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
+02110-1301 USA
+
+
+This file contains more detailed doctests for the stdnum.ve.rif module.
+
+>>> from stdnum.ve import rif
+>>> from stdnum.exceptions import *
+
+
+Test a few corner cases.
+
+>>> rif.validate('V-11470283-4')
+'V114702834'
+>>> rif.validate('V-11470283-3')  # invalid check digit
+Traceback (most recent call last):
+    ...
+InvalidChecksum: ...
+>>> rif.validate('V-114702839-4')  # too long
+Traceback (most recent call last):
+    ...
+InvalidLength: ...
+>>> rif.validate('Z-11470283-4')  # invalid first digit
+Traceback (most recent call last):
+    ...
+InvalidComponent: ...
+>>> rif.validate('V-11A70283-4')  # not a digit
+Traceback (most recent call last):
+    ...
+InvalidFormat: ...
+
+
+These have been found online and should all be valid numbers. An online
+validation service is available at
+http://contribuyente.seniat.gob.ve/BuscaRif/BuscaRif.jsp
+
+>>> numbers = '''
+...
+... E810812535
+... E820238691
+... E834220159
+... G-20000085-6
+... G200000023
+... G200000031
+... G200001496
+... G200001534
+... G200001941
+... G200002123
+... G200003030
+... G200008075
+... G20000826-1
+... G200008261
+... G200010320
+... G200010843
+... G200013761
+... G200014288
+... G200015969
+... G200016639
+... G200017643
+... G200018232
+... G200047461
+... G200081473
+... G200081988
+... G200088060
+... G200088346
+... G200088494
+... G200088893
+... G200089148
+... G200089202
+... G200093811
+... G200094257
+... G200094451
+... G200094907
+... G200095253
+... G200100141
+... J-00004793-6
+... J-00051895-5
+... J-07540999-0
+... J-08507040-0
+... J-29372153-9
+... J-29485175-4
+... J-29573388-7
+... J-30022035-4
+... J-30023227-1
+... J-30360145-6
+... J-30816256-6
+... J-30927229-2
+... J-30935829-4
+... J-30953416-5
+... J-31176347-3
+... J-31228443-9
+... J-31330629-0
+... J-31424055-2
+... J-31478723-3
+... J-31511979-0
+... J-31679729-5
+... J-31727846-1
+... J-40099327-0
+... J-40162851-6
+... J-40315878-9
+... J-40546341-4
+... J-40573653-4
+... J-40748167-3
+... J-40807479-6
+... J-40821643-4
+... J-40953532-0
+... J-40994900-1
+... J000004676
+... J000089337
+... J000760977
+... J001255524
+... J002477474
+... J002662239
+... J002972734
+... J075037987
+... J075050169
+... J075053354
+... J075077733
+... J075113527
+... J075213530
+... J075216954
+... J075429486
+... J075457323
+... J075607945
+... J075757661
+... J075831250
+... J075872266
+... J075887948
+... J293873886
+... J293913101
+... J294607730
+... J294625967
+... J295403925
+... J295479930
+... J295486308
+... J295635613
+... J296390088
+... J296630127
+... J296932565
+... J297362460
+... J298254041
+... J298284307
+... J298300949
+... J298390336
+... J298570172
+... J29867813-5
+... J299505048
+... J300926966
+... J301280199
+... J301339193
+... J30136953-0
+... J301392019
+... J301554841
+... J301873947
+... J302027861
+... J302037018
+... J302065623
+... J302410681
+... J302447410
+... J302453640
+... J30248707-2
+... J302527678
+... J302934141
+... J303758720
+... J304509367
+... J304577494
+... J304798350
+... J305110794
+... J305183465
+... J305258392
+... J305403171
+... J305706433
+... J305941483
+... J305979154
+... J306728520
+... J306953558
+... J307331780
+... J307573694
+... J307584947
+... J308192252
+... J308357219
+... J309233025
+... J309520512
+... J309715038
+... J310034168
+... J310308268
+... J310650322
+... J310948968
+... J311397159
+... J311999310
+... J312306009
+... J313032735
+... J313387819
+... J313430706
+... J313476366
+... J314565770
+... J315922614
+... J317067584
+... J317328400
+... J400316375
+... J401559352
+... J402153570
+... J403832528
+... P – 000 60157 – 3
+... P-00033812-0
+... V-03707781-6
+... V-07811271-5
+... V-09136615-7
+... V-09136616-5
+... V-10031105-0
+... V-11024023-2
+... V-11470283-4
+... V-11841315-2
+... V-12252850-9
+... V-13271127-1
+... V-17126146-1
+... V-17128754-1
+... V-19676417-4
+... V-20674844-0
+... V-25808097-8
+... V-27327212-3
+... V008215150
+... V021998164
+... V027564794
+... V029000928
+... V034360312
+... V037939567
+... V045512858
+... V072507564
+... V102259498
+... V131527361
+... V135744740
+... V177993626
+... V193631599
+... V244455138
+... V258279570
+... V297721182
+... V725655084
+...
+... '''
+>>> [x for x in numbers.splitlines() if x and not rif.is_valid(x)]
+[]
