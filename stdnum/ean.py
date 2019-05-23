@@ -20,12 +20,14 @@
 """EAN (International Article Number).
 
 Module for handling EAN (International Article Number) codes. This
-module handles numbers EAN-13, EAN-8 and UPC (12-digit) format.
+module handles numbers EAN-13, EAN-8, UPC (12-digit) and GTIN (EAN-14) format.
 
 >>> validate('73513537')
 '73513537'
 >>> validate('978-0-471-11709-4') # EAN-13 format
 '9780471117094'
+>>> validate('98412345678908') # GTIN format
+'98412345678908'
 """
 
 from stdnum.exceptions import *
@@ -52,7 +54,7 @@ def validate(number):
     number = compact(number)
     if not isdigits(number):
         raise InvalidFormat()
-    if len(number) not in (13, 12, 8):
+    if len(number) not in (14, 13, 12, 8):
         raise InvalidLength()
     if calc_check_digit(number[:-1]) != number[-1]:
         raise InvalidChecksum()
