@@ -69,7 +69,7 @@ def calc_check_digits(number):
 
 
 def validate(number):
-    """Check if the number is a valid .C. Kimlik number. This checks the
+    """Check if the number is a valid T.C. Kimlik number. This checks the
     length and check digits."""
     number = compact(number)
     if not isdigits(number) or number[0] == '0':
@@ -82,7 +82,7 @@ def validate(number):
 
 
 def is_valid(number):
-    """Check if the number is a valid .C. Kimlik number."""
+    """Check if the number is a valid T.C. Kimlik number."""
     try:
         return bool(validate(number))
     except ValidationError:
