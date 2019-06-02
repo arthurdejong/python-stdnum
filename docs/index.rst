@@ -230,6 +230,7 @@ Available formats
    no.mva
    no.orgnr
    nz.bankaccount
+   nz.ird
    pl.nip
    pl.pesel
    pl.regon

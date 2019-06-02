@@ -1,0 +1,42 @@
+test_nz_ird.doctest - more detailed tests for stdnum.nz.ird
+
+Copyright (C) 2019 Leandro Regueiro
+
+This library is free software; you can redistribute it and/or
+modify it under the terms of the GNU Lesser General Public
+License as published by the Free Software Foundation; either
+version 2.1 of the License, or (at your option) any later version.
+
+This library is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+Lesser General Public License for more details.
+
+You should have received a copy of the GNU Lesser General Public
+License along with this library; if not, write to the Free Software
+Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
+02110-1301 USA
+
+
+This file contains more detailed doctests for the stdnum.nz.ird module.
+
+>>> from stdnum.nz import ird
+>>> from stdnum.exceptions import *
+
+
+This is a selection of numbers (which should be valid) found at
+https://www.ird.govt.nz/-/media/Project/IR/PDF/2020RWTNRWTSpecificationDocumentv10.pdf
+
+>>> numbers = ['49091850', '35901981', '49098576', '136410132']
+>>> [x for x in numbers if not ird.is_valid(x)]
+[]
+>>> numbers = ['136410133', '9125568']
+>>> [x for x in numbers if ird.is_valid(x)]
+[]
+>>> numbers = ['1234567A', '12345', '123456789012', '150000001']
+>>> [x for x in numbers if ird.is_valid(x)]
+[]
+>>> ird.format('49098576')
+'49-098-576'
+>>> ird.validate('NZ 49-098-576')
+'49098576'

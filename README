@@ -145,6 +145,7 @@ Currently this package supports the following formats:
  * MVA (Merverdiavgift, Norwegian VAT number)
  * Orgnr (Organisasjonsnummer, Norwegian organisation number)
  * New Zealand bank account number
+ * New Zealand IRD number
  * NIP (Numer Identyfikacji Podatkowej, Polish VAT number)
  * PESEL (Polish national identification number)
  * REGON (Rejestr Gospodarki Narodowej, Polish register of economic units)
