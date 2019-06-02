@@ -1,7 +1,7 @@
 # nace.py - functions for handling EU NACE classification
 # coding: utf-8
 #
-# Copyright (C) 2017 Arthur de Jong
+# Copyright (C) 2017-2019 Arthur de Jong
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -38,7 +38,7 @@ More information:
 'A'
 >>> validate('62.01')
 '6201'
->>> str(label('62.01'))
+>>> str(get_label('62.01'))
 'Computer programming activities'
 >>> validate('62.05')
 Traceback (most recent call last):
@@ -51,6 +51,8 @@ InvalidLength: ...
 >>> format('6201')
 '62.01'
 """
+
+import warnings
 
 from stdnum.exceptions import *
 from stdnum.util import clean, isdigits
@@ -74,9 +76,17 @@ def info(number):
     return info
 
 
-def label(number):
+def get_label(number):
     """Lookup the category label for the number."""
     return info(number)['label']
+
+
+def label(number):  # pragma: no cover (deprecated function)
+    """DEPRECATED: use `get_label()` instead."""
+    warnings.warn(
+        'label() has been to get_label()',
+        DeprecationWarning, stacklevel=2)
+    return get_label(number)
 
 
 def validate(number):
