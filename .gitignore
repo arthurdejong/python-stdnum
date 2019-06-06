@@ -1,6 +1,7 @@
 # global
 *.pyc
 *.pyo
+*~
 __pycache__
 
 # /
