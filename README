@@ -168,6 +168,7 @@ Currently this package supports the following formats:
  * RTN (Routing transport number)
  * SSN (U.S. Social Security Number)
  * TIN (U.S. Taxpayer Identification Number)
+ * Uruguay RUT (Registro Único Tributario, Uruguayan VAT number)
 
 Furthermore a number of generic check digit algorithms are available:
 

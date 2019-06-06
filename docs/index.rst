@@ -253,6 +253,7 @@ Available formats
    us.rtn
    us.ssn
    us.tin
+   uy.rut
 
 
 Changes in python-stdnum
