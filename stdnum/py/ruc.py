@@ -21,7 +21,8 @@
 """RUC number (Paraguay Registro Único de Contribuyentes number).
 
 The RUC number for juridical persons consists of 8 digits starting after
-80000000, followed by a check digit.
+80000000, followed by a check digit. For physical persons consists of an
+undetermined number of digits followed by a check digit.
 
 Online search: https://www.ruc.com.py/
 
@@ -29,11 +30,15 @@ Online search: https://www.ruc.com.py/
 '800280610'
 >>> validate('PY 80006952-8')
 '800069528'
+>>> validate('9991603')
+'9991603'
+>>> validate('2660-3')
+'26603'
 >>> validate('800532492')
 Traceback (most recent call last):
     ...
 InvalidChecksum: ...
->>> validate('80000859')
+>>> validate('80123456789')
 Traceback (most recent call last):
     ...
 InvalidLength: ...
@@ -67,6 +72,9 @@ def calc_check_digit(number):
 
     The number passed should not have the check digit included.
     """
+    # Pad number with zeroes on the left up to 8 digits if necessary.
+    number = '0' * (8 - len(number)) + number
+
     total = sum(int(digit) * weight for digit, weight in zip(number, WEIGHTS))
 
     return str(-total % 11)[-1]  # If check digit is '10' return '0'.
@@ -79,13 +87,10 @@ def validate(number):
     """
     number = compact(number)
 
-    if len(number) != 9:
+    if len(number) > 9:
         raise InvalidLength()
 
     if not isdigits(number):
-        raise InvalidFormat()
-
-    if number[:-1] < '80000000':
         raise InvalidFormat()
 
     if number[-1] != calc_check_digit(number[:-1]):
