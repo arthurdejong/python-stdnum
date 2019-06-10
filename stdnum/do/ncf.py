@@ -89,12 +89,11 @@ def validate(number):
         if number[-10:-8] not in (
                 '01', '02', '03', '04', '11', '12', '13', '14', '15'):
             raise InvalidComponent()
-        return number
     if len(number) == 13:
         if number[-12:-10] not in (
                 '01', '02', '03', '04', '11', '12', '13', '14', '15'):
             raise InvalidComponent()
-        return number
+    return number
 
 def is_valid(number):
     """Check if the number provided is a valid NCF."""
