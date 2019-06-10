@@ -24,14 +24,22 @@
 
 The NCF is used to number invoices and other documents for the purposes of
 tax filing. The number is 19 digits long and consists of a letter (A or P) to
-indicate that the number was assigned by the taxpayer or the DGIT, followed a
+indicate that the number was assigned by the taxpayer or the DGII, followed a
 2-digit business unit number, a 3-digit location number, a 3-digit mechanism
 identifier, a 2-digit document type and a 8-digit serial number.
+
+e-CF (Facturación electrónica, Dominican Republic receipt number).
+
+The e-CF is used to electronic number invoices and other documents for the purposes of
+tax filing. The number is 13 digits long and consists of a letter (E) to
+indicate that the number was assigned by the taxpayer or the DGII, followed a
+2-digit document type and a 8-digit serial number.
 
 More information:
 
  * https://www.dgii.gov.do/
-
+>>> validate('E010000000005')  # format since 2019-04-08
+'E010000000005'
 >>> validate('B0100000005')  # format since 2018-05-01
 'B0100000005'
 >>> validate('A020010210100000005')  # format before 2018-05-01
@@ -72,13 +80,21 @@ def validate(number):
     elif len(number) == 19:
         if number[0] not in 'AP' or not isdigits(number[1:]):
             raise InvalidFormat()
+    elif len(number) == 13:
+        if number[0] != 'E' or not isdigits(number[1:]):
+            raise InvalidFormat()
     else:
         raise InvalidLength()
-    if number[-10:-8] not in (
-            '01', '02', '03', '04', '11', '12', '13', '14', '15'):
-        raise InvalidComponent()
-    return number
-
+    if len(number) == 11 or len(number) == 19:
+        if number[-10:-8] not in (
+                '01', '02', '03', '04', '11', '12', '13', '14', '15'):
+            raise InvalidComponent()
+        return number
+    if len(number) == 13:
+        if number[-12:-10] not in (
+                '01', '02', '03', '04', '11', '12', '13', '14', '15'):
+            raise InvalidComponent()
+        return number
 
 def is_valid(number):
     """Check if the number provided is a valid NCF."""
