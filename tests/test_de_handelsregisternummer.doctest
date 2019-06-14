@@ -1,6 +1,6 @@
 test_de_handelsregisternummer.doctest - tests for German register number
 
-Copyright (C) 2018 Arthur de Jong
+Copyright (C) 2018-2019 Arthur de Jong
 
 This library is free software; you can redistribute it and/or
 modify it under the terms of the GNU Lesser General Public
@@ -52,6 +52,8 @@ funky so they work both in Python 2 and Python 3.
 
 >>> handelsregisternummer.validate('Berlin HRB 11223 B')  # Charlottenburg missing
 'Berlin (Charlottenburg) HRB 11223 B'
+>>> handelsregisternummer.validate('St. Ingbert HRA 61755')
+'St. Ingbert (St Ingbert) HRA 61755'
 >>> number = u'K\xf6ln HRB 49263'  # Unicode
 >>> handelsregisternummer.validate(number) == number
 True
@@ -68,6 +70,10 @@ True
 Traceback (most recent call last):
   ...
 InvalidComponent: ...
+>>> handelsregisternummer.validate('Hamburg HRA 61755')
+'Hamburg HRA 61755'
+>>> handelsregisternummer.validate('Homburg HRA 61755')
+'Homburg HRA 61755'
 
 
 The compact function does minimal validation.

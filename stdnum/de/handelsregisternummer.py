@@ -50,9 +50,10 @@ InvalidComponent: ...
 """
 
 import re
+import unicodedata
 
 from stdnum.exceptions import *
-from stdnum.util import clean
+from stdnum.util import clean, to_unicode
 
 
 # The known courts that have a Handelsregister
@@ -214,8 +215,8 @@ GERMAN_COURTS = (
 def _to_min(court):
     """Convert the court name for quick comparison without encoding issues."""
     return ''.join(
-        x for x in court.lower()
-        if x in 'bcdefghijklmnpqrstvwxyz')
+        x for x in unicodedata.normalize('NFD', to_unicode(court).lower())
+        if x in 'abcdefghijklmnopqrstuvwxyz')
 
 
 # Build a dictionary for lookup up courts
@@ -223,10 +224,20 @@ _courts = dict(
     (_to_min(court), court) for court in GERMAN_COURTS)
 _courts.update(
     (_to_min(alias), court) for alias, court in (
+        ('Allgäu', 'Kempten (Allgäu)'),
         ('Bad Homburg', 'Bad Homburg v.d.H.'),
         ('Berlin', 'Berlin (Charlottenburg)'),
         ('Charlottenburg', 'Berlin (Charlottenburg)'),
+        ('Kaln', 'Köln'),  # for encoding issues
+        ('Kempten', 'Kempten (Allgäu)'),
+        ('Ludwigshafen am Rhein (Ludwigshafen)', 'Ludwigshafen a.Rhein (Ludwigshafen)'),
+        ('Ludwigshafen am Rhein', 'Ludwigshafen a.Rhein (Ludwigshafen)'),
+        ('Ludwigshafen', 'Ludwigshafen a.Rhein (Ludwigshafen)'),
         ('Oldenburg', 'Oldenburg (Oldenburg)'),
+        ('St. Ingbert', 'St. Ingbert (St Ingbert)'),
+        ('St. Wendel', 'St. Wendel (St Wendel)'),
+        ('Weiden in der Oberpfalz', 'Weiden i. d. OPf.'),
+        ('Weiden', 'Weiden i. d. OPf.'),
     ))
 
 
