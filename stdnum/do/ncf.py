@@ -42,9 +42,10 @@ More information:
 
  * https://www.dgii.gov.do/
  * https://dgii.gov.do/legislacion/normas/Documents/Norma05-19.pdf
+ * https://dgii.gov.do/contribuyentes/personasFisicas/inicioOperaciones/ComprobantesFiscales/Paginas/comprobantesFiscalesElectronicos.aspx
 
->>> validate('E010000000005')  # format since 2019-04-08
-'E010000000005'
+>>> validate('E310000000005')  # format since 2019-04-08
+'E310000000005'
 >>> validate('B0100000005')  # format since 2018-05-01
 'B0100000005'
 >>> validate('A020010210100000005')  # format before 2018-05-01
@@ -66,7 +67,7 @@ def compact(number):
 
 
 # The following document types are known:
-_document_types = (
+_ncf_document_types = (
     '01',  # invoices for fiscal declaration (or tax reporting)
     '02',  # invoices for final consumer
     '03',  # debit note
@@ -78,6 +79,17 @@ _document_types = (
     '15',  # invoices for the government
 )
 
+_ecf_document_types = (
+    '31',  # invoices for fiscal declaration (or tax reporting)
+    '32',  # invoices for final consumer
+    '33',  # debit note
+    '34',  # credit note (refunds)
+    '41',  # supplier invoices (purchases)
+    '43',  # minor expenses invoices (purchases)
+    '44',  # invoices for special customers (tourists, free zones)
+    '45',  # invoices for the government
+)
+
 
 def validate(number):
     """Check if the number provided is a valid NCF."""
@@ -85,17 +97,17 @@ def validate(number):
     if len(number) == 13:
         if number[0] != 'E' or not isdigits(number[1:]):
             raise InvalidFormat()
-        if number[1:3] not in _document_types:
+        if number[1:3] not in _ecf_document_types:
             raise InvalidComponent()
     elif len(number) == 11:
         if number[0] != 'B' or not isdigits(number[1:]):
             raise InvalidFormat()
-        if number[1:3] not in _document_types:
+        if number[1:3] not in _ncf_document_types:
             raise InvalidComponent()
     elif len(number) == 19:
         if number[0] not in 'AP' or not isdigits(number[1:]):
             raise InvalidFormat()
-        if number[9:11] not in _document_types:
+        if number[9:11] not in _ncf_document_types:
             raise InvalidComponent()
     else:
         raise InvalidLength()
