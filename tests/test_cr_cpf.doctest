@@ -1,0 +1,207 @@
+test_cr_cpf.doctest - more detailed doctests for stdnum.cr.cpf module
+
+Copyright (C) 2019 Leandro Regueiro
+
+This library is free software; you can redistribute it and/or
+modify it under the terms of the GNU Lesser General Public
+License as published by the Free Software Foundation; either
+version 2.1 of the License, or (at your option) any later version.
+
+This library is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+Lesser General Public License for more details.
+
+You should have received a copy of the GNU Lesser General Public
+License along with this library; if not, write to the Free Software
+Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
+02110-1301 USA
+
+
+This file contains more detailed doctests for the stdnum.cr.cpf module. It
+tries to test more corner cases and detailed functionality that is not really
+useful as module documentation.
+
+>>> from stdnum.cr import cpf
+
+
+Tests for some corner cases.
+
+>>> cpf.validate('3-0455-0175')
+'0304550175'
+>>> cpf.validate('8-0074-0308')
+'0800740308'
+>>> cpf.format('701610395')
+'07-0161-0395'
+>>> cpf.format('1-613-584')
+'01-0613-0584'
+>>> cpf.validate('12345678')
+Traceback (most recent call last):
+    ...
+InvalidLength: ...
+>>> cpf.validate('FF8490717')
+Traceback (most recent call last):
+    ...
+InvalidFormat: ...
+>>> cpf.validate('30-1234-1234')  # Invalid first digit.
+Traceback (most recent call last):
+    ...
+InvalidComponent: ...
+
+
+These have been found online and should all be valid numbers.
+
+>>> numbers = '''
+...
+... 01-0913-0259
+... 1-0054-1023
+... 1-0087-1407
+... 1-0150-0837
+... 1-0228-0776
+... 1-0278-0527
+... 1-0316-0324
+... 1-0332-0133
+... 1-0390-0960
+... 1-0407-0888
+... 1-0415-1184
+... 1-0421-0836
+... 1-0466-0156
+... 1-0498-0195
+... 1-0531-0384
+... 1-0532-0390
+... 1-0534-0078
+... 1-0545-0822
+... 1-0562-0101
+... 1-0591-0262
+... 1-0626-0764
+... 1-0628-0541
+... 1-0639-0110
+... 1-0657-0789
+... 1-0708-0466
+... 1-0725-0910
+... 1-0726-0670
+... 1-0803-0197
+... 1-0886-0147
+... 1-0912-0931
+... 1-0913-0259
+... 1-0928-0281
+... 1-0968-0428
+... 1-1001-0442
+... 1-1014-0042
+... 1-1054-0017
+... 1-1067-0418
+... 1-1087-0407
+... 1-1089-0198
+... 1-1096-0837
+... 1-1120-0579
+... 1-1134-0838
+... 1-1157-0794
+... 1-1295-0637
+... 1-1359-0010
+... 1-1366-0691
+... 1-1394-0644
+... 1-1433-0557
+... 1-1459-0511
+... 1-1476-0148
+... 1-200-589
+... 1-329-571
+... 1-535-896
+... 1-613-584
+... 104001311
+... 104800996
+... 105250568
+... 105580219
+... 106220930
+... 106690228
+... 107340512
+... 107560893
+... 107580405
+... 107580660
+... 107880621
+... 108120604
+... 108330923
+... 108490717
+... 108920872
+... 109080006
+... 109120931
+... 109130188
+... 109260105
+... 109300285
+... 109520663
+... 109720105
+... 109840695
+... 110090302
+... 110180975
+... 110410825
+... 110650272
+... 110660601
+... 110800656
+... 110870061
+... 110900985
+... 111090412
+... 111390272
+... 112090212
+... 112110723
+... 112380589
+... 112640423
+... 113220734
+... 113640299
+... 113860743
+... 113940979
+... 114010385
+... 114580221
+... 114930949
+... 115420027
+... 2-0245-0445
+... 2-0432-0316
+... 2-0449-0150
+... 2-0450-0764
+... 2-2587-0407
+... 203040464
+... 203250032
+... 204260049
+... 206880078
+... 3-0150-0598
+... 3-0217-0344
+... 3-0399-0707
+... 3-0455-0175
+... 3-0476-0087
+... 302270170
+... 303340875
+... 303760289
+... 4-0104-0893
+... 4-0160-182
+... 400421003
+... 401280185
+... 401280825
+... 5-0137-0841
+... 5-0244-0212
+... 5-0274-0313
+... 5-0392-0395
+... 502490573
+... 503560283
+... 504080862
+... 6-0084-0857
+... 6-0123-0852
+... 6-0239-0996
+... 6-0378-0273
+... 6-0392-0190
+... 601180041
+... 602180714
+... 602550924
+... 700510665
+... 701610395
+... 8-0063-0991
+... 8-0074-0308
+... 8-0091-0532
+... 8-0092-0491
+... 800760308
+... 801140175
+... 9-0024-0173
+... 9-0024-0427
+... 9-0094-0363
+... 900740903
+...
+... '''
+>>> [x for x in numbers.splitlines() if x and not cpf.is_valid(x)]
+[]
