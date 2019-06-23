@@ -1,0 +1,105 @@
+test_gt_nit.doctest - more detailed doctests for stdnum.gt.nit module
+
+Copyright (C) 2019 Leandro Regueiro
+
+This library is free software; you can redistribute it and/or
+modify it under the terms of the GNU Lesser General Public
+License as published by the Free Software Foundation; either
+version 2.1 of the License, or (at your option) any later version.
+
+This library is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+Lesser General Public License for more details.
+
+You should have received a copy of the GNU Lesser General Public
+License along with this library; if not, write to the Free Software
+Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
+02110-1301 USA
+
+
+This file contains more detailed doctests for the stdnum.gt.nit module. It
+tries to test more corner cases and detailed functionality that is not really
+useful as module documentation.
+
+>>> from stdnum.gt import nit
+
+
+Tests for some corner cases.
+
+>>> nit.validate('576937-K')
+'576937K'
+>>> nit.validate('6946874-5')
+'69468745'
+>>> nit.validate('672681-K')
+'672681K'
+>>> nit.validate('1234567890123')
+Traceback (most recent call last):
+    ...
+InvalidLength: ...
+>>> nit.validate('1')
+Traceback (most recent call last):
+    ...
+InvalidLength: ...
+>>> nit.validate('FF12')  # letters where there should be digits
+Traceback (most recent call last):
+    ...
+InvalidFormat: ...
+>>> nit.validate('12D')  # invalid check digit
+Traceback (most recent call last):
+    ...
+InvalidFormat: ...
+>>> nit.validate('8170266-0')
+Traceback (most recent call last):
+    ...
+InvalidChecksum: ...
+
+
+These have been found online and should all be valid numbers.
+
+>>> numbers = '''
+...
+... 115203-3
+... 1245535-0
+... 1251368-7
+... 1510972-0
+... 164624-9
+... 29010438
+... 3-37772-5
+... 3013878-7
+... 3198595-5
+... 3213463
+... 32173-7
+... 3219690-3
+... 32233-4
+... 32439-6
+... 32644-5
+... 33038-8
+... 330651-8
+... 33155-4
+... 33291-7
+... 3602978-5
+... 36728519
+... 39525503
+... 418979-5
+... 4548327-2
+... 478433-2
+... 4863461
+... 4925343
+... 499184-2
+... 5187400
+... 576937-K
+... 705526-9
+... 7108-0
+... 7127170
+... 718160-4
+... 72526-9
+... 748810-6
+... 7981182-5
+... 8263362-2
+... 8977112-5
+... 992929-0
+...
+... '''
+>>> [x for x in numbers.splitlines() if x and not nit.is_valid(x)]
+[]
