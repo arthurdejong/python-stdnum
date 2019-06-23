@@ -1,0 +1,140 @@
+test_ad_nrt.doctest - more detailed doctests for stdnum.ad.nrt module
+
+Copyright (C) 2019 Leandro Regueiro
+
+This library is free software; you can redistribute it and/or
+modify it under the terms of the GNU Lesser General Public
+License as published by the Free Software Foundation; either
+version 2.1 of the License, or (at your option) any later version.
+
+This library is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+Lesser General Public License for more details.
+
+You should have received a copy of the GNU Lesser General Public
+License along with this library; if not, write to the Free Software
+Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
+02110-1301 USA
+
+
+This file contains more detailed doctests for the stdnum.ad.nrt module. It
+tries to test more corner cases and detailed functionality that is not really
+useful as module documentation.
+
+>>> from stdnum.ad import nrt
+
+
+Tests for some corner cases.
+
+>>> nrt.validate('U132950X')
+'U132950X'
+>>> nrt.validate('U-132950-X')
+'U132950X'
+>>> nrt.validate('U 132950 X')
+'U132950X'
+>>> nrt.validate('U 132.950 X')
+'U132950X'
+>>> nrt.format('D 059.888 N')
+'D-059888-N'
+>>> nrt.format('D059888N')
+'D-059888-N'
+>>> nrt.validate('A123B')
+Traceback (most recent call last):
+    ...
+InvalidLength: ...
+>>> nrt.validate('0123456N')  # First character is not a letter.
+Traceback (most recent call last):
+    ...
+InvalidFormat: ...
+>>> nrt.validate('A1234567')  # Last character is not a letter.
+Traceback (most recent call last):
+    ...
+InvalidFormat: ...
+>>> nrt.validate('LABCDEFX')  # Central characters are not digits.
+Traceback (most recent call last):
+    ...
+InvalidFormat: ...
+>>> nrt.validate('X123456A')  # Invalid first letter.
+Traceback (most recent call last):
+    ...
+InvalidComponent: ...
+>>> nrt.validate('F700000A')  # Invalid digits for natural resident person.
+Traceback (most recent call last):
+    ...
+InvalidComponent: ...
+>>> nrt.validate('A699999X')  # Invalid digits for "Societat Anonima".
+Traceback (most recent call last):
+    ...
+InvalidComponent: ...
+>>> nrt.validate('A800000X')  # Invalid digits for "Societat Anonima".
+Traceback (most recent call last):
+    ...
+InvalidComponent: ...
+>>> nrt.validate('L699999X')  # Invalid digits for "Societat Limitada".
+Traceback (most recent call last):
+    ...
+InvalidComponent: ...
+>>> nrt.validate('L800000X')  # Invalid digits for "Societat Limitada".
+Traceback (most recent call last):
+    ...
+InvalidComponent: ...
+
+
+These have been found online and should all be valid numbers.
+
+>>> numbers = '''
+...
+... A-700555-R
+... A-700747-F
+... A-700814-R
+... A-701315-C
+... A-702792-H
+... A-703168-T
+... A-704683-Z
+... A-704834-X
+... A-705 321-C
+... A-706010-J
+... A-707871-V
+... A-710.646-J
+... A700071W
+... A700527F
+... A701485T
+... D-059888 –N
+... D-800044-K
+... D-800383-X
+... D059888N
+... F-000429-F
+... F-037945-M
+... F-044646-J
+... F-175669-X
+... F-221117-V
+... F-245998-L
+... L-701412-V
+... L-702597-Z
+... L-706185-U
+... L-707969-P
+... L-709222-X
+... L-709418-H
+... L-709869-T
+... L-710605-S
+... L-711019-X
+... L-711063-H
+... L-711847-V
+... L-712255-G
+... L-712456-J
+... L-713298-F
+... L709811-C
+... O-801585-O
+... U-132950-X
+... U-186013-P
+... U-800428-R
+... U-800584-Z
+... U-801585-U
+... U-801663-B
+... U-801667-X
+... U800301-M
+...
+... '''
+>>> [x for x in numbers.splitlines() if x and not nrt.is_valid(x)]
+[]
