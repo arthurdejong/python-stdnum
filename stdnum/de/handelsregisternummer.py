@@ -34,6 +34,7 @@ More information:
 
 * https://www.handelsregister.de/
 * https://en.wikipedia.org/wiki/German_Trade_Register
+* https://offeneregister.de/
 
 >>> validate('Aachen HRA 11223')
 'Aachen HRA 11223'
@@ -284,7 +285,7 @@ def _split(number):
     for fmt in _formats:
         m = re.match(fmt, number, flags=re.I | re.U)
         if m:
-            return m.group('court'), m.group('registry'), m.group('nr'), m.group('x')
+            return m.group('court').strip(), m.group('registry'), m.group('nr'), m.group('x')
     raise InvalidFormat()
 
 
@@ -316,3 +317,62 @@ def is_valid(number):
         return bool(validate(number))
     except ValidationError:
         return False
+
+
+# The base URL for performing lookups
+_offeneregister_url = 'https://db.offeneregister.de/openregister-ef9e802.json'
+
+
+def check_offeneregister(number, timeout=30):  # pragma: no cover (not part of normal test suite)
+    """Retrieve registration information from the OffeneRegister.de web site.
+
+    This basically returns the JSON response from the web service as a dict.
+    It will contain something like the following::
+
+        {
+            'retrieved_at': '2018-06-24T12:34:53Z',
+            'native_company_number': 'The number requested',
+            'company_number': 'Compact company number',
+            'registrar': 'Registar',
+            'federal_state': 'State name',
+            'registered_office': 'Office',
+            'register_art': 'Register type',
+            'register_nummer': 'Number'
+            'name': 'The name of the organisation',
+            'current_status': 'currently registered',
+        }
+
+    Will return None if the number is invalid or unknown.
+    """
+    # this function isn't automatically tested because it would require
+    # network access for the tests and unnecessarily load the web service
+    import requests
+    court, registry, number, qualifier = _split(number)
+    # First lookup the registrar code
+    # (we could look up the number by registrar (court), registry and number
+    # but it seems those queries are too slow)
+    response = requests.get(
+        _offeneregister_url,
+        params={
+            'sql': 'select company_number from company where registrar = :p0 limit 1',
+            'p0': court},
+        timeout=timeout)
+    response.raise_for_status()
+    try:
+        registrar = response.json()['rows'][0][0].split('_')[0]
+    except (KeyError, IndexError) as e:  # noqa: F841
+        raise InvalidComponent()  # unknown registrar code
+    # Lookup the number
+    number = '%s_%s%s' % (registrar, registry, number)
+    response = requests.get(
+        _offeneregister_url,
+        params={
+            'sql': 'select * from company where company_number = :p0 limit 1',
+            'p0': number},
+        timeout=timeout)
+    response.raise_for_status()
+    try:
+        json = response.json()
+        return dict(zip(json['columns'], json['rows'][0]))
+    except (KeyError, IndexError) as e:  # noqa: F841
+        return  # number not found
