@@ -239,6 +239,7 @@ _courts.update(
         ('St. Wendel', 'St. Wendel (St Wendel)'),
         ('Weiden in der Oberpfalz', 'Weiden i. d. OPf.'),
         ('Weiden', 'Weiden i. d. OPf.'),
+        ('Paderborn früher Höxter', 'Paderborn'),
     ))
 
 
@@ -271,10 +272,10 @@ COMPANY_FORM_REGISTRY_TYPES = {
 # possible formats the number can be specified in
 _court_re = r'(?P<court>.*)'
 _registry_re = r'(?P<registry>%s)' % '|'.join(REGISTRY_TYPES)
-_number_re = r'(?P<nr>[0-9]{3,6})(\s*(?P<x>[A-Z]{1,3}))?'
+_number_re = r'(?P<nr>[1-9][0-9]{0,5})(\s*(?P<x>[A-ZÖ]{1,3}))?'
 _formats = [
-    _registry_re + r'\s+' + _number_re + r',?\s+' + _court_re,
-    _court_re + r',?\s+' + _registry_re + r'\s+' + _number_re,
+    _registry_re + r'\s+' + _number_re + r',?\s+' + _court_re + '$',
+    _court_re + r',?\s+' + _registry_re + r'\s+' + _number_re + '$',
 ]
 
 

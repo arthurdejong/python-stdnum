@@ -46,6 +46,14 @@ Some basic tests for valid numbers.
 'Berlin (Charlottenburg) HRB 11223 B'
 
 
+Tests for some corner cases.
+
+>>> handelsregisternummer.validate('Berlin (Charlottenburg) HRA 11223 BBBB')
+Traceback (most recent call last):
+  ...
+InvalidFormat: ...
+
+
 The court name can also be shortened and various encodings are accepted but
 we only return either Unicode or UTF-8 (Python 2 only). The tests are a bit
 funky so they work both in Python 2 and Python 3.
@@ -87,6 +95,7 @@ These have been found online and should all be valid numbers.
 ... Aachen   HRB   11214
 ... Aachen   HRB   5360
 ... Aachen   HRB   987
+... Augsburg HRA 1
 ... Bad Oeynhausen   HRA   5980
 ... Bad Oeynhausen   HRB   14572
 ... Bad Oeynhausen   HRB   5087
@@ -95,6 +104,7 @@ These have been found online and should all be valid numbers.
 ... Berlin HRB 87447 B
 ... Bochum   HRA   5582
 ... Bochum   HRA   5828
+... Bochum HRB 1
 ... Braunschweig   HRB   8057
 ... Chemnitz   HRB   14011
 ... Coesfeld   HRA   7092
@@ -172,6 +182,7 @@ These have been found online and should all be valid numbers.
 ... Mönchengladbach   HRB   5867
 ... Mönchengladbach   HRB   6639
 ... Mönchengladbach   HRB   7785
+... München HRB 1
 ... München HRB 178881
 ... Münster   HRA   8289
 ... Neubrandenburg   HRB   4956
@@ -190,7 +201,9 @@ These have been found online and should all be valid numbers.
 ... Paderborn   HRB   3659
 ... Paderborn   HRB   653
 ... Paderborn   HRB   6774
+... Paderborn früher Höxter HRB 9
 ... Pinneberg   HRB   12700  PI
+... Pinneberg GNR 1 IZ
 ... Recklinghausen   HRB   4702
 ... Rostock   HRA   887
 ... Saarbrücken   HRB   102069
@@ -198,8 +211,10 @@ These have been found online and should all be valid numbers.
 ... Siegen   HRB   10955
 ... Siegen   HRB   5398
 ... Siegen   HRB   7426
+... Straubing PR 8
 ... Stuttgart   HRB   460675
 ... Tostedt   HRB   100870
+... Traunstein GnR 1
 ... Walsrode   HRB   202134
 ... Wiesbaden   HRB   11946
 ... Wittlich   HRB   42489
