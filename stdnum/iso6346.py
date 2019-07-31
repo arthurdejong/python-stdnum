@@ -61,6 +61,8 @@ def calc_check_digit(number):
     """Calculate check digit and return it for the 10 digit owner code and
     serial number."""
     number = compact(number)
+    if len(number) != 10:
+        raise InvalidLength()    
     alphabet = '0123456789A BCDEFGHIJK LMNOPQRSTU VWXYZ'
     return str(sum(
         alphabet.index(n) * pow(2, i)
