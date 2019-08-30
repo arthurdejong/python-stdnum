@@ -41,8 +41,8 @@ The 13 digit e-CF starts with an E followed a 2-digit document type and an
 More information:
 
  * https://www.dgii.gov.do/
- * https://dgii.gov.do/legislacion/normas/Documents/Norma05-19.pdf
- * https://dgii.gov.do/contribuyentes/personasFisicas/inicioOperaciones/ComprobantesFiscales/Paginas/comprobantesFiscalesElectronicos.aspx
+ * https://dgii.gov.do/workshopProveedoresTI-eCE/Documents/Norma05-19.pdf
+ * https://dgii.gov.do/cicloContribuyente/facturacion/comprobantesFiscales/Paginas/tiposComprobantes.aspx
 
 >>> validate('E310000000005')  # format since 2019-04-08
 'E310000000005'
