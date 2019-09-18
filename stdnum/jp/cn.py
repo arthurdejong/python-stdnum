@@ -80,3 +80,4 @@ def format(number):
     number = compact(number)
     return '-'.join(
         (number[0], number[1:5], number[5:9], number[9:13]))
+
