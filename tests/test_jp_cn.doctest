@@ -1,0 +1,92 @@
+test_jp_cn.doctest - more detailed doctests for stdnum.jp.cn module
+
+Copyright (C) 2019 Arthur de Jong
+
+This library is free software; you can redistribute it and/or
+modify it under the terms of the GNU Lesser General Public
+License as published by the Free Software Foundation; either
+version 2.1 of the License, or (at your option) any later version.
+
+This library is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+Lesser General Public License for more details.
+
+You should have received a copy of the GNU Lesser General Public
+License along with this library; if not, write to the Free Software
+Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
+02110-1301 USA
+
+
+This file contains more detailed doctests for the stdnum.jp.cn module. It
+tries to test more corner cases and detailed functionality that is not really
+useful as module documentation.
+
+>>> from stdnum.jp import cn
+
+
+Basic tests
+
+>>> cn.validate('5-8356-7825-6246')
+'5835678256246'
+>>> cn.validate('2-8356-7825-6246')
+Traceback (most recent call last):
+  ...
+InvalidChecksum: ...
+>>> cn.validate('2-aaaa-7825-6246')
+Traceback (most recent call last):
+  ...
+InvalidFormat: ...
+>>> cn.format('5835678256246')
+'5-8356-7825-6246'
+
+
+These numbers should be valid and were randomly generated on
+https://my-number-kun.herokuapp.com/
+
+>>> numbers = '''
+...
+... 1020281079130
+... 1092280840134
+... 1878613755182
+... 2014614971152
+... 2154272766021
+... 2156020645218
+... 2190501102051
+... 2506450764947
+... 2877943595076
+... 3102603003473
+... 3677889020488
+... 3932580304272
+... 4133937187596
+... 4322035819249
+... 4422212699405
+... 4434215752536
+... 4894094830853
+... 5385009332457
+... 5703079264765
+... 5864353627704
+... 6402078819006
+... 6457924394338
+... 6671470548996
+... 6821550923715
+... 6862173718594
+... 7030204178342
+... 7044157771432
+... 7179487563592
+... 7360581582900
+... 7631172336579
+... 7896877317434
+... 8085647298491
+... 8166975505797
+... 8451632537189
+... 8455957905624
+... 8865890851034
+... 8911879336082
+... 9196934167858
+... 9680537896732
+... 9863806292730
+...
+... '''
+>>> [x for x in numbers.splitlines() if x and not cn.is_valid(x)]
+[]
