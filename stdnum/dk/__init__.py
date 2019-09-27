@@ -20,5 +20,7 @@
 
 """Collection of Danish numbers."""
 
-# provide vat as an alias
+#  provide personalid as an alias
+#  provide vat as an alias
+from stdnum.dk import cpr as personalid  # noqa: F401
 from stdnum.dk import cvr as vat  # noqa: F401
