@@ -31,7 +31,9 @@ More information:
 * https://en.wikipedia.org/wiki/Personal_identity_number_(Sweden)
 
 >>> validate('880320-0016')
-'8803200016'
+'880320-0016'
+>>> validate('8803200016')
+'880320-0016'
 >>> validate('880320-0018')
 Traceback (most recent call last):
     ...
@@ -54,7 +56,11 @@ from stdnum.util import clean, isdigits
 def compact(number):
     """Convert the number to the minimal representation. This strips the
     number of any valid separators and removes surrounding whitespace."""
-    return clean(number, ' -+:')
+    number = clean(number, ' :')
+    if len(number) in (10, 12) and number[-5] not in '-+':
+        number = '%s-%s' % (number[:-4], number[-4:])
+
+    return number
 
 
 def get_birth_date(number):
@@ -63,15 +69,24 @@ def get_birth_date(number):
     Note that it may be 100 years off because the number has only the last
     two digits of the year."""
     number = compact(number)
-    if len(number) == 12:
+    if len(number) == 13:
         year = int(number[0:4])
         month = int(number[4:6])
         day = int(number[6:8])
     else:
         year = datetime.date.today().year
-        year = year - (year - int(number[0:2])) % 100
+        century = year // 100
+
+        if int(number[0:2]) > year % 100:
+            century -= 1
+
+        if number[-5] == '+':
+            century -= 1
+
+        year = int('%d%s' % (century, number[0:2]))
         month = int(number[2:4])
         day = int(number[4:6])
+
     try:
         return datetime.date(year, month, day)
     except ValueError:
@@ -90,12 +105,18 @@ def get_gender(number):
 def validate(number):
     """Check if the number is a valid identity number."""
     number = compact(number)
-    if len(number) not in (10, 12):
+    if len(number) not in (11, 13):
         raise InvalidLength()
-    if not isdigits(number):
+
+    if number[-5] not in '-+':
         raise InvalidFormat()
+
+    digits = clean(number, '-+')
+    if len(number) in (11, 13) and not isdigits(digits):
+        raise InvalidFormat()
+
     get_birth_date(number)
-    luhn.validate(number[-10:])
+    luhn.validate(digits[-10:])
     return number
 
 
@@ -109,5 +130,4 @@ def is_valid(number):
 
 def format(number):
     """Reformat the number to the standard presentation format."""
-    number = compact(number)
-    return number[:6] + '-' + number[6:]
+    return compact(number)
