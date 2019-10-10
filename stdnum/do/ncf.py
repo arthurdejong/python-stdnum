@@ -141,7 +141,7 @@ def _convert_result(result):  # pragma: no cover
         for key, value in result.items())
 
 
-def check_dgii(rnc, ncf, timeout=30):  # pragma: no cover
+def check_dgii(rnc, ncf, timeout=15):  # pragma: no cover
     """Validate the RNC, NCF combination on using the DGII online web service.
 
     This uses the validation service run by the the Dirección General de
@@ -169,14 +169,14 @@ def check_dgii(rnc, ncf, timeout=30):  # pragma: no cover
     from stdnum.do.rnc import compact as rnc_compact
     rnc = rnc_compact(rnc)
     ncf = compact(ncf)
-    url = 'https://www.dgii.gov.do/app/WebApps/ConsultasWeb/consultas/ncf.aspx'
+    url = 'https://dgii.gov.do/app/WebApps/ConsultasWeb2/ConsultasWeb/consultas/ncf.aspx'
     headers = {
         'User-Agent': 'Mozilla/5.0 (python-stdnum)',
     }
     data = {
-        '__EVENTVALIDATION': '/wEWBAKh8pDuCgK+9LSUBQLfnOXIDAKErv7SBhjZB34//pbvvJzrbkFCGGPRElcd',
-        '__VIEWSTATE': '/wEPDwUJNTM1NDc0MDQ5ZGRCFUYoDcVRgzEntcKfSuvPnC2VhA==',
-        'ctl00$cphMain$btnConsultar': 'Consultar',
+        '__EVENTVALIDATION': '/wEWBAL3xs2pDQK+9LSUBQLfnOXIDAKErv7SBtVRDNsYI+1gj5eoqxp5cSco4bVd',
+        '__VIEWSTATE': '/wEPDwUJNTk1MDk3NDU0ZGQhozQDCckJo0O/87IIO85RF8Lrcg==',
+        'ctl00$cphMain$btnConsultar': 'Buscar',
         'ctl00$cphMain$txtNCF': ncf,
         'ctl00$cphMain$txtRNC': rnc,
     }
