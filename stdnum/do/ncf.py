@@ -173,10 +173,14 @@ def check_dgii(rnc, ncf, timeout=30):  # pragma: no cover
     headers = {
         'User-Agent': 'Mozilla/5.0 (python-stdnum)',
     }
+    result = BeautifulSoup(
+        requests.get(url, headers=headers, timeout=timeout).text)
+    validation = result.find('input', {'name': '__EVENTVALIDATION'})['value']
+    viewstate = result.find('input', {'name': '__VIEWSTATE'})['value']
     data = {
-        '__EVENTVALIDATION': '/wEWBAKh8pDuCgK+9LSUBQLfnOXIDAKErv7SBhjZB34//pbvvJzrbkFCGGPRElcd',
-        '__VIEWSTATE': '/wEPDwUJNTM1NDc0MDQ5ZGRCFUYoDcVRgzEntcKfSuvPnC2VhA==',
-        'ctl00$cphMain$btnConsultar': 'Consultar',
+        '__EVENTVALIDATION': validation,
+        '__VIEWSTATE': viewstate,
+        'ctl00$cphMain$btnConsultar': 'Buscar',
         'ctl00$cphMain$txtNCF': ncf,
         'ctl00$cphMain$txtRNC': rnc,
     }
