@@ -169,14 +169,17 @@ def check_dgii(rnc, ncf, timeout=30):  # pragma: no cover
     from stdnum.do.rnc import compact as rnc_compact
     rnc = rnc_compact(rnc)
     ncf = compact(ncf)
-    url = 'https://www.dgii.gov.do/app/WebApps/ConsultasWeb/consultas/ncf.aspx'
+    url = 'https://dgii.gov.do/app/WebApps/ConsultasWeb2/ConsultasWeb/consultas/ncf.aspx'
     headers = {
         'User-Agent': 'Mozilla/5.0 (python-stdnum)',
     }
+    html_content = requests.get(url).text
+    validation = BeautifulSoup(html_content, "lxml").find('input', {'name': '__EVENTVALIDATION'})['value']
+    view = BeautifulSoup(html_content, "lxml").find('input', {'name': '__VIEWSTATE'})['value']
     data = {
-        '__EVENTVALIDATION': '/wEWBAKh8pDuCgK+9LSUBQLfnOXIDAKErv7SBhjZB34//pbvvJzrbkFCGGPRElcd',
-        '__VIEWSTATE': '/wEPDwUJNTM1NDc0MDQ5ZGRCFUYoDcVRgzEntcKfSuvPnC2VhA==',
-        'ctl00$cphMain$btnConsultar': 'Consultar',
+        '__EVENTVALIDATION': validation,
+        '__VIEWSTATE': view,
+        'ctl00$cphMain$btnConsultar': 'Buscar',
         'ctl00$cphMain$txtNCF': ncf,
         'ctl00$cphMain$txtRNC': rnc,
     }
