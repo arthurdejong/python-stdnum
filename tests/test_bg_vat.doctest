@@ -49,3 +49,25 @@ Invalid checksum:
 Traceback (most recent call last):
     ...
 InvalidChecksum: ...
+
+
+These have been found online and should all be valid numbers.
+
+>>> numbers = '''
+...
+... 000565359
+... 104453698
+... 121817309
+... 121887948
+... 175015558
+... 175223064
+... 176040023
+... 202322728
+... 202342638
+... 203445228
+... 831919536
+... 835014925
+...
+... '''
+>>> [x for x in numbers.splitlines() if x and not vat.is_valid(x)]
+[]

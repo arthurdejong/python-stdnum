@@ -27,9 +27,9 @@ tries to validate a number of numbers that have been found online.
 
 These have been found online and should all be valid numbers.
 
-
 >>> numbers = '''
 ...
+... 20-10123456-9
 ... 20040356437
 ... 20047433747
 ... 20050573452
@@ -44,6 +44,7 @@ These have been found online and should all be valid numbers.
 ... 20081042404
 ... 20086295106
 ... 20086607043
+... 20101234569
 ... 20101376630
 ... 20102289855
 ... 20103055475
@@ -123,6 +124,7 @@ These have been found online and should all be valid numbers.
 ... 20922078182
 ... 20922312401
 ... 20929597916
+... 23000052264
 ... 23042708194
 ... 23045174999
 ... 23081181489
@@ -141,7 +143,9 @@ These have been found online and should all be valid numbers.
 ... 23338909764
 ... 23355601684
 ... 23935319099
+... 24117166062
 ... 24276145513
+... 27-10345678-4
 ... 27018259899
 ... 27023396861
 ... 27032487705
@@ -152,6 +156,7 @@ These have been found online and should all be valid numbers.
 ... 27066515678
 ... 27066595485
 ... 27098767849
+... 27103456784
 ... 27107931738
 ... 27114547382
 ... 27121262059
@@ -211,6 +216,7 @@ These have been found online and should all be valid numbers.
 ... 27938621395
 ... 27940212664
 ... 27949019387
+... 30011111110
 ... 30653311857
 ... 30670349760
 ... 30691769336
@@ -226,10 +232,12 @@ These have been found online and should all be valid numbers.
 ... 30714322296
 ... 30714468088
 ... 30714789062
+... 33500001599
 ... 33534828379
 ... 33708972679
 ... 33712308589
 ... 33714423709
+... 34546198105
 ...
 ... '''
 >>> [x for x in numbers.splitlines() if x and not cuit.is_valid(x)]
