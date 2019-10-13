@@ -19,3 +19,6 @@
 # 02110-1301 USA
 
 """Collection of Australian numbers."""
+
+# provide aliases
+from stdnum.au import tfn as vat  # noqa: F401
