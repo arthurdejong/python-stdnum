@@ -20,6 +20,7 @@
 
 """Collection of Austrian numbers."""
 
-# provide vat as an alias
+# provide aliases
 from stdnum.at import postleitzahl as postal_code  # noqa: F401
 from stdnum.at import uid as vat  # noqa: F401
+from stdnum.at import vnr as personalid  # noqa: F401
