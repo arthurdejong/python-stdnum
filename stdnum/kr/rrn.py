@@ -1,7 +1,7 @@
 # rrn.py - functions for handling South Korean RRN numbers
 # coding: utf-8
 #
-# Copyright (C) 2018 Dimitri Papadopoulos
+# Copyright (C) 2018-2019 Dimitri Papadopoulos
 # Copyright (C) 2016-2017 Arthur de Jong
 #
 # This library is free software; you can redistribute it and/or
@@ -21,10 +21,10 @@
 
 """RRN (South Korean resident registration number).
 
-The RRN (Resident Registration Number, 주민등록번호) is used to identify
-residents in the Republic of Korea. Foreigners residing in the Republic
-of Korea receive an alien registration number (ARN) rather than a RRN,
-which follows a different encoding pattern.
+The RRN (resident registration number, 주민등록번호) is a 13-digit number
+issued to all residents of the Republic of Korea. Foreigners residing
+in the Republic of Korea receive an alien registration number (ARN)
+which follows the same encoding pattern.
 
 The number consists of 13 digits: YYMMDD-SBBCCNV
 
@@ -72,20 +72,22 @@ born on the same day in the same location.
 The last digit is a check digit.
 
 More information:
+
 * http://www.law.go.kr/lsSc.do?tabMenuId=tab18&p1=&subMenu=1&nwYn=1&section=&tabNo=&query=%EA%B0%9C%EC%9D%B8%EC%A0%95%EB%B3%B4%20%EB%B3%B4%ED%98%B8%EB%B2%95
 * https://en.wikipedia.org/wiki/Resident_registration_number
 * https://techscience.org/a/2015092901/
+
 """
 
 from stdnum.exceptions import *
-from stdnum.util import clean
+from stdnum.util import clean, isdigits
 from datetime import date
 
 
 def compact(number):
     """Convert the number to the minimal representation. This strips the
     number of any valid separators and removes surrounding whitespace."""
-    return clean(number, ' -').strip().upper()
+    return clean(number, '-').strip()
 
 
 def calc_check_digits(number):
@@ -102,18 +104,20 @@ def calc_check_digits(number):
 
 
 def validate(number, future=True):
-    """Check if the number provided is valid. This checks the length,
+    """Check if the number is a valid RNN. This checks the length,
     formatting and check digit."""
-    number = compact(number)
-    if not number.isdigit():
+    number = clean(number).strip()
+    if len(number) > 6 and number[6] == '-':
+        number = number[:6] + number[7:]
+    if not isdigits(number):
         raise InvalidFormat()
     if len(number) != 13:
         raise InvalidLength()
 
-    year = int(number[1:3])
-    month = int(number[3:5])
-    day = int(number[5:7])
-    century = int(number[7])
+    year = int(number[0:2])
+    month = int(number[2:4])
+    day = int(number[4:6])
+    century = int(number[6])
     if century in {1, 2, 5, 6}:  # born 1900-1999
         year += 1900
     elif century in {3, 4, 7, 8}:  # born 2000-2099
@@ -122,21 +126,24 @@ def validate(number, future=True):
         year += 1800
     try:
         date_of_birth = date(year, month, day)
-    except ValurError:
+    except ValueError:
         raise InvalidComponent()
     else:
-        # should we discard dates of birth in the future?
+        # The resident registration number is given to each Korean citizen
+        # at birth or by naturalization, although the resident registration
+        # card is issued upon the 17th birthday.
         if not future and date_of_birth > date.today():
             raise InvalidComponent()
 
-    place_of_birth = int(number[8:10])
+    place_of_birth = int(number[7:9])
     if place_of_birth > 96:
         raise InvalidComponent()
 
-    community_centre = int(number[10:12])  # TODO: find a way to check?
+    community_centre = int(number[9:11])
 
-    if calc_check_digits(number[:-1]) != number[-1]:
-        raise InvalidChecksum()
+    check_sum = calc_check_digits(number[:-1])
+    if check_sum != number[-1]:
+        raise InvalidChecksum(check_sum)
 
     return number
 
@@ -151,9 +158,9 @@ def is_valid(number):
         return True
 
 
-def format(number, separator=' '):
+def format(number):
     """Reformat the number to the standard presentation format."""
     number = compact(number)
-    return separator.join((
-        number[:1], number[1:3], number[3:5], number[5:7], number[7:10],
-        number[10:13], number[13:]))
+    if len(number) == 13:
+        number = number[:6] + '-' + number[6:]
+    return number
