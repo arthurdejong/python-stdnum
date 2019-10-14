@@ -1,0 +1,124 @@
+test_kr_rrn.doctest - more detailed doctests for stdnum.kr.rrn module
+
+Copyright (C) 2019 Dimitri Papadopoulos
+Copyright (C) 2019 Arthur de Jong
+
+This library is free software; you can redistribute it and/or
+modify it under the terms of the GNU Lesser General Public
+License as published by the Free Software Foundation; either
+version 2.1 of the License, or (at your option) any later version.
+
+This library is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+Lesser General Public License for more details.
+
+You should have received a copy of the GNU Lesser General Public
+License along with this library; if not, write to the Free Software
+Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
+02110-1301 USA
+
+
+This file contains more detailed doctests for the stdnum.kr.rrn module. It
+tries to cover more corner cases and detailed functionality that is not
+really useful as module documentation.
+
+>>> from stdnum.kr import rrn
+
+
+Some basic tests for invalid numbers:
+
+>>> rrn.validate('971013901990')  # less than 13 digits
+Traceback (most recent call last):
+    ...
+InvalidLength: ...
+>>> rrn.validate('971013-901990')  # less than 13 digits
+Traceback (most recent call last):
+    ...
+InvalidLength: ...
+>>> rrn.validate('97101390199020')  # more than 13 digits
+Traceback (most recent call last):
+    ...
+InvalidLength: ...
+>>> rrn.validate('971013-90199020')  # more than 13 digits
+Traceback (most recent call last):
+    ...
+InvalidLength: ...
+>>> rrn.validate('acvbnmkjh')
+Traceback (most recent call last):
+    ...
+InvalidFormat: ...
+>>> rrn.validate('9710131019901')  # date of birth is 1997-10-13
+'9710131019901'
+>>> rrn.validate('9710139019902')  # date of birth is 1897-10-13
+'9710139019902'
+>>> rrn.validate('971013-9019902')
+'9710139019902'
+>>> rrn.validate('9710139019902', allow_future=False)
+'9710139019902'
+>>> rrn.validate('971013-9019903')  # incorrect checksum
+Traceback (most recent call last):
+    ...
+InvalidChecksum: ...
+>>> rrn.validate('971310-9019908')  # invalid date of birth 1897-13-10
+Traceback (most recent call last):
+    ...
+InvalidComponent: ...
+>>> rrn.validate('991231-4019906')  # date of birth is 2099-12-31
+'9912314019906'
+>>> rrn.validate('991231-4019906', allow_future=False)  # shall fail until 2099-12-31!
+Traceback (most recent call last):
+    ...
+InvalidComponent: ...
+>>> rrn.validate('971013-9999904')  # invalid place of birth
+Traceback (most recent call last):
+    ...
+InvalidComponent: ...
+
+
+These have been randomly
+`generated online <https://www.myfakeinfo.com/nationalidno/get-kr-resident-registration-number-with-name.php>`_
+and should all be valid numbers.
+
+>>> numbers = '''
+...
+... 880411-2238459
+... 760406-1679592
+... 861121-1967921
+... 751121-1356129
+... 970510-1931536
+... 771228-2514165
+... 931112-6271351
+... 850618-1811204
+... 870316-1692085
+... 750313-1852815
+... 940624-5149547
+... 751129-1803993
+... 860719-1668646
+... 910723-2859903
+... 881219-5460537
+... 741213-6670511
+... 810819-6901483
+... 930315-2140281
+... 861012-2690172
+... 900417-2806195
+...
+... '''
+>>> [x for x in numbers.splitlines() if x and not rrn.is_valid(x)]
+[]
+
+
+Formatting and compacting tests:
+
+>>> rrn.format('9710139019902')
+'971013-9019902'
+>>> rrn.format('971013-9019902')
+'971013-9019902'
+>>> rrn.compact('971013-9019902')
+'9710139019902'
+>>> rrn.compact('9710139-019902')  # dash in the wrong place
+'9710139019902'
+>>> rrn.compact('971013901990')  # less than 13 digits
+'971013901990'
+>>> rrn.format('123')  # don't change invalid numbers
+'123'
