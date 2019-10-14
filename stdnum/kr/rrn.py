@@ -93,7 +93,7 @@ def get_birth_date(number, allow_future=True):
 
 def validate(number, allow_future=True):
     """Check if the number is a valid RNN. This checks the length, formatting
-    and check digit. If allow_future is True birth dates in the future are
+    and check digit. If allow_future is False birth dates in the future are
     rejected."""
     number = compact(number)
     if not isdigits(number):
