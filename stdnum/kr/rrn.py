@@ -26,7 +26,7 @@ issued to all residents of the Republic of Korea. Foreigners residing
 in the Republic of Korea receive an alien registration number (ARN)
 which follows the same encoding pattern.
 
-The number consists of 13 digits: YYMMDD-SBBCCNV
+The number consists of 13 digits: YYMMDD-SBBCCAV
 
 The first six digits code the date of birth. Note that the year is coded
 with two digits.
@@ -66,7 +66,7 @@ public:
 * Ulsan: 85
 * Jeju: 91–95
 
-Digit N is a sequential number that differentiates those of the same sex
+Digit A is a sequential number that differentiates those of the same sex
 born on the same day in the same location.
 
 The last digit is a check digit.
@@ -104,7 +104,8 @@ def calc_check_digits(number):
 
 def validate(number, future=True):
     """Check if the number is a valid RNN. This checks the length,
-    formatting and check digit."""
+    formatting and check digit. The RNN is invalid if future is
+    False and the date of birth embedded in the RNN is in the future."""
     number = clean(number).strip()
     if len(number) > 6 and number[6] == '-':
         number = number[:6] + number[7:]
@@ -137,6 +138,8 @@ def validate(number, future=True):
     place_of_birth = int(number[7:9])
     if place_of_birth > 96:
         raise InvalidComponent()
+    # We cannot check the community center (CC), any information on
+    # valid/invalid CC digits is welcome.
 
     check_sum = calc_check_digits(number[:-1])
     if check_sum != number[-1]:
