@@ -56,6 +56,8 @@ InvalidFormat: ...
 Traceback (most recent call last):
     ...
 InvalidFormat: ...
+>>> rrn.validate('9710139019902', future=False)
+'9710139019902'
 >>> rrn.validate('971013-9019903')  # incorrect checksum
 Traceback (most recent call last):
     ...
@@ -118,3 +120,5 @@ Formatting and compacting tests:
 '9710139019902'
 >>> rrn.compact('9710139-019902')  # dash in the wrong place
 '9710139019902'
+>>> rrn.compact('971013901990')  # less than 13 digits
+'971013901990'
