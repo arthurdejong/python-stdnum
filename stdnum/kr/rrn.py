@@ -66,15 +66,14 @@ def calc_check_digit(number):
 
 def get_birth_date(number, allow_future=True):
     """Split the date parts from the number and return the birth date. If
-    allow_future is True birth dates in the future are rejected."""
+    allow_future is False birth dates in the future are rejected."""
     number = compact(number)
     year = int(number[0:2])
     month = int(number[2:4])
     day = int(number[4:6])
-    century = int(number[6])
-    if century in {1, 2, 5, 6}:  # born 1900-1999
+    if number[6] in '1256':  # born 1900-1999
         year += 1900
-    elif century in {3, 4, 7, 8}:  # born 2000-2099
+    elif number[6] in '3478':  # born 2000-2099
         year += 2000
     else:  # born 1800-1899
         year += 1800
@@ -93,7 +92,7 @@ def get_birth_date(number, allow_future=True):
 
 def validate(number, allow_future=True):
     """Check if the number is a valid RNN. This checks the length, formatting
-    and check digit. If allow_future is True birth dates in the future are
+    and check digit. If allow_future is False birth dates in the future are
     rejected."""
     number = compact(number)
     if not isdigits(number):
