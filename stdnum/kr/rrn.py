@@ -76,7 +76,6 @@ More information:
 * http://www.law.go.kr/lsSc.do?tabMenuId=tab18&p1=&subMenu=1&nwYn=1&section=&tabNo=&query=%EA%B0%9C%EC%9D%B8%EC%A0%95%EB%B3%B4%20%EB%B3%B4%ED%98%B8%EB%B2%95
 * https://en.wikipedia.org/wiki/Resident_registration_number
 * https://techscience.org/a/2015092901/
-
 """
 
 from stdnum.exceptions import *
@@ -138,8 +137,6 @@ def validate(number, future=True):
     place_of_birth = int(number[7:9])
     if place_of_birth > 96:
         raise InvalidComponent()
-
-    community_centre = int(number[9:11])
 
     check_sum = calc_check_digits(number[:-1])
     if check_sum != number[-1]:
