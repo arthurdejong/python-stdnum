@@ -23,9 +23,9 @@
 The Spanish VAT number is a 9-digit number where either the first, last
 digits or both can be letters.
 
-The number is either a DNI (Documento nacional de identidad, for
-Spaniards), a NIE (Número de Identificación de Extranjeros, for
-foreigners) or a CIF (Certificado de Identificación Fiscal, for legal
+The number is either a DNI (Documento Nacional de Identidad, for
+Spaniards), a NIE (Número de Identificación de Extranjero, for
+foreigners) or a CIF (Código de Identificación Fiscal, for legal
 entities and others).
 
 >>> compact('ES B-58378431')

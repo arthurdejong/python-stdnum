@@ -18,11 +18,15 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 # 02110-1301 USA
 
-"""NIE (Número de Identificación de Extranjeros, Spanish foreigner number).
+"""NIE (Número de Identificación de Extranjero, Spanish foreigner number).
 
 The NIE is an identification number for foreigners. It is a 9 digit number
 where the first digit is either X, Y or Z and last digit is a checksum
 letter.
+
+More information:
+
+* https://es.wikipedia.org/wiki/N%C3%BAmero_de_identidad_de_extranjero
 
 >>> validate('x-2482300w')
 'X2482300W'

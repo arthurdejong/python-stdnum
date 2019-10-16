@@ -19,7 +19,7 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 # 02110-1301 USA
 
-"""CUPS (Código Unificado de Punto de Suministro, Supply Point Unified Code)
+"""CUPS (Código Unificado de Punto de Suministro, Spanish meter point number).
 
 CUPS codes are used in Spain as unique identifier for energy supply points.
 They are used both for electricity and pipelined gas.

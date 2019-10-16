@@ -18,7 +18,7 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 # 02110-1301 USA
 
-"""DNI (Documento nacional de identidad, Spanish personal identity codes).
+"""DNI (Documento Nacional de Identidad, Spanish personal identity codes).
 
 The DNI is a 9 digit number used to identify Spanish citizens. The last
 digit is a checksum letter.
