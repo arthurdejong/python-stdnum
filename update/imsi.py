@@ -27,8 +27,19 @@ from collections import defaultdict
 import requests
 
 
-# URLs that are downloaded
-mcc_list_url = 'https://en.wikipedia.org/w/index.php?title=Mobile_country_code&action=raw'
+# The wikipedia pages to download
+wikipedia_pages = (
+    'Mobile country code',
+    'Mobile Network Codes in ITU region 2xx (Europe)',
+    'Mobile Network Codes in ITU region 3xx (North America)',
+    'Mobile Network Codes in ITU region 4xx (Asia)',
+    'Mobile Network Codes in ITU region 5xx (Oceania)',
+    'Mobile Network Codes in ITU region 6xx (Africa)',
+    'Mobile Network Codes in ITU region 7xx (South America)',
+)
+
+# Sadly the full list requires an account at ITU-T:
+# https://www.itu.int/net/ITU-T/inrdb/
 
 
 cleanup_replacements = {
@@ -115,39 +126,51 @@ def update_mncs(data, mcc, mnc, **kwargs):
     data[mcc][mnc].update(dict((k, cleanup_value(v)) for k, v in kwargs.items() if v))
 
 
+# This matches a heading on the Wikipedia page, e.g.
+# ==== [[Albania]] - AL ====
+_mnc_country_re = re.compile(
+    r'^[=]{2,4}\s+(?P<country>.*?)(\s+-\s+(?P<cc>[^\s]{2}))?\s+[=]{2,4}$')
+
+# This matches a line containing a MCC/MNC, e.g.
+# | 232 || 02 || || A1 Telekom Austria || Reserved || ||
+_mnc_line_re = re.compile(
+    r'^\|\s*(?P<mcc>[0-9]+)' +
+    r'\s*\\\\\s*(?P<mnc>[0-9]+)' +
+    r'(\s*\\\\\s*(?P<brand>[^\\]*)' +
+    r'(\s*\\\\\s*(?P<operator>[^\\]*)' +
+    r'(\s*\\\\\s*(?P<status>[^\\]*)' +
+    r'(\s*\\\\\s*(?P<bands>[^\\]*)' +
+    r'(\s*\\\\\s*(?P<notes>[^\\]*)' +
+    r')?)?)?)?)?')
+
+
 def get_mncs_from_wikipedia(data):
     """Update the collection of Mobile Country Codes from Wikipedia.
     This parses a Wikipedia page to extract the MCC and MNC, the first
     part of any IMSI, and stores the results."""
-    mnc_country_re = re.compile(r'^[=]{2,4}\s+(?P<country>.*?)(\s+-\s+(?P<cc>[^\s]{2}))?\s+[=]{2,4}$')
-    mnc_line_re = re.compile(r'^\|\s*(?P<mcc>[0-9]+)' +
-                             r'\s*\\\\\s*(?P<mnc>[0-9]+)' +
-                             r'(\s*\\\\\s*(?P<brand>[^\\]*)' +
-                             r'(\s*\\\\\s*(?P<operator>[^\\]*)' +
-                             r'(\s*\\\\\s*(?P<status>[^\\]*)' +
-                             r'(\s*\\\\\s*(?P<bands>[^\\]*)' +
-                             r'(\s*\\\\\s*(?P<notes>[^\\]*)' +
-                             r')?)?)?)?)?')
-    response = requests.get(mcc_list_url)
-    response.raise_for_status()
-    country = cc = ''
-    for line in response.iter_lines(decode_unicode=True):
-        line = line.strip()
-        match = mnc_country_re.match(line)
-        if match:
-            country = match.group('country')
-            cc = (match.group('cc') or '').lower()
-        if '||' not in line:
-            continue
-        line = line.replace('||', '\\\\')
-        match = mnc_line_re.match(line)
-        if match:
-            for mnc in str2range(match.group('mnc')):
-                update_mncs(data, match.group('mcc'), mnc,
-                            country=country, cc=cc, brand=match.group('brand'),
-                            operator=match.group('operator'),
-                            status=match.group('status'),
-                            bands=match.group('bands'))
+    for page in wikipedia_pages:
+        url = 'https://en.wikipedia.org/w/index.php?title=%s&action=raw' % (
+            page.replace(' ', '_'))
+        response = requests.get(url)
+        response.raise_for_status()
+        country = cc = ''
+        for line in response.iter_lines(decode_unicode=True):
+            line = line.strip()
+            match = _mnc_country_re.match(line)
+            if match:
+                country = match.group('country')
+                cc = (match.group('cc') or '').lower()
+            if '||' not in line:
+                continue
+            line = line.replace('||', '\\\\')
+            match = _mnc_line_re.match(line)
+            if match:
+                for mnc in str2range(match.group('mnc')):
+                    update_mncs(data, match.group('mcc'), mnc,
+                                country=country, cc=cc, brand=match.group('brand'),
+                                operator=match.group('operator'),
+                                status=match.group('status'),
+                                bands=match.group('bands'))
 
 
 def str2range(x):
@@ -171,7 +194,7 @@ if __name__ == '__main__':
     get_mncs_from_wikipedia(data)
     # print header
     print('# generated from various sources')
-    print('# %s' % mcc_list_url)
+    print('# https://en.wikipedia.org/wiki/Mobile_country_code')
     # build an ordered list of mccs
     mcc_list = list(data.keys())
     mcc_list.sort()
@@ -184,7 +207,7 @@ if __name__ == '__main__':
             info = data[mcc][mnc]
             infokeys = sorted(info.keys())
             print(' %s%s' % (mnc, ''.join([' %s="%s"' % (k, info[k]) for k in infokeys if info[k]])))
-        # try to get the length of mnc's
+        # try to get the length of mncs
         try:
             length = len(mnc_list[0])
             if all(len(x) == length for x in mnc_list):
