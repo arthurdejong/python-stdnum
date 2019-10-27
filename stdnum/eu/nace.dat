@@ -1,5 +1,5 @@
-# generated from NACE_REV2_20190310_171444.xml, downloaded from
-# http://ec.europa.eu/eurostat/ramon/nomenclatures/index.cfm?TargetUrl=ACT_OTH_CLS_DLD&StrNom=NACE_REV2&StrFormat=XML&StrLanguageCode=EN
+# generated from NACE_REV2_20191027_201255.xml, downloaded from
+# https://ec.europa.eu/eurostat/ramon/nomenclatures/index.cfm?TargetUrl=ACT_OTH_CLS_DLD&StrNom=NACE_REV2&StrFormat=XML&StrLanguageCode=EN
 # NACE_REV2: Statistical Classification of Economic Activities in the European Community, Rev. 2 (2008)
 A label="AGRICULTURE, FORESTRY AND FISHING" isic="A"
 01 section="A" label="Crop and animal production, hunting and related service activities" isic="01"

@@ -1,6 +1,6 @@
 test_be_iban.doctest - more detailed doctests for the stdnum.be.iban module
 
-Copyright (C) 2018 Arthur de Jong
+Copyright (C) 2018-2019 Arthur de Jong
 
 This library is free software; you can redistribute it and/or
 modify it under the terms of the GNU Lesser General Public
@@ -89,7 +89,7 @@ the IBAN.
 ... BE 45 2100 0760 8589    GEBABEBB
 ... BE 45 4162 0698 8189    KREDBEBB
 ... BE 46 4214 1888 0136    KREDBEBB
-... BE 46 6528 2264 2736    HBKABE22
+... BE 46 6528 2264 2736    BBRUBEBB
 ... BE 46 7380 3139 0636    KREDBEBB
 ... BE 47 0001 0350 7080    BPOTBEB1
 ... BE 48 3200 7018 4927    BBRUBEBB
@@ -145,7 +145,7 @@ the IBAN.
 ... BE 90645110734932       JVBABE22
 ... BE 91 733-0204328-76    KREDBEBB
 ... BE 91733049319476       KREDBEBB
-... BE 92 6528 3175 9423    HBK ABE22
+... BE 92 6528 3175 9423    BBR UBEBB
 ... BE 94 4324 0214 9114    KREDBEBB
 ... BE 95 3800 4313 4658    BBRUBEBB
 ... BE 96 2100 6808 9305    GEBA-BEBB
@@ -154,7 +154,7 @@ the IBAN.
 ... BE10 0000 0000 0404     BPOTBEB1
 ... BE52 3100 2234 1109     BBRUBEBB
 ... BE58 7310 2144 7479     KREDBEBB
-... BE59 65283724 9926      HBKABE22
+... BE59 65283724 9926      BBRUBEBB
 ... BE65 0910 0060 8196     GKCCBEBB
 ... BE79 0689 0189 6933     GKCCBEBB
 ... BE88 0000 0000 4141     BPOTBEB1
