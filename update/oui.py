@@ -44,13 +44,35 @@ def download_csv(url):
     response = requests.get(url)
     response.raise_for_status()
     for row in csv.DictReader(line.decode('utf-8') for line in response.iter_lines()):
-        yield (
-            row['Assignment'],
-            row['Organization Name'].strip().replace('"', '%'))
+        o = row['Organization Name'].strip().replace('"', '%')
+        if o not in ('IEEE Registration Authority', 'Private'):
+            yield (row['Assignment'], o)
+
+
+def join_items(items):
+    """Join the list of items, combining consecutive numbers."""
+    length = len(items[0])
+    items = [int(b, 16) for b in items]
+    first = None
+    prev = None
+    res = ''
+    for item in items:
+        if first is not None and item == prev + 1:
+            # this item is consecutive to the previous: make a range
+            if prev > first:
+                # replace the previous value
+                res = res[:-length - 1]
+            res += '-%%0%dX' % length % item
+            prev = item
+        else:
+            # this is a new item, add a new one to the list
+            res += ',%%0%dX' % length % item
+            first = prev = item
+    return res.strip(',')
 
 
 if __name__ == '__main__':
-    # download the MAC Address Block Large (MA-L) list
+    # download the MAC Address Block Large (MA-L) list and group by org
     toplevel = defaultdict(list)
     for a, o in download_csv(mal_url):
         toplevel[o].append(a)
@@ -63,11 +85,11 @@ if __name__ == '__main__':
     print('# %s' % mal_url)
     print('# %s' % mam_url)
     print('# %s' % mas_url)
+    # output full-length assignments
     for a, o in sorted((tuple(sorted(a)), o) for o, a in toplevel.items()):
-        if o not in ('IEEE Registration Authority', 'Private'):
-            print('%s o="%s"' % (','.join(a), o))
+        print('%s o="%s"' % (join_items(a), o))
+    # output assignments that are subdivided
     for a in sorted(nested.keys()):
         print('%s' % a)
         for s, o in sorted(nested[a].items()):
-            if o not in ('IEEE Registration Authority', 'Private'):
-                print(' %s o="%s"' % (s, o))
+            print(' %s o="%s"' % (s, o))
