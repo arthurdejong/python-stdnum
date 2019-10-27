@@ -26,11 +26,7 @@ code prefixes."""
 import re
 import urllib
 
-
-try:
-    from bs4 import BeautifulSoup
-except ImportError:
-    from BeautifulSoup import BeautifulSoup
+import lxml.html
 
 
 spaces_re = re.compile(r'\s+', re.UNICODE)
@@ -39,8 +35,9 @@ spaces_re = re.compile(r'\s+', re.UNICODE)
 download_url = 'https://english.slks.dk/libraries/library-standards/isil/'
 
 
-def clean(s):
-    """Clean up the string removing unneeded stuff from it."""
+def clean(td):
+    """Clean up the element removing unneeded stuff from it."""
+    s = lxml.html.tostring(td, method='text', encoding='utf-8').decode('utf-8')
     return spaces_re.sub(' ', s.replace(u'\u0096', '')).strip().encode('utf-8')
 
 
@@ -50,23 +47,22 @@ def parse(f):
     print('# %s' % download_url)
     # We hack the HTML to insert missing <TR> elements
     content = f.read().replace('</TR>', '</TR><TR>')
-    soup = BeautifulSoup(content)
+    document = lxml.html.document_fromstring(content)
     # find all table rows
-    for tr in soup.findAll('tr'):
+    for tr in document.findall('.//tr'):
         # find the rows with four columns of text
-        tds = tr.findAll('td', attrs={'class': 'text'}, recursive=False)
-        if len(tds) == 4:
+        tds = tr.findall('td')
+        if len(tds) == 4 and clean(tds[0]).lower() != 'code':
             props = {}
-            cc = clean(tds[0].string)
-            if tds[1].string:
-                props['country'] = clean(tds[1].contents[0])
-            ra_a = tds[2].find('a')
-            if ra_a:
-                props['ra'] = clean(ra_a.string)
-                props['ra_url'] = clean(ra_a['href'])
-            elif tds[2].string:
-                props['ra'] = clean(tds[2].string)
-            # we could also get the search urls from tds[3].findAll('a')
+            cc = clean(tds[0])
+            if tds[1].find('p') is not None:
+                props['country'] = clean(tds[1])
+            ra_a = tds[2].find('.//a')
+            if ra_a is not None:
+                props['ra'] = clean(tds[2])
+                props['ra_url'] = ra_a.get('href')
+            else:
+                props['ra'] = clean(tds[2])
             print(
                 '%s$ %s' % (
                     cc, ' '.join(

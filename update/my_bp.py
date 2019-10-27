@@ -25,13 +25,8 @@ birthplace code from the National Registration Department of Malaysia."""
 import re
 from collections import defaultdict
 
+import lxml.html
 import requests
-
-
-try:
-    from bs4 import BeautifulSoup
-except ImportError:
-    from BeautifulSoup import BeautifulSoup
 
 
 # URLs that are downloaded
@@ -46,21 +41,19 @@ user_agent = 'Mozilla/5.0 (compatible; python-stdnum updater; +https://arthurdej
 spaces_re = re.compile(r'\s+', re.UNICODE)
 
 
-def clean(s):
-    """Clean up the string removing unneeded stuff from it."""
+def clean(td):
+    """Clean up the element removing unneeded stuff from it."""
+    s = lxml.html.tostring(td, method='text', encoding='utf-8').decode('utf-8')
     return spaces_re.sub(' ', s.replace(u'\u0096', '')).strip().encode('utf-8')
 
 
-def parse(f):
+def parse(content):
     """Parse the specified file."""
-    soup = BeautifulSoup(f)
+    document = lxml.html.document_fromstring(content)
     # find all table rows
-    for tr in soup.find('div', {'class': 'box-content'}).findAll('tr'):
-        # find the rows with four columns of text
-        tds = [
-            clean(''.join(x.string for x in td.findAll(text=True)))
-            for td in tr.findAll('td')
-        ]
+    for tr in document.findall('.//div[@class="box-content"]//tr'):
+        tds = [clean(td) for td in tr.findall('td')]
+        # table has two columns
         if len(tds) >= 2 and tds[0] and tds[1]:
             yield tds[0], tds[1]
         if len(tds) >= 4 and tds[2] and tds[3]:
@@ -74,13 +67,15 @@ if __name__ == '__main__':
     results = defaultdict(lambda: defaultdict(set))
     # read the states
     response = requests.get(state_list_url, headers=headers, verify='update/my_bp.crt')
-    for state, bps in parse(response.text):
+    response.raise_for_status()
+    for state, bps in parse(response.content):
         for bp in bps.split(','):
             results[bp.strip()]['state'] = state
             results[bp.strip()]['countries'].add('Malaysia')
     # read the countries
     response = requests.get(country_list_url, headers=headers, verify='update/my_bp.crt')
-    for country, bp in parse(response.text):
+    response.raise_for_status()
+    for country, bp in parse(response.content):
         results[bp]['countries'].add(country)
     # print the results
     print('# generated from National Registration Department of Malaysia, downloaded from')

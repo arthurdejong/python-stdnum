@@ -2,7 +2,7 @@
 
 # update/isbn.py - script to get ISBN prefix data
 #
-# Copyright (C) 2010-2018 Arthur de Jong
+# Copyright (C) 2010-2019 Arthur de Jong
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -27,7 +27,8 @@ an item number and a check-digit."""
 
 import ssl
 import urllib.request
-from xml.etree import ElementTree
+
+import lxml.etree
 
 
 # the location of the ISBN Ranges XML file
@@ -36,12 +37,12 @@ download_url = 'https://www.isbn-international.org/export_rangemessage.xml'
 
 def ranges(group):
     """Provide the ranges for the group."""
-    for rule in group.find('Rules').findall('Rule'):
-        length = int(rule.find('Length').text.strip())
+    for rule in group.findall('./Rules/Rule'):
+        length = int(rule.find('./Length').text.strip())
         if length:
             yield '-'.join(
                 x[:length]
-                for x in rule.find('Range').text.strip().split('-'))
+                for x in rule.find('./Range').text.strip().split('-'))
 
 
 def wrap(text):
@@ -61,20 +62,20 @@ if __name__ == '__main__':
     f = urllib.request.urlopen(download_url, context=ctx)
 
     # parse XML document
-    msg = ElementTree.parse(f).getroot()
+    document = lxml.etree.parse(f)
 
     # dump data from document
-    print('# file serial %s' % msg.find('MessageSerialNumber').text.strip())
-    print('# file date %s' % msg.find('MessageDate').text.strip())
+    print('# file serial %s' % document.find('./MessageSerialNumber').text.strip())
+    print('# file date %s' % document.find('./MessageDate').text.strip())
 
     top_groups = dict(
-        (x.find('Prefix').text.strip(), x)
-        for x in msg.find('EAN.UCCPrefixes').findall('EAN.UCC'))
+        (x.find('./Prefix').text.strip(), x)
+        for x in document.findall('./EAN.UCCPrefixes/EAN.UCC'))
 
     prevtop = None
-    for group in msg.find('RegistrationGroups').findall('Group'):
-        top, prefix = group.find('Prefix').text.strip().split('-')
-        agency = group.find('Agency').text.strip()
+    for group in document.findall('./RegistrationGroups/Group'):
+        top, prefix = group.find('./Prefix').text.strip().split('-')
+        agency = group.find('./Agency').text.strip()
         if top != prevtop:
             print(top)
             for line in wrap(','.join(ranges(top_groups[top]))):

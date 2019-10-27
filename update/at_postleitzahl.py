@@ -26,9 +26,9 @@ from __future__ import print_function, unicode_literals
 
 import os
 import os.path
-import re
 import urllib
 
+import lxml.html
 import xlrd
 
 
@@ -36,11 +36,6 @@ try:
     from urllib.parse import urljoin
 except ImportError:
     from urlparse import urljoin
-
-try:
-    from bs4 import BeautifulSoup
-except ImportError:
-    from BeautifulSoup import BeautifulSoup
 
 
 # The page that contains a link to the downloadable spreadsheet with current
@@ -64,19 +59,19 @@ regions = {
 def find_download_url():
     """Extract the spreadsheet URL from the Austrian Post website."""
     f = urllib.urlopen(base_url)
-    soup = BeautifulSoup(f)
-    url = soup.find(
-        'a',
-        attrs=dict(
-            href=re.compile(r'.*/downloads/PLZ_Verzeichnis.*')))['href']
+    document = lxml.html.parse(f)
+    url = [
+        a.get('href')
+        for a in document.findall('.//a[@href]')
+        if '/downloads/PLZ_Verzeichnis' in a.get('href')][0]
     return urljoin(base_url, url.split('?')[0])
 
 
 def get_postal_codes(download_url):
     """Download the Austrian postal codes spreadsheet."""
-    document = urllib.urlopen(download_url).read()
+    content = urllib.urlopen(download_url).read()
     workbook = xlrd.open_workbook(
-        file_contents=document, logfile=open(os.devnull, 'w'))
+        file_contents=content, logfile=open(os.devnull, 'w'))
     sheet = workbook.sheet_by_index(0)
     rows = sheet.get_rows()
     # the first row contains the column names

@@ -2,7 +2,7 @@
 
 # update/eu_nace.py - script to get the NACE v2 catalogue
 #
-# Copyright (C) 2017-2018 Arthur de Jong
+# Copyright (C) 2017-2019 Arthur de Jong
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -25,11 +25,12 @@ codes."""
 
 import cgi
 import urllib.request
-from xml.etree import ElementTree
+
+import lxml.etree
 
 
-# the location of the ISBN Ranges XML file
-download_url = 'http://ec.europa.eu/eurostat/ramon/nomenclatures/index.cfm?TargetUrl=ACT_OTH_CLS_DLD&StrNom=NACE_REV2&StrFormat=XML&StrLanguageCode=EN'
+# the location of the Statistical Classification file
+download_url = 'https://ec.europa.eu/eurostat/ramon/nomenclatures/index.cfm?TargetUrl=ACT_OTH_CLS_DLD&StrNom=NACE_REV2&StrFormat=XML&StrLanguageCode=EN'
 
 
 if __name__ == '__main__':
@@ -40,20 +41,19 @@ if __name__ == '__main__':
     print('# %s' % download_url)
 
     # parse XML document
-    doc = ElementTree.parse(f).getroot()
+    document = lxml.etree.parse(f)
 
     # output header
     print('# %s: %s' % (
-        doc.find('Classification').get('id'),
-        doc.find('Classification/Label/LabelText[@language="EN"]').text))
+        document.find('./Classification').get('id'),
+        document.find('./Classification/Label/LabelText[@language="EN"]').text))
 
-    for item in doc.findall('Classification/Item'):
+    for item in document.findall('./Classification/Item'):
         number = item.get('id')
         level = int(item.get('idLevel', 0))
-        label = item.find('Label/LabelText[@language="EN"]').text
+        label = item.find('./Label/LabelText[@language="EN"]').text
         isic = item.find(
-            'Property[@genericName="ISIC4_REF"]/PropertyQualifier/' +
-            'PropertyText').text
+            './Property[@genericName="ISIC4_REF"]/PropertyQualifier/PropertyText').text
         if level == 1:
             section = number
             print('%s label="%s" isic="%s"' % (number, label, isic))
