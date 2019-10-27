@@ -26,9 +26,9 @@ from __future__ import print_function, unicode_literals
 
 import os
 import os.path
-import urllib
 
 import lxml.html
+import requests
 import xlrd
 
 
@@ -58,8 +58,9 @@ regions = {
 
 def find_download_url():
     """Extract the spreadsheet URL from the Austrian Post website."""
-    f = urllib.urlopen(base_url)
-    document = lxml.html.parse(f)
+    response = requests.get(base_url)
+    response.raise_for_status()
+    document = lxml.html.document_fromstring(response.content)
     url = [
         a.get('href')
         for a in document.findall('.//a[@href]')
@@ -69,9 +70,10 @@ def find_download_url():
 
 def get_postal_codes(download_url):
     """Download the Austrian postal codes spreadsheet."""
-    content = urllib.urlopen(download_url).read()
+    response = requests.get(download_url)
+    response.raise_for_status()
     workbook = xlrd.open_workbook(
-        file_contents=content, logfile=open(os.devnull, 'w'))
+        file_contents=response.content, logfile=open(os.devnull, 'w'))
     sheet = workbook.sheet_by_index(0)
     rows = sheet.get_rows()
     # the first row contains the column names
@@ -92,7 +94,7 @@ if __name__ == '__main__':
     # download/parse the information
     download_url = find_download_url()
     # print header
-    print('# generated from %s downloaded from ' %
+    print('# generated from %s downloaded from' %
           os.path.basename(download_url))
     print('# %s' % base_url)
     # build an ordered list of postal codes

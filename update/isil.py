@@ -24,9 +24,9 @@ and screen-scrapes the national and non-national ISIL agencies and
 code prefixes."""
 
 import re
-import urllib
 
 import lxml.html
+import requests
 
 
 spaces_re = re.compile(r'\s+', re.UNICODE)
@@ -41,12 +41,13 @@ def clean(td):
     return spaces_re.sub(' ', s.replace(u'\u0096', '')).strip().encode('utf-8')
 
 
-def parse(f):
-    """Parse the specified file."""
+if __name__ == '__main__':
+    response = requests.get(download_url)
+    response.raise_for_status()
     print('# generated from ISIL Registration Authority, downloaded from')
     print('# %s' % download_url)
     # We hack the HTML to insert missing <TR> elements
-    content = f.read().replace('</TR>', '</TR><TR>')
+    content = response.text.replace('</TR>', '</TR><TR>')
     document = lxml.html.document_fromstring(content)
     # find all table rows
     for tr in document.findall('.//tr'):
@@ -67,9 +68,3 @@ def parse(f):
                 '%s$ %s' % (
                     cc, ' '.join(
                         ['%s="%s"' % (x, y) for x, y in props.iteritems()])))
-
-
-if __name__ == '__main__':
-    # f = open('isil.html', 'r')
-    f = urllib.urlopen(download_url)
-    parse(f)

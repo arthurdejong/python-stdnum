@@ -2,7 +2,7 @@
 
 # update/oui.py - script to download and parse data from the IEEE registry
 #
-# Copyright (C) 2018 Arthur de Jong
+# Copyright (C) 2018-2019 Arthur de Jong
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -25,9 +25,10 @@ and produces data files that can be use by python-stdnum to look up
 manufacturers by MAC address."""
 
 import csv
-import urllib
 from collections import defaultdict
 from itertools import chain
+
+import requests
 
 
 # The URLs of the MA-L, MA-M and MA-S registries that are downloaded to
@@ -40,7 +41,9 @@ mas_url = 'http://standards-oui.ieee.org/oui36/oui36.csv'
 def download_csv(url):
     """Download the list from the site and provide assignment and
     organisation names."""
-    for row in csv.DictReader(urllib.urlopen(url)):
+    response = requests.get(url)
+    response.raise_for_status()
+    for row in csv.DictReader(response.iter_lines()):
         yield (
             row['Assignment'],
             row['Organization Name'].strip().replace('"', '%'))

@@ -25,10 +25,8 @@ ranges for those prefixes suitable for the numdb module. This data is needed
 to correctly split ISBNs into an EAN.UCC prefix, a group prefix, a registrant,
 an item number and a check-digit."""
 
-import ssl
-import urllib.request
-
 import lxml.etree
+import requests
 
 
 # the location of the ISBN Ranges XML file
@@ -58,11 +56,11 @@ def wrap(text):
 if __name__ == '__main__':
     print('# generated from RangeMessage.xml, downloaded from')
     print('# %s' % download_url)
-    ctx = ssl.SSLContext(ssl.PROTOCOL_TLSv1)
-    f = urllib.request.urlopen(download_url, context=ctx)
+    response = requests.get(download_url)
+    response.raise_for_status()
 
     # parse XML document
-    document = lxml.etree.parse(f)
+    document = lxml.etree.fromstring(response.content)
 
     # dump data from document
     print('# file serial %s' % document.find('./MessageSerialNumber').text.strip())

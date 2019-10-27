@@ -3,7 +3,7 @@
 
 # update/do_whitelists.py - script to update do.rnc and do.cedula whitelists
 #
-# Copyright (C) 2017 Arthur de Jong
+# Copyright (C) 2017-2019 Arthur de Jong
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -25,12 +25,12 @@ Internos (DGII) web site with lists of all RNC and Cedula values and outputs
 new whitelists for these modules."""
 
 import os.path
-import shutil
 import sys
 import tempfile
 import textwrap
-import urllib
 import zipfile
+
+import requests
 
 
 # Ensure that our local stdnum implementation is used
@@ -41,7 +41,7 @@ from stdnum.do import cedula, rnc  # noqa, isort:skip
 
 
 # The URL of the zip file with all valid numbers
-download_url = 'http://www.dgii.gov.do/app/WebApps/Consultas/rnc/DGII_RNC.zip'
+download_url = 'https://www.dgii.gov.do/app/WebApps/Consultas/rnc/DGII_RNC.zip'
 
 
 def handle_zipfile(f):
@@ -53,13 +53,14 @@ def handle_zipfile(f):
     z = zipfile.ZipFile(f, 'r')
     for line in z.open('TMP/DGII_RNC.TXT'):
         number = line.split('|', 1)[0].strip()
-        if len(number) <= 9:
-            if not rnc.is_valid(number):
-                invalidrnc.add(number)
-        else:
-            if not cedula.is_valid(number):
-                invalidcedula.add(number)
-    # return invalid numbers
+        if number.isdigit():
+            if len(number) <= 9:
+                if not rnc.is_valid(number):
+                    invalidrnc.add(number)
+            else:
+                if not cedula.is_valid(number):
+                    invalidcedula.add(number)
+    # return known but invalid numbers
     return invalidrnc, invalidcedula
 
 
@@ -68,11 +69,12 @@ if __name__ == '__main__':
     # Download and read the ZIP file with valid data
     with tempfile.TemporaryFile() as tmp:
         # Download the zip file to a temporary file
-        download = urllib.urlopen(download_url)
+        response = requests.get(download_url, stream=True)
+        response.raise_for_status()
         print('%s: %s' % (
             os.path.basename(download_url),
-            download.info().get('Last-Modified')))
-        shutil.copyfileobj(download, tmp)
+            response.headers.get('last-modified')))
+        tmp.write(response.content)
         # Open the temporary file as a zip file and read contents
         # (we cannot do this streaming because zipfile requires seek)
         invalidrnc, invalidcedula = handle_zipfile(tmp)

@@ -2,7 +2,7 @@
 
 # update/imsi.py - script to donwload from Wikipedia to build the database
 #
-# Copyright (C) 2011-2018 Arthur de Jong
+# Copyright (C) 2011-2019 Arthur de Jong
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -22,8 +22,9 @@
 """This extracts a IMSI country and operator code from Wikipedia."""
 
 import re
-import urllib
 from collections import defaultdict
+
+import requests
 
 
 # URLs that are downloaded
@@ -127,9 +128,10 @@ def get_mncs_from_wikipedia(data):
                              r'(\s*\\\\\s*(?P<bands>[^\\]*)' +
                              r'(\s*\\\\\s*(?P<notes>[^\\]*)' +
                              r')?)?)?)?)?')
-    f = urllib.urlopen(mcc_list_url)
+    response = requests.get(mcc_list_url)
+    response.raise_for_status()
     country = cc = ''
-    for line in f.readlines():
+    for line in response.iter_lines():
         line = line.strip()
         match = mnc_country_re.match(line)
         if match:

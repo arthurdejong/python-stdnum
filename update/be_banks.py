@@ -3,7 +3,7 @@
 
 # update/be_banks.py - script to donwload Bank list from Belgian National Bank
 #
-# Copyright (C) 2018 Arthur de Jong
+# Copyright (C) 2018-2019 Arthur de Jong
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -24,8 +24,8 @@
 IBAN and BIC codes as published by the Belgian National Bank."""
 
 import os.path
-import urllib
 
+import requests
 import xlrd
 
 
@@ -74,8 +74,9 @@ def get_values(sheet):
 
 
 if __name__ == '__main__':
-    document = urllib.urlopen(download_url).read()
-    workbook = xlrd.open_workbook(file_contents=document)
+    response = requests.get(download_url)
+    response.raise_for_status()
+    workbook = xlrd.open_workbook(file_contents=response.content)
     sheet = workbook.sheet_by_index(0)
     version = sheet.cell(0, 0).value
     print('# generated from %s downloaded from' %

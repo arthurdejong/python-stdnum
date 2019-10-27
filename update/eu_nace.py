@@ -23,10 +23,10 @@
 Metadata Server and extracts the information that is used for validating NACE
 codes."""
 
-import cgi
-import urllib.request
+import re
 
 import lxml.etree
+import requests
 
 
 # the location of the Statistical Classification file
@@ -34,14 +34,15 @@ download_url = 'https://ec.europa.eu/eurostat/ramon/nomenclatures/index.cfm?Targ
 
 
 if __name__ == '__main__':
-    f = urllib.request.urlopen(download_url)
-    _, params = cgi.parse_header(f.info().get('Content-Disposition', ''))
-    filename = params.get('filename', '?')
+    response = requests.get(download_url)
+    response.raise_for_status()
+    content_disposition = response.headers.get('content-disposition', '')
+    filename = re.findall(r'filename=?(.+)"?', content_disposition)[0].strip('"')
     print('# generated from %s, downloaded from' % filename)
     print('# %s' % download_url)
 
     # parse XML document
-    document = lxml.etree.parse(f)
+    document = lxml.etree.fromstring(response.content)
 
     # output header
     print('# %s: %s' % (

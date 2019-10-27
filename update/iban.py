@@ -2,7 +2,7 @@
 
 # update/iban.py - script to download and parse data from the IBAN registry
 #
-# Copyright (C) 2011-2018 Arthur de Jong
+# Copyright (C) 2011-2019 Arthur de Jong
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -24,8 +24,9 @@ Financial Telecommunication which is the official IBAN registrar) to get
 the data needed to correctly parse and validate IBANs."""
 
 import csv
-import urllib
 from collections import defaultdict
+
+import requests
 
 
 # The place where the current version of
@@ -42,13 +43,14 @@ def get_country_codes(line):
     return [x.strip()[:2] for x in line['iban structure'].split(',')]
 
 
-def parse(f):
-    """Parse the specified file."""
+if __name__ == '__main__':
+    response = requests.get(download_url)
+    response.raise_for_status()
     print('# generated from swift_standards_infopaper_ibanregistry_1.txt,')
     print('# downloaded from %s' % download_url)
     values = defaultdict(dict)
     # the file is CSV but the data is in columns instead of rows
-    for row in csv.reader(f, delimiter='\t', quotechar='"'):
+    for row in csv.reader(response.iter_lines(), delimiter='\t', quotechar='"'):
         # skip first row
         if row[0] != 'Data element':
             # first column contains label
@@ -71,8 +73,3 @@ def parse(f):
         # TODO: use "Bank identifier position within the BBAN" field
         #       to add labels to the ranges (Bank identifier and Branch
         #       Identifier)
-
-
-if __name__ == '__main__':
-    f = urllib.urlopen(download_url)
-    parse(f)
