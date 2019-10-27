@@ -35,8 +35,8 @@ except ImportError:
 
 
 # URLs that are downloaded
-state_list_url = 'http://www.jpn.gov.my/informasi/kod-negeri/'
-country_list_url = 'http://www.jpn.gov.my/en/informasi/kod-negara/'
+state_list_url = 'https://www.jpn.gov.my/kod-negeri/'
+country_list_url = 'https://www.jpn.gov.my/en/kod-negara/'
 
 
 # The user agent that will be passed in requests
@@ -73,13 +73,13 @@ if __name__ == '__main__':
     }
     results = defaultdict(lambda: defaultdict(set))
     # read the states
-    response = requests.get(state_list_url, headers=headers)
+    response = requests.get(state_list_url, headers=headers, verify='update/my_bp.crt')
     for state, bps in parse(response.text):
         for bp in bps.split(','):
             results[bp.strip()]['state'] = state
             results[bp.strip()]['countries'].add('Malaysia')
     # read the countries
-    response = requests.get(country_list_url, headers=headers)
+    response = requests.get(country_list_url, headers=headers, verify='update/my_bp.crt')
     for country, bp in parse(response.text):
         results[bp]['countries'].add(country)
     # print the results
