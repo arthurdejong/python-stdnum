@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 # coding: utf-8
 
 # update/do_whitelists.py - script to update do.rnc and do.cedula whitelists
@@ -24,6 +24,7 @@
 Internos (DGII) web site with lists of all RNC and Cedula values and outputs
 new whitelists for these modules."""
 
+import io
 import os.path
 import sys
 import tempfile
@@ -51,7 +52,7 @@ def handle_zipfile(f):
     invalidcedula = set()
     # read the information from the ZIP file
     z = zipfile.ZipFile(f, 'r')
-    for line in z.open('TMP/DGII_RNC.TXT'):
+    for line in io.TextIOWrapper(z.open('TMP/DGII_RNC.TXT'), encoding='iso8859-15'):
         number = line.split('|', 1)[0].strip()
         if number.isdigit():
             if len(number) <= 9:

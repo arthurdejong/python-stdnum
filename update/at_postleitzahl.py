@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 # coding: utf-8
 
 # update/at_postleitzahl.py - download list of Austrian postal codes
@@ -99,5 +99,4 @@ if __name__ == '__main__':
     print('# %s' % base_url)
     # build an ordered list of postal codes
     for code, location, region in sorted(get_postal_codes(download_url)):
-        info = '%s location="%s" region="%s"' % (code, location, region)
-        print(info.encode('utf-8'))
+        print('%s location="%s" region="%s"' % (code, location, region))

@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 
 # update/oui.py - script to download and parse data from the IEEE registry
 #
@@ -43,7 +43,7 @@ def download_csv(url):
     organisation names."""
     response = requests.get(url)
     response.raise_for_status()
-    for row in csv.DictReader(response.iter_lines()):
+    for row in csv.DictReader(line.decode('utf-8') for line in response.iter_lines()):
         yield (
             row['Assignment'],
             row['Organization Name'].strip().replace('"', '%'))

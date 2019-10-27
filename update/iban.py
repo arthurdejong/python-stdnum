@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 
 # update/iban.py - script to download and parse data from the IBAN registry
 #
@@ -50,7 +50,7 @@ if __name__ == '__main__':
     print('# downloaded from %s' % download_url)
     values = defaultdict(dict)
     # the file is CSV but the data is in columns instead of rows
-    for row in csv.reader(response.iter_lines(), delimiter='\t', quotechar='"'):
+    for row in csv.reader(response.iter_lines(decode_unicode=True), delimiter='\t', quotechar='"'):
         # skip first row
         if row[0] != 'Data element':
             # first column contains label

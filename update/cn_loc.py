@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 
 # update/cn_loc.py - script to fetch data from the CN Open Data community
 #
@@ -25,7 +25,6 @@ Github."""
 
 from __future__ import print_function, unicode_literals
 
-import codecs
 import sys
 from collections import OrderedDict
 from datetime import datetime
@@ -84,21 +83,11 @@ def group_data(data_collection):
         yield code, name, prefecture_name, province_name
 
 
-def print_data_file(file):
-    """Output a data file in the right format."""
-    print("# generated from National Bureau of Statistics of the People's",
-          file=file)
-    print('# Republic of China, downloaded from %s' % data_url, file=file)
-    print('# %s' % datetime.utcnow(), file=file)
-    print('Downloading...', file=sys.stderr)
-    data_collection = fetch_data()
-    print('Generating...', file=sys.stderr)
-    for data in group_data(data_collection):
-        print('%s county="%s" prefecture="%s" province="%s"' % data, file=file)
-
-
 if __name__ == '__main__':
-    if sys.stdout.isatty():
-        print_data_file(sys.stdout)
-    else:
-        print_data_file(codecs.getwriter('utf-8')(sys.stdout))
+    """Output a data file in the right format."""
+    print("# generated from National Bureau of Statistics of the People's")
+    print('# Republic of China, downloaded from %s' % data_url)
+    print('# %s' % datetime.utcnow())
+    data_collection = fetch_data()
+    for data in group_data(data_collection):
+        print('%s county="%s" prefecture="%s" province="%s"' % data)

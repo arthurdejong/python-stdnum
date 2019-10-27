@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 
 # update/my_bp.py - script to download data from Malaysian government site
 #
@@ -44,7 +44,7 @@ spaces_re = re.compile(r'\s+', re.UNICODE)
 def clean(td):
     """Clean up the element removing unneeded stuff from it."""
     s = lxml.html.tostring(td, method='text', encoding='utf-8').decode('utf-8')
-    return spaces_re.sub(' ', s.replace(u'\u0096', '')).strip().encode('utf-8')
+    return spaces_re.sub(' ', s.replace(u'\u0096', '')).strip()
 
 
 def parse(content):
@@ -82,7 +82,7 @@ if __name__ == '__main__':
     print('# %s' % state_list_url)
     print('# %s' % country_list_url)
     print('')
-    for bp in sorted(results.iterkeys()):
+    for bp in sorted(results.keys()):
         res = bp
         row = results[bp]
         if 'state' in row:

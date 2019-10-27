@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 
 # update/imsi.py - script to donwload from Wikipedia to build the database
 #
@@ -131,7 +131,7 @@ def get_mncs_from_wikipedia(data):
     response = requests.get(mcc_list_url)
     response.raise_for_status()
     country = cc = ''
-    for line in response.iter_lines():
+    for line in response.iter_lines(decode_unicode=True):
         line = line.strip()
         match = mnc_country_re.match(line)
         if match:
@@ -179,12 +179,10 @@ if __name__ == '__main__':
     for mcc in mcc_list:
         print('%s' % mcc)
         # build an ordered list of mncs
-        mnc_list = data[mcc].keys()
-        mnc_list.sort()
+        mnc_list = sorted(data[mcc].keys())
         for mnc in mnc_list:
             info = data[mcc][mnc]
-            infokeys = info.keys()
-            infokeys.sort()
+            infokeys = sorted(info.keys())
             print(' %s%s' % (mnc, ''.join([' %s="%s"' % (k, info[k]) for k in infokeys if info[k]])))
         # try to get the length of mnc's
         try:

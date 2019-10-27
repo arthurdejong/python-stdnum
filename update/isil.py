@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 
 # update/isil.py - script to donwload ISIL agencies
 #
@@ -38,7 +38,7 @@ download_url = 'https://english.slks.dk/libraries/library-standards/isil/'
 def clean(td):
     """Clean up the element removing unneeded stuff from it."""
     s = lxml.html.tostring(td, method='text', encoding='utf-8').decode('utf-8')
-    return spaces_re.sub(' ', s.replace(u'\u0096', '')).strip().encode('utf-8')
+    return spaces_re.sub(' ', s.replace(u'\u0096', '')).strip()
 
 
 if __name__ == '__main__':
@@ -67,4 +67,4 @@ if __name__ == '__main__':
             print(
                 '%s$ %s' % (
                     cc, ' '.join(
-                        ['%s="%s"' % (x, y) for x, y in props.iteritems()])))
+                        '%s="%s"' % (x, y) for x, y in sorted(props.items()))))

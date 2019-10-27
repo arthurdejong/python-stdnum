@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 # coding: utf-8
 
 # update/be_banks.py - script to donwload Bank list from Belgian National Bank
@@ -89,4 +89,4 @@ if __name__ == '__main__':
             info += ' bic="%s"' % bic
         if bank:
             info += ' bank="%s"' % bank
-        print(info.encode('utf-8'))
+        print(info)

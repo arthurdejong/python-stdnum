@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 # coding: utf-8
 
 # update/nz_banks.py - script to download Bank list from Bank Branch Register
