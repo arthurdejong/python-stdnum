@@ -1,3 +1,54 @@
+changes from 1.11 to 1.12
+-------------------------
+
+* Add modules for the following number formats:
+
+  - NRT (Número de Registre Tributari, Andorra tax number)
+    (thanks Leandro Regueiro)
+  - CPF (Cédula de Persona Física, Costa Rica physical person ID number)
+    (thanks Leandro Regueiro)
+  - CPJ (Cédula de Persona Jurídica, Costa Rica tax number)
+    (thanks Leandro Regueiro)
+  - CR (Cédula de Residencia, Costa Rica foreigners ID number)
+    (thanks Leandro Regueiro)
+  - NIT (Número de Identificación Tributaria, Guatemala tax number)
+    (thanks Leandro Regueiro)
+  - Identity Number (Mispar Zehut, מספר זהות, Israeli identity number)
+  - CN (法人番号, hōjin bangō, Japanese Corporate Number)
+    (thanks Alan Hettinger)
+  - RRN (South Korean resident registration number)
+    (thanks Dimitri Papadopoulos)
+  - IRD number (New Zealand Inland Revenue Department (Te Tari Tāke) number)
+    (thanks Leandro Regueiro)
+  - CUI (Cédula Única de Identidad, Peruvian identity number)
+  - RUC (Registro Único de Contribuyentes, Peruvian company tax number)
+  - RUC number (Registro Único de Contribuyentes, Paraguay tax number)
+    (thanks Leandro Regueiro)
+  - VKN (Vergi Kimlik Numarası, Turkish tax identification number)
+    (thanks Leandro Regueiro)
+  - RUT (Registro Único Tributario, Uruguay tax number)
+    (Leandro Regueiro)
+  - RIF (Registro de Identificación Fiscal, Venezuelan VAT number)
+    (thanks Kevin Kaiser)
+  - TIN (South African Tax Identification Number) (thanks Leandro Regueiro)
+
+* Support GTIN (EAN-14) validation as part of EAN
+  (thanks Sergi Almacellas Abellana)
+* Support Dominican Republic e-CF within NCF (thanks Jeffry Jesus De La Rosa)
+* Fix Dominican Republic DGII lookups of NCF (thanks Jeffry Jesus De La Rosa)
+* Fix German Handelsregisternummer to not confuse Hamburg with Homburg and to
+  accept shorter numbers (thanks Kevin Kaiser)
+* Support lookups of German Handelsregisternummer in OffeneRegister.de web
+  service
+* Handle - and + sign correctly in Swedish Personnummer
+  (thanks Amin Solhizadeh)
+* Provide various personalid and vat aliases for existing numbers
+  (thanks Andreas Häber)
+* Improve descriptions of Spanish codes (thanks Gerard Dalmau)
+* Fix handling and normalisation of various Unicode digit representations
+  (thanks Helge Munk Jacobsen)
+
+
 changes from 1.10 to 1.11
 -------------------------
 

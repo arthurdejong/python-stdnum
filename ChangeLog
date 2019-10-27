@@ -1,3 +1,492 @@
+2019-10-27  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [6ca5b53] stdnum/at/postleitzahl.dat, stdnum/be/banks.dat,
+	  stdnum/cn/loc.dat, stdnum/eu/nace.dat, stdnum/imsi.dat,
+	  stdnum/isbn.dat, stdnum/isil.dat, stdnum/my/bp.dat,
+	  stdnum/nz/banks.dat, stdnum/oui.dat, stdnum/us/ein.dat,
+	  tests/test_be_iban.doctest: Update database files
+
+	  The BIC for some former Record Bank accounts (now ING Belgium)
+	  was changed from HBKABE22 to BBRUBEBB (that of ING).
+
+2019-10-27  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [5b835bb] update/imsi.py: Parse multiple Wikipedia pages for
+	  full MCC/MNC list
+
+2019-10-27  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [29de83e] update/oui.py: Make the IEEE OUI data more compact
+
+	  This groups consecutive assignments into a range to make the
+	  dat file a little more readable.
+
+2019-10-27  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [67b747b] update/at_postleitzahl.py, update/be_banks.py,
+	  update/cn_loc.py, update/do_whitelists.py, update/iban.py,
+	  update/imsi.py, update/isil.py, update/my_bp.py, update/numlist.py,
+	  update/nz_banks.py, update/oui.py: Switch update scripts to
+	  Python 3
+
+2019-10-27  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [0915b55] update/at_postleitzahl.py, update/be_banks.py,
+	  update/cn_loc.py, update/do_whitelists.py, update/eu_nace.py,
+	  update/iban.py, update/imsi.py, update/isbn.py, update/isil.py,
+	  update/oui.py: Switch update scripts to use requests
+
+	  This makes the scripts more consistent.
+
+2019-10-27  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [40961fc] update/at_postleitzahl.py, update/eu_nace.py,
+	  update/isbn.py, update/isil.py, update/my_bp.py,
+	  update/requirements.txt: Switch update scripts to lxml
+
+	  This avoids an extra dependency on Beautiful Soup and makes the
+	  scripts more consistent.
+
+	  This also includes a fix in the ISIL because of website changes.
+
+2019-10-27  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [c4ad714] update/my_bp.crt, update/my_bp.py: Work around incorrect
+	  jpn.gov.my certificate chain
+
+	  The intermediate certificate for jpn.gov.my is missing from the
+	  certificate chain that is returned by the server since the server
+	  switched to HTTPS.
+
+2019-10-27  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [c9ad8d3] update/nz_banks.py: Fix New Zealand Bank Branch Register
+	  update script
+
+	  There is now a direct URL for the XLS file and there is no longer
+	  a need to search the page for a link.
+
+2019-10-16  Gerard Dalmau <gddalmau@gmail.com>
+
+	* [7f3dcf0] stdnum/es/cif.py, stdnum/es/cups.py, stdnum/es/dni.py,
+	  stdnum/es/nie.py, stdnum/es/nif.py: Improve descriptions of
+	  Spanish codes
+
+	  Closes https://github.com/arthurdejong/python-stdnum/pull/169
+
+2019-10-14  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [54218b1] stdnum/kr/rrn.py: Fix rrn documentation
+
+	  This also fixes Python 2.6 compatibility.
+
+	  Fixes 790a052
+
+2019-10-14  Dimitri Papadopoulos
+<3234522+DimitriPapadopoulos@users.noreply.github.com>
+
+	* [790a052] stdnum/kr/__init__.py, stdnum/kr/rrn.py,
+	  tests/test_kr_rrn.doctest: Add South Korean Resident Registration
+	  Numbers
+
+2019-10-13  Andreas Häber <andreas.haber@puzzel.com>
+
+	* [63a643f] stdnum/au/__init__.py: AU: Provide vat as alias from tfn
+
+	  Closes https://github.com/arthurdejong/python-stdnum/pull/167
+
+2019-10-13  Andreas Häber <andreas.haber@puzzel.com>
+
+	* [6119590] stdnum/at/__init__.py: AT: Provide personalid as an
+	  alias from vnr
+
+	  Closes https://github.com/arthurdejong/python-stdnum/pull/166
+
+2019-10-13  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [3aedb1f] tests/test_ar_cbu.doctest, tests/test_ar_cuit.doctest,
+	  tests/test_au_abn.doctest, tests/test_bg_vat.doctest: Add various
+	  test numbers
+
+2019-09-27  Andreas Häber <andreas.haber@puzzel.com>
+
+	* [d43ad77] stdnum/is_/__init__.py: IS: Provide personalid as an
+	  alias from kennitala
+
+2019-09-27  Andreas Häber <andreas.haber@puzzel.com>
+
+	* [e5d7d9f] stdnum/dk/__init__.py: DK: Provide personalid as an
+	  alias from cpr
+
+2019-09-18  Alan Hettinger <ahettinger@gmail.com>
+
+	* [37e6032] stdnum/jp/__init__.py, stdnum/jp/cn.py,
+	  tests/test_jp_cn.doctest: Add Japan Corporate Number
+
+	  Closes https://github.com/arthurdejong/python-stdnum/pull/157
+
+2019-10-09  Amin Solhizadeh <amin.solhizadeh@oneflow.com>
+
+	* [5441ffa] stdnum/se/personnummer.py,
+	  tests/test_se_personnummer.doctest: Handle - and + sign correctly
+	  in Swedish Personnummer
+
+	  For people aged 100 and up, the minus/dash in the personnummer is
+	  changed to a plus, on new year's eve the year they turn 100. See
+	  Folkbokföringslagen (1991:481), §18.
+
+	  This makes the - or + sign part of the number.
+
+	  Closes https://github.com/arthurdejong/python-stdnum/issues/156
+	  Closes https://github.com/arthurdejong/python-stdnum/pull/160
+
+2019-08-29  Jeffry Jesus De La Rosa <jeffryjesus@gmail.com>
+
+	* [9c18ac5] stdnum/do/ncf.py: Fix broken links to DGII documentation
+
+	  DGII has changed its page, all the link have been broken, so
+	  they changed some URL.
+
+	  Closes https://github.com/arthurdejong/python-stdnum/pull/153
+
+2019-10-11  Jeffry Jesus De La Rosa <jeffryjesus@gmail.com>
+
+	* [ac50afa] stdnum/do/ncf.py: Change DGII form parameters
+
+	  DGII has changed their validation mechanism, so we first exract
+	  the __EVENTVALIDATION and __VIEWSTATE from the form and put them
+	  in the post request for validation.
+
+	  Closes https://github.com/arthurdejong/python-stdnum/pull/165
+
+2019-10-13  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [aadf121] .travis.yml: Avoid skipping missing interpreters
+	  on Travis
+
+2019-08-12  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [8cb71f2] tox.ini: Drop pinning of pydocstyle now flake8-docstrings
+	  has been fixed
+
+	  Reverts 61c762d
+
+2019-08-02  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [d9b4818] setup.cfg: Show missing lines in coverage report
+
+2019-08-02  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [d5bf6e5] .travis.yml: Fix Travis build to use trusty for some
+	  Python versions
+
+	  Python 2.6 is not available xenial which is the default now. The
+	  coverage also does not seem to work for pypy3.
+
+2019-06-23  Leandro Regueiro <leandro.regueiro@gmail.com>
+
+	* [2f38aaf] stdnum/gt/__init__.py, stdnum/gt/nit.py,
+	  tests/test_gt_nit.doctest: Add Guatemalan NIT
+
+	  Closes https://github.com/arthurdejong/python-stdnum/pull/149
+	  Closes https://github.com/arthurdejong/python-stdnum/issues/132
+
+2019-07-21  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [db89d38] stdnum/de/handelsregisternummer.py,
+	  tests/test_de_handelsregisternummer.doctest: Fix the
+	  Handelsregisternummer number matching
+
+	  This ensures that numbers of 1 digit are also accepted and that
+	  trailing characters are not silently discardede in the validation.
+
+	  This also adds a few test cases for this and makes "Paderborn
+	  früher Höxter" an alias for "Paderborn".
+
+	  Closes https://github.com/arthurdejong/python-stdnum/issues/143
+
+2019-07-21  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [e75b1bf] stdnum/de/handelsregisternummer.py,
+	  tests/test_de_handelsregisternummer.py: Lookup German
+	  Handelsregisternummer in OffeneRegister.de
+
+	  This supports looking up the German Handelsregisternummer using
+	  the online OffeneRegister.de web service.
+
+2019-07-21  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [fb72550] tox.ini: Do not require Python 2 for building Sphinx docs
+
+	  This results in tox using Python 3, mostly to work around
+	  https://sourceforge.net/p/docutils/bugs/365/
+
+2019-07-21  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [61c762d] tox.ini: Avoid newer pydocstyle
+
+	  Do not install the latest pydocstyle because it currently breaks
+	  flake8-docstring. This pinning should be removed as soon as
+	  https://gitlab.com/pycqa/flake8-docstrings/issues/36 is resolved.
+
+2019-07-14  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [ad96b15] stdnum/util.py: Support normalising quotes
+
+	  See https://github.com/arthurdejong/python-stdnum/issues/150
+
+2019-06-23  Leandro Regueiro <leandro.regueiro@gmail.com>
+
+	* [4ad2d9c] stdnum/ad/__init__.py, stdnum/ad/nrt.py,
+	  tests/test_ad_nrt.doctest: Add Andorran TIN
+
+	  Closes https://github.com/arthurdejong/python-stdnum/pull/145
+	  Closes https://github.com/arthurdejong/python-stdnum/issues/119
+
+2019-06-15  Leandro Regueiro <leandro.regueiro@gmail.com>
+
+	* [510a46a] stdnum/cr/cr.py, tests/test_cr_cr.doctest: Add Costa
+	  Rica foreigners identification number
+
+	  Part of https://github.com/arthurdejong/python-stdnum/issues/141
+	  Closes https://github.com/arthurdejong/python-stdnum/pull/140
+
+2019-06-15  Leandro Regueiro <leandro.regueiro@gmail.com>
+
+	* [4b10f56] stdnum/cr/cpf.py, tests/test_cr_cpf.doctest: Add Costa
+	  Rica Cédula de Identidad
+
+	  Closes https://github.com/arthurdejong/python-stdnum/issues/139
+
+2019-06-15  Leandro Regueiro <leandro.regueiro@gmail.com>
+
+	* [d0da884] stdnum/cr/__init__.py, stdnum/cr/cpj.py,
+	  tests/test_cr_cpj.doctest: Add Costa Rica TIN number
+
+	  Closes https://github.com/arthurdejong/python-stdnum/issues/109
+
+2019-06-10  Leandro Regueiro <leandro.regueiro@gmail.com>
+
+	* [1e814ce] stdnum/za/__init__.py, stdnum/za/tin.py,
+	  tests/test_za_tin.doctest: Add South Africa TIN number
+
+	  Closes https://github.com/arthurdejong/python-stdnum/pull/129
+	  Closes https://github.com/arthurdejong/python-stdnum/issues/108
+
+2019-06-09  Leandro Regueiro <leandro.regueiro@gmail.com>
+
+	* [8c1015a] stdnum/py/__init__.py, stdnum/py/ruc.py,
+	  tests/test_py_ruc.doctest: Add Paraguay RUC number
+
+	  This supports RUC number validation of rphysical persons,
+	  non-juridical persons and foreigners.
+
+	  Closes https://github.com/arthurdejong/python-stdnum/issues/122
+	  Closes https://github.com/arthurdejong/python-stdnum/pull/123
+
+2019-06-14  Jeffry Jesus De La Rosa <jeffryjesus@gmail.com>
+
+	* [e1ea8db] stdnum/do/ncf.py: Update Dominican Republic e-CF
+	  documents types
+
+	  The document type values are different from the NCF document types
+	  https://dgii.gov.do/contribuyentes/personasFisicas/inicioOperaciones/ComprobantesFiscales/Paginas/comprobantesFiscalesElectronicos.aspx
+
+	  Closes https://github.com/arthurdejong/python-stdnum/pull/138
+
+2019-06-06  Leandro Regueiro <leandro.regueiro@gmail.com>
+
+	* [817c177] stdnum/uy/__init__.py, stdnum/uy/rut.py,
+	  tests/test_uy_rut.doctest: Add Uruguay RUT number
+
+	  Closes https://github.com/arthurdejong/python-stdnum/pull/121
+	  Closes https://github.com/arthurdejong/python-stdnum/issues/110
+
+2019-06-14  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [51e00da] stdnum/de/handelsregisternummer.py,
+	  tests/test_de_handelsregisternummer.doctest: Fix
+	  handelsregisternummer to not turn Hamburg into Homburg
+
+	  This changes the minimisation function that is used for comparison
+	  and canonicalisation to not reduce Hamburg and Homburg to the
+	  same string.	This makes the function slightly more strict in
+	  which encoding differences to accept.
+
+	  This also adds a few aliases to the court names.
+
+	  Closes https://github.com/arthurdejong/python-stdnum/issues/136
+
+2019-06-10  Jeffry Jesus De La Rosa <jeffryjesus@gmail.com>
+
+	* [5d0f288] stdnum/do/ncf.py, tests/test_do_ncf.doctest: Support
+	  Dominican Republic e-CF within NCF
+
+	  e-CF is the new way of DGII document, is the same as NCF, but
+	  the difference one to another, is that e-CF has 13 digit and
+	  is electronic invoice, with this change it will validate the
+	  correct NCF and e-CF.
+
+	  Closes https://github.com/arthurdejong/python-stdnum/pull/135
+
+2019-06-06  Leandro Regueiro <leandro.regueiro@gmail.com>
+
+	* [7fb390e] .gitignore: .gitignore: Also exclude some editor
+	  backup files
+
+2019-06-02  Leandro Regueiro <leandro.regueiro@gmail.com>
+
+	* [7211ccb] stdnum/nz/ird.py, tests/test_nz_ird.doctest: Add New
+	  Zealand IRD number
+
+	  Closes https://github.com/arthurdejong/python-stdnum/pull/112
+	  Closes https://github.com/arthurdejong/python-stdnum/issues/104
+
+2019-06-02  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [c969fc8] stdnum/eu/nace.py: Ignore wrong docstring detection
+
+	  Fixes 170e599
+
+2019-06-02  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [170e599] docs/stdnum.eu.nace.rst, stdnum/eu/nace.py: Rename
+	  stdnum.eu.nace.label() to get_label()
+
+	  To be more consistent with other similar functions. This deprecates
+	  the old function which now is a wrapper around get_label().
+
+2019-06-02  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [6988d91] stdnum/tr/tckimlik.py, stdnum/tr/vkn.py,
+	  tests/test_tr_vkn.doctest: Add Vergi Kimlik Numarası
+
+	  Closes https://github.com/arthurdejong/python-stdnum/issues/99
+
+2019-05-23  Sergi Almacellas Abellana <sergi@koolpi.com>
+
+	* [8292779] stdnum/ean.py: Add GTIN (EAN-14) validation
+
+2019-05-12  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [4ac84c5] stdnum/ve/__init__.py, stdnum/ve/rif.py,
+	  tests/test_ve_rif.doctest: Add Venezuelan RIF (VAT number)
+
+	  Closes https://github.com/arthurdejong/python-stdnum/issues/97
+
+2019-05-01  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [a6521e6] tests/test_isbn.doctest, tox.ini: Fix remaining issue
+	  with encoding
+
+	  This also sets the python 2.6 interpreter explicityly because
+	  sometimes tox seems to get the wrong one.
+
+	  Fixes 680a95f
+
+2019-04-29  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [b1af986] tests/test_isbn.doctest: Re-add Python 2.6 support
+
+	  Fixes 48ff92e
+
+2019-04-28  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [8307b94] setup.cfg: Don't force "" strings to avoid escaping
+	  quotes
+
+	  Fixes test failures with recent flake8-quotes.
+
+2019-04-28  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [c1fb46a] stdnum/util.py, tests/test_util.doctest: Convert
+	  various reasonable unicode digits
+
+	  This converts many of the "reasonable" unicode digits that are
+	  just variations on ASCII 0-9 to their ASCII counterparts.
+
+2019-04-28  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [48ff92e] stdnum/ar/cbu.py, stdnum/ar/cuit.py, stdnum/ar/dni.py,
+	  stdnum/at/businessid.py, stdnum/at/postleitzahl.py,
+	  stdnum/at/tin.py, stdnum/at/uid.py, stdnum/at/vnr.py,
+	  stdnum/au/abn.py, stdnum/au/acn.py, stdnum/au/tfn.py,
+	  stdnum/be/vat.py, stdnum/bg/egn.py, stdnum/bg/pnf.py,
+	  stdnum/bg/vat.py, stdnum/br/cnpj.py, stdnum/br/cpf.py,
+	  stdnum/ca/bn.py, stdnum/ca/sin.py, stdnum/casrn.py,
+	  stdnum/ch/uid.py, stdnum/cl/rut.py, stdnum/cn/ric.py,
+	  stdnum/co/nit.py, stdnum/cu/ni.py, stdnum/cy/vat.py,
+	  stdnum/cz/dic.py, stdnum/cz/rc.py, stdnum/de/idnr.py,
+	  stdnum/de/stnr.py, stdnum/de/vat.py, stdnum/dk/cpr.py,
+	  stdnum/dk/cvr.py, stdnum/do/cedula.py, stdnum/do/ncf.py,
+	  stdnum/do/rnc.py, stdnum/ean.py, stdnum/ec/ci.py, stdnum/ec/ruc.py,
+	  stdnum/ee/ik.py, stdnum/ee/kmkr.py, stdnum/ee/registrikood.py,
+	  stdnum/es/ccc.py, stdnum/es/cif.py, stdnum/es/cups.py,
+	  stdnum/es/dni.py, stdnum/es/nie.py, stdnum/es/nif.py,
+	  stdnum/eu/banknote.py, stdnum/eu/nace.py, stdnum/fi/alv.py,
+	  stdnum/fi/associationid.py, stdnum/fi/veronumero.py,
+	  stdnum/figi.py, stdnum/fr/nif.py, stdnum/fr/nir.py,
+	  stdnum/fr/siren.py, stdnum/fr/siret.py, stdnum/fr/tva.py,
+	  stdnum/gb/nhs.py, stdnum/gb/sedol.py, stdnum/gb/upn.py,
+	  stdnum/gb/vat.py, stdnum/gr/amka.py, stdnum/gr/vat.py,
+	  stdnum/hr/oib.py, stdnum/hu/anum.py, stdnum/ie/vat.py,
+	  stdnum/il/idnr.py, stdnum/imei.py, stdnum/imo.py, stdnum/imsi.py,
+	  stdnum/in_/pan.py, stdnum/is_/vsk.py, stdnum/isbn.py,
+	  stdnum/issn.py, stdnum/it/iva.py, stdnum/lt/asmens.py,
+	  stdnum/lt/pvm.py, stdnum/lu/tva.py, stdnum/lv/pvn.py,
+	  stdnum/md/idno.py, stdnum/meid.py, stdnum/mt/vat.py,
+	  stdnum/mu/nid.py, stdnum/my/nric.py, stdnum/nl/bsn.py,
+	  stdnum/nl/btw.py, stdnum/nl/onderwijsnummer.py,
+	  stdnum/no/fodselsnummer.py, stdnum/no/kontonr.py,
+	  stdnum/no/orgnr.py, stdnum/nz/bankaccount.py, stdnum/pe/cui.py,
+	  stdnum/pe/ruc.py, stdnum/pl/nip.py, stdnum/pl/pesel.py,
+	  stdnum/pl/regon.py, stdnum/pt/nif.py, stdnum/ro/cf.py,
+	  stdnum/ro/cnp.py, stdnum/rs/pib.py, stdnum/ru/inn.py,
+	  stdnum/se/orgnr.py, stdnum/se/personnummer.py, stdnum/se/vat.py,
+	  stdnum/si/ddv.py, stdnum/sk/dph.py, stdnum/sm/coe.py,
+	  stdnum/tr/tckimlik.py, stdnum/us/rtn.py, stdnum/util.py,
+	  tests/test_cn_ric.doctest, tests/test_isbn.doctest,
+	  tests/test_robustness.doctest, tests/test_util.doctest: Use an
+	  internal isdigits() function instead of str.isdigit()
+
+	  The problem with the latter is that it will also accept all kinds
+	  of unicode digits that are not the ASCII 0-9 digits causing all
+	  kinds of problems in check digit calculations.
+
+	  Some of these unicode characters are also considered digits
+	  by int() but some are not (such as the SUPERSCRIPT TWO unicode
+	  character).
+
+	  Closes https://github.com/arthurdejong/python-stdnum/issues/96
+
+2019-04-04  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [3aeec68] stdnum/il/__init__.py, stdnum/il/idnr.py: Add Israeli
+	  identity number
+
+2019-03-24  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [e07a0e2] stdnum/pe/cui.py, tests/test_pe_cui.doctest: Add
+	  Peruvian CUI (DNI)
+
+2019-03-23  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [2e87251] stdnum/pe/__init__.py, stdnum/pe/ruc.py,
+	  tests/test_pe_ruc.doctest: Add Peruvian RUC
+
+2019-03-10  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [72cbfb8] ChangeLog, NEWS, README, docs/changes.rst, docs/conf.py,
+	  docs/index.rst, docs/stdnum.ar.dni.rst, docs/stdnum.at.vnr.rst,
+	  docs/stdnum.cu.ni.rst, docs/stdnum.gr.amka.rst,
+	  docs/stdnum.lt.asmens.rst, docs/stdnum.mac.rst,
+	  docs/stdnum.md.idno.rst, docs/stdnum.mx.curp.rst,
+	  docs/stdnum.no.fodselsnummer.rst, docs/stdnum.nz.bankaccount.rst,
+	  docs/stdnum.se.personnummer.rst, stdnum/__init__.py: Get files
+	  ready for 1.11 release
+
+	  This also adds the release notes to the generated documentation.
+
 2019-03-10  Arthur de Jong <arthur@arthurdejong.org>
 
 	* [fdeeb9a] stdnum/at/postleitzahl.dat, stdnum/be/banks.dat,

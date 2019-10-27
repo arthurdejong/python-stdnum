@@ -100,6 +100,7 @@ Available formats
 .. autosummary::
    :toctree:
 
+   ad.nrt
    al.nipt
    ar.cbu
    ar.cuit
@@ -130,6 +131,9 @@ Available formats
    cl.rut
    cn.ric
    co.nit
+   cr.cpf
+   cr.cpj
+   cr.cr
    cu.ni
    cusip
    cy.vat
@@ -182,11 +186,13 @@ Available formats
    gr.amka
    gr.vat
    grid
+   gt.nit
    hr.oib
    hu.anum
    iban
    ie.pps
    ie.vat
+   il.idnr
    imei
    imo
    imsi
@@ -204,6 +210,8 @@ Available formats
    issn
    it.codicefiscale
    it.iva
+   jp.cn
+   kr.rrn
    lei
    lt.asmens
    lt.pvm
@@ -230,10 +238,14 @@ Available formats
    no.mva
    no.orgnr
    nz.bankaccount
+   nz.ird
+   pe.cui
+   pe.ruc
    pl.nip
    pl.pesel
    pl.regon
    pt.nif
+   py.ruc
    ro.cf
    ro.cnp
    rs.pib
@@ -246,6 +258,7 @@ Available formats
    sk.rc
    sm.coe
    tr.tckimlik
+   tr.vkn
    us.atin
    us.ein
    us.itin
@@ -253,6 +266,9 @@ Available formats
    us.rtn
    us.ssn
    us.tin
+   uy.rut
+   ve.rif
+   za.tin
 
 
 Changes in python-stdnum
