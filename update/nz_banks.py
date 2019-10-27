@@ -23,7 +23,6 @@
 """This script downloads the list of banks with bank codes as used in the
 New Zealand bank account numbers."""
 
-import os.path
 import re
 from collections import OrderedDict, defaultdict
 
@@ -31,33 +30,8 @@ import requests
 import xlrd
 
 
-try:
-    from urllib.parse import urljoin
-except ImportError:
-    from urlparse import urljoin
-
-
-try:
-    from bs4 import BeautifulSoup
-except ImportError:
-    from BeautifulSoup import BeautifulSoup
-
-
 # The page that contains a link to the latest XLS version of the codes.
-download_url = (
-    'https://www.paymentsnz.co.nz' +
-    '/resources/industry-registers/bank-branch-register/')
-
-
-def find_download_url():
-    """Find the spreadsheet URL on the New Zealand Bank Branch Register."""
-    response = requests.get(download_url)
-    soup = BeautifulSoup(response.content)
-    url = soup.find(
-        'a',
-        attrs=dict(
-            href=re.compile(r'/documents/.*/Bank_Branch_Register_.*.xls')))['href']
-    return urljoin(download_url, url)
+download_url = 'https://www.paymentsnz.co.nz/resources/industry-registers/bank-branch-register/download/xls/'
 
 
 def get_values(sheet):
@@ -91,15 +65,15 @@ def branch_list(branches):
 
 
 if __name__ == '__main__':
-    # download/parse the information
-    url = find_download_url()
     # parse the download as an XLS
-    response = requests.get(url)
+    response = requests.get(download_url)
+    response.raise_for_status()
+    content_disposition = response.headers.get('content-disposition', '')
+    filename = re.findall(r'filename=?(.+)"?', content_disposition)[0].strip('"')
     workbook = xlrd.open_workbook(file_contents=response.content)
     sheet = workbook.sheet_by_index(0)
     # print header
-    print('# generated from %s downloaded from ' %
-          os.path.basename(url))
+    print('# generated from %s downloaded from ' % filename)
     print('# %s' % download_url)
     # build banks list from spreadsheet
     banks = defaultdict(dict)
