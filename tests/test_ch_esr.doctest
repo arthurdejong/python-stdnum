@@ -1,0 +1,64 @@
+test_ch_esr.doctest - more detailed doctests for the stdnum.ch.esr module
+
+Copyright (C) 2019 Kurt Keller
+
+This library is free software; you can redistribute it and/or
+modify it under the terms of the GNU Lesser General Public
+License as published by the Free Software Foundation; either
+version 2.1 of the License, or (at your option) any later version.
+
+This library is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+Lesser General Public License for more details.
+
+You should have received a copy of the GNU Lesser General Public
+License along with this library; if not, write to the Free Software
+Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
+02110-1301 USA
+
+
+This file contains more detailed doctests for the stdnum.ch.esr module.
+
+>>> from stdnum.ch import esr
+>>> from stdnum.exceptions import *
+
+
+Some more detailed tests.
+
+>>> esr.validate('210000000003139471430009016')
+Traceback (most recent call last):
+    ...
+InvalidChecksum: ...
+>>> esr.validate('2100000000031394714300090168')
+Traceback (most recent call last):
+    ...
+InvalidLength: ...
+>>> esr.validate('21000000000313947143000TE45')
+Traceback (most recent call last):
+    ...
+InvalidFormat: ...
+
+
+These have been taken from actual payment slips and should all be valid
+numbers.
+
+>>> numbers = '''
+...
+... 20 12440 00000 46370 02019 05153
+... 1009 76741 00001 47457 50114
+... 1001007711461312058
+... 361610000000000020190704093
+... 31 23711 80610 58530 00071 92101
+... 18 78583
+... 36 13030 00000 00000 00000 04142
+... 01 73575 51208 21125 03398 69724
+... 2101315000320229184501
+... 90 00170 00000 00214 95962 25686
+... 432130000000000573490016096
+... 201244000000463700201900994
+... 32 29790 00000 19151 00002 79617
+...
+... '''
+>>> [x for x in numbers.splitlines() if x and not esr.is_valid(x)]
+[]
