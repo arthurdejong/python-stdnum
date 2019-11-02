@@ -43,6 +43,7 @@ Currently this package supports the following formats:
  * Swiss social security number ("Sozialversicherungsnummer")
  * UID (Unternehmens-Identifikationsnummer, Swiss business identifier)
  * VAT, MWST, TVA, IVA, TPV (Mehrwertsteuernummer, the Swiss VAT number)
+ * ESR, ISR, QR-reference (reference number on Swiss payment slips)
  * RUT (Rol Único Tributario, Chilean national tax number)
  * RIC No. (Chinese Resident Identity Card Number)
  * NIT (Número De Identificación Tributaria, Colombian identity code)

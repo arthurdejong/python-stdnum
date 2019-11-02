@@ -1,3 +1,12 @@
+2019-11-02  Kurt Keller <Kurt@pinboard.jp>
+
+	* stdnum/ch/esr.py,
+	  tests/test_ch_esr.doctest, docs/stdnum.ch.esr.rst: Add Swiss
+	  ESR numbers
+
+	  The Swiss ESR/ISR/QR-reference is a reference number used on
+	  payment slips.
+
 2019-10-27  Arthur de Jong <arthur@arthurdejong.org>
 
 	* [6ca5b53] stdnum/at/postleitzahl.dat, stdnum/be/banks.dat,

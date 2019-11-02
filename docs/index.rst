@@ -128,6 +128,7 @@ Available formats
    ch.ssn
    ch.uid
    ch.vat
+   ch.esr
    cl.rut
    cn.ric
    co.nit
