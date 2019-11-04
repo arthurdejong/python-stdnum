@@ -41,6 +41,8 @@ True
 Traceback (most recent call last):
     ...
 InvalidChecksum: ...
+>>> format('RF18539007547034')
+'RF18 5390 0754 7034'
 """
 
 from stdnum.exceptions import *
@@ -73,3 +75,14 @@ def is_valid(number):
         return bool(validate(number))
     except ValidationError:
         return False
+
+
+def format(number):
+    """Format the number provided for output.
+
+    Blocks of 4 characters, the last block can be less than 4 characters. See
+    https://www.paymentstandards.ch/dam/downloads/ig-qr-bill-en.pdf chapter
+    3.6.2.
+    """
+    number = compact(number)
+    return ' '.join(number[i:i + 4] for i in range(0, len(number), 4))
