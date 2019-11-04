@@ -65,6 +65,14 @@ def validate(number):
     mod_97_10.validate(number[4:] + number[:4])
     return number
 
+def format(number):
+    """Format the number provided for output. Blocks of 4 characters, the
+       last block can be less than 4 characters.
+       See https://www.paymentstandards.ch/dam/downloads/ig-qr-bill-en.pdf
+       chapter 3.6.2"""
+    number = compact(number)
+    return ' '.join(number[i:i + 4] for i in range(0, len(number), 4))
+
 
 def is_valid(number):
     """Check if the number provided is a valid ISO 11649 structured creditor
