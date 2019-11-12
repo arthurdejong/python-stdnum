@@ -18,7 +18,7 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 # 02110-1301 USA
 
-"""CNPJ (Cadastro Nacional da Pessoa Jurídica, Brazillian company identifier).
+"""CNPJ (Cadastro Nacional da Pessoa Jurídica, Brazilian company identifier).
 
 Numbers from the national register of legal entities have 14 digits. The
 first 8 digits identify the company, the following 4 digits identify a

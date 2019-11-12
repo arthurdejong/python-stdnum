@@ -249,7 +249,7 @@ changes from 1.1 to 1.2
 * Add modules for the following number formats:
 
   - Austrian Company Register Numbers
-  - CNPJ (Cadastro Nacional da Pessoa Jurídica, Brazillian company identifier)
+  - CNPJ (Cadastro Nacional da Pessoa Jurídica, Brazilian company identifier)
   - UID (Unternehmens-Identifikationsnummer, Swiss business identifier)
   - VAT, MWST, TVA, IVA, TPV (Mehrwertsteuernummer, the Swiss VAT number)
   - CUSIP number (financial security identification number)
@@ -448,7 +448,7 @@ changes from 0.3 to 0.4
 
 * Add modules for the following number formats:
 
-  - CPF (Cadastro de Pessoas Físicas, the Brazillian national identification
+  - CPF (Cadastro de Pessoas Físicas, the Brazilian national identification
     number)
   - IBAN (International Bank Account Number)
   - ISIL (International Standard Identifier for Libraries and Related
