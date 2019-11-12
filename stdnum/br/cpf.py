@@ -18,7 +18,7 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 # 02110-1301 USA
 
-"""CPF (Cadastro de Pessoas Físicas, Brazillian national identifier).
+"""CPF (Cadastro de Pessoas Físicas, Brazilian national identifier).
 
 The Cadastro de Pessoas Físicas is the Brazilian identification number
 assigned to individuals for tax purposes. The number consists of 11 digits

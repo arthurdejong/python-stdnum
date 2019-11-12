@@ -1,4 +1,4 @@
-# __init__.py - collection of Brazillian numbers
+# __init__.py - collection of Brazilian numbers
 # coding: utf-8
 #
 # Copyright (C) 2012 Arthur de Jong
@@ -18,4 +18,4 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 # 02110-1301 USA
 
-"""Collection of Brazillian numbers."""
+"""Collection of Brazilian numbers."""

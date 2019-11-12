@@ -35,8 +35,8 @@ Currently this package supports the following formats:
  * VAT (Идентификационен номер по ДДС, Bulgarian VAT number)
  * BIC (ISO 9362 Business identifier codes)
  * Bitcoin address
- * CNPJ (Cadastro Nacional da Pessoa Jurídica, Brazillian company identifier)
- * CPF (Cadastro de Pessoas Físicas, Brazillian national identifier)
+ * CNPJ (Cadastro Nacional da Pessoa Jurídica, Brazilian company identifier)
+ * CPF (Cadastro de Pessoas Físicas, Brazilian national identifier)
  * BN (Canadian Business Number)
  * SIN (Canadian Social Insurance Number)
  * CAS RN (Chemical Abstracts Service Registry Number)

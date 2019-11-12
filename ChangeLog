@@ -1913,7 +1913,7 @@ Jong <arthur@arthurdejong.org>
 
 2016-07-26  Arthur de Jong <arthur@arthurdejong.org>
 
-	* [1907c67] stdnum/br/cpf.py: Add documentation to Brazillian CPF
+	* [1907c67] stdnum/br/cpf.py: Add documentation to Brazilian CPF
 
 2016-07-26  Arthur de Jong <arthur@arthurdejong.org>
 
@@ -2320,10 +2320,10 @@ Jong <arthur@arthurdejong.org>
 2015-08-16  Arthur de Jong <arthur@arthurdejong.org>
 
 	* [714fa60] stdnum/br/cnpj.py, tests/test_br_cnpj.doctest: Add
-	  Brazillian CNPJ business identifier
+	  Brazilian CNPJ business identifier
 
 	  Add module for Cadastro Nacional da Pessoa Jurídica, the
-	  Brazillian company identifier.
+	  Brazilian company identifier.
 
 2015-08-16  Arthur de Jong <arthur@arthurdejong.org>
 
@@ -3146,7 +3146,7 @@ Jong <arthur@arthurdejong.org>
 
 2013-05-17  Arthur de Jong <arthur@arthurdejong.org>
 
-	* [54ce2d7] stdnum/br/cpf.py: Implement validate() for Brazillian
+	* [54ce2d7] stdnum/br/cpf.py: Implement validate() for Brazilian
 	  numbers
 
 2013-05-17  Arthur de Jong <arthur@arthurdejong.org>
