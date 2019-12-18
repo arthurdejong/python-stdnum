@@ -35,6 +35,7 @@ Application Identifiers (AI)
 from collections import deque
 from datetime import date, datetime
 
+from stdnum.exceptions import *
 from stdnum.util import clean
 
 
@@ -186,6 +187,10 @@ APPLICATION_CODES = {
 }
 
 
+def _convert_str(val):
+    return str(val).strip()
+
+
 def _convert_date(val):
     return datetime.strptime(val, '%y%m%d').date()
 
@@ -201,6 +206,7 @@ def _convert_float(val):
 
 
 CONVERTERS = {
+    str: _convert_str,
     date: _convert_date,
     int: _convert_int,
     float: _convert_float,
@@ -244,7 +250,7 @@ def compact(number):
     return clean(number, '()').strip()
 
 
-def info(code):
+def info(code, stopchar=None):
     """
     Return a dictionary containing the gs1-128 info embeded in code
 
@@ -253,8 +259,10 @@ def info(code):
         * datetime.date: for date values
         * int: for int values
         * float: for numeric values
-
     Escape characters are also removed
+
+    If stopchar is set it will be used as FNC1 to determine the end
+    of a variable application code
     """
     code = compact(code)
     queue = deque(code)
@@ -263,29 +271,35 @@ def info(code):
     identifier = ''
     while queue:
         identifier += queue.popleft()
-        if identifier in APPLICATION_CODES:
-            converter, length, variable = APPLICATION_CODES[identifier]
-            value = ''
-            for _ in range(length):
-                try:
-                    char = queue.popleft()
-                    # If it's a stop char do not continue
-                    if variable and char == chr(206):
-                        break
-                    value += char
-                except IndexError:
-                    pass
-            data[identifier] = CONVERTERS.get(converter, lambda a: a)(value)
-            identifier = ''
+        if identifier not in APPLICATION_CODES:
+            if len(identifier) < 4:
+                continue
+            raise InvalidComponent(identifier)
+        converter, length, variable = APPLICATION_CODES[identifier]
+        value = ''
+        for _ in range(length):
+            try:
+                char = queue.popleft()
+                # If it's a stop char do not continue
+                if variable and stopchar and char == stopchar:
+                    break
+                value += char
+            except IndexError:
+                pass
+        data[identifier] = CONVERTERS[converter](value)
+        identifier = ''
     return data
 
 
-def encode(data):
+def encode(data, stopchar=None):
     """
     Return a GS1-128 code for application identifiers contained in the data
     dictionary
 
     Use the compacted version of the code
+
+    If stopchar is set it will be used as FNC1 representation and variable
+    fields will not include blank fields
     """
     code = ''
     # Use sorted to keep a logical order of keys
@@ -295,10 +309,10 @@ def encode(data):
             code += key
             value = ENCODERS[encoder](data[key], length)
             # Add stop character to make code shorter
-            if variable and len(value.rstrip()) < length:
-                value = value.rstrip() + chr(206)
+            if variable and stopchar and len(value.rstrip()) < length:
+                value = value.rstrip() + stopchar
             code += value
-    # Last stop charcher is not necessary
-    if code and code[-1] == chr(206):
+    # Last stopchar is not necessary
+    if code and stopchar and code[-1] == stopchar:
         code = code[:-1]
     return compact(code)
