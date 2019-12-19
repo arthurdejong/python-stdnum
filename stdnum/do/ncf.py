@@ -174,7 +174,7 @@ def check_dgii(rnc, ncf, timeout=30):  # pragma: no cover
         'User-Agent': 'Mozilla/5.0 (python-stdnum)',
     }
     result = BeautifulSoup(
-        requests.get(url, headers=headers, timeout=timeout).text)
+        requests.get(url, headers=headers, timeout=timeout).text, features="lxml")
     validation = result.find('input', {'name': '__EVENTVALIDATION'})['value']
     viewstate = result.find('input', {'name': '__VIEWSTATE'})['value']
     data = {
@@ -185,7 +185,7 @@ def check_dgii(rnc, ncf, timeout=30):  # pragma: no cover
         'ctl00$cphMain$txtRNC': rnc,
     }
     result = BeautifulSoup(
-        requests.post(url, headers=headers, data=data, timeout=timeout).text)
+        requests.post(url, headers=headers, data=data, timeout=timeout).text, features="lxml")
     results = result.find(id='ctl00_cphMain_pResultado')
     if results:
         data = {
