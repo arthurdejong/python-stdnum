@@ -82,7 +82,7 @@ def get_label(number):
 
 
 def label(number):  # pragma: no cover (deprecated function)
-    """DEPRECATED: use `get_label()` instead."""  # noqa: D402
+    """DEPRECATED: use `get_label()` instead."""  # noqa: D40
     warnings.warn(
         'label() has been to get_label()',
         DeprecationWarning, stacklevel=2)
