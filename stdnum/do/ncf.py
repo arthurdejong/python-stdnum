@@ -161,11 +161,8 @@ def check_dgii(rnc, ncf, timeout=30):  # pragma: no cover
         }
 
     Will return None if the number is invalid or unknown."""
+    import lxml.html
     import requests
-    try:
-        from bs4 import BeautifulSoup
-    except ImportError:
-        from BeautifulSoup import BeautifulSoup
     from stdnum.do.rnc import compact as rnc_compact
     rnc = rnc_compact(rnc)
     ncf = compact(ncf)
@@ -173,10 +170,11 @@ def check_dgii(rnc, ncf, timeout=30):  # pragma: no cover
     headers = {
         'User-Agent': 'Mozilla/5.0 (python-stdnum)',
     }
-    result = BeautifulSoup(
+    # Get the page to pick up needed form parameters
+    document = lxml.html.fromstring(
         requests.get(url, headers=headers, timeout=timeout).text)
-    validation = result.find('input', {'name': '__EVENTVALIDATION'})['value']
-    viewstate = result.find('input', {'name': '__VIEWSTATE'})['value']
+    validation = document.find('.//input[@name="__EVENTVALIDATION"]').get('value')
+    viewstate = document.find('.//input[@name="__VIEWSTATE"]').get('value')
     data = {
         '__EVENTVALIDATION': validation,
         '__VIEWSTATE': viewstate,
@@ -184,14 +182,15 @@ def check_dgii(rnc, ncf, timeout=30):  # pragma: no cover
         'ctl00$cphMain$txtNCF': ncf,
         'ctl00$cphMain$txtRNC': rnc,
     }
-    result = BeautifulSoup(
+    # Do the actual request
+    document = lxml.html.fromstring(
         requests.post(url, headers=headers, data=data, timeout=timeout).text)
-    results = result.find(id='ctl00_cphMain_pResultado')
-    if results:
+    result = document.find('.//div[@id="ctl00_cphMain_pResultado"]')
+    if result is not None:
         data = {
-            'validation_message': result.find(id='ctl00_cphMain_lblInformacion').get_text().strip(),
+            'validation_message': document.findtext('.//*[@id="ctl00_cphMain_lblInformacion"]').strip(),
         }
         data.update(zip(
-            [x.get_text().strip().rstrip(':') for x in results.find_all('strong')],
-            [x.get_text().strip() for x in results.find_all('span')]))
+            [x.text.strip().rstrip(':') for x in result.findall('.//strong')],
+            [x.text.strip() for x in result.findall('.//span')]))
         return _convert_result(data)
