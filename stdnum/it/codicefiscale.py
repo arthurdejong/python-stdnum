@@ -7,7 +7,7 @@
 #
 # Copyright (C) 2009-2013 Emanuele Rocca
 # Copyright (C) 2014 Augusto Destrero
-# Copyright (C) 2014 Arthur de Jong
+# Copyright (C) 2014-2020 Arthur de Jong
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -26,18 +26,31 @@
 
 """Codice Fiscale (Italian tax code for individuals).
 
-The Codice Fiscale is an alphanumeric code of 16 characters used to
-identify individuals residing in Italy. The number consists of three
-characters derived from the person's last name, three from the person's
-first name, five that hold information on the person's gender and birth
-date, four that represent the person's place of birth and one check digit.
+The Codice Fiscale is an alphanumeric code of 16 characters used to identify
+individuals residing in Italy or 11 digits for non-individuals in which case
+it matches the Imposta sul valore aggiunto.
 
->>> validate('RCCMNL83S18D969H')
+The 16 digit number consists of three characters derived from the person's
+last name, three from the person's first name, five that hold information on
+the person's gender and birth date, four that represent the person's place of
+birth and one check digit.
+
+More information:
+
+* https://it.m.wikipedia.org/wiki/Codice_fiscale
+
+>>> validate('RCCMNL83S18D969H')  # personal number
 'RCCMNL83S18D969H'
 >>> validate('RCCMNL83S18D969')
 Traceback (most recent call last):
     ...
 InvalidLength: ...
+>>> validate('00743110157')  # company number
+'00743110157'
+>>> validate('00743110158')  # company number with invalid check digit
+Traceback (most recent call last):
+    ...
+InvalidChecksum: ...
 >>> calc_check_digit('RCCMNL83S18D969')
 'H'
 """
@@ -46,10 +59,11 @@ import datetime
 import re
 
 from stdnum.exceptions import *
+from stdnum.it import iva
 from stdnum.util import clean
 
 
-# regular expression for matching fiscal codes
+# regular expression for matching personal fiscal codes
 _code_re = re.compile(
     r'^[A-Z]{6}'
     r'[0-9LMNPQRSTUV]{2}[ABCDEHLMPRST]{1}[0-9LMNPQRSTUV]{2}'
@@ -80,12 +94,12 @@ del values
 def compact(number):
     """Convert the number to the minimal representation. This strips the
     number of any valid separators and removes surrounding whitespace."""
-    return clean(number, ' ').strip().upper()
+    return clean(number, ' -:').strip().upper()
 
 
 def calc_check_digit(number):
-    """Compute the control code for the given number. The passed number
-    should be the first 15 characters of a fiscal code."""
+    """Compute the control code for the given personal number. The passed
+    number should be the first 15 characters of a fiscal code."""
     code = sum(_odd_values[x] if n % 2 == 0 else _even_values[x]
                for n, x in enumerate(number))
     return 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'[code % 26]
@@ -103,6 +117,8 @@ def get_birth_date(number, minyear=1920):
     datetime.date(2083, 11, 18)
     """
     number = compact(number)
+    if len(number) != 16:
+        raise InvalidComponent()
     day = (_date_digits[number[9]] * 10 + _date_digits[number[10]]) % 40
     month = _month_digits[number[8]] + 1
     year = _date_digits[number[6]] * 10 + _date_digits[number[7]]
@@ -125,6 +141,8 @@ def get_gender(number):
     'F'
     """
     number = compact(number)
+    if len(number) != 16:
+        raise InvalidComponent()
     return 'M' if int(number[9:11]) < 32 else 'F'
 
 
@@ -132,6 +150,8 @@ def validate(number):
     """Check if the given fiscal code is valid. This checks the length and
     whether the check digit is correct."""
     number = compact(number)
+    if len(number) == 11:
+        return iva.validate(number)
     if len(number) != 16:
         raise InvalidLength()
     if not _code_re.match(number):

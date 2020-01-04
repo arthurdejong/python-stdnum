@@ -2,7 +2,7 @@ test_it_codicefiscale.doctest - tests for the stdnum.it.codicefiscale module
 
 Copyright (C) 2009-2013 Emanuele Rocca
 Copyright (C) 2014 Augusto Destrero
-Copyright (C) 2014 Arthur de Jong
+Copyright (C) 2014-2020 Arthur de Jong
 
 This library is free software; you can redistribute it and/or
 modify it under the terms of the GNU Lesser General Public
@@ -89,6 +89,10 @@ datetime.date(1945, 3, 12)
 datetime.date(1945, 3, 12)
 >>> codicefiscale.get_birth_date('MRTNTN23M02D969P')
 datetime.date(1923, 8, 2)
+>>> codicefiscale.get_birth_date('00743110157')  # only for personal numbers
+Traceback (most recent call last):
+    ...
+InvalidComponent: ...
 
 
 Test getting the gender.
@@ -107,6 +111,10 @@ Test getting the gender.
 'M'
 >>> codicefiscale.get_gender('MAILCU91A25F839D')
 'M'
+>>> codicefiscale.get_gender('00743110157')  # only for personal numbers
+Traceback (most recent call last):
+    ...
+InvalidComponent: ...
 
 
 Test calculating the check digit.
