@@ -27,8 +27,12 @@
 The CUIT is a taxpayer identification number used for VAT (IVA, Impuesto al
 Valor Agregado) and other taxes.
 
->>> validate('200-5536168-2')
+>>> validate('20-05536168-2')
 '20055361682'
+>>> validate('200-5536168-2')
+Traceback (most recent call last):
+    ...
+InvalidFormat: ...
 >>> validate('2026756539')
 Traceback (most recent call last):
     ...
@@ -45,8 +49,13 @@ InvalidChecksum: ...
 '20-26756539-3'
 """
 
+import re
+
 from stdnum.exceptions import *
 from stdnum.util import clean, isdigits
+
+
+CUIT_REGEX = r'^(20|23|24|27|30|33|34|50|51|55)-[0-9]{8}-[0-9]$'
 
 
 def compact(number):
@@ -64,11 +73,12 @@ def calc_check_digit(number):
 
 def validate(number):
     """Check if the number is a valid CUIT."""
+    if re.match(CUIT_REGEX, number) is None and \
+            re.match(CUIT_REGEX, number) is None:
+        raise InvalidFormat()
     number = compact(number)
     if len(number) != 11:
         raise InvalidLength()
-    if not isdigits(number):
-        raise InvalidFormat()
     if calc_check_digit(number[:-1]) != number[-1]:
         raise InvalidChecksum()
     return number
@@ -84,5 +94,5 @@ def is_valid(number):
 
 def format(number):
     """Reformat the number to the standard presentation format."""
-    number = compact(number)
+    number = validate(number)
     return (number[0:2] + '-' + number[2:10] + '-' + number[10:])
