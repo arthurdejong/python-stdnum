@@ -47,6 +47,36 @@ InvalidLength: ...
 from stdnum.exceptions import *
 from stdnum.util import clean, isdigits
 
+char_to_int = {
+    'A' : 10,
+    'B' : 11,
+    'C' : 12,
+    'D' : 13,
+    'E' : 14,
+    'F' : 15,
+    'G' : 16,
+    'H' : 17,
+    'I' : 18,
+    'J' : 19,
+    'K' : 20,
+    'L' : 21,
+    'M' : 22,
+    'N' : 23,
+    'O' : 24,
+    'P' : 25,
+    'Q' : 26,
+    'R' : 27,
+    'S' : 28,
+    'T' : 29,
+    'U' : 30,
+    'V' : 31,
+    'W' : 32,
+    'X' : 33,
+    'Y' : 34,
+    'Z' : 35,
+    '+' : 36,
+    '*' : 37,
+}
 
 def compact(number):
     """Convert the number to the minimal representation. This strips the
@@ -72,7 +102,12 @@ def validate(number):
     if len(number) != 9:
         raise InvalidLength()
     if checksum(number) != 0:
-        raise InvalidChecksum()
+        check_val = '2321'
+        for x in number:
+            if x.isdigit(): check_val += x
+            else: check_val += str(char_to_int[x])
+        if int(check_val_sole) % 97 != 1:
+            raise InvalidChecksum()
     return number
 
 
