@@ -33,9 +33,11 @@ More information:
 >>> validate('NL4495445B01')
 '004495445B01'
 >>> validate('123456789B90')
+'123456789B90'
+>>> validate('12X456789B90')
 Traceback (most recent call last):
     ...
-InvalidChecksum: ...
+InvalidFormat: ...
 """
 
 from stdnum.exceptions import *
@@ -62,7 +64,8 @@ def validate(number):
         raise InvalidLength()
     if number[9] != 'B':
         raise InvalidFormat()
-    bsn.validate(number[:9])
+    if not isdigits(number[:9]):
+        raise InvalidFormat()
     return number
 
 
