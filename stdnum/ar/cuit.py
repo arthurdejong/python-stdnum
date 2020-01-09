@@ -74,7 +74,7 @@ def calc_check_digit(number):
 def validate(number):
     """Check if the number is a valid CUIT."""
     if re.match(CUIT_REGEX, number) is None and \
-            re.match(CUIT_REGEX, number) is None:
+            re.match(r'^[0-9]{11}', number) is None:
         raise InvalidFormat()
     number = compact(number)
     if len(number) != 11:
