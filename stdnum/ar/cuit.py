@@ -27,16 +27,12 @@
 The CUIT is a taxpayer identification number used for VAT (IVA, Impuesto al
 Valor Agregado) and other taxes.
 
->>> validate('200-5536168-2')
+More information:
+
+* https://es.wikipedia.org/wiki/Clave_Única_de_Identificación_Tributaria
+
+>>> validate('20-05536168-2')
 '20055361682'
->>> validate('2026756539')
-Traceback (most recent call last):
-    ...
-InvalidLength: ...
->>> validate('2026756A393')
-Traceback (most recent call last):
-    ...
-InvalidFormat: ...
 >>> validate('20267565392')
 Traceback (most recent call last):
     ...
@@ -62,6 +58,14 @@ def calc_check_digit(number):
     return '012345678990'[11 - check]
 
 
+# The different types of CUIT that are known
+_cuit_tpes = (
+    '20', '23', '24', '27',     # individuals
+    '30', '33', '34',           # companies
+    '50', '51', '55',           # international purposes
+)
+
+
 def validate(number):
     """Check if the number is a valid CUIT."""
     number = compact(number)
@@ -69,6 +73,8 @@ def validate(number):
         raise InvalidLength()
     if not isdigits(number):
         raise InvalidFormat()
+    if number[:2] not in _cuit_tpes:
+        raise InvalidComponent()
     if calc_check_digit(number[:-1]) != number[-1]:
         raise InvalidChecksum()
     return number

@@ -25,6 +25,24 @@ tries to validate a number of numbers that have been found online.
 >>> from stdnum.exceptions import *
 
 
+Test some corner cases.
+
+>>> cuit.validate('20-05536168-2')
+'20055361682'
+>>> cuit.validate('2026756539')
+Traceback (most recent call last):
+    ...
+InvalidLength: ...
+>>> cuit.validate('2026756A393')
+Traceback (most recent call last):
+    ...
+InvalidFormat: ...
+>>> cuit.validate('99-05536168-8')
+Traceback (most recent call last):
+    ...
+InvalidComponent: ...
+
+
 These have been found online and should all be valid numbers.
 
 >>> numbers = '''
