@@ -1,6 +1,6 @@
 test_eu_vat.doctest - more detailed doctests for the stdnum.eu.vat module
 
-Copyright (C) 2012-2017 Arthur de Jong
+Copyright (C) 2012-2020 Arthur de Jong
 
 This library is free software; you can redistribute it and/or
 modify it under the terms of the GNU Lesser General Public
@@ -562,8 +562,12 @@ These have been found online and should all be valid numbers.
 ... NL.0094.10.806.B.01
 ... NL.8143.26.584.B.01
 ... NL.8186.43.778.B.01
+... NL001162938B28
 ... NL001309675B01
+... NL001452330B47
 ... NL001545668B01
+... NL001617419B92
+... NL002455799B11
 ... NL003376734B77
 ... NL00449544B01
 ... NL006375054B01
