@@ -72,10 +72,14 @@ _iso_3116_1_country_codes = [
 # These special code are allowed for ISIN
 _country_codes = set(_iso_3116_1_country_codes + [
     'EU',  # European Union
+    'QS',  # internally used by Euroclear France
+    'QS',  # temporarily assigned in Germany
+    'QT',  # internally used in Switzerland
     'XA',  # CUSIP Global Services substitute agencies
     'XB',  # NSD Russia substitute agencies
     'XC',  # WM Datenservice Germany substitute agencies
     'XD',  # SIX Telekurs substitute agencies
+    'XF',  # internally assigned, not unique numbers
     'XK',  # temporary country code for Kosovo
     'XS',  # international securities
 ])
