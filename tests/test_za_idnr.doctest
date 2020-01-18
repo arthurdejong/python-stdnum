@@ -1,0 +1,90 @@
+test_za_idnr.doctest - more detailed doctests for stdnum.za.idnr module
+
+Copyright (C) 2020 Arthur de Jong
+
+This library is free software; you can redistribute it and/or
+modify it under the terms of the GNU Lesser General Public
+License as published by the Free Software Foundation; either
+version 2.1 of the License, or (at your option) any later version.
+
+This library is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+Lesser General Public License for more details.
+
+You should have received a copy of the GNU Lesser General Public
+License along with this library; if not, write to the Free Software
+Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
+02110-1301 USA
+
+
+This file contains more detailed doctests for the stdnum.za.idnr module. It
+tries to test more corner cases and detailed functionality that is not really
+useful as module documentation.
+
+>>> from stdnum.za import idnr
+
+
+Tests for some corner cases.
+
+>>> idnr.validate('7611055077082')
+'7611055077082'
+>>> idnr.get_gender('7611055077082')
+'M'
+>>> idnr.get_gender('7209170838080')
+'F'
+>>> idnr.get_birth_date('7611055077082')
+datetime.date(1976, 11, 5)
+>>> idnr.get_birth_date('0001015077082')
+datetime.date(2000, 1, 1)
+>>> idnr.get_birth_date('0099015077086')
+Traceback (most recent call last):
+    ...
+InvalidComponent: ...
+>>> idnr.get_citizenship('9103225261083')
+'citizen'
+>>> idnr.get_citizenship('5306060050180')
+'resident'
+>>> idnr.get_citizenship('5306060050883')
+Traceback (most recent call last):
+    ...
+InvalidComponent: ...
+
+
+These have been found online and should all be valid numbers.
+
+>>> numbers = '''
+...
+... 5306060050180
+... 6107165087088
+... 6302285896084
+... 6602056061184
+... 6602085002084
+... 6704020865185
+... 6906155141080
+... 7010115159081
+... 7106245929185
+... 7209170838080
+... 7210015101080
+... 7405035028087
+... 7405095437186
+... 7503305044089
+... 7611055077082
+... 7701275868087
+... 7803200018083
+... 7804180106088
+... 7911175459081
+... 8012185201081
+... 8311280061089
+... 8507085951081
+... 8510290194083
+... 8811166068082
+... 8907020111082
+... 9008185655085
+... 9103225261083
+... 9210245029083
+... 9708205014086
+...
+... '''
+>>> [x for x in numbers.splitlines() if x and not idnr.is_valid(x)]
+[]
