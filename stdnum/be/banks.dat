@@ -1,6 +1,6 @@
 # generated from current_codes.xls downloaded from
 # https://www.nbb.be/doc/be/be/protocol/current_codes.xls
-# version 02/09/2019
+# version 31/12/2019
 000-000 bic="BPOTBEB1" bank="bpost bank"
 001-049 bic="GEBABEBB" bank="BNP Paribas Fortis"
 050-099 bic="GKCCBEBB" bank="BELFIUS BANK"
@@ -45,7 +45,6 @@
 513-513 bic="SGPBBE99" bank="ABN AMRO Bank N.V."
 514-514 bic="PUILBEBB" bank="Puilaetco Dewaay Private Bankers"
 515-515 bic="IRVTBEBB" bank="The Bank of New York Mellon NV/SA"
-519-519 bic="BNYMBEBB" bank="The Bank of New York Mellon"
 521-521 bic="FVLBBE22" bank="F. van Lanschot Bankiers"
 522-522 bic="UTWBBEBB" bank="United Taiwan Bank"
 523-523 bic="TRIOBEBB" bank="Triodos Bank"
@@ -80,11 +79,11 @@
 639-639 bic="ABNABE2AMYO" bank="ABN AMRO Bank N.V."
 640-640 bic="ADIABE22" bank="KBC Bank N.V. Business Center Diamant"
 642-642 bic="BBVABEBB" bank="Banco Bilbao Vizcaya Argentaria"
-643-643 bic="BMPBBEBB" bank="Banca Monte Paschi Belgio"
+643-643 bic="BMPBBEBB" bank="Aion"
 644-644 bank="FCA Bank S.p.A."
 645-645 bic="JVBABE22" bank="Bank J. Van Breda & C°"
 646-647 bic="BNAGBEBB" bank="Bank Nagelmackers"
-648-648 bic="BMPBBEBBVOD" bank="Banca Monte Paschi Belgio"
+648-648 bic="BMPBBEBBVOD" bank="Aion"
 649-649 bank="Caisse d'Epargne et de Prévoyance Hauts de France"
 651-651 bic="KEYTBEBB" bank="Arkéa Direct Bank (nom commercial / commerciële naam: Keytrade Bank)"
 652-652 bic="BBRUBEBB" bank="ING België"
@@ -94,6 +93,7 @@
 663-663 bic="BMEUBEB1" bank="BMCE Euro Services"
 664-664 bic="BCDMBEBB" bank="Banque Chaabi du Maroc"
 666-666 bank="WORLDLINE NV"
+667-667 bic="CMCIBEB1CIC" bank="Crédit Industriel et Commercial - Succursale de Bruxelles"
 668-668 bic="SBINBE2X" bank="State Bank of India"
 669-669 bank="WORLDLINE NV"
 670-670 bank="CNH Industrial Capital EUROPE"

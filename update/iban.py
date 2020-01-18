@@ -52,7 +52,7 @@ if __name__ == '__main__':
     # the file is CSV but the data is in columns instead of rows
     for row in csv.reader(response.iter_lines(decode_unicode=True), delimiter='\t', quotechar='"'):
         # skip first row
-        if row[0] != 'Data element':
+        if row and row[0] != 'Data element':
             # first column contains label
             for i, c in enumerate(row[1:]):
                 values[i][row[0]] = c
