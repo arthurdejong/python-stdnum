@@ -1,6 +1,6 @@
 # stdnum.wsgi - simple WSGI application to check numbers
 #
-# Copyright (C) 2017-2018 Arthur de Jong.
+# Copyright (C) 2017-2020 Arthur de Jong.
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -17,12 +17,15 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 # 02110-1301 USA
 
+"""Simple WSGI application to check numbers."""
+
 import cgi
 import inspect
 import json
 import os
 import re
 import sys
+
 
 sys.stdout = sys.stderr
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), 'python-stdnum'))
@@ -65,6 +68,7 @@ def info(module, number):
 
 
 def format(data):
+    """Return an HTML snippet describing the number."""
     description = cgi.escape(data['description']).replace('\n\n', '<br/>\n')
     description = re.sub(
         r'^[*] (.*)$', r'<ul><li>\1</li></ul>',
@@ -83,6 +87,7 @@ def format(data):
 
 
 def application(environ, start_response):
+    """WSGI application."""
     # read template if needed
     global _template
     if not _template:
@@ -105,7 +110,7 @@ def application(environ, start_response):
         start_response('200 OK', [
             ('Content-Type', 'application/json'),
             ('Vary', 'X-Requested-With')])
-        return [json.dumps(results, indent=2, sort_keys=True)]
+        return [json.dumps(results, indent=2, sort_keys=True).encode('utf-8')]
     start_response('200 OK', [
         ('Content-Type', 'text/html; charset=utf-8'),
         ('Vary', 'X-Requested-With')])
