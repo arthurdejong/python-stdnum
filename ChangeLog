@@ -1,3 +1,150 @@
+2020-01-19  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [334e907] online_check/stdnum.wsgi: Fix online check to be Python
+	  3 compatible
+
+2020-01-18  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [53d9934] stdnum/at/postleitzahl.dat, stdnum/be/banks.dat,
+	  stdnum/cn/loc.dat, stdnum/eu/nace.dat, stdnum/iban.dat,
+	  stdnum/imsi.dat, stdnum/isbn.dat, stdnum/isil.dat,
+	  stdnum/nz/banks.dat, stdnum/oui.dat, update/iban.py: Update
+	  database files
+
+2020-01-18  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [f23c549] stdnum/za/idnr.py, tests/test_za_idnr.doctest: Add
+	  South African Identity Document number
+
+	  Closes https://github.com/arthurdejong/python-stdnum/issues/126
+
+2020-01-12  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [42e096e] stdnum/isin.py, tests/test_isin.doctest: Add temporary
+	  and internal ISIN country codes
+
+	  This adds a few temporary and internal country codes that are
+	  used by various agencies so that they can also be validated. This
+	  does not mean that all these numbers are globally valid.
+
+	  Closes https://github.com/arthurdejong/python-stdnum/issues/158
+
+2019-12-06  anwarbaroudi <m.a.baroudi96@gmail.com>
+
+	* [87c195f] stdnum/isin.py, tests/test_isin.doctest: Add three
+	  country codes to ISIN
+
+	  This adds three missing country codes: 'AN' for 'Netherlands
+	  Antilles', 'CS' for 'Serbia and Montenegro' and 'XK' for 'Kosovo'.
+
+	  Closes https://github.com/arthurdejong/python-stdnum/issues/173
+	  Closes https://github.com/arthurdejong/python-stdnum/pull/174
+	  Closes https://github.com/arthurdejong/python-stdnum/pull/176
+
+2020-01-09  Emmanuel Arias <eamanu@yaerobi.com>
+
+	* [0b30c4b] stdnum/ar/cuit.py, tests/test_ar_cuit.doctest: Test
+	  Argentinian CUIT type
+
+	  The first two digits of the CUIT indicate the type of CUIT
+	  (personal, company or international) and can only have certain
+	  values.
+
+	  Closes https://github.com/arthurdejong/python-stdnum/issues/179
+	  Closes https://github.com/arthurdejong/python-stdnum/pull/181
+
+2020-01-09  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [a9b3e90] stdnum/nl/btw.py, tests/test_eu_vat.doctest: Support
+	  new btw-identificatienummer
+
+	  The btw-identificatienummer has been introduced on January 1st
+	  2020 in the Netherlands as an alternative to the btw-nummer that
+	  contains the BSN personal identifier. The number has the same
+	  structure and function but does not contain a BSN and uses a
+	  different check digit algorithm.
+
+	  Thanks to Cas Vissers, Jeroen van Heiningen, Jerome Hanke, Nicolas
+	  Martinelli, Ronald Portier and Tim Muller for contributing to
+	  the fix.
+
+	  More information:
+
+	  *
+	  http://kleineondernemer.nl/index.php/nieuw-btw-identificatienummer-vanaf-1-januari-2020-voor-eenmanszaken
+	  * https://nl.wikipedia.org/wiki/Btw-nummer_(Nederland) *
+	  https://www.belastingdienst.nl/wps/wcm/connect/bldcontenten/belastingdienst/business/vat/new-vat-id/
+	  *
+	  https://www.belastingdienst.nl/wps/wcm/connect/bldcontentnl/belastingdienst/zakelijk/btw/administratie_bijhouden/btw_nummers_controleren/uw_btw_nummer
+
+	  Closes https://github.com/arthurdejong/python-stdnum/issues/182
+	  Closes https://github.com/arthurdejong/python-stdnum/pull/183
+	  Closes https://github.com/arthurdejong/python-stdnum/pull/184
+	  Closes https://github.com/arthurdejong/python-stdnum/pull/185
+
+2020-01-04  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [9605dbe] stdnum/it/codicefiscale.py,
+	  tests/test_it_codicefiscale.doctest: The Italian IVA is also a
+	  Codice Fiscale
+
+	  Closes https://github.com/arthurdejong/python-stdnum/issues/180
+
+2019-12-18  Sergi Almacellas Abellana <sergi@koolpi.com>
+
+	* [087c668] .travis.yml, setup.py, tox.ini: Add support for
+	  Python 3.8
+
+	  Closes https://github.com/arthurdejong/python-stdnum/pull/177
+
+2019-12-27  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [922505a] stdnum/eu/nace.py: Broaden noqa docstring exclusion
+
+	  Nowadays flake8 seems to report this as D401 (First line should
+	  be in imperative mood) while before it was D402 (First line
+	  should not be the function’s signature).
+
+2019-12-27  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [de50109] stdnum/do/ncf.py: Switch to using lxml for HTML parsing
+
+	  This avoids an extra dependency on BeautifulSoup and makes the
+	  code more consistent.
+
+2019-11-12  Jakub Wilk <jwilk@jwilk.net>
+
+	* [831c669] NEWS, README, stdnum/br/__init__.py, stdnum/br/cnpj.py,
+	  stdnum/br/cpf.py: Fix typos
+
+	  Closes https://github.com/arthurdejong/python-stdnum/pull/172
+
+2019-11-04  Kurt Keller <Kurt@pinboard.jp>
+
+	* [388bac9] stdnum/iso11649.py: Add format to iso11649
+
+	  Closes https://github.com/arthurdejong/python-stdnum/pull/171
+
+2019-11-02  Kurt Keller <Kurt@pinboard.jp>
+
+	* [a45d4f7] stdnum/ch/esr.py, tests/test_ch_esr.doctest: Add Swiss
+	  ESR/ISR/QR-reference
+
+	  Closes https://github.com/arthurdejong/python-stdnum/pull/170
+
+2019-10-27  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [41b9c94] ChangeLog, NEWS, README, docs/index.rst,
+	  docs/stdnum.ad.nrt.rst, docs/stdnum.cr.cpf.rst,
+	  docs/stdnum.cr.cpj.rst, docs/stdnum.cr.cr.rst,
+	  docs/stdnum.gt.nit.rst, docs/stdnum.il.idnr.rst,
+	  docs/stdnum.jp.cn.rst, docs/stdnum.kr.rrn.rst,
+	  docs/stdnum.nz.ird.rst, docs/stdnum.pe.cui.rst,
+	  docs/stdnum.pe.ruc.rst, docs/stdnum.py.ruc.rst,
+	  docs/stdnum.tr.vkn.rst, docs/stdnum.uy.rut.rst,
+	  docs/stdnum.ve.rif.rst, docs/stdnum.za.tin.rst, stdnum/__init__.py:
+	  Get files ready for 1.12 release
+
 2019-10-27  Arthur de Jong <arthur@arthurdejong.org>
 
 	* [6ca5b53] stdnum/at/postleitzahl.dat, stdnum/be/banks.dat,

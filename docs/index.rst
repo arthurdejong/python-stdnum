@@ -125,6 +125,7 @@ Available formats
    ca.bn
    ca.sin
    casrn
+   ch.esr
    ch.ssn
    ch.uid
    ch.vat
@@ -268,6 +269,7 @@ Available formats
    us.tin
    uy.rut
    ve.rif
+   za.idnr
    za.tin
 
 

@@ -1,3 +1,24 @@
+changes from 1.12 to 1.13
+-------------------------
+
+* Add modules for the following number formats:
+
+  - ESR, ISR, QR-reference (reference number on Swiss payment slips)
+    (thanks Kurt Keller)
+  - ID number (South African Identity Document number)
+
+* Add format function for ISO 11649 numbers (thanks Kurt Keller)
+* Add support for Python 3.8 (thanks Sergi Almacellas Abellana)
+* Clarify that the Italian Codice Fiscale can also be the IVA for companies
+  (thanks Nicholas Fiorentini)
+* Support the new Dutch btw-identificatienummer (thanks Cas Vissers,
+  Jeroen van Heiningen, Jerome Hanke, Nicolas Martinelli, Ronald Portier and
+  Tim Muller)
+* Extend test for Argentinian CUIT to check first two digits
+* Add more country codes to ISIN (thanks nocluebutalotofit, Anwar Baroudi and
+  alexbond73)
+
+
 changes from 1.11 to 1.12
 -------------------------
 
