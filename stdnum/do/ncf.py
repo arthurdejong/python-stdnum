@@ -73,10 +73,12 @@ _ncf_document_types = (
     '03',  # debit note
     '04',  # credit note (refunds)
     '11',  # informal supplier invoices (purchases)
-    '12',  # single income record
+    '12',  # single income invoices
     '13',  # minor expenses invoices (purchases)
     '14',  # invoices for special customers (tourists, free zones)
     '15',  # invoices for the government
+    '16',  # invoices for export
+    '17',  # invoices for payments abroad
 )
 
 _ecf_document_types = (
