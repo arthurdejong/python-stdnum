@@ -1,6 +1,7 @@
 # cpr.py - functions for handling Danish CPR numbers
 # coding: utf-8
 #
+# Copyright (C) 2020 Leon Sandøy
 # Copyright (C) 2012-2019 Arthur de Jong
 #
 # This library is free software; you can redistribute it and/or

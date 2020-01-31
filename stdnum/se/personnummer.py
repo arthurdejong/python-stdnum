@@ -1,6 +1,7 @@
 # personnummer.py - functions for handling Swedish Personal identity numbers
 # coding: utf-8
 #
+# Copyright (C) 2020 Leon Sandøy
 # Copyright (C) 2018 Ilya Vihtinsky
 # Copyright (C) 2018 Arthur de Jong
 #
