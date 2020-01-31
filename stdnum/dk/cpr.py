@@ -1,4 +1,5 @@
 # cpr.py - functions for handling Danish CPR numbers
+# coding: utf-8
 #
 # Copyright (C) 2012-2019 Arthur de Jong
 #
@@ -44,10 +45,12 @@ More information:
 Traceback (most recent call last):
     ...
 InvalidComponent: ...
+>>> validate("2110525629")
+Traceback (most recent call last):
+  ...
+InvalidComponent: The birth date information is valid, but this person has not been born yet.
 >>> get_birth_date('2110620629')
 datetime.date(1962, 10, 21)
->>> get_birth_date('2110525629')
-datetime.date(2052, 10, 21)
 >>> format('2110625629')
 '211062-5629'
 """
@@ -86,7 +89,7 @@ def get_birth_date(number):
     try:
         return datetime.date(year, month, day)
     except ValueError:
-        raise InvalidComponent()
+        raise InvalidComponent('The number does not contain valid birth date information.')
 
 
 def validate(number):
@@ -97,9 +100,14 @@ def validate(number):
         raise InvalidFormat()
     if len(number) != 10:
         raise InvalidLength()
-    # check if birth date is valid
-    get_birth_date(number)
-    # TODO: check that the birth date is not in the future
+
+    # Check if birth date is valid, and in the past
+    birth_date = get_birth_date(number)
+    if birth_date > datetime.date.today():
+        raise InvalidComponent(
+            'The birth date information is valid, but this person has not been born yet.',
+        )
+
     return number
 
 
