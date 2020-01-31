@@ -63,10 +63,13 @@ def compact(number):
 
 
 def get_birth_date(number):
-    """Guess the birth date from the number.
+    """Determine the birth date from the number.
 
-    Note that it may be 100 years off because the number has only the last
-    two digits of the year."""
+    For people aged 100 and up, the minus/dash in the personnummer is changed to a plus
+    on New Year's Eve the year they turn 100.
+
+    See Folkbokföringslagen (1991:481), §18.
+    """
     number = compact(number)
     if len(number) == 13:
         year = int(number[0:4])
