@@ -30,16 +30,16 @@ More information:
 * https://no.wikipedia.org/wiki/F%C3%B8dselsnummer
 * https://en.wikipedia.org/wiki/National_identification_number#Norway
 
->>> validate('684131 52112')
-'68413152112'
->>> get_gender('684131 52112')
-'M'
->>> validate('684131 52123')
+>>> validate('151086 95088')
+'15108695088'
+>>> get_gender('151086-95088')
+'F'
+>>> validate('15108695077')
 Traceback (most recent call last):
     ...
 InvalidChecksum: ...
->>> format('68413152112')
-'684131 52112'
+>>> format('15108695077')
+'151086 95077'
 """
 import datetime
 
