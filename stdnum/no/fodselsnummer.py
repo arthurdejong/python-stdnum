@@ -3,6 +3,7 @@
 #
 # Copyright (C) 2018 Ilya Vihtinsky
 # Copyright (C) 2018 Arthur de Jong
+# Copyright (C) 2020 Leon Sandøy
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -29,17 +30,19 @@ More information:
 * https://no.wikipedia.org/wiki/F%C3%B8dselsnummer
 * https://en.wikipedia.org/wiki/National_identification_number#Norway
 
->>> validate('684131 52112')
-'68413152112'
->>> get_gender('684131 52112')
-'M'
->>> validate('684131 52123')
+>>> validate('151086 95088')
+'15108695088'
+>>> get_gender('151086-95088')
+'F'
+>>> validate('15108695077')
 Traceback (most recent call last):
     ...
 InvalidChecksum: ...
->>> format('68413152112')
-'684131 52112'
+>>> format('15108695077')
+'151086 95077'
 """
+
+import datetime
 
 from stdnum.exceptions import *
 from stdnum.util import clean, isdigits
@@ -72,6 +75,42 @@ def get_gender(number):
         return 'F'
 
 
+def get_birth_date(number):
+    """Determine and return the birth date."""
+    number = compact(number)
+    day = int(number[0:2])
+    month = int(number[2:4])
+    year = int(number[4:6])
+    individual_digits = int(number[6:9])
+    # Raise a more useful exception for FH numbers
+    if day >= 80:
+        raise InvalidComponent(
+            'This number is an FH-number, and does not contain birth date information by design.')
+    # Correct the birth day for D-numbers. These have a modified first digit.
+    # https://no.wikipedia.org/wiki/F%C3%B8dselsnummer#D-nummer
+    if day > 40:
+        day -= 40
+    # Correct the birth month for H-numbers. These have a modified third digit.
+    # https://no.wikipedia.org/wiki/F%C3%B8dselsnummer#H-nummer
+    if month > 40:
+        month -= 40
+    if individual_digits < 500:
+        year += 1900
+    elif 500 <= individual_digits < 750 and year >= 54:
+        year += 1800
+    elif 500 <= individual_digits < 1000 and year < 40:
+        year += 2000
+    elif 900 <= individual_digits < 1000 and year >= 40:
+        year += 1900
+    else:
+        # The birth century falls outside all defined ranges.
+        raise InvalidComponent('The birthdate century cannot be determined')
+    try:
+        return datetime.date(year, month, day)
+    except ValueError:
+        raise InvalidComponent('The number does not contain valid birth date information.')
+
+
 def validate(number):
     """Check if the number is a valid birth number."""
     number = compact(number)
@@ -83,6 +122,9 @@ def validate(number):
         raise InvalidChecksum()
     if number[-1] != calc_check_digit2(number):
         raise InvalidChecksum()
+    if get_birth_date(number) > datetime.date.today():
+        raise InvalidComponent(
+            'The birth date information is valid, but this person has not been born yet.')
     return number
 
 

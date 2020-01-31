@@ -2,6 +2,7 @@ test_no_fodselsnummer.doctest - more detailed doctests for stdnum.no.fodselsnumm
 
 Copyright (C) 2018 Ilya Vihtinsky
 Copyright (C) 2018 Arthur de Jong
+Copyright (C) 2020 Leon Sandøy
 
 This library is free software; you can redistribute it and/or
 modify it under the terms of the GNU Lesser General Public
@@ -40,13 +41,13 @@ These numbers should be detected as male or female.
 
 The last two check digits are validated independently of each other.
 
->>> fodselsnummer.is_valid('42485176432')
+>>> fodselsnummer.is_valid('26111593816')
 True
->>> fodselsnummer.is_valid('42485176431')  # only change last digit
+>>> fodselsnummer.is_valid('26111593817')  # only change last digit
 False
->>> fodselsnummer.is_valid('42485176412')  # only change first digit
+>>> fodselsnummer.is_valid('26111593826')  # only change first digit
 False
->>> fodselsnummer.is_valid('42485176416')  # change first, correct second
+>>> fodselsnummer.is_valid('26111593875')  # change first, correct second
 False
 
 
@@ -62,50 +63,56 @@ Traceback (most recent call last):
 InvalidFormat: ...
 
 
-These have been found online and should all be valid numbers.
+The birth date can be extracted from the number:
+
+>>> fodselsnummer.get_birth_date('11111598403')
+datetime.date(2015, 11, 11)
+>>> fodselsnummer.get_birth_date('151086-95088')
+datetime.date(1986, 10, 15)
+>>> fodselsnummer.get_birth_date('180615 92527')
+datetime.date(2015, 6, 18)
+>>> fodselsnummer.get_birth_date('10 04 87 44 732')
+datetime.date(1987, 4, 10)
+>>> fodselsnummer.get_birth_date('13-04-99-58441')
+datetime.date(1899, 4, 13)
+
+
+Invalid dates are rejected:
+
+>>> fodselsnummer.validate('19575770838')
+Traceback (most recent call last):
+  ...
+InvalidComponent: The number does not contain valid birth date information.
+>>> fodselsnummer.get_birth_date('45014054018')
+Traceback (most recent call last):
+  ...
+InvalidComponent: The birthdate century cannot be determined
+>>> fodselsnummer.get_birth_date('82314251342')
+Traceback (most recent call last):
+  ...
+InvalidComponent: This number is an FH-number, and does not contain birth date information by design.
+>>> fodselsnummer.validate('19102270846')
+Traceback (most recent call last):
+	...
+InvalidComponent: The birth date information is valid, but this person has not been born yet.
+
+
+These should all be valid numbers.
 
 >>> numbers = '''
 ...
-... 11027794191
-... 11051996811
-... 19575770838
-... 21918484865
-... 24396859900
-... 27213364885
-... 27389446152
-... 30383131118
-... 30777674125
-... 31042639152
-... 34831582121
-... 39043009846
-... 40070897972
-... 40673759612
-... 42115114470
-... 42485176432
-... 42957044500
-... 44207789809
-... 45014054018
-... 46929323343
-... 50067834221
-... 56403643756
-... 56653047547
-... 63282310041
-... 68413152112
-... 70031073454
-... 70341666064
-... 70624830529
-... 71494457037
-... 71946503120
-... 75442702381
-... 79189404641
-... 79318270827
-... 82938389280
-... 83814827871
-... 89829529360
-... 92782833709
-... 95700625908
-... 96517753502
-... 98576936818
+... 100487 45526
+... 10048744732
+... 10048745364
+... 111115984-03
+... 151086-95088
+... 18-06-15-92527
+... 231140-38547
+... 23114048690
+... 26 11 15 940 14
+... 26111593816
+... 26111594286
+... 26111594448
 ...
 ... '''
 >>> [x for x in numbers.splitlines() if x and not fodselsnummer.is_valid(x)]
