@@ -1,7 +1,7 @@
 test_se_personnummer.doctest - more detailed doctests for stdnum.se.personnummer module
 
 Copyright (C) 2018 Ilya Vihtinsky
-Copyright (C) 2018 Arthur de Jong
+Copyright (C) 2018-2020 Arthur de Jong
 
 This library is free software; you can redistribute it and/or
 modify it under the terms of the GNU Lesser General Public
@@ -26,8 +26,16 @@ is not really useful as module documentation.
 >>> from stdnum.se import personnummer
 
 
-Test for non-digit number.
+Test for various formats and corner cases.
 
+>>> personnummer.validate('8803200016')
+'880320-0016'
+>>> personnummer.validate('19670-19-9535')
+Traceback (most recent call last):
+    ...
+InvalidLength: ...
+>>> personnummer.validate('8803-20-0016')
+'880320-0016'
 >>> personnummer.validate('a' * 10)
 Traceback (most recent call last):
     ...
