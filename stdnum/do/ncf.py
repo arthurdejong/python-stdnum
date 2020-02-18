@@ -133,10 +133,13 @@ def _convert_result(result):  # pragma: no cover
         'MENSAJE_VALIDACION': 'validation_message',
         'RNC': 'rnc',
         'NCF': 'ncf',
+        u'RNC / Cédula': 'rnc',
         u'RNC/Cédula': 'rnc',
+        u'Nombre / Razón Social': 'name',
         u'Nombre/Razón Social': 'name',
         'Estado': 'status',
         'Tipo de comprobante': 'type',
+        u'Válido hasta': 'valid_until',
     }
     return dict(
         (translation.get(key, key), value)
@@ -168,13 +171,14 @@ def check_dgii(rnc, ncf, timeout=30):  # pragma: no cover
     from stdnum.do.rnc import compact as rnc_compact
     rnc = rnc_compact(rnc)
     ncf = compact(ncf)
-    url = 'https://www.dgii.gov.do/app/WebApps/ConsultasWeb/consultas/ncf.aspx'
-    headers = {
+    url = 'https://dgii.gov.do/app/WebApps/ConsultasWeb2/ConsultasWeb/consultas/ncf.aspx'
+    session = requests.Session()
+    session.headers.update({
         'User-Agent': 'Mozilla/5.0 (python-stdnum)',
-    }
+    })
     # Get the page to pick up needed form parameters
     document = lxml.html.fromstring(
-        requests.get(url, headers=headers, timeout=timeout).text)
+        session.get(url, timeout=timeout).text)
     validation = document.find('.//input[@name="__EVENTVALIDATION"]').get('value')
     viewstate = document.find('.//input[@name="__VIEWSTATE"]').get('value')
     data = {
@@ -186,13 +190,13 @@ def check_dgii(rnc, ncf, timeout=30):  # pragma: no cover
     }
     # Do the actual request
     document = lxml.html.fromstring(
-        requests.post(url, headers=headers, data=data, timeout=timeout).text)
-    result = document.find('.//div[@id="ctl00_cphMain_pResultado"]')
+        session.post(url, data=data, timeout=timeout).text)
+    result = document.find('.//div[@id="cphMain_pResultado"]')
     if result is not None:
         data = {
-            'validation_message': document.findtext('.//*[@id="ctl00_cphMain_lblInformacion"]').strip(),
+            'validation_message': document.findtext('.//*[@id="cphMain_lblInformacion"]').strip(),
         }
         data.update(zip(
-            [x.text.strip().rstrip(':') for x in result.findall('.//strong')],
-            [x.text.strip() for x in result.findall('.//span')]))
+            [x.text.strip() for x in result.findall('.//th')],
+            [x.text.strip() for x in result.findall('.//td/span')]))
         return _convert_result(data)
