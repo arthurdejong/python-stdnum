@@ -92,6 +92,7 @@ _ecf_document_types = (
     '45',  # invoices for the government
 )
 
+
 def validate(number):
     """Check if the number provided is a valid NCF."""
     number = compact(number)
