@@ -2,6 +2,7 @@ test_fi_hetu.doctest - more detailed doctests for stdnum.fi.hetu module
 
 Copyright (C) 2011 Jussi Judin
 Copyright (C) 2013 Arthur de Jong
+Copyright (C) 2020 Aleksi Hoffman
 
 This library is free software; you can redistribute it and/or
 modify it under the terms of the GNU Lesser General Public
@@ -31,10 +32,13 @@ Normal values that should just work.
 
 >>> hetu.validate('131052-308T')
 '131052-308T'
+
 >>> hetu.validate('131052+308T')
 '131052+308T'
+
 >>> hetu.validate('131052A308T')
 '131052A308T'
+
 >>> hetu.validate('131052a308t')
 '131052A308T'
 
@@ -53,6 +57,7 @@ Invalid century indicator:
 Traceback (most recent call last):
     ...
 InvalidFormat: ...
+
 >>> hetu.validate('131052T308T')
 Traceback (most recent call last):
     ...
@@ -65,6 +70,7 @@ Invalid birth date:
 Traceback (most recent call last):
     ...
 InvalidComponent: ...
+
 >>> hetu.validate('130052-308R')
 Traceback (most recent call last):
     ...
@@ -79,19 +85,27 @@ InvalidFormat: ...
 
 
 Invalid individual number: (for historical reasons individual IDs start from
-002 and the range from 900 to 999 is used as temporary identifiers)
+002 and the range from 900 to 999 is used as temporary identifiers). Temporary range
+individual number should be allowed when the allow_temporary parameter is set to True.
 
 >>> hetu.validate('131052-000V')
 Traceback (most recent call last):
     ...
 InvalidComponent: ...
+
 >>> hetu.validate('131052-9993')
 Traceback (most recent call last):
     ...
 InvalidComponent: ...
 
+>>> hetu.validate('131052-9993', allow_temporary=True)
+'131052-9993'
+
 
 compact() and format() don't do much special:
 
 >>> hetu.compact('131052a308t')
+'131052A308T'
+
+>>> hetu.format('131052a308t')
 '131052A308T'
