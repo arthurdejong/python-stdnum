@@ -75,7 +75,7 @@ def _calc_checksum(number):
 def validate(number, allow_temporary=False):
     """Check if the number is a valid HETU. It checks the format, whether a
     valid date is given and whether the check digit is correct. Allows
-    temporary identifier range for individuals (902-999) if allow_temporary
+    temporary identifier range for individuals (900-999) if allow_temporary
     is True.
     """
     number = compact(number)
