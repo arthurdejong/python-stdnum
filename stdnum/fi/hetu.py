@@ -3,6 +3,7 @@
 #
 # Copyright (C) 2011 Jussi Judin
 # Copyright (C) 2012, 2013 Arthur de Jong
+# Copyright (C) 2020 Aleksi Hoffman
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -71,9 +72,12 @@ def _calc_checksum(number):
     return '0123456789ABCDEFHJKLMNPRSTUVWXY'[int(number) % 31]
 
 
-def validate(number):
+def validate(number, allow_temporary=False):
     """Check if the number is a valid HETU. It checks the format, whether a
-    valid date is given and whether the check digit is correct."""
+    valid date is given and whether the check digit is correct. Allows
+    temporary identifier range for individuals (902-999) if allow_temporary
+    is True.
+    """
     number = compact(number)
     match = _hetu_re.search(number)
     if not match:
@@ -92,7 +96,7 @@ def validate(number):
     if individual < 2:
         raise InvalidComponent()
     # this range is for temporary identifiers
-    if 900 <= individual <= 999:
+    if 900 <= individual <= 999 and not allow_temporary:
         raise InvalidComponent()
     checkable_number = '%02d%02d%02d%03d' % (day, month, year, individual)
     if match.group('control') != _calc_checksum(checkable_number):
