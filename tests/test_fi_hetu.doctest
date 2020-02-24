@@ -2,6 +2,7 @@ test_fi_hetu.doctest - more detailed doctests for stdnum.fi.hetu module
 
 Copyright (C) 2011 Jussi Judin
 Copyright (C) 2013 Arthur de Jong
+Copyright (C) 2020 Aleksi Hoffman
 
 This library is free software; you can redistribute it and/or
 modify it under the terms of the GNU Lesser General Public
@@ -78,8 +79,10 @@ Traceback (most recent call last):
 InvalidFormat: ...
 
 
-Invalid individual number: (for historical reasons individual IDs start from
-002 and the range from 900 to 999 is used as temporary identifiers)
+Test for invalid individual numbers. For historical reasons individual IDs
+start from 002. The range from 900 to 999 is used as temporary identifiers
+(which should only be allowed when `allow_temporary` parameter is explicitly
+set to True).
 
 >>> hetu.validate('131052-000V')
 Traceback (most recent call last):
@@ -89,9 +92,13 @@ InvalidComponent: ...
 Traceback (most recent call last):
     ...
 InvalidComponent: ...
+>>> hetu.validate('131052-9993', allow_temporary=True)
+'131052-9993'
 
 
 compact() and format() don't do much special:
 
 >>> hetu.compact('131052a308t')
+'131052A308T'
+>>> hetu.format('131052a308t')
 '131052A308T'
