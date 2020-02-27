@@ -64,9 +64,7 @@ def from10to32(string):
         res = res + char
     res = res + AIC_TABLE[remainder].upper()
     res = res[::-1]
-    if len(res) == 5:
-        res = "0" + res
-    return res
+    return res.zfill(6)
 
 
 def check_AIC_base10_checksum(AIC):
