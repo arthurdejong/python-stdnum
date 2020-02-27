@@ -63,7 +63,10 @@ def from10to32(string):
         remainder = remainder//32
         res = res + char
     res = res + AIC_TABLE[remainder].upper()
-    return res[::-1]
+    res = res[::-1]
+    if len(res) == 5:
+        res = "0" + res
+    return res
 
 
 def check_AIC_base10_checksum(AIC):
