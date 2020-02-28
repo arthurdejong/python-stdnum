@@ -1,0 +1,55 @@
+test_it_aic.doctest - tests for the stdnum.it.aic module
+
+>>> from stdnum.it import aic
+>>> from stdnum.exceptions import *
+
+
+Some valid codes
+
+>>> aic10_valid = ['000307052', '000307037', '001738032', '001738020', '042645046', '045359015', ]
+>>> aic32_valid = ['009CVD', '009CUX', '01P19J', '01P194', '18PFKQ', '1C87X7', ]
+
+for i, c in enumerate(aic10):
+...     if from10to32(c) != aic32[i]:
+...        raise Exception()
+... 
+
+for i, c in enumerate(aic32):
+...     if from32to10(c) != aic10[i]:
+...        raise Exception()
+... 
+
+>>> check_aic_base10_checksum('00030705')
+False
+>>> check_aic_base10_checksum('010307052')
+False
+>>> is_base10_aic('00307052')
+False
+>>> is_base10_aic('000307053')
+False
+>>> is_base10_aic(307053)
+False
+>>> is_base10_aic('0003070.3')
+False
+>>> is_base10_aic('100307052')
+False
+
+>>> is_base32_aic('009CVD1')
+False
+>>> is_base32_aic('009CVL')
+False
+>>> is_base32_aic(9)
+False
+>>> is_base32_aic('00$CVD')
+False
+>>> is_base32_aic('100307052')
+False
+
+>>> is_valid('000307052')
+True
+>>> is_valid('00030705.')
+False
+>>> is_valid('009CVD')
+True
+>>> is_valid('09CVD')
+False
