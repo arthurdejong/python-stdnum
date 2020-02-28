@@ -17,6 +17,7 @@ This module provides three function to validate a code:
 This module also expose two function to convert a code between
 base32 and base10 representation and vice versa.
 """
+
 from stdnum.exceptions import *
 
 # the table of AIC base32 allowed chars.
@@ -39,7 +40,7 @@ def from32to10(string):
     tot = 0
     try:
         for idx, x in enumerate(string):
-            tot = tot + AIC_TABLE.index(x.lower())*32**idx
+            tot = tot + AIC_TABLE.index(x.lower()) * 32 ** idx
     except ValueError:
         return None
     return str(tot).zfill(9)
@@ -67,28 +68,28 @@ def from10to32(string):
     return res.zfill(6)
 
 
-def check_AIC_base10_checksum(AIC):
+def check_aic_base10_checksum(aic):
     """Check if a string checksum char in the base10 representation is correct.
     Parameters
     ----------
-    AIC : str
+    aic : str
         The string containing the code to check
     Returns
     -------
     bool
         True if the checksum is correct.
     """
-    xn = [2 * int(AIC[i]) for i in (1, 3, 5, 7)]
+    xn = [2 * int(aic[i]) for i in (1, 3, 5, 7)]
     p = 0
     for x in xn:
         p = p + (x // 10) + (x % 10)
     d = 0
     for i in (0, 2, 4, 6):
-        d = d + int(AIC[i])
-    return AIC[-1] == str((p + d) % 10)
+        d = d + int(aic[i])
+    return aic[-1] == str((p + d) % 10)
 
 
-def is_base10_AIC(code):
+def is_base10_aic(code):
     """Check if a string is a valid base10 representation of an AIC code.
     Parameters
     ----------
@@ -108,10 +109,10 @@ def is_base10_AIC(code):
             return False
     if code[0] != '0':
         return False
-    return check_AIC_base10_checksum(code)
+    return check_aic_base10_checksum(code)
 
 
-def is_base32_AIC(code):
+def is_base32_aic(code):
     """Check if a string is a valid base32 representation of an AIC code.
     Parameters
     ----------
@@ -133,14 +134,14 @@ def is_base32_AIC(code):
     converted = from32to10(code)
     # the base 32 is valid if its base 10 is valid
     # using base 10 we can perform an extra check on the checksum digit
-    return is_base10_AIC(converted)
+    return is_base10_aic(converted)
 
 
 def validate(code):
     """Check if a string is a valid AIC (base10 or base 32)
     Parameters
     ----------
-    AIC : code
+    code : str
         The string containing the code to check
     Returns
     -------
@@ -148,7 +149,7 @@ def validate(code):
         True if the code is a valid base32 or base10 representation
         of an AIC code.
     """
-    return is_base10_AIC(code) or is_base32_AIC(code)
+    return is_base10_aic(code) or is_base32_aic(code)
 
 
 def is_valid(code):
