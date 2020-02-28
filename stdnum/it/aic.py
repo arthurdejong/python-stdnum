@@ -154,7 +154,7 @@ def validate(code):
 
 
 def is_valid(code):
-    """Check if the given fiscal code is valid."""
+    """Check if the given AIC code is valid."""
     try:
         return bool(validate(code))
     except ValidationError:
