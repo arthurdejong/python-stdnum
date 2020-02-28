@@ -17,9 +17,6 @@ This module provides three function to validate a code:
 This module also expose two function to convert a code between
 base32 and base10 representation and vice versa.
 """
-
-from stdnum.exceptions import *
-
 # the table of AIC base32 allowed chars.
 AIC_TABLE = '0123456789bcdfghjklmnpqrstuvwxyz'
 
@@ -154,7 +151,4 @@ def validate(code):
 
 def is_valid(code):
     """Check if the given AIC code is valid."""
-    try:
-        return bool(validate(code))
-    except ValidationError:
-        return False
+    return bool(validate(code))
