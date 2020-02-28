@@ -151,3 +151,11 @@ def validate(code):
         of an AIC code.
     """
     return is_base10_AIC(code) or is_base32_AIC(code)
+
+
+def is_valid(code):
+    """Check if the given fiscal code is valid."""
+    try:
+        return bool(validate(code))
+    except ValidationError:
+        return False
