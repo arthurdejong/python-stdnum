@@ -19,6 +19,11 @@ for i, c in enumerate(aic32):
 ...        raise Exception()
 ... 
 
+Some wrong
+
+>>> aic.from32to10('009CV$') == None
+True
+
 >>> aic.check_aic_base10_checksum('00030705')
 False
 >>> aic.check_aic_base10_checksum('010307052')
