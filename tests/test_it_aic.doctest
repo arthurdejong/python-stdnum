@@ -19,6 +19,9 @@ for i, c in enumerate(aic32):
 ...        raise Exception()
 ... 
 
+>>> aic.from10to32('000307037')
+'009CUX'
+
 Some wrong
 
 >>> aic.from32to10('009CV$') == None
