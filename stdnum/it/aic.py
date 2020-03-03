@@ -137,7 +137,7 @@ def is_base32(code):
         if c.upper() not in AIC_TABLE:
             raise InvalidFormat()
     # we can safelly convert to base10
-    converted = from32to10(code)
+    converted = from_base32(code)
     # the base 32 is valid if its base 10 is valid
     # using base 10 we can perform an extra check on the checksum digit
     return is_base10(converted)
@@ -168,9 +168,11 @@ def validate(code):
     
     if len(code) == 6:
         #base32 length
-        return is_base32(code)
+        is_base32(code)
+        return from_base32(code)
     else:
-        return is_base10(code)
+        is_base10(code)
+        return code
 
 def is_valid(code):
     """Check if the given string is a valid AIC code."""
