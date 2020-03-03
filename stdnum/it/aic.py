@@ -110,7 +110,7 @@ def is_base10(code):
     if len(code) != 9:
         raise InvalidLength()
     for c in code:
-        if c.lower() not in AIC_TABLE[:10]:
+        if c.upper() not in AIC_TABLE[:10]:
             raise InvalidFormat()
     if code[0] != '0':
         raise InvalidFormat()
@@ -134,7 +134,7 @@ def is_base32(code):
     if len(code) != 6:
         raise InvalidLength()
     for c in code:
-        if c.lower() not in AIC_TABLE:
+        if c.upper() not in AIC_TABLE:
             raise InvalidFormat()
     # we can safelly convert to base10
     converted = from32to10(code)
