@@ -10,48 +10,61 @@ Some valid codes
 >>> aic32_valid = ['009CVD', '009CUX', '01P19J', '01P194', '18PFKQ', '1C87X7', ]
 
 for i, c in enumerate(aic10):
-...     if aic.from10to32(c) != aic32[i]:
+...     if aic.to_base32(c) != aic32[i]:
 ...        raise Exception()
 ... 
 
 for i, c in enumerate(aic32):
-...     if aic.from32to10(c) != aic10[i]:
+...     if aic.from_base32(c) != aic10[i]:
 ...        raise Exception()
 ... 
 
->>> aic.from10to32('000307037')
+>>> aic.to_base32('000307037')
 '009CUX'
 
 Some wrong
 
->>> aic.from32to10('009CV$') == None
+>>> aic.from_base32('009CV$') == None
 True
 
->>> aic.check_aic_base10_checksum('00030705')
+>>> aic.check_base10_checksum('00030705')
 False
->>> aic.check_aic_base10_checksum('010307052')
-False
->>> aic.is_base10_aic('00307052')
-False
->>> aic.is_base10_aic('000307053')
-False
->>> aic.is_base10_aic(307053)
-False
->>> aic.is_base10_aic('0003070.3')
-False
->>> aic.is_base10_aic('100307052')
+>>> aic.check_base10_checksum('010307052')
 False
 
->>> aic.is_base32_aic('009CVD1')
-False
->>> aic.is_base32_aic('009CVL')
-False
->>> aic.is_base32_aic(9)
-False
->>> aic.is_base32_aic('00$CVD')
-False
->>> aic.is_base32_aic('100307052')
-False
+>>> aic.is_base10('00307052')
+Traceback (most recent call last):
+    ...
+InvalidLength: ...
+>>> aic.is_base10('000307053')
+Traceback (most recent call last):
+    ...
+InvalidChecksum: ...
+>>> aic.is_base10('0003070.3')
+Traceback (most recent call last):
+    ...
+InvalidFormat: ...
+>>> aic.is_base10('100307052')
+Traceback (most recent call last):
+    ...
+InvalidFormat: ...
+
+>>> aic.is_base32('009CVD1')
+Traceback (most recent call last):
+    ...
+InvalidLength: ...
+>>> aic.is_base32('009CVL')
+Traceback (most recent call last):
+    ...
+InvalidChecksum: ...
+>>> aic.is_base32('00$CVD')
+Traceback (most recent call last):
+    ...
+InvalidFormat: ...
+>>> aic.is_base32('100307052')
+Traceback (most recent call last):
+    ...
+InvalidLength: ...
 
 >>> aic.is_valid('000307052')
 True
