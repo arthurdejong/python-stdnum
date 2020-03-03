@@ -69,14 +69,16 @@ def to_base32(string):
     res = res[::-1]
     return res.zfill(6)
 
+
 def calc_check_digit(aic):
     """Calculate the check digit for the BASE10 AIC code."""
     # p = sum(map(lambda x: (2 * int(aic[x])) // 10 + (2 * int(aic[x])) % 10,
     #             (1, 3, 5, 7)))
     # d = sum([ int(aic[x]) for x in (0, 2, 4, 6)])
     # return str((d + p) % 10)
-    ## x // 10 == 0 since x is one char
-    ## x % 10 == x since x is one char
+    # Note:
+    # x // 10 == 0 since x is one char
+    # x % 10 == x since x is one char
     weights = (1, 2, 1, 2, 1, 2, 1, 2)
     return str(sum((x // 10) + (x % 10) for x in (w * int(n) for w, n in zip(weights, aic))) % 10)
 
@@ -142,6 +144,7 @@ def is_base32(code):
     # using base 10 we can perform an extra check on the checksum digit
     return is_base10(converted)
 
+
 def compact(code):
     """Convert the number to the minimal representation. This removes
     surrounding whitespace and makes chars uppercase."""
@@ -153,7 +156,7 @@ def compact(code):
 
 def validate(code):
     """Check if a string is a valid AIC. Base10 is the canonical form and
-       is 9 chars long, while base32 is 6 chars. 
+       is 9 chars long, while base32 is 6 chars.
     Parameters
     ----------
     code : str
@@ -165,15 +168,15 @@ def validate(code):
         of an AIC code.
     """
     code = compact(code)
-    
     if len(code) == 6:
-        #base32 length
+        # base32 length, we check it and convert
         is_base32(code)
         return from_base32(code)
     else:
         is_base10(code)
         return code
 
+    
 def is_valid(code):
     """Check if the given string is a valid AIC code."""
     try:
