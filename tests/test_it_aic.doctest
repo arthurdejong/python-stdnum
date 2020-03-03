@@ -76,3 +76,12 @@ False
 True
 >>> aic.is_valid('09CVD')
 False
+
+>>> aic.validate('009CVD')
+'000307052'
+>>> aic.validate('000307037')
+'000307037'
+>>> aic.validate('00307052')
+Traceback (most recent call last):
+    ...
+InvalidLength: ...
