@@ -19,8 +19,10 @@ utility functions:
 This module also expose two function to convert a code between
 base32 and base10 representation and vice versa.
 """
+
 from stdnum.exceptions import *
 from stdnum.util import clean
+
 
 # the table of AIC base32 allowed chars.
 AIC_TABLE = '0123456789BCDFGHJKLMNPQRSTUVWXYZ'
@@ -176,7 +178,7 @@ def validate(code):
         is_base10(code)
         return code
 
-    
+
 def is_valid(code):
     """Check if the given string is a valid AIC code."""
     try:
