@@ -1,7 +1,24 @@
-# This file is based on code from pyAIC, a Python library to work
-# with AIC codes for drugs.
+# aic.py - library for Italian AIC codes
+#
+# This file is based on pyAIC Python library.
 # https://github.com/FabrizioMontanari/pyAIC
-
+#
+# Copyright (C) 2020 Fabrizio Montanari
+#
+# This library is free software; you can redistribute it and/or
+# modify it under the terms of the GNU Lesser General Public
+# License as published by the Free Software Foundation; either
+# version 2.1 of the License, or (at your option) any later version.
+#
+# This library is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+# Lesser General Public License for more details.
+#
+# You should have received a copy of the GNU Lesser General Public
+# License along with this library; if not, write to the Free Software
+# Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
+# 02110-1301 USA
 
 """
 A series of function to manipulate, convert and (syntactically) validate
@@ -9,15 +26,12 @@ AIC codes as described in the italian
 "Gazzetta Ufficiale della Repubblica Italiana" Serie Generale
 n.165 del 18-07-2014, attachment A.
 The document describes two valid representation of an AIC code.
-This module,aside from standard compact, is_valid and validate provides some extra
+This module, aside from compact, is_valid and validate provides some extra
 utility functions:
-- is_base10_AIC(code), to check if code is a valid base10 representation;
-- is_base32_AIC(code), to check if code is a valid base32 representation;
+- is_base10(code), to check if code is a valid base10 representation;
+- is_base32(code), to check if code is a valid base32 representation;
 - to_base32(code), to convert a base10 code to a base32 one (does not perform checks);
-- to_from32(code), to convert a base32 code to a base10 one (does not perform checks);
-
-This module also expose two function to convert a code between
-base32 and base10 representation and vice versa.
+- to_from32(code), to convert a base32 code to a base10 one (does not perform checks).
 """
 
 from stdnum.exceptions import *
@@ -79,8 +93,9 @@ def calc_check_digit(aic):
     # d = sum([ int(aic[x]) for x in (0, 2, 4, 6)])
     # return str((d + p) % 10)
     # Note:
-    # x // 10 == 0 since x is one char
-    # x % 10 == x since x is one char
+    # assuming a is one digit long
+    # a // 10 == 0
+    # a % 10 == a
     weights = (1, 2, 1, 2, 1, 2, 1, 2)
     return str(sum((x // 10) + (x % 10) for x in (w * int(n) for w, n in zip(weights, aic))) % 10)
 
