@@ -1,0 +1,128 @@
+test_it_aic.doctest - tests for the stdnum.it.aic module
+
+Copyright (C) 2020 Fabrizio Montanari
+
+This library is free software; you can redistribute it and/or
+modify it under the terms of the GNU Lesser General Public
+License as published by the Free Software Foundation; either
+version 2.1 of the License, or (at your option) any later version.
+
+This library is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+Lesser General Public License for more details.
+
+You should have received a copy of the GNU Lesser General Public
+License along with this library; if not, write to the Free Software
+Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
+02110-1301 USA
+
+
+This file contains more detailed doctests for the stdnum.it.aic module.
+
+>>> from stdnum.it import aic
+>>> from stdnum.exceptions import *
+
+
+Some valid codes with their BASE10/BASE32 representations.
+
+>>> aic10_valid = ['000307052', '000307037', '001738032', '001738020', '042645046', '045359015']
+>>> aic32_valid = ['009CVD', '009CUX', '01P19J', '01P194', '18PFKQ', '1C87X7']
+>>> [x for x in aic10_valid + aic32_valid if x and not aic.is_valid(x)]
+[]
+>>> [aic.to_base32(x) for x in aic10_valid] == aic32_valid
+True
+>>> [aic.from_base32(x) for x in aic32_valid] == aic10_valid
+True
+
+
+We offer conversion functions between BASE10 and BASE32 formats.
+
+>>> aic.to_base32('000307037')
+'009CUX'
+>>> aic.from_base32('009CUX')
+'000307037'
+>>> aic.to_base32('009CUX')
+Traceback (most recent call last):
+    ...
+InvalidFormat: ...
+>>> aic.from_base32('009CV$')
+Traceback (most recent call last):
+    ...
+InvalidFormat: ...
+
+
+Check digit calculation corner cases.
+
+>>> aic.calc_check_digit('00030705')
+'2'
+>>> aic.calc_check_digit('010307052')
+'4'
+
+
+Tests for various corner cases.
+
+>>> aic.validate('000307052')
+'000307052'
+>>> aic.validate('00030705.')
+Traceback (most recent call last):
+    ...
+InvalidFormat: ...
+>>> aic.validate('00307052')
+Traceback (most recent call last):
+    ...
+InvalidLength: ...
+>>> aic.validate('000307053')
+Traceback (most recent call last):
+    ...
+InvalidChecksum: ...
+>>> aic.validate(307053)  # not a string type
+Traceback (most recent call last):
+    ...
+InvalidFormat: ...
+>>> aic.validate('100307053')  # does not start with 0
+Traceback (most recent call last):
+    ...
+InvalidComponent: ...
+>>> aic.validate('0003070.3')
+Traceback (most recent call last):
+    ...
+InvalidFormat: ...
+>>> aic.validate('009CVD')
+'000307052'
+>>> aic.validate('09CVD')
+Traceback (most recent call last):
+    ...
+InvalidLength: ...
+>>> aic.validate('2ZP43F')  # BASE10 format does not start with 0
+Traceback (most recent call last):
+    ...
+InvalidComponent: ...
+>>> aic.validate('009CV$')
+Traceback (most recent call last):
+    ...
+InvalidFormat: ...
+
+
+We can also validate BASE10 or BASE32 format explicitly.
+
+>>> aic.validate_base10('009CVD')
+Traceback (most recent call last):
+    ...
+InvalidLength: ...
+>>> aic.validate_base32('009CVD1')
+Traceback (most recent call last):
+    ...
+InvalidLength: ...
+>>> aic.validate_base32('009CVL')
+Traceback (most recent call last):
+    ...
+InvalidChecksum: ...
+>>> aic.validate_base32('00$CVD')
+Traceback (most recent call last):
+    ...
+InvalidFormat: ...
+>>> aic.validate_base32('100307052')
+Traceback (most recent call last):
+    ...
+InvalidLength: ...
