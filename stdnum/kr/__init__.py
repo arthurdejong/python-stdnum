@@ -19,3 +19,6 @@
 # 02110-1301 USA
 
 """Collection of South Korean numbers."""
+
+# provide aliases
+from stdnum.kr import brn as vat  # noqa: F401
