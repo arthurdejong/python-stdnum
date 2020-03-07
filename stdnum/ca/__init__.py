@@ -19,3 +19,4 @@
 # 02110-1301 USA
 
 """Collection of Canadian numbers."""
+from stdnum.ca import bn as vat  # noqa: F401
