@@ -19,3 +19,4 @@
 # 02110-1301 USA
 
 """Collection of Japanese numbers."""
+from stdnum.jp import cn as vat  # noqa: F401
