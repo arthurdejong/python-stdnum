@@ -19,3 +19,4 @@
 # 02110-1301 USA
 
 """Collection of Peruvian numbers."""
+from stdnum.pe import ruc as vat  # noqa: F401
