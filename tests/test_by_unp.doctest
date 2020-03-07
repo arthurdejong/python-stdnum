@@ -1,0 +1,97 @@
+test_by_unp.doctest - more detailed doctests for stdnum.by.unp module
+
+Copyright (C) 2020 Arthur de Jong
+
+This library is free software; you can redistribute it and/or
+modify it under the terms of the GNU Lesser General Public
+License as published by the Free Software Foundation; either
+version 2.1 of the License, or (at your option) any later version.
+
+This library is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+Lesser General Public License for more details.
+
+You should have received a copy of the GNU Lesser General Public
+License along with this library; if not, write to the Free Software
+Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
+02110-1301 USA
+
+
+This file contains more detailed doctests for the stdnum.by.unp. It
+tries to cover more corner cases and detailed functionality that is not
+really useful as module documentation.
+
+>>> from stdnum.by import unp
+>>> from stdnum.exceptions import *
+
+
+Tests for some corner cases.
+
+>>> unp.validate('591705582')
+'591705582'
+>>> unp.validate('УНП 591705582')
+'591705582'
+>>> str(unp.validate(u'\u0423\u041d\u041f 591705582'))
+'591705582'
+>>> unp.validate('UNP 591705582')
+'591705582'
+>>> unp.validate('5917DDD82')  # letters in wrong places
+Traceback (most recent call last):
+    ...
+InvalidFormat: ...
+>>> unp.validate('991705588')  # first digit is unknown region
+Traceback (most recent call last):
+    ...
+InvalidComponent: ...
+>>> unp.validate('M01953684')  # if first digit is letter, so should the second
+Traceback (most recent call last):
+    ...
+InvalidFormat: ...
+>>> unp.validate('7A1953689')  # if second digit is letter, so should the first
+Traceback (most recent call last):
+    ...
+InvalidFormat: ...
+>>> unp.validate('МА1953684')  # Cyrillic letters will be translated to Latin
+'MA1953684'
+
+
+The check digit cannot be 10:
+
+>>> unp.calc_check_digit('711953681')
+Traceback (most recent call last):
+    ...
+InvalidChecksum: ...
+
+
+These have been found online and should all be valid numbers.
+
+>>> numbers = '''
+...
+... 100217336
+... 100693551
+... 100864035
+... 101288529
+... 101541947
+... 190658169
+... 190960352
+... 191453533
+... 191682495
+... 191767445
+... 191827058
+... 192035780
+... 192345153
+... 192988109
+... 200019773
+... 290380347
+... 400051902
+... 490127567
+... 500037201
+... 591705582
+... 690314863
+... 691631805
+... 791022114
+...
+... '''
+>>> [x for x in numbers.splitlines() if x and not unp.is_valid(x)]
+[]
