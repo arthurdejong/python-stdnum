@@ -1,0 +1,75 @@
+test_vatin.doctest - more detailed doctests for stdnum.vatin module
+
+Copyright (C) 2020 Leandro Regueiro
+
+This library is free software; you can redistribute it and/or
+modify it under the terms of the GNU Lesser General Public
+License as published by the Free Software Foundation; either
+version 2.1 of the License, or (at your option) any later version.
+
+This library is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+Lesser General Public License for more details.
+
+You should have received a copy of the GNU Lesser General Public
+License along with this library; if not, write to the Free Software
+Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
+02110-1301 USA
+
+
+This file contains more detailed doctests for the stdnum.vatin module. It
+tries to test more corner cases and detailed functionality that is not
+really useful as module documentation.
+
+>>> from stdnum import vatin
+
+
+Check valid VAT numbers for several countries with existing validation:
+
+>>> vatin.validate('FR 40 303 265 045')
+'FR40303265045'
+>>> vatin.validate('DE136,695 976')
+'DE136695976'
+>>> vatin.validate('BR16.727.230/0001-97')
+'BR16727230000197'
+>>> vatin.validate('el-082857563')
+'EL082857563'
+
+
+Try validating invalid VAT numbers for country with validation:
+
+>>> vatin.compact('FR 40 303')
+'FR40303'
+>>> vatin.validate('FR 40 303')
+Traceback (most recent call last):
+    ...
+InvalidLength: ...
+>>> vatin.validate('FR')
+Traceback (most recent call last):
+    ...
+InvalidFormat: ...
+
+
+Try validating not specifying a country:
+
+>>> vatin.validate('')
+Traceback (most recent call last):
+    ...
+InvalidFormat: ...
+>>> vatin.validate('00')
+Traceback (most recent call last):
+    ...
+InvalidFormat: ...
+
+
+Try to validate for countries with no VAT validation:
+
+>>> vatin.validate('XX')
+Traceback (most recent call last):
+    ...
+InvalidComponent: ...
+>>> vatin.validate('US')
+Traceback (most recent call last):
+    ...
+InvalidComponent: ...
