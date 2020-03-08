@@ -70,7 +70,7 @@ def calc_check_digit_pers(number):
     should not have the check digit included."""
     # note that this algorithm has not been confirmed by an independent source
     weights = (10, 5, 8, 4, 2, 1, 6, 3, 7, 9)
-    check = 1 + sum(weights[i] * int(n) for i, n in enumerate(number))
+    check = 1 + sum(w * int(n) for w, n in zip(weights, number))
     return str(check % 11 % 10)
 
 
