@@ -72,7 +72,7 @@ setup(
         'Topic :: Text Processing :: General',
     ],
     packages=find_packages(),
-    install_requires=[],
+    install_requires=["importlib; python_version < '2.7'"],
     package_data={'': ['*.dat']},
     extras_require={
         # The SOAP feature is only required for a number of online tests

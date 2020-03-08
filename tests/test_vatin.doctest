@@ -1,0 +1,61 @@
+test_vatin.doctest - more detailed doctests for stdnum.vatin module
+
+Copyright (C) 2020 Leandro Regueiro
+
+This library is free software; you can redistribute it and/or
+modify it under the terms of the GNU Lesser General Public
+License as published by the Free Software Foundation; either
+version 2.1 of the License, or (at your option) any later version.
+
+This library is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+Lesser General Public License for more details.
+
+You should have received a copy of the GNU Lesser General Public
+License along with this library; if not, write to the Free Software
+Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
+02110-1301 USA
+
+
+This file contains more detailed doctests for the stdnum.vatin module. It
+tries to test more corner cases and detailed functionality that is not
+really useful as module documentation.
+
+>>> from stdnum.vatin import check_vatin
+
+
+Check valid VAT numbers for several countries with existing validation:
+
+>>> check_vatin('FR 40 303 265 045')
+True
+>>> check_vatin('DE136,695 976')
+True
+>>> check_vatin('BR16.727.230/0001-97')
+True
+
+
+Try validating invalid VAT numbers for country with validation:
+
+>>> check_vatin('FR 40 303')
+False
+>>> check_vatin('FR')
+False
+
+
+Try validating not specifying a country:
+
+>>> check_vatin('')
+False
+
+
+Try to validate for countries with no VAT validation:
+
+>>> check_vatin('XX')
+Traceback (most recent call last):
+    ...
+MissingValidation: ...
+>>> check_vatin('US')
+Traceback (most recent call last):
+    ...
+MissingValidation: ...
