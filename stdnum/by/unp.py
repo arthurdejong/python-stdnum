@@ -18,7 +18,7 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 # 02110-1301 USA
 
-"""УНП, UNP (Учетный номер плательщика, the Bellarus VAT number).
+"""УНП, UNP (Учетный номер плательщика, the Belarus VAT number).
 
 The УНП (UNP) or Учетный номер плательщика (Uchetniy nomer platel'shika,
 Payer account number) is issued to organisations and individuals for tax
