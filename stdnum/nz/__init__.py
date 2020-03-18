@@ -19,3 +19,6 @@
 # 02110-1301 USA
 
 """Collection of New Zealand numbers."""
+
+# provide aliases
+from stdnum.nz import ird as vat  # noqa: F401
