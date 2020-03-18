@@ -1,0 +1,301 @@
+test_sg_uen.doctest - more detailed doctests for stdnum.sg.uen module
+
+Copyright (C) 2020 Leandro Regueiro
+
+This library is free software; you can redistribute it and/or
+modify it under the terms of the GNU Lesser General Public
+License as published by the Free Software Foundation; either
+version 2.1 of the License, or (at your option) any later version.
+
+This library is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+Lesser General Public License for more details.
+
+You should have received a copy of the GNU Lesser General Public
+License along with this library; if not, write to the Free Software
+Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
+02110-1301 USA
+
+
+This file contains more detailed doctests for the stdnum.sg.uen module. It
+tries to test more corner cases and detailed functionality that is not really
+useful as module documentation.
+
+>>> from stdnum.sg import uen
+
+
+Tests for some corner cases.
+
+>>> uen.validate('00192200M')
+'00192200M'
+>>> uen.validate('00192200C')
+Traceback (most recent call last):
+    ...
+InvalidChecksum: ...
+>>> uen.validate('197401143C')
+'197401143C'
+>>> uen.validate('S16FC0121D')
+'S16FC0121D'
+>>> uen.validate('T01FC6132D')
+'T01FC6132D'
+>>> uen.format(' 00192200M ')
+'00192200M'
+>>> uen.validate('123456')
+Traceback (most recent call last):
+    ...
+InvalidLength: ...
+>>> uen.validate('R2345678H')
+Traceback (most recent call last):
+    ...
+InvalidFormat: ...
+>>> uen.validate('123456789')
+Traceback (most recent call last):
+    ...
+InvalidFormat: ...
+>>> uen.validate('1R3456789H')
+Traceback (most recent call last):
+    ...
+InvalidFormat: ...
+>>> uen.validate('999956789H')
+Traceback (most recent call last):
+    ...
+InvalidComponent: ...
+>>> uen.validate('1234567890')
+Traceback (most recent call last):
+    ...
+InvalidChecksum: ...
+>>> uen.validate('W23LL6789H')
+Traceback (most recent call last):
+    ...
+InvalidComponent: ...
+>>> uen.validate('S2WLL6789H')
+Traceback (most recent call last):
+    ...
+InvalidFormat: ...
+>>> uen.validate('T99LL6789H')
+Traceback (most recent call last):
+    ...
+InvalidComponent: ...
+>>> uen.validate('T02WW6789H')
+Traceback (most recent call last):
+    ...
+InvalidComponent: ...
+>>> uen.validate('T02LL6W89H')
+Traceback (most recent call last):
+    ...
+InvalidFormat: ...
+>>> uen.validate('T02LL67890')
+Traceback (most recent call last):
+    ...
+InvalidChecksum: ...
+
+
+These have been found online and should all be valid numbers.
+
+>>> numbers = '''
+...
+... 00416700K
+... 01402200A
+... 03122200E
+... 03989700A
+... 05040200E
+... 05328700B
+... 05346600D
+... 05682800D
+... 05796700L
+... 06108900A
+... 06273700K
+... 06540200J
+... 06905300J
+... 07059900M
+... 07088800X
+... 07330000D
+... 07392800C
+... 07609900L
+... 08301600K
+... 09402000X
+... 10080700C
+... 10185500A
+... 10362000A
+... 10415300L
+... 10482100X
+... 10528100W
+... 10655900A
+... 10839500J
+... 198101793G
+... 199201624D
+... 199409389H
+... 199607747H
+... 199903512M
+... 200001838R
+... 200003956G
+... 200311327H
+... 200402245Z
+... 200509725E
+... 200601141M
+... 200612239R
+... 200613692K
+... 200806526H
+... 200923096R
+... 201001206N
+... 201026348Z
+... 201107298M
+... 201118211H
+... 201221002E
+... 201225997K
+... 201227749M
+... 201312700G
+... 201316157E
+... 201405619W
+... 201421015W
+... 201422211Z
+... 201427857E
+... 201430557E
+... 201434292D
+... 201505714C
+... 201506999D
+... 201507276Z
+... 201509563K
+... 201524437R
+... 201528593H
+... 201530032R
+... 201533374C
+... 201538146W
+... 201539125W
+... 201539692G
+... 201541306Z
+... 201605323H
+... 201608874E
+... 201612228W
+... 201613871H
+... 201616811C
+... 201620388N
+... 201621244C
+... 201626104W
+... 201630570C
+... 201630906R
+... 201703509H
+... 201709179W
+... 201723655Z
+... 201728348W
+... 201729145M
+... 201730487Z
+... 201732074H
+... 201801863N
+... 201810763C
+... 201813990E
+... 201814325Z
+... 201819215N
+... 201828636K
+... 201831257M
+... 201831267E
+... 201902616N
+... 201927572K
+... 201931750M
+... 201933247R
+... 53143018M
+... 53321041X
+... 53322268X
+... 53325701L
+... 53327223L
+... 53328294B
+... 53329644K
+... 53329865B
+... 53333269M
+... 53333709K
+... 53334750E
+... 53336671B
+... 53337313A
+... 53337959L
+... 53338455M
+... 53338593L
+... 53339826J
+... 53340108M
+... 53340486W
+... 53341233A
+... 53343978K
+... 53344927L
+... 53346524M
+... 53346603B
+... 53346756W
+... 53351301D
+... 53354912D
+... 53357813B
+... 53358098J
+... 53358936C
+... 53359192M
+... 53359796W
+... 53360148K
+... 53360367J
+... 53360906B
+... 53365157C
+... 53366537W
+... 53366669D
+... 53368090E
+... 53369142K
+... 53371741L
+... 53372084B
+... 53372845B
+... 53372960B
+... 53373278J
+... 53373376J
+... 53374181E
+... 53374421X
+... 53377389W
+... 53377498E
+... 53377824K
+... 53380578C
+... 53382783C
+... 53383991B
+... 53384227A
+... 53393038C
+... 53393390X
+... 53393519M
+... 53394981E
+... 53395684J
+... 53395867M
+... 53397681B
+... 53398169K
+... 53399589B
+... 53399638D
+... 53399659K
+... S16FC0121D
+... S27FC0556D
+... S64FC1644H
+... S65SS0033F
+... S66SS0041B
+... S68FC1890G
+... S85FC3621C
+... S99FC5759D
+... T01FC6132D
+... T07LL0309A
+... T08LL0003B
+... T08LL0005E
+... T08LL0721A
+... T08LL0979J
+... T10LL1392L
+... T10LL1400J
+... T11LL0668C
+... T11LL1149C
+... T11LL1971L
+... T11LL2079G
+... T12LL0781D
+... T12LL2046J
+... T12LL2127H
+... T14FC0094H
+... T14LL1800D
+... T15LL1753J
+... T15LL1855C
+... T15LL1956A
+... T16LL0695L
+... T16LL1853E
+... T17LL0235L
+... T17LL1494G
+... T17LL2098G
+... T18FC0083E
+... T19LL0797J
+...
+... '''
+>>> [x for x in numbers.splitlines() if x and not uen.is_valid(x)]
+[]
