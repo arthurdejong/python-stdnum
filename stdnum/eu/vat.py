@@ -53,7 +53,7 @@ a country code of gr while for VAT purposes el is used instead."""
 
 _country_modules = dict()
 
-vies_wsdl = 'http://ec.europa.eu/taxation_customs/vies/checkVatService.wsdl'
+vies_wsdl = 'https://ec.europa.eu/taxation_customs/vies/checkVatService.wsdl'
 """The WSDL URL of the VAT Information Exchange System (VIES)."""
 
 
