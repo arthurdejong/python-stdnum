@@ -27,7 +27,7 @@ person's date of birth and gender.
 
 More information:
 
-* http://www.amka.gr/tieinai_en.html
+* https://www.amka.gr/tieinai_en.html
 
 >>> validate('01013099997')
 '01013099997'

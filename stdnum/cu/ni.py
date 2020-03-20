@@ -26,7 +26,7 @@ of birth of the person and gender.
 
 More information:
 
-* http://www.postdata.club/issues/201609/es-usted-unico-en-cuba.html
+* https://www.postdata.club/issues/201609/es-usted-unico-en-cuba.html
 
 >>> validate('91021027775')
 '91021027775'

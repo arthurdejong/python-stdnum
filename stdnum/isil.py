@@ -40,7 +40,7 @@ web services for validation) but there is no common format to these services.
 More information:
 
 * https://en.wikipedia.org/wiki/ISBT_128
-* http://biblstandard.dk/isil/
+* https://biblstandard.dk/isil/
 * https://www.iso.org/standard/57332.html
 
 >>> validate('IT-RM0267')

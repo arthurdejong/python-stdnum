@@ -18,7 +18,7 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 # 02110-1301 USA
 
-# Development of this functionality was funded by iterativo | http://iterativo.do
+# Development of this functionality was funded by iterativo | https://iterativo.do
 
 """RNC (Registro Nacional del Contribuyente, Dominican Republic tax number).
 

@@ -32,7 +32,7 @@ according to revision 2 and based on the registry as published by the EC.
 More information:
 
 * https://en.wikipedia.org/wiki/Statistical_Classification_of_Economic_Activities_in_the_European_Community
-* http://ec.europa.eu/eurostat/ramon/nomenclatures/index.cfm?TargetUrl=LST_NOM_DTL&StrNom=NACE_REV2&StrLanguageCode=EN&IntPcKey=&StrLayoutCode=HIERARCHIC
+* https://ec.europa.eu/eurostat/ramon/nomenclatures/index.cfm?TargetUrl=LST_NOM_DTL&StrNom=NACE_REV2&StrLanguageCode=EN&IntPcKey=&StrLayoutCode=HIERARCHIC
 
 >>> validate('A')
 'A'

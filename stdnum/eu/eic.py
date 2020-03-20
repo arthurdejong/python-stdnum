@@ -30,7 +30,7 @@ the object and 1 check character.
 More information:
 
 * https://en.wikipedia.org/wiki/Energy_Identification_Code
-* http://www.eiccodes.eu/
+* https://www.entsoe.eu/data/energy-identification-codes-eic/
 
 >>> validate('22XWATTPLUS----G')
 '22XWATTPLUS----G'

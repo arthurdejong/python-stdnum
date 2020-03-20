@@ -40,7 +40,7 @@ Central Bank).
 More information:
 
 * https://es.wikipedia.org/wiki/Código_cuenta_cliente
-* http://www.bde.es/bde/es/secciones/servicios/Particulares_y_e/Registros_de_Ent/
+* https://www.bde.es/bde/es/secciones/servicios/Particulares_y_e/Registros_de_Ent/
 
 >>> validate('1234-1234-16 1234567890')
 '12341234161234567890'

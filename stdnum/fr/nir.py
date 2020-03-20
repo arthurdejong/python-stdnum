@@ -37,7 +37,7 @@ More information:
 * https://en.wikipedia.org/wiki/INSEE_code
 * http://resoo.org/docs/_docs/regles-numero-insee.pdf
 * https://fr.wikipedia.org/wiki/Numéro_de_sécurité_sociale_en_France
-* http://xml.insee.fr/schema/nir.html
+* https://xml.insee.fr/schema/nir.html
 
 >>> validate('2 95 10 99 126 111 93')
 '295109912611193'

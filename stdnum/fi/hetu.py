@@ -23,8 +23,8 @@
 """HETU (Henkilötunnus, Finnish personal identity code).
 
 Module for handling Finnish personal identity codes (HETU, Henkilötunnus).
-See http://www.vaestorekisterikeskus.fi/default.aspx?id=45 for checksum
-calculation details and http://tarkistusmerkit.teppovuori.fi/tarkmerk.htm#hetu1
+See https://www.vaestorekisterikeskus.fi/default.aspx?id=45 for checksum
+calculation details and https://tarkistusmerkit.teppovuori.fi/tarkmerk.htm#hetu1
 for historical details.
 
 >>> validate('131052-308T')

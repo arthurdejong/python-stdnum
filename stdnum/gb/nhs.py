@@ -27,9 +27,9 @@ the final digit is a check digit.
 More information:
 
 * https://en.wikipedia.org/wiki/NHS_number
-* http://www.nhs.uk/NHSEngland/thenhs/records/nhs-number/
+* https://www.nhs.uk/using-the-nhs/about-the-nhs/what-is-an-nhs-number/
 * https://digital.nhs.uk/article/301/NHS-Number
-* http://www.datadictionary.nhs.uk/data_dictionary/attributes/n/nhs/nhs_number_de.asp
+* https://www.datadictionary.nhs.uk/data_dictionary/attributes/n/nhs/nhs_number_de.asp
 
 >>> validate('943-476-5870')
 '9434765870'

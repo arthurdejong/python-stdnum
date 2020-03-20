@@ -35,7 +35,7 @@ The number consists of one alphabetic character and thirteen digits:
 
 More information:
 
-* http://mnis.govmu.org/English/ID%20Card/Pages/default.aspx
+* https://mnis.govmu.org/English/ID%20Card/Pages/default.aspx
 """
 
 import datetime

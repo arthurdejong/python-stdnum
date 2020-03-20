@@ -29,7 +29,7 @@ ISBN-10).
 More information:
 
 * https://en.wikipedia.org/wiki/International_Standard_Serial_Number
-* http://www.issn.org/
+* https://www.issn.org/
 
 >>> validate('0024-9319')
 '00249319'

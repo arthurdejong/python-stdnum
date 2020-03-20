@@ -27,7 +27,7 @@ gender and birth date and a check digit.
 
 More information:
 
-* http://en.wikipedia.org/wiki/CURP
+* https://en.wikipedia.org/wiki/CURP
 * https://www.gob.mx/curp/
 
 >>> validate('BOXW310820HNERXN09')
