@@ -19,3 +19,6 @@
 # 02110-1301 USA
 
 """Collection of Israeli numbers."""
+
+# provide aliases
+from stdnum.il import hp as vat  # noqa: F401
