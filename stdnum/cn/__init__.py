@@ -19,3 +19,6 @@
 # 02110-1301 USA
 
 """Collection of China (PRC) numbers."""
+
+# Provide vat as an alias.
+from stdnum.cn import uscc as vat  # noqa: F401
