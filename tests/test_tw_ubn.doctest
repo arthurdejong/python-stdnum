@@ -1,0 +1,208 @@
+test_tw_ubn.doctest - more detailed doctests for stdnum.tw.ubn module
+
+Copyright (C) 2020 Leandro Regueiro
+
+This library is free software; you can redistribute it and/or
+modify it under the terms of the GNU Lesser General Public
+License as published by the Free Software Foundation; either
+version 2.1 of the License, or (at your option) any later version.
+
+This library is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+Lesser General Public License for more details.
+
+You should have received a copy of the GNU Lesser General Public
+License along with this library; if not, write to the Free Software
+Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
+02110-1301 USA
+
+
+This file contains more detailed doctests for the stdnum.tw.ubn module. It
+tries to test more corner cases and detailed functionality that is not really
+useful as module documentation.
+
+>>> from stdnum.tw import ubn
+
+
+Tests for some corner cases.
+
+>>> ubn.validate('00277104')
+'00277104'
+>>> ubn.validate(' 0027710-4 ')
+'00277104'
+>>> ubn.format(' 0027710-4 ')
+'00277104'
+>>> ubn.validate('12345')
+Traceback (most recent call last):
+    ...
+InvalidLength: ...
+>>> ubn.validate('FF277104')
+Traceback (most recent call last):
+    ...
+InvalidFormat: ...
+>>> ubn.validate('00277103')
+Traceback (most recent call last):
+    ...
+InvalidChecksum: ...
+
+
+These have been found online and should all be valid numbers.
+
+>>> numbers = '''
+...
+... 00501503
+... 00508203
+... 00520500
+... 00965067
+... 00992156
+... 01006018
+... 01012715
+... 01013257
+... 01031918
+... 01671049
+... 01819129
+... 02255149
+... 02612809
+... 02695934
+... 02810218
+... 02810370
+... 02810478
+... 02811286
+... 02811574
+... 03729709
+... 03731705
+... 03734203
+... 03734246
+... 03734301
+... 03735202
+... 03737200
+... 03753600
+... 03787502
+... 03807654
+... 04173812
+... 05600361
+... 06313774
+... 06476734
+... 08149429
+... 08551977
+... 09561093
+... 11337775
+... 12800766
+... 14293457
+... 21100531
+... 22822281
+... 24718587
+... 24932469
+... 25329369
+... 27940723
+... 28148905
+... 28674499
+... 29116418
+... 29137568
+... 40407602
+... 45000103
+... 45888690
+... 46804706
+... 46804804
+... 50872698
+... 52011008
+... 52020800
+... 52697649
+... 53020997
+... 53084078
+... 53235414
+... 53412564
+... 54381049
+... 54663032
+... 54664996
+... 55508115
+... 57301337
+... 57302906
+... 58815405
+... 59372104
+... 60004108
+... 60004304
+... 61611307
+... 61611405
+... 61611502
+... 64004306
+... 64967512
+... 66018608
+... 66019206
+... 66019304
+... 69115908
+... 69116202
+... 69116408
+... 69116701
+... 71802305
+... 71803607
+... 71804508
+... 73761420
+... 76001900
+... 77495542
+... 78962740
+... 80158777
+... 84846045
+... 86521248
+... 87402608
+... 87814088
+... 88504104
+... 88507003
+... 89398405
+... 91003907
+... 91004005
+... 91605801
+... 91746936
+... 93504202
+... 93504408
+... 95927022
+... 99033073
+... 99326850
+... 99595290
+... 99595989
+... 99596220
+... 99596468
+... 99651948
+... 99653306
+... 99663965
+... 99665979
+... 99667982
+... 99668027
+... 99668336
+... 99669193
+... 99685399
+... 99688662
+... 99696641
+... 99736030
+... 99745468
+... 99749204
+... 99756176
+... 99757338
+... 99786158
+... 99809976
+... 99830984
+... 99833899
+... 99841053
+... 99842031
+... 99848387
+... 99849512
+... 99853521
+... 99855648
+... 99856230
+... 99861923
+... 99879748
+... 99884812
+... 99892600
+... 99894425
+... 99904177
+... 99924856
+... 99931596
+... 99936918
+... 99937037
+... 99940188
+... 99963479
+...
+... '''
+>>> [x for x in numbers.splitlines() if x and not ubn.is_valid(x)]
+[]
