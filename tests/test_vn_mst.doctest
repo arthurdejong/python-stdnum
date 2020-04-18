@@ -1,0 +1,230 @@
+test_vn_mst.doctest - more detailed doctests for stdnum.vn.mst module
+
+Copyright (C) 2020 Leandro Regueiro
+
+This library is free software; you can redistribute it and/or
+modify it under the terms of the GNU Lesser General Public
+License as published by the Free Software Foundation; either
+version 2.1 of the License, or (at your option) any later version.
+
+This library is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+Lesser General Public License for more details.
+
+You should have received a copy of the GNU Lesser General Public
+License along with this library; if not, write to the Free Software
+Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
+02110-1301 USA
+
+
+This file contains more detailed doctests for the stdnum.vn.mst module. It
+tries to test more corner cases and detailed functionality that is not really
+useful as module documentation.
+
+>>> from stdnum.vn import mst
+
+
+Tests for some corner cases.
+
+>>> mst.validate('0100233488')
+'0100233488'
+>>> mst.validate('0314409058-002')
+'0314409058002'
+>>> mst.validate('0312 68 78 78 - 001')
+'0312687878001'
+>>> mst.format('01.00.112.437')
+'0100112437'
+>>> mst.format('0312 68 78 78 - 001')
+'0312687878-001'
+>>> mst.validate('12345')
+Traceback (most recent call last):
+    ...
+InvalidLength: ...
+>>> mst.validate('VV34567890')
+Traceback (most recent call last):
+    ...
+InvalidFormat: ...
+>>> mst.validate('0100000008')
+Traceback (most recent call last):
+    ...
+InvalidComponent: ...
+>>> mst.validate('0314409058-000')
+Traceback (most recent call last):
+    ...
+InvalidComponent: ...
+>>> mst.validate('0100233480')
+Traceback (most recent call last):
+    ...
+InvalidChecksum: ...
+
+
+These have been found online and should all be valid numbers.
+
+>>> numbers = '''
+...
+... 01.00.112.437
+... 0100112437011
+... 0100233488
+... 0101245486
+... 0102182292
+... 0102278149
+... 0102328512
+... 0102638049
+... 0102641429-066
+... 0102721191-001
+... 0102723382
+... 0103131621
+... 0103326250
+... 0103581701
+... 0105022466
+... 0105330703
+... 0105869220
+... 0105958840
+... 0106142205
+... 0106713191
+... 0106824279
+... 0106897051
+... 0106929352
+... 0107338930
+... 0107371744
+... 0107408553
+... 0107430703
+... 0107526719
+... 0107568451
+... 0107959889
+... 0107984081
+... 0108024302
+... 0108100828
+... 0108200276
+... 0108256430
+... 0108747679
+... 0108880215
+... 0109120150
+... 0109161862
+... 0200747399
+... 0201900138
+... 0201909807
+... 0201910834
+... 0300533351
+... 0301471348
+... 0302082048
+... 0302787672
+... 0302971199
+... 0303025606
+... 0303104343
+... 0303177976
+... 0303217354
+... 0303789707
+... 0304436870
+... 0304475742
+... 0304541339
+... 0305000124
+... 0305060028
+... 0305322160
+... 0305338315
+... 0305592294
+... 0306404183
+... 0308023320
+... 0309485335
+... 0310213840
+... 0310350004
+... 0311 916 028
+... 0311592398
+... 0311693854
+... 0311892472
+... 0311933841
+... 0312 68 78 78 - 001
+... 0312273838
+... 0312386285
+... 0312615305
+... 0312971744
+... 0313322647
+... 0313511637
+... 0313547048
+... 0313752826
+... 0313844499
+... 0313883096
+... 0314179100
+... 0314390745
+... 0314409058-002
+... 0314425155
+... 0314715626
+... 0314797650
+... 0314817730
+... 0315406620
+... 0315427476
+... 0315469356
+... 0315615423
+... 0315641254
+... 0315649013
+... 0315675711
+... 0316079077
+... 0316095304
+... 0316110224
+... 0400129230
+... 0400583250
+... 0401 443 048
+... 0401958914
+... 0700790272
+... 0900283167
+... 1201480559
+... 1300440846-008
+... 1600255033-006
+... 1600699712-004
+... 1601223524
+... 1801314923
+... 2000102580
+... 2000102580-001
+... 2000102580-002
+... 2000102580-003
+... 2000102580-004
+... 2000102580-005
+... 2000730546-015
+... 2000961769-009
+... 2100624710
+... 2300376864
+... 2500291713
+... 2800886119
+... 2901807716
+... 3100104093-009
+... 3200707377
+... 3300273243-005
+... 3301595028
+... 3400416992-007
+... 3500748818
+... 3500865800
+... 3600532315
+... 3602404615
+... 3603277021
+... 3603718156
+... 3700635642
+... 3700751416
+... 3701398754
+... 3702499152
+... 3702642596
+... 3900260711
+... 3900956516
+... 3901166775
+... 3901203321
+... 4000107409
+... 4001100318
+... 4001170925
+... 4200919944
+... 4201783848
+... 4401031161
+... 4900224296
+... 4900813164
+... 5200327611
+... 5200869050
+... 5400478872
+... 5500340437
+... 5701424091
+... 5800199577-002
+... 5900705097
+... 8037630690
+... 8463763902
+...
+... '''
+>>> [x for x in numbers.splitlines() if x and not mst.is_valid(x)]
+[]
