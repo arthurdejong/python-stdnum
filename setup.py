@@ -39,45 +39,47 @@ base_dir = os.path.dirname(__file__)
 with open(os.path.join(base_dir, 'README'), 'rb') as fp:
     long_description = fp.read().decode('utf-8')
 
-setup(name='python-stdnum',
-      version=stdnum.__version__,
-      description='Python module to handle standardized numbers and codes',
-      long_description=long_description,
-      author='Arthur de Jong',
-      author_email='arthur@arthurdejong.org',
-      url='https://arthurdejong.org/python-stdnum/',
-      license='LGPL',
-      classifiers=[
-          'Development Status :: 5 - Production/Stable',
-          'Intended Audience :: Developers',
-          'Intended Audience :: Financial and Insurance Industry',
-          'Intended Audience :: Information Technology',
-          'Intended Audience :: Telecommunications Industry',
-          'License :: OSI Approved :: GNU Lesser General Public License v2 or later (LGPLv2+)',
-          'Operating System :: OS Independent',
-          'Programming Language :: Python',
-          'Programming Language :: Python :: 2',
-          'Programming Language :: Python :: 2.6',
-          'Programming Language :: Python :: 2.7',
-          'Programming Language :: Python :: 3',
-          'Programming Language :: Python :: 3.4',
-          'Programming Language :: Python :: 3.5',
-          'Programming Language :: Python :: 3.6',
-          'Programming Language :: Python :: 3.7',
-          'Programming Language :: Python :: 3.8',
-          'Programming Language :: Python :: Implementation :: PyPy',
-          'Topic :: Office/Business :: Financial',
-          'Topic :: Software Development :: Libraries :: Python Modules',
-          'Topic :: Text Processing :: General',
-          ],
-      packages=find_packages(),
-      package_data={'': ['*.dat']},
-      extras_require={
-          # The SOAP feature is only required for a number of online tests
-          # of numbers such as the EU VAT VIES lookup, the Dominican Republic
-          # DGII services or the Turkish T.C. Kimlik validation.
-          'SOAP':  ['zeep'],     # recommended implementation
-          'SOAP-ALT': ['suds'],  # but this should also work
-          'SOAP-FALLBACK':  ['PySimpleSOAP'],  # this is a fallback
-          },
-      )
+setup(
+    name='python-stdnum',
+    version=stdnum.__version__,
+    description='Python module to handle standardized numbers and codes',
+    long_description=long_description,
+    author='Arthur de Jong',
+    author_email='arthur@arthurdejong.org',
+    url='https://arthurdejong.org/python-stdnum/',
+    license='LGPL',
+    classifiers=[
+        'Development Status :: 5 - Production/Stable',
+        'Intended Audience :: Developers',
+        'Intended Audience :: Financial and Insurance Industry',
+        'Intended Audience :: Information Technology',
+        'Intended Audience :: Telecommunications Industry',
+        'License :: OSI Approved :: GNU Lesser General Public License v2 or later (LGPLv2+)',
+        'Operating System :: OS Independent',
+        'Programming Language :: Python',
+        'Programming Language :: Python :: 2',
+        'Programming Language :: Python :: 2.6',
+        'Programming Language :: Python :: 2.7',
+        'Programming Language :: Python :: 3',
+        'Programming Language :: Python :: 3.4',
+        'Programming Language :: Python :: 3.5',
+        'Programming Language :: Python :: 3.6',
+        'Programming Language :: Python :: 3.7',
+        'Programming Language :: Python :: 3.8',
+        'Programming Language :: Python :: Implementation :: PyPy',
+        'Topic :: Office/Business :: Financial',
+        'Topic :: Software Development :: Libraries :: Python Modules',
+        'Topic :: Text Processing :: General',
+    ],
+    packages=find_packages(),
+    install_requires=[],
+    package_data={'': ['*.dat']},
+    extras_require={
+        # The SOAP feature is only required for a number of online tests
+        # of numbers such as the EU VAT VIES lookup, the Dominican Republic
+        # DGII services or the Turkish T.C. Kimlik validation.
+        'SOAP': ['zeep'],      # recommended implementation
+        'SOAP-ALT': ['suds'],  # but this should also work
+        'SOAP-FALLBACK': ['PySimpleSOAP'],  # this is a fallback
+    },
+)
