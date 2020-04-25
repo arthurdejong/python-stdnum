@@ -16,11 +16,16 @@ Most of the number format modules implement the following functions:
    :mod:`an exception <.exceptions>` is raised that indicates the type of
    error.
 
+   :raises ValidationError: When the specified number is invalid
+   :returns:  str -- A compact (canonical) representation of the number
+
 .. function:: module.is_valid(number)
 
    Return either ``True`` or ``False`` depending on whether the passed number
    is in any supported and valid form and passes all embedded checks of the
    number. This function should never raise an exception.
+
+   :returns: bool -- ``True`` if validated, ``False`` otherwise
 
 .. function:: module.compact(number)
 
@@ -28,11 +33,15 @@ Most of the number format modules implement the following functions:
    generally does not do validation but may raise exceptions for wildly
    invalid numbers.
 
+   :returns: str -- The compacted number
+
 .. function:: module.format(number)
 
    Return a formatted version of the number in the preferred format.
    This function generally expects to be passed a valid number or code and
    may raise exceptions for invalid numbers.
+
+   :returns: str -- A formatted number
 
 The check digit modules generally also provide the following functions:
 
@@ -42,10 +51,14 @@ The check digit modules generally also provide the following functions:
    number that can be used to determine whether the provided number is
    valid. It depends on the algorithm which checksum is considered valid.
 
+   :returns: int -- A numeric checksum over the number
+
 .. function:: module.calc_check_digit(number)
 
    Calculate the check digit that should be added to the number to make it
    valid.
+
+   :returns: str -- A check digit that can be appended
 
 Apart from the above, the modules may add extra parsing, validation or
 conversion functions.
