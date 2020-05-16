@@ -2,6 +2,7 @@
 # coding: utf-8
 #
 # Copyright (C) 2020 Leandro Regueiro
+# Copyright (C) 2020 Arthur de Jong
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -83,3 +84,19 @@ def format(number):
     """Reformat the number to the standard presentation format."""
     number = compact(number)
     return '-'.join([number[:3], number[3:5], number[5:]])
+
+
+def check_ftc(number, timeout=30):  # pragma: no cover
+    """Check the number against the Korea Fair Trade Commission website."""
+    from pkg_resources import resource_filename
+    import lxml.html
+    import requests
+    number = compact(number)
+    url = 'https://www.ftc.go.kr/bizCommPop.do'
+    certificate = resource_filename(__name__, 'GPKIRootCA1.crt')
+    document = lxml.html.fromstring(
+        requests.get(url, params={'wrkr_no': number}, timeout=timeout, verify=certificate).text)
+    data = dict(zip(
+        [(x.text or '').strip() for x in document.findall('.//th')],
+        [(x.text or '').strip() for x in document.findall('.//td')]))
+    return data or None
