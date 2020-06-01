@@ -41,6 +41,7 @@ Traceback (most recent call last):
 InvalidFormat: ..
 """
 from stdnum.exceptions import *
+from stdnum.util import isdigits
 
 
 def validate(number):
@@ -48,7 +49,7 @@ def validate(number):
         Check if the number is a valid UTR.
         This checks thelength of the identifier.
     """
-    if not number.isnumeric():
+    if not isdigits(number):
         raise InvalidFormat()
     if not len(number) == 9:
         raise InvalidLength()
