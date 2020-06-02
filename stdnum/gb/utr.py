@@ -30,7 +30,7 @@ More information:
 * https://www.oecd.org/tax/automatic-exchange/crs-implementation-and-assistance/tax-identification-numbers/UK-TIN.pdf
 
 >>> validate('123456789')
-'999999999'
+'123456789'
 >>> validate('12345678')
 Traceback (most recent call last):
     ...
@@ -53,6 +53,7 @@ def validate(number):
         raise InvalidFormat()
     if not len(number) == 9:
         raise InvalidLength()
+    return number
 
 
 def is_valid(number):
