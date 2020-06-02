@@ -1,0 +1,46 @@
+test_gb_utr.doctest - more detailed doctests for stdnum.gb.utr module
+
+Copyright (C) 2020 Arthur de Jong
+
+This library is free software; you can redistribute it and/or
+modify it under the terms of the GNU Lesser General Public
+License as published by the Free Software Foundation; either
+version 2.1 of the License, or (at your option) any later version.
+
+This library is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+Lesser General Public License for more details.
+
+You should have received a copy of the GNU Lesser General Public
+License along with this library; if not, write to the Free Software
+Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
+02110-1301 USA
+
+
+This file contains more detailed doctests for the stdnum.gb.utr module. It
+tries to test more corner cases and detailed functionality that is not really
+useful as module documentation.
+
+>>> from stdnum.gb import utr
+
+
+These numbers have been generated but have been confirmed to be correct using
+a different validator (they have not been confirmed to be assigned).
+
+>>> numbers = '''
+...
+... 1234567895
+... 1478641088
+... 1955839661
+... 2172858530
+... 2234567890
+... 4748949890
+... 5179265754
+... 5816619590
+... 8258106771
+... 9624088948
+...
+... '''
+>>> [x for x in numbers.splitlines() if x and not utr.is_valid(x)]
+[]
