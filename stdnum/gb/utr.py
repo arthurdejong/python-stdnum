@@ -29,8 +29,8 @@ More information:
 
 * https://www.oecd.org/tax/automatic-exchange/crs-implementation-and-assistance/tax-identification-numbers/UK-TIN.pdf
 
->>> validate('9999999999')
-'9999999999'
+>>> validate('123456789')
+'123456789'
 >>> validate('12345678')
 Traceback (most recent call last):
     ...
