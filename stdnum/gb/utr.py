@@ -22,38 +22,38 @@
 The unique taxpayer reference (UTR). The format is a unique set of 10 numerals
 allocated automatically by HMRC for both individuals and entities who have to
 submit a tax return. Although used on tax returns and some other correspondence,
-the UTR is not evidenced on a card or other official document. 
+the UTR is not evidenced on a card or other official document.
 
 
 More information:
 
 * https://www.oecd.org/tax/automatic-exchange/crs-implementation-and-assistance/tax-identification-numbers/UK-TIN.pdf
 
->>> validate('123456789')
-'123456789'
+>>> validate('9999999999')
+'9999999999'
 >>> validate('12345678')
 Traceback (most recent call last):
     ...
 InvalidLength: ..
->>> validate('A12345678')
-Traceback (most recent call last):
-    ...
-InvalidFormat: ..
 """
 from stdnum.exceptions import *
-from stdnum.util import isdigits
+from stdnum.util import isdigits, clean
+
+
+def compact(number):
+    """Convert the number to the minimal representation. This strips the
+    number of any valid separators and removes surrounding whitespace."""
+    return clean(number, ' ').upper().strip()
 
 
 def validate(number):
-    """
-        Check if the number is a valid UTR.
-        This checks thelength of the identifier.
-    """
+    """Check if the number is a valid UTR.
+    This checks thelength of the identifier."""
+    number = compact(number)
     if not isdigits(number):
         raise InvalidFormat()
-    if not len(number) == 9:
+    if len(number) != 9:
         raise InvalidLength()
-    return number
 
 
 def is_valid(number):
