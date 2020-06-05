@@ -54,6 +54,7 @@ def validate(number):
         raise InvalidFormat()
     if len(number) != 9:
         raise InvalidLength()
+    return number
 
 
 def is_valid(number):
