@@ -37,7 +37,7 @@ Traceback (most recent call last):
 InvalidLength: ..
 """
 from stdnum.exceptions import *
-from stdnum.util import isdigits, clean
+from stdnum.util import clean, isdigits
 
 
 def compact(number):
