@@ -62,7 +62,7 @@ def validate(number):
         raise InvalidFormat()
     if (number[:2] < '01' or number[:2] > '24') and (number[:2] not in ('30', '50')):
         raise InvalidComponent()  # invalid province code
-    if number[2] > '5':
+    if number[2] > '6':
         raise InvalidComponent()  # third digit wrong
     if _checksum(number) != 0:
         raise InvalidChecksum()
