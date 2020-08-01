@@ -112,7 +112,7 @@ def _convert_result(result):  # pragma: no cover
     }
     return dict(
         (translation.get(key, key), value)
-        for key, value in json.loads(result.replace('\t', '\\t')).items())
+        for key, value in json.loads(result.replace('\n', '\\n').replace('\t', '\\t')).items())
 
 
 def check_dgii(number, timeout=30):  # pragma: no cover
