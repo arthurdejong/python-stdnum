@@ -53,6 +53,10 @@ class TestDGII(unittest.TestCase):
         # Test a number on the whitelist
         result = rnc.check_dgii('501658167')
         self.assertEqual(result['rnc'], '501658167')
+        # Test the output unescaping (\t and \n) of the result so JSON
+        # deserialisation works
+        result = rnc.check_dgii('132070801')
+        self.assertEqual(result['rnc'], '132070801')
 
     def test_search_dgii(self):
         """Test stdnum.do.rnc.search_dgii()"""
