@@ -1,0 +1,274 @@
+test_ro_onrc.doctest - more detailed doctests for the stdnum.ro.onrc module
+
+Copyright (C) 2020 Arthur de Jong
+
+This library is free software; you can redistribute it and/or
+modify it under the terms of the GNU Lesser General Public
+License as published by the Free Software Foundation; either
+version 2.1 of the License, or (at your option) any later version.
+
+This library is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+Lesser General Public License for more details.
+
+You should have received a copy of the GNU Lesser General Public
+License along with this library; if not, write to the Free Software
+Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
+02110-1301 USA
+
+
+This file contains more detailed doctests for the stdnum.ro.onrc module.
+
+>>> from stdnum.ro import onrc
+>>> from stdnum.exceptions import *
+
+
+Test some corner cases.
+
+>>> onrc.validate('J/52/750/2012')
+'J52/750/2012'
+>>> onrc.validate('J52/750/22.11.2012')  # valid, strip date, leave year
+'J52/750/2012'
+>>> onrc.validate('J 52 / 750 / 2012')
+'J52/750/2012'
+>>> onrc.validate('F 26 1132/2007')
+'F26/1132/2007'
+>>> onrc.validate('J22-1515-2007')
+'J22/1515/2007'
+>>> onrc.validate('X52/750/2012')  # fist letter invalid
+Traceback (most recent call last):
+    ...
+InvalidComponent: ...
+>>> onrc.validate('J52/100000/2012')  # second number too large
+Traceback (most recent call last):
+    ...
+InvalidLength: ...
+>>> onrc.validate('J 52 / 750 / 200')  # year too short
+Traceback (most recent call last):
+    ...
+InvalidLength: ...
+>>> onrc.validate('J/2/750/2012')  # county is normalised to two digits
+'J02/750/2012'
+>>> onrc.validate('J49/750/2012')  # invalid county
+Traceback (most recent call last):
+    ...
+InvalidComponent: ...
+>>> onrc.validate('J002 /123 /2015')  # invalid county
+Traceback (most recent call last):
+    ...
+InvalidComponent: ...
+>>> onrc.validate('J/52/750/2112')  # year in the future
+Traceback (most recent call last):
+    ...
+InvalidComponent: ...
+
+
+These have been found online and should all be valid numbers.
+
+>>> numbers = '''
+...
+... C04/32/2005
+... C22/4/2018
+... C30/2/2009
+... F01 /592 /2013
+... F01/1477/2011
+... F04/876/2004
+... F05/696/2006
+... F06/340/2011
+... F07/176/2010
+... F07/477/2003
+... F08/1095/2005
+... F10/841/2012
+... F11/78/2012
+... F12/617/2011
+... F13/1917/2005
+... F14/217/2013
+... F14/218/2016
+... F18/1032/2011
+... F20/491/2013
+... F30/98/2008
+... F31/786/2011
+... F32/639/2013
+... F36/64/2008
+... F37/832/2013
+... F40/682/2004
+... F5/1055/2013
+... F5/2659/2013
+... F5/550/2012
+... F5/678/2013
+... F6/496/2015
+... F8/1302/2013
+... F8/672/2012
+... J 01/585/2002
+... J 40/1323/2005
+... J01/173/2004
+... J01/568/2015
+... J02/1253/2008
+... J02/143/2011
+... J02/169/01.02.2006
+... J02/238/2012
+... J02/310/2004
+... J03/1336/2007
+... J03/179/2004
+... J03/2299/1992
+... J03/442/2002
+... J03/630/2002
+... J03/803/2009
+... J03/920/2002
+... J04/368/2006
+... J04/822/1994
+... J05/1117/2004
+... J05/1464/2011
+... J05/1729/09.09.1991
+... J05/256/2010
+... J05/5114/1994
+... J05/582/2011
+... J06/1282/1994
+... J06/307/2009
+... J06/330/2003
+... J06/52/2001
+... J06/837/2008
+... J07/147/2001
+... J07/208/1998
+... J08/1233/2005
+... J08/1617/1997
+... J08/1716/1997
+... J08/215/27.02.1998
+... J08/2679/2008
+... J08/2720/2007
+... J08/545/2001
+... J08/61/2010
+... J08/68/2003
+... J08/926/2008
+... J09/2118/1994
+... J1/384/13.05.2015
+... J1/398/2005
+... J1/499/2012
+... J1/628/2016
+... J10/460/2012
+... J12/1103/2003
+... J12/1366/2003
+... J12/1701/16.10.1996
+... J12/1811/2002
+... J12/1816/2007
+... J12/1932/1993
+... J12/2322/2002
+... J12/2553/1992
+... J12/3388/2016
+... J12/3828/16.06.2017
+... J12/4365/2006
+... J12/487/2012
+... J12/573/2010
+... J12/595/1991
+... J12/633/2012
+... J12/850/2014
+... J13/197/2012
+... J13/2949/1991
+... J13/529/2006
+... J13/60/2005
+... J13/674/2016
+... J15/1279/1993
+... J15/680/2005
+... J16/1148/2005
+... J16/1930/2013
+... J16/2036/2011
+... J17/1241/1992
+... J17/2697/1992
+... J17/861/2012
+... J18/583/2015
+... J18/877/2006
+... J19/230/2007
+... J19/55/2002
+... J20/2034/1993
+... J21/512/2016
+... J21/565/1992
+... J22/1249/2012
+... J22/1774/2008
+... J22/3673/1994
+... J22/874/1996
+... J22/930/2016
+... J23/134/27.01.2006
+... J23/1657/14.06.2012
+... J23/461/2009
+... J23/4802/2017
+... J23/864/2017
+... J24/1082/2015
+... J24/246/2005
+... J24/908/2006
+... J26/1077/2008
+... J29/264/2014
+... J30/428/1993
+... J30/477/2014
+... J30/482/2014
+... J30/722/08.08.2016
+... J30/734/2014
+... J30/855/1993
+... J30/99/2009
+... J31 / 248 / 1994
+... J32/2241/1994
+... J32/331/2011
+... J32/631/2013
+... J33/277/2011
+... J33/451/2012
+... J35/1056/2008
+... J35/48/2013
+... J35/625/2003
+... J36/25/2001
+... J36/284/2017
+... J36/369/2015
+... J36/637/2018
+... J36/691/2008
+... J37/384/2009
+... J38/163/23.02.2006
+... J39 /771 /2005
+... J40/10944/2006
+... J40/11566/2011
+... J40/11591/2003
+... J40/11591/2009
+... J40/1293/23.10.2014
+... J40/13920/2003
+... J40/1472/1992
+... J40/1498/2010
+... J40/1667/2010
+... J40/17202/2006
+... J40/19473/2006
+... J40/19754/2007
+... J40/20281/2004
+... J40/23948/14.12.1994
+... J40/24874/1994
+... J40/2810/2017
+... J40/2867/2004
+... J40/3758/2008
+... J40/3905/30.03.2015
+... J40/4206/2008
+... J40/4463/2008
+... J40/4502/2011
+... J40/467/1998
+... J40/5139/1998
+... J40/7613/2003
+... J40/7888/1999
+... J40/8005/1995
+... J40/8577/2006
+... J40/8633/2013
+... J40/8910/2007
+... J40/8998/2010
+... J40/9712/2008
+... J5/1243/2016
+... J5/2916/03.09.1993
+... J51/159/2016
+... J51/229/2011
+... J51/74/2009
+... J52/128/2014
+... J52/474/1994
+... J52/60/2004
+... J6/974/2016
+... J7/2/2005
+... j05/1455/2012
+... j30/61/2010
+... j39/151/2019
+... j40/3674/2002
+...
+... '''
+>>> [x for x in numbers.splitlines() if x and not onrc.is_valid(x)]
+[]
