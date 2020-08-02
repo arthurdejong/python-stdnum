@@ -88,14 +88,12 @@ def format(number):
 
 def check_ftc(number, timeout=30):  # pragma: no cover
     """Check the number against the Korea Fair Trade Commission website."""
-    from pkg_resources import resource_filename
     import lxml.html
     import requests
     number = compact(number)
     url = 'https://www.ftc.go.kr/bizCommPop.do'
-    certificate = resource_filename(__name__, 'GPKIRootCA1.crt')
     document = lxml.html.fromstring(
-        requests.get(url, params={'wrkr_no': number}, timeout=timeout, verify=certificate).text)
+        requests.get(url, params={'wrkr_no': number}, timeout=timeout).text)
     data = dict(zip(
         [(x.text or '').strip() for x in document.findall('.//th')],
         [(x.text or '').strip() for x in document.findall('.//td')]))
