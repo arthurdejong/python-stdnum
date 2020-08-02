@@ -1,7 +1,7 @@
 # cnp.py - functions for handling Romanian CNP numbers
 # coding: utf-8
 #
-# Copyright (C) 2012-2019 Arthur de Jong
+# Copyright (C) 2012-2020 Arthur de Jong
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -23,12 +23,16 @@
 The CNP is a 13 digit number that includes information on the person's
 gender, birth date and country zone.
 
+More information:
+
+* https://ro.wikipedia.org/wiki/Cod_numeric_personal
+
 >>> validate('1630615123457')
 '1630615123457'
->>> validate('8800101221144')  # invalid first digit
+>>> validate('0800101221142')  # invalid first digit
 Traceback (most recent call last):
     ...
-InvalidFormat: ...
+InvalidComponent: ...
 >>> validate('1632215123457')  # invalid date
 Traceback (most recent call last):
     ...
@@ -52,8 +56,7 @@ def compact(number):
 
 
 def calc_check_digit(number):
-    """Calculate the check digit for personal codes. The number passed
-    should not have the check digit included."""
+    """Calculate the check digit for personal codes."""
     # note that this algorithm has not been confirmed by an independent source
     weights = (2, 7, 9, 1, 4, 6, 3, 5, 8, 2, 7, 9)
     check = sum(w * int(n) for w, n in zip(weights, number)) % 11
@@ -79,9 +82,12 @@ def validate(number):
     """Check if the number is a valid VAT number. This checks the length,
     formatting and check digit."""
     number = compact(number)
-    # first digit should be a known one (9=foreigner)
-    if not isdigits(number) or number[0] not in '1234569':
+    if not isdigits(number):
         raise InvalidFormat()
+    # first digit should be a known one
+    # (7,8=foreign resident, 9=other foreigner but apparently only as NIF)
+    if number[0] not in '123456789':
+        raise InvalidComponent()
     if len(number) != 13:
         raise InvalidLength()
     # check if birth date is valid
