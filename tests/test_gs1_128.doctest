@@ -1,0 +1,148 @@
+test_gs1_128.doctest - more detailed doctests for the stdnum.gs1_128 module
+
+Copyright (C) 2019 Sergi Almacellas Abellaan
+Copyright (C) 2020 Arthur de Jong
+
+This library is free software; you can redistribute it and/or
+modify it under the terms of the GNU Lesser General Public
+License as published by the Free Software Foundation; either
+version 2.1 of the License, or (at your option) any later version.
+
+This library is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+Lesser General Public License for more details.
+
+You should have received a copy of the GNU Lesser General Public
+License along with this library; if not, write to the Free Software
+Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
+02110-1301 USA
+
+
+This file contains more detailed doctests for the stdnum.gs1_128 module. It
+tries to test more corner cases and detailed functionality that is not
+really useful as module documentation.
+
+>>> from decimal import Decimal
+>>> import datetime
+>>> import pprint
+>>> from stdnum import gs1_128
+
+
+>>> gs1_128.compact('(01)38425876095074(17)181119(37)1 ')
+'013842587609507417181119371'
+
+
+We can create a GS1-128 code based on data we provide. Various data types
+will be converted to the correct representation.
+
+>>> gs1_128.encode({'01': '38425876095074', '17': datetime.date(2018, 11, 19), '37': 1}, parentheses=True)
+'(01)38425876095074(17)181119(37)1'
+>>> gs1_128.encode({'02': '98412345678908', '310': 17.23, '37': 32})
+'029841234567890831020017233732'
+>>> gs1_128.encode({'03': '1234'})  # unknown AI
+Traceback (most recent call last):
+    ...
+InvalidComponent: ...
+
+If we have a separator we use it to separate variable-length values, otherwise
+we pad all variable-length values to the maximum length (except the last one).
+
+>>> gs1_128.encode({'01': '58425876097843', '10': '123456', '37': 18, '390': 42, '392': 12}, parentheses=True)
+'(01)58425876097843(10)123456              (37)00000018(390)0000000000000042(392)012'
+>>> gs1_128.encode({'01': '58425876097843', '10': '123456', '37': 18, '390': 42, '392': 12}, parentheses=True, separator='[FNC1]')
+'(01)58425876097843(10)123456[FNC1](37)18[FNC1](390)042[FNC1](392)012'
+
+Numeric values can be provided in several forms and precision is encoded
+properly.
+
+>>> gs1_128.encode({
+...     '310': 17.23,  # float
+...     '311': 456,  # int
+...     '312': 1.0 / 3.0,  # float with lots of digits
+...     '313': '123.456',  # str
+...     '391': ('123', Decimal('123.456')),  # currency number combo
+... }, parentheses=True)
+'(310)2001723(311)0000456(312)5033333(313)3123456(391)3123123456'
+
+We generate dates in various formats, depending on the AI.
+
+>>> gs1_128.encode({
+...     '11': datetime.datetime(2018, 11, 19, 0, 0, 0),
+...     '12': '181119',  # if you provide a string value, it is expected to be correct
+...     '7003': datetime.datetime(2018, 11, 19, 12, 45, 13),
+...     '7007': (datetime.date(2018, 11, 19), datetime.date(2018, 11, 21)),
+... }, parentheses=True)
+'(11)181119(12)181119(7003)1811191245(7007)181119181121'
+>>> gs1_128.encode({'8008': datetime.datetime(2018, 11, 19, 12, 45, 13)}, parentheses=True)
+'(8008)181119124513'
+>>> gs1_128.encode({'8008': datetime.datetime(2018, 11, 19, 12, 45)}, parentheses=True)
+'(8008)1811191245'
+>>> gs1_128.encode({'8008': datetime.datetime(2018, 11, 19, 12, 0)}, parentheses=True)
+'(8008)18111912'
+>>> gs1_128.encode({'8008': datetime.datetime(2018, 11, 19, 0, 0)}, parentheses=True)
+'(8008)18111900'
+
+If we try to encode an invalid EAN we will get an error.
+
+>>> gs1_128.encode({'01': '38425876095079'}, parentheses=True)
+Traceback (most recent call last):
+    ...
+InvalidChecksum: ...
+
+
+We can decode (parse) the GS1-128 code to a dictionary with information about
+the structure of the number.
+
+pprint.pprint(gs1_128.info('(01)38425876095074(17)181119(37)1 '))
+{'01': '38425876095074', '17': datetime.date(2018, 11, 19), '37': 1}
+>>> pprint.pprint(gs1_128.info('013842587609507417181119371'))
+{'01': '38425876095074', '17': datetime.date(2018, 11, 19), '37': 1}
+>>> pprint.pprint(gs1_128.info('(02)98412345678908(310)3017230(37)32'))
+{'02': '98412345678908', '310': Decimal('17.230'), '37': 32}
+>>> pprint.pprint(gs1_128.info('(01)58425876097843(10)123456              (17)181119(37)18'))
+{'01': '58425876097843', '10': '123456', '17': datetime.date(2018, 11, 19), '37': 18}
+>>> pprint.pprint(gs1_128.info('|(01)58425876097843|(10)123456|(17)181119(37)18', separator='|'))
+{'01': '58425876097843', '10': '123456', '17': datetime.date(2018, 11, 19), '37': 18}
+>>> gs1_128.info('(03)38425876095074')  # unknown AI
+Traceback (most recent call last):
+    ...
+InvalidComponent: ...
+
+We can decode decimal values from various formats.
+
+>>> pprint.pprint(gs1_128.info('(310)5033333'))
+{'310': Decimal('0.33333')}
+>>> pprint.pprint(gs1_128.info('(310)0033333'))
+{'310': Decimal('33333')}
+>>> pprint.pprint(gs1_128.info('(391)3123123456'))
+{'391': ('123', Decimal('123.456'))}
+
+We an decode date files from various formats.
+
+>>> pprint.pprint(gs1_128.info('(11)181119'))
+{'11': datetime.date(2018, 11, 19)}
+>>> pprint.pprint(gs1_128.info('(7003)1811191245'))
+{'7003': datetime.datetime(2018, 11, 19, 12, 45)}
+>>> pprint.pprint(gs1_128.info('(7007)181119'))
+{'7007': datetime.date(2018, 11, 19)}
+>>> pprint.pprint(gs1_128.info('(7007)181119181121'))
+{'7007': (datetime.date(2018, 11, 19), datetime.date(2018, 11, 21))}
+>>> pprint.pprint(gs1_128.info('(8008)18111912'))
+{'8008': datetime.datetime(2018, 11, 19, 12, 0)}
+
+
+While the compact() function can clean up the number somewhat the validate()
+function calls info() and then encode() to ensure an even more compact and
+consistent format.
+
+>>> gs1_128.compact('(01)58425876097843(10)123456              (37)00000018')
+'015842587609784310123456              3700000018'
+>>> gs1_128.validate('(01)58425876097843(10)123456              (37)00000018')
+'015842587609784310123456              3718'
+>>> gs1_128.validate('(01)58425876097843(10)123456              (37)00000018', separator='|')
+'015842587609784310123456|3718'
+>>> gs1_128.validate('30aa')
+Traceback (most recent call last):
+    ...
+InvalidFormat: ...
