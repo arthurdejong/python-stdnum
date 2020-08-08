@@ -54,10 +54,10 @@ def group_ai_ranges():
     for value in sorted(fetch_ais()):
         if value[1:] != prev[1:]:
             if first:
-                yield first, *prev
+                yield (first, *prev)
             first = value[0]
         prev = value
-    yield first, *prev
+    yield (first, *prev)
 
 
 if __name__ == '__main__':
