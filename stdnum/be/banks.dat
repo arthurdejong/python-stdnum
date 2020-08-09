@@ -1,6 +1,6 @@
 # generated from current_codes.xls downloaded from
 # https://www.nbb.be/doc/be/be/protocol/current_codes.xls
-# version 31/12/2019
+# version 24/07/2020
 000-000 bic="BPOTBEB1" bank="bpost bank"
 001-049 bic="GEBABEBB" bank="BNP Paribas Fortis"
 050-099 bic="GKCCBEBB" bank="BELFIUS BANK"
@@ -42,7 +42,7 @@
 509-509 bic="ABNABE2AIPC" bank="ABN AMRO Bank N.V."
 510-510 bic="VAPEBE22" bank="VAN DE PUT & CO Privaatbankiers"
 512-512 bic="DNIBBE21" bank="NIBC BANK"
-513-513 bic="SGPBBE99" bank="ABN AMRO Bank N.V."
+513-513 bic="ABNABE2AIPC" bank="ABN AMRO Bank N.V."
 514-514 bic="PUILBEBB" bank="Puilaetco Dewaay Private Bankers"
 515-515 bic="IRVTBEBB" bank="The Bank of New York Mellon NV/SA"
 521-521 bic="FVLBBE22" bank="F. van Lanschot Bankiers"
@@ -76,7 +76,6 @@
 630-631 bic="BBRUBEBB" bank="ING België"
 634-636 bic="BNAGBEBB" bank="Bank Nagelmackers"
 638-638 bic="GKCCBEBB" bank="BELFIUS BANK"
-639-639 bic="ABNABE2AMYO" bank="ABN AMRO Bank N.V."
 640-640 bic="ADIABE22" bank="KBC Bank N.V. Business Center Diamant"
 642-642 bic="BBVABEBB" bank="Banco Bilbao Vizcaya Argentaria"
 643-643 bic="BMPBBEBB" bank="Aion"
@@ -87,6 +86,7 @@
 649-649 bank="Caisse d'Epargne et de Prévoyance Hauts de France"
 651-651 bic="KEYTBEBB" bank="Arkéa Direct Bank (nom commercial / commerciële naam: Keytrade Bank)"
 652-652 bic="BBRUBEBB" bank="ING België"
+653-653 bank="Barclays Bank Ireland Plc Brussels Branch"
 654-654 bank="Crédit foncier et communal d'Alsace et de Lorraine - Banque"
 657-657 bic="GKCCBEBB" bank="BELFIUS BANK"
 658-658 bic="HABBBEBB" bank="Habib Bank"
@@ -151,8 +151,8 @@
 883-884 bic="BBRUBEBB" bank="ING België"
 887-888 bic="BBRUBEBB" bank="ING België"
 890-899 bic="VDSPBE91" bank="vdk bank"
-906-906 bic="CEKVBE81" bank="Centrale Kredietverlening (C.K.V.)"
-908-908 bic="CEKVBE81" bank="Centrale Kredietverlening (C.K.V.)"
+906-906 bic="CEKVBE88" bank="Centrale Kredietverlening (C.K.V.)"
+908-908 bic="CEKVBE88" bank="Centrale Kredietverlening (C.K.V.)"
 910-910 bic="BBRUBEBB" bank="ING België"
 911-911 bic="TUNZBEB1" bank="Ingenico Financial Solutions"
 912-912 bank="Hi - Media Porte Monnaie Electronique"
@@ -183,6 +183,7 @@
 960-960 bic="ABNABE2AIPC" bank="ABN AMRO Bank N.V."
 961-961 bic="BBRUBEBB" bank="ING België"
 963-963 bic="AXABBE22" bank="AXA Bank Belgium"
+966-966 bic="NEECBEB2" bank="NewB"
 967-967 bic="TRWIBEB1" bank="TransferWise"
 968-968 bic="ENIBBEBB" bank="Banque Eni"
 969-969 bic="PUILBEBB" bank="Puilaetco Dewaay Private Bankers"

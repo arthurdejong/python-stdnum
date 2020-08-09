@@ -31,7 +31,7 @@ import xlrd
 
 
 # The page that contains a link to the latest XLS version of the codes.
-download_url = 'https://www.paymentsnz.co.nz/resources/industry-registers/bank-branch-register/download/xls/'
+download_url = 'https://www.paymentsnz.co.nz/resources/industry-registers/bank-branch-register/download/xlsx/'
 
 
 def get_values(sheet):

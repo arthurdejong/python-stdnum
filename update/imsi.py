@@ -21,10 +21,19 @@
 
 """This extracts a IMSI country and operator code from Wikipedia."""
 
+import os
 import re
+import sys
 from collections import defaultdict
 
 import requests
+
+
+# Ensure that our local stdnum implementation is used
+sys.path.insert(0, os.path.normpath(
+    os.path.join(os.path.dirname(os.path.abspath(__file__)), '..')))
+
+from stdnum import util  # noqa, isort:skip
 
 
 # The wikipedia pages to download
@@ -155,7 +164,7 @@ def get_mncs_from_wikipedia(data):
         response.raise_for_status()
         country = cc = ''
         for line in response.iter_lines(decode_unicode=True):
-            line = line.strip()
+            line = util.clean(line.strip())
             match = _mnc_country_re.match(line)
             if match:
                 country = match.group('country')
