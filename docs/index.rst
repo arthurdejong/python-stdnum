@@ -135,6 +135,7 @@ Available formats
    bitcoin
    br.cnpj
    br.cpf
+   by.unp
    ca.bn
    ca.sin
    casrn
@@ -144,6 +145,7 @@ Available formats
    ch.vat
    cl.rut
    cn.ric
+   cn.uscc
    co.nit
    cr.cpf
    cr.cpj
@@ -196,16 +198,20 @@ Available formats
    gb.nhs
    gb.sedol
    gb.upn
+   gb.utr
    gb.vat
    gr.amka
    gr.vat
    grid
+   gs1_128
    gt.nit
    hr.oib
    hu.anum
    iban
+   id.npwp
    ie.pps
    ie.vat
+   il.hp
    il.idnr
    imei
    imo
@@ -222,9 +228,11 @@ Available formats
    iso11649
    iso6346
    issn
+   it.aic
    it.codicefiscale
    it.iva
    jp.cn
+   kr.brn
    kr.rrn
    lei
    lt.asmens
@@ -262,17 +270,21 @@ Available formats
    py.ruc
    ro.cf
    ro.cnp
+   ro.onrc
    rs.pib
    ru.inn
    se.orgnr
    se.personnummer
    se.vat
+   sg.uen
    si.ddv
    sk.dph
    sk.rc
    sm.coe
+   sv.nit
    tr.tckimlik
    tr.vkn
+   tw.ubn
    us.atin
    us.ein
    us.itin
@@ -281,7 +293,9 @@ Available formats
    us.ssn
    us.tin
    uy.rut
+   vatin
    ve.rif
+   vn.mst
    za.idnr
    za.tin
 

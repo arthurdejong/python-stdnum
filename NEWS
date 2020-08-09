@@ -1,3 +1,51 @@
+changes from 1.13 to 1.14
+-------------------------
+
+* Add modules for the following number formats:
+
+  - УНП, UNP (Учетный номер плательщика, the Belarus VAT number)
+  - AIC (Italian code for identification of drugs) (thanks Fabrizio Montanari)
+  - Company Number (מספר חברה, or short ח.פ. Israeli company number)
+    (thanks Leandro Regueiro)
+  - NIT (Número de Identificación Tributaria, El Salvador tax number)
+    (thanks Leandro Regueiro)
+  - USCC (Unified Social Credit Code, 统一社会信用代码, China tax number)
+    (thanks Leandro Regueiro)
+  - UEN (Singapore's Unique Entity Number) (thanks Leandro Regueiro)
+  - BRN (사업자 등록 번호, South Korea Business Registration Number)
+    (thanks Leandro Regueiro)
+  - MST (Mã số thuế, Vietnam tax number) (thanks Leandro Regueiro)
+  - NPWP (Nomor Pokok Wajib Pajak, Indonesian VAT Number)
+    (thanks Leandro Regueiro)
+  - UBN (Unified Business Number, 統一編號, Taiwanese tax number)
+    (thanks Leandro Regueiro)
+  - UTR (United Kingdom Unique Taxpayer Reference) (thanks Mohammed Salman)
+  - ONRC (Ordine din Registrul Comerţului, Romanian Trade Register identifier)
+    (thanks dotbit1)
+  - GS1-128 (Standard to encode product information in Code 128 barcodes)
+    (thanks Sergi Almacellas Abellana)
+  - VATIN (International value added tax identification number)
+    (thanks Leandro Regueiro)
+
+* Fix missing Dominican Republic NCF document types (thanks Gustavo Valverde)
+* Fix issue with extra plus or minus in Swedish Personnummer
+  (thanks balderman)
+* Update Dominican Republic DGII endpoint (thanks Gustavo Valverde)
+* Support validating temporary Finnish personal identity codes
+  (thanks Aleksi Hoffman)
+* Fix misleading docstring in se.personnummer.get_birth_date()
+  (thanks Leon Sandøy)
+* Improve birth date validation in Danish CPR (thanks Leon Sandøy)
+* Add birth date validating in Norwegian Fødselsnummer (thanks Leon Sandøy)
+* Add missing vat aliases for a number of countries (thanks Leandro Regueiro)
+* Use HTTPS instead of HTTP fox VIES lookups (thanks grzekru)
+* Switch to HTTPS URLs where possible
+* Support 6 as third digit in Ecuadorian CI (thanks Christopher Ormaza)
+* Add an online check for South Korean BRN
+* Fix unescaping in Dominican Republic RNC online check (thanks evaldez89)
+* Support foreign residents for Romanian CNP (thanks dotbit1)
+
+
 changes from 1.12 to 1.13
 -------------------------
 

@@ -1,3 +1,374 @@
+2020-08-09  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [40fcc24] stdnum/be/banks.dat, stdnum/cn/loc.dat,
+	  stdnum/eu/nace.dat, stdnum/gs1_ai.dat, stdnum/iban.dat,
+	  stdnum/imsi.dat, stdnum/isbn.dat, stdnum/nz/banks.dat,
+	  stdnum/oui.dat, update/imsi.py, update/nz_banks.py: Update
+	  database files
+
+2020-03-08  Leandro Regueiro <leandro.regueiro@gmail.com>
+
+	* [ff188bd] stdnum/vatin.py, tests/test_vatin.doctest: Add module
+	  to check any VAT number
+
+	  This effectively mimics vatnumber's `check_vat` function, so people
+	  can easily replace the outdated vatnumber library with stdnum.
+
+	  Closes https://github.com/arthurdejong/python-stdnum/pull/199
+
+2020-08-08  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [b6e43cd] update/gs1_ai.py: Fix Python 3.6 issue in update script
+
+	  Fixes 180788a
+
+2020-08-08  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [180788a] stdnum/gs1_128.py, stdnum/gs1_ai.dat,
+	  tests/test_gs1_128.doctest, update/gs1_ai.py: Add GS1-128 format
+
+	  This adds validation, parsing and encoding functions for
+	  GS1-128. It is based on the lists of formats as published by
+	  the GS1 organisation.
+
+	  Based on the implementation provided by Sergi Almacellas Abellana
+	  <sergi@koolpi.com>.
+
+	  Closes https://github.com/arthurdejong/python-stdnum/pull/144
+
+2020-08-02  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [c2284f3] stdnum/ro/onrc.py, tests/test_ro_onrc.doctest: Add
+	  Romanian Trade Register identifier
+
+	  Closes https://github.com/arthurdejong/python-stdnum/issues/229
+	  Closes https://github.com/arthurdejong/python-stdnum/pull/234
+
+2020-06-02  Mohammed Salman <mohammed@holvi.com>
+
+	* [94e2c63] stdnum/gb/utr.py, tests/test_gb_utr.doctest: Add
+	  English Unique Tax Reference
+
+	  Closes https://github.com/arthurdejong/python-stdnum/pull/227
+
+2020-08-02  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [505521e] stdnum/ro/cnp.py: Support foreign residents for
+	  Romanian CNP
+
+	  This supports 7 or 8 as first digits in the CNP which are
+	  apparently used to identify foreign residents.
+
+	  This also changes the exception for an incorrect first digit
+	  from InvalidFormat to InvalidComponent which is a little clearer.
+
+	  Closes https://github.com/arthurdejong/python-stdnum/issues/230
+
+2020-08-02  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [51a122d] stdnum/kr/GPKIRootCA1.crt, stdnum/kr/brn.py: Remove
+	  custom CA certificate for www.ftc.go.kr
+
+	  This certificate is not needed any more because the site now
+	  uses a different certificate that is signed by a known CA.
+
+2020-07-31  evaldez89 <evaldez89@gmail.com>
+
+	* [feca1fe] stdnum/do/rnc.py, tests/test_do_rnc.py: Scape new
+	  line character
+
+	  Closes https://github.com/arthurdejong/python-stdnum/pull/233
+	  Closes https://github.com/arthurdejong/python-stdnum/issues/232
+
+2020-04-05  Leandro Regueiro <leandro.regueiro@gmail.com>
+
+	* [dab926c] stdnum/tw/__init__.py, stdnum/tw/ubn.py,
+	  tests/test_tw_ubn.doctest: Add support for Taiwan TIN number
+
+	  Closes https://github.com/arthurdejong/python-stdnum/pull/214
+	  Closes https://github.com/arthurdejong/python-stdnum/issues/209
+
+2020-07-05  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [291b831] tox.ini: Avoid newer isort for flake8 tests
+
+	  Do not install the latest isort because it currently breaks
+	  flake8-isort. This pinning should be removed as soon as
+	  https://github.com/gforcada/flake8-isort/issues/88 is resolved.
+
+2020-03-08  Leandro Regueiro <leandro.regueiro@gmail.com>
+
+	* [7112874] stdnum/id/__init__.py, stdnum/id/npwp.py,
+	  tests/test_id_npwp.doctest: Add support for Indonesian NPWP
+
+	  Closes https://github.com/arthurdejong/python-stdnum/issues/106
+	  Closes https://github.com/arthurdejong/python-stdnum/pull/198
+
+2020-04-18  Leandro Regueiro <leandro.regueiro@gmail.com>
+
+	* [a34a76d] stdnum/vn/__init__.py, stdnum/vn/mst.py,
+	  tests/test_vn_mst.doctest: Add support for Vietnam TIN number
+
+	  Closes https://github.com/arthurdejong/python-stdnum/issues/217
+	  Closes https://github.com/arthurdejong/python-stdnum/pull/218
+
+2020-05-16  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [1b7e985] stdnum/kr/GPKIRootCA1.crt, stdnum/kr/brn.py,
+	  tests/test_kr_brn.py: Add an online check for the South Korean BRN
+
+2020-03-07  Leandro Regueiro <leandro.regueiro@gmail.com>
+
+	* [b3891f1] stdnum/kr/__init__.py, stdnum/kr/brn.py,
+	  tests/test_kr_brn.doctest: Add support for South Korea Business
+	  Registration Number
+
+	  Closes https://github.com/arthurdejong/python-stdnum/pull/197
+	  Closes https://github.com/arthurdejong/python-stdnum/issues/101
+
+2020-06-06  Christopher Ormaza <chris.ormaza@gmail.com>
+
+	* [127fff1] stdnum/ec/ci.py: Support 6 as third digit for foreign
+	  people in Ecuador
+
+	  Closes https://github.com/arthurdejong/python-stdnum/pull/228
+
+2020-03-18  Leandro Regueiro <leandro.regueiro@gmail.com>
+
+	* [0d5b8b1] stdnum/sg/__init__.py, stdnum/sg/uen.py,
+	  tests/test_sg_uen.doctest: Add support for Singapore Unique
+	  Entity Number
+
+	  Closes https://github.com/arthurdejong/python-stdnum/issues/111
+	  Closes https://github.com/arthurdejong/python-stdnum/pull/203
+
+2020-03-18  Leandro Regueiro <leandro.regueiro@gmail.com>
+
+	* [4eda3f3] stdnum/nz/__init__.py: Add missing vat alias for
+	  New Zealand
+
+	  Closes https://github.com/arthurdejong/python-stdnum/pull/202
+
+2020-04-04  Leandro Regueiro <leandro.regueiro@gmail.com>
+
+	* [f3ce70c] stdnum/cn/__init__.py, stdnum/cn/uscc.py,
+	  tests/test_cn_uscc.doctest: Add support for Chinese TIN number
+
+	  Closes https://github.com/arthurdejong/python-stdnum/issues/207
+	  Closes https://github.com/arthurdejong/python-stdnum/pull/210
+
+2020-04-10  Leandro Regueiro <leandro.regueiro@gmail.com>
+
+	* [54e2e8f] stdnum/sv/__init__.py, stdnum/sv/nit.py,
+	  tests/test_sv_nit.doctest: Add support for El Salvador TIN number
+
+	  Closes https://github.com/arthurdejong/python-stdnum/issues/133
+	  Closes https://github.com/arthurdejong/python-stdnum/pull/215
+
+2020-03-31  Leandro Regueiro <leandro.regueiro@gmail.com>
+
+	* [356a729] stdnum/il/__init__.py, stdnum/il/hp.py,
+	  tests/test_il_hp.doctest: Add Israeli TIN number
+
+	  Closes https://github.com/arthurdejong/python-stdnum/pull/208
+	  Closes https://github.com/arthurdejong/python-stdnum/issues/107
+
+2020-04-25  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [e49e0e9] docs/index.rst: Document function return behaviour
+
+2020-04-19  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [417b500] setup.cfg, setup.py, tox.ini: Flake 8 fixes
+
+2020-04-18  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [ff86618] .travis.yml: Resolve Travis configuration warnings
+
+2020-04-18  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [982322a] tox.ini: Avoid newest Sphinx
+
+	  Newer versions of Sphinx treat underscores differently when
+	  used in arguments to automodule causing problems in generating
+	  documentation for the stdnum.in_.aadhaar, stdnum.in_.pan,
+	  stdnum.is_.kennitala and stdnum.is_.vsk modules.
+
+2020-03-20  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [91ca4da] stdnum/cu/ni.py, stdnum/do/ncf.py, stdnum/do/rnc.py,
+	  stdnum/es/ccc.py, stdnum/es/referenciacatastral.py,
+	  stdnum/eu/eic.py, stdnum/eu/nace.py, stdnum/fi/hetu.py,
+	  stdnum/fr/nir.py, stdnum/gb/nhs.py, stdnum/gr/amka.py,
+	  stdnum/isil.py, stdnum/issn.py, stdnum/kr/rrn.py, stdnum/mu/nid.py,
+	  stdnum/mx/curp.py, stdnum/mx/rfc.py, stdnum/pl/regon.py: Use
+	  HTTPS in URLs where possible
+
+2020-03-19  grzekru <grzegorzgk1@gmail.com>
+
+	* [273dd54] stdnum/eu/vat.py: Use HTTPS instead of HTTP fox
+	  VIES lookups
+
+	  Closes https://github.com/arthurdejong/python-stdnum/issues/204
+	  Closes https://github.com/arthurdejong/python-stdnum/pull/205
+
+2020-03-03  FabrizioMontanari <ffabrizio.montanari@gmail.com>
+
+	* [8433821] stdnum/it/aic.py, tests/test_it_aic.doctest: Add
+	  Italian AIC codes
+
+	  Closes https://github.com/arthurdejong/python-stdnum/pull/193
+
+2020-03-09  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [f7b968c] stdnum/by/unp.py: Fix typo
+
+	  Thanks @unho
+
+2020-03-08  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [d09ed52] stdnum/lv/pvn.py, stdnum/ru/inn.py: Use zip() for
+	  applying weights in check algorithms
+
+2020-03-07  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [60139a8] stdnum/by/__init__.py, stdnum/by/portal.nalog.gov.by.crt,
+	  stdnum/by/unp.py, tests/test_by_unp.doctest, tests/test_by_unp.py:
+	  Add Bellarus УНП number
+
+	  This also adds a function to do an online lookup of the number.
+
+	  Closes https://github.com/arthurdejong/python-stdnum/issues/196
+
+2020-03-07  Leandro Regueiro <leandro.regueiro@gmail.com>
+
+	* [ebe7e10] stdnum/jp/__init__.py: Add missing vat alias for Japan
+
+2020-03-07  Leandro Regueiro <leandro.regueiro@gmail.com>
+
+	* [6429080] stdnum/ca/__init__.py: Add missing vat alias for Canada
+
+2020-03-07  Leandro Regueiro <leandro.regueiro@gmail.com>
+
+	* [84ee720] stdnum/tr/__init__.py: Add missing vat alias for Turkey
+
+2020-03-07  Leandro Regueiro <leandro.regueiro@gmail.com>
+
+	* [fcbe159] stdnum/pe/__init__.py: Add missing vat alias for Peru
+
+2020-03-07  Leandro Regueiro <leandro.regueiro@gmail.com>
+
+	* [9be7dee] stdnum/cr/__init__.py: Add missing vat alias for
+	  Costa Rica
+
+2020-03-07  Leandro Regueiro <leandro.regueiro@gmail.com>
+
+	* [69d22e9] stdnum/br/__init__.py: Add missing vat alias for Brazil
+
+2020-01-31  Leon Sandøy <leon.haland@gmail.com>
+
+	* [df9f922] stdnum/no/fodselsnummer.py,
+	  tests/test_no_fodselsnummer.doctest: Implement get_birth_date()
+	  for no.fodselsnummer
+
+	  This adds a function that allows you to determine a persons
+	  birth date from a Norwegian fødselsnummer.
+
+	  This also accounts for D-numbers, H-numbers, and FH-numbers,
+	  which contain special exceptions and modifications to the
+	  birthdate portion of the number.
+
+	  Most of the information this is based on was found here:
+	  https://no.wikipedia.org/wiki/F%C3%B8dselsnummer#H-nummer
+
+	  It also updates the list of valid fødselsnummer in the tests,
+	  since this list contained many numbers that are not valid by
+	  this new validation that now accounts for dates.
+
+	  Additionally, this updates all tests that were failing under the
+	  new validation, and adds a few new tests to bring the coverage
+	  to 100%.
+
+	  Closes https://github.com/arthurdejong/python-stdnum/pull/187
+
+2020-01-31  Leon Sandøy <leon.haland@gmail.com>
+
+	* [4500881] stdnum/dk/cpr.py: Improve birth date validation
+	  for dk.cpr
+
+	  This adds a check to validate that the birth date information
+	  in a personnummer is not set in the future, resolving a TODO
+	  from this file.
+
+	  It also improves exception messages for certain validation
+	  fail conditions.
+
+2020-01-31  Leon Sandøy <leon.haland@gmail.com>
+
+	* [f5e0456] stdnum/se/personnummer.py: Fix misleading docstring
+	  in se.personnummer get_birth_date()
+
+	  The docstring for get_birth_date() in the Swedish personnummer.py
+	  warned that the datetime might be 100 years off because of the
+	  lack of precision in the personnummer.
+
+	  This was accurate when the docstring was written, but this is
+	  no longer accurate after the - and + signs were correctly handled.
+
+	  Fixes 5441ffa
+
+2020-03-01  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [8437b8e] .travis.yml: Use bionic for pypy3 tests on Travis
+
+	  This switches the pypy3 tests to bionic which has Python
+	  3.6.9. There were installation issues with 3.5.3 on trusty and
+	  coverage issues with 3.6.1 of xenial (now the default on Travis).
+
+2020-02-24  Aleksi Hoffman <aleksi@hoffman.fi>
+
+	* [353db92] stdnum/fi/hetu.py, tests/test_fi_hetu.doctest: Support
+	  validating temporary Finnish personal identity codes
+
+	  This adds an optional allow_temporary parameter, which defaults
+	  to False, to the validate() function.
+
+	  Closes https://github.com/arthurdejong/python-stdnum/pull/191
+
+2020-02-18  Gustavo Valverde <gustavo@iterativo.do>
+
+	* [efa70f1] stdnum/do/ncf.py: Change DGII endpoint to new one
+
+	  The old endpoint has been deprecated.
+
+	  Closes https://github.com/arthurdejong/python-stdnum/pull/190
+
+2020-02-12  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [e513888] stdnum/se/personnummer.py,
+	  tests/test_se_personnummer.doctest: Fix issue with extra plus
+	  or minus in se.personnummer
+
+	  Fixes 5441ffa Closes
+	  https://github.com/arthurdejong/python-stdnum/issues/188
+
+2020-01-22  Gustavo Valverde <gustavo@iterativo.do>
+
+	* [77a77ba] stdnum/do/ncf.py: Add missing NCF document types
+	  for validation
+
+	  These document types are in the official
+	  documentation, but were not being validated:
+	  https://dgii.gov.do/cicloContribuyente/facturacion/comprobantesFiscales/Paginas/tiposComprobantes.aspx
+
+	  Closes https://github.com/arthurdejong/python-stdnum/pull/186
+
+2020-01-19  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [d5666b8] ChangeLog, NEWS, README, docs/index.rst,
+	  docs/stdnum.ch.esr.rst, setup.py, stdnum/__init__.py: Get files
+	  ready for 1.13 release
+
 2020-01-19  Arthur de Jong <arthur@arthurdejong.org>
 
 	* [334e907] online_check/stdnum.wsgi: Fix online check to be Python
