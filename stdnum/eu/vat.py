@@ -1,7 +1,7 @@
 # vat.py - functions for handling European VAT numbers
 # coding: utf-8
 #
-# Copyright (C) 2012-2018 Arthur de Jong
+# Copyright (C) 2012-2020 Arthur de Jong
 # Copyright (C) 2015 Lionel Elie Mamane
 #
 # This library is free software; you can redistribute it and/or
@@ -43,7 +43,7 @@ from stdnum.exceptions import *
 from stdnum.util import clean, get_cc_module, get_soap_client
 
 
-_country_codes = set([
+MEMBER_STATES = set([
     'at', 'be', 'bg', 'cy', 'cz', 'de', 'dk', 'ee', 'es', 'fi', 'fr', 'gb',
     'gr', 'hr', 'hu', 'ie', 'it', 'lt', 'lu', 'lv', 'mt', 'nl', 'pl', 'pt',
     'ro', 'se', 'si', 'sk',
@@ -63,7 +63,7 @@ def _get_cc_module(cc):
     cc = cc.lower()
     if cc == 'el':
         cc = 'gr'
-    if cc not in _country_codes:
+    if cc not in MEMBER_STATES:
         return
     if cc not in _country_modules:
         _country_modules[cc] = get_cc_module(cc, 'vat')
@@ -105,7 +105,7 @@ def guess_country(number):
     for which it is valid. This returns lower case codes and returns gr (not
     el) for Greece."""
     return [cc
-            for cc in _country_codes
+            for cc in MEMBER_STATES
             if _get_cc_module(cc).is_valid(number)]
 
 
