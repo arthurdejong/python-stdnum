@@ -61,7 +61,7 @@ def validate(number):
     """Check if the number is a valid VAT number. This checks the length,
     formatting and check digit."""
     number = compact(number)
-    if not isdigits(number):
+    if not isdigits(number) or int(number) <= 0:
         raise InvalidFormat()
     if len(number) != 10:
         raise InvalidLength()
