@@ -1,0 +1,152 @@
+test_ua_rntrc.doctest - more detailed doctests for stdnum.ua.rntrc module
+
+Copyright (C) 2020 Leandro Regueiro
+
+This library is free software; you can redistribute it and/or
+modify it under the terms of the GNU Lesser General Public
+License as published by the Free Software Foundation; either
+version 2.1 of the License, or (at your option) any later version.
+
+This library is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+Lesser General Public License for more details.
+
+You should have received a copy of the GNU Lesser General Public
+License along with this library; if not, write to the Free Software
+Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
+02110-1301 USA
+
+
+This file contains more detailed doctests for the stdnum.ua.rntrc module. It
+tries to test more corner cases and detailed functionality that is not really
+useful as module documentation.
+
+>>> from stdnum.ua import rntrc
+
+
+Tests for some corner cases.
+
+>>> rntrc.validate('1759013776')
+'1759013776'
+>>> rntrc.format(' 25 30 41 40 71 ')
+'2530414071'
+>>> rntrc.validate('12345')
+Traceback (most recent call last):
+    ...
+InvalidLength: ...
+>>> rntrc.validate('VV59013776')
+Traceback (most recent call last):
+    ...
+InvalidFormat: ...
+>>> rntrc.validate('1759013770')
+Traceback (most recent call last):
+    ...
+InvalidChecksum: ...
+
+
+These have been found online and should all be valid numbers.
+
+>>> numbers = '''
+...
+... 1759013776
+... 1941106083
+... 2019304211
+... 2029212006
+... 2050823598
+... 2057604994
+... 2062412328
+... 2071907598
+... 2141715084
+... 2162316775
+... 2166209127
+... 2182917600
+... 2199602758
+... 2200300272
+... 2215911880
+... 2221604457
+... 2223820028
+... 2278520212
+... 2288012353
+... 2323000531
+... 2340714291
+... 2355207831
+... 2358623466
+... 2360711297
+... 2360803036
+... 2427616997
+... 2431516896
+... 2432915368
+... 2446410726
+... 2451902259
+... 2464921030
+... 2467920538
+... 2468920144
+... 2491109768
+... 2492601451
+... 2492810092
+... 2495912135
+... 25 30 41 40 71
+... 2507300273
+... 2511313590
+... 2511615015
+... 2514219625
+... 2517305837
+... 2518609656
+... 2521601845
+... 2522615927
+... 2525808071
+... 2526400856
+... 2531310373
+... 2537610987
+... 2548903136
+... 2595704439
+... 2618103132
+... 2656501477
+... 2661314935
+... 2668604464
+... 2687602513
+... 2715212635
+... 2722600497
+... 2725020233
+... 2735321158
+... 2756824294
+... 2756915742
+... 2767507288
+... 2777606331
+... 2796607557
+... 2803909085
+... 2849507907
+... 2862500663
+... 2881507890
+... 2886719190
+... 2940813715
+... 2976609691
+... 2979904457
+... 2981410717
+... 2986715322
+... 3022512606
+... 3039702911
+... 3047924216
+... 3065520146
+... 3072814835
+... 3087300101
+... 3099517368
+... 3104807458
+... 3104911417
+... 3121614071
+... 3124313135
+... 3130600734
+... 3132220152
+... 3152909256
+... 3171718420
+... 3190607860
+... 3215016793
+... 3279114362
+... 3323805078
+... 3366800663
+... 3451517675
+...
+... '''
+>>> [x for x in numbers.splitlines() if x and not rntrc.is_valid(x)]
+[]
