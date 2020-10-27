@@ -1,0 +1,94 @@
+test_li_peid.doctest - more detailed doctests for stdnum.li.peid module
+
+Copyright (C) 2020 Matthias Schmid
+
+This library is free software; you can redistribute it and/or
+modify it under the terms of the GNU Lesser General Public
+License as published by the Free Software Foundation; either
+version 2.1 of the License, or (at your option) any later version.
+
+This library is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+Lesser General Public License for more details.
+
+You should have received a copy of the GNU Lesser General Public
+License along with this library; if not, write to the Free Software
+Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
+02110-1301 USA
+
+
+This file contains more detailed doctests for the stdnum.li.peid module. It
+tries to test more corner cases and detailed functionality that is not really
+useful as module documentation.
+
+>>> from stdnum.li import peid
+
+
+Tests for some corner cases.
+
+>>> peid.validate('1339050')
+'1339050'
+>>> peid.validate('01339050')
+'1339050'
+>>> peid.validate('0001339050')
+'1339050'
+>>> peid.validate('0843089848')
+'843089848'
+
+>>> peid.validate('123')
+Traceback (most recent call last):
+    ...
+InvalidLength: The number has an invalid length.
+
+>>> peid.validate('1234567890123')
+Traceback (most recent call last):
+    ...
+InvalidLength: The number has an invalid length.
+
+>>> peid.validate('0001')
+Traceback (most recent call last):
+    ...
+InvalidLength: The number has an invalid length.
+
+>>> peid.validate('FF01339050')
+Traceback (most recent call last):
+    ...
+InvalidFormat: The number has an invalid format.
+
+>>> peid.validate('13-39050')
+Traceback (most recent call last):
+    ...
+InvalidFormat: The number has an invalid format.
+
+>>> peid.validate('568ABC91345')
+Traceback (most recent call last):
+    ...
+InvalidFormat: The number has an invalid format.
+
+
+These have been found online and should all be valid numbers.
+
+>>> numbers = '''
+...
+... 100364
+... 1053541
+... 2.580.073
+... 2031108
+... 2043832
+... 2385259
+... 2467526
+... 2518516
+... 2536979
+... 2547594
+... 2555984
+... 2557953
+... 2580190
+... 2581203
+... 2766
+... 84166
+... 84167
+...
+... '''
+>>> [x for x in numbers.splitlines() if x and not peid.is_valid(x)]
+[]
