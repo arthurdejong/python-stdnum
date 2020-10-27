@@ -1,3 +1,12 @@
+2020-10-19  Matthias Schmid <ramsondon@gmail.com>
+
+    * [9e7f0be] stdnum/li/peid.py, tets/test_li_peid.doctest
+
+    Support for Liechtenstein PEID (Personenidentifikationsnummer) which is used for persons and entities
+    in Liechtenstein
+
+    Closes https://github.com/arthurdejong/python-stdnum/issues/125
+
 2020-08-09  Arthur de Jong <arthur@arthurdejong.org>
 
 	* [40fcc24] stdnum/be/banks.dat, stdnum/cn/loc.dat,
