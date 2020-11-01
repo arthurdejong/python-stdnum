@@ -24,7 +24,8 @@
 All businesses in Romania have the to register with the National Trade
 Register Office to receive a registration number. The number contains
 information about the type of company, county, a sequence number and
-registration year.
+registration year. This number can change when registration information
+changes.
 
 >>> validate('J52/750/2012')
 'J52/750/2012'
