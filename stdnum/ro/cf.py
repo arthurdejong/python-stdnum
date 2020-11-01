@@ -23,7 +23,7 @@
 The Romanian CF is used for VAT purposes and can be from 2 to 10 digits long.
 
 >>> validate('RO 185 472 90')  # VAT CUI/CIF
-'18547290'
+'RO18547290'
 >>> validate('185 472 90')  # non-VAT CUI/CIF
 '18547290'
 >>> validate('1630615123457')  # CNP
@@ -38,10 +38,7 @@ from stdnum.util import clean
 def compact(number):
     """Convert the number to the minimal representation. This strips the
     number of any valid separators and removes surrounding whitespace."""
-    number = clean(number, ' -').upper().strip()
-    if number.startswith('RO'):
-        number = number[2:]
-    return number
+    return clean(number, ' -').upper().strip()
 
 
 # for backwards compatibility
@@ -52,11 +49,14 @@ def validate(number):
     """Check if the number is a valid VAT number. This checks the length,
     formatting and check digit."""
     number = compact(number)
-    if len(number) == 13:
+    cnumber = number
+    if cnumber.startswith('RO'):
+        cnumber = cnumber[2:]
+    if len(cnumber) == 13:
         # apparently a CNP can also be used (however, not all sources agree)
-        cnp.validate(number)
-    elif 2 <= len(number) <= 10:
-        cui.validate(number)
+        cnp.validate(cnumber)
+    elif 2 <= len(cnumber) <= 10:
+        cui.validate(cnumber)
     else:
         raise InvalidLength()
     return number

@@ -74,20 +74,28 @@ def compact(number):
     """Convert the number to the minimal representation. This strips the
     number of any valid separators and removes surrounding whitespace."""
     number = clean(number, '').upper().strip()
-    module = _get_cc_module(number[:2])
+    cc = number[:2]
+    module = _get_cc_module(cc)
     if not module:
         raise InvalidComponent()
-    return number[:2] + module.compact(number[2:])
+    number = module.compact(number)
+    if not number.startswith(cc):
+        number = cc + number
+    return number
 
 
 def validate(number):
     """Check if the number is a valid VAT number. This performs the
     country-specific check for the number."""
     number = clean(number, '').upper().strip()
-    module = _get_cc_module(number[:2])
+    cc = number[:2]
+    module = _get_cc_module(cc)
     if not module:
         raise InvalidComponent()
-    return number[:2] + module.validate(number[2:])
+    number = module.validate(number)
+    if not number.startswith(cc):
+        number = cc + number
+    return number
 
 
 def is_valid(number):

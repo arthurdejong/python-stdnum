@@ -912,3 +912,10 @@ These numbers should be mostly valid except that they have the wrong length.
 ... '''
 >>> [x for x in numbers.splitlines() if x and not caught(x, InvalidLength)]
 []
+
+
+Romanian CIF numbers assume that the RO prefix is part of the number so the
+EU VAT module should not return the prefix twice.
+
+>>> vat.compact('RO 21996566')
+'RO21996566'
