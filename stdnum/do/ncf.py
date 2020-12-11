@@ -146,7 +146,7 @@ def _convert_result(result):  # pragma: no cover
         for key, value in result.items())
 
 
-def check_dgii(rnc, ncf, timeout=30):  # pragma: no cover
+def check_dgii(rnc, ncf, buyerRNC=None, securityCode=None, timeout=30):  # pragma: no cover
     """Validate the RNC, NCF combination on using the DGII online web service.
 
     This uses the validation service run by the the Dirección General de
@@ -155,7 +155,7 @@ def check_dgii(rnc, ncf, timeout=30):  # pragma: no cover
     seconds.
 
     Returns a dict with the following structure::
-
+        For a NCF
         {
             'name': 'The registered name',
             'status': 'VIGENTE',
@@ -164,6 +164,19 @@ def check_dgii(rnc, ncf, timeout=30):  # pragma: no cover
             'ncf': 'A020010210100000005',
             'validation_message': 'El NCF digitado es válido.',
         }
+        For an ECNF
+        {
+            'Rnc Emisor': '1234567890123', 
+            'Rnc Comprador': '123456789', 
+            'e-NCF': 'E300000000000', 
+            'Código de Seguridad': '1+2kP3', 
+            'status': 'Aceptado', 
+            'Monto Total': '2203.50', 
+            'Total de ITBIS': '305.10', 
+            'Fecha Emisión': '2020-03-25', 
+            'Fecha de Firma': '2020-03-22',
+            'validation_message': 'Aceptado', 
+        }
 
     Will return None if the number is invalid or unknown."""
     import lxml.html
@@ -171,6 +184,9 @@ def check_dgii(rnc, ncf, timeout=30):  # pragma: no cover
     from stdnum.do.rnc import compact as rnc_compact
     rnc = rnc_compact(rnc)
     ncf = compact(ncf)
+
+    if buyerRNC:
+        buyerRNC = rnc_compact(buyerRNC)
     url = 'https://dgii.gov.do/app/WebApps/ConsultasWeb2/ConsultasWeb/consultas/ncf.aspx'
     session = requests.Session()
     session.headers.update({
@@ -179,7 +195,8 @@ def check_dgii(rnc, ncf, timeout=30):  # pragma: no cover
     # Get the page to pick up needed form parameters
     document = lxml.html.fromstring(
         session.get(url, timeout=timeout).text)
-    validation = document.find('.//input[@name="__EVENTVALIDATION"]').get('value')
+    validation = document.find(
+        './/input[@name="__EVENTVALIDATION"]').get('value')
     viewstate = document.find('.//input[@name="__VIEWSTATE"]').get('value')
     data = {
         '__EVENTVALIDATION': validation,
@@ -188,13 +205,18 @@ def check_dgii(rnc, ncf, timeout=30):  # pragma: no cover
         'ctl00$cphMain$txtNCF': ncf,
         'ctl00$cphMain$txtRNC': rnc,
     }
+    if ncf[0] == 'E':
+        data['ctl00$cphMain$txtRncComprador'] = buyerRNC
+        data['ctl00$cphMain$txtCodigoSeg'] = securityCode
     # Do the actual request
     document = lxml.html.fromstring(
         session.post(url, data=data, timeout=timeout).text)
-    result = document.find('.//div[@id="cphMain_pResultado"]')
+    resultPath = './/div[@id="cphMain_PResultadoFE"]' if ncf[0] == 'E' else './/div[@id="cphMain_pResultado"]'
+    result = document.find(resultPath)
     if result is not None:
+        lblPath = './/*[@id="cphMain_lblEstadoFe"]' if ncf[0] == 'E' else './/*[@id="cphMain_lblInformacion"]'
         data = {
-            'validation_message': document.findtext('.//*[@id="cphMain_lblInformacion"]').strip(),
+            'validation_message': document.findtext(lblPath).strip(),
         }
         data.update(zip(
             [x.text.strip() for x in result.findall('.//th')],
