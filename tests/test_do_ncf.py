@@ -64,3 +64,16 @@ class TestDGII(unittest.TestCase):
         self.assertIn('validation_message', result.keys())
         self.assertEqual(result['rnc'], '130546312')
         self.assertEqual(result['ncf'], 'B0100000005')
+        # Test the ENCF
+        result = ncf.check_dgii('101010632', 'E310049533639',
+                                buyer_rnc='22400559690', security_code='hnI63Q')
+        self.assertTrue(result)
+        self.assertIn('status', result.keys())
+        self.assertEqual(result['issuing_rnc'], '101010632')
+        self.assertEqual(result['buyer_rnc'], '22400559690')
+        self.assertEqual(result['ncf'], 'E310049533639')
+        self.assertIn('issuing_date', result.keys())
+        self.assertIn('signature_date', result.keys())
+        self.assertIn('total', result.keys())
+        self.assertIn('total_itbis', result.keys())
+        self.assertIn('validation_message', result.keys())

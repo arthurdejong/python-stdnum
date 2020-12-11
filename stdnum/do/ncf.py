@@ -140,13 +140,22 @@ def _convert_result(result):  # pragma: no cover
         'Estado': 'status',
         'Tipo de comprobante': 'type',
         u'Válido hasta': 'valid_until',
+        u'Código de Seguridad': 'security_code',
+        'Rnc Emisor': 'issuing_rnc',
+        'Rnc Comprador': 'buyer_rnc',
+        'Monto Total': 'total',
+        'Total de ITBIS': 'total_itbis',
+        'Fecha Emisi&oacuten': 'issuing_date',
+        u'Fecha Emisión': 'issuing_date',
+        u'Fecha de Firma': 'signature_date',
+        'e-NCF': 'ncf',
     }
     return dict(
         (translation.get(key, key), value)
         for key, value in result.items())
 
 
-def check_dgii(rnc, ncf, timeout=30):  # pragma: no cover
+def check_dgii(rnc, ncf, buyer_rnc=None, security_code=None, timeout=30):  # pragma: no cover
     """Validate the RNC, NCF combination on using the DGII online web service.
 
     This uses the validation service run by the the Dirección General de
@@ -154,7 +163,7 @@ def check_dgii(rnc, ncf, timeout=30):  # pragma: no cover
     whether the combination of RNC and NCF is valid. The timeout is in
     seconds.
 
-    Returns a dict with the following structure::
+    Returns a dict with the following structure for a NCF::
 
         {
             'name': 'The registered name',
@@ -165,12 +174,29 @@ def check_dgii(rnc, ncf, timeout=30):  # pragma: no cover
             'validation_message': 'El NCF digitado es válido.',
         }
 
+    For an ECNF::
+
+        {
+            'status': 'Aceptado',
+            'issuing_rnc': '1234567890123',
+            'buyer_rnc': '123456789',
+            'ncf': 'E300000000000',
+            'security_code': '1+2kP3',
+            'issuing_date': '2020-03-25',
+            'signature_date': '2020-03-22',
+            'total': '2203.50',
+            'total_itbis': '305.10',
+            'validation_message': 'Aceptado',
+        }
+
     Will return None if the number is invalid or unknown."""
     import lxml.html
     import requests
     from stdnum.do.rnc import compact as rnc_compact  # noqa: I003
     rnc = rnc_compact(rnc)
     ncf = compact(ncf)
+    if buyer_rnc:
+        buyer_rnc = rnc_compact(buyer_rnc)
     url = 'https://dgii.gov.do/app/WebApps/ConsultasWeb2/ConsultasWeb/consultas/ncf.aspx'
     session = requests.Session()
     session.headers.update({
@@ -188,13 +214,18 @@ def check_dgii(rnc, ncf, timeout=30):  # pragma: no cover
         'ctl00$cphMain$txtNCF': ncf,
         'ctl00$cphMain$txtRNC': rnc,
     }
+    if ncf[0] == 'E':
+        data['ctl00$cphMain$txtRncComprador'] = buyer_rnc
+        data['ctl00$cphMain$txtCodigoSeg'] = security_code
     # Do the actual request
     document = lxml.html.fromstring(
         session.post(url, data=data, timeout=timeout).text)
-    result = document.find('.//div[@id="cphMain_pResultado"]')
+    result_path = './/div[@id="cphMain_PResultadoFE"]' if ncf[0] == 'E' else './/div[@id="cphMain_pResultado"]'
+    result = document.find(result_path)
     if result is not None:
+        lbl_path = './/*[@id="cphMain_lblEstadoFe"]' if ncf[0] == 'E' else './/*[@id="cphMain_lblInformacion"]'
         data = {
-            'validation_message': document.findtext('.//*[@id="cphMain_lblInformacion"]').strip(),
+            'validation_message': document.findtext(lbl_path).strip(),
         }
         data.update(zip(
             [x.text.strip() for x in result.findall('.//th')],
