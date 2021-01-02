@@ -1,6 +1,7 @@
 test_vatin.doctest - more detailed doctests for stdnum.vatin module
 
 Copyright (C) 2020 Leandro Regueiro
+Copyright (C) 2021 Arthur de Jong
 
 This library is free software; you can redistribute it and/or
 modify it under the terms of the GNU Lesser General Public
@@ -35,6 +36,8 @@ Check valid VAT numbers for several countries with existing validation:
 'BR16727230000197'
 >>> vatin.validate('el-082857563')
 'EL082857563'
+>>> vatin.validate('CHE-109.298.651 TVA')
+'CHE109298651TVA'
 
 
 Try validating invalid VAT numbers for country with validation:
