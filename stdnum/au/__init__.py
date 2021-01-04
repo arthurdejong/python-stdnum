@@ -21,4 +21,4 @@
 """Collection of Australian numbers."""
 
 # provide aliases
-from stdnum.au import tfn as vat  # noqa: F401
+from stdnum.au import abn as vat  # noqa: F401
