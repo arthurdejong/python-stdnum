@@ -44,9 +44,9 @@ from stdnum.util import clean, get_cc_module, get_soap_client
 
 
 MEMBER_STATES = set([
-    'at', 'be', 'bg', 'cy', 'cz', 'de', 'dk', 'ee', 'es', 'fi', 'fr', 'gb',
-    'gr', 'hr', 'hu', 'ie', 'it', 'lt', 'lu', 'lv', 'mt', 'nl', 'pl', 'pt',
-    'ro', 'se', 'si', 'sk',
+    'at', 'be', 'bg', 'cy', 'cz', 'de', 'dk', 'ee', 'es', 'fi', 'fr', 'gr',
+    'hr', 'hu', 'ie', 'it', 'lt', 'lu', 'lv', 'mt', 'nl', 'pl', 'pt', 'ro',
+    'se', 'si', 'sk',
 ])
 """The collection of country codes that are queried. Greece is listed with
 a country code of gr while for VAT purposes el is used instead."""
