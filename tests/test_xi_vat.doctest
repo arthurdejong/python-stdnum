@@ -1,0 +1,108 @@
+test_gb_vat.doctest - more detailed doctests for stdnum.gb.vat module
+
+Copyright (C) 2012, 2013 Arthur de Jong
+
+This library is free software; you can redistribute it and/or
+modify it under the terms of the GNU Lesser General Public
+License as published by the Free Software Foundation; either
+version 2.1 of the License, or (at your option) any later version.
+
+This library is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+Lesser General Public License for more details.
+
+You should have received a copy of the GNU Lesser General Public
+License along with this library; if not, write to the Free Software
+Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
+02110-1301 USA
+
+
+This file contains more detailed doctests for the stdnum.gb.vat. It
+tries to cover more corner cases and detailed functionality that is not
+really useful as module documentation.
+
+>>> from stdnum.xi import vat
+
+Normal values that should just work.
+
+>>> vat.validate('980780684')  # standard number
+'980780684'
+>>> vat.validate('100190874')  # standard number restarting
+'100190874'
+>>> vat.validate('242338087388')  # branch trader
+'242338087388'
+>>> vat.validate('GD100')  # government department
+'GD100'
+>>> vat.validate('HA501')  # health authority
+'HA501'
+>>> vat.validate('GD888810003')  # government department for EU
+'GD888810003'
+>>> vat.validate('HA888856782')  # health authority for EU
+'HA888856782'
+
+
+Invalid long numbers:
+
+>>> vat.validate('802311781')  # invalid check digit
+Traceback (most recent call last):
+    ...
+InvalidChecksum: ...
+>>> vat.validate('9807806842')  # too long for standard number
+Traceback (most recent call last):
+    ...
+InvalidLength: ...
+>>> vat.validate('9807806B4')  # invalid digit
+Traceback (most recent call last):
+    ...
+InvalidFormat: ...
+>>> vat.validate('GD8888567B2')  # invalid digit for EU health authority
+Traceback (most recent call last):
+    ...
+InvalidFormat: ...
+>>> vat.validate('001234567')  # invalid checksum
+Traceback (most recent call last):
+    ...
+InvalidChecksum: ...
+
+
+Some variations on the short format:
+
+>>> vat.validate('ZZ100')  # unknown code
+Traceback (most recent call last):
+    ...
+InvalidComponent: ...
+>>> vat.validate('GD600')  # government department with high number
+Traceback (most recent call last):
+    ...
+InvalidComponent: ...
+>>> vat.validate('HA201')  # health authority with low number
+Traceback (most recent call last):
+    ...
+InvalidComponent: ...
+
+
+Some variations on the EU format:
+
+>>> vat.validate('GD888860018')  # government department with high number
+Traceback (most recent call last):
+    ...
+InvalidComponent: ...
+>>> vat.validate('HA888820107')  # health authority with low number
+Traceback (most recent call last):
+    ...
+InvalidComponent: ...
+>>> vat.validate('HA888856700') # health authority with invalid checksum
+Traceback (most recent call last):
+    ...
+InvalidChecksum: ...
+
+
+Formatting tests:
+
+>>> vat.format('980780684')  # standard number
+'980 7806 84'
+>>> vat.format('HA501')  # health authority
+'HA501'
+>>> vat.format('242338087388')  # branch trader
+'242 3380 87 388'
