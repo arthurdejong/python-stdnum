@@ -17,8 +17,9 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 # 02110-1301 USA
 
-"""VAT (United Kingdom (and Isle of Man) VAT registration number).
+"""VAT (Norther Ireland VAT registration number).
 
+The VAT number is basically the same number as the GB number except GB is replaced with XI
 The VAT number can either be a 9-digit standard number, a 12-digit standard
 number followed by a 3-digit branch identifier, a 5-digit number for
 government departments (first two digits are GD) or a 5-digit number for
