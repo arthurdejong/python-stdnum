@@ -47,6 +47,10 @@ setup(
     author='Arthur de Jong',
     author_email='arthur@arthurdejong.org',
     url='https://arthurdejong.org/python-stdnum/',
+    project_urls={
+        'Documentation': 'https://arthurdejong.org/python-stdnum/doc/',
+        'GitHub': 'https://github.com/arthurdejong/python-stdnum/',
+    },
     license='LGPL',
     classifiers=[
         'Development Status :: 5 - Production/Stable',
