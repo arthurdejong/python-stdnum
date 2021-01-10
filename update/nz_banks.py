@@ -3,7 +3,7 @@
 
 # update/nz_banks.py - script to download Bank list from Bank Branch Register
 #
-# Copyright (C) 2019 Arthur de Jong
+# Copyright (C) 2019-2021 Arthur de Jong
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -28,6 +28,11 @@ from collections import OrderedDict, defaultdict
 
 import requests
 import xlrd
+
+
+# Monkey patch xlrd avoiding bug in combination with Python 3.9
+xlrd.xlsx.ensure_elementtree_imported(False, None)
+xlrd.xlsx.Element_has_iter = True
 
 
 # The page that contains a link to the latest XLS version of the codes.

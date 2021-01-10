@@ -3,7 +3,7 @@
 
 # update/at_postleitzahl.py - download list of Austrian postal codes
 #
-# Copyright (C) 2018-2019 Arthur de Jong
+# Copyright (C) 2018-2021 Arthur de Jong
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -40,7 +40,7 @@ except ImportError:
 
 # The page that contains a link to the downloadable spreadsheet with current
 # Austrian postal codes
-base_url = 'https://www.post.at/en/business_advertise_products_and_services_addresses_postcodes.php'
+base_url = 'https://www.post.at/g/c/postlexikon'
 
 # The list of regions that can be used in the document.
 regions = {
@@ -55,22 +55,31 @@ regions = {
     'W': 'Wien',
 }
 
+# The user agent that will be passed in requests
+user_agent = 'Mozilla/5.0 (compatible; python-stdnum updater; +https://arthurdejong.org/python-stdnum/)'
+
+
+# Custom headers that will be passed to requests
+headers = {
+    'User-Agent': user_agent,
+}
+
 
 def find_download_url():
     """Extract the spreadsheet URL from the Austrian Post website."""
-    response = requests.get(base_url)
+    response = requests.get(base_url, headers=headers)
     response.raise_for_status()
     document = lxml.html.document_fromstring(response.content)
     url = [
         a.get('href')
         for a in document.findall('.//a[@href]')
-        if '/downloads/PLZ_Verzeichnis' in a.get('href')][0]
+        if 'Werben/PLZ_Verzeichnis' in a.get('href')][0]
     return urljoin(base_url, url.split('?')[0])
 
 
 def get_postal_codes(download_url):
     """Download the Austrian postal codes spreadsheet."""
-    response = requests.get(download_url)
+    response = requests.get(download_url, headers=headers)
     response.raise_for_status()
     workbook = xlrd.open_workbook(
         file_contents=response.content, logfile=open(os.devnull, 'w'))

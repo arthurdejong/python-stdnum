@@ -2,7 +2,7 @@
 
 # update/my_bp.py - script to download data from Malaysian government site
 #
-# Copyright (C) 2013-2019 Arthur de Jong
+# Copyright (C) 2013-2021 Arthur de Jong
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -30,8 +30,8 @@ import requests
 
 
 # URLs that are downloaded
-state_list_url = 'https://www.jpn.gov.my/kod-negeri/'
-country_list_url = 'https://www.jpn.gov.my/en/kod-negara/'
+state_list_url = 'https://www.jpn.gov.my/en/kod-negeri-eng'
+country_list_url = 'https://www.jpn.gov.my/en/kod-negara-eng'
 
 
 # The user agent that will be passed in requests
@@ -51,7 +51,7 @@ def parse(content):
     """Parse the specified file."""
     document = lxml.html.document_fromstring(content)
     # find all table rows
-    for tr in document.findall('.//div[@class="box-content"]//tr'):
+    for tr in document.findall('.//div[@class="uk-container"]//tr'):
         tds = [clean(td) for td in tr.findall('td')]
         # table has two columns
         if len(tds) >= 2 and tds[0] and tds[1]:
