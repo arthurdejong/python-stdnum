@@ -1,6 +1,6 @@
 # verhoeff.py - functions for performing the Verhoeff checksum
 #
-# Copyright (C) 2010-2015 Arthur de Jong
+# Copyright (C) 2010-2021 Arthur de Jong
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -92,7 +92,7 @@ def validate(number):
         raise InvalidFormat()
     try:
         valid = checksum(number) == 0
-    except Exception:
+    except Exception:  # noqa: B902
         raise InvalidFormat()
     if not valid:
         raise InvalidChecksum()

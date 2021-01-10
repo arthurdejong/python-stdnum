@@ -1,6 +1,6 @@
 # damm.py - functions for performing the Damm checksum algorithm
 #
-# Copyright (C) 2016-2017 Arthur de Jong
+# Copyright (C) 2016-2021 Arthur de Jong
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -85,7 +85,7 @@ def validate(number, table=None):
         raise InvalidFormat()
     try:
         valid = checksum(number, table=table) == 0
-    except Exception:
+    except Exception:  # noqa: B902
         raise InvalidFormat()
     if not valid:
         raise InvalidChecksum()

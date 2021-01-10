@@ -1,6 +1,6 @@
 # mod_97_10.py - functions for performing the ISO 7064 Mod 97, 10 algorithm
 #
-# Copyright (C) 2010-2017 Arthur de Jong
+# Copyright (C) 2010-2021 Arthur de Jong
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -39,11 +39,8 @@ from stdnum.exceptions import *
 
 def _to_base10(number):
     """Prepare the number to its base10 representation."""
-    try:
-        return ''.join(
-            str(int(x, 36)) for x in number)
-    except Exception:
-        raise InvalidFormat()
+    return ''.join(
+        str(int(x, 36)) for x in number)
 
 
 def checksum(number):
@@ -61,7 +58,7 @@ def validate(number):
     """Check whether the check digit is valid."""
     try:
         valid = checksum(number) == 1
-    except Exception:
+    except Exception:  # noqa: B902
         raise InvalidFormat()
     if not valid:
         raise InvalidChecksum()

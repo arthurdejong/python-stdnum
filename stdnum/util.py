@@ -1,7 +1,7 @@
 # util.py - common utility functions
 # coding: utf-8
 #
-# Copyright (C) 2012-2019 Arthur de Jong
+# Copyright (C) 2012-2021 Arthur de Jong
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -168,7 +168,7 @@ def clean(number, deletechars=''):
     """
     try:
         number = ''.join(x for x in number)
-    except Exception:
+    except Exception:  # noqa: B902
         raise InvalidFormat()
     if sys.version < '3' and isinstance(number, str):  # pragma: no cover (Python 2 specific code)
         try:

@@ -1,6 +1,6 @@
 # mod_37_36.py - functions for performing the ISO 7064 Mod 37, 36 algorithm
 #
-# Copyright (C) 2010, 2011, 2012, 2013 Arthur de Jong
+# Copyright (C) 2010-2021 Arthur de Jong
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -61,7 +61,7 @@ def validate(number, alphabet='0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ'):
     """Check whether the check digit is valid."""
     try:
         valid = checksum(number, alphabet) == 1
-    except Exception:
+    except Exception:  # noqa: B902
         raise InvalidFormat()
     if not valid:
         raise InvalidChecksum()

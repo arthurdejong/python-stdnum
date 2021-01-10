@@ -1,7 +1,7 @@
 # gs1_128.py - functions for handling GS1-128 codes
 #
 # Copyright (C) 2019 Sergi Almacellas Abellana
-# Copyright (C) 2020 Arthur de Jong
+# Copyright (C) 2020-2021 Arthur de Jong
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -253,7 +253,7 @@ def validate(number, separator=''):
         return encode(info(number, separator), separator)
     except ValidationError:
         raise
-    except Exception:
+    except Exception:  # noqa: B902
         # We wrap all other exceptions to ensure that we only return
         # exceptions that are a subclass of ValidationError
         # (the info() and encode() functions expect some semblance of valid
