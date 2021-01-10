@@ -52,10 +52,10 @@ def compact(number):
 def split(number):
     """Split the specified IMSI into a Mobile Country Code (MCC), a Mobile
     Network Code (MNC), a Mobile Station Identification Number (MSIN)."""
-    from stdnum import numdb
     # clean up number
     number = compact(number)
     # split the number
+    from stdnum import numdb
     return tuple(numdb.get('imsi').split(number))
 
 
@@ -73,10 +73,10 @@ def validate(number):
 
 def info(number):
     """Return a dictionary of data about the supplied number."""
-    from stdnum import numdb
     # clean up number
     number = compact(number)
     # split the number
+    from stdnum import numdb
     info = dict(number=number)
     mcc_info, mnc_info, msin_info = numdb.get('imsi').info(number)
     info['mcc'] = mcc_info[0]

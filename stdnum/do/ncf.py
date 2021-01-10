@@ -168,7 +168,7 @@ def check_dgii(rnc, ncf, timeout=30):  # pragma: no cover
     Will return None if the number is invalid or unknown."""
     import lxml.html
     import requests
-    from stdnum.do.rnc import compact as rnc_compact
+    from stdnum.do.rnc import compact as rnc_compact  # noqa: I003
     rnc = rnc_compact(rnc)
     ncf = compact(ncf)
     url = 'https://dgii.gov.do/app/WebApps/ConsultasWeb2/ConsultasWeb/consultas/ncf.aspx'

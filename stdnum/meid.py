@@ -118,9 +118,9 @@ def validate(number, strip_check_digit=True):
     """Check if the number is a valid MEID number. This converts the
     representation format of the number (if it is decimal it is not converted
     to hexadecimal)."""
-    from stdnum import luhn
     # first parse the number
     number, cd = _parse(number)
+    from stdnum import luhn
     if len(number) == 18:
         # decimal format can be easily determined
         if cd:
@@ -194,7 +194,7 @@ def to_binary(number):
 def to_pseudo_esn(number):
     """Convert the provided MEID to a pseudo ESN (pESN). The ESN is returned
     in compact hexadecimal representation."""
-    import hashlib
     # return the last 6 digits of the SHA1  hash prefixed with the reserved
     # manufacturer code
+    import hashlib
     return '80' + hashlib.sha1(to_binary(number)).hexdigest()[-6:].upper()

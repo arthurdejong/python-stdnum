@@ -112,10 +112,10 @@ def check_nalog(number, timeout=30):  # pragma: no cover (not part of normal tes
     """
     # this function isn't automatically tested because it would require
     # network access for the tests and unnecessarily load the web service
-    import requests
-    from pkg_resources import resource_filename
     # Since the nalog.gov.by web site currently provides an incomplete
     # certificate chain, we provide our own.
+    import requests
+    from pkg_resources import resource_filename
     certificate = resource_filename(__name__, 'portal.nalog.gov.by.crt')
     response = requests.get(
         'https://www.portal.nalog.gov.by/grp/getData',

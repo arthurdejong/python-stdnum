@@ -177,7 +177,6 @@ def split(number, convert=False):
     registrant, an item number and a check-digit. If the number is in ISBN-10
     format the returned EAN.UCC prefix is '978'. If the covert parameter is
     True the number is converted to ISBN-13 format first."""
-    from stdnum import numdb
     # clean up number
     number = compact(number, convert)
     # get Bookland prefix if any
@@ -186,6 +185,7 @@ def split(number, convert=False):
         number = '978' + number
         delprefix = True
     # split the number
+    from stdnum import numdb
     result = numdb.get('isbn').split(number[:-1])
     itemnr = result.pop() if result else ''
     prefix = result.pop(0) if result else ''
