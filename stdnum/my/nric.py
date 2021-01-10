@@ -23,7 +23,7 @@ The NRIC No. is the unique identifier for issued to Malaysian citizens and
 permanent residents.
 
 The number consist of 12 digits in three sections. The first 6 digits
-represent the birth date, followed by two digits represeting the birth
+represent the birth date, followed by two digits representing the birth
 place and finally four digits. The gender of a person can be derived from
 the last digit: odd numbers for males and even numbers for females.
 
