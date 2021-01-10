@@ -2,22 +2,21 @@ language: python
 os: linux
 dist: bionic
 cache: pip
-python:
-  - 2.7
-  - 3.5
-  - 3.6
-  - 3.7
-  - 3.8
-  - 3.9
-  - pypy3
 jobs:
   include:
   - python: 2.6
     dist: trusty
+  - python: 2.7
   - python: 3.4
     dist: xenial
+  - python: 3.5
+  - python: 3.6
+  - python: 3.7
+  - python: 3.8
+  - python: 3.9
   - python: pypy
     dist: xenial
+  - python: pypy3
   - python: 3.8
     env: TOXENV=flake8
   - python: 3.8
