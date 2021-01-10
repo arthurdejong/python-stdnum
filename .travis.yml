@@ -1,24 +1,26 @@
 language: python
 os: linux
-dist: xenial
+dist: bionic
 cache: pip
 python:
   - 2.7
-  - 3.4
   - 3.5
   - 3.6
   - 3.7
   - 3.8
-  - pypy
+  - 3.9
+  - pypy3
 jobs:
   include:
   - python: 2.6
     dist: trusty
-  - python: pypy3
-    dist: bionic
-  - python: 3.6
+  - python: 3.4
+    dist: xenial
+  - python: pypy
+    dist: xenial
+  - python: 3.8
     env: TOXENV=flake8
-  - python: 3.6
+  - python: 3.8
     env: TOXENV=docs
 install: pip install tox
 script: tox -e "${TOXENV:-$(echo py$TRAVIS_PYTHON_VERSION | tr -d . | sed -e 's/pypypy/pypy/')}" --skip-missing-interpreters false
