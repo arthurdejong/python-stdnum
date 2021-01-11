@@ -94,6 +94,8 @@ modindex_common_prefix = ['stdnum.', ]
 # Automatically generate stub pages for autosummary entries.
 autosummary_generate = True
 
+# Autosummary overwrites existing files by generated stub pages.
+autosummary_generate_overwrite = False
 
 # -- Options for HTML output ---------------------------------------------------
 

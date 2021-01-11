@@ -1,3 +1,24 @@
+changes from 1.14 to 1.15
+-------------------------
+
+* Add modules for the following number formats:
+
+  - CUI or CIF (Codul Unic de Înregistrare, Romanian company identifier)
+  - PEID (Liechtenstein tax code for individuals and entities)
+    (thanks Matthias Schmid)
+  - ЄДРПОУ, EDRPOU (Identifier for enterprises and organizations in Ukraine)
+    (thanks Leandro Regueiro)
+  - РНОКПП, RNTRC (Individual taxpayer registration number in Ukraine)
+    (thanks Leandro Regueiro)
+
+* Make list of EU member states part of public API
+* Retain RO prefix in Romanian VAT numbers
+* Support international VAT numbers that are only valid with country prefix
+* Expanded validation for Belgian VAT numbers
+* Use ABN as Australian VAT number
+* Remove GB from EU member states
+
+
 changes from 1.13 to 1.14
 -------------------------
 

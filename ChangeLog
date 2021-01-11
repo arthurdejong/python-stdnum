@@ -1,3 +1,173 @@
+2021-01-11  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [755eee7] .travis.yml: Simplify Travis matrix
+
+	  This also ensures that supported Python interpreters are output
+	  in order.
+
+2021-01-10  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [a0c62ee] stdnum/at/postleitzahl.dat, stdnum/be/banks.dat,
+	  stdnum/cn/loc.dat, stdnum/eu/nace.dat, stdnum/gs1_ai.dat,
+	  stdnum/iban.dat, stdnum/imsi.dat, stdnum/isbn.dat,
+	  stdnum/my/bp.dat, stdnum/nz/banks.dat, stdnum/oui.dat,
+	  update/at_postleitzahl.py, update/my_bp.py, update/nz_banks.py:
+	  Update database files
+
+2021-01-10  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [df0623b] stdnum/by/unp.py, stdnum/do/ncf.py, stdnum/imsi.py,
+	  stdnum/isbn.py, stdnum/meid.py, tox.ini: Drop pinning of isort
+	  now flake8-isort has been fixed
+
+	  This changes a few inline imports in the code to pass with the
+	  new isort.
+
+	  Reverts 291b831
+
+2021-01-10  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [b202eee] stdnum/my/nric.py: Fix typo
+
+2021-01-10  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [7e86331] setup.py: Add project URLs for PyPI
+
+2020-10-25  Leandro Regueiro <leandro.regueiro@gmail.com>
+
+	* [126496c] stdnum/ua/rntrc.py, tests/test_ua_rntrc.doctest:
+	  Add support for Ukraine РНОКПП number
+
+	  Closes https://github.com/arthurdejong/python-stdnum/pull/242
+	  Closes https://github.com/arthurdejong/python-stdnum/issues/117
+
+2020-10-25  Leandro Regueiro <leandro.regueiro@gmail.com>
+
+	* [b7b2af8] stdnum/ua/__init__.py, stdnum/ua/edrpou.py,
+	  tests/test_ua_edrpou.doctest: Add support for Ukraine ЄДРПОУ
+	  number
+
+	  Closes https://github.com/arthurdejong/python-stdnum/pull/242
+	  Closes https://github.com/arthurdejong/python-stdnum/issues/117
+
+2021-01-04  Viggo de Vries <viggo@uwkm.nl>
+
+	* [0427b01] stdnum/eu/vat.py, tests/test_eu_vat.doctest,
+	  tests/test_gb_vat.doctest: Remove GB from EU member states
+
+	  Closes https://github.com/arthurdejong/python-stdnum/pull/246
+
+2021-01-10  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [2f2c742] .travis.yml, setup.py, tox.ini: Add support for
+	  Python 3.9
+
+	  This switches Travis tests to bionic by default.
+
+2021-01-10  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [2046f51] stdnum/damm.py, stdnum/eu/at_02.py, stdnum/gs1_128.py,
+	  stdnum/iso7064/mod_11_10.py, stdnum/iso7064/mod_11_2.py,
+	  stdnum/iso7064/mod_37_2.py, stdnum/iso7064/mod_37_36.py,
+	  stdnum/iso7064/mod_97_10.py, stdnum/luhn.py, stdnum/util.py,
+	  stdnum/verhoeff.py: Fix flake8 blind except Exception error
+
+2021-01-04  Viggo de Vries <viggo@uwkm.nl>
+
+	* [cc3a970] stdnum/au/__init__.py: Use ABN as Australian VAT number
+
+	  See https://www.ato.gov.au/Business/GST/Tax-invoices/
+
+	  Closes https://github.com/arthurdejong/python-stdnum/pull/246
+
+2021-01-02  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [c74e322] stdnum/vatin.py, tests/test_vatin.doctest: Support
+	  VAT numbers that are only valid with country prefix
+
+	  The Swish VAT number has the CH prefix embedded as a required
+	  part of the number. This ensures that the international VAT
+	  number module also supports that.
+
+	  Closes https://github.com/arthurdejong/python-stdnum/issues/245
+	  Fixes ff188bd
+
+2020-10-27  Matthias Schmid, M.Sc <ramsondon@gmail.com>
+
+	* [5082af4] stdnum/li/__init__.py, stdnum/li/peid.py,
+	  tests/test_li_peid.doctest: Add Liechtenstein
+	  Personenidentifikationsnummer
+
+	  Closes https://github.com/arthurdejong/python-stdnum/pull/241
+	  Closes https://github.com/arthurdejong/python-stdnum/issues/125
+
+2020-10-02  Jonas Geuens <jonasgeuens@gmail.com>
+
+	* [3a592e4] stdnum/be/vat.py, tests/test_be_vat.doctest: Expanded
+	  validation for BE VAT numbers
+
+	  Specifically invalidated all-zero numbers
+
+	  Closes https://github.com/arthurdejong/python-stdnum/pull/240
+
+2020-11-01  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [c5eb2d8] stdnum/eu/vat.py, stdnum/ro/cf.py,
+	  tests/test_eu_vat.doctest: Retain RO prefix in Romanian VAT numbers
+
+	  This does not strip the RO prefix from Romanian VAT numbers to be
+	  able to keep the distinction between a CUI/CIF that is registered
+	  for VAT (which commonly has the RO prefix) and those that don't.
+
+	  Closes https://github.com/arthurdejong/python-stdnum/issues/231
+
+2020-11-01  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [1f6c77f] stdnum/ro/cnp.py, stdnum/ro/onrc.py: Minor updates
+
+2020-11-01  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [e0417f6] stdnum/ro/cf.py, stdnum/ro/cui.py: Add Romanian
+	  CUI/CIF number
+
+	  This module separates the validation of numbers assigned to
+	  companies (CUI or CIF) of those assigned to natural persons (CNP).
+
+2020-09-19  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [19d3f70] stdnum/eu/vat.py: Make list of EU member states list
+	  of public API
+
+	  This provides stdnum.eu.vat.MEMBER_STATES. Note that Greece is
+	  listed with a country code of "gr" while the prefix used in VAT
+	  numbers is "el".
+
+	  Closes https://github.com/arthurdejong/python-stdnum/issues/238
+
+2020-09-04  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [992dc20] online_check/check.js,
+	  online_check/jquery-1.7.1.js, online_check/jquery-1.7.1.min.js,
+	  online_check/jquery-3.5.1.js, online_check/jquery-3.5.1.min.js,
+	  online_check/jquery-3.5.1.min.map, online_check/template.html:
+	  Upgrade jQuery to 3.5.1
+
+	  This also runs eslint over check.js and fixes an issue from
+	  the upgrade.
+
+2020-08-09  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [3373938] ChangeLog, NEWS, README, docs/index.rst,
+	  docs/stdnum.by.unp.rst, docs/stdnum.cn.uscc.rst,
+	  docs/stdnum.gb.utr.rst, docs/stdnum.gs1_128.rst,
+	  docs/stdnum.id.npwp.rst, docs/stdnum.il.hp.rst,
+	  docs/stdnum.it.aic.rst, docs/stdnum.kr.brn.rst,
+	  docs/stdnum.ro.onrc.rst, docs/stdnum.sg.uen.rst,
+	  docs/stdnum.sv.nit.rst, docs/stdnum.tw.ubn.rst,
+	  docs/stdnum.vatin.rst, docs/stdnum.vn.mst.rst,
+	  docs/stdnum.za.idnr.rst, stdnum/__init__.py: Get files ready
+	  for 1.14 release
+
 2020-08-09  Arthur de Jong <arthur@arthurdejong.org>
 
 	* [40fcc24] stdnum/be/banks.dat, stdnum/cn/loc.dat,

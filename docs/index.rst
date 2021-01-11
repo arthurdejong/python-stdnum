@@ -235,6 +235,7 @@ Available formats
    kr.brn
    kr.rrn
    lei
+   li.peid
    lt.asmens
    lt.pvm
    lu.tva
@@ -270,6 +271,7 @@ Available formats
    py.ruc
    ro.cf
    ro.cnp
+   ro.cui
    ro.onrc
    rs.pib
    ru.inn
@@ -285,6 +287,8 @@ Available formats
    tr.tckimlik
    tr.vkn
    tw.ubn
+   ua.edrpou
+   ua.rntrc
    us.atin
    us.ein
    us.itin

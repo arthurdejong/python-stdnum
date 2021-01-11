@@ -137,6 +137,7 @@ Currently this package supports the following formats:
  * BRN (사업자 등록 번호, South Korea Business Registration Number)
  * RRN (South Korean resident registration number)
  * LEI (Legal Entity Identifier)
+ * PEID (Liechtenstein tax code for individuals and entities)
  * Asmens kodas (Lithuanian, personal numbers)
  * PVM (Pridėtinės vertės mokestis mokėtojo kodas, Lithuanian VAT number)
  * TVA (taxe sur la valeur ajoutée, Luxembourgian VAT number)
@@ -172,6 +173,7 @@ Currently this package supports the following formats:
  * RUC number (Registro Único de Contribuyentes, Paraguay tax number)
  * CF (Cod de înregistrare în scopuri de TVA, Romanian VAT number)
  * CNP (Cod Numeric Personal, Romanian Numerical Personal Code)
+ * CUI or CIF (Codul Unic de Înregistrare, Romanian company identifier)
  * ONRC (Ordine din Registrul Comerţului, Romanian Trade Register identifier)
  * PIB (Poreski Identifikacioni Broj, Serbian tax identification number)
  * ИНН (Идентификационный номер налогоплательщика, Russian tax identifier)
@@ -187,6 +189,8 @@ Currently this package supports the following formats:
  * T.C. Kimlik No. (Turkish personal identification number)
  * VKN (Vergi Kimlik Numarası, Turkish tax identification number)
  * UBN (Unified Business Number, 統一編號, Taiwanese tax number)
+ * ЄДРПОУ, EDRPOU (Identifier for enterprises and organizations in Ukraine)
+ * РНОКПП, RNTRC (Individual taxpayer registration number in Ukraine)
  * ATIN (U.S. Adoption Taxpayer Identification Number)
  * EIN (U.S. Employer Identification Number)
  * ITIN (U.S. Individual Taxpayer Identification Number)
@@ -255,7 +259,7 @@ also work with older versions of Python.
 Copyright
 ---------
 
-Copyright (C) 2010-2020 Arthur de Jong and others
+Copyright (C) 2010-2021 Arthur de Jong and others
 
 This library is free software; you can redistribute it and/or
 modify it under the terms of the GNU Lesser General Public
