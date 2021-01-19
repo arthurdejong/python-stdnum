@@ -228,6 +228,6 @@ def check_dgii(rnc, ncf, buyer_rnc=None, security_code=None, timeout=30):  # pra
             'validation_message': document.findtext(lbl_path).strip(),
         }
         data.update(zip(
-            [x.text.strip() for x in result.findall('.//th')],
-            [x.text.strip() for x in result.findall('.//td/span')]))
+            [x.text.strip() for x in result.findall('.//th') if x.text],
+            [x.text.strip() for x in result.findall('.//td/span') if x.text]))
         return _convert_result(data)
