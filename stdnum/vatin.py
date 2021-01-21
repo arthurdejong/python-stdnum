@@ -59,8 +59,8 @@ _country_modules = dict()
 
 def _get_cc_module(cc):
     """Get the VAT number module based on the country code."""
-    # Greece uses a "wrong" country code
-    cc = cc.lower().replace('el', 'gr')
+    # Greece uses a "wrong" country code, special case for Northern Ireland
+    cc = cc.lower().replace('el', 'gr').replace('xi', 'gb')
     if not re.match(r'^[a-z]{2}$', cc):
         raise InvalidFormat()
     if cc not in _country_modules:

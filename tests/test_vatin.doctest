@@ -38,6 +38,8 @@ Check valid VAT numbers for several countries with existing validation:
 'EL082857563'
 >>> vatin.validate('CHE-109.298.651 TVA')
 'CHE109298651TVA'
+>>> vatin.validate('XI 432525179')
+'XI432525179'
 
 
 Try validating invalid VAT numbers for country with validation:
