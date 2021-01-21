@@ -1,7 +1,7 @@
 # vat.py - functions for handling European VAT numbers
 # coding: utf-8
 #
-# Copyright (C) 2012-2020 Arthur de Jong
+# Copyright (C) 2012-2021 Arthur de Jong
 # Copyright (C) 2015 Lionel Elie Mamane
 #
 # This library is free software; you can redistribute it and/or
@@ -46,10 +46,11 @@ from stdnum.util import clean, get_cc_module, get_soap_client
 MEMBER_STATES = set([
     'at', 'be', 'bg', 'cy', 'cz', 'de', 'dk', 'ee', 'es', 'fi', 'fr', 'gr',
     'hr', 'hu', 'ie', 'it', 'lt', 'lu', 'lv', 'mt', 'nl', 'pl', 'pt', 'ro',
-    'se', 'si', 'sk',
+    'se', 'si', 'sk', 'xi',
 ])
-"""The collection of country codes that are queried. Greece is listed with
-a country code of gr while for VAT purposes el is used instead."""
+"""The collection of country codes that are queried. Greece is listed with a
+country code of gr while for VAT purposes el is used instead. For Northern
+Ireland numbers are prefixed with xi of United Kingdom numbers."""
 
 _country_modules = dict()
 
@@ -65,6 +66,8 @@ def _get_cc_module(cc):
         cc = 'gr'
     if cc not in MEMBER_STATES:
         return
+    if cc == 'xi':
+        cc = 'gb'
     if cc not in _country_modules:
         _country_modules[cc] = get_cc_module(cc, 'vat')
     return _country_modules[cc]

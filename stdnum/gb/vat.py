@@ -1,6 +1,6 @@
 # vat.py - functions for handling United Kingdom VAT numbers
 #
-# Copyright (C) 2012-2015 Arthur de Jong
+# Copyright (C) 2012-2021 Arthur de Jong
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -43,7 +43,7 @@ def compact(number):
     """Convert the number to the minimal representation. This strips the
     number of any valid separators and removes surrounding whitespace."""
     number = clean(number, ' -.').upper().strip()
-    if number.startswith('GB'):
+    if number.startswith('GB') or number.startswith('XI'):
         number = number[2:]
     return number
 
