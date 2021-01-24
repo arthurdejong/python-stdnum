@@ -24,23 +24,12 @@
 
 from __future__ import print_function, unicode_literals
 
-import os
-import os.path
-
-import lxml.html
 import requests
-import xlrd
 
 
-try:
-    from urllib.parse import urljoin
-except ImportError:
-    from urlparse import urljoin
+# The URL of postal codes on the Austrian open-data portal in CSV format.
+download_url = 'https://data.rtr.at/api/v1/tables/plz.json'
 
-
-# The page that contains a link to the downloadable spreadsheet with current
-# Austrian postal codes
-base_url = 'https://www.post.at/g/c/postlexikon'
 
 # The list of regions that can be used in the document.
 regions = {
@@ -55,57 +44,19 @@ regions = {
     'W': 'Wien',
 }
 
-# The user agent that will be passed in requests
-user_agent = 'Mozilla/5.0 (compatible; python-stdnum updater; +https://arthurdejong.org/python-stdnum/)'
-
-
-# Custom headers that will be passed to requests
-headers = {
-    'User-Agent': user_agent,
-}
-
-
-def find_download_url():
-    """Extract the spreadsheet URL from the Austrian Post website."""
-    response = requests.get(base_url, headers=headers)
-    response.raise_for_status()
-    document = lxml.html.document_fromstring(response.content)
-    url = [
-        a.get('href')
-        for a in document.findall('.//a[@href]')
-        if 'Werben/PLZ_Verzeichnis' in a.get('href')][0]
-    return urljoin(base_url, url.split('?')[0])
-
-
-def get_postal_codes(download_url):
-    """Download the Austrian postal codes spreadsheet."""
-    response = requests.get(download_url, headers=headers)
-    response.raise_for_status()
-    workbook = xlrd.open_workbook(
-        file_contents=response.content, logfile=open(os.devnull, 'w'))
-    sheet = workbook.sheet_by_index(0)
-    rows = sheet.get_rows()
-    # the first row contains the column names
-    columns = [column.value.lower() for column in next(rows)]
-    # the other rows contain data
-    for row in rows:
-        data = dict(zip(
-            columns,
-            [column.value for column in row]))
-        if data['adressierbar'].lower() == 'ja':
-            yield (
-                data['plz'],
-                data['ort'],
-                regions.get(data['bundesland']))
-
 
 if __name__ == '__main__':
-    # download/parse the information
-    download_url = find_download_url()
+    response = requests.get(download_url)
+    response.raise_for_status()
+    data = response.json()
     # print header
-    print('# generated from %s downloaded from' %
-          os.path.basename(download_url))
-    print('# %s' % base_url)
+    print('# generated from %s' % download_url)
+    print('# version %s published %s' % (
+        data['version']['id'], data['version']['published']))
     # build an ordered list of postal codes
-    for code, location, region in sorted(get_postal_codes(download_url)):
+    results = []
+    for row in data['data']:
+        if row['adressierbar'] == 'Ja':
+            results.append((str(row['plz']), row['ort'], regions[row['bundesland']]))
+    for code, location, region in sorted(results):
         print('%s location="%s" region="%s"' % (code, location, region))
