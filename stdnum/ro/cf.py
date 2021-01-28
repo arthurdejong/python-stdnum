@@ -48,8 +48,7 @@ calc_check_digit = cui.calc_check_digit
 def validate(number):
     """Check if the number is a valid VAT number. This checks the length,
     formatting and check digit."""
-    number = compact(number)
-    cnumber = number
+    cnumber = compact(number)
     if cnumber.startswith('RO'):
         cnumber = cnumber[2:]
     if len(cnumber) == 13:
