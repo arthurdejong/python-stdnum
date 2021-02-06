@@ -1,3 +1,67 @@
+2021-02-06  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [fad3064] stdnum/by/portal.nalog.gov.by.crt: Add Let's Encrypt
+	  R3 intermediate certificate
+
+	  The portal.nalog.gov.by web site serves an incomplete certificate
+	  chain and the intermediate certificate was changed.
+
+2021-02-06  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [8c4ec55] stdnum/be/banks.dat, stdnum/cn/loc.dat,
+	  stdnum/eu/nace.dat, stdnum/gs1_ai.dat, stdnum/imsi.dat,
+	  stdnum/isbn.dat, stdnum/nz/banks.dat, stdnum/oui.dat: Update
+	  database files
+
+2021-02-06  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [fe34e15] stdnum/kr/rrn.py, stdnum/pe/ruc.py, stdnum/ua/edrpou.py:
+	  Use HTTPS in URLs where possible
+
+2021-01-24  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [407a02f] stdnum/at/postleitzahl.dat, update/at_postleitzahl.py:
+	  Switch postal code download to Austrian open-data portal
+
+	  This simplifies the process of downloading Austrian
+	  postal codes by downloading a JSON blob instead from
+	  https://www.data.gv.at/katalog/dataset/f76ed887-00d6-450f-a158-9f8b1cbbeebf
+
+	  This filters the list to only use addressable (adressierbar)
+	  postal codes because it matches the previous list.
+
+	  Thanks Bernd Schlapsi for providing the pointer.
+
+	  Closes https://github.com/arthurdejong/python-stdnum/issues/235
+
+2021-01-21  Alexis de Lattre <alexis.delattre@akretion.com>
+
+	* [53f13b4] stdnum/vatin.py, tests/test_vatin.doctest: Add support
+	  for XI VAT numbers in vatin
+
+	  Closes https://github.com/arthurdejong/python-stdnum/pull/251
+
+2021-01-21  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [b93d695] stdnum/eu/vat.py, stdnum/gb/vat.py,
+	  tests/test_eu_vat.doctest: Support xi country code for Northern
+	  Ireland
+
+	  While Great Brittain is no longer an EU member state some GB VAT
+	  numbers are still valid if the company meets certain requirements.
+
+	  See
+	  https://www.gov.uk/government/publications/accounting-for-vat-on-goods-moving-between-great-britain-and-northern-ireland-from-1-january-2021/check-when-you-are-trading-under-the-northern-ireland-protocol-if-you-are-vat-registered-business
+
+	  Closes https://github.com/arthurdejong/python-stdnum/issues/250
+
+2021-01-11  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [6b7f209] ChangeLog, NEWS, README, docs/conf.py, docs/index.rst,
+	  docs/stdnum.li.peid.rst, docs/stdnum.ro.cui.rst,
+	  docs/stdnum.ua.edrpou.rst, docs/stdnum.ua.rntrc.rst,
+	  stdnum/__init__.py, tox.ini: Get files ready for 1.15 release
+
 2021-01-11  Arthur de Jong <arthur@arthurdejong.org>
 
 	* [755eee7] .travis.yml: Simplify Travis matrix

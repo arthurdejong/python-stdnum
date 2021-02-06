@@ -1,3 +1,13 @@
+changes from 1.15 to 1.16
+-------------------------
+
+* Support XI country code for Northern Ireland VAT numbers
+  (thanks Alexis de Lattre)
+* Switch data source for Austrian postal codes
+  (thanks Bernd Schlapsi)
+* Fix Belarus VAT number online lookup
+
+
 changes from 1.14 to 1.15
 -------------------------
 
