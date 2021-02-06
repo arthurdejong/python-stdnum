@@ -1,6 +1,6 @@
 # generated from current_codes.xls downloaded from
 # https://www.nbb.be/doc/be/be/protocol/current_codes.xls
-# version 01/01/2021
+# version 18/01/2021
 000-000 bic="BPOTBEB1" bank="bpost bank"
 001-049 bic="GEBABEBB" bank="BNP Paribas Fortis"
 050-099 bic="GKCCBEBB" bank="BELFIUS BANK"
@@ -44,7 +44,7 @@
 510-510 bic="VAPEBE22" bank="VAN DE PUT & CO Privaatbankiers"
 512-512 bic="DNIBBE21" bank="NIBC BANK"
 513-513 bic="ABNABE2AIPC" bank="ABN AMRO Bank N.V."
-514-514 bic="PUILBEBB" bank="Puilaetco Dewaay Private Bankers"
+514-514 bic="PUILBEBB" bank="Puilaetco Branch of Quintet Private Bank SA"
 515-515 bic="IRVTBEBB" bank="The Bank of New York Mellon NV/SA"
 521-521 bic="FVLBBE22" bank="F. van Lanschot Bankiers"
 522-522 bic="UTWBBEBB" bank="United Taiwan Bank"
@@ -171,12 +171,12 @@
 939-939 bic="BBRUBEBB" bank="ING België"
 940-940 bic="CLIQBEB1" bank="Banque Centrale de Compensation (Clearnet)"
 941-941 bic="CVMCBEBB" bank="C A Indosuez Wealth (Europe)"
-942-942 bic="PUILBEBB" bank="Puilaetco Dewaay Private Bankers"
+942-942 bic="PUILBEBB" bank="Puilaetco Branch of Quintet Private Bank SA"
 943-943 bank="CNH Industrial Financial Services SAS"
 945-945 bic="JPMGBEBB" bank="J.P. Morgan Bank Luxembourg - Brussels Branch"
 946-946 bank="J.P. Morgan AG"
 948-948 bank="HomeSend"
-949-949 bic="HSBCBEBB" bank="HSBC France Belgian Branch"
+949-949 bic="HSBCBEBB" bank="HSBC Continental Europe Belgium"
 950-959 bic="CTBKBEBX" bank="Beobank"
 960-960 bic="ABNABE2AIPC" bank="ABN AMRO Bank N.V."
 961-961 bic="BBRUBEBB" bank="ING België"
@@ -184,7 +184,7 @@
 966-966 bic="NEECBEB2" bank="NewB"
 967-967 bic="TRWIBEB1" bank="TransferWise"
 968-968 bic="ENIBBEBB" bank="Banque Eni"
-969-969 bic="PUILBEBB" bank="Puilaetco Dewaay Private Bankers"
+969-969 bic="PUILBEBB" bank="Puilaetco Branch of Quintet Private Bank SA"
 971-971 bic="BBRUBEBB" bank="ING België"
 973-973 bic="ARSPBE22" bank="Argenta Spaarbank (ASPA)"
 974-974 bic="PESOBEB1" bank="PPS EU SA"

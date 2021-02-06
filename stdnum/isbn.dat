@@ -1,7 +1,7 @@
 # generated from RangeMessage.xml, downloaded from
 # https://www.isbn-international.org/export_rangemessage.xml
-# file serial c16f7665-c79a-458d-98a7-842b00d705f9
-# file date Fri, 18 Dec 2020 16:47:44 GMT
+# file serial 4ea51892-e6e4-470e-b280-6403d48297da
+# file date Fri, 5 Feb 2021 10:24:08 GMT
 978
  0-5,600-649,65-65,7-7,80-94,950-989,9900-9989,99900-99999
  0 agency="English language"
@@ -535,6 +535,8 @@
   55-59,950-999
  99986 agency="Myanmar"
   0-0,50-69,950-999
+ 99987 agency="Luxembourg"
+  850-999
 979
  10-12,8-8
  10 agency="France"

@@ -1,4 +1,4 @@
-# generated from BankBranchRegister-11Jan2021.xlsx downloaded from 
+# generated from BankBranchRegister-07Feb2021.xlsx downloaded from 
 # https://www.paymentsnz.co.nz/resources/industry-registers/bank-branch-register/download/xlsx/
 01 bank="ANZ Bank New Zealand"
  0001 branch="ANZ Retail 1"
@@ -2289,10 +2289,11 @@
 30 bank="HSBC New Zealand"
  2901 branch="Auckland"
  2902 branch="Wellington"
- 2903,2908 branch="Auckland - Queen Street Branch"
+ 2903 branch="Auckland-Queen Street Branch"
  2904 branch="Auckland - Corporate"
  2906 branch="New Zealand Management"
  2907 branch="Christchurch"
+ 2908 branch="Auckland - Queen Street Branch"
  2909 branch="Botany Town Premier"
  2910,2916,2918 branch="Takapuna"
  2911 branch="Corporate Partners Branch"
