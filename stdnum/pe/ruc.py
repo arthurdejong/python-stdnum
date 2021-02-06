@@ -27,7 +27,7 @@ and a check digit.
 
 More information:
 
-* http://www.sunat.gob.pe/legislacion/ruc/
+* https://www.sunat.gob.pe/legislacion/ruc/
 * https://consultarelruc.pe/
 
 >>> validate('20512333797')

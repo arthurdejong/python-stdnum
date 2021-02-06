@@ -28,7 +28,7 @@ consists of 8 digits, the last being a check digit.
 More information:
 
 * https://uk.wikipedia.org/wiki/Код_ЄДРПОУ
-* http://1cinfo.com.ua/Articles/Proverka_koda_po_EDRPOU.aspx
+* https://1cinfo.com.ua/Articles/Proverka_koda_po_EDRPOU.aspx
 
 >>> validate('32855961')
 '32855961'
