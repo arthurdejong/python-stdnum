@@ -1,6 +1,7 @@
-# tin.py - functions for handling TINs
+# tin.py - functions for handling Thailand TINs
 #
-# Copyright (C) 2013 Arthur de Jong
+# Copyright (C) 2021 Piruin Panichphol
+# Copyright (C) 2013 Arthur de Jong - stdnum/us/tin.py
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -17,49 +18,49 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 # 02110-1301 USA
 
-"""TIN (U.S. Taxpayer Identification Number).
+"""TIN (Thailand Taxpayer Identification Number).
 
-The Taxpayer Identification Number is used used for tax purposes in the
-United Si:wqtates. A TIN may be:
+The Taxpayer Identification Number is used for tax purposes in the
+Thailand. This number consists of 13 digits which the last is a check
+digit.
 
-* a Social Security Number (SSN)
-* an Individual Taxpayer Identification Number (ITIN)
-* an Employer Identification Number (EIN)
-* a Preparer Tax Identification Number (PTIN)
-* an Adoption Taxpayer Identification Number (ATIN)
+Personal income taxpayers use Personal Identification Number (PIN)
+as their TIN. While companies use Memorandum of Association (MOA) as
+their TIN
 
->>> compact('123-45-6789')
-'123456789'
->>> validate('123-45-6789')
-'123456789'
->>> validate('07-3456789')
+>>> compact('0 10 5 536 11201 4')
+'0105536112014'
+>>> validate('1-2345-45678-78-1')
+'1234545678781'
+>>> validate('0-99-4-000-61772-1')
+'0994000617721'
+>>> validate('1234545678789')
 Traceback (most recent call last):
     ...
 InvalidFormat: ...
->>> guess_type('536-90-4399')
-['ssn', 'atin']
->>> guess_type('04-2103594')
-['ein']
->>> guess_type('042103594')
-['ssn', 'ein', 'atin']
->>> format('042103594')
-'042-10-3594'
->>> format('123-456')  # invalid numbers are not reformatted
-'123-456'
+>>> check_type('1-2345-45678-78-1')
+'pin'
+>>> check_type('0-99-4-000-61772-1')
+'moa'
+>>> format('3100600445635')
+'3-1006-00445-63-5'
+>>> format('0993000133978')
+'0-99-3-000-13397-8'
+
 """
 
 from stdnum.exceptions import *
-from stdnum.us import atin, ein, itin, ptin, ssn
+from stdnum.th import moa, pin
 from stdnum.util import clean
 
 
-_tin_modules = (ssn, itin, ein, ptin, atin)
+_tin_modules = (moa, pin)
 
 
 def compact(number):
     """Convert the number to the minimal representation. This strips the
     number of any valid separators and removes surrounding whitespace."""
-    return clean(number, '-').strip()
+    return clean(number, ' -').strip()
 
 
 def validate(number):
@@ -82,12 +83,13 @@ def is_valid(number):
         return False
 
 
-def guess_type(number):
-    """Return a list of possible TIN types for which this number is
-    valid.."""
-    return [mod.__name__.rsplit('.', 1)[-1]
-            for mod in _tin_modules
-            if mod.is_valid(number)]
+def check_type(number):
+    """Return a TIN type which this number is valid."""
+    for mod in _tin_modules:
+        if mod.is_valid(number):
+            return mod.__name__.rsplit('.', 1)[-1]
+    # fallback
+    return None
 
 
 def format(number):
