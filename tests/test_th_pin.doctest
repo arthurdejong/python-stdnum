@@ -1,0 +1,96 @@
+test_th_pin.doctest - more detailed doctests for stdnum.th.pin module
+
+Copyright (C) 2021 Piruin Panichphol
+
+This library is free software; you can redistribute it and/or
+modify it under the terms of the GNU Lesser General Public
+License as published by the Free Software Foundation; either
+version 2.1 of the License, or (at your option) any later version.
+
+This library is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+Lesser General Public License for more details.
+
+You should have received a copy of the GNU Lesser General Public
+License along with this library; if not, write to the Free Software
+Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
+02110-1301 USA
+
+
+This file contains more detailed doctests for the stdnum.th.pin module.
+
+>>> from stdnum.th import pin
+
+
+>>> pin.validate('1-2345-45678-78-11')
+Traceback (most recent call last):
+    ...
+InvalidLength: ...
+>>> pin.validate('1-2345-45678-78-X')
+Traceback (most recent call last):
+    ...
+InvalidFormat: ...
+>>> pin.validate('0-2345-45678-78-1')
+Traceback (most recent call last):
+    ...
+InvalidComponent: ...
+>>> pin.validate('9-2345-45678-78-1')
+Traceback (most recent call last):
+    ...
+InvalidComponent: ...
+
+
+These have been found online and should all be valid numbers.
+
+>>> numbers = '''
+...
+... 1 1101 00152 64 1
+... 1 1996 00076 67 4
+... 1 6299 00299 92 5
+... 1 7399 00504 82 0
+... 1-1002-00439-84-4
+... 1100900359657
+... 1311100161266
+... 1350500075722
+... 1459900065632
+... 1670800079267
+... 2 3107 00002 24 7
+... 3   451  000  50     5414
+... 3  3415  01 082 5 68
+... 3  91 05 00  3    92 03 6
+... 3 5099 00736 90 7
+... 3 6710 00129 65 8
+... 3 7401 00523 48 8
+... 3-1001-00818-95-5
+... 3-1103-00283-26-5
+... 3-1898-00009-58-6
+... 3-3207-00476-55-7
+... 3-5207-00211-03-9
+... 3-6599-00381-54-7
+... 3-7005-00702-40-1
+... 3-9099-00588-10-6
+... 3100400648338
+... 3101900254691
+... 3102400746269
+... 33508 0030 2577
+... 3400100399577
+... 3540200423193
+... 3569900168313
+... 3600500113229
+... 3629900162691
+... 3709800221741
+... 3810100438722
+... 4 6205000  0482 7
+... 4-6607-00003-53-1
+... 4220100005137
+... 5 3013 00038 01 1
+... 5 5805 90000 01 9
+... 5100200233319
+... 5260399000878
+... 5671000003006
+... 5900599008311
+...
+... '''
+>>> [x for x in numbers.splitlines() if x and not pin.is_valid(x)]
+[]

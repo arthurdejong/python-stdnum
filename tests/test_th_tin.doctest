@@ -1,0 +1,93 @@
+test_th_tin.doctest - more detailed doctests for stdnum.th.tin module
+
+Copyright (C) 2021 Piruin Panichphol
+
+This library is free software; you can redistribute it and/or
+modify it under the terms of the GNU Lesser General Public
+License as published by the Free Software Foundation; either
+version 2.1 of the License, or (at your option) any later version.
+
+This library is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+Lesser General Public License for more details.
+
+You should have received a copy of the GNU Lesser General Public
+License along with this library; if not, write to the Free Software
+Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
+02110-1301 USA
+
+
+This file contains more detailed doctests for the stdnum.th.tin module.
+
+>>> from stdnum.th import tin
+
+
+>>> tin.validate('1-2345-45678-78-11') # InvalidLength
+Traceback (most recent call last):
+    ...
+InvalidFormat: ...
+>>> tin.validate('1-2345-45678-78-X') # InvalidFormat
+Traceback (most recent call last):
+    ...
+InvalidFormat: ...
+>>> tin.validate('0-2345-45678-78-1') # InvalidChecksum
+Traceback (most recent call last):
+    ...
+InvalidFormat: ...
+>>> tin.validate('9-2345-45678-78-1') # InvalidComponent
+Traceback (most recent call last):
+    ...
+InvalidFormat: ...
+>>> tin.format('0234545678783')
+'0-23-4-545-67878-3'
+>>> tin.format('0234545678781') # Not format invalid number
+'0234545678781'
+>>> tin.tin_type('0234545678783')
+'moa'
+>>> tin.tin_type('0234545678780')  # Invalid number return None
+
+
+These have been found online and should all be valid numbers.
+
+>>> numbers = '''
+...
+... 0 13 5 559 01262 8
+... 0 20 5 560 00584 1
+... 0 55 3 561 00041 5
+... 0 74 5 561 00276 1
+... 0-11-5-561-01623-6
+... 0-2055-61011-25-0
+... 0-2155-51001-61-8
+... 0-3035-50001-80-8
+... 0-33-3-558-00060-6
+... 0-47-5-562-00062-4
+... 0-58-3-558-00012-4
+... 0-73-5-561-00588-3
+... 0-7355-56003-30-4
+... 0105552029681
+... 0105559074461
+... 0343559002742
+... 0403552000484
+... 0835561014091
+... 1 1020 01865 33 1
+... 1 3501 00018 05 5
+... 1-40-9-900-07433-0
+... 1-4701-00062-82-7
+... 1-56-0-300-01581-3
+... 1-6707-00016-13-1
+... 1-8399-00112-47-5
+... 1129900166199
+... 1509900258294
+... 1939990003289
+... 2-30-9-900-00391-1
+... 3 2001 00052 57 9
+... 3 5099 01429 67 6
+... 3-10-1-201-21325-1
+... 3-1907-00075-74-1
+... 5-49-0-200-01960-8
+... 8 4799 88011 44 1
+...
+... '''
+>>> [x for x in numbers.splitlines() if x and not tin.is_valid(x)]
+[]

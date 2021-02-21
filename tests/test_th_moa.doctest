@@ -1,0 +1,83 @@
+test_th_mod.doctest - more detailed doctests for stdnum.th.moa module
+
+Copyright (C) 2021 Piruin Panichphol
+
+This library is free software; you can redistribute it and/or
+modify it under the terms of the GNU Lesser General Public
+License as published by the Free Software Foundation; either
+version 2.1 of the License, or (at your option) any later version.
+
+This library is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+Lesser General Public License for more details.
+
+You should have received a copy of the GNU Lesser General Public
+License along with this library; if not, write to the Free Software
+Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
+02110-1301 USA
+
+
+This file contains more detailed doctests for the stdnum.th.moa module.
+
+>>> from stdnum.th import moa
+
+
+>>> moa.validate('0-99-4-000')
+Traceback (most recent call last):
+    ...
+InvalidLength: ...
+>>> moa.validate('0-99-4-00A-61772-X')
+Traceback (most recent call last):
+    ...
+InvalidFormat: ...
+>>> moa.validate('3-99-4-000-61772-1')
+Traceback (most recent call last):
+    ...
+InvalidComponent: ...
+>>> moa.validate('0-99-4-000-61772-8')
+Traceback (most recent call last):
+    ...
+InvalidChecksum: ...
+
+
+These have been found online and should all be valid numbers.
+https://vsreg.rd.go.th/VATINFOWSWeb/jsp/VATInfoWSServlet?
+
+>>> numbers = '''
+...
+... 0 10 5 544 04660 2
+... 0 10 5 559 13643 2
+... 0 10 5 560 07360 1
+... 0 1055 43000 15 3
+... 0 12 5 551 01213 1
+... 0 19 5 554 00071 1
+... 0 22 5 550 00051 1
+... 0-10-3-541-01737-5
+... 0-10-5-518-00189-3
+... 0-10-5-539-13697-6
+... 0-10-5-554-04636-2
+... 0-7035-36000-78-2
+... 0-99-2-002-50289-9
+... 01055  6302 15 4 7
+... 0105530041751
+... 0105542067556
+... 0105543014758
+... 0105549020393
+... 0105554084159
+... 0105556000751
+... 0105556142792
+... 0115555008901
+... 0115556023301
+... 0245541000066
+... 05  0  55440 03519
+... 0655554000295
+... 0713551000259
+... 0745554003056
+... 0992001001446
+... 0992001158728
+... 0992001526719
+...
+... '''
+>>> [x for x in numbers.splitlines() if x and not moa.is_valid(x)]
+[]
