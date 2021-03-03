@@ -92,7 +92,7 @@ Helper functions and modules
      may have multiple)
    * ``'personalid'`` for generic personal identifiers (some countries may have
      multiple, especially for tax purposes)
-   * ``'postcal_code'`` for address postal codes
+   * ``'postal_code'`` for address postal codes
 
 
 Generic check digit algorithms
