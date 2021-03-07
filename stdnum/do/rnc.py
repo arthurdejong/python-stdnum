@@ -102,17 +102,19 @@ def format(number):
 def _convert_result(result):  # pragma: no cover
     """Translate SOAP result entries into dicts."""
     translation = {
-        'RGE_RUC': 'rnc',
-        'RGE_NOMBRE': 'name',
-        'NOMBRE_COMERCIAL': 'commercial_name',
-        'CATEGORIA': 'category',
-        'REGIMEN_PAGOS': 'payment_regime',
-        'ESTATUS': 'status',
-        'RNUM': 'result_number',
+        u'Cédula/RNC': 'rnc',
+        u'Nombre Comercial':'commercial_name',
+        u'Régimen de pagos': 'type',
+        u'Categoría':"category",
+        u'Nombre/Razón Social': 'name',
+        'Estado': 'status',
+        u'Actividad Economica': 'activity', 
+        u'Administracion Local': 'local_place', 
+
     }
     return dict(
         (translation.get(key, key), value)
-        for key, value in json.loads(result.replace('\n', '\\n').replace('\t', '\\t')).items())
+        for key, value in result.items())
 
 
 def check_dgii(number, timeout=30):  # pragma: no cover
@@ -137,22 +139,54 @@ def check_dgii(number, timeout=30):  # pragma: no cover
     # this function isn't automatically tested because it would require
     # network access for the tests and unnecessarily load the online service
     number = compact(number)
-    client = get_soap_client(dgii_wsdl, timeout)
-    result = client.GetContribuyentes(
-        value=number,
-        patronBusqueda=0,   # search type: 0=by number, 1=by name
-        inicioFilas=1,      # start result (1-based)
-        filaFilas=1,        # end result
-        IMEI='')
-    if result and 'GetContribuyentesResult' in result:
-        result = result['GetContribuyentesResult']  # PySimpleSOAP only
-    if result == '0':
-        return
-    result = [x for x in result.split('@@@')]
-    return _convert_result(result[0])
+    url = 'https://dgii.gov.do/app/WebApps/ConsultasWeb2/ConsultasWeb/consultas/rnc.aspx'
+    session = requests.Session()
+    session.headers.update({
+        'User-Agent': 'Mozilla/5.0 (python-stdnum)',
+    })
+
+    document = lxml.html.fromstring(
+    session.get(url, timeout=30).text)
+
+    validation = document.find('.//input[@name="__EVENTVALIDATION"]').get('value')
+    viewstate = document.find('.//input[@name="__VIEWSTATE"]').get('value')
+    data = {
+        '__EVENTVALIDATION': validation,
+        '__VIEWSTATE': viewstate,
+        'ctl00$cphMain$btnBuscarPorRNC': 'Buscar', # ctl00$cphMain$btnBuscarPorRazonSocial for search by name
+        'ctl00$cphMain$txtRNCCedula': number, # ctl00$cphMain$txtRazonSocial change for searh for by name
+    }
+    # Do the actual request
+    document = lxml.html.fromstring(
+        session.post(url, data=data, timeout=30).text)
+
+    result = document.find('.//div[@id="cphMain_divBusqueda"]')
+    message = document.findtext('.//*[@id="cphMain_lblInformacion"]')
+
+    if result is not None:
+        hearder = []
+        keys = []
+
+        for x in result.findall('.//tr/td'): 
+            if x.attrib:
+                hearder.append(x.text.strip()) # On search by name the list td tag 'data-label' will be the hearders 
+            else:
+                keys.append(x.text.strip()) 
+
+        if message:
+            data = {
+                'validation_message': message.strip(),
+            }
+        else:
+            data = {
+                'validation_message': 'Cédula/RNC es Válido',
+            }
+
+        data.update(zip(hearder, keys))
+    return _convert_result(data)
 
 
-def search_dgii(keyword, end_at=10, start_at=1, timeout=30):  # pragma: no cover
+def search_dgii(keyword, end_at=10, start_at=1, timeout=30):  # TODO # pragma: no cover
     """Search the DGII online web service using the keyword.
 
     This uses the validation service run by the the Dirección General de
@@ -178,17 +212,6 @@ def search_dgii(keyword, end_at=10, start_at=1, timeout=30):  # pragma: no cover
         ]
 
     Will return an empty list if the number is invalid or unknown."""
-    # this function isn't automatically tested because it would require
-    # network access for the tests and unnecessarily load the online service
-    client = get_soap_client(dgii_wsdl, timeout)
-    results = client.GetContribuyentes(
-        value=keyword,
-        patronBusqueda=1,       # search type: 0=by number, 1=by name
-        inicioFilas=start_at,   # start result (1-based)
-        filaFilas=end_at,       # end result
-        IMEI='')
-    if results and 'GetContribuyentesResult' in results:
-        results = results['GetContribuyentesResult']  # PySimpleSOAP only
-    if results == '0':
-        return []
-    return [_convert_result(result) for result in results.split('@@@')]
+    
+    """ The same structure for check_dgii but see the comments to work with this."""
+
