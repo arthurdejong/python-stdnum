@@ -40,6 +40,8 @@ InvalidChecksum: ...
 """
 
 import json
+import requests
+import lxml.html
 
 from stdnum.exceptions import *
 from stdnum.util import clean, get_soap_client, isdigits
