@@ -1,0 +1,58 @@
+test_isrc.doctest - more detailed doctests for stdnum.isrc module
+
+Copyright (C) 2021 Nuno André Novo
+Copyright (C) 2021 Arthur de Jong
+
+This library is free software; you can redistribute it and/or
+modify it under the terms of the GNU Lesser General Public
+License as published by the Free Software Foundation; either
+version 2.1 of the License, or (at your option) any later version.
+
+This library is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+Lesser General Public License for more details.
+
+You should have received a copy of the GNU Lesser General Public
+License along with this library; if not, write to the Free Software
+Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
+02110-1301 USA
+
+
+This file contains more detailed doctests for the stdnum.isrc module. It
+tries to test more corner cases and detailed functionality that is not
+really useful as module documentation.
+
+>>> from stdnum import isrc
+
+
+These are normal variations that should just work.
+
+>>> isrc.validate('US-SKG-19-12345')
+'USSKG1912345'
+>>> isrc.validate('USSKG1912345')
+'USSKG1912345'
+>>> isrc.validate('us-skg1912345')
+'USSKG1912345'
+
+
+Tests for mangling and incorrect country codes.
+
+>>> isrc.validate('US-SKG-19-123456')
+Traceback (most recent call last):
+    ...
+InvalidLength: ...
+>>> isrc.validate('US-SKG-19-1234*')
+Traceback (most recent call last):
+    ...
+InvalidFormat: ...
+>>> isrc.validate('XX-SKG-19-12345')
+Traceback (most recent call last):
+    ...
+InvalidComponent: ...
+
+
+Formatting tests.
+
+>>> isrc.format('USSKG1912345')
+'US-SKG-19-12345'
