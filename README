@@ -127,6 +127,7 @@ Currently this package supports the following formats:
  * ISIL (International Standard Identifier for Libraries)
  * ISIN (International Securities Identification Number)
  * ISMN (International Standard Music Number)
+ * ISRC (International Standard Recording Code)
  * ISO 11649 (Structured Creditor Reference)
  * ISO 6346 (International standard for container identification)
  * ISSN (International Standard Serial Number)

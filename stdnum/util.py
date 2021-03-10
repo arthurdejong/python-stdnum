@@ -200,6 +200,19 @@ def to_unicode(text):
     return text
 
 
+def segment(string, *sizes, start=0):
+    """Split the string into the indicated number and size of pieces.
+
+    >>> segment('0123456789ABCDEF', 3, 4, 5, 4)
+    ['012', '3456', '789AB', 'CDEF']
+    """
+    from itertools import accumulate, tee
+
+    a, b = tee(accumulate((start, *sizes)))
+    next(b, None)
+    return [string[slice(*ab)] for ab in zip(a, b)]
+
+
 def get_number_modules(base='stdnum'):
     """Yield all the number validation modules under the specified module."""
     __import__(base)
