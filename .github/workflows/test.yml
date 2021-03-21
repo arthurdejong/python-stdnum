@@ -1,0 +1,51 @@
+---
+
+name: Test
+
+on:
+  push:
+  pull_request:
+  schedule:
+    - cron: '9 0 * * 1'
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: [2.7, 3.5, 3.6, 3.7, 3.8, 3.9, pypy-2.7, pypy-3.6]
+      fail-fast: false
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v2
+        with:
+          python-version: ${{ matrix.python-version }}
+      - name: Install dependencies
+        run: python -m pip install --upgrade pip tox
+      - name: Run tox
+        run: tox -e "$(echo py${{ matrix.python-version }} | sed -e 's/[.-]//g;s/pypypy/pypy/')" --skip-missing-interpreters false
+  docs:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up Python 3.8
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.8
+      - name: Install dependencies
+        run: python -m pip install --upgrade pip tox
+      - name: Run tox
+        run: tox -e docs --skip-missing-interpreters false
+  flake8:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up Python 3.8
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.8
+      - name: Install dependencies
+        run: python -m pip install --upgrade pip tox
+      - name: Tox
+        run: tox -e flake8 --skip-missing-interpreters false
