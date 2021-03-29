@@ -1,7 +1,6 @@
 # tin.py - functions for handling Thailand TINs
 #
 # Copyright (C) 2021 Piruin Panichphol
-# Copyright (C) 2013 Arthur de Jong - stdnum/us/tin.py
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public

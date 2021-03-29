@@ -20,7 +20,7 @@
 """TIN (U.S. Taxpayer Identification Number).
 
 The Taxpayer Identification Number is used used for tax purposes in the
-United Si:wqtates. A TIN may be:
+United States. A TIN may be:
 
 * a Social Security Number (SSN)
 * an Individual Taxpayer Identification Number (ITIN)
