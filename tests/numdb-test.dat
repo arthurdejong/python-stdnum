@@ -1,3 +1,4 @@
+# numdb-test.dat: used for testing the stdnum.numdb module
 # this is a comment line
 0-8 prop1="foo"
   100-999 prop2="bar"
@@ -5,5 +6,7 @@
 6 prop1="boo"
   333 prop4="bla"
 90-99 prop1="booz"
+  200 comment1="this value will be ignored because a shorter one matches"
   00-89 prop2="foo"
+  200 comment2="this value will also be ignored"
   900-999 prop2="fooz"

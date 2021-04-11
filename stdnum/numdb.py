@@ -1,6 +1,6 @@
 # numdb.py - module for handling hierarchically organised numbers
 #
-# Copyright (C) 2010-2019 Arthur de Jong
+# Copyright (C) 2010-2021 Arthur de Jong
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -39,47 +39,21 @@ To split a number:
 
 To split the number and get properties for each part:
 
->>> dbfile.info('01006') == [
-...     ('0',   {'prop1': 'foo'}),
-...     ('100', {'prop2': 'bar'}),
-...     ('6',   {}),
-... ]
-True
->>> dbfile.info('02006') == [
-...     ('0',   {'prop1': 'foo'}),
-...     ('200', {'prop2': 'bar', 'prop3': 'baz'}),
-...     ('6',   {}),
-... ]
-True
->>> dbfile.info('03456') == [
-...     ('0', {'prop1': 'foo'}),
-...     ('345', {'prop2': 'bar', 'prop3': 'baz'}),
-...     ('6', {}),
-... ]
-True
->>> dbfile.info('902006') == [
-...     ('90', {'prop1': 'booz'}),
-...     ('20', {'prop2': 'foo'}),
-...     ('06', {}),
-... ]
-True
->>> dbfile.info('909856') == [
-...     ('90', {'prop1': 'booz'}),
-...     ('985', {'prop2': 'fooz'}),
-...     ('6', {}),
-... ]
-True
->>> dbfile.info('9889') == [
-...     ('98', {'prop1': 'booz'}),
-...     ('89', {'prop2': 'foo'}),
-... ]
-True
->>> dbfile.info('633322') == [
-...     ('6', {'prop1': 'boo'}),
-...     ('333', {'prop2': 'bar', 'prop3': 'baz', 'prop4': 'bla'}),
-...     ('22', {}),
-... ]
-True
+>>> import pprint
+>>> pprint.pprint(dbfile.info('01006'))
+[('0', {'prop1': 'foo'}), ('100', {'prop2': 'bar'}), ('6', {})]
+>>> pprint.pprint(dbfile.info('02006'))
+[('0', {'prop1': 'foo'}), ('200', {'prop2': 'bar', 'prop3': 'baz'}), ('6', {})]
+>>> pprint.pprint(dbfile.info('03456'))
+[('0', {'prop1': 'foo'}), ('345', {'prop2': 'bar', 'prop3': 'baz'}), ('6', {})]
+>>> pprint.pprint(dbfile.info('902006'))
+[('90', {'prop1': 'booz'}), ('20', {'prop2': 'foo'}), ('06', {})]
+>>> pprint.pprint(dbfile.info('909856'))
+[('90', {'prop1': 'booz'}), ('985', {'prop2': 'fooz'}), ('6', {})]
+>>> pprint.pprint(dbfile.info('9889'))
+[('98', {'prop1': 'booz'}), ('89', {'prop2': 'foo'})]
+>>> pprint.pprint(dbfile.info('633322'))
+[('6', {'prop1': 'boo'}), ('333', {'prop2': 'bar', 'prop3': 'baz', 'prop4': 'bla'}), ('22', {})]
 
 """
 
@@ -115,40 +89,26 @@ class NumDB():
         self.prefixes = []
 
     @staticmethod
-    def _merge(results):
-        """Merge the provided list of possible results into a single result
-        list (this is a generator)."""
-        # expand the results to all have the same length
-        ml = max(len(x) for x in results)
-        results = [x + (ml - len(x)) * [None]
-                   for x in results]
-        # go over each part
-        for parts in zip(*results):
-            # regroup parts into parts list and properties list
-            partlist, proplist = list(zip(*(x for x in parts if x)))
-            part = min(partlist, key=len)
-            props = {}
-            for p in proplist:
-                props.update(p)
-            yield part, props
-
-    @staticmethod
     def _find(number, prefixes):
         """Lookup the specified number in the list of prefixes, this will
         return basically what info() should return but works recursively."""
         if not number:
             return []
-        results = []
-        if prefixes:
-            for length, low, high, props, children in prefixes:
-                if low <= number[:length] <= high and len(number) >= length:
-                    results.append([(number[:length], props)] +
-                                   NumDB._find(number[length:], children))
-        # not-found fallback
-        if not results:
-            return [(number, {})]
-        # merge the results into a single result
-        return list(NumDB._merge(results))
+        part = number
+        properties = {}
+        next_prefixes = []
+        # go over prefixes and find matches
+        for length, low, high, props, children in prefixes:
+            if len(part) >= length and low <= part[:length] <= high:
+                # only use information from the shortest match
+                if length < len(part):
+                    part = part[:length]
+                    properties = {}
+                    next_prefixes = []
+                properties.update(props)
+                next_prefixes.extend(children or [])
+        # return first part and recursively find next matches
+        return [(part, properties)] + NumDB._find(number[len(part):], next_prefixes)
 
     def info(self, number):
         """Split the provided number in components and associate properties
