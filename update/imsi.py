@@ -2,7 +2,7 @@
 
 # update/imsi.py - script to donwload from Wikipedia to build the database
 #
-# Copyright (C) 2011-2019 Arthur de Jong
+# Copyright (C) 2011-2021 Arthur de Jong
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -126,13 +126,8 @@ def cleanup_value(val):
     val = val.replace('United Kingdom|UK', 'United Kingdom')
     val = val.replace('United States|US', 'United States')
     val = val.replace('New Zealand|NZ', 'New Zealand').strip()
+    val = val.replace('</sup>', '').strip()
     return cleanup_replacements.get(val, val)
-
-
-def update_mncs(data, mcc, mnc, **kwargs):
-    """Merge provided mnc information with the data that is already stored
-    in mccs."""
-    data[mcc][mnc].update(dict((k, cleanup_value(v)) for k, v in kwargs.items() if v))
 
 
 # This matches a heading on the Wikipedia page, e.g.
@@ -153,10 +148,10 @@ _mnc_line_re = re.compile(
     r')?)?)?)?)?')
 
 
-def get_mncs_from_wikipedia(data):
-    """Update the collection of Mobile Country Codes from Wikipedia.
-    This parses a Wikipedia page to extract the MCC and MNC, the first
-    part of any IMSI, and stores the results."""
+def get_mncs_from_wikipedia():
+    """Return the collection of Mobile Country Codes from Wikipedia.
+    This parses Wikipedia pages to extract the MCC and MNC, the first
+    part of any IMSI, and extracts other available data."""
     for page in wikipedia_pages:
         url = 'https://en.wikipedia.org/w/index.php?title=%s&action=raw' % (
             page.replace(' ', '_'))
@@ -175,11 +170,15 @@ def get_mncs_from_wikipedia(data):
             match = _mnc_line_re.match(line)
             if match:
                 for mnc in str2range(match.group('mnc')):
-                    update_mncs(data, match.group('mcc'), mnc,
-                                country=country, cc=cc, brand=match.group('brand'),
-                                operator=match.group('operator'),
-                                status=match.group('status'),
-                                bands=match.group('bands'))
+                    info = dict(
+                        country=country,
+                        cc=cc,
+                        brand=match.group('brand'),
+                        operator=match.group('operator'),
+                        status=match.group('status'),
+                        bands=match.group('bands'))
+                    info = dict((k, cleanup_value(v)) for k, v in info.items() if v)
+                    yield (match.group('mcc'), mnc, info)
 
 
 def str2range(x):
@@ -200,7 +199,17 @@ def str2range(x):
 if __name__ == '__main__':
     # download/parse the information
     data = defaultdict(lambda: defaultdict(dict))
-    get_mncs_from_wikipedia(data)
+    not_operational = defaultdict(lambda: defaultdict(dict))
+    for mcc, mnc, info in get_mncs_from_wikipedia():
+        if info.get('status', '').lower() == 'not operational':
+            not_operational[mcc][mnc].update(info)
+        else:
+            data[mcc][mnc].update(info)
+    # merge not operational entries as long as they do not conflict
+    for mcc, mncs in not_operational.items():
+        for mnc, info in mncs.items():
+            if not data[mcc][mnc] and not data[mcc][mnc[:2]]:
+                data[mcc][mnc].update(info)
     # print header
     print('# generated from various sources')
     print('# https://en.wikipedia.org/wiki/Mobile_country_code')
@@ -211,7 +220,7 @@ if __name__ == '__main__':
     for mcc in mcc_list:
         print('%s' % mcc)
         # build an ordered list of mncs
-        mnc_list = sorted(data[mcc].keys())
+        mnc_list = sorted(mnc for mnc, info in data[mcc].items() if info)
         for mnc in mnc_list:
             info = data[mcc][mnc]
             infokeys = sorted(info.keys())
