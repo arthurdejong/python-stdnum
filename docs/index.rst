@@ -267,6 +267,7 @@ Available formats
    pl.nip
    pl.pesel
    pl.regon
+   pt.cc
    pt.nif
    py.ruc
    ro.cf

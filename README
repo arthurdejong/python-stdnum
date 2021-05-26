@@ -170,6 +170,7 @@ Currently this package supports the following formats:
  * PESEL (Polish national identification number)
  * REGON (Rejestr Gospodarki Narodowej, Polish register of economic units)
  * NIF (Número de identificação fiscal, Portuguese VAT number)
+ * CC (Número de Cartão de Cidadão, Portuguese Identity number)
  * RUC number (Registro Único de Contribuyentes, Paraguay tax number)
  * CF (Cod de înregistrare în scopuri de TVA, Romanian VAT number)
  * CNP (Cod Numeric Personal, Romanian Numerical Personal Code)
