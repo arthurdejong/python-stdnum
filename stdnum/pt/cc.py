@@ -20,7 +20,7 @@
 
 """CC (Número de Cartão de Cidadão, Portuguese Identity number).
 
-The Portuguese Identity Number is alfa numeric with the following format:
+The Portuguese Identity Number is alfanumeric with the following format:
 
 DDDDDDDD C AAT
 
@@ -70,13 +70,8 @@ def _alphabet_convert(char):
     return ord(char) - ord('A') + 10
 
 
-def validate(number):
-    """checks if the number is a valid cartao de cidadao number"""
-    number = compact(number)
-
-    if not _cc_re.match(number):
-        raise InvalidFormat()
-
+def calc_check_digit(number):
+    """Calculate the check digits for the number."""
     value_sum = 0
     for i in range(len(number) - 1, -1, -1):
         value = _alphabet_convert(number[i])
@@ -85,15 +80,24 @@ def validate(number):
             if value > 9:
                 value -= 9
         value_sum += value
+    return str(10 - value_sum % 10)
 
-    if value_sum % 10 != 0:
+
+def validate(number):
+    """checks if the number is a valid cartao de cidadao number"""
+    number = compact(number)
+
+    if not _cc_re.match(number):
+        raise InvalidFormat()
+
+    if calc_check_digit(number[:-1]) != number[-1]:
         raise InvalidChecksum()
 
     return number
 
 
 def is_valid(number):
-    """Check if the number is a valid VAT number."""
+    """Check if the number is a valid cartao de cidadao number"""
     try:
         return bool(validate(number))
     except ValidationError:
