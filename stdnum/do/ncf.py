@@ -140,6 +140,15 @@ def _convert_result(result):  # pragma: no cover
         'Estado': 'status',
         'Tipo de comprobante': 'type',
         u'Válido hasta': 'valid_until',
+        u'Código de Seguridad': 'security_code',
+        'Rnc Emisor': 'issuing_rnc',
+        'Rnc Comprador': 'buyer_rnc',
+        'Monto Total': 'total',
+        'Total de ITBIS': 'total_itbis',
+        'Fecha Emisi&oacuten': 'issuing_date',
+        u'Fecha Emisión': 'issuing_date',
+        u'Fecha de Firma': 'signature_date',
+        'e-NCF': 'encf'
     }
     return dict(
         (translation.get(key, key), value)
@@ -166,15 +175,15 @@ def check_dgii(rnc, ncf, buyerRNC=None, securityCode=None, timeout=30):  # pragm
         }
         For an ECNF
         {
-            'Rnc Emisor': '1234567890123', 
-            'Rnc Comprador': '123456789', 
-            'e-NCF': 'E300000000000', 
-            'Código de Seguridad': '1+2kP3', 
+            'rnc_issuing': '1234567890123', 
+            'rnc_buyer': '123456789', 
+            'encf': 'E300000000000', 
+            'security_code': '1+2kP3', 
             'status': 'Aceptado', 
-            'Monto Total': '2203.50', 
-            'Total de ITBIS': '305.10', 
-            'Fecha Emisión': '2020-03-25', 
-            'Fecha de Firma': '2020-03-22',
+            'total': '2203.50', 
+            'total_itbis': '305.10', 
+            'issuing_date': '2020-03-25', 
+            'signature_date': '2020-03-22',
             'validation_message': 'Aceptado', 
         }
 
