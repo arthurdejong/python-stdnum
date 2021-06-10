@@ -155,7 +155,7 @@ def _convert_result(result):  # pragma: no cover
         for key, value in result.items())
 
 
-def check_dgii(rnc, ncf, buyerRNC=None, securityCode=None, timeout=30):  # pragma: no cover
+def check_dgii(rnc, ncf, buyer_rnc=None, security_code=None, timeout=30):  # pragma: no cover
     """Validate the RNC, NCF combination on using the DGII online web service.
 
     This uses the validation service run by the the Dirección General de
@@ -194,8 +194,8 @@ def check_dgii(rnc, ncf, buyerRNC=None, securityCode=None, timeout=30):  # pragm
     rnc = rnc_compact(rnc)
     ncf = compact(ncf)
 
-    if buyerRNC:
-        buyerRNC = rnc_compact(buyerRNC)
+    if buyer_rnc:
+        buyer_rnc = rnc_compact(buyer_rnc)
     url = 'https://dgii.gov.do/app/WebApps/ConsultasWeb2/ConsultasWeb/consultas/ncf.aspx'
     session = requests.Session()
     session.headers.update({
@@ -215,8 +215,8 @@ def check_dgii(rnc, ncf, buyerRNC=None, securityCode=None, timeout=30):  # pragm
         'ctl00$cphMain$txtRNC': rnc,
     }
     if ncf[0] == 'E':
-        data['ctl00$cphMain$txtRncComprador'] = buyerRNC
-        data['ctl00$cphMain$txtCodigoSeg'] = securityCode
+        data['ctl00$cphMain$txtRncComprador'] = buyer_rnc
+        data['ctl00$cphMain$txtCodigoSeg'] = security_code
     # Do the actual request
     document = lxml.html.fromstring(
         session.post(url, data=data, timeout=timeout).text)
