@@ -90,6 +90,8 @@ _ecf_document_types = (
     '43',  # minor expenses invoices (purchases)
     '44',  # invoices for special customers (tourists, free zones)
     '45',  # invoices for the government
+    '46',  # invoices for exports
+    '47',  # invoices for foreign payments
 )
 
 
