@@ -90,6 +90,8 @@ _ecf_document_types = (
     '43',  # minor expenses invoices (purchases)
     '44',  # invoices for special customers (tourists, free zones)
     '45',  # invoices for the government
+    '46',  # invoices for exports
+    '47',  # invoices for foreign payments
 )
 
 
@@ -175,16 +177,16 @@ def check_dgii(rnc, ncf, buyer_rnc=None, security_code=None, timeout=30):  # pra
         }
         For an ECNF
         {
-            'rnc_issuing': '1234567890123', 
-            'rnc_buyer': '123456789', 
-            'encf': 'E300000000000', 
-            'security_code': '1+2kP3', 
-            'status': 'Aceptado', 
-            'total': '2203.50', 
-            'total_itbis': '305.10', 
-            'issuing_date': '2020-03-25', 
+            'rnc_issuing': '1234567890123',
+            'rnc_buyer': '123456789',
+            'encf': 'E300000000000',
+            'security_code': '1+2kP3',
+            'status': 'Aceptado',
+            'total': '2203.50',
+            'total_itbis': '305.10',
+            'issuing_date': '2020-03-25',
             'signature_date': '2020-03-22',
-            'validation_message': 'Aceptado', 
+            'validation_message': 'Aceptado',
         }
 
     Will return None if the number is invalid or unknown."""
@@ -220,12 +222,12 @@ def check_dgii(rnc, ncf, buyer_rnc=None, security_code=None, timeout=30):  # pra
     # Do the actual request
     document = lxml.html.fromstring(
         session.post(url, data=data, timeout=timeout).text)
-    resultPath = './/div[@id="cphMain_PResultadoFE"]' if ncf[0] == 'E' else './/div[@id="cphMain_pResultado"]'
-    result = document.find(resultPath)
+    result_path = './/div[@id="cphMain_PResultadoFE"]' if ncf[0] == 'E' else './/div[@id="cphMain_pResultado"]'
+    result = document.find(result_path)
     if result is not None:
-        lblPath = './/*[@id="cphMain_lblEstadoFe"]' if ncf[0] == 'E' else './/*[@id="cphMain_lblInformacion"]'
+        lbl_path = './/*[@id="cphMain_lblEstadoFe"]' if ncf[0] == 'E' else './/*[@id="cphMain_lblInformacion"]'
         data = {
-            'validation_message': document.findtext(lblPath).strip(),
+            'validation_message': document.findtext(lbl_path).strip(),
         }
         data.update(zip(
             [x.text.strip() for x in result.findall('.//th') if x.text],
