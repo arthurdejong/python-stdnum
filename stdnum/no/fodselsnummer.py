@@ -96,9 +96,9 @@ def get_birth_date(number):
         month -= 40
     if individual_digits < 500:
         year += 1900
-    elif 500 <= individual_digits < 750 and year >= 54:
+    elif individual_digits < 750 and year >= 54:
         year += 1800
-    elif 500 <= individual_digits < 1000 and year < 40:
+    elif individual_digits < 1000 and year < 40:
         year += 2000
     elif 900 <= individual_digits < 1000 and year >= 40:
         year += 1900
