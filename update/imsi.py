@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-# update/imsi.py - script to donwload from Wikipedia to build the database
+# update/imsi.py - script to download from Wikipedia to build the database
 #
 # Copyright (C) 2011-2021 Arthur de Jong
 #

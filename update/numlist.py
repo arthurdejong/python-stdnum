@@ -34,14 +34,14 @@ from stdnum import util  # noqa, isort:skip
 
 
 # these are excluded
-algortihms = (
+algorithms = (
     'stdnum.verhoeff', 'stdnum.luhn', 'stdnum.iso7064', 'stdnum.damm')
 
 
 def get_number_modules():
     """Provide the number modules that are not algorithms."""
     for module in util.get_number_modules():
-        if module.__name__ not in algortihms and \
+        if module.__name__ not in algorithms and \
            not module.__name__.startswith('stdnum.iso7064'):
             yield module
 

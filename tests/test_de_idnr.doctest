@@ -43,7 +43,7 @@ Traceback (most recent call last):
 InvalidFormat: ...
 
 
-The first 10 digits of the IdNr is supposed to contain extactly one digit
+The first 10 digits of the IdNr is supposed to contain exactly one digit
 twice (or three times since 2016) and all other digits in the number can only
 appear once. This tries to catch some corner cases. Note that only the first
 10 digits are considered for this.

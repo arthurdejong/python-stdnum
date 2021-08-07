@@ -25,7 +25,7 @@ tries to validate a number of numbers that have been found online.
 >>> from stdnum.exceptions import *
 
 
-Number should not use O (captial o) or I (capital 1) to avoid confusion with
+Number should not use O (capital o) or I (capital 1) to avoid confusion with
 0 and 1:
 
 >>> cusip.validate('0O141T575')
