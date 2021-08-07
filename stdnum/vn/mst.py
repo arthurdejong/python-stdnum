@@ -25,7 +25,7 @@ where the first ten digits are the same as the parent company's.
 
 The first two digits is the province code where the business was
 established. If an enterprise relocates its head office from one
-province to another, ths MST will remain unchanged.
+province to another, the MST will remain unchanged.
 
 The following seven digits are a sequential number from 0000001 to
 9999999.

@@ -20,7 +20,7 @@
 """Bitcoin address.
 
 A Bitcoin address is an identifier that is used as destination in a Bitcoin
-transaction. It is based on a hash of the public portion of a keypair.
+transaction. It is based on a hash of the public portion of a key pair.
 
 There are currently three address formats in use:
 

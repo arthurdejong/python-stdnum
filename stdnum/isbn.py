@@ -69,7 +69,7 @@ from stdnum.util import clean, isdigits
 def compact(number, convert=False):
     """Convert the ISBN to the minimal representation. This strips the number
     of any valid ISBN separators and removes surrounding whitespace. If the
-    covert parameter is True the number is also converted to ISBN-13
+    convert parameter is True the number is also converted to ISBN-13
     format."""
     number = clean(number, ' -').strip().upper()
     if len(number) == 9:
@@ -175,7 +175,7 @@ def to_isbn10(number):
 def split(number, convert=False):
     """Split the specified ISBN into an EAN.UCC prefix, a group prefix, a
     registrant, an item number and a check-digit. If the number is in ISBN-10
-    format the returned EAN.UCC prefix is '978'. If the covert parameter is
+    format the returned EAN.UCC prefix is '978'. If the convert parameter is
     True the number is converted to ISBN-13 format first."""
     # clean up number
     number = compact(number, convert)
@@ -200,6 +200,6 @@ def format(number, separator='-', convert=False):
     EAN.UCC prefix (if any), the group prefix, the registrant, the item
     number and the check-digit separated (if possible) by the specified
     separator. Passing an empty separator should equal compact() though this
-    is less efficient. If the covert parameter is True the number is
+    is less efficient. If the convert parameter is True the number is
     converted to ISBN-13 format first."""
     return separator.join(x for x in split(number, convert) if x)

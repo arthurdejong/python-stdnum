@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-# update/isil.py - script to donwload ISIL agencies
+# update/isil.py - script to download ISIL agencies
 #
 # Copyright (C) 2011-2019 Arthur de Jong
 #

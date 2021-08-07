@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # coding: utf-8
 
-# update/be_banks.py - script to donwload Bank list from Belgian National Bank
+# update/be_banks.py - script to download Bank list from Belgian National Bank
 #
 # Copyright (C) 2018-2019 Arthur de Jong
 #

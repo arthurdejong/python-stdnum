@@ -44,7 +44,7 @@ _digits_re = re.compile(r'^[0-9]+$')
 
 
 def _mk_char_map(mapping):
-    """Transform a dictionary with comma separated uniode chracter names
+    """Transform a dictionary with comma separated uniode character names
     to tuples with unicode characters as key."""
     for key, value in mapping.items():
         for char in key.split(','):
