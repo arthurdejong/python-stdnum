@@ -25,6 +25,10 @@ when validation of the number fails.
 """
 
 
+__all__ = ['ValidationError', 'InvalidFormat', 'InvalidChecksum',
+           'InvalidLength', 'InvalidComponent']
+
+
 class ValidationError(Exception):
     """Top-level error for validating numbers.
 
