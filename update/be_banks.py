@@ -62,8 +62,11 @@ def get_values(sheet):
     """Return values (from, to, bic, bank_name) from the worksheet."""
     rows = sheet.get_rows()
     # skip first two rows
-    next(rows)
-    next(rows)
+    try:
+        next(rows)
+        next(rows)
+    except StopIteration:
+        pass  # ignore empty worksheet
     # go over rows with values
     for row in rows:
         row = [clean(column.value) for column in row]
