@@ -22,3 +22,4 @@
 
 # provide aliases
 from stdnum.se import personnummer as personalid  # noqa: F401
+from stdnum.se import postnummer as postal_code  # noqa: F401

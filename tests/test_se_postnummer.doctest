@@ -1,0 +1,75 @@
+test_se_postnummer.doctest - more detailed doctests for stdnum.se.postnummer module
+
+Copyright (C) 2021 Michele Ciccozzi
+
+This library is free software; you can redistribute it and/or
+modify it under the terms of the GNU Lesser General Public
+License as published by the Free Software Foundation; either
+version 2.1 of the License, or (at your option) any later version.
+
+This library is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+Lesser General Public License for more details.
+
+You should have received a copy of the GNU Lesser General Public
+License along with this library; if not, write to the Free Software
+Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
+02110-1301 USA
+
+
+This file contains more detailed doctests for the stdnum.se.postnummer
+module. It tries to cover more corner cases and detailed functionality that
+is not really useful as module documentation.
+
+
+>>> from stdnum.se import postnummer
+
+
+Test for various formats and corner cases.
+
+>>> postnummer.is_valid('114 18')
+True
+>>> postnummer.is_valid('SE-114 18')
+True
+>>> postnummer.is_valid('114018')
+False
+>>> postnummer.is_valid('01418')
+False
+
+>>> postnummer.validate('114 18')
+'11418'
+>>> postnummer.validate('SE-114 18')
+'11418'
+>>> postnummer.validate('11418')
+'11418'
+
+>>> postnummer.format('114 18')
+'114 18'
+>>> postnummer.format('SE-114 18')
+'114 18'
+>>> postnummer.format('11418')
+'114 18'
+
+
+Invalid values are rejected.
+
+
+>>> postnummer.validate('114180')
+Traceback (most recent call last):
+    ...
+InvalidLength: ...
+>>> postnummer.validate('1 14 18')
+'11418'
+>>> postnummer.validate('a' * 10)
+Traceback (most recent call last):
+    ...
+InvalidFormat: ...
+>>> postnummer.validate('a' * 11)
+Traceback (most recent call last):
+    ...
+InvalidFormat: ...
+>>> postnummer.validate('01234')
+Traceback (most recent call last):
+    ...
+InvalidFormat: ...
