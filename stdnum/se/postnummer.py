@@ -1,6 +1,6 @@
 # postcode.py - functions for handling Swedish postal codes
 #
-# Copyright (C) 2013 Arthur de Jong
+# Copyright (C) 2021 Michele Ciccozzi
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -26,10 +26,12 @@ More information:
 * https://en.wikipedia.org/wiki/Postal_codes_in_Sweden
 * https://sv.wikipedia.org/wiki/Postnummer_i_Sverige
 
+>>> format('114 18')
+'114 18'
 >>> validate('114 18')
-'114 18'
+11418
 >>> validate('SE-11418')
-'114 18'
+11418
 >>> validate('1145 18')
 Traceback (most recent call last):
     ...
@@ -61,7 +63,7 @@ def validate(number):
     match = _postcode_re.search(number)
     if not match:
         raise InvalidFormat()
-    return '%s %s' % (match.group('pt1'), match.group('pt2'))
+    return int(number)
 
 
 def is_valid(number):
@@ -70,3 +72,13 @@ def is_valid(number):
         return bool(validate(number))
     except ValidationError:
         return False
+
+
+def format(number):
+    """Reformat the number to the standard presentation format."""
+    if is_valid(number):
+        number = compact(number)
+        match = _postcode_re.search(number)
+        return '%s %s' % (match.group('pt1'), match.group('pt2'))
+    else:
+        raise InvalidFormat()
