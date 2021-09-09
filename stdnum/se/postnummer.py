@@ -50,6 +50,8 @@ _postcode_re = re.compile(r'^(?P<pt1>[1-9][0-9]{2})(?P<pt2>[0-9]{2})$')
 def compact(number):
     """Convert the number to the minimal representation. This strips the
     number of any valid separators and removes surrounding whitespace."""
+    if not isinstance(number, str):
+        number = str(number)
     number = clean(number, ' -').upper().strip()
     if number.startswith('SE'):
         number = number[2:]
