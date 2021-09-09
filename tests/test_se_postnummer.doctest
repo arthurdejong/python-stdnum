@@ -22,6 +22,7 @@ This file contains more detailed doctests for the stdnum.se.postnummer
 module. It tries to cover more corner cases and detailed functionality that
 is not really useful as module documentation.
 
+
 >>> from stdnum.se import postnummer
 
 
