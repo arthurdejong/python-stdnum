@@ -64,7 +64,7 @@ def validate(number):
     number = compact(number)
     match = _postcode_re.search(number)
     if not match:
-        raise InvalidFormat()
+        raise ValidationError()
     return int(number)
 
 

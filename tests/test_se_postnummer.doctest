@@ -27,6 +27,17 @@ is not really useful as module documentation.
 
 Test for various formats and corner cases.
 
+>>> postnummer.is_valid('114 18')
+True
+>>> postnummer.is_valid('SE-114 18')
+True
+>>> postnummer.is_valid(11418)
+True
+>>> postnummer.is_valid('114018')
+False
+>>> postnummer.is_valid('01418')
+False
+
 >>> postnummer.validate('114 18')
 11418
 >>> postnummer.validate('SE-114 18')
@@ -39,6 +50,11 @@ Test for various formats and corner cases.
 '114 18'
 >>> postnummer.format(11418)
 '114 18'
+
+
+Invalid values are rejected.
+
+
 >>> postnummer.validate('114180')
 Traceback (most recent call last):
     ...
@@ -53,10 +69,6 @@ InvalidFormat: ...
 Traceback (most recent call last):
     ...
 InvalidFormat: ...
-
-
-Invalid values are rejected.
-
 >>> postnummer.validate('01234')
 Traceback (most recent call last):
     ...
