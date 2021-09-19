@@ -2,7 +2,7 @@
 # coding: utf-8
 #
 # Copyright (C) 2014 Jonathan Finlay
-# Copyright (C) 2014-2015 Arthur de Jong
+# Copyright (C) 2014-2021 Arthur de Jong
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -53,6 +53,32 @@ def _checksum(number, weights):
     return sum(w * int(n) for w, n in zip(weights, number)) % 11
 
 
+def _validate_natural(number):
+    """Check if the number is a valid natural RUC (CI plus establishment)."""
+    if number[-3:] == '000':
+        raise InvalidComponent()  # establishment number wrong
+    ci.validate(number[:10])
+    return number
+
+
+def _validate_public(number):
+    """Check if the number is a valid public RUC."""
+    if number[-4:] == '0000':
+        raise InvalidComponent()  # establishment number wrong
+    if _checksum(number[:9], (3, 2, 7, 6, 5, 4, 3, 2, 1)) != 0:
+        raise InvalidChecksum()
+    return number
+
+
+def _validate_juridical(number):
+    """Check if the number is a valid juridical RUC."""
+    if number[-3:] == '000':
+        raise InvalidComponent()  # establishment number wrong
+    if _checksum(number[:10], (4, 3, 2, 7, 6, 5, 4, 3, 2, 1)) != 0:
+        raise InvalidChecksum()
+    return number
+
+
 def validate(number):
     """Check if the number provided is a valid RUC number. This checks the
     length, formatting, check digit and check sum."""
@@ -65,21 +91,16 @@ def validate(number):
         raise InvalidComponent()  # invalid province code
     if number[2] < '6':
         # 0..5 = natural RUC: CI plus establishment number
-        if number[-3:] == '000':
-            raise InvalidComponent()  # establishment number wrong
-        ci.validate(number[:10])
+        _validate_natural(number)
     elif number[2] == '6':
-        # 6 = public RUC
-        if number[-4:] == '0000':
-            raise InvalidComponent()  # establishment number wrong
-        if _checksum(number[:9], (3, 2, 7, 6, 5, 4, 3, 2, 1)) != 0:
-            raise InvalidChecksum()
+        # 6 = public RUC (or natural RUC)
+        try:
+            _validate_public(number)
+        except ValidationError:
+            _validate_natural(number)
     elif number[2] == '9':
         # 9 = juridical RUC
-        if number[-3:] == '000':
-            raise InvalidComponent()  # establishment number wrong
-        if _checksum(number[:10], (4, 3, 2, 7, 6, 5, 4, 3, 2, 1)) != 0:
-            raise InvalidChecksum()
+        _validate_juridical(number)
     else:
         raise InvalidComponent()  # third digit wrong
     return number

@@ -1,7 +1,7 @@
 test_ec_ruc.doctest - more detailed doctests for stdnum.ec.ruc module
 
 Copyright (C) 2014 Jonathan Finlay
-Copyright (C) 2014-2015 Arthur de Jong
+Copyright (C) 2014-2021 Arthur de Jong
 
 This library is free software; you can redistribute it and/or
 modify it under the terms of the GNU Lesser General Public
@@ -27,13 +27,15 @@ as module documentation.
 >>> from stdnum.exceptions import *
 
 
-Normal natural RUC values (third digit less than 6) that should just work.
+Normal natural RUC values (third digit less than or equal to 6) that should
+just work.
 
 >>> numbers = '''
 ... 0101016905001
 ... 0602910945001
 ... 0910005917001
 ... 0926687856001
+... 0962467429001
 ... 1001152287001
 ... 1102755442001
 ... 1104552037001
@@ -127,6 +129,7 @@ Normal public RUC values (third digit is 6) that should just work.
 ... 0960006420001
 ... 0968529830001
 ... 0968566440001
+... 0968599020001
 ... 1060000180001
 ... 1060000260001
 ... 1060000340001
