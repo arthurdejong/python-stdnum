@@ -24,24 +24,29 @@ Aadhaar is a 12 digit unique identity number issued to all Indian residents.
 The number is assigned by the Unique Identification Authority of India
 (UIDAI).
 
+Aadhaar is made up of 12 numeric characters, a unique 11 digit number and one
+check digit calculated using Verhoeff algorithm. The number is generated
+random, non-repeating sequence and does not begin with 0 or 1.
+
 More information:
 
 * https://en.wikipedia.org/wiki/Aadhaar
+* https://web.archive.org/web/20140611025606/http://uidai.gov.in/UID_PDF/Working_Papers/A_UID_Numbering_Scheme.pdf
 
 >>> validate('234123412346')
 '234123412346'
->>> validate('234123412347')
-Traceback (most recent call last):
-    ...
-InvalidChecksum: ...
->>> validate('123412341234')  # number should not start with 0 or 1
-Traceback (most recent call last):
-    ...
-InvalidFormat: ...
 >>> validate('643343121')
 Traceback (most recent call last):
     ...
 InvalidLength: ...
+>>> validate('123412341234')  # number should not start with 0 or 1
+Traceback (most recent call last):
+    ...
+InvalidFormat: ...
+>>> validate('234123412347')
+Traceback (most recent call last):
+    ...
+InvalidChecksum: ...
 >>> format('234123412346')
 '2341 2341 2346'
 >>> mask('234123412346')
@@ -94,8 +99,8 @@ def format(number: str) -> str:
 
 
 def mask(number: str) -> str:
-    """Masks the first 8 digits as per MeitY guidelines for securing identity
-    information and Sensitive personal data."""
+    """Masks the first 8 digits as per Ministry of Electronics and
+    Information Technology (MeitY) guidelines."""
 
     number = compact(number)
     return "XXXX XXXX " + number[-4:]
