@@ -43,6 +43,10 @@ InvalidLength: ...
 Traceback (most recent call last):
     ...
 InvalidFormat: ...
+>>> validate('222222222222')  # number cannot be a palindrome
+Traceback (most recent call last):
+    ...
+ValidationError: Invalid Aadhaar
 >>> validate('234123412347')
 Traceback (most recent call last):
     ...
@@ -77,6 +81,8 @@ def validate(number: str) -> str:
         raise e.InvalidLength()
     if not AADHAAR_RE.match(number):
         raise e.InvalidFormat()
+    if number == number[::-1]:  # to discard palindromes
+        raise e.ValidationError("Invalid Aadhaar")
     verhoeff.validate(number)
     return number
 
