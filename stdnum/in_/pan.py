@@ -23,13 +23,17 @@
 The Permanent Account Number (PAN) is a 10 digit alphanumeric identifier for
 Indian individuals, families and corporates for income tax purposes.
 
-The number is built up of 5 characters, 4 numbers and 1 character. The fourth
-character indicates the type of holder of the number and the last character
-is computed by an undocumented checksum algorithm.
+PAN is made up of 5 letter, 4 digits and one alphabetic check digit. The
+fourth character indicates the type of holder, the fifth character (of PAN)
+is either first character of the holder's name or first character of surname
+in case of "personal" PAN, next four digits are serial numbers running from
+0001 to 9999 and the last character is a check digit computed by an
+undocumented checksum algorithm.
 
 More information:
 
 * https://en.wikipedia.org/wiki/Permanent_account_number
+* https://incometaxindia.gov.in/tutorials/1.permanent%20account%20number%20(pan).pdf
 
 >>> validate('ACUPA7085R')
 'ACUPA7085R'
@@ -57,7 +61,7 @@ import stdnum.exceptions as e
 from stdnum.util import clean
 
 
-def compact(number):
+def compact(number: str) -> str:
     """Convert the number to the minimal representation. This strips the
     number of any valid separators and removes surrounding whitespace."""
 
@@ -65,7 +69,14 @@ def compact(number):
 
 
 def info(number: str) -> dict[str, str]:
-    """Provide information that can be decoded from the PAN."""
+    """Provide information that can be decoded from the PAN.
+
+    More information of the PAN holder can be viewed on the GST website if
+    they are registered under GST Act. Search by:
+
+    * PAN: https://services.gst.gov.in/services/searchtpbypan
+    * GSTIN: https://services.gst.gov.in/services/searchtp
+    """
 
     CARD_HOLDER_TYPES = {
         "A": "Association of Persons (AOP)",
@@ -107,8 +118,8 @@ def validate(number: str) -> str:
 
 
 def is_valid(number: str) -> bool:
-    """Check if the number provided is a valid PAN. This checks the
-    length and formatting."""
+    """Check if the number provided is a valid PAN. This checks the length
+    and formatting."""
 
     try:
         return bool(validate(number))
@@ -117,7 +128,8 @@ def is_valid(number: str) -> bool:
 
 
 def mask(number: str) -> str:
-    """Mask the PAN as per CBDT masking standard."""
+    """Mask the PAN as per Central Board of Direct Taxes (CBDT) masking
+    standard."""
 
     number = compact(number)
     return number[:5] + "XXXX" + number[-1:]
