@@ -82,14 +82,13 @@ def info(number: str) -> dict[str, str]:
         "A": "Association of Persons (AOP)",
         "B": "Body of Individuals (BOI)",
         "C": "Company",
-        "F": "Firm",
-        "G": "Government",
-        "H": "HUF (Hindu Undivided Family)",
+        "F": "Firm/Limited Liability Partnership",
+        "G": "Government Agency",
+        "H": "Hindu Undivided Family (HUF)",
         "L": "Local Authority",
         "J": "Artificial Juridical Person",
         "P": "Individual",
-        "T": "Trust (AOP)",
-        "K": "Krish (Trust Krish)",
+        "T": "Trust",
     }
     number = compact(number)
     card_holder_type = CARD_HOLDER_TYPES.get(number[3])
