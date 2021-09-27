@@ -1,6 +1,7 @@
 # pan.py - functions for handling Indian Permanent Account number (PAN)
 #
 # Copyright (C) 2017 Srikanth Lakshmanan
+# Copyright (C) 2021 Gaurav Chauhan
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -51,69 +52,72 @@ InvalidComponent: ...
 """
 
 import re
+import stdnum.exceptions as e
 
-from stdnum.exceptions import *
 from stdnum.util import clean
-
-
-_pan_re = re.compile(r'^[A-Z]{5}[0-9]{4}[A-Z]$')
 
 
 def compact(number):
     """Convert the number to the minimal representation. This strips the
     number of any valid separators and removes surrounding whitespace."""
-    return clean(number, ' -').upper().strip()
+
+    return clean(number, " -").upper().strip()
 
 
-def validate(number):
-    """Check if the number provided is a valid PAN. This checks the
-    length and formatting."""
-    number = compact(number)
-    if len(number) != 10:
-        raise InvalidLength()
-    if not _pan_re.match(number):
-        raise InvalidFormat()
-    info(number)  # used to check 4th digit
-    return number
-
-
-def is_valid(number):
-    """Check if the number provided is a valid PAN. This checks the
-    length and formatting."""
-    try:
-        return bool(validate(number))
-    except ValidationError:
-        return False
-
-
-_card_holder_types = {
-    'A': 'Association of Persons (AOP)',
-    'B': 'Body of Individuals (BOI)',
-    'C': 'Company',
-    'F': 'Firm',
-    'G': 'Government',
-    'H': 'HUF (Hindu Undivided Family)',
-    'L': 'Local Authority',
-    'J': 'Artificial Juridical Person',
-    'P': 'Individual',
-    'T': 'Trust (AOP)',
-    'K': 'Krish (Trust Krish)',
-}
-
-
-def info(number):
+def info(number: str) -> dict[str, str]:
     """Provide information that can be decoded from the PAN."""
+
+    CARD_HOLDER_TYPES = {
+        "A": "Association of Persons (AOP)",
+        "B": "Body of Individuals (BOI)",
+        "C": "Company",
+        "F": "Firm",
+        "G": "Government",
+        "H": "HUF (Hindu Undivided Family)",
+        "L": "Local Authority",
+        "J": "Artificial Juridical Person",
+        "P": "Individual",
+        "T": "Trust (AOP)",
+        "K": "Krish (Trust Krish)",
+    }
     number = compact(number)
-    card_holder_type = _card_holder_types.get(number[3])
+    card_holder_type = CARD_HOLDER_TYPES.get(number[3])
     if not card_holder_type:
-        raise InvalidComponent()
+        raise e.InvalidComponent()
     return {
-        'card_holder_type': card_holder_type,
-        'initial': number[4],
+        "card_holder_type": card_holder_type,
+        "initial": number[4],
     }
 
 
-def mask(number):
-    """Mask the PAN as per CBDT masking standard."""
+def validate(number: str) -> str:
+    """Check if the number provided is a valid PAN. This checks the
+    length and formatting."""
+
+    PAN_RE = re.compile(r"^[A-Z]{5}[0-9]{4}[A-Z]$")
     number = compact(number)
-    return number[:5] + 'XXXX' + number[-1:]
+    if len(number) != 10:
+        raise e.InvalidLength()
+    if not PAN_RE.match(number):
+        raise e.InvalidFormat()
+    if int(number[5:9]) == 0:
+        raise e.InvalidFormat()
+    info(number)  # check the fourth digit
+    return number
+
+
+def is_valid(number: str) -> bool:
+    """Check if the number provided is a valid PAN. This checks the
+    length and formatting."""
+
+    try:
+        return bool(validate(number))
+    except e.ValidationError:
+        return False
+
+
+def mask(number: str) -> str:
+    """Mask the PAN as per CBDT masking standard."""
+
+    number = compact(number)
+    return number[:5] + "XXXX" + number[-1:]
