@@ -1,6 +1,7 @@
 # aadhaar.py - functions for handling Indian Aadhaar numbers
 #
 # Copyright (C) 2017 Srikanth L
+# Copyright (C) 2021 Gaurav Chauhan
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -48,51 +49,53 @@ InvalidLength: ...
 """
 
 import re
+import stdnum.exceptions as e
 
 from stdnum import verhoeff
-from stdnum.exceptions import *
 from stdnum.util import clean
 
 
-aadhaar_re = re.compile(r'^[2-9][0-9]{11}$')
-"""Regular expression used to check syntax of Aadhaar numbers."""
-
-
-def compact(number):
+def compact(number: str) -> str:
     """Convert the number to the minimal representation. This strips the
     number of any valid separators and removes surrounding whitespace."""
-    return clean(number, ' -').strip()
+
+    return clean(number, " -").strip()
 
 
-def validate(number):
+def validate(number: str) -> str:
     """Check if the number provided is a valid Aadhaar number. This checks
     the length, formatting and check digit."""
+
+    AADHAAR_RE = re.compile(r"^[2-9][0-9]{11}$")
     number = compact(number)
     if len(number) != 12:
-        raise InvalidLength()
-    if not aadhaar_re.match(number):
-        raise InvalidFormat()
+        raise e.InvalidLength()
+    if not AADHAAR_RE.match(number):
+        raise e.InvalidFormat()
     verhoeff.validate(number)
     return number
 
 
-def is_valid(number):
+def is_valid(number: str) -> bool:
     """Check if the number provided is a valid Aadhaar number. This checks
     the length, formatting and check digit."""
+
     try:
         return bool(validate(number))
-    except ValidationError:
+    except e.ValidationError:
         return False
 
 
-def format(number):
+def format(number: str) -> str:
     """Reformat the number to the standard presentation format."""
+
     number = compact(number)
-    return ' '.join((number[:4], number[4:8], number[8:]))
+    return " ".join((number[:4], number[4:8], number[8:]))
 
 
-def mask(number):
+def mask(number: str) -> str:
     """Masks the first 8 digits as per MeitY guidelines for securing identity
     information and Sensitive personal data."""
+
     number = compact(number)
-    return 'XXXX XXXX ' + number[-4:]
+    return "XXXX XXXX " + number[-4:]
