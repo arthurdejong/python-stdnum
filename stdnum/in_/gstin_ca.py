@@ -57,7 +57,7 @@ import stdnum.exceptions as e
 from stdnum.util import clean
 
 
-def compact(number: str) -> str:
+def compact(number):
     """Convert the number to the minimal representation. This strips the
     number of any valid separators and removes surrounding whitespace."""
 
@@ -99,7 +99,7 @@ def to_char(index: int) -> str:
     raise e.InvalidComponent()
 
 
-def checksum(number: str) -> str:
+def checksum(number):
     """Calculate checksum of an alphanumeric str. Returns the str with check
     digit attached to it at the end."""
 
@@ -118,13 +118,13 @@ def checksum(number: str) -> str:
     raise e.InvalidFormat()
 
 
-def calc_check_digit(number: str) -> str:
+def calc_check_digit(number):
     """Calculate check digit of an alphanumeric str."""
 
     return checksum(number)[-1]
 
 
-def validate(number: str) -> str:
+def validate(number):
     """Check if the number provided passes the checksum."""
 
     number = compact(number)
@@ -135,7 +135,7 @@ def validate(number: str) -> str:
     return number
 
 
-def is_valid(number: str) -> bool:
+def is_valid(number):
     """Check if the number provided passes the checksum."""
 
     try:

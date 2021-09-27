@@ -61,14 +61,14 @@ import stdnum.exceptions as e
 from stdnum.util import clean
 
 
-def compact(number: str) -> str:
+def compact(number):
     """Convert the number to the minimal representation. This strips the
     number of any valid separators and removes surrounding whitespace."""
 
     return clean(number, " -").upper().strip()
 
 
-def info(number: str) -> dict[str, str]:
+def info(number):
     """Provide information that can be decoded from the PAN.
 
     More information of the PAN holder can be viewed on the GST website if
@@ -100,7 +100,7 @@ def info(number: str) -> dict[str, str]:
     }
 
 
-def validate(number: str) -> str:
+def validate(number):
     """Check if the number provided is a valid PAN. This checks the
     length and formatting."""
 
@@ -116,7 +116,7 @@ def validate(number: str) -> str:
     return number
 
 
-def is_valid(number: str) -> bool:
+def is_valid(number):
     """Check if the number provided is a valid PAN. This checks the length
     and formatting."""
 
@@ -126,7 +126,7 @@ def is_valid(number: str) -> bool:
         return False
 
 
-def mask(number: str) -> str:
+def mask(number):
     """Mask the PAN as per Central Board of Direct Taxes (CBDT) masking
     standard."""
 

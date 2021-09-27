@@ -59,14 +59,14 @@ from stdnum import luhn
 from stdnum.util import clean
 
 
-def compact(number: str) -> str:
+def compact(number):
     """Convert the number to the minimal representation. This strips the
     number of any valid separators and removes surrounding whitespace."""
 
     return clean(number, " -").upper().strip()
 
 
-def validate(number: str) -> str:
+def validate(number):
     """Check if the number provided is a valid EPIC number. This checks the
     length, formatting and checksum."""
 

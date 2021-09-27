@@ -64,14 +64,14 @@ from stdnum import verhoeff
 from stdnum.util import clean
 
 
-def compact(number: str) -> str:
+def compact(number):
     """Convert the number to the minimal representation. This strips the
     number of any valid separators and removes surrounding whitespace."""
 
     return clean(number, " -").strip()
 
 
-def validate(number: str) -> str:
+def validate(number):
     """Check if the number provided is a valid Aadhaar number. This checks
     the length, formatting and check digit."""
 
@@ -87,7 +87,7 @@ def validate(number: str) -> str:
     return number
 
 
-def is_valid(number: str) -> bool:
+def is_valid(number):
     """Check if the number provided is a valid Aadhaar number. This checks
     the length, formatting and check digit."""
 
@@ -97,14 +97,14 @@ def is_valid(number: str) -> bool:
         return False
 
 
-def format(number: str) -> str:
+def format(number):
     """Reformat the number to the standard presentation format."""
 
     number = compact(number)
     return " ".join((number[:4], number[4:8], number[8:]))
 
 
-def mask(number: str) -> str:
+def mask(number):
     """Masks the first 8 digits as per Ministry of Electronics and
     Information Technology (MeitY) guidelines."""
 
