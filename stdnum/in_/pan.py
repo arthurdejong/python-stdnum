@@ -51,7 +51,7 @@ Traceback (most recent call last):
 InvalidComponent: ...
 >>> mask('ACUPA7085R')
 'ACUPAXXXXR'
->>> info('ACUPA7085R')['card_holder_type']
+>>> info('ACUPA7085R')['pan_holder_type']
 'Individual'
 """
 
