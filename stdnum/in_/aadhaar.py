@@ -62,6 +62,7 @@ import re
 from stdnum import util, verhoeff
 from stdnum.exceptions import *
 
+
 _aadhaar_re = re.compile(r'^[2-9]\d{11}$')
 
 
@@ -80,7 +81,7 @@ def validate(number):
     if not _aadhaar_re.match(number):
         raise InvalidFormat()
     if number == number[::-1]:  # to discard palindromes
-        raise ValidationError('Invalid Aadhaar')
+        raise ValidationError('Aadhaar cannot be a palindrome')
     verhoeff.validate(number)
     return number
 

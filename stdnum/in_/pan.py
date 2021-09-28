@@ -60,6 +60,7 @@ import re
 from stdnum.exceptions import *
 from stdnum.util import clean
 
+
 _pan_re = re.compile(r'^[A-Z]{3}[ABCFGHLJPTK][A-Z]\d{3}[1-9][A-Z]$')
 _pan_holder_types = {
     'A': 'Association of Persons (AOP)',
@@ -72,7 +73,7 @@ _pan_holder_types = {
     'J': 'Artificial Juridical Person',
     'P': 'Individual',
     'T': 'Trust',
-    'K': 'Krish (Trust Krish)'
+    'K': 'Krish (Trust Krish)',
 }
 # Type 'K' may've been discontinued, not listed on Income Text Dept website.
 

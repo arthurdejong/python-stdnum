@@ -30,7 +30,7 @@ territory for same the PAN. Maximum 35 registrations are allowed. The 14th
 character is "Z" for all numbers. The last character is an alphanumeric check
 digit calculated using a Luhn mod 36 algorithm.
 
-More information: 
+More information:
 
 * https://bajajfinserv.in/insights/what-is-goods-and-service-tax-identification-number
 * https://ddvat.gov.in/docs/List%20of%20State%20Code.pdf
@@ -63,6 +63,7 @@ import re
 from stdnum import luhn, util
 from stdnum.exceptions import *
 from stdnum.in_ import pan
+
 
 _gstin_re = re.compile(
     r'^([0-2][1-9]|[3][0-7])[A-Z]{3}[ABCFGHLJPTK][A-Z]\d{3}[1-9][A-Z][1-9A-Z][Z][A-Z\d]$'
@@ -129,7 +130,7 @@ def validate(number):
 
 def is_valid(number):
     """Check if the number provided is a valid GSTIN. This checks the length,
-    formatting, embedded PAN and check digit."""
+    formatting and check digit."""
     try:
         return bool(validate(number))
     except ValidationError:

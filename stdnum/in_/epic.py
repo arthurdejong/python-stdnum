@@ -24,7 +24,7 @@ the Election Commission of India (ECI) to the citizens of India who have
 reached the age of 18.
 
 Each EPIC contains an unique 10 digit alphanumeric identifier known as EPIC
-number or Voter ID number. 
+number or Voter ID number.
 
 Every EPIC number begins with a Functional Unique Serial Number (FUSN), a 3
 letter unique identifier for each Assembly Constituency. FUSN is followed by
