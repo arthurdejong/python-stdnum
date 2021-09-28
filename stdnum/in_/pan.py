@@ -45,7 +45,7 @@ InvalidLength: ...
 Traceback (most recent call last):
     ...
 InvalidFormat: ...
->>> validate('ACUZA7085R')  # invalid type of holder
+>>> validate('ACUPA0000R')  # serial number should not be '0000'
 Traceback (most recent call last):
     ...
 InvalidComponent: ...
@@ -61,7 +61,7 @@ from stdnum.exceptions import *
 from stdnum.util import clean
 
 
-_pan_re = re.compile(r'^[A-Z]{3}[ABCFGHLJPTK][A-Z]\d{3}[1-9][A-Z]$')
+_pan_re = re.compile(r'^[A-Z]{3}[ABCFGHLJPTK][A-Z]\d{4}[A-Z]$')
 _pan_holder_types = {
     'A': 'Association of Persons (AOP)',
     'B': 'Body of Individuals (BOI)',
@@ -92,6 +92,8 @@ def validate(number):
         raise InvalidLength()
     if not _pan_re.match(number):
         raise InvalidFormat()
+    if number[5:9] == '0000':
+        raise InvalidComponent()
     return number
 
 

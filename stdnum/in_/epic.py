@@ -57,6 +57,7 @@ import re
 from stdnum import luhn, util
 from stdnum.exceptions import *
 
+
 _epic_re = re.compile(r'^[A-Z]{3}\d{7}$')
 
 
@@ -78,7 +79,7 @@ def validate(number):
     return number
 
 
-def is_valid(number: str) -> bool:
+def is_valid(number):
     """Check if the number provided is a valid EPIC number. This checks the
     length, formatting and checksum."""
     try:

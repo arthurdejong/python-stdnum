@@ -46,7 +46,7 @@ InvalidLength: ...
 Traceback (most recent call last):
     ...
 InvalidFormat: ...
->>> validate('27AAPXU0939F1ZV')    # invalid PAN
+>>> validate('27AAPFU0000F1ZV')  # serial number should not be '0000'
 Traceback (most recent call last):
     ...
 InvalidComponent: ...
@@ -66,8 +66,7 @@ from stdnum.in_ import pan
 
 
 _gstin_re = re.compile(
-    r'^([0-2][1-9]|[3][0-7])[A-Z]{3}[ABCFGHLJPTK][A-Z]\d{3}[1-9][A-Z][1-9A-Z][Z][A-Z\d]$'
-)
+    r'^([0][1-9]|[1-2][0-9]|[3][0-7])[A-Z]{3}[ABCFGHLJPTK][A-Z]\d{4}[A-Z][1-9A-Z][Z][\dA-Z]$')
 _codepoint_chars = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ'
 _state_codes = {
     '01': 'Jammu and Kashmir',
@@ -124,6 +123,8 @@ def validate(number):
         raise InvalidLength()
     if not _gstin_re.match(number):
         raise InvalidFormat()
+    if number[7:11] == '0000':
+        raise InvalidComponent()
     luhn.validate(number, _codepoint_chars)
     return number
 
