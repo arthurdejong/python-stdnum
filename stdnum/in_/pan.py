@@ -45,10 +45,6 @@ InvalidLength: ...
 Traceback (most recent call last):
     ...
 InvalidFormat: ...
->>> validate('ACUPA0000R')  # serial number is out of range
-Traceback (most recent call last):
-    ...
-InvalidComponent: ...
 >>> validate('ACUZA7085R')  # invalid type of holder
 Traceback (most recent call last):
     ...
@@ -64,6 +60,22 @@ import re
 from stdnum.exceptions import *
 from stdnum.util import clean
 
+_pan_re = re.compile(r'^[A-Z]{3}[ABCFGHLJPTK][A-Z]\d{3}[1-9][A-Z]$')
+_pan_holder_types = {
+    'A': 'Association of Persons (AOP)',
+    'B': 'Body of Individuals (BOI)',
+    'C': 'Company',
+    'F': 'Firm/Limited Liability Partnership',
+    'G': 'Government Agency',
+    'H': 'Hindu Undivided Family (HUF)',
+    'L': 'Local Authority',
+    'J': 'Artificial Juridical Person',
+    'P': 'Individual',
+    'T': 'Trust',
+    'K': 'Krish (Trust Krish)'
+}
+# Type 'K' may've been discontinued, not listed on Income Text Dept website.
+
 
 def compact(number):
     """Convert the number to the minimal representation. This strips the
@@ -71,42 +83,14 @@ def compact(number):
     return clean(number, ' -').upper().strip()
 
 
-def info(number):
-    """Provide information that can be decoded from the PAN."""
-    card_holder_types = {
-        'A': 'Association of Persons (AOP)',
-        'B': 'Body of Individuals (BOI)',
-        'C': 'Company',
-        'F': 'Firm/Limited Liability Partnership',
-        'G': 'Government Agency',
-        'H': 'Hindu Undivided Family (HUF)',
-        'L': 'Local Authority',
-        'J': 'Artificial Juridical Person',
-        'P': 'Individual',
-        'T': 'Trust',
-    }
-    number = compact(number)
-    card_holder_type = card_holder_types.get(number[3])
-    if not card_holder_type:
-        raise InvalidComponent()
-    return {
-        'card_holder_type': card_holder_type,
-        'initial': number[4],
-    }
-
-
 def validate(number):
     """Check if the number provided is a valid PAN. This checks the length
     and formatting."""
-    pan_re = re.compile(r'^[A-Z]{5}[0-9]{4}[A-Z]$')
     number = compact(number)
     if len(number) != 10:
         raise InvalidLength()
-    if not pan_re.match(number):
+    if not _pan_re.match(number):
         raise InvalidFormat()
-    if int(number[5:9]) == 0:  # check serial number
-        raise InvalidComponent()
-    info(number)  # check the fourth character
     return number
 
 
@@ -117,6 +101,15 @@ def is_valid(number):
         return bool(validate(number))
     except ValidationError:
         return False
+
+
+def info(number):
+    """Provide information that can be decoded from the PAN."""
+    number = validate(number)
+    return {
+        'pan_holder_type': _pan_holder_types.get(number[3]),
+        'initial': number[4],
+    }
 
 
 def mask(number):
