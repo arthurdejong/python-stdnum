@@ -45,6 +45,10 @@ InvalidLength: ...
 Traceback (most recent call last):
     ...
 InvalidFormat: ...
+>>> validate('ACUPA0000R')  # serial number is out of range
+Traceback (most recent call last):
+    ...
+InvalidComponent: ...
 >>> validate('ACUZA7085R')  # invalid type of holder
 Traceback (most recent call last):
     ...
@@ -56,8 +60,8 @@ InvalidComponent: ...
 """
 
 import re
-import stdnum.exceptions as e
 
+from stdnum.exceptions import *
 from stdnum.util import clean
 
 
@@ -84,7 +88,7 @@ def info(number):
     number = compact(number)
     card_holder_type = card_holder_types.get(number[3])
     if not card_holder_type:
-        raise e.InvalidComponent()
+        raise InvalidComponent()
     return {
         'card_holder_type': card_holder_type,
         'initial': number[4],
@@ -97,12 +101,12 @@ def validate(number):
     pan_re = re.compile(r'^[A-Z]{5}[0-9]{4}[A-Z]$')
     number = compact(number)
     if len(number) != 10:
-        raise e.InvalidLength()
+        raise InvalidLength()
     if not pan_re.match(number):
-        raise e.InvalidFormat()
-    if int(number[5:9]) == 0:  # check serial number range
-        raise e.InvalidFormat()
-    info(number)  # check the fourth digit
+        raise InvalidFormat()
+    if int(number[5:9]) == 0:  # check serial number
+        raise InvalidComponent()
+    info(number)  # check the fourth character
     return number
 
 
@@ -111,7 +115,7 @@ def is_valid(number):
     and formatting."""
     try:
         return bool(validate(number))
-    except e.ValidationError:
+    except ValidationError:
         return False
 
 
