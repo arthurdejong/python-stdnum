@@ -35,11 +35,11 @@ More information:
 
 >>> validate('234123412346')
 '234123412346'
->>> validate('643343121')
+>>> validate('23412341234')
 Traceback (most recent call last):
     ...
 InvalidLength: ...
->>> validate('123412341234')  # number should not start with 0 or 1
+>>> validate('012345678901')  # number should not start with 0 or 1
 Traceback (most recent call last):
     ...
 InvalidFormat: ...
@@ -58,16 +58,15 @@ InvalidChecksum: ...
 """
 
 import re
-import stdnum.exceptions as e
 
-from stdnum.util import clean
-from stdnum import verhoeff
+from stdnum import util, verhoeff
+from stdnum.exceptions import *
 
 
 def compact(number):
     """Convert the number to the minimal representation. This strips the
     number of any valid separators and removes surrounding whitespace."""
-    return clean(number, ' -').strip()
+    return util.clean(number, ' -').strip()
 
 
 def validate(number):
@@ -76,11 +75,11 @@ def validate(number):
     aadhaar_re = re.compile(r'^[2-9][0-9]{11}$')
     number = compact(number)
     if len(number) != 12:
-        raise e.InvalidLength()
+        raise InvalidLength()
     if not aadhaar_re.match(number):
-        raise e.InvalidFormat()
+        raise InvalidFormat()
     if number == number[::-1]:  # to discard palindromes
-        raise e.ValidationError('Invalid Aadhaar')
+        raise ValidationError('Invalid Aadhaar')
     verhoeff.validate(number)
     return number
 
@@ -90,7 +89,7 @@ def is_valid(number):
     the length, formatting and check digit."""
     try:
         return bool(validate(number))
-    except e.ValidationError:
+    except ValidationError:
         return False
 
 
