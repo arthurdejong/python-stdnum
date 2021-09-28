@@ -46,7 +46,7 @@ InvalidFormat: ...
 >>> validate('222222222222')  # number cannot be a palindrome
 Traceback (most recent call last):
     ...
-ValidationError: Invalid Aadhaar
+ValidationError: Aadhaar cannot be a palindrome
 >>> validate('234123412347')
 Traceback (most recent call last):
     ...
@@ -62,6 +62,8 @@ import re
 from stdnum import util, verhoeff
 from stdnum.exceptions import *
 
+_aadhaar_re = re.compile(r'^[2-9]\d{11}$')
+
 
 def compact(number):
     """Convert the number to the minimal representation. This strips the
@@ -72,11 +74,10 @@ def compact(number):
 def validate(number):
     """Check if the number provided is a valid Aadhaar number. This checks
     the length, formatting and check digit."""
-    aadhaar_re = re.compile(r'^[2-9][0-9]{11}$')
     number = compact(number)
     if len(number) != 12:
         raise InvalidLength()
-    if not aadhaar_re.match(number):
+    if not _aadhaar_re.match(number):
         raise InvalidFormat()
     if number == number[::-1]:  # to discard palindromes
         raise ValidationError('Invalid Aadhaar')
@@ -102,5 +103,4 @@ def format(number):
 def mask(number):
     """Masks the first 8 digits as per Ministry of Electronics and
     Information Technology (MeitY) guidelines."""
-    number = compact(number)
-    return 'XXXX XXXX ' + number[-4:]
+    return 'XXXX XXXX ' + compact(number)[-4:]
