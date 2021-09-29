@@ -1,6 +1,7 @@
-# aadhaar.py - functions for handling Indian Aadhaar numbers
+# aadhaar.py - functions for handling Indian personal identity numbers
 #
 # Copyright (C) 2017 Srikanth L
+# Copyright (C) 2021 Gaurav Chauhan
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -17,15 +18,21 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 # 02110-1301 USA
 
-"""Aadhaar (Indian digital resident personal identity number)
+"""Aadhaar (Indian personal identity number).
 
-Aadhaar is a 12 digit unique identity number issued to all Indian residents.
-The number is assigned by the Unique Identification Authority of India
-(UIDAI).
+Aadhaar is a 12 digit identification number that can be obtained by Indian
+citizens, non-residents passport holders of India and resident foreign
+nationals. The number is issued by the Unique Identification Authority of
+India (UIDAI).
+
+Aadhaar is made up of 12 digits where the last digits is a check digit
+calculated using the Verhoeff algorithm. The numbers are generated in a
+random, non-repeating sequence and do not begin with 0 or 1.
 
 More information:
 
 * https://en.wikipedia.org/wiki/Aadhaar
+* https://web.archive.org/web/20140611025606/http://uidai.gov.in/UID_PDF/Working_Papers/A_UID_Numbering_Scheme.pdf
 
 >>> validate('234123412346')
 '234123412346'
@@ -41,6 +48,10 @@ InvalidFormat: ...
 Traceback (most recent call last):
     ...
 InvalidLength: ...
+>>> validate('222222222222')  # number cannot be a palindrome
+Traceback (most recent call last):
+    ...
+InvalidFormat: ...
 >>> format('234123412346')
 '2341 2341 2346'
 >>> mask('234123412346')
@@ -72,6 +83,8 @@ def validate(number):
         raise InvalidLength()
     if not aadhaar_re.match(number):
         raise InvalidFormat()
+    if number == number[::-1]:
+        raise InvalidFormat()  # Aadhaar cannot be a palindrome
     verhoeff.validate(number)
     return number
 
@@ -92,7 +105,7 @@ def format(number):
 
 
 def mask(number):
-    """Masks the first 8 digits as per MeitY guidelines for securing identity
-    information and Sensitive personal data."""
+    """Masks the first 8 digits as per Ministry of Electronics and
+    Information Technology (MeitY) guidelines."""
     number = compact(number)
     return 'XXXX XXXX ' + number[-4:]
