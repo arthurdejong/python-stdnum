@@ -19,3 +19,6 @@
 # 02110-1301 USA
 
 """Collection of Indian numbers."""
+
+# provide aliases
+from stdnum.in_ import gstin as vat  # noqa: F401
