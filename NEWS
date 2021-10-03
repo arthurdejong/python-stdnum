@@ -1,3 +1,37 @@
+changes from 1.16 to 1.17
+-------------------------
+
+* Add modules for the following number formats:
+
+  - EPIC (Electoral Photo Identity Card, Indian Voter ID)
+    (thanks Gaurav Chauhan)
+  - GSTIN (Goods and Services Tax identification number, Indian VAT number)
+    (thanks Gaurav Chauhan)
+  - ISRC (International Standard Recording Code) (thanks Nuno André)
+  - CC (Número de Cartão de Cidadão, Portuguese Identity number)
+    (thanks David Vaz)
+  - Postcode (the Swedish postal code) (thanks Michele Ciccozzi)
+  - MOA (Thailand Memorandum of Association Number) (thanks Piruin Panichphol)
+  - PIN (Thailand Personal Identification Number) (thanks Piruin Panichphol)
+  - TIN (Thailand Taxpayer Identification Number) (thanks Piruin Panichphol)
+
+* Add ENCF validation support for Dominican Republic NCF
+  (thanks Cristopher Ortega)
+* Add new e-CF types to Dominican Republic NCF (thanks Frank Roberto Chavez Sosa)
+* Improve French NIF validation (thanks Dimitri Papadopoulos)
+* Drop support for Python 2.6 and 3.4
+* Fix parsing of empty fields in Dominican Republic DGII checking
+  (thanks Andres Rodriguez)
+* Fix handling of empty worksheet in Belgian bank download
+  (thanks Dimitri Papadopoulos)
+* Fix detection of natural RUC values (thanks Victor Rodriguez)
+* Fix Belarus VAT number online lookup again
+* Fixes for problems with loading IMSI data from Wikipedia and dealing with
+  inconsistencies
+* Remove South Korean BRN Fair Trade Commission website check due to CAPTCHA
+* Various code and documentation improvements (thanks Dimitri Papadopoulos and Gaurav Chauhan)
+
+
 changes from 1.15 to 1.16
 -------------------------
 

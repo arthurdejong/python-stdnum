@@ -1,3 +1,254 @@
+2021-10-03  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [0779d6a] stdnum/kr/brn.py, tests/test_kr_brn.py: Remove South
+	  Korean BRN online check
+
+	  The Korea Fair Trade Commission website now requires solving
+	  a CAPTCHA before submitting the request so this is no longer
+	  possible.
+
+2021-10-03  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [61ebc9c] stdnum/no/orgnr.py: Add documentation for Norwegian
+	  Organisasjonsnummer
+
+2021-10-03  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [9da63a4] tests/test_do_cedula.py: Update Cedula online test value
+
+	  Apparently the previously whitelisted value is no longer recognised
+	  as a valid value by the DGII service.
+
+2021-10-03  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [25c30d7] stdnum/by/portal.nalog.gov.by.crt: Update Let's Encrypt
+	  R3 intermediate certificate
+
+	  The portal.nalog.gov.by web site serves an incomplete certificate
+	  chain and the certificate chain was changed.
+
+2021-10-03  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [3406c24] MANIFEST.in, README.md, docs/index.rst, setup.py,
+	  update/numlist.py: Rename README to README.md
+
+	  Mostly to please GitHub.
+
+	  See https://github.com/arthurdejong/python-stdnum/issues/280
+
+2021-10-03  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [d5cba0a] stdnum/at/postleitzahl.dat, stdnum/be/banks.dat,
+	  stdnum/cn/loc.dat, stdnum/eu/nace.dat, stdnum/gs1_ai.dat,
+	  stdnum/iban.dat, stdnum/imsi.dat, stdnum/isbn.dat, stdnum/isil.dat,
+	  stdnum/nz/banks.dat, stdnum/oui.dat, update/gs1_ai.py: Update
+	  database files
+
+2021-09-30  Gaurav Chauhan <71322586+vairag22@users.noreply.github.com>
+
+	* [26a7e7b] stdnum/in_/__init__.py, stdnum/in_/gstin.py: Add Indian
+	  GSTIN (VAT number)
+
+	  Closes https://github.com/arthurdejong/python-stdnum/pull/279
+
+2021-09-30  Gaurav Chauhan <71322586+vairag22@users.noreply.github.com>
+
+	* [ca560cd] stdnum/in_/epic.py: Add Indian EPIC number (Voter
+	  ID number)
+
+	  Closes https://github.com/arthurdejong/python-stdnum/pull/279
+
+2021-09-30  Gaurav Chauhan <71322586+vairag22@users.noreply.github.com>
+
+	* [fc56388] stdnum/in_/aadhaar.py, stdnum/in_/pan.py: Improve
+	  validation and docstrings of Indian numbers
+
+	  This ensures that an Aadhaar cannot be a palindrome and checks the
+	  serial part of the PAN to not be all zeros. It also updates some
+	  descriptions of PAN holder types and renames the card_holder_type
+	  to just holder_type.
+
+	  Closes https://github.com/arthurdejong/python-stdnum/pull/279
+
+2021-09-19  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [1a0e613] stdnum/ec/ruc.py, tests/test_ec_ruc.doctest: Fix
+	  detection of natural RUC values
+
+	  A natural RUC is the CI plus an establishment number. Both the
+	  natural RUC and the public RUC can have a third digit with the
+	  value 6.
+
+	  Closes https://github.com/arthurdejong/python-stdnum/issues/267
+
+2021-08-20  michele <michele.ciccozzi@medpeople.se>
+
+	* [8071444] stdnum/se/__init__.py, stdnum/se/postnummer.py,
+	  tests/test_se_postnummer.doctest: Add swedish postcode validator
+
+	  Closes https://github.com/arthurdejong/python-stdnum/pull/271
+
+2021-02-21  Piruin Panichphol <piruin.p@gmail.com>
+
+	* [424e408] stdnum/th/__init__.py, stdnum/th/moa.py,
+	  stdnum/th/pin.py, stdnum/th/tin.py, tests/test_th_moa.doctest,
+	  tests/test_th_pin.doctest, tests/test_th_tin.doctest: Add support
+	  for Thai Numbers
+
+	  - TIN Taxpayer Identification Number - PIN Personal Identification
+	  Number - MOA Memorandum of Association Number
+
+	  Closes https://github.com/arthurdejong/python-stdnum/issues/118
+	  Closes https://github.com/arthurdejong/python-stdnum/pull/255
+
+2021-03-10  Nuno André <mail@nunoand.re>
+
+	* [36d723c] stdnum/isrc.py, tests/test_isrc.doctest: Add ISRC
+	  (International Standard Recording Code)
+
+	  Closes https://github.com/arthurdejong/python-stdnum/pull/261
+
+2021-08-07  Dimitri Papadopoulos
+<3234522+DimitriPapadopoulos@users.noreply.github.com>
+
+	* [48bfd84] stdnum/ad/nrt.py, stdnum/bitcoin.py, stdnum/do/ncf.py,
+	  stdnum/isbn.py, stdnum/util.py, stdnum/vn/mst.py,
+	  tests/test_cusip.doctest, tests/test_de_idnr.doctest,
+	  update/be_banks.py, update/imsi.py, update/isil.py,
+	  update/numlist.py: Fix typos found by codespell
+
+	  Closes https://github.com/arthurdejong/python-stdnum/pull/269
+
+2021-08-07  Dimitri Papadopoulos
+<3234522+DimitriPapadopoulos@users.noreply.github.com>
+
+	* [dcdb5c9] stdnum/exceptions.py: Explicilty define exported
+	  exceptions
+
+	  LGTM alert: Import pollutes the enclosing namespace
+	  See: https://lgtm.com/rules/3980091/ Closes
+	  https://github.com/arthurdejong/python-stdnum/pull/270
+
+2021-08-07  Dimitri Papadopoulos
+<3234522+DimitriPapadopoulos@users.noreply.github.com>
+
+	* [abda037] stdnum/no/fodselsnummer.py: Simplify range checking
+	  in Norwegian birth numbers
+
+	  LGTM alert: Test is always true See: https://lgtm.com/rules/900073/
+	  Closes https://github.com/arthurdejong/python-stdnum/pull/270
+
+2021-08-07  Dimitri Papadopoulos
+<3234522+DimitriPapadopoulos@users.noreply.github.com>
+
+	* [c69b4f6] update/be_banks.py: Fix handling of empty worksheet
+	  in Belgian bank download
+
+	  LGTM alert: Call to next() in a generator
+	  See: https://lgtm.com/rules/11000086/ Closes
+	  https://github.com/arthurdejong/python-stdnum/pull/270
+
+2021-06-09  David Vaz <davidmgvaz@gmail.com>
+
+	* [4516748] stdnum/pt/cc.py, tests/test_pt_cc.doctest: Add CC
+	  (Número de Cartão de Cidadão, Portuguese Identity number)
+
+	  Closes https://github.com/arthurdejong/python-stdnum/pull/265
+
+2021-06-10  FRANK ROBERTO CHAVEZ SOSA <1085268@est.intec.edu.do>
+
+	* [4c51860] stdnum/do/ncf.py: Add new e-CF types to Dominican
+	  Republic NCF
+
+2021-01-18  Andres Rodriguez <androdriguez14@gmail.com>
+
+	* [48e6502] stdnum/do/ncf.py: Fix parsing of empty fields in
+	  DGII checking
+
+2020-12-11  Cristopher Ortega <ortega.cpp@gmail.com>
+
+	* [2b452b6] stdnum/do/ncf.py, tests/test_do_ncf.py: Add ENCF
+	  validation support for Dominican Republic NCF
+
+	  Closes https://github.com/arthurdejong/python-stdnum/pull/248
+
+2021-06-09  Dimitri Papadopoulos
+<3234522+DimitriPapadopoulos@users.noreply.github.com>
+
+	* [eeaf665] stdnum/fr/nif.py: Improve French NIF validation
+
+	  Closes https://github.com/arthurdejong/python-stdnum/pull/266
+
+2021-07-12  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [e2a95fc] .github/workflows/test.yml: Configure CodeQL code
+	  scanning
+
+2021-07-18  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [175b1e5] stdnum/exceptions.py: Ignore N818 because our exceptions
+	  are not named error
+
+2021-04-11  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [38c368d] stdnum/numdb.py, tests/numdb-test.dat: Only process
+	  the shortest matches in the numdb module
+
+	  This ensures that matching numbers is done consistently when
+	  the numdb database file has conflicting information about the
+	  length of numbers.
+
+	  This also refactors the _find() function to be simpler and
+	  reduces the number of recursive calls that have to be done.
+
+	  The tests have been re-formatted to use pprint to make it easier
+	  to spot differences if any of the tests fail (instead of just
+	  saying expected True, got False).
+
+	  Closes https://github.com/arthurdejong/python-stdnum/issues/257
+
+2021-04-11  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [b7901d6] update/imsi.py: Stop non-operational MNCs from confusing
+	  IMSI dataset
+
+	  This only includes data from non-operational (status "Not
+	  operational" according to Wikipedia) Mobile Network Code operators
+	  in the generated data file if they would not confuse the lookup
+	  of operational numbers.
+
+	  This avoid problems when the "030" to "039" non-operational ranges
+	  conflicting with the "03" operational range. This ensures that
+	  only the "03" value is kept. For historical completeness we keep
+	  the other non-operational values.
+
+	  Closes https://github.com/arthurdejong/python-stdnum/issues/257
+
+2021-03-03  Jakub Wilk <jwilk@jwilk.net>
+
+	* [7e69090] docs/index.rst: Fix typo
+
+	  Closes https://github.com/arthurdejong/python-stdnum/pull/258
+
+2021-03-21  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [5785afb] .github/workflows/test.yml, .travis.yml: Replace Travis
+	  with GitHub actions
+
+2021-03-21  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [7c0bb84] .travis.yml, setup.py, tox.ini: Drop support for Python
+	  2.6 and 3.4
+
+	  It is increasingly difficult to test with these versions of
+	  Python and everybody should have upgraded to a more recent
+	  version long ago.
+
+2021-02-06  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [075d85e] ChangeLog, NEWS, stdnum/__init__.py: Get files ready
+	  for 1.16 release
+
 2021-02-06  Arthur de Jong <arthur@arthurdejong.org>
 
 	* [fad3064] stdnum/by/portal.nalog.gov.by.crt: Add Let's Encrypt

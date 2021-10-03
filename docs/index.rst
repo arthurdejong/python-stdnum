@@ -217,6 +217,8 @@ Available formats
    imo
    imsi
    in_.aadhaar
+   in_.epic
+   in_.gstin
    in_.pan
    is_.kennitala
    is_.vsk
@@ -227,6 +229,7 @@ Available formats
    ismn
    iso11649
    iso6346
+   isrc
    issn
    it.aic
    it.codicefiscale
@@ -267,6 +270,7 @@ Available formats
    pl.nip
    pl.pesel
    pl.regon
+   pt.cc
    pt.nif
    py.ruc
    ro.cf
@@ -277,6 +281,7 @@ Available formats
    ru.inn
    se.orgnr
    se.personnummer
+   se.postnummer
    se.vat
    sg.uen
    si.ddv
@@ -284,6 +289,9 @@ Available formats
    sk.rc
    sm.coe
    sv.nit
+   th.moa
+   th.pin
+   th.tin
    tr.tckimlik
    tr.vkn
    tw.ubn

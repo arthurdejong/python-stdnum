@@ -43,4 +43,4 @@ from stdnum.util import get_cc_module
 __all__ = ('get_cc_module', '__version__')
 
 # the version number of the library
-__version__ = '1.16'
+__version__ = '1.17'
