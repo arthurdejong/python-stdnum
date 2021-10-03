@@ -1,5 +1,5 @@
 # generated from https://www.gs1.org/standards/barcodes/application-identifiers
-# on 2021-02-06 15:39:03.753731
+# on 2021-10-02 22:16:35.402284
 00 format="N18" type="str" name="SSCC" description="Serial Shipping Container Code (SSCC)"
 01 format="N14" type="str" name="GTIN" description="Global Trade Item Number (GTIN)"
 02 format="N14" type="str" name="CONTENT" description="Global Trade Item Number (GTIN) of contained trade items"
@@ -176,14 +176,14 @@
 8003 format="N14+X..16" type="str" fnc1="1" name="GRAI" description="Global Returnable Asset Identifier (GRAI)"
 8004 format="X..30" type="str" fnc1="1" name="GIAI" description="Global Individual Asset Identifier (GIAI)"
 8005 format="N6" type="str" fnc1="1" name="PRICE PER UNIT" description="Price per unit of measure"
-8006 format="N14+N2+N2" type="str" fnc1="1" name="ITIP" description="Identification of an individual trade item piece"
+8006 format="N14+N2+N2" type="str" fnc1="1" name="ITIP" description="Identification of an individual trade item piece (ITIP)"
 8007 format="X..34" type="str" fnc1="1" name="IBAN" description="International Bank Account Number (IBAN)"
 8008 format="N8+N..4" type="date" fnc1="1" name="PROD TIME" description="Date and time of production"
 8009 format="X..50" type="str" fnc1="1" name="OPTSEN" description="Optically Readable Sensor Indicator"
 8010 format="Y..30" type="str" fnc1="1" name="CPID" description="Component/Part Identifier (CPID)"
 8011 format="N..12" type="str" fnc1="1" name="CPID SERIAL" description="Component/Part Identifier serial number (CPID SERIAL)"
 8012 format="X..20" type="str" fnc1="1" name="VERSION" description="Software version"
-8013 format="X..30" type="str" fnc1="1" name="GMN (for medical devices, the default, global data title is BUDI-DI)" description="Global Model Number (GMN)"
+8013 format="X..25" type="str" fnc1="1" name="GMN (for medical devices, the default, global data title is BUDI-DI)" description="Global Model Number (GMN)"
 8017 format="N18" type="str" fnc1="1" name="GSRN - PROVIDER" description="Global Service Relation Number (GSRN) to identify the relationship between an organisation offering services and the provider of services"
 8018 format="N18" type="str" fnc1="1" name="GSRN - RECIPIENT" description="Global Service Relation Number (GSRN) to identify the relationship between an organisation offering services and the recipient of services"
 8019 format="N..10" type="str" fnc1="1" name="SRIN" description="Service Relation Instance Number (SRIN)"

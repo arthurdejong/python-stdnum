@@ -33,11 +33,18 @@ import requests
 download_url = 'https://www.gs1.org/standards/barcodes/application-identifiers'
 
 
+# The user agent that will be passed in requests
+user_agent = 'Mozilla/5.0 (compatible; python-stdnum updater; +https://arthurdejong.org/python-stdnum/)'
+
+
 def fetch_ais():
     """Download application identifiers frm the GS1 website."""
-    response = requests.get(download_url)
+    headers = {
+        'User-Agent': user_agent,
+    }
+    response = requests.get(download_url, headers=headers)
     document = lxml.html.document_fromstring(response.content)
-    element = document.findall('.//script[@type="application/ld+json"]')[1]
+    element = document.findall('.//script[@type="application/ld+json"]')[0]
     for entry in json.loads(element.text)['@graph']:
         yield (
             entry['skos:prefLabel'].strip(),             # AI
