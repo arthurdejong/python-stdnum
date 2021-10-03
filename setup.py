@@ -36,7 +36,7 @@ if 'sdist' in sys.argv:
 
 base_dir = os.path.dirname(__file__)
 
-with open(os.path.join(base_dir, 'README'), 'rb') as fp:
+with open(os.path.join(base_dir, 'README.md'), 'rb') as fp:
     long_description = fp.read().decode('utf-8')
 
 setup(
@@ -44,6 +44,7 @@ setup(
     version=stdnum.__version__,
     description='Python module to handle standardized numbers and codes',
     long_description=long_description,
+    long_description_content_type='text/markdown',
     author='Arthur de Jong',
     author_email='arthur@arthurdejong.org',
     url='https://arthurdejong.org/python-stdnum/',

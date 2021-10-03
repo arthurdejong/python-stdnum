@@ -20,7 +20,7 @@
 # 02110-1301 USA
 
 """This script uses introspection to present a list of number formats
-suitable to be included in the README and stdnum package description."""
+suitable to be included in the README.md and stdnum package description."""
 
 import os.path
 import sys
@@ -47,7 +47,7 @@ def get_number_modules():
 
 
 if __name__ == '__main__':
-    print('For README:')
+    print('For README.md:')
     print('')
     for module in get_number_modules():
         print(' * %s' % util.get_module_name(module))

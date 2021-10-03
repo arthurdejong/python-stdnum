@@ -1,6 +1,6 @@
 .. module:: stdnum
 
-.. include:: ../README
+.. include:: ../README.md
    :end-before: Available formats
 
 
