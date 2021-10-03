@@ -84,17 +84,3 @@ def format(number):
     """Reformat the number to the standard presentation format."""
     number = compact(number)
     return '-'.join([number[:3], number[3:5], number[5:]])
-
-
-def check_ftc(number, timeout=30):  # pragma: no cover
-    """Check the number against the Korea Fair Trade Commission website."""
-    import lxml.html
-    import requests
-    number = compact(number)
-    url = 'https://www.ftc.go.kr/bizCommPop.do'
-    document = lxml.html.fromstring(
-        requests.get(url, params={'wrkr_no': number}, timeout=timeout).text)
-    data = dict(zip(
-        [(x.text or '').strip() for x in document.findall('.//th')],
-        [(x.text or '').strip() for x in document.findall('.//td')]))
-    return data or None
