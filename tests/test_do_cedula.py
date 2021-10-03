@@ -51,5 +51,5 @@ class TestDGII(unittest.TestCase):
         # Valid number but unknown
         self.assertIsNone(cedula.check_dgii('12345678903'))
         # Test a number on the whitelist
-        result = cedula.check_dgii('0710208838')
-        self.assertEqual(result['cedula'], '0710208838')
+        result = cedula.check_dgii('02300052220')
+        self.assertEqual(result['cedula'], '02300052220')
