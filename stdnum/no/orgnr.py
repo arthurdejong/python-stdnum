@@ -25,6 +25,11 @@
 The Organisasjonsnummer is a 9-digit number with a straightforward check
 mechanism.
 
+More information:
+
+* https://nn.wikipedia.org/wiki/Organisasjonsnummer
+* https://no.wikipedia.org/wiki/Organisasjonsnummer
+
 >>> validate('988 077 917')
 '988077917'
 >>> validate('988 077 918')
