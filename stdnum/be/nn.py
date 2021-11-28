@@ -1,3 +1,4 @@
+# coding=utf-8
 # nn.py - function for handling Belgian national numbers
 #
 # Copyright (C) 2021 Cédric Krier
