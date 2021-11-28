@@ -128,6 +128,7 @@ Available formats
    au.tfn
    be.iban
    be.vat
+   be.nn
    bg.egn
    bg.pnf
    bg.vat
