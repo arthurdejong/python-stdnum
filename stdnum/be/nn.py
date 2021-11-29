@@ -33,6 +33,8 @@ The national number is a unique identifier of Belgian. The number consists of
 Traceback (most recent call last):
     ...
 InvalidChecksum: ...
+>>> format('85 07 30 033 28')
+'85.07.30-033.28'
 """
 import datetime as dt
 
@@ -76,3 +78,11 @@ def is_valid(number):
         return bool(validate(number))
     except ValidationError:
         return False
+
+
+def format(number):
+    """Reformat the number to the standard presentation format."""
+    number = compact(number)
+    return (
+        '.'.join(number[i:i + 2] for i in range(0, 6, 2)) +
+        '-' + '.'.join([number[6:9], number[9:11]]))
