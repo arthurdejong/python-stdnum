@@ -109,7 +109,7 @@ def calc_check_digit(number):
     return str((10 - check % 10) % 10)
 
 
-def validate(number, validate_check_digits=False):
+def validate(number, validate_check_digits=True):
     """Check if the number is a valid CURP."""
     number = compact(number)
     if len(number) != 18:
@@ -122,12 +122,12 @@ def validate(number, validate_check_digits=False):
     get_gender(number)
     if number[11:13] not in _valid_states:
         raise InvalidComponent()
-    if number[-1] != calc_check_digit(number):
+    if validate_check_digits and number[-1] != calc_check_digit(number):
         raise InvalidChecksum()
     return number
 
 
-def is_valid(number, validate_check_digits=False):
+def is_valid(number, validate_check_digits=True):
     """Check if the number provided is a valid CURP."""
     try:
         return bool(validate(number, validate_check_digits))
