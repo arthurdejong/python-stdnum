@@ -1,7 +1,7 @@
 # coding=utf-8
 # nn.py - function for handling Belgian national numbers
 #
-# Copyright (C) 2021 Cédric Krier
+# Copyright (C) 2021-2022 Cédric Krier
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -39,6 +39,8 @@ Traceback (most recent call last):
 InvalidChecksum: ...
 >>> format('85073003328')
 '85.07.30-033.28'
+>>> get_birth_date('85.07.30-033 28')
+datetime.date(1985, 7, 30)
 """
 
 import datetime
@@ -55,13 +57,13 @@ def compact(number):
 
 
 def _checksum(number):
-    """Calculate the checksum."""
+    """Calculate the checksum and return the detected century."""
     numbers = [number]
     if int(number[:2]) + 2000 <= datetime.date.today().year:
         numbers.append('2' + number)
-    for n in numbers:
+    for century, n in zip((19, 20), numbers):
         if 97 - (int(n[:-2]) % 97) == int(n[-2:]):
-            return True
+            return century
     return False
 
 
@@ -91,3 +93,16 @@ def format(number):
     return (
         '.'.join(number[i:i + 2] for i in range(0, 6, 2)) +
         '-' + '.'.join([number[6:9], number[9:11]]))
+
+
+def get_birth_date(number):
+    """Return the date of birth"""
+    number = compact(number)
+    century = _checksum(number)
+    if not century:
+        raise InvalidChecksum()
+    try:
+        return datetime.datetime.strptime(
+            str(century) + number[:6], '%Y%m%d').date()
+    except ValueError:
+        raise InvalidComponent()
