@@ -39,6 +39,12 @@ Traceback (most recent call last):
 InvalidChecksum: ...
 >>> format('85073003328')
 '85.07.30-033.28'
+>>> birthdate('85.07.30-033 28')
+datetime.date(1985, 7, 30)
+>>> birthdate('17 07 30 033 84')
+datetime.date(2017, 7, 30)
+>>> birthdate('12345678901')
+>>> birthdate('00 00 01 003-64')
 """
 
 import datetime
@@ -59,9 +65,9 @@ def _checksum(number):
     numbers = [number]
     if int(number[:2]) + 2000 <= datetime.date.today().year:
         numbers.append('2' + number)
-    for n in numbers:
+    for i, n in enumerate(numbers, 1):
         if 97 - (int(n[:-2]) % 97) == int(n[-2:]):
-            return True
+            return i
     return False
 
 
@@ -91,3 +97,16 @@ def format(number):
     return (
         '.'.join(number[i:i + 2] for i in range(0, 6, 2)) +
         '-' + '.'.join([number[6:9], number[9:11]]))
+
+
+def birthdate(number):
+    """Return the date of birth"""
+    number = compact(number)
+    year = _checksum(number)
+    if not year:
+        return
+    try:
+        return datetime.datetime.strptime(
+            {1: '19', 2: '20'}[year] + number[:6], '%Y%m%d').date()
+    except ValueError:
+        return
