@@ -1,0 +1,175 @@
+test_cfi.doctest - more detailed doctests for the stdnum.cfi module
+
+Copyright (C) 2022 Arthur de Jong
+
+This library is free software; you can redistribute it and/or
+modify it under the terms of the GNU Lesser General Public
+License as published by the Free Software Foundation; either
+version 2.1 of the License, or (at your option) any later version.
+
+This library is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+Lesser General Public License for more details.
+
+You should have received a copy of the GNU Lesser General Public
+License along with this library; if not, write to the Free Software
+Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
+02110-1301 USA
+
+
+This file contains more detailed doctests for the stdnum.cfi module. It
+tries to validate a number of numbers that have been found online.
+
+>>> import pprint
+>>> from stdnum import cfi
+>>> from stdnum.exceptions import *
+
+
+Check some obviously invalid numbers.
+
+>>> cfi.validate('123456')
+Traceback (most recent call last):
+    ...
+InvalidFormat: ...
+>>> cfi.validate('ELNUF')
+Traceback (most recent call last):
+    ...
+InvalidLength: ...
+>>> cfi.validate('AAAAAA')
+Traceback (most recent call last):
+    ...
+InvalidComponent: ...
+>>> cfi.validate('XXAAAA')
+Traceback (most recent call last):
+    ...
+InvalidComponent: ...
+>>> cfi.validate('IFXXXZ')
+Traceback (most recent call last):
+    ...
+InvalidComponent: ...
+
+
+Most characters can be replaced by an X.
+
+>>> cfi.validate('DTFNFR')
+'DTFNFR'
+>>> cfi.validate('DTXXXX')
+'DTXXXX'
+>>> cfi.validate('DTFNXX')
+'DTFNXX'
+>>> cfi.validate('DTXNFX')
+'DTXNFX'
+
+
+The info function returns useful information.
+
+>>> pprint.pprint(cfi.info('DTFNFR'))
+{'Form': 'Registered',
+ 'Guarantee or ranking': 'Senior',
+ 'Redemption/reimbursement': 'Fixed maturity',
+ 'Type of interest': 'Fixed rate',
+ 'category': 'Debt instruments',
+ 'group': 'Medium-term notes'}
+>>> pprint.pprint(cfi.info('IFXXXP'))
+{'Delivery': 'Physical', 'category': 'Spot', 'group': 'Foreign exchange'}
+>>> pprint.pprint(cfi.info('IFXXXX'))
+{'category': 'Spot', 'group': 'Foreign exchange'}
+>>> pprint.pprint(cfi.info('DBFNXR'))
+{'Form': 'Registered',
+ 'Guarantee or ranking': 'Senior',
+ 'Type of interest or cash payment': 'Fixed rate',
+ 'category': 'Debt instruments',
+ 'group': 'Bonds'}
+
+
+These should all be valid numbers.
+
+>>> numbers = '''
+...
+... CBMJXS
+... CBOIXS
+... CBOIXX
+... CBXIXX
+... CEMJXU
+... CEOIBU
+... CEOICU
+... CEOIEU
+... CEOIXU
+... CEOJCU
+... CEOJXU
+... CFOGIY
+... CFOIXX
+... CICXXX
+... CIOGBU
+... CIOGEU
+... CIOGEX
+... CIOGLU
+... CIOGLY
+... CIOIBX
+... CIOIEX
+... CIOILX
+... CIOIXX
+... CIOXMX
+... CMXXXX
+... DBFCXB
+... DBFNDB
+... DBFNFB
+... DBFNFR
+... DBFNGB
+... DBFNXR
+... DBFOFB
+... DBFPFB
+... DBFPGB
+... DBFQFB
+... DBFQGB
+... DBVQGB
+... DBVQQB
+... DBVQXB
+... DBVQXR
+... DCFPGB
+... DECXRB
+... DEDFRB
+... DEDFTB
+... DEEXRB
+... DEEXRS
+... DEEXTB
+... DEMFRB
+... DEMFRI
+... DEMVRI
+... DEMXRB
+... DEMXTB
+... DEMYRB
+... DGFSFB
+... DMXXXB
+... DNFNGB
+... DNFNXB
+... DSAFVX
+... DSAXVB
+... DSAXVI
+... DSAXVM
+... DSAXVT
+... DSAYVB
+... DSAYVI
+... DTFCGB
+... DTFNFB
+... DTFNFR
+... DTFNGB
+... DTFNXB
+... EDSNXR
+... ELNUFR
+... ELRUFR
+... ELVUFR
+... EPNNFR
+... EPNNPR
+... EYAYFI
+... EYAYFX
+... EYCXEB
+... EYMXFB
+... EYMXFI
+... EYMXFM
+... EYMXFT
+...
+... '''
+>>> [x for x in numbers.splitlines() if x and not cfi.is_valid(x)]
+[]
