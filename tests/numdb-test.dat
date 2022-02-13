@@ -3,6 +3,7 @@
 0-8 prop1="foo"
   100-999 prop2="bar"
   200,300-399 prop3="baz"
+    333 prop4="bax"
 6 prop1="boo"
   333 prop4="bla"
 90-99 prop1="booz"

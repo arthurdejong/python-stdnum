@@ -54,6 +54,8 @@ To split the number and get properties for each part:
 [('98', {'prop1': 'booz'}), ('89', {'prop2': 'foo'})]
 >>> pprint.pprint(dbfile.info('633322'))
 [('6', {'prop1': 'boo'}), ('333', {'prop2': 'bar', 'prop3': 'baz', 'prop4': 'bla'}), ('22', {})]
+>>> pprint.pprint(dbfile.info('1200333'))
+[('1', {'prop1': 'foo'}), ('200', {'prop2': 'bar', 'prop3': 'baz'}), ('333', {'prop4': 'bax'})]
 
 """
 
@@ -106,7 +108,7 @@ class NumDB():
                     properties = {}
                     next_prefixes = []
                 properties.update(props)
-                next_prefixes.extend(children or [])
+                next_prefixes.extend(children)
         # return first part and recursively find next matches
         return [(part, properties)] + NumDB._find(number[len(part):], next_prefixes)
 
@@ -135,12 +137,13 @@ def _parse(fp):
         indent = len(match.group('indent'))
         ranges = match.group('ranges')
         props = dict(_prop_re.findall(match.group('props')))
+        children = []
         for rnge in ranges.split(','):
             if '-' in rnge:
                 low, high = rnge.split('-')
             else:
                 low, high = rnge, rnge
-            yield indent, len(low), low, high, props
+            yield indent, len(low), low, high, props, children
 
 
 def read(fp):
@@ -148,12 +151,11 @@ def read(fp):
     last_indent = 0
     db = NumDB()
     stack = {0: db.prefixes}
-    for indent, length, low, high, props in _parse(fp):
+    for indent, length, low, high, props, children in _parse(fp):
         if indent > last_indent:
-            # populate the children field of the last indent
-            stack[last_indent][-1][4] = []
+            # set our stack location to the last parent entry
             stack[indent] = stack[last_indent][-1][4]
-        stack[indent].append([length, low, high, props, None])
+        stack[indent].append([length, low, high, props, children])
         last_indent = indent
     return db
 
