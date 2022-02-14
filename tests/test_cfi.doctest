@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 This file contains more detailed doctests for the stdnum.cfi module. It
 tries to validate a number of numbers that have been found online.
 
->>> import pprint
+>>> import json
 >>> from stdnum import cfi
 >>> from stdnum.exceptions import *
 
@@ -64,23 +64,34 @@ Most characters can be replaced by an X.
 
 The info function returns useful information.
 
->>> pprint.pprint(cfi.info('DTFNFR'))
-{'Form': 'Registered',
- 'Guarantee or ranking': 'Senior',
- 'Redemption/reimbursement': 'Fixed maturity',
- 'Type of interest': 'Fixed rate',
- 'category': 'Debt instruments',
- 'group': 'Medium-term notes'}
->>> pprint.pprint(cfi.info('IFXXXP'))
-{'Delivery': 'Physical', 'category': 'Spot', 'group': 'Foreign exchange'}
->>> pprint.pprint(cfi.info('IFXXXX'))
-{'category': 'Spot', 'group': 'Foreign exchange'}
->>> pprint.pprint(cfi.info('DBFNXR'))
-{'Form': 'Registered',
- 'Guarantee or ranking': 'Senior',
- 'Type of interest or cash payment': 'Fixed rate',
- 'category': 'Debt instruments',
- 'group': 'Bonds'}
+>>> print(json.dumps(cfi.info('DTFNFR'), indent=2, sort_keys=True))
+{
+    "Form": "Registered",
+    "Guarantee or ranking": "Senior",
+    "Redemption/reimbursement": "Fixed maturity",
+    "Type of interest": "Fixed rate",
+    "category": "Debt instruments",
+    "group": "Medium-term notes"
+}
+>>> print(json.dumps(cfi.info('IFXXXP'), indent=2, sort_keys=True))
+{
+  "Delivery": "Physical",
+  "category": "Spot",
+  "group": "Foreign exchange"
+}
+>>> print(json.dumps(cfi.info('IFXXXX'), indent=2, sort_keys=True))
+{
+  "category": "Spot",
+  "group": "Foreign exchange"
+}
+>>> print(json.dumps(cfi.info('DBFNXR'), indent=2, sort_keys=True))
+{
+  "Form": "Registered",
+  "Guarantee or ranking": "Senior",
+  "Type of interest or cash payment": "Fixed rate",
+  "category": "Debt instruments",
+  "group": "Bonds"
+}
 
 
 These should all be valid numbers.

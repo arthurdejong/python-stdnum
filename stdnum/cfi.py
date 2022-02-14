@@ -35,8 +35,16 @@ More information:
 Traceback (most recent call last):
     ...
 InvalidComponent: ...
->>> info('ELNUFR')['Payment status']
-'Fully paid'
+>>> import json
+>>> print(json.dumps(info('ELNUFR'), indent=2, sort_keys=True))
+{
+  "Form": "Registered",
+  "Ownership/transfer/sales restrictions": "Free",
+  "Payment status": "Fully paid",
+  "Voting right": "Non-voting",
+  "category": "Equities",
+  "group": "Limited partnership units"
+}
 """
 
 from stdnum import numdb
