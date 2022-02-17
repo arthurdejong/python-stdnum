@@ -51,7 +51,7 @@ def checksum(number):
 def calc_check_digits(number):
     """Calculate the extra digits that should be appended to the number to
     make it a valid number."""
-    return '%02d' % ((98 - 100 * checksum(number)) % 97)
+    return '%02d' % (98 - 100 * checksum(number))
 
 
 def validate(number):
