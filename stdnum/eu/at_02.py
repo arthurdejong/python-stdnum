@@ -86,4 +86,4 @@ def calc_check_digits(number):
     number = compact(number)
     # replace check digits with placeholders
     number = ''.join((number[:2], '00', number[4:]))
-    return mod_97_10.calc_check_digits(_to_base10(number)[:-2])
+    return mod_97_10.calc_check_digits(_to_base10(number))

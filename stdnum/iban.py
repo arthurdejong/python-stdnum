@@ -72,7 +72,7 @@ def calc_check_digits(number):
     """Calculate the check digits that should be put in the number to make
     it valid. Check digits in the supplied number are ignored."""
     number = compact(number)
-    return mod_97_10.calc_check_digits(number[4:] + number[:2])
+    return mod_97_10.calc_check_digits(number[4:] + number[:2] + '00')
 
 
 def _struct_to_re(structure):

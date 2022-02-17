@@ -22,15 +22,15 @@
 The Mod 97, 10 algorithm evaluates the whole number as an integer which is
 valid if the number modulo 97 is 1. As such it has two check digits.
 
->>> calc_check_digits('99991234567890121414')
+>>> calc_check_digits('9999123456789012141400')
 '90'
 >>> validate('9999123456789012141490')
 '9999123456789012141490'
->>> calc_check_digits('4354111611551114')
+>>> calc_check_digits('435411161155111400')
 '31'
 >>> validate('08686001256515001121751')
 '08686001256515001121751'
->>> calc_check_digits('22181321402534321446701611')
+>>> calc_check_digits('2218132140253432144670161100')
 '35'
 """
 
@@ -51,7 +51,7 @@ def checksum(number):
 def calc_check_digits(number):
     """Calculate the extra digits that should be appended to the number to
     make it a valid number."""
-    return '%02d' % (98 - 100 * checksum(number))
+    return '%02d' % (98 - checksum(number))
 
 
 def validate(number):
