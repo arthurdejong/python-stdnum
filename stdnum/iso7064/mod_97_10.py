@@ -32,6 +32,13 @@ valid if the number modulo 97 is 1. As such it has two check digits.
 '08686001256515001121751'
 >>> calc_check_digits('2218132140253432144670161100')
 '35'
+>>> validate('80000821490000000009SE98')
+'80000821490000000009SE98'
+>>> calc_check_digits('80000821490000000009SE')
+'98'
+>>> validate('80000821490000000009SE01')
+Traceback (most recent call last):
+InvalidChecksum
 """
 
 from stdnum.exceptions import *
@@ -57,7 +64,7 @@ def calc_check_digits(number):
 def validate(number):
     """Check whether the check digit is valid."""
     try:
-        valid = checksum(number) == 1
+        valid = calc_check_digits(number[:-2] + '00') == number[-2:]
     except Exception:  # noqa: B902
         raise InvalidFormat()
     if not valid:
