@@ -68,7 +68,7 @@ def validate(number):
         sum_of_digits = 0
         for digit in str(number):
             sum_of_digits += int(digit)
-        if(sum_of_digits % 5)
+        if sum_of_digits % 5:
             raise InvalidChecksum()
     siren.validate(number[:9])
     return number
