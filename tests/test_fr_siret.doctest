@@ -24,6 +24,21 @@ This file contains more detailed doctests for the stdnum.fr.siret module.
 >>> from stdnum.exceptions import *
 
 
+La Poste SIRET does not use the Luhn checksum but the sum of digits must be a
+multiple of 5.
+
+>>> siret.validate('356 000 000 09075')
+'35600000009075'
+>>> siret.validate('35600000000048')
+'35600000000048'
+>>> siret.validate('35600000049837')
+'35600000049837'
+>>> siret.validate('35600000049838')
+Traceback (most recent call last):
+    ...
+InvalidChecksum: ...
+
+
 These have been found online and should all be valid numbers.
 
 >>> numbers = '''

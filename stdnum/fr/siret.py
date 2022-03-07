@@ -22,7 +22,12 @@
 
 The SIRET (Système d'Identification du Répertoire des ETablissements)
 is a 14 digit number used to identify French companies' establishments
-and facilities. The Luhn checksum is used to validate the numbers.
+and facilities. The Luhn checksum is used to validate the numbers (except
+for La Poste).
+
+More information:
+
+* https://fr.wikipedia.org/wiki/Système_d'identification_du_répertoire_des_établissements
 
 >>> validate('73282932000074')
 '73282932000074'
@@ -62,7 +67,13 @@ def validate(number):
         raise InvalidFormat()
     if len(number) != 14:
         raise InvalidLength()
-    luhn.validate(number)
+    # La Poste SIRET (except the head office) do not use the Luhn checksum
+    # but the sum of digits must be a multiple of 5
+    if number.startswith('356000000') and number != '35600000000048':
+        if sum(map(int, number)) % 5 != 0:
+            raise InvalidChecksum()
+    else:
+        luhn.validate(number)
     siren.validate(number[:9])
     return number
 
