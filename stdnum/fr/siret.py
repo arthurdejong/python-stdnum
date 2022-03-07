@@ -26,6 +26,8 @@ and facilities. The Luhn checksum is used to validate the numbers.
 
 >>> validate('73282932000074')
 '73282932000074'
+>>> validate('35600000009075')
+'35600000009075'
 >>> validate('73282932000079')
 Traceback (most recent call last):
     ...
