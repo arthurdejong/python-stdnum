@@ -62,7 +62,14 @@ def validate(number):
         raise InvalidFormat()
     if len(number) != 14:
         raise InvalidLength()
-    luhn.validate(number)
+    try:
+        luhn.validate(number)
+    except InvalidChecksum:
+        sum_of_digits = 0
+        for digit in str(number):
+            sum_of_digits += int(digit)
+        if(sum_of_digits % 5)
+            raise InvalidChecksum()
     siren.validate(number[:9])
     return number
 
