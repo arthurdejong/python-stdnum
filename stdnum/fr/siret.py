@@ -30,6 +30,19 @@ and facilities. The Luhn checksum is used to validate the numbers.
 Traceback (most recent call last):
     ...
 InvalidChecksum: ...
+
+La Poste SIRET does not use the Luhn checksum but the sum of digits must be a
+multiple of 5.
+
+>>> validate('35600000000048')
+'35600000000048'
+>>> validate('35600000049837')
+'35600000049837'
+>>> validate('35600000049838')
+Traceback (most recent call last):
+    ...
+InvalidChecksum: ...
+
 >>> to_siren('732 829 320 00074')
 '732 829 320'
 >>> to_siren('73282932000074')
@@ -62,7 +75,11 @@ def validate(number):
         raise InvalidFormat()
     if len(number) != 14:
         raise InvalidLength()
-    luhn.validate(number)
+    if number.startswith('356000000') and number != '35600000000048':
+        if sum(map(int, number)) % 5:
+            raise InvalidChecksum()
+    else:
+        luhn.validate(number)
     siren.validate(number[:9])
     return number
 
