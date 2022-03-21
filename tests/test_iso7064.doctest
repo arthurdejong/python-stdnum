@@ -1,6 +1,6 @@
 test_doctest - more detailed doctests for the stdnum.iso7064 package
 
-Copyright (C) 2010, 2011, 2013 Arthur de Jong
+Copyright (C) 2010-2022 Arthur de Jong
 
 This library is free software; you can redistribute it and/or
 modify it under the terms of the GNU Lesser General Public
@@ -68,3 +68,14 @@ These normal tests of Mod 37, 2 should just work
 
 >>> mod_37_2.calc_check_digit('G123498654321')
 'H'
+
+
+The Mod 97, 10 check digit suggestion should prefer check digits in the
+range of 02 to 98 as is used in IBAN.
+
+>>> mod_97_10.calc_check_digits('5367')
+'02'
+>>> mod_97_10.calc_check_digits('5303')
+'97'
+>>> mod_97_10.calc_check_digits('5335')
+'98'
