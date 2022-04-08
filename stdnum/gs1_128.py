@@ -148,6 +148,14 @@ def _decode_value(fmt, _type, value):
             return datetime.datetime.strptime(value, '%y%m%d%H%M')
         elif len(value) == 12:
             return (_decode_value(fmt, _type, value[:6]), _decode_value(fmt, _type, value[6:]))
+        elif len(value) == 6 and value[4:] == '00':
+            # When day == '00', it must be interpreted as last day of month
+            date = datetime.datetime.strptime(value[:4], '%y%m')
+            if date.month == 12:
+                date = date.replace(day=31)
+            else:
+                date = date.replace(month=date.month + 1, day=1) - datetime.timedelta(days=1)
+            return date.date()
         return datetime.datetime.strptime(value, '%y%m%d').date()
     elif _type == 'int':
         return int(value)
