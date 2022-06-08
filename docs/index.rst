@@ -153,6 +153,7 @@ Available formats
    cu.ni
    cusip
    cy.vat
+   cz.bankaccount
    cz.dic
    cz.rc
    de.handelsregisternummer
