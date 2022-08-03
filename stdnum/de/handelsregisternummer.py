@@ -229,6 +229,7 @@ _courts.update(
         ('Bad Homburg', 'Bad Homburg v.d.H.'),
         ('Berlin', 'Berlin (Charlottenburg)'),
         ('Charlottenburg', 'Berlin (Charlottenburg)'),
+        ('Charlottenburg (Berlin)', 'Berlin (Charlottenburg)'),
         ('Kaln', 'Köln'),  # for encoding issues
         ('Kempten', 'Kempten (Allgäu)'),
         ('Ludwigshafen am Rhein (Ludwigshafen)', 'Ludwigshafen a.Rhein (Ludwigshafen)'),
