@@ -69,7 +69,7 @@ _iso_3116_1_country_codes = [
     'TV', 'TW', 'TZ', 'UA', 'UG', 'UM', 'US', 'UY', 'UZ', 'VA', 'VC', 'VE',
     'VG', 'VI', 'VN', 'VU', 'WF', 'WS', 'YE', 'YT', 'ZA', 'ZM', 'ZW']
 
-# These special code are allowed for ISIN
+# These special codes are allowed for ISIN
 _country_codes = set(_iso_3116_1_country_codes + [
     'EU',  # European Union
     'QS',  # internally used by Euroclear France
