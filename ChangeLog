@@ -122,7 +122,7 @@
 2021-08-07  Dimitri Papadopoulos
 <3234522+DimitriPapadopoulos@users.noreply.github.com>
 
-	* [dcdb5c9] stdnum/exceptions.py: Explicilty define exported
+	* [dcdb5c9] stdnum/exceptions.py: Explicitly define exported
 	  exceptions
 
 	  LGTM alert: Import pollutes the enclosing namespace
@@ -1156,7 +1156,7 @@
 
 	* [ac50afa] stdnum/do/ncf.py: Change DGII form parameters
 
-	  DGII has changed their validation mechanism, so we first exract
+	  DGII has changed their validation mechanism, so we first extract
 	  the __EVENTVALIDATION and __VIEWSTATE from the form and put them
 	  in the post request for validation.
 
@@ -2955,7 +2955,7 @@ Jong <arthur@arthurdejong.org>
 	  extra tests for SIREN and SIRET
 
 	  This adds tests for a few numbers that have been found online
-	  and allows the dot as a seprator because those numbers were found.
+	  and allows the dot as a separator because those numbers were found.
 
 	  It also ensures that the SIREN validation is also called for
 	  SIRET and adds a SIRET formatting function.
@@ -3754,7 +3754,7 @@ Jong <arthur@arthurdejong.org>
 
 2014-03-05  Jussi Räsänen <jussi@skyred.fi>
 
-	* [2405c89] stdnum/eu/vat.py: Added a simple backwards compability
+	* [2405c89] stdnum/eu/vat.py: Added a simple backwards compatibility
 	  check
 
 2014-02-17  Arthur de Jong <arthur@arthurdejong.org>
@@ -4316,7 +4316,7 @@ Jong <arthur@arthurdejong.org>
 
 2013-04-26  Arthur de Jong <arthur@arthurdejong.org>
 
-	* [30c832f] stdnum/numdb.py: Fix doctest to not be dependant on
+	* [30c832f] stdnum/numdb.py: Fix doctest to not be dependent on
 	  dict ordering
 
 2013-04-26  Arthur de Jong <arthur@arthurdejong.org>
@@ -4416,7 +4416,7 @@ Jong <arthur@arthurdejong.org>
 2012-02-24  Arthur de Jong <arthur@arthurdejong.org>
 
 	* [ae9268b] stdnum/cz/rc.py: make the get_birth_date() function
-	  publically available
+	  publicly available
 
 2012-02-24  Arthur de Jong <arthur@arthurdejong.org>
 
