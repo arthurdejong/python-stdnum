@@ -1,0 +1,273 @@
+test_ke_pin.doctest - more detailed doctests for stdnum.ke.pin module
+
+Copyright (C) 2022 Leandro Regueiro
+
+This library is free software; you can redistribute it and/or
+modify it under the terms of the GNU Lesser General Public
+License as published by the Free Software Foundation; either
+version 2.1 of the License, or (at your option) any later version.
+
+This library is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+Lesser General Public License for more details.
+
+You should have received a copy of the GNU Lesser General Public
+License along with this library; if not, write to the Free Software
+Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
+02110-1301 USA
+
+
+This file contains more detailed doctests for the stdnum.ke.pin module. It
+tries to test more corner cases and detailed functionality that is not really
+useful as module documentation.
+
+>>> from stdnum.ke import pin
+
+
+Tests for some corner cases.
+
+>>> pin.validate('A006665913Y')
+'A006665913Y'
+>>> pin.validate('P 051193029-r')
+'P051193029R'
+>>> pin.format('P 051193029-r')
+'P051193029R'
+>>> pin.validate('12345')
+Traceback (most recent call last):
+    ...
+InvalidLength: ...
+>>> pin.validate('X1234567897')
+Traceback (most recent call last):
+    ...
+InvalidFormat: ...
+
+
+These have been found online and should all be valid numbers.
+
+>>> numbers = '''
+...
+... A004416331M
+... P051365947M
+... P000594434U
+... P000619379O
+... P000609147B
+... P000595101M
+... P000594873H
+... P000608609Y
+... P000605255W
+... P000591260N
+... P000591376W
+... P051126254X
+... P000609718Z
+... P000594487J
+... P000599642I
+... P000615147U
+... P000619594P
+... P000608167F
+... P000609671I
+... P000597382L
+... P000598207Z
+... P000596967Q
+... P051099534I
+... P051116151S
+... P000597694S
+... P000597676Q
+... P000591115C
+... P000597819E
+... P051117306P
+... P000615058Y
+... P000608932A
+... P051124533N
+... P051123493Y
+... P051106014G
+... P051102575T
+... P051159129C
+... P051094112J
+... P000592089D
+... P000591575X
+... P000605619R
+... P051120393R
+... P000611519E
+... P051141902D
+... P000604053O
+... P000595728D
+... P051097904C
+... P000592118K
+... P051110833H
+... P000598418B
+... P051132776Z
+... P000592851X
+... P051127959L
+... P000602904I
+... P000598609F
+... P000603130E
+... P051092962C
+... P051100289S
+... P000595362D
+... P000607298L
+... P000592366Z
+... P000593471Z
+... P000593248W
+... P000596998X
+... P000637719Z
+... P000603639S
+... P000598522B
+... P000598224A
+... P000610622O
+... P051098974U
+... P051100248H
+... P051194673F
+... P000592265X
+... P051102426H
+... P000593809V
+... P051151506E
+... P000596373I
+... P051160236J
+... P000602920I
+... P000607322Q
+... P051094227U
+... P000595438C
+... P000607839E
+... P051130656Q
+... P051104242J
+... P051093274B
+... P000597143A
+... P000613824O
+... P000595467J
+... P051147495M
+... P000595273F
+... P051139006S
+... P000605674D
+... P000615432Q
+... P000606270X
+... P000600314X
+... P000595037X
+... P000618428A
+... P000594433T
+... P000598330Z
+... P000599567S
+... P000595108T
+... P051127968M
+... P051153177Y
+... P051170839T
+... P051155350V
+... P051133887F
+... P000591465U
+... P000591400B
+... P000619647H
+... P000609354E
+... P000609363F
+... P000609346C
+... P000593916S
+... P051153543Q
+... P000611951N
+... P000609364G
+... P051099723H
+... P000609367J
+... P000612260M
+... P000609358I
+... P000609355F
+... P000612829R
+... P000609340W
+... P000609370E
+... P051124237Z
+... P000609342Y
+... P000609351B
+... P000609360C
+... P000609361D
+... P000612067R
+... P000609362E
+... P000609344A
+... P051092778I
+... P051099651M
+... P051149832D
+... P000609341X
+... P051141061H
+... P000609237A
+... P000609348E
+... P051097559P
+... P000633040I
+... P000609345B
+... P000609356G
+... P000609357H
+... P051112430E
+... P000609359J
+... P000609365H
+... P000597328D
+... P000629820Z
+... A003830226L
+... P051391353w
+... P051603577M
+... P051535738M
+... A005843372D
+... A008965081L
+... P051474338E
+... P051317087M
+... A004764821W
+... P051699934A
+... P000609661G
+... P051685012Z
+... P051179723E
+... A002879232G
+... P051550157P
+... P057170514E
+... P051332840T
+... A051320913J
+... A004707516v
+... A005171423w
+... A015002408V
+... A010165600x
+... A002395263x
+... A002634525Q
+... p051896085c
+... P051886910M
+... A014678229G
+... p051317251C
+... p051546097V
+... A005109050I
+... P051909085B
+... P051302178Z
+... p051606652M
+... P051647363S
+... A009466650E
+... A003364162P
+... P051912053E
+... A005513520K
+... A003436730Q
+... A004690554X
+... P051855612G
+... P051576375V
+... A001906275H
+... P051675891A
+... A005556834C
+... A005464458A
+... P051423549C
+... P051936953Z
+... P051828116I
+... P051542973M
+... P051411895F
+... P051408606C
+... P051351120F
+... P000621047H
+... A001197447T
+... P051172781A
+... P051099232O
+... P000614337Q
+... A001693007M
+... P051185589P
+... P051239191N
+... P051373515S
+... A003047750R
+... A001974052Z
+... P051129820X
+... P000594948F
+... P000595091F
+... P000595351A
+... P000611975V
+... P051093067A
+... P051094522S
+...
+... '''
+>>> [x for x in numbers.splitlines() if x and not pin.is_valid(x)]
+[]
