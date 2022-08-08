@@ -59,7 +59,7 @@ if __name__ == '__main__':
     # output the collected data
     for i, data in values.items():
         bban = data['BBAN structure']
-        if not(bban) or bban.lower() == 'n/a':
+        if not bban or bban.lower() == 'n/a':
             bban = data['IBAN structure']
         bban = bban.replace(' ', '')
         cc = data['IBAN prefix country code (ISO 3166)'][:2]
