@@ -57,8 +57,7 @@ def validate(number):
     if len(number) != 11:
         raise InvalidLength()
     # check the province of residence
-    if not('001' <= number[7:10] <= '100') and \
-            number[7:10] not in ('120', '121', '888', '999'):
+    if not ('001' <= number[7:10] <= '100' or number[7:10] in ('120', '121', '888', '999')):
         raise InvalidComponent()
     luhn.validate(number)
     return number
