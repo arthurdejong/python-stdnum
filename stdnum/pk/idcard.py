@@ -41,16 +41,6 @@ from stdnum.exceptions import *
 from stdnum.util import clean, isdigits
 
 
-# Valid Province IDs
-PROVINCES = {
-            1:  'KP',
-            2:  'FATA',
-            3:  'Punjab',
-            4:  'Sindh', 
-            5:  'Balochistan',
-            6:  'Islamabad',
-            7:  'Gilgit-Baltistan',
-            }
 @unique
 class Province(IntEnum):
     KP                  = 1
@@ -62,11 +52,17 @@ class Province(IntEnum):
     GILGIT_BALTISTAN    = 7
 
     @classmethod
-    def keys(cls):
+    def keys(cls)->list:
+        '''
+        Returns enum keys
+        '''
         return list(map(lambda c: c.value, cls))
 
     @classmethod
-    def assign(cls, value):
+    def assign(cls, value:str):
+        '''
+        Get Enum for a corresponding value
+        '''
         for item in list(cls):
             if item.value == int(value):
                 return Province[item.name]
@@ -77,8 +73,8 @@ class Gender(IntEnum):
     """
     Enum for gender
     """
-    MALE = 0
-    FEMALE = 1
+    MALE    = 0
+    FEMALE  = 1
 
 def compact(number:str) -> str:
     """Convert the number to the minimal representation. This strips the
@@ -86,7 +82,7 @@ def compact(number:str) -> str:
     return clean(number, '-').strip()
 
 
-def get_description(number):
+def get_description(number:str):
     """
     Get detailed description of the CNIC.
     It also serves as a checksum. The return
@@ -128,11 +124,11 @@ def get_description(number):
     }
  
 
-def calc_check_digit(number):
+def calc_check_digit(number : str) -> bool:
     """Calculate the checksum."""
     return len(number)==13
 
-def validate(number):
+def validate(number : str) -> str:
     """Check if the number is a valid CNIC/SNIC. This checks the length, formatting
     and check digit."""
     number = compact(number)
