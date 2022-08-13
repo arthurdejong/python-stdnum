@@ -25,30 +25,22 @@ jobs:
         run: python -m pip install --upgrade pip tox
       - name: Run tox
         run: tox -e "$(echo py${{ matrix.python-version }} | sed -e 's/[.]//g;s/pypypy/pypy/')" --skip-missing-interpreters false
-  docs:
+  tox_job:
     runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        tox_job: [docs, flake8]
     steps:
       - uses: actions/checkout@v3
-      - name: Set up Python 3.8
+      - name: Set up Python
         uses: actions/setup-python@v4
         with:
-          python-version: 3.8
+          python-version: 3.x
       - name: Install dependencies
         run: python -m pip install --upgrade pip tox
-      - name: Run tox
-        run: tox -e docs --skip-missing-interpreters false
-  flake8:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-      - name: Set up Python 3.8
-        uses: actions/setup-python@v4
-        with:
-          python-version: 3.8
-      - name: Install dependencies
-        run: python -m pip install --upgrade pip tox
-      - name: Tox
-        run: tox -e flake8 --skip-missing-interpreters false
+      - name: Run tox ${{ matrix.tox_job }}
+        run: tox -e ${{ matrix.tox_job }} --skip-missing-interpreters false
   CodeQL:
     runs-on: ubuntu-latest
     permissions:
