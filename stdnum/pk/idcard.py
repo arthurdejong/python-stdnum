@@ -26,6 +26,14 @@ Pakistani citizens.
 More Information:
 * https://en.wikipedia.org/wiki/CNIC_(Pakistan)
 * https://www.geo.tv/latest/157233-secret-behind-every-digit-of-the-cnic-number
+
+
+>>> validate('34201-0891231-8')
+'3420108912318'
+>>> validate('42201-0397640-8')
+'4220103976408'
+>>> format('3420108912318')
+'34201-0891231-8'
 """
 
 from enum import IntEnum, unique
@@ -63,7 +71,7 @@ class Province(IntEnum):
             if item.value == int(value):
                 return Province[item.name]
         raise InvalidChecksum
-        
+
 @unique
 class Gender(IntEnum):
     """
@@ -80,14 +88,17 @@ def compact(number:str) -> str:
 
 def get_description(number):
     """
-    Get detailed description of the CNIC
+    Get detailed description of the CNIC.
+    It also serves as a checksum. The return
+    obect is for information and possible future
+    use case. 
     """
     
     # The first five digit is locality
-    locality    = number[0:5]
+    locality        = number[0:5]
 
-    family_id   = number[5:12]
-    gender      = number[-1]
+    family_id       = number[5:12]
+    gender          = number[-1]
 
     province        = number[0]
     division        = number[1]
@@ -115,8 +126,7 @@ def get_description(number):
             'tehsil'    : tehsil,
         'union-council' : union_council
     }
-
-    
+ 
 
 def calc_check_digit(number):
     """Calculate the checksum."""
@@ -126,12 +136,17 @@ def validate(number):
     """Check if the number is a valid CNIC/SNIC. This checks the length, formatting
     and check digit."""
     number = compact(number)
+    
+    # This function will automatically raise exception
+    # related to a checksum
+    get_description(number)
     if not isdigits(number):
         raise InvalidFormat()
     if len(number) != 13:
         raise InvalidLength()
     if not calc_check_digit(number):
         raise InvalidChecksum()
+    
     return number
 
 
