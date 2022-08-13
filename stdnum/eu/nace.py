@@ -50,7 +50,7 @@ Traceback (most recent call last):
 InvalidLength: ...
 >>> format('6201')
 '62.01'
-"""
+"""  # noqa: E501
 
 import warnings
 

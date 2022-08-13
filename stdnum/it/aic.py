@@ -45,7 +45,7 @@ More information:
 '009CVD'
 >>> from_base32('009CVD')
 '000307052'
-"""
+"""  # noqa: E501
 
 from stdnum.exceptions import *
 from stdnum.util import clean, isdigits

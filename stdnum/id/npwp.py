@@ -45,7 +45,7 @@ Traceback (most recent call last):
 InvalidLength: ...
 >>> format('013000666091000')
 '01.300.066.6-091.000'
-"""
+"""  # noqa: E501
 
 from stdnum import luhn
 from stdnum.exceptions import *

@@ -59,7 +59,7 @@ Traceback (most recent call last):
 InvalidLength: ...
 >>> format('06140507071048')
 '0614-050707-104-8'
-"""
+"""  # noqa: E501
 
 from stdnum.exceptions import *
 from stdnum.util import clean, isdigits

@@ -42,7 +42,7 @@ Traceback (most recent call last):
 InvalidComponent: ...
 >>> format('D059888N')
 'D-059888-N'
-"""
+"""  # noqa: E501
 
 from stdnum.exceptions import *
 from stdnum.util import clean, isdigits

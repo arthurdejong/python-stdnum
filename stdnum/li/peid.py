@@ -37,7 +37,7 @@ More information:
 Traceback (most recent call last):
     ...
 InvalidLength: The number has an invalid length.
-"""
+"""  # noqa: E501
 
 from stdnum.exceptions import *
 from stdnum.util import clean, isdigits

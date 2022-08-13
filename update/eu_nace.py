@@ -30,7 +30,7 @@ import requests
 
 
 # the location of the Statistical Classification file
-download_url = 'https://ec.europa.eu/eurostat/ramon/nomenclatures/index.cfm?TargetUrl=ACT_OTH_CLS_DLD&StrNom=NACE_REV2&StrFormat=XML&StrLanguageCode=EN'
+download_url = 'https://ec.europa.eu/eurostat/ramon/nomenclatures/index.cfm?TargetUrl=ACT_OTH_CLS_DLD&StrNom=NACE_REV2&StrFormat=XML&StrLanguageCode=EN'  # noqa: E501
 
 
 if __name__ == '__main__':

@@ -41,7 +41,7 @@ Traceback (most recent call last):
 InvalidLength: ...
 >>> format('084308984-8')
 '0843089848'
-"""
+"""  # noqa: E501
 
 from stdnum import luhn
 from stdnum.exceptions import *

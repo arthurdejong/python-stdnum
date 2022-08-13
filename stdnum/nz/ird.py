@@ -44,7 +44,7 @@ Traceback (most recent call last):
 InvalidLength: ...
 >>> format('49098576')
 '49-098-576'
-"""
+"""  # noqa: E501
 
 from stdnum.exceptions import *
 from stdnum.util import clean, isdigits

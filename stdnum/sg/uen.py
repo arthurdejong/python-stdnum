@@ -54,7 +54,7 @@ More information:
 Traceback (most recent call last):
     ...
 InvalidLength: ...
-"""
+"""  # noqa: E501
 
 # There are some references to special 10-digit (or 7-digit) numbers that
 # start with an F for foreign companies but it is unclear whether this is

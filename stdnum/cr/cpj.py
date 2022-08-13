@@ -47,7 +47,7 @@ Traceback (most recent call last):
 InvalidLength: ...
 >>> format('4 000 042138')
 '4-000-042138'
-"""
+"""  # noqa: E501
 
 from stdnum.exceptions import *
 from stdnum.util import clean, isdigits
