@@ -1,5 +1,5 @@
 # generated from https://www.gs1.org/standards/barcodes/application-identifiers
-# on 2021-10-02 22:16:35.402284
+# on 2022-08-15 14:20:50.916553
 00 format="N18" type="str" name="SSCC" description="Serial Shipping Container Code (SSCC)"
 01 format="N14" type="str" name="GTIN" description="Global Trade Item Number (GTIN)"
 02 format="N14" type="str" name="CONTENT" description="Global Trade Item Number (GTIN) of contained trade items"
@@ -13,7 +13,7 @@
 20 format="N2" type="str" name="VARIANT" description="Internal product variant"
 21 format="X..20" type="str" fnc1="1" name="SERIAL" description="Serial number"
 22 format="X..20" type="str" fnc1="1" name="CPV" description="Consumer product variant"
-235 format="X..28" type="str" fnc1="1" name="TPX" description="Third Party Controlled, Serialised Extension of GTIN (TPX)"
+235 format="X..28" type="str" fnc1="1" name="TPX" description="Third Party Controlled, Serialised Extension of Global Trade Item Number (GTIN) (TPX)"
 240 format="X..30" type="str" fnc1="1" name="ADDITIONAL ID" description="Additional product identification assigned by the manufacturer"
 241 format="X..30" type="str" fnc1="1" name="CUST. PART NO." description="Customer part number"
 242 format="N..6" type="str" fnc1="1" name="MTO VARIANT" description="Made-to-Order variation number"
@@ -160,6 +160,7 @@
 712 format="X..20" type="str" fnc1="1" name="NHRN CN" description="National Healthcare Reimbursement Number (NHRN) - Spain CN"
 713 format="X..20" type="str" fnc1="1" name="NHRN DRN" description="National Healthcare Reimbursement Number (NHRN) - Brasil DRN"
 714 format="X..20" type="str" fnc1="1" name="NHRN AIM" description="National Healthcare Reimbursement Number (NHRN) - Portugal AIM"
+715 format="X..20" type="str" fnc1="1" name="NHRN NDC" description="National Healthcare Reimbursement Number (NHRN) - United States of America NDC"
 7230 format="X2+X..28" type="str" fnc1="1" name="CERT #1" description="Certification reference"
 7231 format="X2+X..28" type="str" fnc1="1" name="CERT #2" description="Certification reference"
 7232 format="X2+X..28" type="str" fnc1="1" name="CERT #3" description="Certification reference"
