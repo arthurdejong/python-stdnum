@@ -2,7 +2,7 @@
 # coding: utf-8
 #
 # Copyright (C) 2015 Holvi Payment Services Oy
-# Copyright (C) 2018-2019 Arthur de Jong
+# Copyright (C) 2018-2022 Arthur de Jong
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -322,7 +322,7 @@ def is_valid(number):
 
 
 # The base URL for performing lookups
-_offeneregister_url = 'https://db.offeneregister.de/openregister-ef9e802.json'
+_offeneregister_url = 'https://db.offeneregister.de/openregister.json'
 
 
 def check_offeneregister(number, timeout=30):  # pragma: no cover (not part of normal test suite)
