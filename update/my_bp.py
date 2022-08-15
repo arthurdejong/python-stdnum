@@ -2,7 +2,7 @@
 
 # update/my_bp.py - script to download data from Malaysian government site
 #
-# Copyright (C) 2013-2021 Arthur de Jong
+# Copyright (C) 2013-2022 Arthur de Jong
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -55,9 +55,9 @@ def parse(content):
         tds = [clean(td) for td in tr.findall('td')]
         # table has two columns
         if len(tds) >= 2 and tds[0] and tds[1]:
-            yield tds[0], tds[1]
+            yield tds[0], [bp.strip() for bp in tds[1].split(',') if re.match(r' *[0-9]{2} *', bp)]
         if len(tds) >= 4 and tds[2] and tds[3]:
-            yield tds[2], tds[3]
+            yield tds[2], [bp.strip() for bp in tds[3].split(',') if re.match(r' *[0-9]{2} *', bp)]
 
 
 if __name__ == '__main__':
@@ -69,14 +69,15 @@ if __name__ == '__main__':
     response = requests.get(state_list_url, headers=headers, verify='update/my_bp.crt', timeout=30)
     response.raise_for_status()
     for state, bps in parse(response.content):
-        for bp in bps.split(','):
-            results[bp.strip()]['state'] = state
-            results[bp.strip()]['countries'].add('Malaysia')
+        for bp in bps:
+            results[bp]['state'] = state
+            results[bp]['countries'].add('Malaysia')
     # read the countries
     response = requests.get(country_list_url, headers=headers, verify='update/my_bp.crt', timeout=30)
     response.raise_for_status()
-    for country, bp in parse(response.content):
-        results[bp]['countries'].add(country)
+    for country, bps in parse(response.content):
+        for bp in bps:
+            results[bp]['countries'].add(country)
     # print the results
     print('# generated from National Registration Department of Malaysia, downloaded from')
     print('# %s' % state_list_url)
