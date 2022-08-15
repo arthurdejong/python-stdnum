@@ -38,12 +38,14 @@ class TestVies(unittest.TestCase):
 
     def test_check_vies(self):
         """Test stdnum.eu.vat.check_vies()"""
-        result = vat.check_vies('BE555445')
-        self.assertEqual(result['countryCode'], 'BE')
-        self.assertEqual(result['vatNumber'], '555445')
+        result = vat.check_vies('NL4495445B01')
+        self.assertTrue(result['valid'])
+        self.assertEqual(result['countryCode'], 'NL')
+        self.assertEqual(result['vatNumber'], '004495445B01')
 
     def test_check_vies_approx(self):
         """Test stdnum.eu.vat.check_vies_approx()"""
-        result = vat.check_vies_approx('BE555445', 'BE555445')
-        self.assertEqual(result['countryCode'], 'BE')
-        self.assertEqual(result['vatNumber'], '555445')
+        result = vat.check_vies_approx('NL4495445B01', 'NL4495445B01')
+        self.assertTrue(result['valid'])
+        self.assertEqual(result['countryCode'], 'NL')
+        self.assertEqual(result['vatNumber'], '004495445B01')
