@@ -34,7 +34,7 @@ download_url = 'https://ec.europa.eu/eurostat/ramon/nomenclatures/index.cfm?Targ
 
 
 if __name__ == '__main__':
-    response = requests.get(download_url)
+    response = requests.get(download_url, timeout=30)
     response.raise_for_status()
     content_disposition = response.headers.get('content-disposition', '')
     filename = re.findall(r'filename=?(.+)"?', content_disposition)[0].strip('"')

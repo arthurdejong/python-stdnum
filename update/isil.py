@@ -42,7 +42,7 @@ def clean(td):
 
 
 if __name__ == '__main__':
-    response = requests.get(download_url)
+    response = requests.get(download_url, timeout=30)
     response.raise_for_status()
     print('# generated from ISIL Registration Authority, downloaded from')
     print('# %s' % download_url)

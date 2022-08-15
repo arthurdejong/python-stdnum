@@ -155,7 +155,7 @@ def get_mncs_from_wikipedia():
     for page in wikipedia_pages:
         url = 'https://en.wikipedia.org/w/index.php?title=%s&action=raw' % (
             page.replace(' ', '_'))
-        response = requests.get(url)
+        response = requests.get(url, timeout=30)
         response.raise_for_status()
         country = cc = ''
         for line in response.iter_lines(decode_unicode=True):

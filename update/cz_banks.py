@@ -48,7 +48,7 @@ def get_values(csv_reader):
 
 
 if __name__ == '__main__':
-    response = requests.get(download_url)
+    response = requests.get(download_url, timeout=30)
     response.raise_for_status()
     csv_reader = csv.reader(StringIO(response.content.decode('utf-8')), delimiter=';')
     print('# generated from %s downloaded from' % os.path.basename(download_url))

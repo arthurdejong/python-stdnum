@@ -42,7 +42,7 @@ def fetch_ais():
     headers = {
         'User-Agent': user_agent,
     }
-    response = requests.get(download_url, headers=headers)
+    response = requests.get(download_url, headers=headers, timeout=30)
     document = lxml.html.document_fromstring(response.content)
     element = document.findall('.//script[@type="application/ld+json"]')[0]
     for entry in json.loads(element.text)['@graph']:

@@ -58,7 +58,7 @@ def fetch_data():
     """Return the data from tab-separated revisions as one code/name dict."""
     data_collection = OrderedDict()
     for revision in data_revisions:
-        response = requests.get('%s/raw/release/%s.txt' % (data_url, revision))
+        response = requests.get('%s/raw/release/%s.txt' % (data_url, revision), timeout=30)
         response.raise_for_status()
         if response.ok:
             print('%s is fetched' % revision, file=sys.stderr)

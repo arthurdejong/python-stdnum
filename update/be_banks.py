@@ -77,7 +77,7 @@ def get_values(sheet):
 
 
 if __name__ == '__main__':
-    response = requests.get(download_url)
+    response = requests.get(download_url, timeout=30)
     response.raise_for_status()
     workbook = xlrd.open_workbook(file_contents=response.content)
     sheet = workbook.sheet_by_index(0)

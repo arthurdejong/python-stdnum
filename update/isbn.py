@@ -56,7 +56,7 @@ def wrap(text):
 if __name__ == '__main__':
     print('# generated from RangeMessage.xml, downloaded from')
     print('# %s' % download_url)
-    response = requests.get(download_url)
+    response = requests.get(download_url, timeout=30)
     response.raise_for_status()
 
     # parse XML document

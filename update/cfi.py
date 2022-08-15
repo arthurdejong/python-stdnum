@@ -75,14 +75,14 @@ def print_attributes(attributes, index=0):
 
 if __name__ == '__main__':
     # Download the page that contains the link to the current XLS file
-    response = requests.get(download_url)
+    response = requests.get(download_url, timeout=30)
     response.raise_for_status()
     # Find the download link
     document = lxml.html.document_fromstring(response.content)
     links = [a.get('href') for a in document.findall('.//a[@href]')]
     link_url = next(a for a in links if re.match(r'.*/cfi/.*xlsx?$', a))
     # Download and parse the spreadsheet
-    response = requests.get(link_url)
+    response = requests.get(link_url, timeout=30)
     response.raise_for_status()
     workbook = xlrd.open_workbook(file_contents=response.content)
 

@@ -66,14 +66,14 @@ if __name__ == '__main__':
     }
     results = defaultdict(lambda: defaultdict(set))
     # read the states
-    response = requests.get(state_list_url, headers=headers, verify='update/my_bp.crt')
+    response = requests.get(state_list_url, headers=headers, verify='update/my_bp.crt', timeout=30)
     response.raise_for_status()
     for state, bps in parse(response.content):
         for bp in bps.split(','):
             results[bp.strip()]['state'] = state
             results[bp.strip()]['countries'].add('Malaysia')
     # read the countries
-    response = requests.get(country_list_url, headers=headers, verify='update/my_bp.crt')
+    response = requests.get(country_list_url, headers=headers, verify='update/my_bp.crt', timeout=30)
     response.raise_for_status()
     for country, bp in parse(response.content):
         results[bp]['countries'].add(country)

@@ -70,7 +70,7 @@ if __name__ == '__main__':
     # Download and read the ZIP file with valid data
     with tempfile.TemporaryFile() as tmp:
         # Download the zip file to a temporary file
-        response = requests.get(download_url, stream=True)
+        response = requests.get(download_url, stream=True, timeout=30)
         response.raise_for_status()
         print('%s: %s' % (
             os.path.basename(download_url),
