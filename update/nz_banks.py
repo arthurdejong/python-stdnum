@@ -78,7 +78,7 @@ if __name__ == '__main__':
     workbook = xlrd.open_workbook(file_contents=response.content)
     sheet = workbook.sheet_by_index(0)
     # print header
-    print('# generated from %s downloaded from ' % filename)
+    print('# generated from %s downloaded from' % filename)
     print('# %s' % download_url)
     # build banks list from spreadsheet
     banks = defaultdict(dict)
