@@ -2,7 +2,7 @@
 
 # update/imsi.py - script to download from Wikipedia to build the database
 #
-# Copyright (C) 2011-2021 Arthur de Jong
+# Copyright (C) 2011-2022 Arthur de Jong
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -39,12 +39,12 @@ from stdnum import util  # noqa, isort:skip
 # The wikipedia pages to download
 wikipedia_pages = (
     'Mobile country code',
-    'Mobile Network Codes in ITU region 2xx (Europe)',
-    'Mobile Network Codes in ITU region 3xx (North America)',
-    'Mobile Network Codes in ITU region 4xx (Asia)',
-    'Mobile Network Codes in ITU region 5xx (Oceania)',
-    'Mobile Network Codes in ITU region 6xx (Africa)',
-    'Mobile Network Codes in ITU region 7xx (South America)',
+    'Mobile network codes in ITU region 2xx (Europe)',
+    'Mobile network codes in ITU region 3xx (North America)',
+    'Mobile network codes in ITU region 4xx (Asia)',
+    'Mobile network codes in ITU region 5xx (Oceania)',
+    'Mobile network codes in ITU region 6xx (Africa)',
+    'Mobile network codes in ITU region 7xx (South America)',
 )
 
 # Sadly the full list requires an account at ITU-T:
