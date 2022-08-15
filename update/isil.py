@@ -32,7 +32,7 @@ import requests
 spaces_re = re.compile(r'\s+', re.UNICODE)
 
 # the web page that holds information on the ISIL authorities
-download_url = 'https://english.slks.dk/libraries/library-standards/isil/'
+download_url = 'https://slks.dk/english/work-areas/libraries-and-literature/library-standards/isil'
 
 
 def clean(td):

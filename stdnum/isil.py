@@ -1,7 +1,7 @@
 # isil.py - functions for handling identifiers for libraries and related
 #           organizations
 #
-# Copyright (C) 2011-2017 Arthur de Jong
+# Copyright (C) 2011-2022 Arthur de Jong
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
