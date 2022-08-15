@@ -51,9 +51,7 @@ from stdnum.util import clean, isdigits
 def compact(number):
     """Convert the number to the minimal representation. This strips the
     number of any valid separators and removes surrounding whitespace."""
-    number = clean(number, ' -').strip()
-    # pad with leading zeroes
-    return (9 - len(number)) * '0' + number
+    return clean(number, ' -').strip().zfill(9)
 
 
 def validate(number):

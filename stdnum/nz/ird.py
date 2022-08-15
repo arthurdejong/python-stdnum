@@ -66,7 +66,7 @@ def calc_check_digit(number):
     primary_weights = (3, 2, 7, 6, 5, 4, 3, 2)
     secondary_weights = (7, 4, 3, 2, 5, 2, 7, 6)
     # pad with leading zeros
-    number = (8 - len(number)) * '0' + number
+    number = number.zfill(8)
     s = -sum(w * int(n) for w, n in zip(primary_weights, number)) % 11
     if s != 10:
         return str(s)

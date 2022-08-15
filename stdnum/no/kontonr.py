@@ -96,8 +96,7 @@ def to_iban(number):
 
 def format(number):
     """Reformat the number to the standard presentation format."""
-    number = compact(number)
-    number = (11 - len(number)) * '0' + number
+    number = compact(number).zfill(11)
     return '.'.join([
         number[:4],
         number[4:6],

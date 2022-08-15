@@ -129,6 +129,5 @@ def is_valid(number):
 
 def from_natid(country_code, number):
     """Generate an ISIN from a national security identifier."""
-    number = compact(number)
-    number = country_code.upper() + (9 - len(number)) * '0' + number
+    number = country_code.upper() + compact(number).zfill(9)
     return number + calc_check_digit(number)

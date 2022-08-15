@@ -92,7 +92,6 @@ def is_valid(number):
 
 def format(number):
     """Reformat the number to the standard presentation format."""
-    number = 27 * '0' + compact(number)
-    number = number[-27:]
+    number = compact(number).zfill(27)
     return number[:2] + ' ' + ' '.join(
         number[i:i + 5] for i in range(2, len(number), 5))
