@@ -1,0 +1,153 @@
+test_ma_ice.doctest - more detailed doctests for stdnum.ma.ice module
+
+Copyright (C) 2022 Leandro Regueiro
+
+This library is free software; you can redistribute it and/or
+modify it under the terms of the GNU Lesser General Public
+License as published by the Free Software Foundation; either
+version 2.1 of the License, or (at your option) any later version.
+
+This library is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+Lesser General Public License for more details.
+
+You should have received a copy of the GNU Lesser General Public
+License along with this library; if not, write to the Free Software
+Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
+02110-1301 USA
+
+
+This file contains more detailed doctests for the stdnum.ma.ice module. It
+tries to test more corner cases and detailed functionality that is not really
+useful as module documentation.
+
+>>> from stdnum.ma import ice
+
+
+Tests for some corner cases.
+
+>>> ice.validate('001561191000066')
+'001561191000066'
+>>> ice.validate('12345')
+Traceback (most recent call last):
+    ...
+InvalidLength: ...
+>>> ice.validate('X0156119100006Z')
+Traceback (most recent call last):
+    ...
+InvalidFormat: ...
+>>> ice.format('00 21 36 09 30 00 040')
+'002136093000040'
+>>> ice.format('36794000036')
+'000036794000036'
+
+
+These have been found online and should all be valid numbers.
+
+>>> numbers = '''
+...
+... 000030205000041
+... 000039557000028
+... 000084803000004
+... 000106304000022
+... 000121494000008
+... 000206981000071
+... 00 21 36 09 30 00 040
+... 001512572000078
+... 001561191000066
+... 001565457000023
+... 001604356000066
+... 001629924000079
+... 001680801000017
+... 001731355000043
+... 001744856000042
+... 001747979000014
+... 001748885000093
+... 001753989000025
+... 001757319000034
+... 001827913000046
+... 001867807000093
+... 001883389000068
+... 001887940000090
+... 001906225000028
+... 001911196000059
+... 001965640000009
+... 001974718000022
+... 001976463000049
+... 001985336000068
+... 001996344000060
+... 002007999000043
+... 002020847000019
+... 002023181000051
+... 002033432000015
+... 002034945000001
+... 002037826000008
+... 002058647000053
+... 002063738000045
+... 002064672000047
+... 002076600000031
+... 002085583000087
+... 002105112000096
+... 002117772000007
+... 002143491000017
+... 002153925000084
+... 002171831000070
+... 002175561000046
+... 002183254000012
+... 002196660000054
+... 002200638000027
+... 002214705000070
+... 002223396000056
+... 002229460000064
+... 002270907000084
+... 002276099000065
+... 002284350000097
+... 002289496000059
+... 002295895000043
+... 002316916000023
+... 002329576000031
+... 002330015000012
+... 002332839000006
+... 002333592000045
+... 002335910000024
+... 002336083000009
+... 002356463000030
+... 002362254000037
+... 002364621000051
+... 002397991000094
+... 002398966000056
+... 002404272000063
+... 002410367000010
+... 002411901000011
+... 002428800000026
+... 002434341000090
+... 002443493000045
+... 002533410000002
+... 002539687000079
+... 002548326000014
+... 002553650000020
+... 002567289000076
+... 002581462000070
+... 002586051000036
+... 002591358000016
+... 002604451000070
+... 002614910000044
+... 002627640000005
+... 002630734000081
+... 002667689000038
+... 002672505000083
+... 002673962000029
+... 002701712000007
+... 002702346000058
+... 002738846000078
+... 002753855000004
+... 002848452000089
+... 002855545000056
+... 002904997000057
+... 003004995000009
+... 003102867000036
+...
+... '''
+>>> [x for x in numbers.splitlines() if x and not ice.is_valid(x)]
+[]
