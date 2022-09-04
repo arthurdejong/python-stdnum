@@ -1,0 +1,159 @@
+test_dz_nif.doctest - more detailed doctests for stdnum.dz.nif module
+
+Copyright (C) 2022 Leandro Regueiro
+
+This library is free software; you can redistribute it and/or
+modify it under the terms of the GNU Lesser General Public
+License as published by the Free Software Foundation; either
+version 2.1 of the License, or (at your option) any later version.
+
+This library is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+Lesser General Public License for more details.
+
+You should have received a copy of the GNU Lesser General Public
+License along with this library; if not, write to the Free Software
+Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
+02110-1301 USA
+
+
+This file contains more detailed doctests for the stdnum.dz.nif module. It
+tries to test more corner cases and detailed functionality that is not really
+useful as module documentation.
+
+>>> from stdnum.dz import nif
+
+
+Tests for some corner cases.
+
+>>> nif.validate('416001000000007')
+'416001000000007'
+>>> nif.validate('408 020 000 150 039')
+'408020000150039'
+>>> nif.validate('41201600000606600001')
+'41201600000606600001'
+>>> nif.validate('000 216 001 808 337 13010')
+'00021600180833713010'
+>>> nif.validate('12345')
+Traceback (most recent call last):
+    ...
+InvalidLength: ...
+>>> nif.validate('X1600100000000V')
+Traceback (most recent call last):
+    ...
+InvalidFormat: ...
+>>> nif.format('408 020 000 150 039')
+'408020000150039'
+>>> nif.format('000 216 001 808 337 13010')
+'00021600180833713010'
+
+
+These have been found online and should all be valid numbers.
+
+>>> numbers = '''
+...
+... 000 116 180 807 261
+... 000 216 001 808 337
+... 000 216 001 808 337 13010
+... 0000 1600 15 01 289
+... 000016001159195
+... 000016001300865
+... 000016001358124
+... 00001600137674493005
+... 000116001524660
+... 000116001567707
+... 000116180849545
+... 00021 600 180 833 716 001
+... 000216002104442
+... 000216299033049
+... 000307024248170
+... 000336068252339
+... 000347019004646
+... 000428056270862
+... 000434046319884
+... 000505022347781
+... 000516096825183
+... 000516096872520
+... 000616097459024
+... 000624038263530
+... 000716097425528
+... 000716097805474
+... 000724038267478
+... 000735072494667
+... 000824038269319
+... 000825006783595
+... 000848019007735
+... 000906018632115
+... 001 109 199 007 345
+... 001116099033052
+... 001125069042347
+... 001206018759104
+... 001216098929656
+... 001216209014175
+... 001216209014745
+... 001225006964374
+... 00131 6099242493
+... 001316099262097
+... 001316100750513
+... 001316100750533
+... 001341050285855
+... 001513026489736
+... 001609019033838
+... 001616104328611
+... 001707024366917
+... 001716104401413
+... 001730019009056
+... 001816104587248
+... 002016101606088
+... 002131011846676
+... 097524019047421
+... 098919015000337
+... 099716000280672
+... 099747086204339
+... 099807024211756
+... 099815019058902
+... 099816000499785
+... 099915004292220
+... 099916029015224
+... 099919008329067
+... 099925006295010
+... 099935072285348
+... 152431400682135
+... 153160105528127
+... 164151000512151
+... 165161701380190
+... 169164800432122
+... 171161800210177
+... 181050400060195
+... 185160201610152
+... 194 916 010 095 431
+... 195213040012847
+... 196 816 040 011 445
+... 197 919 010 321 535
+... 197016180012728
+... 198018210116342
+... 198805420009824
+... 198847070005037
+... 287160700030597
+... 295161704436174
+... 408 020 000 150 039
+... 408008000100033
+... 408015000017094
+... 408015000043003
+... 408020000020098
+... 408020000060031
+... 408020000290087
+... 408020000310039
+... 408020001100031
+... 40802100000204900000
+... 410007000000046
+... 410011000000012
+... 417180000000088
+... 420016000090015
+... 420110400000042
+... 797 435 379 003 601
+...
+... '''
+>>> [x for x in numbers.splitlines() if x and not nif.is_valid(x)]
+[]
