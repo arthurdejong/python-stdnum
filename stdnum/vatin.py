@@ -53,6 +53,10 @@ from stdnum.exceptions import *
 from stdnum.util import clean, get_cc_module
 
 
+# regular expression for matching country codes.
+_country_code_re = re.compile(r'^[a-z]{2}$')
+
+
 # Cache of country code modules
 _country_modules = dict()
 
@@ -61,7 +65,7 @@ def _get_cc_module(cc):
     """Get the VAT number module based on the country code."""
     # Greece uses a "wrong" country code, special case for Northern Ireland
     cc = cc.lower().replace('el', 'gr').replace('xi', 'gb')
-    if not re.match(r'^[a-z]{2}$', cc):
+    if not _country_code_re.match(cc):
         raise InvalidFormat()
     if cc not in _country_modules:
         _country_modules[cc] = get_cc_module(cc, 'vat')
