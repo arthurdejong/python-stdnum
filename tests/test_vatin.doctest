@@ -78,3 +78,21 @@ InvalidComponent: ...
 Traceback (most recent call last):
     ...
 InvalidComponent: ...
+
+
+Check is_valid for several scenarios:
+
+>>> vatin.is_valid('FR 40 303 265 045')
+True
+>>> vatin.is_valid('FR 40 303')
+False
+>>> vatin.is_valid('FR')
+False
+>>> vatin.is_valid('')
+False
+>>> vatin.is_valid('00')
+False
+>>> vatin.is_valid('XX')
+False
+>>> vatin.is_valid('US')
+False
