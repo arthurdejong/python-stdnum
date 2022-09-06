@@ -44,7 +44,7 @@ InvalidLength: ...
 >>> validate('XX')
 Traceback (most recent call last):
     ...
-InvalidComponent: ...
+ImportError: ...
 """
 
 import re
@@ -66,11 +66,11 @@ def _get_cc_module(cc):
     # Greece uses a "wrong" country code, special case for Northern Ireland
     cc = cc.lower().replace('el', 'gr').replace('xi', 'gb')
     if not _country_code_re.match(cc):
-        raise InvalidFormat()
+        raise ImportError()
     if cc not in _country_modules:
         _country_modules[cc] = get_cc_module(cc, 'vat')
     if not _country_modules[cc]:
-        raise InvalidComponent()  # unknown/unsupported country code
+        raise ImportError()
     return _country_modules[cc]
 
 
@@ -98,5 +98,7 @@ def is_valid(number):
     """Check if the number is a valid VAT number."""
     try:
         return bool(validate(number))
+    except ImportError:
+        return False
     except ValidationError:
         return False
