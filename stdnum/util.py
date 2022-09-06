@@ -237,7 +237,7 @@ def get_cc_module(cc, name):
         mod = __import__('stdnum.%s' % cc, globals(), locals(), [str(name)])
         return getattr(mod, name, None)
     except ImportError:
-        return
+        return None
 
 
 # this is a cache of SOAP clients
