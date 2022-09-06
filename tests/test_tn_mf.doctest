@@ -1,0 +1,254 @@
+test_gt_nit.doctest - more detailed doctests for stdnum.tn.mf module
+
+Copyright (C) 2022 Leandro Regueiro
+
+This library is free software; you can redistribute it and/or
+modify it under the terms of the GNU Lesser General Public
+License as published by the Free Software Foundation; either
+version 2.1 of the License, or (at your option) any later version.
+
+This library is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+Lesser General Public License for more details.
+
+You should have received a copy of the GNU Lesser General Public
+License along with this library; if not, write to the Free Software
+Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
+02110-1301 USA
+
+
+This file contains more detailed doctests for the stdnum.tn.mf module. It
+tries to test more corner cases and detailed functionality that is not really
+useful as module documentation.
+
+>>> from stdnum.tn import mf
+
+
+Tests for some corner cases.
+
+>>> mf.validate('1182431M/A/M/000')
+'1182431MAM000'
+>>> mf.validate('1234567/M/A/E/001')
+'1234567MAE001'
+>>> mf.validate('000 123 LAM 000')
+'0000123LAM000'
+>>> mf.validate('1282182 / W')
+'1282182W'
+>>> mf.validate('121/J')
+'0000121J'
+>>> mf.validate('12345')
+Traceback (most recent call last):
+    ...
+InvalidLength: ...
+>>> mf.validate('000/M/A/1222334L')
+Traceback (most recent call last):
+    ...
+InvalidLength: ...
+>>> mf.validate('992465Y/B/M')
+Traceback (most recent call last):
+    ...
+InvalidLength: ...
+>>> mf.validate('X123')
+Traceback (most recent call last):
+    ...
+InvalidLength: ...
+>>> mf.validate('Z1234567')
+Traceback (most recent call last):
+    ...
+InvalidFormat: ...
+>>> mf.validate('1234567/M/A/M/0Z0')
+Traceback (most recent call last):
+    ...
+InvalidFormat: ...
+>>> mf.validate('1219773G/M/A/000')
+Traceback (most recent call last):
+    ...
+InvalidFormat: ...
+>>> mf.validate('1219773U')
+Traceback (most recent call last):
+    ...
+InvalidFormat: ...
+>>> mf.validate('1234567/M/X/M/000')
+Traceback (most recent call last):
+    ...
+InvalidFormat: ...
+>>> mf.validate('1234567/M/A/X/000')
+Traceback (most recent call last):
+    ...
+InvalidFormat: ...
+>>> mf.validate('1234567/M/A/M/001')
+Traceback (most recent call last):
+    ...
+InvalidFormat: ...
+>>> mf.format('1282182 / W')
+'1282182/W'
+>>> mf.format('121J')
+'0000121/J'
+>>> mf.format('1496298 T P N 000')
+'1496298/T/P/N/000'
+>>> mf.format('1060559 C.D.M 000')
+'1060559/C/D/M/000'
+
+
+These have been found online and should all be valid numbers.
+
+>>> numbers = '''
+...
+... 1182431M/A/M/000
+... 1182431M/AM/000
+... 1452730 /Z/N/M/000
+... 000 123 LAM 000
+... 1496298 T P N 000
+... 892314B/N/C/000
+... 1282182 / W
+... 1347867/B
+... 121/J
+... 1496298/T
+... 868024/D/A/M/000
+... 1544502 Y NP000
+... 015094B/A/M/000
+... 1631526V/A/M/000
+... 1058891 R/A/M/000
+... 1347663 QAM000
+... 333486L/A/P/000
+... 001237/A/P/M/000
+... 0001629N
+... 0001629N/P/M/000
+... 510797/NNN000
+... 1393531/N
+... 1219748F/A/M/000
+... 1221825X/N/M/000
+... 1222316/J/A/M/000
+... 1222564/Z
+... 1222675/F/P/M/000
+... 1222516Q/A/M/000
+... 1221532L/A/M/000
+... 1222519 T
+... 1221955/G
+... 1222622R/N/M/000
+... 122638/A
+... 1222750/Z
+... 1222775/J
+... 1222014/Y
+... 1222529 W/N/M/000
+... 1212130A/A/M/000
+... 1221661 V/N/M/000
+... 1220737T
+... 1222623/S/A/M/000
+... 333640H/N/M/000
+... 1216853S/A/M/000
+... 1222690ENM000
+... 1222695K
+... 1221925/A
+... 1222795/N
+... 1221189/R
+... 1222759/J
+... 1222959/Q
+... 1193809/MNM/000
+... 1217286M/A/M/000
+... 1222572/Z/N/M/000
+... 0022822CAM000
+... 038244W AM000
+... 32962V/A/M/000
+... 1013401Q/A/M/000
+... 496781 S/A/M/000
+... 341544APM000
+... 015077A/AM/000
+... 900217/A/A/M/000
+... 5378F/ P/M/000
+... 0817422H/A/M/000
+... 1061204 F
+... 0082736 N/A/M000
+... 000271Y
+... 32819N
+... 011855C/N/M/000
+... 0036180N
+... 820206/B
+... 036826E/A/M/000
+... 036826E/A/M/000
+... 580238Y
+... 8403B
+... 0031064N
+... 00218S/A/M/000
+... 510283 Q
+... 437463C
+... 0433716M
+... 911534W A M 000
+... 1037696A/A/M/000
+... 1167652KAM000
+... 857416G/A/M/000
+... 0429364D
+... 0449589F
+... 0997054 D/A/M/000
+... 1 069715/K/A/M/000
+... 6919S/A/M/000
+... 889436LBM000
+... 1112912M
+... 1027837 P/A/M/000
+... 1078963B/P/M/000
+... 0996708Q
+... 0024410T
+... 0984097X
+... 785872E
+... 1010093 L
+... 1006826W
+... 979446PAM000
+... 918467HNM000
+... 1165399H
+... 1068309V
+... 1072689B
+... 04176S/A/M000
+... 971251V
+... 1168403Y
+... 1082949/H/A/M/000
+... 1170015/KA/M/000
+... 1028282 E/A/M/000
+... 791970T
+... 0504279G/A/M/000
+... 1076771L
+... 1060559 C.D.M 000
+... 805956WNM000
+... 635441A
+... 741290Y/P/M/000
+... 850424B/A/M/000
+... 1085044LAM000
+... 1023814 P
+... 1014613F/A/M/000
+... 1078662Q/A/M/000
+... 0836646/E/A/M/000
+... 807707/N
+... 571355/B/A/M/000
+... 1204692 E
+... 0004842E/P/M/000
+... 701849V/A/M/000
+... 34445L/A/M/000
+... 1132361N-A-M-000
+... 806473K/B/M 000
+... 1179412/J/A/M/000
+... 1107107FAM000
+... 1158905L
+... 1186255G
+... 1165585/H
+... 1110202D
+... 1116453/Y
+... 00110F/P/M/000
+... 723832EAM000
+... 0505492P/N/N/000
+... 182910Q/A/P/000
+... 005234P/A/M/000
+... 1051770C/A/M/000
+... 022667 K
+... 01629N
+... 1121936/x
+... 1116514T/A/M/000
+... 023302 LAM 000
+... 009021/V/P/M/000
+... 036507RAM000
+... 8423 F/A/M/000
+... 819586M/A/M/000
+... 594166X/P/M/000
+...
+... '''
+>>> [x for x in numbers.splitlines() if x and not mf.is_valid(x)]
+[]
