@@ -19,3 +19,6 @@
 # 02110-1301 USA
 
 """Collection of United States numbers."""
+
+# provide aliases
+from stdnum.us import ein as vat  # noqa: F401
