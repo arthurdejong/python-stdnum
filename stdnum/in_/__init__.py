@@ -21,4 +21,4 @@
 """Collection of Indian numbers."""
 
 # provide aliases
-from stdnum.in_ import gstin as vat  # noqa: F401
+from stdnum.in_ import pan as vat  # noqa: F401
