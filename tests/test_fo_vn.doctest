@@ -1,0 +1,167 @@
+test_fo_vn.doctest - more detailed doctests for stdnum.fo.vn module
+
+Copyright (C) 2022 Leandro Regueiro
+
+This library is free software; you can redistribute it and/or
+modify it under the terms of the GNU Lesser General Public
+License as published by the Free Software Foundation; either
+version 2.1 of the License, or (at your option) any later version.
+
+This library is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+Lesser General Public License for more details.
+
+You should have received a copy of the GNU Lesser General Public
+License along with this library; if not, write to the Free Software
+Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
+02110-1301 USA
+
+
+This file contains more detailed doctests for the stdnum.fo.vn module. It
+tries to test more corner cases and detailed functionality that is not really
+useful as module documentation.
+
+>>> from stdnum.fo import vn
+
+
+Tests for some corner cases.
+
+>>> vn.validate('623857')
+'623857'
+>>> vn.validate('602 590')
+'602590'
+>>> vn.validate('563.609')
+'563609'
+>>> vn.validate('FO384941')
+'384941'
+>>> vn.format('623857')
+'623857'
+>>> vn.format('602 590')
+'602590'
+>>> vn.format('33 28 28')
+'332828'
+>>> vn.format('563.609')
+'563609'
+>>> vn.format('FO384941')
+'384941'
+>>> vn.validate('12345')
+Traceback (most recent call last):
+    ...
+InvalidLength: ...
+>>> vn.validate('12345X')
+Traceback (most recent call last):
+    ...
+InvalidFormat: ...
+
+
+These have been found online and should all be valid numbers.
+
+>>> numbers = '''
+...
+... 308382
+... 309273
+... 321079
+... 322059
+... 322407
+... 323853
+... 324213
+... 328863
+... 328871
+... 328944
+... 33 28 28
+... 330833
+... 331538
+... 339849
+... 344338
+... 345334
+... 345490
+... 353477
+... 355186
+... 355216
+... 366161
+... 369497
+... 374989
+... 379778
+... 401900
+... 403369
+... 403687
+... 408638
+... 427888
+... 437.115
+... 443921
+... 452432
+... 463000
+... 476897
+... 478 865
+... 488135
+... 489042
+... 498.289
+... 502855
+... 504572
+... 509078
+... 516244
+... 519324
+... 522821
+... 537.535
+... 537.543
+... 538485
+... 539813
+... 546.089
+... 549118
+... 55 16 00
+... 550558
+... 550612
+... 551.023
+... 552569
+... 554375
+... 557 692
+... 559679
+... 563.609
+... 568 031
+... 568 597
+... 569682
+... 575712
+... 576174
+... 578 509
+... 579319
+... 585335
+... 587974
+... 589.810
+... 589306
+... 597570
+... 601470
+... 602 590
+... 602221
+... 603937
+... 604097
+... 605 174
+... 606294
+... 607436
+... 613606
+... 616 923
+... 617105
+... 617121
+... 619388
+... 619558
+... 620092
+... 620785
+... 623016
+... 623385
+... 623792
+... 623857
+... 625485
+... 625590
+... 627976
+... 628980
+... 630713
+... 636223
+... 636568
+... 637114
+... 638722
+... 641154
+... FO384941
+...
+... '''
+>>> [x for x in numbers.splitlines() if x and not vn.is_valid(x)]
+[]
