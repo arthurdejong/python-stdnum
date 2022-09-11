@@ -1,0 +1,104 @@
+test_gh_tin.doctest - more detailed doctests for stdnum.gh.tin module
+
+Copyright (C) 2022 Leandro Regueiro
+
+This library is free software; you can redistribute it and/or
+modify it under the terms of the GNU Lesser General Public
+License as published by the Free Software Foundation; either
+version 2.1 of the License, or (at your option) any later version.
+
+This library is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+Lesser General Public License for more details.
+
+You should have received a copy of the GNU Lesser General Public
+License along with this library; if not, write to the Free Software
+Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
+02110-1301 USA
+
+
+This file contains more detailed doctests for the stdnum.gh.tin module. It
+tries to test more corner cases and detailed functionality that is not really
+useful as module documentation.
+
+>>> from stdnum.gh import tin
+
+
+Tests for some corner cases.
+
+>>> tin.validate('C0000803561')
+'C0000803561'
+>>> tin.validate('P0008816751')
+'P0008816751'
+>>> tin.validate('V0022862404')
+'V0022862404'
+>>> tin.validate('G0005513405')
+'G0005513405'
+>>> tin.validate('12345')
+Traceback (most recent call last):
+    ...
+InvalidLength: ...
+>>> tin.validate('X0000803561')
+Traceback (most recent call last):
+    ...
+InvalidFormat: ...
+
+
+These have been found online and should all be valid numbers.
+
+>>> numbers = '''
+...
+... C0000803561
+... C0002147866
+... C0002442477
+... C0002551888
+... C000261992X
+... C0002862646
+... C0003136973
+... C0003137007
+... C0003165493
+... C0003168417
+... C0003257630
+... C0003257673
+... C0003268071
+... C0003278263
+... C0003278271
+... C000327828X
+... C0003278484
+... C0003417425
+... C0003442500
+... C000366497X
+... C0003664996
+... C0003831426
+... C0004056450
+... C0004524764
+... C0004656830
+... C0004743520
+... C0004894162
+... C0005015774
+... C0005203333
+... C0006570275
+... C0009705228
+... C0010952330
+... C001095242X
+... C0013225812
+... C0021485674
+... C0029454158
+... G0005513405
+... G0061140708
+... P0001525662
+... P0004697499
+... P0006187994
+... P0008816751
+... P0009329188
+... P0009329250
+... P0009487379
+... P0012631833
+... P0039937100
+... V0003107108
+... V0022862404
+...
+... '''
+>>> [x for x in numbers.splitlines() if x and not tin.is_valid(x)]
+[]
