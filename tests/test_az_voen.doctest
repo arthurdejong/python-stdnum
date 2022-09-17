@@ -1,0 +1,215 @@
+test_az_voen.doctest - more detailed doctests for stdnum.az.voen module
+
+Copyright (C) 2022 Leandro Regueiro
+
+This library is free software; you can redistribute it and/or
+modify it under the terms of the GNU Lesser General Public
+License as published by the Free Software Foundation; either
+version 2.1 of the License, or (at your option) any later version.
+
+This library is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+Lesser General Public License for more details.
+
+You should have received a copy of the GNU Lesser General Public
+License along with this library; if not, write to the Free Software
+Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
+02110-1301 USA
+
+
+This file contains more detailed doctests for the stdnum.az.voen module. It
+tries to test more corner cases and detailed functionality that is not really
+useful as module documentation.
+
+>>> from stdnum.az import voen
+
+
+Tests for some corner cases.
+
+>>> voen.validate('1400057421')
+'1400057421'
+>>> voen.validate('140 155 5071')
+'1401555071'
+>>> voen.format('140 155 5071')
+'1401555071'
+>>> voen.validate('12345')
+Traceback (most recent call last):
+    ...
+InvalidLength: ...
+>>> voen.validate('ZZ00057421')
+Traceback (most recent call last):
+    ...
+InvalidFormat: ...
+>>> voen.validate('1400057424')
+Traceback (most recent call last):
+    ...
+InvalidComponent: ...
+
+
+These have been found online and should all be valid numbers.
+
+>>> numbers = '''
+...
+... 1400057421
+... 1301703781
+... 9900019651
+... 1400064171
+... 9900007981
+... 9900006651
+... 9900006111
+... 1700792251
+... 1302164881
+... 1700038881
+... 9900001901
+... 9900006241
+... 9900001881
+... 1500031691
+... 1700028531
+... 9900003611
+... 1400122681
+... 1700130681
+... 9900014901
+... 1700767721
+... 9900001061
+... 1300016391
+... 1300017201
+... 1400117231
+... 2000296061
+... 9900009021
+... 1300036291
+... 0200432771
+... 9900037711
+... 1401771462
+... 1402852602
+... 2000358551
+... 1004534711
+... 1405043991
+... 1700986181
+... 1503353191
+... 1306005971
+... 1301368971
+... 1700807221
+... 1001142901
+... 3600027681
+... 4100019441
+... 1504360601
+... 1700852341
+... 9900071001
+... 1700093011
+... 1401555071
+... 1300407191
+... 1300532321
+... 1300286111
+... 1504535831
+... 1701393691
+... 9900001751
+... 1405631661
+... 1102637081
+... 2006058931
+... 6800002652
+... 1000121291
+... 2001093601
+... 9900059321
+... 2003883291
+... 1702670911
+... 1300144431
+... 1802926652
+... 1504653351
+... 140 155 5071
+... 1602473621
+... 9900038911
+... 9900003871
+... 1304587951
+... 2201161381
+... 2201161401
+... 1602636641
+... 3001292891
+... 2903923051
+... 2903924251
+... 5500988351
+... 2903924121
+... 1304590181
+... 5500988911
+... 5101071601
+... 7000953511
+... 5500988891
+... 5500988761
+... 1602637021
+... 2903924531
+... 1701989041
+... 1503264611
+... 2701084371
+... 5500989271
+... 5500984111
+... 6401437941
+... 5500984091
+... 1403476291
+... 5700713511
+... 1503250411
+... 2003891821
+... 1304571761
+... 5101051961
+... 6401437791
+... 1803045621
+... 4001457271
+... 8400745451
+... 1803045751
+... 1503250391
+... 3600595211
+... 1503252121
+... 1403478281
+... 1902814561
+... 2003893941
+... 2003894171
+... 2003893661
+... 1403477361
+... 1101405391
+... 2003893791
+... 1004314621
+... 2300145391
+... 1500020011
+... 1305541031
+... 2005166971
+... 2001198091
+... 1301710961
+... 1504488051
+... 1903366791
+... 1305081121
+... 1504145001
+... 1403530841
+... 1603712731
+... 1404508591
+... 5100586482
+... 2903864031
+... 2900643472
+... 1504433821
+... 1800491542
+... 1302566022
+... 7000787682
+... 4500309622
+... 1901757602
+... 5500044912
+... 4100350032
+... 1302568832
+... 2903016902
+... 1300528202
+... 1100725982
+... 1603234892
+... 5000205052
+... 1305904782
+... 1304124702
+... 4501001792
+... 2000185312
+... 6700193682
+... 4501238042
+... 1400299381
+... 2001150911
+... 1004732761
+... 1402298061
+... 1305393411
+... 3600108051
+...
+... '''
+>>> [x for x in numbers.splitlines() if x and not voen.is_valid(x)]
+[]
