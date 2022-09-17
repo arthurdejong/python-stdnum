@@ -1,0 +1,178 @@
+test_mk_edb.doctest - more detailed doctests for stdnum.mk.edb module
+
+Copyright (C) 2022 Leandro Regueiro
+
+This library is free software; you can redistribute it and/or
+modify it under the terms of the GNU Lesser General Public
+License as published by the Free Software Foundation; either
+version 2.1 of the License, or (at your option) any later version.
+
+This library is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+Lesser General Public License for more details.
+
+You should have received a copy of the GNU Lesser General Public
+License along with this library; if not, write to the Free Software
+Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
+02110-1301 USA
+
+
+This file contains more detailed doctests for the stdnum.mk.edb module. It
+tries to test more corner cases and detailed functionality that is not really
+useful as module documentation.
+
+>>> from stdnum.mk import edb
+
+
+Tests for some corner cases.
+
+>>> edb.validate('4030000375897')
+'4030000375897'
+>>> str(edb.validate(u'МК 4020990116747'))  # Cyrillic letters
+'4020990116747'
+>>> edb.validate('MK4057009501106')  # ASCII letters
+'4057009501106'
+>>> edb.validate('МК4030006603425')  # Cyrillic letters
+'4030006603425'
+>>> str(edb.validate(u'МК4030006603425'))  # Cyrillic letters
+'4030006603425'
+>>> edb.validate('12345')
+Traceback (most recent call last):
+    ...
+InvalidLength: ...
+>>> edb.validate('1234567890XYZ')
+Traceback (most recent call last):
+    ...
+InvalidFormat: ...
+>>> edb.validate('4030000375890')
+Traceback (most recent call last):
+    ...
+InvalidChecksum: ...
+>>> edb.format('4030000375897')
+'4030000375897'
+>>> str(edb.format(u'МК 4020990116747'))  # Cyrillic letters
+'4020990116747'
+>>> edb.format('MK4057009501106')  # ASCII letters
+'4057009501106'
+>>> str(edb.format(u'МК4030006603425'))  # Cyrillic letters
+'4030006603425'
+
+
+These have been found online and should all be valid numbers.
+
+>>> numbers = '''
+...
+... 4001015504286
+... 4002012527974
+... 4002015539612
+... 4002015541625
+... 4002017550907
+... 4002979132007
+... 4002991125091
+... 4002995103351
+... 4002999142769
+... 4004010506301
+... 4004019517659
+... 4004996102912
+... 4006012508266
+... 4006999109376
+... 4007013515009
+... 4012995101109
+... 4017004148023
+... 4017012520357
+... 4017015527930
+... 4017996129718
+... 4017999130385
+... 4020010511130
+... 4020015529216
+... 4020017533580
+... 4020019538376
+... 4020991100666
+... 4021004145439
+... 4021018535892
+... 4023003112815
+... 4023003113056
+... 4023009503069
+... 4026012514780
+... 4027008504520
+... 4027015522240
+... 4027017526693
+... 4027991103694
+... 4028006151708
+... 4028008502435
+... 4028008506791
+... 4028008507070
+... 4028016528567
+... 4028017532851
+... 4028017533823
+... 4028018535986
+... 4028019537796
+... 4028999127025
+... 4028999139961
+... 4029007136199
+... 4029009505450
+... 4029999133765
+... 4030000407411
+... 4030001404580
+... 4030002438667
+... 4030004518463
+... 4030005553815
+... 4030005565759
+... 4030006601066
+... 4030007641649
+... 4030974163226
+... 4030984349182
+... 4030992158418
+... 4030993125769
+... 4030996123112
+... 4030996244823
+... 4030999431535
+... 4032017535882
+... 4032018538060
+... 4044012506696
+... 4044013508269
+... 4044017513879
+... 4054009500097
+... 4054016503417
+... 4057012518508
+... 4057013523246
+... 4057017536733
+... 4057018541765
+... 4057019547848
+... 4061018502090
+... 4064012500591
+... 4065015500653
+... 4069011500670
+... 4071016500495
+... 4075013502816
+... 4080011522414
+... 4080012525921
+... 4080015554205
+... 4080016560551
+... 4080019578567
+... 4080019584974
+... 4080019585377
+... 4082014512960
+... 4082014513702
+... 4082018521297
+... 4082019523064
+... MK 4030005534810
+... MK4030996254241
+... MK4032012519218
+... MK4057009501106
+... MK4057009502714
+... MK4080012530747
+... MK4080014548341
+... МК 4004991103546
+... МК 4020990116747
+... МК4011014511586
+... МК4027002133725
+... МК4027992109874
+... МК4030000398099
+... МК4030002456746
+... МК4030993244482
+...
+... '''
+>>> [x for x in numbers.splitlines() if x and not edb.is_valid(x)]
+[]
