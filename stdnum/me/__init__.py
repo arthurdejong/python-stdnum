@@ -19,3 +19,6 @@
 # 02110-1301 USA
 
 """Collection of Montenegro numbers."""
+
+# provide aliases
+from stdnum.me import pib as vat  # noqa: F401

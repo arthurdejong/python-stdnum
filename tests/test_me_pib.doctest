@@ -1,0 +1,180 @@
+test_me_pib.doctest - more detailed doctests for stdnum.me.pib module
+
+Copyright (C) 2022 Leandro Regueiro
+
+This library is free software; you can redistribute it and/or
+modify it under the terms of the GNU Lesser General Public
+License as published by the Free Software Foundation; either
+version 2.1 of the License, or (at your option) any later version.
+
+This library is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+Lesser General Public License for more details.
+
+You should have received a copy of the GNU Lesser General Public
+License along with this library; if not, write to the Free Software
+Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
+02110-1301 USA
+
+
+This file contains more detailed doctests for the stdnum.me.pib module. It
+tries to test more corner cases and detailed functionality that is not really
+useful as module documentation.
+
+>>> from stdnum.me import pib
+
+
+Tests for some corner cases.
+
+>>> pib.validate('02655284')
+'02655284'
+>>> pib.validate('12345')
+Traceback (most recent call last):
+    ...
+InvalidLength: ...
+>>> pib.validate('12345XYZ')
+Traceback (most recent call last):
+    ...
+InvalidFormat: ...
+>>> pib.format('02655284')
+'02655284'
+
+
+These have been found online and should all be valid numbers.
+
+>>> numbers = '''
+...
+... 02000989
+... 02005115
+... 02005328
+... 02007479
+... 02008599
+... 02015099
+... 02017105
+... 02018560
+... 02026325
+... 02033143
+... 02033356
+... 02044188
+... 02046954
+... 02047403
+... 02051664
+... 02052822
+... 02082390
+... 02085020
+... 02087723
+... 02094754
+... 02096064
+... 02096099
+... 02106183
+... 02118912
+... 02126265
+... 02131013
+... 02132419
+... 02160102
+... 02171058
+... 02194007
+... 02196727
+... 02216078
+... 02219603
+... 02241102
+... 02259974
+... 02264811
+... 02265435
+... 02272296
+... 02291266
+... 02293099
+... 02303213
+... 02305054
+... 02305623
+... 02309084
+... 02310783
+... 02313987
+... 02335450
+... 02355388
+... 02357950
+... 02383136
+... 02384337
+... 02385040
+... 02389231
+... 02395673
+... 02404281
+... 02407515
+... 02436159
+... 02437643
+... 02440768
+... 02448076
+... 02454190
+... 02455455
+... 02462494
+... 02465787
+... 02467593
+... 02628988
+... 02630419
+... 02653753
+... 02656515
+... 02671930
+... 02694638
+... 02697904
+... 02702967
+... 02705001
+... 02707942
+... 02709392
+... 02717557
+... 02739500
+... 02751372
+... 02759519
+... 02766515
+... 02769336
+... 02783746
+... 02865971
+... 02868474
+... 02880474
+... 02894998
+... 02896753
+... 02904870
+... 02908433
+... 02952165
+... 02959801
+... 02983303
+... 03016480
+... 03022480
+... 03037002
+... 03099873
+... 03183246
+... 03313468
+... 03328139
+... 03350479
+... 03350487
+... 03350495
+... 03350509
+... 03350517
+... 03350525
+... 03350533
+... 03350541
+... 03350550
+... 03350568
+... 03350576
+... 03350584
+... 03350592
+... 03350606
+... 03350614
+... 03350622
+... 03350665
+... 03350673
+... 03350681
+... 03350690
+... 03350703
+... 03350789
+... 03351483
+... 03352480
+... 03353486
+... 03354482
+... 03355489
+... 03356485
+... 03357481
+...
+... '''
+>>> [x for x in numbers.splitlines() if x and not pib.is_valid(x)]
+[]
