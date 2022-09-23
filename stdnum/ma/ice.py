@@ -29,7 +29,7 @@ identifiers, which remain mandatory.
 
 The ICE is intended to ease communication among Moroccan administration
 branches, therefore simplifying procedures, increasing reliability and speed,
-and thefore reducing costs.
+and therefore reducing costs.
 
 The ICE applies to legal entities and their branches, as well as to natural
 persons.
