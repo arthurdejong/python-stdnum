@@ -22,7 +22,7 @@
 The RIC No. is the unique identifier for issued to China (PRC) residents.
 
 The number consist of 18 digits in four sections. The first 6 digits refers to
-the resident's location, followed by 8 digits represeting the resident's birth
+the resident's location, followed by 8 digits representing the resident's birth
 day in the form YYYY-MM-DD. The next 3 digits is the order code which is the
 code used to disambiguate people with the same date of birth and address code.
 Men are assigned to odd numbers, women assigned to even numbers. The final
