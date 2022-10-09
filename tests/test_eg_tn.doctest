@@ -1,0 +1,171 @@
+test_eg_tn.doctest - more detailed doctests for stdnum.eg.tn module
+coding: utf-8
+
+Copyright (C) 2022 Leandro Regueiro
+
+This library is free software; you can redistribute it and/or
+modify it under the terms of the GNU Lesser General Public
+License as published by the Free Software Foundation; either
+version 2.1 of the License, or (at your option) any later version.
+
+This library is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+Lesser General Public License for more details.
+
+You should have received a copy of the GNU Lesser General Public
+License along with this library; if not, write to the Free Software
+Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
+02110-1301 USA
+
+
+This file contains more detailed doctests for the stdnum.eg.tn module. It
+tries to test more corner cases and detailed functionality that is not really
+useful as module documentation.
+
+>>> from stdnum.eg import tn
+
+
+Tests for some corner cases.
+
+>>> tn.validate('100-531-385')
+'100531385'
+>>> tn.validate('100531385')
+'100531385'
+>>> tn.validate('421 – 159 – 723')
+'421159723'
+>>> tn.validate('347/404/847')
+'347404847'
+>>> tn.validate(u'٣٣١-١٠٥-٢٦٨')
+'331105268'
+>>> tn.validate(u'۹٤۹-۸۹۱-۲۰٤')
+'949891204'
+>>> tn.format('100531385')
+'100-531-385'
+>>> tn.format(u'٣٣١-١٠٥-٢٦٨')
+'331-105-268'
+>>> tn.format(u'۹٤۹-۸۹۱-۲۰٤')
+'949-891-204'
+>>> tn.validate('12345')
+Traceback (most recent call last):
+    ...
+InvalidLength: ...
+>>> tn.validate('VV3456789')
+Traceback (most recent call last):
+    ...
+InvalidFormat: ...
+
+
+These have been found online and should all be valid numbers.
+
+>>> numbers = u'''
+...
+... 039-528-313
+... 100-131-778
+... 100-223-508
+... 100-294-197
+... 100-534-287
+... 200-018-728
+... 200-131-052
+... 200-138-480
+... 200-139-649
+... 200-140-884
+... 200-237-446
+... 200-239-090
+... 202-458-482
+... 202-460-738
+... 202-466-566
+... 202-468-828
+... 202-469-077
+... 202-478-696
+... 202-483-827
+... 202-484-173
+... 202-484-327
+... 202-486-400
+... 202-487-598
+... 202-487-938
+... 202-490-483
+... 202-494-802
+... 202-494-985
+... 204-829-305
+... 204-830-109
+... 204-944-252
+... 204-946-786
+... 204-962-862
+... 205-044-816
+... 205-047-297
+... 215-559-053
+... 220-682-836
+... 235-005-266
+... 239-772-660
+... 247-604-224
+... 250-067-498
+... 254 299-954
+... 254-228-992
+... 257-149-295
+... 280-948-565
+... 288-953-452
+... 297-923-900
+... 303-428-007
+... 305-310-313
+... 306-006-014
+... 308-523-229
+... 310-286-719
+... 332-673-553
+... 337-703-027
+... 347/404/847
+... 372-076-416
+... 374-106-290
+... 374-201-099
+... 374-380-139
+... 376978082
+... 383-438-845
+... 383-521-815
+... 383-556-848
+... 383-612-055
+... 383-856-183
+... 403-965-896
+... 408-994-509
+... 412-700-212
+... 412-907-399
+... 413-370-712
+... 415-211-468
+... 421 – 159 – 723
+... 431-134-189
+... 432-600-132
+... 455-466-138
+... 455273677
+... 479-738-440
+... 499-149-246
+... 506-247-368
+... 508-717-388
+... 513-992-693
+... 516-346-997
+... 518-934-489
+... 518-944-155
+... 521-338-514
+... 525-915-540
+... 528-495-275
+... 540-497-754
+... 542-251-337
+... 554-685-442
+... 555-407-284
+... 570-165-725
+... 589-269-666
+... 608-769-347
+... 619-395-100
+... 626-381-738
+... 646-687-799
+... 724-125-078
+... 728-620-480
+... 728-755-645
+... 735-739-447
+... 825-885-383
+... 910-921-383
+... ٣٣١-١٠٥-٢٦٨
+... ٩٤٦-١٤٩-٢٠٠
+... ۹٤۹-۸۹۱-۲۰٤
+...
+... '''
+>>> [x for x in numbers.splitlines() if x and not tn.is_valid(x)]
+[]
