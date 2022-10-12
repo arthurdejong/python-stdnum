@@ -29,6 +29,8 @@ More information:
 
 >>> validate('100-531-385')
 '100531385'
+>>> validate(u'٣٣١-١٠٥-٢٦٨')
+'331105268'
 >>> validate('12345')
 Traceback (most recent call last):
     ...
@@ -45,13 +47,40 @@ from stdnum.exceptions import *
 from stdnum.util import clean, isdigits
 
 
+ARABIC_NUMBERS_MAP = {
+    # Arabic-indic digits.
+    u'٠': '0',
+    u'١': '1',
+    u'٢': '2',
+    u'٣': '3',
+    u'٤': '4',
+    u'٥': '5',
+    u'٦': '6',
+    u'٧': '7',
+    u'٨': '8',
+    u'٩': '9',
+    # Extended arabic-indic digits.
+    u'۰': '0',
+    u'۱': '1',
+    u'۲': '2',
+    u'۳': '3',
+    u'۴': '4',
+    u'۵': '5',
+    u'۶': '6',
+    u'۷': '7',
+    u'۸': '8',
+    u'۹': '9',
+}
+
+
 def compact(number):
     """Convert the number to the minimal representation.
 
     This strips the number of any valid separators and removes surrounding
     whitespace. It also converts arabic numbers.
     """
-    return str(clean(number, u' -–/').strip())
+    return ''.join([ARABIC_NUMBERS_MAP.get(c, str(c))
+                    for c in clean(number, u' -–/').strip()])
 
 
 def validate(number):
