@@ -1,0 +1,76 @@
+test_si_emso.doctest - more detailed doctests for the stdnum.si.emso module
+
+Copyright (C) 2022 Blaž Bregar
+
+This library is free software; you can redistribute it and/or
+modify it under the terms of the GNU Lesser General Public
+License as published by the Free Software Foundation; either
+version 2.1 of the License, or (at your option) any later version.
+
+This library is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+Lesser General Public License for more details.
+
+You should have received a copy of the GNU Lesser General Public
+License along with this library; if not, write to the Free Software
+Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
+02110-1301 USA
+
+
+This file contains more detailed doctests for the stdnum.si.emso. It
+tries to validate a number of numbers that have been found online.
+
+>>> from stdnum.si import emso
+>>> from stdnum.exceptions import *
+
+
+Tests for some corner cases.
+
+>>> emso.validate('0101006500006')
+'0101006500006'
+>>> emso.format(' 0101006 50 000 6 ')
+'0101006500006'
+>>> emso.validate('12345')
+Traceback (most recent call last):
+    ...
+InvalidLength: ...
+>>> emso.validate('3202006500008')
+Traceback (most recent call last):
+    ...
+InvalidComponent: ...
+>>> emso.validate('0101006500007')
+Traceback (most recent call last):
+    ...
+InvalidChecksum: ...
+>>> emso.validate('010100650A007')
+Traceback (most recent call last):
+    ...
+InvalidFormat: ...
+
+
+Tests helper functions.
+
+>>> emso.get_gender('0101006500006')
+'M'
+>>> emso.get_gender('2902932505526')
+'F'
+>>> emso.get_region('0101006500006')
+'50'
+>>> emso.get_birth_date('0101006500006')
+datetime.date(2006, 1, 1)
+
+
+These have been found online and should all be valid numbers.
+
+>>> numbers = '''
+...
+... 0101006500006
+... 1211981500126
+... 1508995500237
+... 2001939010010
+... 2902932505526
+...
+... '''
+>>> [x for x in numbers.splitlines() if x and not emso.is_valid(x)]
+[]
