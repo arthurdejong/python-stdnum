@@ -110,7 +110,7 @@ def get_date(number):
     try:
         dob = datetime.date(int(year), month, day)
     except ValueError:
-        raise InvalidFormat()
+        return False
     return dob
 
 
@@ -170,6 +170,7 @@ def extract(number):
     """Extract data from a valid EMŠO."""
     number = validate(number)
     return (number, get_date(number), get_region(number), get_gender(number))
+
 
 def format(number):
     """Reformat the number to the standard presentation format."""

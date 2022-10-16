@@ -44,7 +44,24 @@ InvalidFormat: ...
 Traceback (most recent call last):
     ...
 InvalidChecksum: ...
+>>> emso.validate('010100650A007')
+Traceback (most recent call last):
+    ...
+InvalidChecksum: ...
 
+
+Tests of helper functions.
+
+>>> emso.calc_check_digit('0101006500006')
+'6'
+>>> emso.get_gender('0101006500006')
+'M'
+>>> emso.get_gender('2902932505526')
+'F'
+>>> emso.get_region('0101006500006')
+'50'
+>>> emso.extract('0101006500006')
+('0101006500006', datetime.date(2006, 1, 1), '50', 'M')
 
 These have been found online and should all be valid numbers.
 
