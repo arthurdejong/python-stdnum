@@ -284,6 +284,7 @@ Available formats
    se.postnummer
    se.vat
    sg.uen
+   si.emso
    si.ddv
    sk.dph
    sk.rc

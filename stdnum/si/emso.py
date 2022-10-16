@@ -31,28 +31,29 @@ EMŠO contains some personal data, namely date of brith and gender.
 It is composed of 13 digits in the following pattern:
 DDMMYYY RR BBBK
 
-1. Date of birth (DDMMYYY)
-  Date of birth with 3 digit year (skipping the milenia number)
-  i.e. January first 2006 respresented as: 0101006
-  Since EMŠO was implemented in 1977, YYY less than 800 will be considered
-  in 3rd century (after year 2000), those higher or equal to 800 will be
-  considered in 2nd century (before year 2000).
+#. Date of birth (DDMMYYY)
+Date of birth with 3 digit year (skipping the milenia number)
+i.e. January first 2006 respresented as: 0101006
+Since EMŠO was implemented in 1977, YYY less than 800 will be considered
+in 3rd century (after year 2000), those higher or equal to 800 will be
+considered in 2nd century (before year 2000).
 
-2. Political region (RR)
-  Slovenia - 50-59 reserved (only 50 used)
+#. Political region (RR)
+Slovenia - 50-59 reserved (only 50 used)
 
-3. Unique number of the particular RR (BBB)
-  - 000-499 - Male
-  - 500-999 - Female
+#. Unique number of the particular RR (BBB)
+    * 000-499 - Male
+    * 500-999 - Female
 
-4. Checksum (K)
-  The checksum is calculated from the mapping DDMMYYYRRBBBK = abcdefghijklm, using the formula:
+#. Checksum (K)
+The checksum is calculated from the mapping DDMMYYYRRBBBK = abcdefghijklm, using the formula:
 
-    m = 11 − (( 7×(a + g) + 6×(b + h) + 5×(c + i) + 4×(d + j) + 3×(e + k) + 2×(f + l) ) mod 11)
+m = 11 − (( 7×(a + g) + 6×(b + h) + 5×(c + i) + 4×(d + j) + 3×(e + k) + 2×(f + l) ) mod 11)
 
-    - If m is between 1 and 9, the number K is the same as the number m
-    - If m is 10 or 11 K becomes 0 (zero)
-    Source: Wikipedia - https://en.wikipedia.org/wiki/Unique_Master_Citizen_Number
+* If m is between 1 and 9, the number K is the same as the number m
+* If m is 10 or 11 K becomes 0 (zero)
+
+Source: Wikipedia - https://en.wikipedia.org/wiki/Unique_Master_Citizen_Number
 
 
 
@@ -123,9 +124,7 @@ def get_gender(number):
 
 def get_region(number):
     """Return (political) region from valid EMŠO.
-    Source: Wikipedia - https://en.wikipedia.org/wiki/Unique_Master_Citizen_Number
-    For details look at emso_rr
-    """
+    Source Wikipedia - https://en.wikipedia.org/wiki/Unique_Master_Citizen_Number"""
     return number[7:9]
 
 
