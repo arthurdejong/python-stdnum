@@ -212,6 +212,7 @@ Currently this package supports the following formats:
  * MST (Mã số thuế, Vietnam tax number)
  * ID number (South African Identity Document number)
  * TIN (South African Tax Identification Number)
+ * EMŠO (Slovenian Unique Master Citizen Number)
 
 Furthermore a number of generic check digit algorithms are available:
 
