@@ -74,10 +74,7 @@ def calc_check_digit(number):
     emso_factor_map = [7, 6, 5, 4, 3, 2, 7, 6, 5, 4, 3, 2]
 
     def emso_digit(number, place):
-        try:
-            return int(str(number)[place])
-        except IndexError:
-            raise InvalidFormat()
+        return int(str(number)[place])
 
     emso_sum = 0
     for digit in range(12):
@@ -118,12 +115,7 @@ def get_gender(number):
     """Return gender from valid EMŠO.
     M - represents male
     F - represents female"""
-    bbb = number[9:12]
-    try:
-        bbb = int(bbb)
-    except ValueError:
-        raise InvalidFormat()
-    if bbb < 500:
+    if int(number[9:12]) < 500:
         return 'M'
     else:
         return 'F'
