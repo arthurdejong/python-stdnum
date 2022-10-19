@@ -41,7 +41,7 @@ InvalidFormat: ...
 import re
 
 from stdnum.exceptions import *
-from stdnum.util import clean, isdigits
+from stdnum.util import clean
 
 
 _cas_re = re.compile(r'^[1-9][0-9]{1,6}-[0-9]{2}-[0-9]$')
