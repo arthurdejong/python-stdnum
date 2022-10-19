@@ -91,9 +91,9 @@ InvalidComponent: The birthdate century cannot be determined
 Traceback (most recent call last):
   ...
 InvalidComponent: This number is an FH-number, and does not contain birth date information by design.
->>> fodselsnummer.validate('19102270846')
+>>> fodselsnummer.validate('18103970861')
 Traceback (most recent call last):
-	...
+  ...
 InvalidComponent: The birth date information is valid, but this person has not been born yet.
 
 
