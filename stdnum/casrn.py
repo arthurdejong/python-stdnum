@@ -1,6 +1,6 @@
 # casrn.py - functions for handling CAS Registry Numbers
 #
-# Copyright (C) 2017 Arthur de Jong
+# Copyright (C) 2017-2022 Arthur de Jong
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -32,10 +32,19 @@ More information:
 Traceback (most recent call last):
     ...
 InvalidChecksum: ...
+>>> validate('012770-26-2')
+Traceback (most recent call last):
+    ...
+InvalidFormat: ...
 """
+
+import re
 
 from stdnum.exceptions import *
 from stdnum.util import clean, isdigits
+
+
+_cas_re = re.compile(r'^[1-9][0-9]{1,6}-[0-9]{2}-[0-9]$')
 
 
 def compact(number):
@@ -59,9 +68,7 @@ def validate(number):
     number = compact(number)
     if not 7 <= len(number) <= 12:
         raise InvalidLength()
-    if not isdigits(number[:-5]) or not isdigits(number[-4:-2]):
-        raise InvalidFormat()
-    if number[-2] != '-' or number[-5] != '-':
+    if not _cas_re.match(number):
         raise InvalidFormat()
     if number[-1] != calc_check_digit(number[:-1]):
         raise InvalidChecksum()
