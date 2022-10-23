@@ -67,9 +67,9 @@ def compact(number):
     parts = number.split('-')
     if len(parts) == 3:
         # Pad each group with zeroes
-        parts[0] = '0' * (2 - len(parts[0])) + parts[0]
-        parts[1] = '0' * (4 - len(parts[1])) + parts[1]
-        parts[2] = '0' * (4 - len(parts[2])) + parts[2]
+        parts[0] = parts[0].zfill(2)
+        parts[1] = parts[1].zfill(4)
+        parts[2] = parts[2].zfill(4)
     number = ''.join(parts)
     if len(number) == 9:
         number = '0' + number  # Add leading zero
