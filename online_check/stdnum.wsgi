@@ -19,12 +19,12 @@
 
 """Simple WSGI application to check numbers."""
 
-import cgi
 import inspect
 import json
 import os
 import re
 import sys
+import urllib.parse
 
 
 sys.stdout = sys.stderr
@@ -97,7 +97,7 @@ def application(environ, start_response):
         _template = to_unicode(open(os.path.join(basedir, 'template.html'), 'rt').read())
     is_ajax = environ.get(
         'HTTP_X_REQUESTED_WITH', '').lower() == 'xmlhttprequest'
-    parameters = cgi.parse_qs(environ.get('QUERY_STRING', ''))
+    parameters = urllib.parse.parse_qs(environ.get('QUERY_STRING', ''))
     results = []
     number = ''
     if 'number' in parameters:
