@@ -19,6 +19,7 @@
 
 """Simple WSGI application to check numbers."""
 
+import html
 import inspect
 import json
 import os
@@ -69,7 +70,7 @@ def info(module, number):
 
 def format(data):
     """Return an HTML snippet describing the number."""
-    description = cgi.escape(data['description']).replace('\n\n', '<br/>\n')
+    description = html.escape(data['description']).replace('\n\n', '<br/>\n')
     description = re.sub(
         r'^[*] (.*)$', r'<ul><li>\1</li></ul>',
         description, flags=re.MULTILINE)
@@ -79,10 +80,10 @@ def format(data):
         description, flags=re.IGNORECASE + re.UNICODE)
     for name, conversion in data.get('conversions', {}).items():
         description += '\n<br/><b><i>%s</i></b>: %s' % (
-            cgi.escape(name), cgi.escape(conversion))
+            html.escape(name), html.escape(conversion))
     return '<li>%s: <b>%s</b><p>%s</p></li>' % (
-        cgi.escape(data['number']),
-        cgi.escape(data['name']),
+        html.escape(data['number']),
+        html.escape(data['name']),
         description)
 
 
@@ -115,5 +116,5 @@ def application(environ, start_response):
         ('Content-Type', 'text/html; charset=utf-8'),
         ('Vary', 'X-Requested-With')])
     return [(_template % dict(
-        value=cgi.escape(number, True),
+        value=html.escape(number, True),
         results=u'\n'.join(format(data) for data in results))).encode('utf-8')]
