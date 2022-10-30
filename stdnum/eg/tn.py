@@ -18,7 +18,7 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 # 02110-1301 USA
 
-"""Tax Registration Number (الرقم الضريبي, Egypt tax number).
+u"""Tax Registration Number (الرقم الضريبي, Egypt tax number).
 
 This number consists of 9 digits, usually separated into three groups
 using hyphens to make it easier to read, like XXX-XXX-XXX.
