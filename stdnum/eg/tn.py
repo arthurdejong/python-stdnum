@@ -79,7 +79,7 @@ def compact(number):
     This strips the number of any valid separators and removes surrounding
     whitespace. It also converts arabic numbers.
     """
-    return ''.join([ARABIC_NUMBERS_MAP.get(c, c)
+    return ''.join([str(ARABIC_NUMBERS_MAP.get(c, c))
                     for c in clean(number, u' -–/').strip()])
 
 
