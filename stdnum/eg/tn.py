@@ -18,7 +18,7 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 # 02110-1301 USA
 
-u"""Tax Registration Number (الرقم الضريبي, Egypt tax number).
+"""Tax Registration Number (الرقم الضريبي, Egypt tax number).
 
 This number consists of 9 digits, usually separated into three groups
 using hyphens to make it easier to read, like XXX-XXX-XXX.
@@ -79,7 +79,7 @@ def compact(number):
     This strips the number of any valid separators and removes surrounding
     whitespace. It also converts arabic numbers.
     """
-    return ''.join([ARABIC_NUMBERS_MAP.get(c, str(c))
+    return ''.join([ARABIC_NUMBERS_MAP.get(c, c)
                     for c in clean(number, u' -–/').strip()])
 
 
