@@ -49,27 +49,27 @@ from stdnum.util import clean, isdigits
 
 ARABIC_NUMBERS_MAP = {
     # Arabic-indic digits.
-    u'٠': u'0',
-    u'١': u'1',
-    u'٢': u'2',
-    u'٣': u'3',
-    u'٤': u'4',
-    u'٥': u'5',
-    u'٦': u'6',
-    u'٧': u'7',
-    u'٨': u'8',
-    u'٩': u'9',
+    u'٠': '0',
+    u'١': '1',
+    u'٢': '2',
+    u'٣': '3',
+    u'٤': '4',
+    u'٥': '5',
+    u'٦': '6',
+    u'٧': '7',
+    u'٨': '8',
+    u'٩': '9',
     # Extended arabic-indic digits.
-    u'۰': u'0',
-    u'۱': u'1',
-    u'۲': u'2',
-    u'۳': u'3',
-    u'۴': u'4',
-    u'۵': u'5',
-    u'۶': u'6',
-    u'۷': u'7',
-    u'۸': u'8',
-    u'۹': u'9',
+    u'۰': '0',
+    u'۱': '1',
+    u'۲': '2',
+    u'۳': '3',
+    u'۴': '4',
+    u'۵': '5',
+    u'۶': '6',
+    u'۷': '7',
+    u'۸': '8',
+    u'۹': '9',
 }
 
 
@@ -79,8 +79,8 @@ def compact(number):
     This strips the number of any valid separators and removes surrounding
     whitespace. It also converts arabic numbers.
     """
-    return u''.join([unicode(ARABIC_NUMBERS_MAP.get(c, c))
-                     for c in clean(number, u' -–/').strip()])
+    return ''.join([ARABIC_NUMBERS_MAP.get(c, c)
+                    for c in clean(number, u' -–/').strip()])
 
 
 def validate(number):
@@ -107,4 +107,4 @@ def is_valid(number):
 def format(number):
     """Reformat the number to the standard presentation format."""
     number = compact(number)
-    return u'-'.join([number[:3], number[3:-3], number[-3:]])
+    return '-'.join([number[:3], number[3:-3], number[-3:]])

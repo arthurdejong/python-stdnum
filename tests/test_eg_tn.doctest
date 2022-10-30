@@ -1,4 +1,5 @@
 test_eg_tn.doctest - more detailed doctests for stdnum.eg.tn module
+coding: utf-8
 
 Copyright (C) 2022 Leandro Regueiro
 
@@ -28,23 +29,23 @@ useful as module documentation.
 Tests for some corner cases.
 
 >>> tn.validate('100-531-385')
-u'100531385'
+'100531385'
 >>> tn.validate('100531385')
-u'100531385'
+'100531385'
 >>> tn.validate(u'421 – 159 – 723')
-u'421159723'
+'421159723'
 >>> tn.validate('347/404/847')
-u'347404847'
+'347404847'
 >>> tn.validate(u'٣٣١-١٠٥-٢٦٨')
-u'331105268'
+'331105268'
 >>> tn.validate(u'۹٤۹-۸۹۱-۲۰٤')
-u'949891204'
+'949891204'
 >>> tn.format('100531385')
-u'100-531-385'
+'100-531-385'
 >>> tn.format(u'٣٣١-١٠٥-٢٦٨')
-u'331-105-268'
+'331-105-268'
 >>> tn.format(u'۹٤۹-۸۹۱-۲۰٤')
-u'949-891-204'
+'949-891-204'
 >>> tn.validate('12345')
 Traceback (most recent call last):
     ...
