@@ -1,6 +1,6 @@
 # cusip.py - functions for handling CUSIP numbers
 #
-# Copyright (C) 2015-2017 Arthur de Jong
+# Copyright (C) 2015-2022 Arthur de Jong
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -49,8 +49,7 @@ def compact(number):
     return clean(number, ' ').strip().upper()
 
 
-# O and I are not valid but are accounted for in the check digit calculation
-_alphabet = '0123456789ABCDEFGH JKLMN PQRSTUVWXYZ*@#'
+_alphabet = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ*@#'
 
 
 def calc_check_digit(number):
