@@ -1,7 +1,7 @@
 # uid.py - functions for handling Swiss business identifiers
 # coding: utf-8
 #
-# Copyright (C) 2015 Arthur de Jong
+# Copyright (C) 2015-2022 Arthur de Jong
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -43,7 +43,7 @@ InvalidChecksum: ...
 """
 
 from stdnum.exceptions import *
-from stdnum.util import clean, isdigits
+from stdnum.util import clean, get_soap_client, isdigits
 
 
 def compact(number):
@@ -88,3 +88,60 @@ def format(number):
     number = compact(number)
     return number[:3] + '-' + '.'.join(
         number[i:i + 3] for i in range(3, len(number), 3))
+
+
+uid_wsdl = 'https://www.uid-wse.admin.ch/V5.0/PublicServices.svc?wsdl'
+
+
+def check_uid(number, timeout=30):  # pragma: no cover
+    """Look up information via the Swiss Federal Statistical Office web service.
+
+    This uses the UID registry web service run by the the Swiss Federal
+    Statistical Office to provide more details on the provided number.
+
+    Returns a dict-like object for valid numbers with the following structure::
+
+        {
+            'organisation': {
+                'organisationIdentification': {
+                    'uid': {'uidOrganisationIdCategorie': 'CHE', 'uidOrganisationId': 113690319},
+                    'OtherOrganisationId': [
+                        {'organisationIdCategory': 'CH.ESTVID', 'organisationId': '052.0111.1006'},
+                    ],
+                    'organisationName': 'Staatssekretariat für Migration SEM Vermietung von Parkplätzen',
+                    'legalForm': '0220',
+                },
+                'address': [
+                    {
+                        'addressCategory': 'LEGAL',
+                        'street': 'Quellenweg',
+                        'houseNumber': '6',
+                        'town': 'Wabern',
+                        'countryIdISO2': 'CH',
+                    },
+                ],
+            },
+            'uidregInformation': {
+                'uidregStatusEnterpriseDetail': '3',
+                ...
+            },
+            'vatRegisterInformation': {
+                'vatStatus': '2',
+                'vatEntryStatus': '1',
+                ...
+            },
+        }
+
+    See the following document for more details on the GetByUID return value
+    https://www.bfs.admin.ch/bfs/en/home/registers/enterprise-register/enterprise-identification/uid-register/uid-interfaces.html
+    """
+    # this function isn't always tested because it would require network access
+    # for the tests and might unnecessarily load the web service
+    number = compact(number)
+    client = get_soap_client(uid_wsdl, timeout)
+    try:
+        return client.GetByUID(uid={'uidOrganisationIdCategorie': number[:3], 'uidOrganisationId': number[3:]})[0]
+    except Exception:  # noqa: B902 (excpetion type depends on SOAP client)
+        # Error responses by the server seem to result in exceptions raised
+        # by the SOAP client implementation
+        return
