@@ -30,7 +30,7 @@ The final 4 digits represent the bank code.
 More information:
 
 * https://www.penize.cz/osobni-ucty/424173-tajemstvi-cisla-uctu-klicem-pro-banky-je-11
-* http://www.zlatakoruna.info/zpravy/ucty/cislo-uctu-v-cr
+* https://www.zlatakoruna.info/zpravy/ucty/cislo-uctu-v-cr
 
 >>> validate('34278-0727558021/0100')
 '034278-0727558021/0100'

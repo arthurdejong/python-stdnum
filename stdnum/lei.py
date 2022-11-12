@@ -28,7 +28,7 @@ are often 0, 13 digits to identify the organisation and 2 check digits.
 More information:
 
 * https://en.wikipedia.org/wiki/Legal_Entity_Identifier
-* http://www.lei-lookup.com/
+* https://www.lei-lookup.com/
 * https://www.gleif.org/
 * http://openleis.com/
 

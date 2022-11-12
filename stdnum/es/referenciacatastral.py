@@ -32,8 +32,8 @@ differently for urban, non-urban or special (infrastructure) cases.
 
 More information:
 
-* http://www.catastro.meh.es/esp/referencia_catastral_1.asp (Spanish)
-* http://www.catastro.meh.es/documentos/05042010_P.pdf (Spanish)
+* https://www.catastro.meh.es/ (Spanish)
+* https://www.catastro.meh.es/documentos/05042010_P.pdf (Spanish)
 * https://es.wikipedia.org/wiki/Catastro#Referencia_catastral
 
 >>> validate('7837301-VG8173B-0001 TT')  # Lanteira town hall

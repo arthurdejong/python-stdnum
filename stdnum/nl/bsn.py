@@ -28,7 +28,7 @@ More information:
 
 * https://en.wikipedia.org/wiki/National_identification_number#Netherlands
 * https://nl.wikipedia.org/wiki/Burgerservicenummer
-* http://www.burgerservicenummer.nl/
+* https://www.burgerservicenummer.nl/
 
 >>> validate('1112.22.333')
 '111222333'
