@@ -57,7 +57,7 @@ if __name__ == '__main__':
             for i, c in enumerate(row[1:]):
                 values[i][row[0]] = c
     # output the collected data
-    for i, data in values.items():
+    for _i, data in values.items():
         bban = data['BBAN structure']
         if not bban or bban.lower() == 'n/a':
             bban = data['IBAN structure']

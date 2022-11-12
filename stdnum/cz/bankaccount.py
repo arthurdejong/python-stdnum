@@ -83,7 +83,7 @@ def _info(bank):
     """Look up information for the bank."""
     from stdnum import numdb
     info = {}
-    for nr, found in numdb.get('cz/banks').info(bank):
+    for _nr, found in numdb.get('cz/banks').info(bank):
         info.update(found)
     return info
 

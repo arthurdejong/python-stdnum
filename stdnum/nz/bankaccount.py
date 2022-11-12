@@ -104,7 +104,7 @@ def info(number):
     number = compact(number)
     from stdnum import numdb
     info = {}
-    for nr, found in numdb.get('nz/banks').info(number):
+    for _nr, found in numdb.get('nz/banks').info(number):
         info.update(found)
     return info
 
