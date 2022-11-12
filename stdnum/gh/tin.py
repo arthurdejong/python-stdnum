@@ -27,13 +27,11 @@ are not eligible for the Ghanacard PIN and other entities.
 This number consists of 11 alpha-numeric characters. It begins with one of the
 following prefixes:
 
-  P00 For Individuals.
-  C00 For Companies limited by guarantee, shares, Unlimited (i.e organisation
-      required to register with the RGD).
-  G00 Government Agencies, MDAs.
-  Q00 Foreign Missions, Employees of foreign missions.
-  V00 Public Institutions, Trusts, Co-operatives, Foreign Shareholder
-      (Offshore), (Entities not registered by RGD).
+    P00 For Individuals.
+    C00 For Companies limited by guarantee, shares, Unlimited (i.e organisation required to register with the RGD).
+    G00 Government Agencies, MDAs.
+    Q00 Foreign Missions, Employees of foreign missions.
+    V00 Public Institutions, Trusts, Co-operatives, Foreign Shareholder (Offshore), (Entities not registered by RGD).
 
 More information:
 

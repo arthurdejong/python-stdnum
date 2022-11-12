@@ -29,6 +29,7 @@ Currently this package supports the following formats:
  * ACN (Australian Company Number)
  * TFN (Australian Tax File Number)
  * Belgian IBAN (International Bank Account Number)
+ * NN, NISS (Belgian national number)
  * BTW, TVA, NWSt, ondernemingsnummer (Belgian enterprise number)
  * EGN (ЕГН, Единен граждански номер, Bulgarian personal identity codes)
  * PNF (ЛНЧ, Личен номер на чужденец, Bulgarian number of a foreigner)
@@ -41,6 +42,7 @@ Currently this package supports the following formats:
  * BN (Canadian Business Number)
  * SIN (Canadian Social Insurance Number)
  * CAS RN (Chemical Abstracts Service Registry Number)
+ * CFI (ISO 10962 Classification of Financial Instruments)
  * ESR, ISR, QR-reference (reference number on Swiss payment slips)
  * Swiss social security number ("Sozialversicherungsnummer")
  * UID (Unternehmens-Identifikationsnummer, Swiss business identifier)
@@ -55,6 +57,7 @@ Currently this package supports the following formats:
  * NI (Número de identidad, Cuban identity card numbers)
  * CUSIP number (financial security identification number)
  * Αριθμός Εγγραφής Φ.Π.Α. (Cypriot VAT number)
+ * Czech bank account number
  * DIČ (Daňové identifikační číslo, Czech VAT number)
  * RČ (Rodné číslo, the Czech birth number)
  * Handelsregisternummer (German company register number)
@@ -67,6 +70,7 @@ Currently this package supports the following formats:
  * Cedula (Dominican Republic national identification number)
  * NCF (Números de Comprobante Fiscal, Dominican Republic receipt number)
  * RNC (Registro Nacional del Contribuyente, Dominican Republic tax number)
+ * NIF, sometimes N.I.F. (Numéro d'Identification Fiscale, Algeria tax number)
  * EAN (International Article Number)
  * CI (Cédula de identidad, Ecuadorian personal identity code)
  * RUC (Registro Único de Contribuyentes, Ecuadorian company tax number)
@@ -92,6 +96,7 @@ Currently this package supports the following formats:
  * Veronumero (Finnish individual tax number)
  * Y-tunnus (Finnish business identifier)
  * FIGI (Financial Instrument Global Identifier)
+ * V-number (Vinnutal, Faroe Islands tax number)
  * NIF (Numéro d'Immatriculation Fiscale, French tax identification number)
  * NIR (French personal identification number)
  * SIREN (a French company identification number)
@@ -102,6 +107,7 @@ Currently this package supports the following formats:
  * UPN (English Unique Pupil Number)
  * UTR (United Kingdom Unique Taxpayer Reference)
  * VAT (United Kingdom (and Isle of Man) VAT registration number)
+ * TIN (Taxpayer Identification Number, Ghana tax number)
  * AMKA (Αριθμός Μητρώου Κοινωνικής Ασφάλισης, Greek social security number)
  * FPA, ΦΠΑ, ΑΦΜ (Αριθμός Φορολογικού Μητρώου, the Greek VAT number)
  * GRid (Global Release Identifier)
@@ -137,6 +143,7 @@ Currently this package supports the following formats:
  * Codice Fiscale (Italian tax code for individuals)
  * Partita IVA (Italian VAT number)
  * CN (法人番号, hōjin bangō, Japanese Corporate Number)
+ * PIN (Personal Identification Number, Kenya tax number)
  * BRN (사업자 등록 번호, South Korea Business Registration Number)
  * RRN (South Korean resident registration number)
  * LEI (Legal Entity Identifier)
@@ -145,11 +152,14 @@ Currently this package supports the following formats:
  * PVM (Pridėtinės vertės mokestis mokėtojo kodas, Lithuanian VAT number)
  * TVA (taxe sur la valeur ajoutée, Luxembourgian VAT number)
  * PVN (Pievienotās vērtības nodokļa, Latvian VAT number)
+ * ICE (Identifiant Commun de l’Entreprise, التعريف الموحد للمقاولة, Morocco tax number)
  * MAC address (Media Access Control address)
  * n° TVA (taxe sur la valeur ajoutée, Monacan VAT number)
  * IDNO (Moldavian company identification number)
  * Montenegro IBAN (International Bank Account Number)
+ * PIB (Poreski Identifikacioni Broj, Montenegro tax number)
  * MEID (Mobile Equipment Identifier)
+ * ЕДБ (Едниствен Даночен Број, North Macedonia tax number)
  * VAT (Maltese VAT number)
  * ID number (Mauritian national identifier)
  * CURP (Clave Única de Registro de Población, Mexican personal ID)
@@ -169,6 +179,7 @@ Currently this package supports the following formats:
  * IRD number (New Zealand Inland Revenue Department (Te Tari Tāke) number)
  * CUI (Cédula Única de Identidad, Peruvian identity number)
  * RUC (Registro Único de Contribuyentes, Peruvian company tax number)
+ * CNIC number (Pakistani Computerised National Identity Card number)
  * NIP (Numer Identyfikacji Podatkowej, Polish VAT number)
  * PESEL (Polish national identification number)
  * REGON (Rejestr Gospodarki Narodowej, Polish register of economic units)
@@ -187,6 +198,7 @@ Currently this package supports the following formats:
  * VAT (Moms, Mervärdesskatt, Swedish VAT number)
  * UEN (Singapore's Unique Entity Number)
  * ID za DDV (Davčna številka, Slovenian VAT number)
+ * Enotna matična številka občana (Unique Master Citizen Number)
  * IČ DPH (IČ pre daň z pridanej hodnoty, Slovak VAT number)
  * RČ (Rodné číslo, the Slovak birth number)
  * COE (Codice operatore economico, San Marino national tax number)
@@ -194,6 +206,7 @@ Currently this package supports the following formats:
  * MOA (Thailand Memorandum of Association Number)
  * PIN (Thailand Personal Identification Number)
  * TIN (Thailand Taxpayer Identification Number)
+ * MF (Matricule Fiscal, Tunisia tax number)
  * T.C. Kimlik No. (Turkish personal identification number)
  * VKN (Vergi Kimlik Numarası, Turkish tax identification number)
  * UBN (Unified Business Number, 統一編號, Taiwanese tax number)
@@ -267,7 +280,7 @@ also work with older versions of Python.
 Copyright
 ---------
 
-Copyright (C) 2010-2021 Arthur de Jong and others
+Copyright (C) 2010-2022 Arthur de Jong and others
 
 This library is free software; you can redistribute it and/or
 modify it under the terms of the GNU Lesser General Public

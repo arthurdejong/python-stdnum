@@ -1,3 +1,42 @@
+changes from 1.17 to 1.18
+-------------------------
+
+* Add modules for the following number formats:
+
+  - NN, NISS (Belgian national number) (thanks Cédric Krier)
+  - CFI (ISO 10962 Classification of Financial Instruments)
+  - Czech bank account number (thanks Petr Přikryl)
+  - NIF, sometimes N.I.F. (Numéro d'Identification Fiscale, Algeria tax number)
+    (thanks Leandro Regueiro)
+  - V-number (Vinnutal, Faroe Islands tax number) (thanks Leandro Regueiro)
+  - TIN (Taxpayer Identification Number, Ghana tax number) (thanks Leandro Regueiro)
+  - PIN (Personal Identification Number, Kenya tax number) (thanks Leandro Regueiro)
+  - ICE (Identifiant Commun de l’Entreprise, التعريف الموحد للمقاولة, Morocco tax number)
+    (thanks Leandro Regueiro)
+  - PIB (Poreski Identifikacioni Broj, Montenegro tax number) (thanks Leandro Regueiro)
+  - ЕДБ (Едниствен Даночен Број, North Macedonia tax number) (thanks Leandro Regueiro)
+  - CNIC number (Pakistani Computerised National Identity Card number)
+    (thanks Syed Haseeb Shah)
+  - Enotna matična številka občana (Unique Master Citizen Number)
+    (thanks Blaž Bregar)
+  - MF (Matricule Fiscal, Tunisia tax number) (thanks Leandro Regueiro)
+
+* Fix disabling check digit validation of Mexican CURP (thanks guyskk)
+* Support special validation of La Post SIRET (thanks BIGBen99 and Cédric Krier)
+* Fix support for "I" and "O" in CUSIP number (thanks Thomas Kavanagh)
+* Calculate ISO 7064 Mod 97, 10 check digits in the range 02-98 for IBAN
+  (thanks David Svenson)
+* Fix German OffeneRegister lookups (change of URL and of data structure)
+* Add extra court alias for Berlin in German Handelsregisternummer (thanks Romuald R)
+* Ensure certificate for the Belarus VAT number check_nalog() lookup is included
+* Support parsing incomplete dates in GS1-128 (thanks Alexis de Lattre)
+* Improve validation of CAS Registry Number
+* Typo fixes (thanks Vladimir and Dimitri Papadopoulos)
+* Add a check_uid() function to the stdnum.ch.uid module
+* All validation exceptions should now inherit from ValueError
+* Switch from nose to pytest as test runner
+
+
 changes from 1.16 to 1.17
 -------------------------
 

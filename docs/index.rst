@@ -127,6 +127,7 @@ Available formats
    au.acn
    au.tfn
    be.iban
+   be.nn
    be.vat
    bg.egn
    bg.pnf
@@ -139,6 +140,7 @@ Available formats
    ca.bn
    ca.sin
    casrn
+   cfi
    ch.esr
    ch.ssn
    ch.uid
@@ -153,6 +155,7 @@ Available formats
    cu.ni
    cusip
    cy.vat
+   cz.bankaccount
    cz.dic
    cz.rc
    de.handelsregisternummer
@@ -165,6 +168,7 @@ Available formats
    do.cedula
    do.ncf
    do.rnc
+   dz.nif
    ean
    ec.ci
    ec.ruc
@@ -190,6 +194,7 @@ Available formats
    fi.veronumero
    fi.ytunnus
    figi
+   fo.vn
    fr.nif
    fr.nir
    fr.siren
@@ -200,6 +205,7 @@ Available formats
    gb.upn
    gb.utr
    gb.vat
+   gh.tin
    gr.amka
    gr.vat
    grid
@@ -235,6 +241,7 @@ Available formats
    it.codicefiscale
    it.iva
    jp.cn
+   ke.pin
    kr.brn
    kr.rrn
    lei
@@ -243,11 +250,14 @@ Available formats
    lt.pvm
    lu.tva
    lv.pvn
+   ma.ice
    mac
    mc.tva
    md.idno
    me.iban
+   me.pib
    meid
+   mk.edb
    mt.vat
    mu.nid
    mx.curp
@@ -267,6 +277,7 @@ Available formats
    nz.ird
    pe.cui
    pe.ruc
+   pk.cnic
    pl.nip
    pl.pesel
    pl.regon
@@ -285,6 +296,7 @@ Available formats
    se.vat
    sg.uen
    si.ddv
+   si.emso
    sk.dph
    sk.rc
    sm.coe
@@ -292,6 +304,7 @@ Available formats
    th.moa
    th.pin
    th.tin
+   tn.mf
    tr.tckimlik
    tr.vkn
    tw.ubn
