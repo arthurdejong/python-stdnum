@@ -1,7 +1,7 @@
 # exceptions.py - collection of stdnum exceptions
 # coding: utf-8
 #
-# Copyright (C) 2013 Arthur de Jong
+# Copyright (C) 2013-2022 Arthur de Jong
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -29,7 +29,7 @@ __all__ = ['ValidationError', 'InvalidFormat', 'InvalidChecksum',
            'InvalidLength', 'InvalidComponent']
 
 
-class ValidationError(Exception):
+class ValidationError(ValueError):
     """Top-level error for validating numbers.
 
     This exception should normally not be raised, only subclasses of this
