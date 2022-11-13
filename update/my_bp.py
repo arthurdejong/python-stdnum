@@ -22,6 +22,7 @@
 """This script downloads the list of states and countries and their
 birthplace code from the National Registration Department of Malaysia."""
 
+import os
 import re
 from collections import defaultdict
 
@@ -61,19 +62,20 @@ def parse(content):
 
 
 if __name__ == '__main__':
+    ca_certificate = os.path.join(os.path.dirname(__file__), 'my_bp.crt')
     headers = {
         'User-Agent': user_agent,
     }
     results = defaultdict(lambda: defaultdict(set))
     # read the states
-    response = requests.get(state_list_url, headers=headers, verify='update/my_bp.crt', timeout=30)
+    response = requests.get(state_list_url, headers=headers, verify=ca_certificate, timeout=30)
     response.raise_for_status()
     for state, bps in parse(response.content):
         for bp in bps:
             results[bp]['state'] = state
             results[bp]['countries'].add('Malaysia')
     # read the countries
-    response = requests.get(country_list_url, headers=headers, verify='update/my_bp.crt', timeout=30)
+    response = requests.get(country_list_url, headers=headers, verify=ca_certificate, timeout=30)
     response.raise_for_status()
     for country, bps in parse(response.content):
         for bp in bps:
