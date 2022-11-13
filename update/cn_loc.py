@@ -3,7 +3,7 @@
 # update/cn_loc.py - script to fetch data from the CN Open Data community
 #
 # Copyright (C) 2014-2015 Jiangge Zhang
-# Copyright (C) 2015-2019 Arthur de Jong
+# Copyright (C) 2015-2022 Arthur de Jong
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -58,7 +58,7 @@ def fetch_data():
     """Return the data from tab-separated revisions as one code/name dict."""
     data_collection = OrderedDict()
     for revision in data_revisions:
-        response = requests.get('%s/raw/release/%s.txt' % (data_url, revision), timeout=30)
+        response = requests.get('%s/raw/release/%s.txt' % (data_url, revision), timeout=120)
         response.raise_for_status()
         if response.ok:
             print('%s is fetched' % revision, file=sys.stderr)
