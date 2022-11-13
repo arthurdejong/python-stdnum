@@ -1,0 +1,40 @@
+test_pk_cnic.doctest - more detailed doctests for stdnum.pk.cnic
+
+Copyright (C) 2022 Arthur de Jong
+
+This library is free software; you can redistribute it and/or
+modify it under the terms of the GNU Lesser General Public
+License as published by the Free Software Foundation; either
+version 2.1 of the License, or (at your option) any later version.
+
+This library is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+Lesser General Public License for more details.
+
+You should have received a copy of the GNU Lesser General Public
+License along with this library; if not, write to the Free Software
+Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
+02110-1301 USA
+
+
+This file contains more detailed doctests for the stdnum.pk.cnic module.
+
+>>> from stdnum.pk import cnic
+
+
+>>> cnic.validate('34201-0891231-8')
+'3420108912318'
+>>> cnic.validate('34201-0891231-0')  # invalid gender
+Traceback (most recent call last):
+    ...
+InvalidComponent: ...
+>>> cnic.validate('94201-0891231-8')  # invalid province
+Traceback (most recent call last):
+    ...
+InvalidComponent: ...
+
+>>> cnic.get_gender('34201-0891231-8')
+'F'
+>>> cnic.get_gender('34201-0891231-9')
+'M'
