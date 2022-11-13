@@ -44,13 +44,17 @@ InvalidLength: ...
 >>> validate('XX')
 Traceback (most recent call last):
     ...
-InvalidComponent: ...
+ImportError: ...
 """
 
 import re
 
 from stdnum.exceptions import *
 from stdnum.util import clean, get_cc_module
+
+
+# regular expression for matching country codes.
+_country_code_re = re.compile(r'^[a-z]{2}$')
 
 
 # Cache of country code modules
@@ -61,12 +65,12 @@ def _get_cc_module(cc):
     """Get the VAT number module based on the country code."""
     # Greece uses a "wrong" country code, special case for Northern Ireland
     cc = cc.lower().replace('el', 'gr').replace('xi', 'gb')
-    if not re.match(r'^[a-z]{2}$', cc):
-        raise InvalidFormat()
+    if not _country_code_re.match(cc):
+        raise ImportError()
     if cc not in _country_modules:
         _country_modules[cc] = get_cc_module(cc, 'vat')
     if not _country_modules[cc]:
-        raise InvalidComponent()  # unknown/unsupported country code
+        raise ImportError()
     return _country_modules[cc]
 
 
@@ -94,5 +98,7 @@ def is_valid(number):
     """Check if the number is a valid VAT number."""
     try:
         return bool(validate(number))
+    except ImportError:
+        return False
     except ValidationError:
         return False
