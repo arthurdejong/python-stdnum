@@ -1,6 +1,6 @@
 # generated from current_codes.xls downloaded from
 # https://www.nbb.be/doc/be/be/protocol/current_codes.xls
-# version 08/08/2022
+# Version 01/10/2022
 000-000 bic="BPOTBEB1" bank="bpost bank"
 001-049 bic="GEBABEBB" bank="BNP Paribas Fortis"
 050-099 bic="GKCCBEBB" bank="BELFIUS BANK"
@@ -39,7 +39,7 @@
 501-501 bic="DHBNBEBB" bank="Demir-Halk Bank (Nederland) (DHB)"
 504-504 bic="PANXBEB1" bank="Unifiedpost Payments"
 507-507 bic="DIERBE21" bank="Dierickx, Leys & Cie Effectenbank"
-508-508 bic="PARBBEBZMDC" bank="BNP Paribas Securities Services"
+508-508 bic="PARBBEBZMDC" bank="BNP Paribas SA, Belgium Branch – Securities Services business"
 509-509 bic="ABNABE2AIPC" bank="ABN AMRO Bank N.V."
 510-510 bic="VAPEBE22" bank="VAN DE PUT & CO Privaatbankiers"
 512-512 bic="DNIBBE21" bank="NIBC BANK"
@@ -56,7 +56,7 @@
 541-541 bic="BKIDBE22" bank="BANK OF INDIA"
 546-546 bic="WAFABEBB" bank="Attijariwafa bank Europe"
 548-548 bic="LOCYBEBB" bank="Lombard Odier (Europe)"
-549-549 bic="CHASBEBX" bank="J.P. Morgan SE – Brussels Branch"
+549-549 bic="CHASBEBX" bank="J.P. Morgan SE -Brussels Branch"
 550-560 bic="GKCCBEBB" bank="BELFIUS BANK"
 562-569 bic="GKCCBEBB" bank="BELFIUS BANK"
 570-579 bic="CITIBEBX" bank="Citibank Europe Plc - Belgium Branch"

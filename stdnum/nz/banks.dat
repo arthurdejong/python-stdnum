@@ -1,4 +1,4 @@
-# generated from BankBranchRegister-16Aug2022.xlsx downloaded from
+# generated from BankBranchRegister-14Nov2022.xlsx downloaded from
 # https://www.paymentsnz.co.nz/resources/industry-registers/bank-branch-register/download/xlsx/
 01 bank="ANZ Bank New Zealand"
  0001 branch="ANZ Retail 1"
@@ -378,7 +378,7 @@
  0686 branch="Lower Emerson Street"
  0688 branch="Masterton"
  0692 branch="Motueka"
- 0700 branch="Napier"
+ 0700,0766 branch="Napier"
  0704 branch="Nelson"
  0708 branch="New Plymouth"
  0712 branch="Whanganui"
@@ -391,7 +391,6 @@
  0747,0764 branch="Richmond"
  0756 branch="Hawera"
  0760 branch="Taihape"
- 0766 branch="Taradale"
  0772 branch="Upper Hutt"
  0776 branch="Waipawa"
  0780 branch="Waipukurau"

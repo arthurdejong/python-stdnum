@@ -1,5 +1,5 @@
 # generated from https://data.rtr.at/api/v1/tables/plz.json
-# version 31378 published 2022-08-11T14:05:00+02:00
+# version 32355 published 2022-10-12T17:40:00+02:00
 1010 location="Wien" region="Wien"
 1020 location="Wien" region="Wien"
 1030 location="Wien" region="Wien"
@@ -1856,6 +1856,7 @@
 7551 location="Stegersbach" region="Burgenland"
 7552 location="Stinatz" region="Burgenland"
 7553 location="Bocksdorf" region="Burgenland"
+7554 location="Rohr im Burgenland" region="Burgenland"
 7561 location="Heiligenkreuz im Lafnitztal" region="Burgenland"
 7562 location="Eltendorf" region="Burgenland"
 7563 location="Königsdorf" region="Burgenland"
