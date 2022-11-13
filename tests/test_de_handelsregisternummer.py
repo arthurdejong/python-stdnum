@@ -41,7 +41,7 @@ class TestOffeneRegister(unittest.TestCase):
         result = handelsregisternummer.check_offeneregister('Chemnitz HRB 14011')
         self.assertTrue(all(
             key in result.keys()
-            for key in ['company_number', 'current_status', 'federal_state', 'registrar', 'native_company_number']))
+            for key in ['companyId', 'courtCode', 'courtName', 'name', 'nativeReferenceNumber']))
         # Test invalid number
         result = handelsregisternummer.check_offeneregister('Chemnitz HRA 14012')
         self.assertIsNone(result)
