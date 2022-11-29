@@ -19,7 +19,7 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 # 02110-1301 USA
 
-"""Isikukood (Estonian Personcal ID number).
+"""Isikukood (Estonian Personal ID number).
 
 The number consists of 11 digits: the first indicates the gender and century
 the person was born in, the following 6 digits the birth date, followed by a
