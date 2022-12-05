@@ -141,7 +141,7 @@ def check_uid(number, timeout=30):  # pragma: no cover
     client = get_soap_client(uid_wsdl, timeout)
     try:
         return client.GetByUID(uid={'uidOrganisationIdCategorie': number[:3], 'uidOrganisationId': number[3:]})[0]
-    except Exception:  # noqa: B902 (excpetion type depends on SOAP client)
+    except Exception:  # noqa: B902 (exception type depends on SOAP client)
         # Error responses by the server seem to result in exceptions raised
         # by the SOAP client implementation
         return

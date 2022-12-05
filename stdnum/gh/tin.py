@@ -24,7 +24,7 @@
 This number is issued by the Ghana Revenue Authority (GRA) to individuals who
 are not eligible for the Ghanacard PIN and other entities.
 
-This number consists of 11 alpha-numeric characters. It begins with one of the
+This number consists of 11 alphanumeric characters. It begins with one of the
 following prefixes:
 
     P00 For Individuals.
