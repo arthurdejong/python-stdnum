@@ -332,3 +332,12 @@ Changes in python-stdnum
    :maxdepth: 2
 
    changes
+
+
+Contributing to python-stdnum
+-----------------------------
+
+.. toctree::
+   :maxdepth: 2
+
+   contributing
