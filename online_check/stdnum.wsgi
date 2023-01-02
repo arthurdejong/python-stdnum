@@ -1,6 +1,6 @@
 # stdnum.wsgi - simple WSGI application to check numbers
 #
-# Copyright (C) 2017-2020 Arthur de Jong.
+# Copyright (C) 2017-2023 Arthur de Jong
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -19,6 +19,7 @@
 
 """Simple WSGI application to check numbers."""
 
+import datetime
 import html
 import inspect
 import json
@@ -31,7 +32,7 @@ import urllib.parse
 sys.stdout = sys.stderr
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), 'python-stdnum'))
 
-from stdnum.util import (
+from stdnum.util import (  # noqa: E402,I001 (import after changes to sys.path)
     get_module_description, get_module_name, get_number_modules, to_unicode)
 
 
@@ -41,16 +42,19 @@ _template = None
 def get_conversions(module, number):
     """Return the possible conversions for the number."""
     for name, func in inspect.getmembers(module, inspect.isfunction):
-        if name.startswith('to_'):
+        if name.startswith('to_') or name.startswith('get_'):
             args, varargs, varkw, defaults = inspect.getargspec(func)
             if defaults:
                 args = args[:-len(defaults)]
             if args == ['number'] and not name.endswith('binary'):
                 try:
+                    prop = name.split('_', 1)[1].replace('_', ' ')
                     conversion = func(number)
-                    if conversion != number:
-                        yield (name[3:], to_unicode(conversion))
-                except Exception:
+                    if isinstance(conversion, datetime.date):
+                        yield (prop, conversion.strftime('%Y-%m-%d'))
+                    elif conversion != number:
+                        yield (prop, to_unicode(conversion))
+                except Exception:  # noqa: B902 (catch anything that goes wrong)
                     pass
 
 
