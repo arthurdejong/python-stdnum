@@ -77,7 +77,7 @@ def _checksum(number):
 
 
 def validate(number):
-    """Check if the number if a valid National Number."""
+    """Check if the number is a valid National Number."""
     number = compact(number)
     if not isdigits(number) or int(number) <= 0:
         raise InvalidFormat()
