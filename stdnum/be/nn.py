@@ -41,6 +41,8 @@ InvalidChecksum: ...
 '85.07.30-033.28'
 >>> get_birth_date('85.07.30-033 28')
 datetime.date(1985, 7, 30)
+>>> get_gender('85.07.30-033 28')
+'M'
 """
 
 import datetime
@@ -106,3 +108,11 @@ def get_birth_date(number):
             str(century) + number[:6], '%Y%m%d').date()
     except ValueError:
         raise InvalidComponent()
+
+
+def get_gender(number):
+    """Get the gender (M/F)"""
+    number = compact(number)
+    if int(number[6:9]) % 2:
+        return 'M'
+    return 'F'
