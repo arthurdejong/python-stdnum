@@ -40,3 +40,9 @@ InvalidChecksum: ...
 Traceback (most recent call last):
     ...
 InvalidComponent: ...
+
+
+Extra tests for getting gender
+
+>>> nn.get_gender('75.06.08-980.09')
+'F'

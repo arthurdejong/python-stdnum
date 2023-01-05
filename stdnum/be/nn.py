@@ -18,13 +18,21 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 # 02110-1301 USA
 
-"""NN, NISS (Belgian national number).
+"""NN, NISS, RRN (Belgian national number).
 
-The national number is a unique identifier of Belgian. The number consists of
-11 digits.
+The national registration number (Rijksregisternummer, Numéro de registre
+national, Nationalregisternummer) is a unique identification number of
+natural persons who are registered in Belgium.
+
+The number consists of 11 digits and includes the person's date of birth and
+gender. It encodes the date of birth in the first 6 digits in the format
+YYMMDD. The following 3 digits represent a counter of people born on the same
+date, seperated by sex (odd for male and even for females respectively). The
+final 2 digits form a check number based on the 9 preceding digits.
 
 More information:
 
+* https://nl.wikipedia.org/wiki/Rijksregisternummer
 * https://fr.wikipedia.org/wiki/Numéro_de_registre_national
 
 >>> compact('85.07.30-033 28')
@@ -41,6 +49,8 @@ InvalidChecksum: ...
 '85.07.30-033.28'
 >>> get_birth_date('85.07.30-033 28')
 datetime.date(1985, 7, 30)
+>>> get_gender('85.07.30-033 28')
+'M'
 """
 
 import datetime
@@ -68,7 +78,7 @@ def _checksum(number):
 
 
 def validate(number):
-    """Check if the number if a valid National Number."""
+    """Check if the number is a valid National Number."""
     number = compact(number)
     if not isdigits(number) or int(number) <= 0:
         raise InvalidFormat()
@@ -96,7 +106,7 @@ def format(number):
 
 
 def get_birth_date(number):
-    """Return the date of birth"""
+    """Return the date of birth."""
     number = compact(number)
     century = _checksum(number)
     if not century:
@@ -106,3 +116,11 @@ def get_birth_date(number):
             str(century) + number[:6], '%Y%m%d').date()
     except ValueError:
         raise InvalidComponent()
+
+
+def get_gender(number):
+    """Get the person's gender ('M' or 'F')."""
+    number = compact(number)
+    if int(number[6:9]) % 2:
+        return 'M'
+    return 'F'
