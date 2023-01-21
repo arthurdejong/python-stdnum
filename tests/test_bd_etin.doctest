@@ -1,0 +1,158 @@
+test_bd_etin.doctest - more detailed doctests for stdnum.bd.etin module
+
+Copyright (C) 2023 Leandro Regueiro
+
+This library is free software; you can redistribute it and/or
+modify it under the terms of the GNU Lesser General Public
+License as published by the Free Software Foundation; either
+version 2.1 of the License, or (at your option) any later version.
+
+This library is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+Lesser General Public License for more details.
+
+You should have received a copy of the GNU Lesser General Public
+License along with this library; if not, write to the Free Software
+Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
+02110-1301 USA
+
+
+This file contains more detailed doctests for the stdnum.bd.etin module. It
+tries to test more corner cases and detailed functionality that is not really
+useful as module documentation.
+
+>>> from stdnum.bd import etin
+
+
+Tests for some corner cases.
+
+>>> etin.validate('224187378587')
+'224187378587'
+>>> etin.validate('12345')
+Traceback (most recent call last):
+    ...
+InvalidLength: ...
+>>> etin.validate('1234567890XX')
+Traceback (most recent call last):
+    ...
+InvalidFormat: ...
+>>> etin.format('224187378587')
+'224187378587'
+
+
+These have been found online and should all be valid numbers.
+
+>>> numbers = '''
+...
+... 224187378587
+... 135055865054
+... 738330325591
+... 277916626006
+... 681988811545
+... 267962119864
+... 339698563430
+... 520540168296
+... 165536913384
+... 316174170274
+... 131551835650
+... 481375629149
+... 767520992761
+... 651069864924
+... 183780859375
+... 532529995018
+... 176564302526
+... 832273574406
+... 637043541293
+... 653402788766
+... 259574727994
+... 160874128026
+... 284120567875
+... 193190124102
+... 431261923476
+... 646693455577
+... 166768321166
+... 777596901240
+... 414877819850
+... 635337482532
+... 619068451149
+... 723377852860
+... 570789269501
+... 165536913384
+... 365777579468
+... 797905950605
+... 295475338492
+... 439442745537
+... 164533974718
+... 118701528309
+... 129369223588
+... 114403298089
+... 198060384543
+... 661881651462
+... 757699520135
+... 350175670404
+... 544218590837
+... 639216748212
+... 350175670404
+... 727126527155
+... 738330325591
+... 694411411108
+... 344847223347
+... 394777319395
+... 193602721035
+... 443583654331
+... 123562770715
+... 581975497462
+... 172342737380
+... 427058738130
+... 621606361842
+... 836773433583
+... 723775721753
+... 229193339950
+... 518389342914
+... 599652154463
+... 499508441184
+... 854716207710
+... 827328109457
+... 530068670685
+... 448245442372
+... 185171632448
+... 150261504838
+... 441133295537
+... 314917396858
+... 446381915223
+... 834323463643
+... 232954564554
+... 453961956038
+... 592394697235
+... 320623792282
+... 272768451190
+... 277916626006
+... 431117397300
+... 161231359425
+... 134518668890
+... 160951299512
+... 132006154756
+... 181118834634
+... 297396592589
+... 473613974848
+... 333983392178
+... 465337943663
+... 286937923024
+... 496902985207
+... 143462765792
+... 763686958372
+... 864865842903
+... 630477546927
+... 144050147394
+... 481375629149
+... 733743131344
+... 768947979306
+... 457158218470
+... 820797987002
+... 299334919055
+... 149986200224
+...
+... '''
+>>> [x for x in numbers.splitlines() if x and not etin.is_valid(x)]
+[]
