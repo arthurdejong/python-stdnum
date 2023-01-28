@@ -1,0 +1,157 @@
+test_gn_nifp.doctest - more detailed doctests for stdnum.gn.nifp module
+
+Copyright (C) 2023 Leandro Regueiro
+
+This library is free software; you can redistribute it and/or
+modify it under the terms of the GNU Lesser General Public
+License as published by the Free Software Foundation; either
+version 2.1 of the License, or (at your option) any later version.
+
+This library is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+Lesser General Public License for more details.
+
+You should have received a copy of the GNU Lesser General Public
+License along with this library; if not, write to the Free Software
+Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
+02110-1301 USA
+
+
+This file contains more detailed doctests for the stdnum.gn.nifp module. It
+tries to test more corner cases and detailed functionality that is not really
+useful as module documentation.
+
+>>> from stdnum.gn import nifp
+
+
+Tests for some corner cases.
+
+>>> nifp.validate('693770885')
+'693770885'
+>>> nifp.validate('693-770-885')
+'693770885'
+>>> nifp.format('693770885')
+'693-770-885'
+>>> nifp.validate('12345')
+Traceback (most recent call last):
+    ...
+InvalidLength: ...
+>>> nifp.validate('VV3456789')
+Traceback (most recent call last):
+    ...
+InvalidFormat: ...
+>>> nifp.validate('693770880')
+Traceback (most recent call last):
+    ...
+InvalidChecksum: ...
+
+
+These have been found online and should all be valid numbers.
+
+>>> numbers = '''
+...
+... 102193364
+... 102932480
+... 113906614
+... 137855094
+... 157700758
+... 163512015
+... 168219525
+... 177755154
+... 203352125
+... 215895707
+... 234705127
+... 258620392
+... 265163162
+... 270905136
+... 276587276
+... 281697813
+... 281973404
+... 289136574
+... 290216472
+... 291581551
+... 311132112
+... 326241312
+... 326916780
+... 330284803
+... 333066967
+... 339107195
+... 370302309
+... 379503667
+... 390899623
+... 407497502
+... 415146935
+... 416379998
+... 422626143
+... 429527492
+... 433727930
+... 438888018
+... 447159617
+... 447777913
+... 489733675
+... 496666249
+... 515556629
+... 530081389
+... 538787201
+... 540187069
+... 569056062
+... 585086473
+... 589015205
+... 622719409
+... 626945182
+... 633490883
+... 634628101
+... 634726517
+... 639191436
+... 647585900
+... 653873455
+... 656468998
+... 658615315
+... 664138476
+... 664763828
+... 666959549
+... 677783854
+... 681340105
+... 691380299
+... 720469097
+... 735630923
+... 762478154
+... 765808340
+... 775347206
+... 780527677
+... 780806089
+... 784170151
+... 806927760
+... 833139827
+... 839709987
+... 841526031
+... 842993172
+... 853101202
+... 853102234
+... 864098611
+... 875480923
+... 877008771
+... 887516623
+... 896053261
+... 902765809
+... 908179583
+... 908810518
+... 912232667
+... 914351234
+... 925867079
+... 927432484
+... 938291994
+... 955449905
+... 958819708
+... 960943835
+... 964456891
+... 969695261
+... 972555296
+... 977428416
+... 982469827
+... 999707235
+...
+... '''
+>>> [x for x in numbers.splitlines() if x and not nifp.is_valid(x)]
+[]
