@@ -1,0 +1,188 @@
+test_sn_ninea.doctest - more detailed doctests for stdnum.sn.ninea module
+
+Copyright (C) 2023 Leandro Regueiro
+
+This library is free software; you can redistribute it and/or
+modify it under the terms of the GNU Lesser General Public
+License as published by the Free Software Foundation; either
+version 2.1 of the License, or (at your option) any later version.
+
+This library is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+Lesser General Public License for more details.
+
+You should have received a copy of the GNU Lesser General Public
+License along with this library; if not, write to the Free Software
+Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
+02110-1301 USA
+
+
+This file contains more detailed doctests for the stdnum.sn.ninea module. It
+tries to test more corner cases and detailed functionality that is not really
+useful as module documentation.
+
+>>> from stdnum.sn import ninea
+
+
+Tests for some corner cases.
+
+>>> ninea.validate('3067221')
+'3067221'
+>>> ninea.validate('30672212G2')
+'30672212G2'
+>>> ninea.validate('306 7221')
+'3067221'
+>>> ninea.validate('3067221 2G2')
+'30672212G2'
+>>> ninea.validate('3067221/2/G/2')
+'30672212G2'
+>>> ninea.validate('3067221-2G2')
+'30672212G2'
+>>> ninea.validate('12345')
+Traceback (most recent call last):
+    ...
+InvalidLength: ...
+>>> ninea.validate('VV34567')
+Traceback (most recent call last):
+    ...
+InvalidFormat: ...
+>>> ninea.validate('VV345670A0')
+Traceback (most recent call last):
+    ...
+InvalidFormat: ...
+>>> ninea.validate('12345679A0')
+Traceback (most recent call last):
+    ...
+InvalidComponent: ...
+>>> ninea.validate('12345670I0')
+Traceback (most recent call last):
+    ...
+InvalidComponent: ...
+>>> ninea.validate('12345670AV')
+Traceback (most recent call last):
+    ...
+InvalidComponent: ...
+>>> ninea.format('306 7221')
+'3067221'
+>>> ninea.format('30672212G2')
+'3067221 2G2'
+
+
+These have been found online and should all be valid numbers.
+
+>>> numbers = '''
+...
+... 0,017,766 2G3
+... 0,027,476 2G3
+... 0,059 990 2G3
+... 0,513,475 2C1
+... 00140012G3
+... 0014051-2G3
+... 0015041
+... 00153142G3
+... 00154212G3
+... 0019366
+... 0020884 2 G 3
+... 002420983 2G3
+... 002502343
+... 00284430 C0
+... 004237633 2B2
+... 004343430
+... 0044440722V1
+... 0045799442C2
+... 0046 00096 2S9
+... 004641363
+... 004912269
+... 005,830,866 1V1
+... 005023081
+... 005046174
+... 0051126442L1
+... 005117355
+... 005131305 2G3
+... 005216371 2V3
+... 005241550 2C2
+... 0053655402R2
+... 005371026
+... 005623998
+... 00569042P2
+... 005721809
+... 005754339 2V2
+... 005844700
+... 006,364,472 2L2
+... 00605 33 92
+... 006208434
+... 006269436
+... 006295879
+... 0063150572G2
+... 006325741
+... 006373295/0A9
+... 006416681
+... 00661012S3
+... 006715314 2G3
+... 006777463
+... 006900387
+... 006946034
+... 007039292
+... 007057947
+... 00722992 G 3
+... 00722992G3
+... 007266126
+... 007307748 1V1
+... 007389100
+... 007660740
+... 007912662
+... 007992482 2A3
+... 008086242 1E1
+... 008135114
+... 00830 48 0 C 9
+... 008517560
+... 008895586
+... 008895677
+... 0108531 2G3
+... 0120 212
+... 0149642
+... 0185844 2 R 2
+... 0283 408-2C2
+... 0288846 2G3
+... 0316093
+... 0316390
+... 0332891
+... 0366 709 2S2
+... 0404913 2B1
+... 1928863 2B2
+... 19370542G2
+... 2,838,516 2B3
+... 2079376/2/G/3
+... 20839132 S 3
+... 2139378 2V2
+... 21409612D1
+... 2160472-2G3
+... 21948852B9
+... 22486742 S 3
+... 24312110V9
+... 244982000
+... 25437852G3
+... 255 44 772 S 3
+... 25833512R2
+... 2599770 2 B 2
+... 26080342R2
+... 26132492D6
+... 26581702G2
+... 270 773 72 S2
+... 2929406 0G0
+... 30092572G3
+... 30672212G2
+... 4069367 2G3
+... 41130152C2
+... 48522250G0
+... 49615470C0
+... 5,729,803 2V2
+... 50 63 699 2E1
+... 5435 468 0G0
+... 61523762A2
+... 81329702S1
+...
+... '''
+>>> [x for x in numbers.splitlines() if x and not ninea.is_valid(x)]
+[]
