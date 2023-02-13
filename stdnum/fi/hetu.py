@@ -50,15 +50,15 @@ from stdnum.util import clean
 
 _century_codes = {
     '+': 1800,
-    '-': 1900,
-    'A': 2000,
 }
+_century_codes.update(dict.fromkeys(('-', 'Y', 'X', 'W', 'V', 'U'), 1900))
+_century_codes.update(dict.fromkeys(('A', 'B', 'C', 'D', 'E', 'F'), 2000))
 
 # Finnish personal identity codes are composed of date part, century
 # indicating sign, individual number and control character.
 # ddmmyyciiiC
 _hetu_re = re.compile(r'^(?P<day>[0123]\d)(?P<month>[01]\d)(?P<year>\d\d)'
-                      r'(?P<century>[-+A])(?P<individual>\d\d\d)'
+                      r'(?P<century>[-+ABCDEFYXWVU])(?P<individual>\d\d\d)'
                       r'(?P<control>[0-9ABCDEFHJKLMNPRSTUVWXY])$')
 
 
