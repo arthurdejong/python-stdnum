@@ -39,6 +39,14 @@ Normal values that should just work.
 >>> hetu.validate('131052a308t')
 '131052A308T'
 
+From the beginning of year 2023, additional century indicating signs were added.
+This doesn't affect the checksum calculation.
+
+>>> hetu.validate('131052B308T')
+'131052B308T'
+
+>>> hetu.validate('131052X308T')
+'131052X308T'
 
 Invalid checksum:
 
