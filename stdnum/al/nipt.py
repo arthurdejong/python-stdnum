@@ -46,7 +46,7 @@ from stdnum.util import clean
 
 
 # regular expression for matching number
-_nipt_re = re.compile(r'^[JKL][0-9]{8}[A-Z]$')
+_nipt_re = re.compile(r'^[JKLM][0-9]{8}[A-Z]$')
 
 
 def compact(number):
