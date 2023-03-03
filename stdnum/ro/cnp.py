@@ -108,6 +108,7 @@ def is_valid(number):
 
 
 def get_county(number):
+    '''Geting county names fro sequence'''
     number = compact(number)
     counties = {'01': 'Alba', '02': 'Arad', '03': 'Arges', '04': 'Bacau',
                 '05': 'Bihor', '06': 'Bistrita-Nasaud', '07': 'Botosani', '08': 'Brasov',
