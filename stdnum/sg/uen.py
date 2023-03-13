@@ -22,7 +22,7 @@
 """UEN (Singapore's Unique Entity Number).
 
 The Unique Entity Number (UEN) is a 9 or 10 digit identification issued by
-the government of Singapore to businesses that operate with within Singapore.
+the government of Singapore to businesses that operate within Singapore.
 
 
 Accounting and Corporate Regulatory Authority (ACRA)
