@@ -44,6 +44,8 @@ will be converted to the correct representation.
 Traceback (most recent call last):
     ...
 InvalidComponent: ...
+>>> gs1_128.encode({'253': '1234567890005000123'})
+'2531234567890005000123'
 
 If we have a separator we use it to separate variable-length values, otherwise
 we pad all variable-length values to the maximum length (except the last one).
@@ -82,6 +84,10 @@ We generate dates in various formats, depending on the AI.
 '(8008)18111912'
 >>> gs1_128.encode({'8008': datetime.datetime(2018, 11, 19, 0, 0)}, parentheses=True)
 '(8008)18111900'
+>>> gs1_128.encode({'7011': datetime.date(2018, 11, 19)}, parentheses=True)
+'(7011)181119'
+>>> gs1_128.encode({'7011': datetime.datetime(2018, 11, 19, 12, 45)}, parentheses=True)
+'(7011)1811191245'
 
 If we try to encode an invalid EAN we will get an error.
 
@@ -112,6 +118,8 @@ pprint.pprint(gs1_128.info('(01)38425876095074(17)181119(37)1 '))
 Traceback (most recent call last):
     ...
 InvalidComponent: ...
+>>> pprint.pprint(gs1_128.info('(253)1234567890005000123'))
+{'253': '1234567890005000123'}
 
 We can decode decimal values from various formats.
 
@@ -134,6 +142,10 @@ We an decode date files from various formats.
 {'7007': (datetime.date(2018, 11, 19), datetime.date(2018, 11, 21))}
 >>> pprint.pprint(gs1_128.info('(8008)18111912'))
 {'8008': datetime.datetime(2018, 11, 19, 12, 0)}
+>>> pprint.pprint(gs1_128.info('(7011)181119'))
+{'7011': datetime.date(2018, 11, 19)}
+>>> pprint.pprint(gs1_128.info('(7011)1811191245'))
+{'7011': datetime.datetime(2018, 11, 19, 12, 45)}
 
 
 While the compact() function can clean up the number somewhat the validate()

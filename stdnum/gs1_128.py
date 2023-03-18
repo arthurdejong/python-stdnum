@@ -1,7 +1,7 @@
 # gs1_128.py - functions for handling GS1-128 codes
 #
 # Copyright (C) 2019 Sergi Almacellas Abellana
-# Copyright (C) 2020-2021 Arthur de Jong
+# Copyright (C) 2020-2023 Arthur de Jong
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -103,22 +103,32 @@ def _encode_value(fmt, _type, value):
                 _encode_value('N6', _type, value[0]),
                 _encode_value('N6', _type, value[1]))
         elif isinstance(value, datetime.date):
-            if fmt == 'N10':
+            if fmt in ('N6', 'N6..12'):
+                return value.strftime('%y%m%d')
+            elif fmt == 'N10':
                 return value.strftime('%y%m%d%H%M')
-            elif fmt == 'N8+N..4':
+            elif fmt in ('N6+N..4', 'N6[+N..4]'):
+                value = datetime.datetime.strftime(value, '%y%m%d%H%M')
+                if value.endswith('00'):
+                    value = value[:-2]
+                if value.endswith('00'):
+                    value = value[:-2]
+                return value
+            elif fmt in ('N8+N..4', 'N8[+N..4]'):
                 value = datetime.datetime.strftime(value, '%y%m%d%H%M%S')
                 if value.endswith('00'):
                     value = value[:-2]
                 if value.endswith('00'):
                     value = value[:-2]
                 return value
-            return value.strftime('%y%m%d')
+            else:  # pragma: no cover (all formats should be covered)
+                raise ValueError('unsupported format: %s' % fmt)
     return str(value)
 
 
 def _max_length(fmt, _type):
     """Determine the maximum length based on the format ad type."""
-    length = sum(int(re.match(r'^[NXY][0-9]*?[.]*([0-9]+)$', x).group(1)) for x in fmt.split('+'))
+    length = sum(int(re.match(r'^[NXY][0-9]*?[.]*([0-9]+)[\[\]]?$', x).group(1)) for x in fmt.split('+'))
     if _type == 'decimal':
         length += 1
     return length
@@ -142,21 +152,22 @@ def _decode_value(fmt, _type, value):
             value = value[:-digits] + '.' + value[-digits:]
         return decimal.Decimal(value)
     elif _type == 'date':
-        if fmt == 'N8+N..4':
-            return datetime.datetime.strptime(value, '%y%m%d%H%M%S'[:len(value)])
-        elif len(value) == 10:
-            return datetime.datetime.strptime(value, '%y%m%d%H%M')
-        elif len(value) == 12:
-            return (_decode_value(fmt, _type, value[:6]), _decode_value(fmt, _type, value[6:]))
-        elif len(value) == 6 and value[4:] == '00':
-            # When day == '00', it must be interpreted as last day of month
-            date = datetime.datetime.strptime(value[:4], '%y%m')
-            if date.month == 12:
-                date = date.replace(day=31)
+        if len(value) == 6:
+            if value[4:] == '00':
+                # When day == '00', it must be interpreted as last day of month
+                date = datetime.datetime.strptime(value[:4], '%y%m')
+                if date.month == 12:
+                    date = date.replace(day=31)
+                else:
+                    date = date.replace(month=date.month + 1, day=1) - datetime.timedelta(days=1)
+                return date.date()
             else:
-                date = date.replace(month=date.month + 1, day=1) - datetime.timedelta(days=1)
-            return date.date()
-        return datetime.datetime.strptime(value, '%y%m%d').date()
+                return datetime.datetime.strptime(value, '%y%m%d').date()
+        elif len(value) == 12 and fmt in ('N12', 'N6..12'):
+            return (_decode_value('N6', _type, value[:6]), _decode_value('N6', _type, value[6:]))
+        else:
+            # other lengths are interpreted as variable-length datetime values
+            return datetime.datetime.strptime(value, '%y%m%d%H%M%S'[:len(value)])
     elif _type == 'int':
         return int(value)
     return value.strip()
@@ -223,7 +234,7 @@ def encode(data, separator='', parentheses=False):
     fixed_values = []
     variable_values = []
     for inputai, value in sorted(data.items()):
-        ai, info = _gs1_aidb.info(inputai)[0]
+        ai, info = _gs1_aidb.info(str(inputai))[0]
         if not info:
             raise InvalidComponent()
         # validate the value if we have a custom module for it

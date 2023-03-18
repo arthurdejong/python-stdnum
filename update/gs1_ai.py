@@ -2,7 +2,7 @@
 
 # update/gs1_ai.py - script to get GS1 application identifiers
 #
-# Copyright (C) 2019 Arthur de Jong
+# Copyright (C) 2019-2023 Arthur de Jong
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -72,7 +72,7 @@ if __name__ == '__main__':
     print('# on %s' % datetime.datetime.utcnow())
     for ai1, ai2, format, require_fnc1, name, description in group_ai_ranges():
         _type = 'str'
-        if re.match(r'^(N8\+)?N[0-9]*[.]*[0-9]+$', format) and 'date' in description.lower():
+        if re.match(r'^(N[68]\[?\+)?N[0-9]*[.]*[0-9]+\]?$', format) and 'date' in description.lower():
             _type = 'date'
         elif re.match(r'^N[.]*[0-9]+$', format) and 'count' in description.lower():
             _type = 'int'
