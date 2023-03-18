@@ -1,9 +1,9 @@
-# nipt.py - functions for handling Albanian VAT numbers
+# nipt.py - functions for handling Albanian tax numbers
 # coding: utf-8
 #
 # Copyright (C) 2008-2011 Cédric Krier
 # Copyright (C) 2008-2011 B2CK
-# Copyright (C) 2015 Arthur de Jong
+# Copyright (C) 2015-2023 Arthur de Jong
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -20,10 +20,21 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 # 02110-1301 USA
 
-"""NIPT (Numri i Identifikimit për Personin e Tatueshëm, Albanian VAT number).
+"""NIPT, NUIS (Numri i Identifikimit për Personin e Tatueshëm, Albanian tax number).
 
 The Albanian NIPT is a 10-digit number with the first and last character
-being letters.
+being letters. The number is assigned to individuals and organisations for
+tax purposes.
+
+The first letter indicates the decade the number was assigned or date birth
+date for individuals, followed by a digit for the year. The next two digits
+contain the month (and gender for individuals and region for organisations)
+followed by two digits for the day of the month. The remainder is a serial
+followed by a check letter (check digit algorithm unknown).
+
+More information:
+
+* https://www.tatime.gov.al/eng/c/4/103/business-lifecycle
 
 >>> validate('AL J 91402501 L')
 'J91402501L'
@@ -46,7 +57,7 @@ from stdnum.util import clean
 
 
 # regular expression for matching number
-_nipt_re = re.compile(r'^[JKL][0-9]{8}[A-Z]$')
+_nipt_re = re.compile(r'^[A-M][0-9]{8}[A-Z]$')
 
 
 def compact(number):
