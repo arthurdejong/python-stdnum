@@ -108,14 +108,14 @@ def _encode_value(fmt, _type, value):
             elif fmt == 'N10':
                 return value.strftime('%y%m%d%H%M')
             elif fmt in ('N6+N..4', 'N6[+N..4]'):
-                value = datetime.datetime.strftime(value, '%y%m%d%H%M')
+                value = value.strftime('%y%m%d%H%M')
                 if value.endswith('00'):
                     value = value[:-2]
                 if value.endswith('00'):
                     value = value[:-2]
                 return value
             elif fmt in ('N8+N..4', 'N8[+N..4]'):
-                value = datetime.datetime.strftime(value, '%y%m%d%H%M%S')
+                value = value.strftime('%y%m%d%H%M%S')
                 if value.endswith('00'):
                     value = value[:-2]
                 if value.endswith('00'):
