@@ -61,7 +61,20 @@ To split the number and get properties for each part:
 
 import re
 
-from pkg_resources import resource_stream
+
+try:
+    from importlib.resources import files
+
+    def get_resource_stream(name):
+        """Return resource stream for given name"""
+        return files('stdnum').joinpath(name).open('rb')
+
+except ImportError:
+    from functools import partial
+
+    from pkg_resources import resource_stream
+
+    get_resource_stream = partial(resource_stream, __name__)
 
 
 _line_re = re.compile(
@@ -165,6 +178,6 @@ def get(name):
     if name not in _open_databases:
         import codecs
         reader = codecs.getreader('utf-8')
-        with reader(resource_stream(__name__, name + '.dat')) as fp:
+        with reader(get_resource_stream(name + '.dat')) as fp:
             _open_databases[name] = read(fp)
     return _open_databases[name]
