@@ -46,7 +46,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        tox_job: [docs, flake8]
+        tox_job: [docs, flake8, license]
     steps:
       - uses: actions/checkout@v3
       - name: Set up Python
