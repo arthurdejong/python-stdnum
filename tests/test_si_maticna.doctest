@@ -1,0 +1,71 @@
+test_si_maticna.doctest - more detailed doctests for the stdnum.si.maticna module
+
+Copyright (C) 2022 Blaž Bregar
+
+This library is free software; you can redistribute it and/or
+modify it under the terms of the GNU Lesser General Public
+License as published by the Free Software Foundation; either
+version 2.1 of the License, or (at your option) any later version.
+
+This library is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+Lesser General Public License for more details.
+
+You should have received a copy of the GNU Lesser General Public
+License along with this library; if not, write to the Free Software
+Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
+02110-1301 USA
+
+
+This file contains more detailed doctests for the stdnum.si.emso. It
+tries to validate a number of numbers that have been found online.
+
+>>> from stdnum.si import maticna
+>>> from stdnum.exceptions import *
+
+
+Tests for some corner cases.
+
+>>> maticna.validate('9331310000')
+'9331310000'
+>>> maticna.format('9331310000')
+'9331310'
+>>> maticna.format('9331310255')
+'9331310255'
+>>> maticna.format('9331310 000')
+'9331310'
+>>> maticna.validate('9331310')
+'9331310'
+>>> maticna.validate('9331310255')
+'9331310255'
+>>> maticna.validate('8982279A00')
+'8982279A00'
+>>> maticna.validate('12345')
+Traceback (most recent call last):
+    ...
+InvalidLength: ...
+>>> maticna.validate('9331320000')
+Traceback (most recent call last):
+    ...
+InvalidChecksum: ...
+>>> maticna.validate('933A310100')
+Traceback (most recent call last):
+    ...
+InvalidFormat: ...
+
+
+These have been found online and should all be valid numbers.
+
+>>> numbers = '''
+...
+... 7282664000
+... 9331310
+... 3501264000
+... 8071993000
+... 5491711
+... 8982279000
+...
+... '''
+>>> [x for x in numbers.splitlines() if x and not maticna.is_valid(x)]
+[]

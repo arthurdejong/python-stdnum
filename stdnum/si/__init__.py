@@ -24,3 +24,4 @@
 # provide vat as an alias
 from stdnum.si import ddv as vat  # noqa: F401
 from stdnum.si import emso as personalid  # noqa: F401
+from stdnum.si import maticna as businessid  # noqa: F401
