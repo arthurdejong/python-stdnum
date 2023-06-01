@@ -61,8 +61,8 @@ def compact(number):
 
 
 def calc_check_digit(number):
-    """Calculate the ISSN check digit for 10-digit numbers. The number passed
-    should not have the check bit included."""
+    """Calculate the ISSN check digit for 8-digit numbers. The number passed
+    should not have the check digit included."""
     check = (11 - sum((8 - i) * int(n)
                       for i, n in enumerate(number))) % 11
     return 'X' if check == 10 else str(check)
