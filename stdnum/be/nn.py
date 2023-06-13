@@ -179,6 +179,25 @@ def get_birth_year(number):
     return parts[0]
 
 
+def get_birth_month(number):
+    """Return the month of the birth date."""
+    parts = _get_birth_date_parts(number)
+    return parts[1]
+
+
+def get_birth_day_of_month(number):
+    """Return the day of the month of the birth date."""
+    parts = _get_birth_date_parts(number)
+    return parts[2]
+
+
+def get_birth_date(number):
+    """Return the date of birth."""
+    year, month, day = _get_birth_date_parts(number)
+    if None not in (year, month, day):
+        return datetime.date(year, month, day)
+
+
 def get_gender(number):
     """Get the person's gender ('M' or 'F')."""
     number = compact(number)
