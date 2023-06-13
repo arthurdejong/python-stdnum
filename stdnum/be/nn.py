@@ -51,7 +51,7 @@ Special cases include:
 
 * Unknown date of birth
   When no part of the date of birth was known, a fictitious date is used
-  depending on the century (e.g. 01-00-1900 or 01-00-2000).
+  depending on the century (i.e. 1900/00/01 or 2000/00/01).
 
 More information:
 
@@ -73,11 +73,16 @@ InvalidChecksum: ...
 '85.07.30-033.28'
 >>> get_birth_date('85.07.30-033 28')
 datetime.date(1985, 7, 30)
+>>> get_birth_year('85.07.30-033 28')
+1985
+>>> get_birth_month('85.07.30-033 28')
+7
 >>> get_gender('85.07.30-033 28')
 'M'
 """
 
 import datetime
+from calendar import monthrange
 
 from stdnum.exceptions import *
 from stdnum.util import clean, isdigits
@@ -95,10 +100,50 @@ def _checksum(number):
     numbers = [number]
     if int(number[:2]) + 2000 <= datetime.date.today().year:
         numbers.append('2' + number)
-    for century, n in zip((19, 20), numbers):
+    for century, n in zip((1900, 2000), numbers):
         if 97 - (int(n[:-2]) % 97) == int(n[-2:]):
             return century
     return False
+
+
+def _get_birth_date_parts(number):
+    """Return the dateparts of the birth date."""
+    number = compact(number)
+    century = _checksum(number)
+    if not century:
+        raise InvalidChecksum()
+    try:
+        # If the fictitious dates 1900/00/01 or 2000/00/01 are detected,
+        # the birth date (including the year) was not known when the number
+        # was issued.
+        if number[:6] == '000001':
+            return (None, None, None)
+
+        year = century + int(number[:2])
+        month, day = int(number[2:4]), int(number[4:6])
+
+        # When the month is zero, it was either unknown when the number was issued,
+        # or the day counter ran out. In both cases, the month and day are not known
+        # reliably:
+        if month == 0:
+            return (year, None, None)
+
+        # Verify range of month:
+        if month > 12:
+            raise InvalidComponent('month must be in 1..12')
+
+        # Case when only the day of the birth date is unknown:
+        if day == 0:
+            return (year, month, None)
+
+        # Verify range of day specific for the month:
+        elif day > monthrange(year, month)[1]:
+            raise InvalidComponent('day is out of range for month')
+
+        return (year, month, day)
+
+    except ValueError:
+        raise InvalidComponent()
 
 
 def validate(number):
@@ -108,8 +153,7 @@ def validate(number):
         raise InvalidFormat()
     if len(number) != 11:
         raise InvalidLength()
-    if not _checksum(number):
-        raise InvalidChecksum()
+    _get_birth_date_parts(number)
     return number
 
 
@@ -129,17 +173,10 @@ def format(number):
         '-' + '.'.join([number[6:9], number[9:11]]))
 
 
-def get_birth_date(number):
-    """Return the date of birth."""
-    number = compact(number)
-    century = _checksum(number)
-    if not century:
-        raise InvalidChecksum()
-    try:
-        return datetime.datetime.strptime(
-            str(century) + number[:6], '%Y%m%d').date()
-    except ValueError:
-        raise InvalidComponent()
+def get_birth_year(number):
+    """Return the year of the birth date."""
+    parts = _get_birth_date_parts(number)
+    return parts[0]
 
 
 def get_gender(number):
