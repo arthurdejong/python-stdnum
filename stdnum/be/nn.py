@@ -30,10 +30,34 @@ YYMMDD. The following 3 digits represent a counter of people born on the same
 date, seperated by sex (odd for male and even for females respectively). The
 final 2 digits form a check number based on the 9 preceding digits.
 
+Special cases include:
+
+* Counter exhaustion:
+  When the even or uneven day counter range for a specific date of birth runs
+  out, (e.g. from 001 tot 997 for males), the first 2 digits will represent
+  the birth year as normal, while the next 4 digits (birth month and day) are
+  taken to be zeroes. The remaining 3 digits still represent a day counter
+  which will then restart.
+  When those ranges would run out also, the sixth digit is incremented with 1
+  and the day counter will restart again.
+
+* Incomplete date of birth
+  When the exact month or day of the birth date were not known at the time of
+  assignment, incomplete parts are taken to be zeroes, similarly as with
+  counter exhaustion.
+  Note that a month with zeroes can thus both mean the date of birth was not
+  exactly known, or the person was born on a day were at least 500 persons of
+  the same gender got a number assigned already.
+
+* Unknown date of birth
+  When no part of the date of birth was known, a fictitious date is used
+  depending on the century (e.g. 01-00-1900 or 01-00-2000).
+
 More information:
 
 * https://nl.wikipedia.org/wiki/Rijksregisternummer
 * https://fr.wikipedia.org/wiki/Numéro_de_registre_national
+* https://www.ibz.rrn.fgov.be/fileadmin/user_upload/nl/rr/instructies/IT-lijst/IT000_Rijksregisternummer.pdf
 
 >>> compact('85.07.30-033 28')
 '85073003328'
