@@ -130,12 +130,8 @@ def _get_birth_date_parts(number):
         raise InvalidComponent('month must be in 1..12')
 
     # Case when only the day of the birth date is unknown:
-    if day == 0:
+    if day == 0 or day > monthrange(year, month)[1]:
         return (year, month, None)
-
-    # Verify range of day specific for the month:
-    elif day > monthrange(year, month)[1]:
-        raise InvalidComponent('day is out of range for month')
 
     return (year, month, day)
 
@@ -183,12 +179,6 @@ def get_birth_month(number):
     """Return the month of the birth date."""
     number = validate(number)
     return _get_birth_date_parts(number)[1]
-
-
-def get_birth_day_of_month(number):
-    """Return the day of the month of the birth date."""
-    number = validate(number)
-    return _get_birth_date_parts(number)[2]
 
 
 def get_birth_date(number):

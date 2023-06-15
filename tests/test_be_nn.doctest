@@ -34,16 +34,12 @@ datetime.date(1985, 7, 30)
 1985
 >>> nn.get_birth_month('85.07.30-033 28')
 7
->>> nn.get_birth_day_of_month('85.07.30-033 28')
-30
 >>> nn.get_birth_date('17 07 30 033 84')
 datetime.date(2017, 7, 30)
 >>> nn.get_birth_year('17 07 30 033 84')
 2017
 >>> nn.get_birth_month('17 07 30 033 84')
 7
->>> nn.get_birth_day_of_month('17 07 30 033 84')
-30
 >>> nn.get_birth_date('12345678901')
 Traceback (most recent call last):
     ...
@@ -56,45 +52,26 @@ InvalidChecksum: ...
 Traceback (most recent call last):
     ...
 InvalidChecksum: ...
->>> nn.get_birth_day_of_month('12345678901')
-Traceback (most recent call last):
-    ...
-InvalidChecksum: ...
 >>> nn.get_birth_date('00000100166') # Exact date of birth unknown (fictitious date case 1900-00-01)
 >>> nn.get_birth_year('00000100166')
 >>> nn.get_birth_month('00000100166')
->>> nn.get_birth_day_of_month('00000100166')
 >>> nn.get_birth_date('00000100195') # Exact date of birth unknown (fictitious date case 2000-00-01)
 >>> nn.get_birth_year('00000100195')
 >>> nn.get_birth_month('00000100195')
->>> nn.get_birth_day_of_month('00000100195')
 >>> nn.get_birth_date('00000000128') # Only birth year known (2000-00-00)
 >>> nn.get_birth_year('00000000128')
 2000
 >>> nn.get_birth_month('00000000128')
->>> nn.get_birth_day_of_month('00000000128')
 >>> nn.get_birth_date('00010000135') # Only birth year and month known (2000-01-00)
 >>> nn.get_birth_year('00010000135')
 2000
 >>> nn.get_birth_month('00010000135')
 1
->>> nn.get_birth_day_of_month('00010000135')
->>> nn.get_birth_date('85073500107') # Invalid day (35)
-Traceback (most recent call last):
-    ...
-InvalidComponent: ...
+>>> nn.get_birth_date('85073500107') # Unknown day of birth date (35)
 >>> nn.get_birth_year('85073500107')
-Traceback (most recent call last):
-    ...
-InvalidComponent: ...
+1985
 >>> nn.get_birth_month('85073500107')
-Traceback (most recent call last):
-    ...
-InvalidComponent: ...
->>> nn.get_birth_day_of_month('85073500107')
-Traceback (most recent call last):
-    ...
-InvalidComponent: ...
+7
 >>> nn.get_birth_date('85133000105') # Invalid month (13)
 Traceback (most recent call last):
     ...
@@ -104,10 +81,6 @@ Traceback (most recent call last):
     ...
 InvalidComponent: ...
 >>> nn.get_birth_month('85133000105')
-Traceback (most recent call last):
-    ...
-InvalidComponent: ...
->>> nn.get_birth_day_of_month('85133000105')
 Traceback (most recent call last):
     ...
 InvalidComponent: ...
