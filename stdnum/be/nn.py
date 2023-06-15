@@ -107,43 +107,37 @@ def _checksum(number):
 
 
 def _get_birth_date_parts(number):
-    """Return the dateparts of the birth date."""
+    """Check if the number's encoded birth date is valid, and return the contained
+    birth year, month and day of month, accounting for unknown values."""
     number = compact(number)
-    century = _checksum(number)
-    if not century:
-        raise InvalidChecksum()
-    try:
-        # If the fictitious dates 1900/00/01 or 2000/00/01 are detected,
-        # the birth date (including the year) was not known when the number
-        # was issued.
-        if number[:6] == '000001':
-            return (None, None, None)
 
-        year = century + int(number[:2])
-        month, day = int(number[2:4]), int(number[4:6])
+    # If the fictitious dates 1900/00/01 or 2000/00/01 are detected,
+    # the birth date (including the year) was not known when the number
+    # was issued.
+    if number[:6] == '000001':
+        return (None, None, None)
 
-        # When the month is zero, it was either unknown when the number was issued,
-        # or the day counter ran out. In both cases, the month and day are not known
-        # reliably:
-        if month == 0:
-            return (year, None, None)
+    year = int(number[:2])
+    month, day = int(number[2:4]), int(number[4:6])
+    # When the month is zero, it was either unknown when the number was issued,
+    # or the day counter ran out. In both cases, the month and day are not known
+    # reliably:
+    if month == 0:
+        return (year, None, None)
 
-        # Verify range of month:
-        if month > 12:
-            raise InvalidComponent('month must be in 1..12')
+    # Verify range of month:
+    if month > 12:
+        raise InvalidComponent('month must be in 1..12')
 
-        # Case when only the day of the birth date is unknown:
-        if day == 0:
-            return (year, month, None)
+    # Case when only the day of the birth date is unknown:
+    if day == 0:
+        return (year, month, None)
 
-        # Verify range of day specific for the month:
-        elif day > monthrange(year, month)[1]:
-            raise InvalidComponent('day is out of range for month')
+    # Verify range of day specific for the month:
+    elif day > monthrange(year, month)[1]:
+        raise InvalidComponent('day is out of range for month')
 
-        return (year, month, day)
-
-    except ValueError:
-        raise InvalidComponent()
+    return (year, month, day)
 
 
 def validate(number):
@@ -153,6 +147,9 @@ def validate(number):
         raise InvalidFormat()
     if len(number) != 11:
         raise InvalidLength()
+    century = _checksum(number)
+    if not century:
+        raise InvalidChecksum()
     _get_birth_date_parts(number)
     return number
 
@@ -175,26 +172,32 @@ def format(number):
 
 def get_birth_year(number):
     """Return the year of the birth date."""
-    parts = _get_birth_date_parts(number)
-    return parts[0]
+    number = validate(number)
+    birth_year = _get_birth_date_parts(number)[0]
+    if birth_year is not None:
+        century = _checksum(number)
+        return century + birth_year
 
 
 def get_birth_month(number):
     """Return the month of the birth date."""
-    parts = _get_birth_date_parts(number)
-    return parts[1]
+    number = validate(number)
+    return _get_birth_date_parts(number)[1]
 
 
 def get_birth_day_of_month(number):
     """Return the day of the month of the birth date."""
-    parts = _get_birth_date_parts(number)
-    return parts[2]
+    number = validate(number)
+    return _get_birth_date_parts(number)[2]
 
 
 def get_birth_date(number):
     """Return the date of birth."""
+    number = validate(number)
     year, month, day = _get_birth_date_parts(number)
     if None not in (year, month, day):
+        century = _checksum(number)
+        year = century + year
         return datetime.date(year, month, day)
 
 
