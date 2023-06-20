@@ -40,7 +40,7 @@ that country.
 """
 
 from stdnum.exceptions import *
-from stdnum.util import clean, get_cc_module, get_soap_client
+from stdnum.util import clean, get_cc_module, get_soap_client, isdigits
 
 
 MEMBER_STATES = set([
@@ -58,10 +58,35 @@ vies_wsdl = 'https://ec.europa.eu/taxation_customs/vies/checkVatService.wsdl'
 """The WSDL URL of the VAT Information Exchange System (VIES)."""
 
 
+class EuropeanValidator(object):
+    """
+    Foreign companies that trade with private individuals and non-business
+    organisations in the EU may have a VATIN starting with "EU" instead of a
+    country code.
+    """
+
+    @classmethod
+    def compact(cls, number):
+        """Compact European VAT Number"""
+        return clean(number, ' -').upper().strip()
+
+    @classmethod
+    def validate(cls, number):
+        """Validate European VAT Number"""
+        number = cls.compact(number)
+        if not isdigits(number[2:]):
+            raise InvalidFormat()
+        if len(number) < 2 or len(number) > 13:
+            raise InvalidLength()
+        return number
+
+
 def _get_cc_module(cc):
     """Get the VAT number module based on the country code."""
     # Greece uses a "wrong" country code
     cc = cc.lower()
+    if cc == 'eu':
+        return EuropeanValidator
     if cc == 'el':
         cc = 'gr'
     if cc not in MEMBER_STATES:
