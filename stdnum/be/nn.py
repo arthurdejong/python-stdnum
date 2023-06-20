@@ -115,11 +115,12 @@ def _get_birth_date_parts(number):
     # If the fictitious dates 1900/00/01 or 2000/00/01 are detected,
     # the birth date (including the year) was not known when the number
     # was issued.
-    if number[:6] == '000001':
+    if number[:6] in ('000001', '002001', '004001'):
         return (None, None, None)
 
     year = int(number[:2]) + century
-    month, day = int(number[2:4]), int(number[4:6])
+    month = int(number[2:4]) % 20
+    day = int(number[4:6])
     # When the month is zero, it was either unknown when the number was issued,
     # or the day counter ran out. In both cases, the month and day are not known
     # reliably.
@@ -128,7 +129,7 @@ def _get_birth_date_parts(number):
 
     # Verify range of month
     if month > 12:
-        raise InvalidComponent('month must be in 1..12')
+        raise InvalidComponent('Month must be in 1..12')
 
     # Case when only the day of the birth date is unknown
     if day == 0 or day > calendar.monthrange(year, month)[1]:
@@ -145,6 +146,8 @@ def validate(number):
     if len(number) != 11:
         raise InvalidLength()
     _get_birth_date_parts(number)
+    if not 0 <= int(number[2:4]) <= 12:
+        raise InvalidComponent('Month must be in 1..12')
     return number
 
 

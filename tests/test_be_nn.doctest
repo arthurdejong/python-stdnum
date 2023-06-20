@@ -91,3 +91,11 @@ Extra tests for getting gender
 
 >>> nn.get_gender('75.06.08-980.09')
 'F'
+
+
+A BIS number is not considered a valid NN.
+
+>>> nn.validate('00400100184')
+Traceback (most recent call last):
+    ...
+InvalidComponent: ...
