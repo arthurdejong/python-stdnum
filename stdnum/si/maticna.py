@@ -1,7 +1,7 @@
 # maticna.py - functions for handling Slovenian Corporate Registration Numbers
 # coding: utf-8
 #
-# Copyright (C) 2022 Blaž Bregar
+# Copyright (C) 2023 Blaž Bregar
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
