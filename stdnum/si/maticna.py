@@ -42,6 +42,8 @@ Traceback (most recent call last):
     ...
 InvalidChecksum: ...
 """
+import re
+
 from stdnum.exceptions import *
 from stdnum.util import clean, isdigits
 
@@ -75,7 +77,11 @@ def validate(number):
         raise InvalidFormat()
     if calc_check_digit(number) != number[6]:
         raise InvalidChecksum()
-    return number
+    if len(number) == 10:
+        if not bool(re.match(r'^[A-Za-z0-9]\d{2}$', number[7:10])):
+            raise InvalidFormat()
+
+    return number.upper()
 
 
 def is_valid(number):
