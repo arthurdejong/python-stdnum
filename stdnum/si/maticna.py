@@ -61,9 +61,12 @@ def calc_check_digit(number):
     """Calculate the check digit."""
     weights = (7, 6, 5, 4, 3, 2)
     total = sum(int(n) * w for n, w in zip(number[:6], weights))
-    check = 11 - (total % 11)
-    while check >= 10:
-        check = check % 10
+    remainder = total % 11
+    if remainder == 1:
+        return str(0)
+    elif remainder == 0:
+        return False
+    check = 11 - remainder
     return str(check)
 
 
