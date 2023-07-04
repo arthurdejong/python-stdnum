@@ -1,0 +1,205 @@
+test_be_ssn.doctest - more detailed doctests for stdnum.be.ssn module
+
+Copyright (C) 2022 Arthur de Jong
+Copyright (C) 2023 Jeff Horemans
+
+This library is free software; you can redistribute it and/or
+modify it under the terms of the GNU Lesser General Public
+License as published by the Free Software Foundation; either
+version 2.1 of the License, or (at your option) any later version.
+
+This library is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+Lesser General Public License for more details.
+
+You should have received a copy of the GNU Lesser General Public
+License along with this library; if not, write to the Free Software
+Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
+02110-1301 USA
+
+
+This file contains more detailed doctests for the stdnum.be.ssn module. It
+tries to test more corner cases and detailed functionality that is not
+really useful as module documentation.
+
+>>> from stdnum.be import ssn
+
+
+Extra tests for getting birth date, year and/or month from National Number.
+
+
+>>> ssn.get_birth_date('85.07.30-033 28')
+datetime.date(1985, 7, 30)
+>>> ssn.get_birth_year('85.07.30-033 28')
+1985
+>>> ssn.get_birth_month('85.07.30-033 28')
+7
+>>> ssn.get_birth_date('17 07 30 033 84')
+datetime.date(2017, 7, 30)
+>>> ssn.get_birth_year('17 07 30 033 84')
+2017
+>>> ssn.get_birth_month('17 07 30 033 84')
+7
+>>> ssn.get_birth_date('12345678901')
+Traceback (most recent call last):
+    ...
+InvalidChecksum: ...
+>>> ssn.get_birth_year('12345678901')
+Traceback (most recent call last):
+    ...
+InvalidChecksum: ...
+>>> ssn.get_birth_month('12345678901')
+Traceback (most recent call last):
+    ...
+InvalidChecksum: ...
+>>> ssn.get_birth_date('00000100166')  # Exact date of birth unknown (fictitious date case 1900-00-01)
+>>> ssn.get_birth_year('00000100166')
+>>> ssn.get_birth_month('00000100166')
+>>> ssn.get_birth_date('00000100195')  # Exact date of birth unknown (fictitious date case 2000-00-01)
+>>> ssn.get_birth_year('00000100195')
+>>> ssn.get_birth_month('00000100195')
+>>> ssn.get_birth_date('00000000128')  # Only birth year known (2000-00-00)
+>>> ssn.get_birth_year('00000000128')
+2000
+>>> ssn.get_birth_month('00000000128')
+>>> ssn.get_birth_date('00010000135')  # Only birth year and month known (2000-01-00)
+>>> ssn.get_birth_year('00010000135')
+2000
+>>> ssn.get_birth_month('00010000135')
+1
+>>> ssn.get_birth_date('85073500107')  # Unknown day of birth date (35)
+>>> ssn.get_birth_year('85073500107')
+1985
+>>> ssn.get_birth_month('85073500107')
+7
+>>> ssn.get_birth_date('85133000105')  # Invalid month (13)
+Traceback (most recent call last):
+    ...
+InvalidComponent: ...
+>>> ssn.get_birth_year('85133000105')
+Traceback (most recent call last):
+    ...
+InvalidComponent: ...
+>>> ssn.get_birth_month('85133000105')
+Traceback (most recent call last):
+    ...
+InvalidComponent: ...
+
+
+
+Extra tests for getting gender from National Number
+
+>>> ssn.get_gender('75.06.08-980.09')
+'F'
+>>> ssn.get_gender('12345678901')
+
+
+Extra tests for getting birth date, year and/or month from BIS number.
+
+
+>>> ssn.get_birth_date('75.46.08-980.95')
+datetime.date(1975, 6, 8)
+>>> ssn.get_birth_year('75.46.08-980.95')
+1975
+>>> ssn.get_birth_month('75.46.08-980.95')
+6
+>>> ssn.get_birth_date('01 49 07 001 85')
+datetime.date(2001, 9, 7)
+>>> ssn.get_birth_year('01 49 07 001 85')
+2001
+>>> ssn.get_birth_month('01 49 07 001 85')
+9
+>>> ssn.get_birth_date('12345678901')
+Traceback (most recent call last):
+    ...
+InvalidChecksum: ...
+>>> ssn.get_birth_year('12345678901')
+Traceback (most recent call last):
+    ...
+InvalidChecksum: ...
+>>> ssn.get_birth_month('12345678901')
+Traceback (most recent call last):
+    ...
+InvalidChecksum: ...
+>>> ssn.get_birth_date('00400100155')  # Exact date of birth unknown (fictitious date case 1900-00-01)
+>>> ssn.get_birth_year('00400100155')
+>>> ssn.get_birth_month('00400100155')
+>>> ssn.get_birth_date('00200100112')  # Birth date and gender unknown
+>>> ssn.get_birth_year('00200100112')
+>>> ssn.get_birth_month('00200100112')
+>>> ssn.get_birth_date('00400100184')  # Exact date of birth unknown (fictitious date case 2000-00-01)
+>>> ssn.get_birth_year('00400100184')
+>>> ssn.get_birth_month('00400100184')
+>>> ssn.get_birth_date('00200100141')  # Birth date and gender unknown
+>>> ssn.get_birth_year('00200100141')
+>>> ssn.get_birth_month('00200100141')
+>>> ssn.get_birth_date('00400000117')  # Only birth year known (2000-00-00)
+>>> ssn.get_birth_year('00400000117')
+2000
+>>> ssn.get_birth_month('00400000117')
+>>> ssn.get_birth_date('00200000171')  # Only birth year known and gender unknown
+>>> ssn.get_birth_year('00200000171')
+2000
+>>> ssn.get_birth_month('00200000171')
+>>> ssn.get_birth_date('00410000124')  # Only birth year and month known (2000-01-00)
+>>> ssn.get_birth_year('00410000124')
+2000
+>>> ssn.get_birth_month('00410000124')
+1
+>>> ssn.get_birth_date('00210000178')  # Only birth year and month known (2000-01-00) and gender unknown
+>>> ssn.get_birth_year('00210000178')
+2000
+>>> ssn.get_birth_month('00210000178')
+1
+>>> ssn.get_birth_date('85473500193')  # Unknown day of birth date (35)
+>>> ssn.get_birth_year('85473500193')
+1985
+>>> ssn.get_birth_month('85473500193')
+7
+>>> ssn.get_birth_date('85273500150')  # Unknown day of birth date (35) and gender unknown
+>>> ssn.get_birth_year('85273500150')
+1985
+>>> ssn.get_birth_month('85273500150')
+7
+>>> ssn.get_birth_date('85533000191')  # Invalid month (13)
+Traceback (most recent call last):
+    ...
+InvalidComponent: ...
+>>> ssn.get_birth_year('85533000191')
+Traceback (most recent call last):
+    ...
+InvalidComponent: ...
+>>> ssn.get_birth_month('85533000191')
+Traceback (most recent call last):
+    ...
+InvalidComponent: ...
+>>> ssn.get_birth_date('85333000148')
+Traceback (most recent call last):
+    ...
+InvalidComponent: ...
+>>> ssn.get_birth_year('85333000148')
+Traceback (most recent call last):
+    ...
+InvalidComponent: ...
+>>> ssn.get_birth_month('85333000148')
+Traceback (most recent call last):
+    ...
+InvalidComponent: ...
+
+
+Extra tests for getting gender from BIS number.
+
+>>> ssn.get_gender('75.46.08-980.95')
+'F'
+>>> ssn.get_gender('75.26.08-980.52')  # Gender unknown (month incremented by 20)
+>>> ssn.get_gender('85473500193')
+'M'
+>>> ssn.get_gender('85273500150')
+>>> ssn.get_gender('12345678901')
+
+
+Extra tests for guessing type of invalid numbers
+
+
+>>> ssn.guess_type('12345678901')
