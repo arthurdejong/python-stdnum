@@ -39,6 +39,10 @@ InvalidChecksum: ...
 Traceback (most recent call last):
     ...
 InvalidFormat: ...
+>>> validate('823456785')
+Traceback (most recent call last):
+    ...
+InvalidComponent: ...
 >>> format('123456782')
 '123-456-782'
 """
@@ -62,6 +66,8 @@ def validate(number):
         raise InvalidLength()
     if not isdigits(number):
         raise InvalidFormat()
+    if number[0] in '08':
+        raise InvalidComponent()
     return luhn.validate(number)
 
 
