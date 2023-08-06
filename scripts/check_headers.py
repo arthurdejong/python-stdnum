@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-# check_license_headers - check that all source files have licensing information
+# check_headers.py - check that all source files have licensing information
 #
 # Copyright (C) 2023 Arthur de Jong
 #
@@ -22,10 +22,18 @@
 """This script checks that all source files have licensing information."""
 
 import glob
+import os
 import re
 import sys
 import textwrap
 
+
+# Regext to match the first line
+identification_re = re.compile(
+    r'^(#!/usr/bin/env python3?\s+|/\*\s+)?'
+    r'(# coding: utf-8\s+)?'
+    r'(\s?#\s+)?'
+    r'(?P<filename>[^ :]+) - ', re.MULTILINE)
 
 # Regex to match standard license blurb
 license_re = re.compile(textwrap.dedent(r'''
@@ -46,13 +54,12 @@ license_re = re.compile(textwrap.dedent(r'''
     ''').strip(), re.MULTILINE)
 
 
-def file_has_correct_license(filename):
-    """Check that the file contains a valid license header."""
+def get_file_header(filename):
+    """Read the file header from the file."""
     with open(filename, 'rt') as f:
         # Only read the first 2048 bytes to avoid loading too much and the
         # license information should be in the first part anyway.
-        contents = f.read(2048)
-        return bool(license_re.search(contents))
+        return f.read(2048)
 
 
 if __name__ == '__main__':
@@ -66,8 +73,17 @@ if __name__ == '__main__':
         glob.glob('online_check/check.js', recursive=True)
     )
 
-    incorrect_files = [f for f in files_to_check if not file_has_correct_license(f)]
-    if incorrect_files:
-        print('Files with incorrect license information:')
-        print('\n'.join(incorrect_files))
+    # Look for files with incorrect first lines or license
+    fail = False
+    for filename in sorted(files_to_check):
+        contents = get_file_header(filename)
+        m = identification_re.match(contents)
+        if not bool(m) or m.group('filename') not in (filename, os.path.basename(filename)):
+            print('%s: Incorrect file identification' % filename)
+            fail = True
+        if not bool(license_re.search(contents)):
+            print('%s: Incorrect license text' % filename)
+            fail = True
+
+    if fail:
         sys.exit(1)
