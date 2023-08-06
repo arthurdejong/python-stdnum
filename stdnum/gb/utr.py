@@ -1,4 +1,4 @@
-# upn.py - functions for handling English UTRs
+# utr.py - functions for handling English UTRs
 #
 # Copyright (C) 2020 Holvi Payment Services
 # Copyright (C) 2020 Arthur de Jong

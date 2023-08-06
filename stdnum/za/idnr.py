@@ -1,4 +1,4 @@
-# tin.py - functions for handling South Africa ID number
+# idnr.py - functions for handling South Africa ID number
 # coding: utf-8
 #
 # Copyright (C) 2020 Arthur de Jong

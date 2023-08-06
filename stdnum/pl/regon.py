@@ -1,4 +1,4 @@
-# pesel.py - functions for handling REGON numbers
+# regon.py - functions for handling REGON numbers
 # coding: utf-8
 #
 # Copyright (C) 2015 Dariusz Choruzy

@@ -1,4 +1,4 @@
-# ubn.py - functions for handling Ukrainian EDRPOU numbers
+# edrpou.py - functions for handling Ukrainian EDRPOU numbers
 # coding: utf-8
 #
 # Copyright (C) 2020 Leandro Regueiro

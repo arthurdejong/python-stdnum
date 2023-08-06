@@ -1,4 +1,4 @@
-# steuernummer.py - functions for handling German tax numbers
+# stnr.py - functions for handling German tax numbers
 # coding: utf-8
 #
 # Copyright (C) 2017 Holvi Payment Services

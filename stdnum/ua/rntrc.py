@@ -1,4 +1,4 @@
-# ubn.py - functions for handling Ukrainian RNTRC numbers
+# rntrc.py - functions for handling Ukrainian RNTRC numbers
 # coding: utf-8
 #
 # Copyright (C) 2020 Leandro Regueiro

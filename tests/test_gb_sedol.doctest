@@ -1,4 +1,4 @@
-test_sedol.doctest - more detailed doctests for the stdnum.gb.sedol module
+test_gb_sedol.doctest - more detailed doctests for the stdnum.gb.sedol module
 
 Copyright (C) 2015 Arthur de Jong
 

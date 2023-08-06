@@ -1,4 +1,4 @@
-test_doctest - more detailed doctests for the stdnum.iso7064 package
+test_iso7064.doctest - more detailed doctests for the stdnum.iso7064 package
 
 Copyright (C) 2010-2022 Arthur de Jong
 
