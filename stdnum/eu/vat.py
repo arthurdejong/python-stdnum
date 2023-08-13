@@ -39,6 +39,7 @@ that country.
 ['nl']
 """
 
+from stdnum.eu import oss
 from stdnum.exceptions import *
 from stdnum.util import clean, get_cc_module, get_soap_client
 
@@ -62,6 +63,8 @@ def _get_cc_module(cc):
     """Get the VAT number module based on the country code."""
     # Greece uses a "wrong" country code
     cc = cc.lower()
+    if cc in ('eu', 'im'):
+        return oss
     if cc == 'el':
         cc = 'gr'
     if cc not in MEMBER_STATES:
