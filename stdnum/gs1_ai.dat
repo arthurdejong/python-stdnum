@@ -1,5 +1,5 @@
 # generated from https://www.gs1.org/standards/barcodes/application-identifiers
-# on 2023-03-18 14:23:58.680562
+# on 2023-08-20 10:21:01.217615
 00 format="N18" type="str" name="SSCC" description="Serial Shipping Container Code (SSCC)"
 01 format="N14" type="str" name="GTIN" description="Global Trade Item Number (GTIN)"
 02 format="N14" type="str" name="CONTENT" description="Global Trade Item Number (GTIN) of contained trade items"

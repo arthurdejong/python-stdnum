@@ -1,5 +1,5 @@
 # generated from https://data.rtr.at/api/v1/tables/plz.json
-# version 32355 published 2022-10-12T17:40:00+02:00
+# version 37355 published 2023-08-07T22:11:00+02:00
 1010 location="Wien" region="Wien"
 1020 location="Wien" region="Wien"
 1030 location="Wien" region="Wien"
@@ -985,6 +985,7 @@
 4594 location="Grünburg" region="Oberösterreich"
 4594 location="Grünburg" region="Oberösterreich"
 4595 location="Waldneukirchen" region="Oberösterreich"
+4596 location="Steinbach an der Steyr" region="Oberösterreich"
 4596 location="Steinbach an der Steyr" region="Oberösterreich"
 4600 location="Wels" region="Oberösterreich"
 4600 location="Wels" region="Oberösterreich"
