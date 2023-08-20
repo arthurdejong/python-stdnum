@@ -126,6 +126,7 @@ Available formats
    au.abn
    au.acn
    au.tfn
+   be.bis
    be.iban
    be.nn
    be.vat
@@ -175,6 +176,7 @@ Available formats
    ee.ik
    ee.kmkr
    ee.registrikood
+   eg.tn
    es.ccc
    es.cif
    es.cups
@@ -182,11 +184,13 @@ Available formats
    es.iban
    es.nie
    es.nif
+   es.postal_code
    es.referenciacatastral
    eu.at_02
    eu.banknote
    eu.eic
    eu.nace
+   eu.oss
    eu.vat
    fi.alv
    fi.associationid
@@ -206,6 +210,7 @@ Available formats
    gb.utr
    gb.vat
    gh.tin
+   gn.nifp
    gr.amka
    gr.vat
    grid
@@ -297,6 +302,7 @@ Available formats
    sg.uen
    si.ddv
    si.emso
+   si.maticna
    sk.dph
    sk.rc
    sm.coe

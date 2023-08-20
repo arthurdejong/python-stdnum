@@ -1,3 +1,356 @@
+2023-08-20  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [3191b4c] MANIFEST.in: Ensure all files are included in source
+	  archive
+
+	  Fixes b1dc313 Fixes 90044e2
+
+2023-08-20  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [3947a54] stdnum/by/portal.nalog.gov.by.crt, stdnum/by/unp.py:
+	  Remove obsolete intermediate certificate
+
+	  The portal.nalog.gov.by web no longer has an incomplete
+	  certificate chain.
+
+2023-08-20  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [7761e42] stdnum/numdb.py: Use importlib.resource in place of
+	  deprecated pkg_resources
+
+	  Closes https://github.com/arthurdejong/python-stdnum/issues/412
+	  Closes https://github.com/arthurdejong/python-stdnum/pull/413
+
+2023-08-20  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [f6edcc5] tests/test_do_rnc.py: Avoid the deprecated
+	  assertRegexpMatches function
+
+2023-08-20  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [895f092] setup.cfg: Rename license_file option in setup.cfg
+
+	  It seems the old option wasn't working with all versions of
+	  setuptools anyway.
+
+	  See
+	  https://setuptools.pypa.io/en/latest/userguide/declarative_config.html
+
+2023-08-20  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [3126f96] stdnum/by/unp.py, tests/test_by_unp.py: Update Belarusian
+	  UNP online check
+
+	  The API for the online check for Belarusian UNP numbers at
+	  https://www.portal.nalog.gov.by/grp/getData has changed some
+	  small details of the API.
+
+2023-08-20  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [88d1dca] tests/test_de_handelsregisternummer.py: Replace test
+	  number for German company registry
+
+	  The number seems to be no longer valid breaking the online tests.
+
+2023-08-20  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [6e56f3c] stdnum/at/postleitzahl.dat, stdnum/be/banks.dat,
+	  stdnum/cn/loc.dat, stdnum/gs1_ai.dat, stdnum/iban.dat,
+	  stdnum/imsi.dat, stdnum/isbn.dat, stdnum/isil.dat,
+	  stdnum/nz/banks.dat, stdnum/oui.dat, tests/test_be_iban.doctest,
+	  update/oui.py: Update database files
+
+	  This also modifies the OUI update script because the website
+	  has changed to HTTPS and is sometimes very slow.
+
+	  The Belgian Commerzbank no longer has a registration and a bank
+	  account number in the tests used that bank.
+
+2023-08-20  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [0aa0b85] update/eu_nace.py: Remove EU NACE update script
+
+	  The website that publishes the NACE catalogue has changed and
+	  a complete re-write of the script would be necessary. The data
+	  file hasn't changed since 2017 so is also unlikely to change
+	  until it is going to be replaced by NACE rev. 2.1 in 2025.
+
+	  See https://ec.europa.eu/eurostat/web/nace
+
+	  The NACE rev 2 specification can now be found here:
+	  https://showvoc.op.europa.eu/#/datasets/ESTAT_Statistical_Classification_of_Economic_Activities_in_the_European_Community_Rev._2/data
+
+	  The NACE rev 2.1 specification can now be found here:
+	  https://showvoc.op.europa.eu/#/datasets/ESTAT_Statistical_Classification_of_Economic_Activities_in_the_European_Community_Rev._2.1._%28NACE_2.1%29/data
+
+	  In both cases a ZIP file with RDF metadata can be downloaded
+	  (but the web applciation also exposes some simpler JSON APIs).
+
+2023-08-13  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [f58e08d] stdnum/eu/oss.py, stdnum/eu/vat.py,
+	  tests/test_eu_oss.doctest, tests/test_eu_vat.doctest: Validate
+	  European VAT numbers with EU or IM prefix
+
+	  Closes https://github.com/arthurdejong/python-stdnum/pull/417
+
+2023-06-30  Blaž Bregar <blaz@vexo.systems>
+
+	* [d0f4c1a] stdnum/si/__init__.py, stdnum/si/maticna.py,
+	  tests/test_si_maticna.doctest: Add Slovenian Corporate Registration
+	  Number
+
+	  Closes https://github.com/arthurdejong/python-stdnum/pull/414
+
+2023-08-06  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [b8ee830] .github/workflows/test.yml, scripts/check_headers.py,
+	  tox.ini: Extend license check to file header check
+
+	  This also checks that the file name referenced in the file header
+	  is correct.
+
+2023-08-06  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [ef49f49] stdnum/be/bis.py, stdnum/be/nn.py,
+	  stdnum/de/stnr.py, stdnum/dz/nif.py, stdnum/fi/alv.py,
+	  stdnum/gb/utr.py, stdnum/hr/oib.py, stdnum/md/idno.py,
+	  stdnum/pl/regon.py, stdnum/py/ruc.py, stdnum/sk/dph.py,
+	  stdnum/tn/mf.py, stdnum/ua/edrpou.py, stdnum/ua/rntrc.py,
+	  stdnum/vn/mst.py, stdnum/za/idnr.py, tests/test_al_nipt.doctest,
+	  tests/test_gb_sedol.doctest, tests/test_iso6346.doctest,
+	  tests/test_iso7064.doctest, tests/test_th_moa.doctest,
+	  tests/test_tn_mf.doctest, tests/test_ve_rif.doctest: Fix file
+	  headers
+
+	  This improves consistency across files and fixes some files that
+	  had an incorrect file name reference.
+
+2023-07-30  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [3848318] stdnum/ca/sin.py: Validate first digit of Canadian SIN
+
+	  See
+	  http://www.straightlineinternational.com/docs/vaildating_canadian_sin.pdf
+	  See
+	  https://lists.arthurdejong.org/python-stdnum-users/2023/msg00000.html
+
+2023-06-20  Jeff Horemans <jeff.horemans@vortex-financials.be>
+
+	* [be33a80] stdnum/be/bis.py, stdnum/be/nn.py,
+	  tests/test_be_bis.doctest, tests/test_be_nn.doctest: Add Belgian
+	  BIS Number
+
+	  Closes https://github.com/arthurdejong/python-stdnum/pull/418
+
+2023-06-19  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [8ce4a47] .github/workflows/test.yml: Run Python 2.7 tests in
+	  a container for GitHub Actions
+
+	  See https://github.com/actions/setup-python/issues/672
+
+2023-06-13  Jeff Horemans <jeff.horemans@vortex-financials.be>
+
+	* [311fd56] stdnum/be/nn.py, tests/test_be_nn.doctest: Handle
+	  (partially) unknown birthdate of Belgian National Number
+
+	  This adds documentation for the special cases regarding birth
+	  dates embedded in the number, allows for date parts to be unknown
+	  and adds functions for getting the year and month.
+
+	  Closes https://github.com/arthurdejong/python-stdnum/pull/416
+
+2023-06-01  Chales Horn <charles.horn@gmail.com>
+
+	* [7d3ddab] stdnum/isbn.py, stdnum/issn.py: Minor ISSN and ISBN
+	  documentation fixes
+
+	  Fix a comment that claimed incorrect ISSN length and use slightly
+	  more consistent terminology around check digits in ISSN and ISBN.
+
+	  Closes https://github.com/arthurdejong/python-stdnum/pull/415
+
+2023-05-12  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [90044e2] .github/workflows/test.yml,
+	  scripts/check_license_headers.py, tox.ini: Add automated checking
+	  for correct license header
+
+2023-01-28  Leandro Regueiro <leandro.regueiro@gmail.com>
+
+	* [62d15e9] stdnum/gn/__init__.py, stdnum/gn/nifp.py,
+	  tests/test_gn_nifp.doctest: Add support for Guinea TIN
+
+	  Closes https://github.com/arthurdejong/python-stdnum/issues/384
+	  Closes https://github.com/arthurdejong/python-stdnum/pull/386
+
+2023-02-24  Victor <victor@calidae.com>
+
+	* [96abcfe] stdnum/es/postal_code.py: Add Spanish postcode validator
+
+	  Closes https://github.com/arthurdejong/python-stdnum/pull/401
+
+2023-02-13  mjturt <maks.turtiainen@gmail.com>
+
+	* [36858cc] stdnum/fi/hetu.py, tests/test_fi_hetu.doctest: Add
+	  support for Finland HETU new century indicating signs
+
+	  More information at
+	  https://dvv.fi/en/reform-of-personal-identity-code
+
+	  Cloess https://github.com/arthurdejong/python-stdnum/pull/396
+
+2023-01-05  Jeff Horemans <jeff.horemans@vortex-financials.be>
+
+	* [42d2792] stdnum/be/nn.py, tests/test_be_nn.doctest: Add
+	  functionality to get gender from Belgian National Number
+
+	  This also extends the documentation for the number.
+
+	  Closes https://github.com/arthurdejong/python-stdnum/pull/347/files
+
+2023-03-06  RaduBorzea <101399404+RaduBorzea@users.noreply.github.com>
+
+	* [cf14a9f] stdnum/ro/cnp.py: Add get_county() function to
+	  Romanian CNP
+
+	  This also validates the county part of the number.
+
+	  Closes https://github.com/arthurdejong/python-stdnum/pull/407
+
+2023-03-19  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [a8b6573] docs/conf.py, setup.cfg, tox.ini: Ensure flake8 is
+	  run on all Python files
+
+	  This also fixes code style fixes in the Sphinx configuration file.
+
+2023-03-18  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [7af50b7] .github/workflows/test.yml, setup.py, tox.ini: Add
+	  support for Python 3.11
+
+2023-03-18  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [8498b37] stdnum/gs1_128.py: Fix date formatting on PyPy 2.7
+
+	  The original way of calling strftime was likely an artifact of
+	  Python 2.6 support.
+
+	  Fixes 7e84c05
+
+2023-03-18  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [7e84c05] stdnum/gs1_128.py, stdnum/gs1_ai.dat,
+	  tests/test_gs1_128.doctest, update/gs1_ai.py: Extend date parsing
+	  in GS1-128
+
+	  Some new AIs have new date formats or have changed the way
+	  optional components of formats are defined.
+
+2023-03-09  Dimitri Papadopoulos
+<3234522+DimitriPapadopoulos@users.noreply.github.com>
+
+	* [bf1bdfe] stdnum/iban.dat: Update IBAN database file
+
+	  Closes https://github.com/arthurdejong/python-stdnum/pull/409
+
+2023-03-18  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [a09a7ce] stdnum/al/nipt.py, tests/test_al_nipt.doctest: Fix
+	  Albanian tax number validation
+
+	  This extends the description of the Albanian NIPT (NUIS) number
+	  with information on the structure of the number. The first
+	  character was previously limited between J and L but this letter
+	  indicates a decade and the number is also used for individuals
+	  to where it indicates a birth date.
+
+	  Thanks Julien Launois for pointing this out.
+
+	  Source:
+	  https://www.oecd.org/tax/automatic-exchange/crs-implementation-and-assistance/tax-identification-numbers/Albania-TIN.pdf
+
+	  Fixes 3db826c Closes
+	  https://github.com/arthurdejong/python-stdnum/pull/402
+
+2023-03-13  Ali-Akber Saifee <ali@indydevs.org>
+
+	* [031a249] stdnum/sg/uen.py: Fix typo in UEN docstring
+
+2023-01-02  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [cf22705] online_check/stdnum.wsgi, tox.ini: Extend number
+	  properties to show in online check
+
+	  This also ensures that flake8 is run on the WSGI script.
+
+2022-10-09  Leandro Regueiro <leandro.regueiro@gmail.com>
+
+	* [6d366e3] stdnum/eg/__init__.py, stdnum/eg/tn.py,
+	  tests/test_eg_tn.doctest: Add support for Egypt TIN
+
+	  This also convertis Arabic digits to ASCII digits.
+
+	  Closes https://github.com/arthurdejong/python-stdnum/issues/225
+	  Closes https://github.com/arthurdejong/python-stdnum/pull/334
+
+2022-12-30  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [b1dc313] CONTRIBUTING.md, docs/contributing.rst, docs/index.rst:
+	  Add initial CONTRIBUTING.md file
+
+	  Initial description of the information needed for adding new
+	  number formats and some coding and testing guidelines.
+
+2022-12-05  Dimitri Papadopoulos
+<3234522+DimitriPapadopoulos@users.noreply.github.com>
+
+	* [df894c3] stdnum/ch/uid.py, stdnum/gh/tin.py: Fix typos found
+	  by codespell
+
+	  Closes https://github.com/arthurdejong/python-stdnum/pull/344
+
+2022-12-12  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [4f8155c] .github/workflows/test.yml: Run Python 3.5 and 3.6
+	  GitHub tests on older Ubuntu
+
+	  The ubuntu-latest now points to ubuntu-22.04 instead of
+	  ubuntu-20.04 before.
+
+	  This also switches the PyPy version to test with to 3.9.
+
+2022-11-29  valeriko <valerij.koort@gmail.com>
+
+	* [74d854f] stdnum/ee/ik.py: Fix a typo
+
+	  Clocses https://github.com/arthurdejong/python-stdnum/pull/341
+
+2022-11-28  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [7a91a98] tox.ini: Avoid newer flake8
+
+	  The new 6.0.0 contains a number of backwards incompatible changes
+	  for which plugins need to be updated and configuration needs to
+	  be updated.
+
+	  Sadly the maintainer no longer accepts contributions or discussion
+	  See https://github.com/PyCQA/flake8/issues/1760
+
+2022-11-13  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [60a90ed] ChangeLog, NEWS, README.md, docs/index.rst,
+	  docs/stdnum.be.nn.rst, docs/stdnum.cfi.rst,
+	  docs/stdnum.cz.bankaccount.rst, docs/stdnum.dz.nif.rst,
+	  docs/stdnum.fo.vn.rst, docs/stdnum.gh.tin.rst,
+	  docs/stdnum.ke.pin.rst, docs/stdnum.ma.ice.rst,
+	  docs/stdnum.me.pib.rst, docs/stdnum.mk.edb.rst,
+	  docs/stdnum.pk.cnic.rst, docs/stdnum.si.emso.rst,
+	  docs/stdnum.tn.mf.rst, stdnum/__init__.py, stdnum/gh/tin.py,
+	  tox.ini: Get files ready for 1.18 release
+
 2022-11-13  Arthur de Jong <arthur@arthurdejong.org>
 
 	* [31b2694] stdnum/at/postleitzahl.dat, stdnum/be/banks.dat,

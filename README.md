@@ -16,7 +16,7 @@ Available formats
 Currently this package supports the following formats:
 
  * NRT (Número de Registre Tributari, Andorra tax number)
- * NIPT (Numri i Identifikimit për Personin e Tatueshëm, Albanian VAT number)
+ * NIPT, NUIS (Numri i Identifikimit për Personin e Tatueshëm, Albanian tax number)
  * CBU (Clave Bancaria Uniforme, Argentine bank account number)
  * CUIT (Código Único de Identificación Tributaria, Argentinian tax number)
  * DNI (Documento Nacional de Identidad, Argentinian national identity nr.)
@@ -28,8 +28,9 @@ Currently this package supports the following formats:
  * ABN (Australian Business Number)
  * ACN (Australian Company Number)
  * TFN (Australian Tax File Number)
+ * BIS (Belgian BIS number)
  * Belgian IBAN (International Bank Account Number)
- * NN, NISS (Belgian national number)
+ * NN, NISS, RRN (Belgian national number)
  * BTW, TVA, NWSt, ondernemingsnummer (Belgian enterprise number)
  * EGN (ЕГН, Единен граждански номер, Bulgarian personal identity codes)
  * PNF (ЛНЧ, Личен номер на чужденец, Bulgarian number of a foreigner)
@@ -74,9 +75,10 @@ Currently this package supports the following formats:
  * EAN (International Article Number)
  * CI (Cédula de identidad, Ecuadorian personal identity code)
  * RUC (Registro Único de Contribuyentes, Ecuadorian company tax number)
- * Isikukood (Estonian Personcal ID number)
+ * Isikukood (Estonian Personal ID number)
  * KMKR (Käibemaksukohuslase, Estonian VAT number)
  * Registrikood (Estonian organisation registration code)
+ * Tax Registration Number (الرقم الضريبي, Egypt tax number)
  * CCC (Código Cuenta Corriente, Spanish Bank Account Code)
  * CIF (Código de Identificación Fiscal, Spanish company tax number)
  * CUPS (Código Unificado de Punto de Suministro, Spanish meter point number)
@@ -84,11 +86,13 @@ Currently this package supports the following formats:
  * Spanish IBAN (International Bank Account Number)
  * NIE (Número de Identificación de Extranjero, Spanish foreigner number)
  * NIF (Número de Identificación Fiscal, Spanish VAT number)
+ * Postcode (the Spanish postal code)
  * Referencia Catastral (Spanish real estate property id)
  * SEPA Identifier of the Creditor (AT-02)
  * Euro banknote serial numbers
  * EIC (European Energy Identification Code)
  * NACE (classification for businesses in the European Union)
+ * OSS (European VAT on e-Commerce - One Stop Shop)
  * VAT (European Union VAT number)
  * ALV nro (Arvonlisäveronumero, Finnish VAT number)
  * Finnish Association Identifier
@@ -108,6 +112,7 @@ Currently this package supports the following formats:
  * UTR (United Kingdom Unique Taxpayer Reference)
  * VAT (United Kingdom (and Isle of Man) VAT registration number)
  * TIN (Taxpayer Identification Number, Ghana tax number)
+ * NIFp (Numéro d'Identification Fiscale Permanent, Guinea tax number)
  * AMKA (Αριθμός Μητρώου Κοινωνικής Ασφάλισης, Greek social security number)
  * FPA, ΦΠΑ, ΑΦΜ (Αριθμός Φορολογικού Μητρώου, the Greek VAT number)
  * GRid (Global Release Identifier)
@@ -199,6 +204,7 @@ Currently this package supports the following formats:
  * UEN (Singapore's Unique Entity Number)
  * ID za DDV (Davčna številka, Slovenian VAT number)
  * Enotna matična številka občana (Unique Master Citizen Number)
+ * Matična številka poslovnega registra (Corporate Registration Number)
  * IČ DPH (IČ pre daň z pridanej hodnoty, Slovak VAT number)
  * RČ (Rodné číslo, the Slovak birth number)
  * COE (Codice operatore economico, San Marino national tax number)
@@ -280,7 +286,7 @@ also work with older versions of Python.
 Copyright
 ---------
 
-Copyright (C) 2010-2022 Arthur de Jong and others
+Copyright (C) 2010-2023 Arthur de Jong and others
 
 This library is free software; you can redistribute it and/or
 modify it under the terms of the GNU Lesser General Public

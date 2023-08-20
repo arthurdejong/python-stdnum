@@ -1,3 +1,31 @@
+changes from 1.18 to 1.19
+-------------------------
+
+* Add modules for the following number formats:
+
+  - Tax Registration Number (الرقم الضريبي, Egypt tax number) (thanks Leandro Regueiro)
+  - Postcode (the Spanish postal code) (thanks Víctor)
+  - NIFp (Numéro d'Identification Fiscale Permanent, Guinea tax number)
+    (thanks Leandro Regueiro)
+  - BIS (Belgian BIS number) (thanks Jeff Horemans)
+  - Matična številka poslovnega registra (Corporate Registration Number) (thanks Blaž Bregar)
+  - OSS (European VAT on e-Commerce - One Stop Shop) (thanks Sergi Almacellas Abellana)
+
+* Extend the validation of the Albanian NIPT (NUIS) number (thanks Julien Launois)
+* Support different date formats in parsing GS1-128 application identifiers
+* Add get_county() function to Romanian CNP (thanks RaduBorzea)
+* Add functionality to get gender from Belgian National Number (thanks Jeff Horemans)
+* Add support for Finland HETU new century indicating signs (thanks Maks Turtiainen)
+* Add functionality to get (partial) birth date from Belgian National Number
+  (thanks Jeff Horemans)
+* Extend validation of Canadian SIN (thanks Marcel Lecker)
+* Fix Belarusian UNP online validation
+* Various typo and documentation fixes (thanks valeriko, Dimitri Papadopoulos,
+  Ali-Akber Saifee and Chales Horn)
+* Add contribution information to documentation
+* Test suite improvements (including checking file headers)
+
+
 changes from 1.17 to 1.18
 -------------------------
 
