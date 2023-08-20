@@ -42,22 +42,22 @@ class TestNalog(unittest.TestCase):
         self.assertDictEqual(
             result,
             {
-                'CKODSOST': '1',
-                'DLIKV': None,
-                'DREG': '08.07.2011',
-                'NMNS': '104',
-                'VKODS': 'Действующий',
-                'VLIKV': None,
-                'VMNS': 'Инспекция МНС по Московскому району г.Минска ',
-                'VNAIMK': 'Частное предприятие "КРИОС ГРУПП"',
-                'VNAIMP': 'Частное производственное унитарное предприятие "КРИОС ГРУПП"',
-                'VPADRES': 'г. Минск,ул. Уманская, д.54, пом. 152',
-                'VUNP': '191682495',
+                'ckodsost': '1',
+                'dlikv': None,
+                'dreg': '2011-07-08',
+                'nmns': '104',
+                'vkods': 'Действующий',
+                'vlikv': None,
+                'vmns': 'Инспекция МНС по Московскому району г.Минска ',
+                'vnaimk': 'Частное предприятие "КРИОС ГРУПП"',
+                'vnaimp': 'Частное производственное унитарное предприятие "КРИОС ГРУПП"',
+                'vpadres': 'г. Минск,ул. Уманская, д.54, пом. 152',
+                'vunp': '191682495',
             })
         # Check that result has at least these keys
-        keys = ['VUNP', 'VNAIMP', 'VNAIMK', 'DREG', 'CKODSOST', 'VKODS']
+        keys = ['vunp', 'vnaimp', 'vnaimk', 'dreg', 'ckodsost', 'vkods']
         self.assertEqual([key for key in keys if key in result], keys)
-        self.assertEqual(result['VUNP'], '191682495')
+        self.assertEqual(result['vunp'], '191682495')
         # Test invalid number
         result = unp.check_nalog('771681495')
         self.assertIsNone(result)

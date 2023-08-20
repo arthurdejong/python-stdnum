@@ -125,5 +125,5 @@ def check_nalog(number, timeout=30):  # pragma: no cover (not part of normal tes
             'type': 'json'},
         timeout=timeout,
         verify=certificate)
-    if response.ok:
-        return response.json()['ROW']
+    if response.ok and response.content:
+        return response.json()['row']
