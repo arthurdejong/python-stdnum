@@ -1,6 +1,6 @@
 # numdb.py - module for handling hierarchically organised numbers
 #
-# Copyright (C) 2010-2021 Arthur de Jong
+# Copyright (C) 2010-2023 Arthur de Jong
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -60,8 +60,6 @@ To split the number and get properties for each part:
 """
 
 import re
-
-from pkg_resources import resource_stream
 
 
 _line_re = re.compile(
@@ -160,11 +158,21 @@ def read(fp):
     return db
 
 
+def _get_resource_stream(name):
+    """Return a readable file-like object for the resource."""
+    try:  # pragma: no cover (Python 3.9 and newer)
+        import importlib.resources
+        return importlib.resources.files(__package__).joinpath(name).open('rb')
+    except (ImportError, AttributeError):  # pragma: no cover (older Python versions)
+        import pkg_resources
+        return pkg_resources.resource_stream(__name__, name)
+
+
 def get(name):
     """Open a database with the specified name to perform queries on."""
     if name not in _open_databases:
         import codecs
         reader = codecs.getreader('utf-8')
-        with reader(resource_stream(__name__, name + '.dat')) as fp:
+        with reader(_get_resource_stream(name + '.dat')) as fp:
             _open_databases[name] = read(fp)
     return _open_databases[name]
