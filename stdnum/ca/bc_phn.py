@@ -1,4 +1,5 @@
 # bc_phn.py - functions for handling British Columbia Personal Health Numbers (PHNs)
+# coding: utf-8
 #
 # Copyright (C) 2023 Ömer Boratav
 #
