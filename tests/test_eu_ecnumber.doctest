@@ -1,0 +1,186 @@
+test_eu_ecnumber.doctest - more detailed doctests for the stdnum.eu.ecnumber module
+
+Copyright (C) 2023 Daniel Weber
+
+This library is free software; you can redistribute it and/or
+modify it under the terms of the GNU Lesser General Public
+License as published by the Free Software Foundation; either
+version 2.1 of the License, or (at your option) any later version.
+
+This library is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+Lesser General Public License for more details.
+
+You should have received a copy of the GNU Lesser General Public
+License along with this library; if not, write to the Free Software
+Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
+02110-1301 USA
+
+
+This file contains more detailed doctests for the stdnum.casrn module. It
+contains some corner case tests and tries to validate numbers that have been
+found online.
+
+>>> from stdnum.eu import ecnumber
+>>> from stdnum.exceptions import *
+
+
+EC Numbers always include separators and will be introduced if they 
+are not present. Validation will fail if separators are in the incorrect 
+place.
+
+>>> ecnumber.validate('200-112-1')
+'200-112-1'
+>>> ecnumber.validate('2001121')
+'200-112-1'
+>>> ecnumber.validate('20-0112-1')
+Traceback (most recent call last):
+    ...
+InvalidFormat: ...
+
+
+The number should only have two separators.
+
+>>> ecnumber.validate('20--112-1')
+Traceback (most recent call last):
+    ...
+InvalidFormat: ...
+
+
+EC Numbers are always nine characters long (including hyphens).
+
+>>> ecnumber.validate('2000-112-1')
+Traceback (most recent call last):
+    ...
+InvalidLength: ...
+>>> ecnumber.validate('20001121')
+Traceback (most recent call last):
+    ...
+InvalidLength: ...
+>>> ecnumber.validate('201121')
+Traceback (most recent call last):
+    ...
+InvalidLength: ...
+
+
+The final character must have the correct check digit.
+
+>>> ecnumber.validate('200-112-2')
+Traceback (most recent call last):
+    ...
+InvalidChecksum: ...
+>>> ecnumber.validate('2001122')
+Traceback (most recent call last):
+    ...
+InvalidChecksum: ...
+
+
+These are randomly selected from the EC Inventory should be valid EC Numbers.
+
+>>> numbers = '''
+...
+... 257-228-0
+... 207-296-2
+... 297-119-5
+... 287-900-9
+... 271-104-3
+... 280-851-4
+... 281-919-6
+... 252-552-9
+... 215-429-0
+... 249-469-5
+... 421-750-9
+... 301-916-6
+... 217-931-5
+... 295-191-2
+... 207-952-8
+... 211-043-1
+... 262-758-0
+... 255-597-2
+... 255-524-4
+... 226-307-1
+... 276-796-0
+... 274-741-5
+... 250-046-2
+... 287-761-4
+... 200-662-2
+... 200-897-0
+... 250-140-3
+... 222-729-5
+... 212-948-4
+... 239-367-9
+... 249-213-2
+... 263-543-4
+... 259-660-5
+... 254-324-4
+... 241-289-5
+... 228-426-4
+... 207-631-2
+... 245-704-0
+... 282-848-3
+... 204-282-8
+... 284-690-0
+... 282-944-5
+... 302-175-1
+... 251-412-4
+... 257-308-5
+... 220-575-3
+... 249-244-1
+... 266-556-3
+... 288-360-7
+... 266-708-9
+... 221-531-6
+... 274-747-8
+... 238-769-1
+... 251-186-7
+... 254-323-9
+... 247-214-2
+... 304-902-8
+... 307-415-9
+... 256-980-7
+... 296-057-6
+... 222-700-7
+... 223-550-5
+... 239-530-4
+... 219-941-5
+... 216-155-4
+... 236-325-1
+... 244-886-9
+... 248-170-7
+... 203-499-5
+... 280-279-5
+... 267-064-1
+... 280-947-6
+... 266-597-7
+... 281-719-9
+... 250-478-1
+... 243-154-6
+... 271-556-1
+... 263-157-6
+... 301-691-4
+... 274-112-5
+... 302-331-9
+... 235-556-5
+... 244-556-4
+... 217-593-9
+... 206-777-4
+... 286-712-4
+... 414-380-4
+... 242-807-2
+... 500-464-9
+... 252-796-6
+... 304-512-8
+... 307-269-6
+... 238-475-3
+... 304-680-2
+... 273-972-9
+... 297-362-7
+... 233-748-3
+... 307-692-6
+... 300-706-1
+... 310-159-0
+...
+... '''
+>>> [x for x in numbers.splitlines() if x and not ecnumber.is_valid(x)]
+[]
