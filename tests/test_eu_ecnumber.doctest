@@ -18,7 +18,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 02110-1301 USA
 
 
-This file contains more detailed doctests for the stdnum.casrn module. It
+This file contains more detailed doctests for the stdnum.eu.ecnumber module. It
 contains some corner case tests and tries to validate numbers that have been
 found online.
 
