@@ -19,7 +19,7 @@
 
 """EC Number (European Community Number).
 
-The EC Number is a unique seven-digit number assigned to chemical substances 
+The EC Number is a unique seven-digit number assigned to chemical substances
 for regulatory purposes within the European Union by the European Commision.
 
 More information:
