@@ -70,8 +70,6 @@ def validate(number):
         raise InvalidLength()
     if not _ec_number_re.match(number):
         raise InvalidFormat()
-    if number[3] != '-' or number[7] != '-':
-        raise InvalidFormat()
     if number[-1] != calc_check_digit(number[:-1]):
         raise InvalidChecksum()
     return number
