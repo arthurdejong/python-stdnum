@@ -1,7 +1,7 @@
 # cf.py - functions for handling Romanian CF (VAT) numbers
 # coding: utf-8
 #
-# Copyright (C) 2012-2020 Arthur de Jong
+# Copyright (C) 2012-2023 Arthur de Jong
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -56,7 +56,7 @@ def validate(number):
         # apparently a CNP can also be used (however, not all sources agree)
         cnp.validate(cnumber)
     elif 2 <= len(cnumber) <= 10:
-        cui.validate(cnumber)
+        cui.validate(number)
     else:
         raise InvalidLength()
     return number
