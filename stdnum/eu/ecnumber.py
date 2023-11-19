@@ -57,10 +57,11 @@ def compact(number):
 
 def calc_check_digit(number):
     """Calculate the check digit for the number. The passed number should not
-    have the check digit included."""
+    have the check digit included. In instances where the check digit is
+    '10', the check digit is set to '1' and the number is considered."""
     number = number.replace('-', '')
     return str(
-        sum((i + 1) * int(n) for i, n in enumerate(number)) % 11)
+        sum((i + 1) * int(n) for i, n in enumerate(number)) % 11)[0]
 
 
 def validate(number):

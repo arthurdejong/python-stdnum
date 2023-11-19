@@ -192,6 +192,7 @@ These are randomly selected from the EC Inventory should be valid EC Numbers.
 ... 307-692-6
 ... 300-706-1
 ... 310-159-0
+... 424-870-1
 ...
 ... '''
 >>> [x for x in numbers.splitlines() if x and not ecnumber.is_valid(x)]
