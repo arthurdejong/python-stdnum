@@ -41,11 +41,23 @@ More information:
 
 from stdnum.eu.vat import MEMBER_STATES
 from stdnum.exceptions import *
-from stdnum.util import clean, get_soap_client
+from stdnum.util import clean, get_cc_module, get_soap_client
 
+
+_country_modules = dict()
 
 seed_wsdl = 'https://ec.europa.eu/taxation_customs/dds2/seed/services/excise/verification?wsdl'
 """The WSDL URL of the System for Exchange of Excise Data (SEED)."""
+
+
+def _get_cc_module(cc):
+    """Get the Excise number module based on the country code."""
+    cc = cc.lower()
+    if cc not in MEMBER_STATES:
+        raise InvalidComponent()
+    if cc not in _country_modules:
+        _country_modules[cc] = get_cc_module(cc, 'excise')
+    return _country_modules[cc]
 
 
 def compact(number):
@@ -59,10 +71,11 @@ def validate(number):
     """Check if the number is a valid Excise number."""
     number = clean(number, ' ').upper().strip()
     cc = number[:2]
-    if cc.lower() not in MEMBER_STATES:
-        raise InvalidComponent()
     if len(number) != 13:
         raise InvalidLength()
+    module = _get_cc_module(cc)
+    if module:
+        module.validate(number)
     return number
 
 
