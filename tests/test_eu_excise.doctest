@@ -1,0 +1,52 @@
+test_eu_excise.doctest - more detailed doctests for the stdnum.eu.excise module
+
+Copyright (C) 2023 Cédric Krier
+
+This library is free software; you can redistribute it and/or
+modify it under the terms of the GNU Lesser General Public
+License as published by the Free Software Foundation; either
+version 2.1 of the License, or (at your option) any later version.
+
+This library is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+Lesser General Public License for more details.
+
+You should have received a copy of the GNU Lesser General Public
+License along with this library; if not, write to the Free Software
+Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
+02110-1301 USA
+
+This file contains more detailed doctests for the stdnum.eu.excise module. It
+tries to validate a number of Excise numbers that have been found online.
+
+>>> from stdnum.eu import excise
+>>> from stdnum.exceptions import *
+
+These numbers should be mostly valid except that they have the wrong length.
+
+>>> excise.validate('LU987ABC')
+'LU00000987ABC'
+>>> excise.validate('LU000000987ABC')
+Traceback (most recent call last):
+    ...
+InvalidLength: ...
+
+
+These numbers should be mostly valid except that they have the wrong prefix.
+
+>>> excise.validate('XX00000987ABC')
+Traceback (most recent call last):
+    ...
+InvalidComponent: ...
+
+
+These have been found online and should all be valid numbers.
+
+>>> numbers = '''
+...
+... LU 00000987ABC
+... FR012907E0820
+... '''
+>>> [x for x in numbers.splitlines() if x and not excise.is_valid(x)]
+[]
