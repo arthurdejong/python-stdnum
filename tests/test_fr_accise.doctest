@@ -1,0 +1,53 @@
+test_fr_accise.doctest - more detailed doctests for the stdnum.fr.accise module
+
+Copyright (C) 2023 Cédric Krier
+
+This library is free software; you can redistribute it and/or
+modify it under the terms of the GNU Lesser General Public
+License as published by the Free Software Foundation; either
+version 2.1 of the License, or (at your option) any later version.
+
+This library is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+Lesser General Public License for more details.
+
+You should have received a copy of the GNU Lesser General Public
+License along with this library; if not, write to the Free Software
+Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
+02110-1301 USA
+
+This file contains more detailed doctests for the stdnum.fr.accise module. It
+tries to validate a number of Excise numbers that have been found online.
+
+>>> from stdnum.fr import accise
+>>> from stdnum.exceptions import *
+
+
+>>> accise.compact('FR0 23 004 N 9448')
+'FR023004N9448'
+>>> accise.validate('FR023004N9448')
+'FR023004N9448'
+>>> accise.validate('FR012907E0820')
+'FR012907E0820'
+
+>>> accise.validate('FR012345')
+Traceback (most recent call last):
+    ...
+InvalidLength: ...
+>>> accise.validate('FR0XX907E0820')
+Traceback (most recent call last):
+    ...
+InvalidFormat: ...
+>>> accise.validate('FR012XXXE0820')
+Traceback (most recent call last):
+    ...
+InvalidFormat: ...
+>>> accise.validate('FR012907A0820')
+Traceback (most recent call last):
+    ...
+InvalidComponent: ...
+>>> accise.validate('FR012907EXXXX')
+Traceback (most recent call last):
+    ...
+InvalidFormat: ...

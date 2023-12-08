@@ -70,7 +70,7 @@ def validate(number: str) -> str:
     if len(number) != 13:
         raise InvalidLength()
     module = _get_cc_module(number[:2])
-    if module:  # pragma: no cover (no implementation yet)
+    if module:
         module.validate(number)
     return number
 
