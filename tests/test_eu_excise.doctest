@@ -1,0 +1,64 @@
+test_eu_excise.doctest - more detailed doctests for the stdnum.eu.excise module
+
+Copyright (C) 2023 Cédric Krier
+
+This library is free software; you can redistribute it and/or
+modify it under the terms of the GNU Lesser General Public
+License as published by the Free Software Foundation; either
+version 2.1 of the License, or (at your option) any later version.
+
+This library is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+Lesser General Public License for more details.
+
+You should have received a copy of the GNU Lesser General Public
+License along with this library; if not, write to the Free Software
+Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
+02110-1301 USA
+
+This file contains more detailed doctests for the stdnum.eu.excise module. It
+tries to validate a number of Excise numbers that have been found online.
+
+>>> from stdnum.eu import excise
+>>> from stdnum.exceptions import *
+
+These have been found online and should all be valid numbers.
+
+>>> numbers = '''
+...
+... LU 00000987ABC
+... FR012907E0820
+... '''
+>>> [x for x in numbers.splitlines() if x and not excise.is_valid(x)]
+[]
+
+The following numbers are wrong in one way or another. First we need a
+function to be able to determine the kind of error.
+
+>>> def caught(number, exception):
+...     try:
+...         excise.validate(number)
+...         return False
+...     except exception:
+...         return True
+...
+
+
+These numbers should be mostly valid except that they have the wrong length.
+
+>>> numbers = '''
+...
+... LU987ABC
+... '''
+>>> [x for x in numbers.splitlines() if x and not caught(x, InvalidLength)]
+[]
+
+These numbers should be mostly valid except that they have the wrong prefix
+
+>>> numbers = '''
+...
+... XX00000987ABC
+... '''
+>>> [x for x in numbers.splitlines() if x and not caught(x, InvalidComponent)]
+[]
