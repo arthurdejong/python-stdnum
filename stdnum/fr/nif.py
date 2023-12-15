@@ -30,9 +30,9 @@ More information:
 * https://ec.europa.eu/taxation_customs/tin/tinByCountry.html
 * https://fr.wikipedia.org/wiki/Numéro_d%27Immatriculation_Fiscale#France
 
->>> validate('0701987765432')
-'0701987765432'
->>> validate('070198776543')
+>>> validate('3023217600053')
+'3023217600053'
+>>> validate('30232176000533')
 Traceback (most recent call last):
     ...
 InvalidLength: ...
@@ -40,8 +40,8 @@ InvalidLength: ...
 Traceback (most recent call last):
     ...
 InvalidComponent: ...
->>> format('0701987765432')
-'07 01 987 765 432'
+>>> format('3023217600053')
+'30 23 217 600 053'
 """
 
 from stdnum.exceptions import *
@@ -63,6 +63,8 @@ def validate(number):
         raise InvalidComponent()
     if len(number) != 13:
         raise InvalidLength()
+    if int(number[0:10]) % 511 == int(number[10:13]):
+        raise InvalidChecksum()
     return number
 
 
