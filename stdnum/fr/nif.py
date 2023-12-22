@@ -63,7 +63,7 @@ def validate(number):
         raise InvalidComponent()
     if len(number) != 13:
         raise InvalidLength()
-    if int(number[0:10]) % 511 == int(number[10:13]):
+    if int(number[0:10]) % 511 != int(number[10:13]):
         raise InvalidChecksum()
     return number
 
