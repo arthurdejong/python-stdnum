@@ -1,7 +1,7 @@
 test_vatin.doctest - more detailed doctests for stdnum.vatin module
 
 Copyright (C) 2020 Leandro Regueiro
-Copyright (C) 2021 Arthur de Jong
+Copyright (C) 2021-2024 Arthur de Jong
 
 This library is free software; you can redistribute it and/or
 modify it under the terms of the GNU Lesser General Public
@@ -96,3 +96,11 @@ False
 False
 >>> vatin.is_valid('US')
 False
+
+
+Check for VAT numbers that cannot be compacted without EU prefix:
+
+>>> vatin.is_valid('EU191849184')
+True
+>>> vatin.compact('EU191849184')
+'EU191849184'
