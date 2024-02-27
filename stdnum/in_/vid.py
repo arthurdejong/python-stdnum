@@ -19,9 +19,9 @@
 
 """VID (Indian personal virtual identity number).
 
-VID is a temporary, revocable 16-digit random number mapped with the Aadhaar number. 
-VID is used in lieu of Aadhaar number whenever authentication or e-KYC services 
-are performed. 
+VID is a temporary, revocable 16-digit random number mapped with the Aadhaar number.
+VID is used in lieu of Aadhaar number whenever authentication or e-KYC services
+are performed.
 
 VID is made up of 16 digits where the last digits is a check digit
 calculated using the Verhoeff algorithm. The numbers are generated in a
