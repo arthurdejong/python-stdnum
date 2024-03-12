@@ -1,1 +1,1 @@
-print "index file"
+print "indexed file"
