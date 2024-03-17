@@ -2,7 +2,7 @@
 
 # update/cfi.py - script to download CFI code list from the SIX group
 #
-# Copyright (C) 2022 Arthur de Jong
+# Copyright (C) 2022-2024 Arthur de Jong
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -21,11 +21,12 @@
 
 """This script downloads the list of CFI codes as published by the SIX group."""
 
+import io
 import re
 
 import lxml.html
+import openpyxl
 import requests
-import xlrd
 
 
 # the location of the Statistical Classification file
@@ -39,8 +40,8 @@ def normalise(value):
 
 def get_categories(sheet):
     """Get the list of top-level CFI categories."""
-    for row in sheet.get_rows():
-        if len(row[0].value) == 1 and row[1].value:
+    for row in sheet.iter_rows():
+        if row[0].value and len(row[0].value) == 1 and row[1].value:
             yield (row[0].value, row[1].value)
 
 
@@ -49,7 +50,7 @@ def get_attributes(sheet):
     attribute = None
     value_list = []
     values = None
-    for row in sheet.get_rows():
+    for row in sheet.iter_rows():
         if row[0].value and not row[1].value and row[2].value:
             attribute = normalise(row[2].value)
             values = []
@@ -84,15 +85,15 @@ if __name__ == '__main__':
     # Download and parse the spreadsheet
     response = requests.get(link_url, timeout=30)
     response.raise_for_status()
-    workbook = xlrd.open_workbook(file_contents=response.content)
+    workbook = openpyxl.load_workbook(io.BytesIO(response.content), read_only=True)
 
     print('# generated from %s, downloaded from' % link_url.split('/')[-1])
     print('# %s' % download_url)
 
-    groups = sorted(x for x in workbook.sheet_names() if len(x) == 6 and x.endswith('XXXX'))
-    for category, name in sorted(get_categories(workbook.sheet_by_name('Categories'))):
+    groups = sorted(x for x in workbook.sheetnames if len(x) == 6 and x.endswith('XXXX'))
+    for category, name in sorted(get_categories(workbook['Categories'])):
         print('%s category="%s"' % (category, name))
         for group in (x for x in groups if x.startswith(category)):
-            sheet = workbook.sheet_by_name(group)
-            print(' %s group="%s"' % (group[1], normalise(sheet.cell(0, 0).value)))
+            sheet = workbook[group]
+            print(' %s group="%s"' % (group[1], normalise(sheet.cell(1, 1).value)))
             print_attributes(get_attributes(sheet))

@@ -3,7 +3,7 @@
 
 # update/nz_banks.py - script to download Bank list from Bank Branch Register
 #
-# Copyright (C) 2019-2021 Arthur de Jong
+# Copyright (C) 2019-2024 Arthur de Jong
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -23,16 +23,12 @@
 """This script downloads the list of banks with bank codes as used in the
 New Zealand bank account numbers."""
 
+import io
 import re
 from collections import OrderedDict, defaultdict
 
+import openpyxl
 import requests
-import xlrd
-
-
-# Monkey patch xlrd avoiding bug in combination with Python 3.9
-xlrd.xlsx.ensure_elementtree_imported(False, None)
-xlrd.xlsx.Element_has_iter = True
 
 
 # The page that contains a link to the latest XLS version of the codes.
@@ -41,7 +37,7 @@ download_url = 'https://www.paymentsnz.co.nz/resources/industry-registers/bank-b
 
 def get_values(sheet):
     """Return rows from the worksheet as a dict per row."""
-    rows = sheet.get_rows()
+    rows = sheet.iter_rows()
     # the first row has column names
     columns = [column.value.lower().replace(' ', '_') for column in next(rows)]
     # go over rows with values
@@ -75,8 +71,8 @@ if __name__ == '__main__':
     response.raise_for_status()
     content_disposition = response.headers.get('content-disposition', '')
     filename = re.findall(r'filename=?(.+)"?', content_disposition)[0].strip('"')
-    workbook = xlrd.open_workbook(file_contents=response.content)
-    sheet = workbook.sheet_by_index(0)
+    workbook = openpyxl.load_workbook(io.BytesIO(response.content), read_only=True)
+    sheet = workbook.worksheets[0]
     # print header
     print('# generated from %s downloaded from' % filename)
     print('# %s' % download_url)
