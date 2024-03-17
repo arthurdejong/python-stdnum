@@ -64,7 +64,7 @@ def calc_check_digit(number):
     # Calculate again with other weights
     weights = tuple(w + 2 for w in weights)
     total = sum(w * int(n) for w, n in zip(weights, number))
-    return str(total % 11)
+    return str(total % 11 % 10)
 
 
 def validate(number):
