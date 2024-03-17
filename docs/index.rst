@@ -138,6 +138,7 @@ Available formats
    br.cnpj
    br.cpf
    by.unp
+   ca.bc_phn
    ca.bn
    ca.sin
    casrn
@@ -188,6 +189,7 @@ Available formats
    es.referenciacatastral
    eu.at_02
    eu.banknote
+   eu.ecnumber
    eu.eic
    eu.nace
    eu.oss
@@ -231,6 +233,7 @@ Available formats
    in_.epic
    in_.gstin
    in_.pan
+   in_.vid
    is_.kennitala
    is_.vsk
    isan

@@ -1,3 +1,18 @@
+changes from 1.19 to 1.20
+-------------------------
+
+* Add modules for the following number formats:
+  - BC PHN (British Columbia Personal Health Number) (thanks Ömer Boratav)
+  - EC Number (European Community number) (thanks Daniel Weber)
+  - VID (Indian personal virtual identity number) (thanks Atul Deolekar)
+
+* Fix typo in German Umsatzsteur Identifikationnummer (thanks Александр Кизеев)
+* Ensure EU VAT numbers don't accept duplicate country codes
+* Fix vatin number compacting for "EU" VAT numbers (thanks Davide Walder)
+* Add check digit validation to French NIF (thanks Kevin Dagostino)
+* Fix Ukrainian EDRPOU check digit calculation (thanks sector119)
+
+
 changes from 1.18 to 1.19
 -------------------------
 

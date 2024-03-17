@@ -40,6 +40,7 @@ Currently this package supports the following formats:
  * CNPJ (Cadastro Nacional da Pessoa Jurídica, Brazilian company identifier)
  * CPF (Cadastro de Pessoas Físicas, Brazilian national identifier)
  * УНП, UNP (Учетный номер плательщика, the Belarus VAT number)
+ * BC PHN (British Columbia Personal Health Number)
  * BN (Canadian Business Number)
  * SIN (Canadian Social Insurance Number)
  * CAS RN (Chemical Abstracts Service Registry Number)
@@ -90,6 +91,7 @@ Currently this package supports the following formats:
  * Referencia Catastral (Spanish real estate property id)
  * SEPA Identifier of the Creditor (AT-02)
  * Euro banknote serial numbers
+ * EC Number (European Community number)
  * EIC (European Energy Identification Code)
  * NACE (classification for businesses in the European Union)
  * OSS (European VAT on e-Commerce - One Stop Shop)
@@ -133,6 +135,7 @@ Currently this package supports the following formats:
  * EPIC (Electoral Photo Identity Card, Indian Voter ID)
  * GSTIN (Goods and Services Tax identification number, Indian VAT number)
  * PAN (Permanent Account Number, Indian income tax identifier)
+ * VID (Indian personal virtual identity number)
  * Kennitala (Icelandic personal and organisation identity code)
  * VSK number (Virðisaukaskattsnúmer, Icelandic VAT number)
  * ISAN (International Standard Audiovisual Number)
@@ -286,7 +289,7 @@ also work with older versions of Python.
 Copyright
 ---------
 
-Copyright (C) 2010-2023 Arthur de Jong and others
+Copyright (C) 2010-2024 Arthur de Jong and others
 
 This library is free software; you can redistribute it and/or
 modify it under the terms of the GNU Lesser General Public
