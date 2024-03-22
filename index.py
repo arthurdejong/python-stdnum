@@ -1,1 +1,1 @@
-print "index file one is this one"
+print "index file one"
