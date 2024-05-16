@@ -30,6 +30,7 @@
 6200 bic="COBACZPX" bank="COMMERZBANK Aktiengesellschaft, pobočka Praha" certis="True"
 6210 bic="BREXCZPP" bank="mBank S.A., organizační složka" certis="True"
 6300 bic="GEBACZPP" bank="BNP Paribas S.A., pobočka Česká republika" certis="True"
+6363 bank="Partners Banka, a.s."
 6700 bic="SUBACZPP" bank="Všeobecná úverová banka a.s., pobočka Praha" certis="True"
 6800 bic="VBOECZ2X" bank="Sberbank CZ, a.s. v likvidaci" certis="True"
 7910 bic="DEUTCZPX" bank="Deutsche Bank Aktiengesellschaft Filiale Prag, organizační složka" certis="True"
