@@ -34,6 +34,8 @@ More information:
 
 >>> validate('CHE-100.155.212')
 'CHE100155212'
+>>> validate('100.155.212')
+'CHE100155212'
 >>> validate('CHE-100.155.213')
 Traceback (most recent call last):
     ...
@@ -64,6 +66,8 @@ def validate(number):
     """Check if the number is a valid UID. This checks the length, formatting
     and check digit."""
     number = compact(number)
+    if len(number) == 9 and isdigits(number):
+        number = 'CHE' + number
     if len(number) != 12:
         raise InvalidLength()
     if not number.startswith('CHE'):
