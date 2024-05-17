@@ -1,7 +1,7 @@
-# coding=utf-8
-# insz.py - function for handling Belgian INSZ numbers
+# coding: utf-8
+# ssn.py - function for handling Belgian social security numbers
 #
-# Copyright (C) 2023 Jeff Horemans
+# Copyright (C) 2023-2024 Jeff Horemans
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -24,12 +24,11 @@ The Belgian social security identification number, also known as the INSZ
 number (Identificatienummer van de sociale zekerheid), NISS number (Numéro
 d'identification de la sécurité sociale) or ENSS number (Erkennungsnummer
 der sozialen Sicherheit), is the unique identification number of a person
-working or covered for social benefits in Belgium.
+working in or covered for social benefits in Belgium.
 
-Depending on a person's residency this number may be:
-
-* a Belgian National Number (Rijksregisternummer, Numéro National)
-* a Belgian BIS number
+For Belgian residents, the number is identical to their Belgian National
+Number (Rijksregisternummer, Numéro National).
+For non-residents, the number is identical to their Belgian BIS number.
 
 Both numbers consists of 11 digits and encode a person's date of birth and
 gender. It encodes the date of birth in the first 6 digits in the format
