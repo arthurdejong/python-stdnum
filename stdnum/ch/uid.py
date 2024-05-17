@@ -26,6 +26,8 @@ protected with a simple checksum.
 
 This module only supports the "new" format that was introduced in 2011 which
 completely replaced the "old" 6-digit format in 2014.
+Stripped numbers without the CHE prefix are allowed and validated,
+but are returned with the prefix prepended.
 
 More information:
 
@@ -33,6 +35,8 @@ More information:
 * https://de.wikipedia.org/wiki/Unternehmens-Identifikationsnummer
 
 >>> validate('CHE-100.155.212')
+'CHE100155212'
+>>> validate('100.155.212')
 'CHE100155212'
 >>> validate('CHE-100.155.213')
 Traceback (most recent call last):
@@ -49,7 +53,10 @@ from stdnum.util import clean, get_soap_client, isdigits
 def compact(number):
     """Convert the number to the minimal representation. This strips
     surrounding whitespace and separators."""
-    return clean(number, ' -.').strip().upper()
+    number = clean(number, ' -.').strip().upper()
+    if len(number) == 9 and isdigits(number):
+        number = 'CHE' + number
+    return number
 
 
 def calc_check_digit(number):
