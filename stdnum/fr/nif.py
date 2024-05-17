@@ -30,8 +30,12 @@ More information:
 * https://ec.europa.eu/taxation_customs/tin/tinByCountry.html
 * https://fr.wikipedia.org/wiki/Numéro_d%27Immatriculation_Fiscale#France
 
->>> validate('0701987765432')
-'0701987765432'
+>>> validate('3023217600053')
+'3023217600053'
+>>> validate('3023217600054')
+Traceback (most recent call last):
+    ...
+InvalidChecksum: ...
 >>> validate('070198776543')
 Traceback (most recent call last):
     ...
@@ -40,8 +44,8 @@ InvalidLength: ...
 Traceback (most recent call last):
     ...
 InvalidComponent: ...
->>> format('0701987765432')
-'07 01 987 765 432'
+>>> format('3023217600053')
+'30 23 217 600 053'
 """
 
 from stdnum.exceptions import *
@@ -54,6 +58,11 @@ def compact(number):
     return clean(number, ' ').strip()
 
 
+def calc_check_digits(number):
+    """Calculate the check digits for the number."""
+    return '%03d' % (int(number[:10]) % 511)
+
+
 def validate(number):
     """Check if the number provided is a valid NIF."""
     number = compact(number)
@@ -63,6 +72,8 @@ def validate(number):
         raise InvalidComponent()
     if len(number) != 13:
         raise InvalidLength()
+    if calc_check_digits(number) != number[-3:]:
+        raise InvalidChecksum()
     return number
 
 

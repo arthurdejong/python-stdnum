@@ -190,6 +190,7 @@ These have been found online and should all be valid numbers.
 ... 22800735
 ... 22815333
 ... 23226362
+... 23246880
 ... 23293513
 ... 23505151
 ... 23541342
@@ -198,6 +199,7 @@ These have been found online and should all be valid numbers.
 ... 24976272
 ... 24978555
 ... 25042882
+... 25083040
 ... 25836018
 ... 26112972
 ... 26255795
@@ -279,10 +281,12 @@ These have been found online and should all be valid numbers.
 ... 40108625
 ... 40108866
 ... 40109173
+... 40599600
 ... 41399586
 ... 41436842
 ... 41475043
 ... 41617928
+... 41761770
 ... 41800368
 ... 41810109
 ... 42258617
@@ -292,12 +296,15 @@ These have been found online and should all be valid numbers.
 ... 42588390
 ... 42598807
 ... 43178370
+... 43328020
 ... 43476227
 ... 43518172
 ... 43529818
+... 43573920
 ... 43586656
 ... 43618792
 ... 43629317
+... 43808820
 ...
 ... '''
 >>> [x for x in numbers.splitlines() if x and not edrpou.is_valid(x)]

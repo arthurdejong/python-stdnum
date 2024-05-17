@@ -1,4 +1,4 @@
-test_doctest - more detailed doctests for the stdnum.iso6346 package
+test_iso6346.doctest - more detailed doctests for the stdnum.iso6346 package
 
 Copyright (C) 2014 Openlabs Technologies & Consulting (P) Limited
 

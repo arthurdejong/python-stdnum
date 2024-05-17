@@ -1,4 +1,4 @@
-# tin.py - functions for handling South Africa ID number
+# idnr.py - functions for handling South Africa ID number
 # coding: utf-8
 #
 # Copyright (C) 2020 Arthur de Jong
@@ -27,7 +27,7 @@ of birth, gender and whether the person is a citizen or permanent resident.
 More information:
 
 * https://en.wikipedia.org/wiki/South_African_identity_card
-* http://www.dha.gov.za/index.php/identity-documents2
+* https://www.dha.gov.za/index.php/identity-documents2
 
 >>> validate('7503305044089')
 '7503305044089'

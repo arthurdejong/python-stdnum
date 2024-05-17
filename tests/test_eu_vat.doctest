@@ -1,6 +1,6 @@
 test_eu_vat.doctest - more detailed doctests for the stdnum.eu.vat module
 
-Copyright (C) 2012-2021 Arthur de Jong
+Copyright (C) 2012-2023 Arthur de Jong
 
 This library is free software; you can redistribute it and/or
 modify it under the terms of the GNU Lesser General Public
@@ -257,6 +257,8 @@ These have been found online and should all be valid numbers.
 ... EL098099809
 ... EL: 094279805
 ... El 800 179 925
+...
+... EU372022452
 ...
 ... FI 02459042
 ... FI 0982651-1
@@ -881,3 +883,41 @@ EU VAT module should not return the prefix twice.
 
 >>> vat.compact('RO 21996566')
 'RO21996566'
+
+
+Otherwise valid numbers with duplicated prefixes should not be considered valid.
+
+>>> numbers = '''
+...
+... AT ATU 65033803
+... ATU ATU 65033803
+... BE BE 0220764971
+... BG BG 175074752
+... CY CY 00632993F
+... CZ CZ 61467839
+... DE DE 246595415
+... DK DK 20646446
+... EE EE 100931558
+... EL EL 094501040
+... ES ES Y5277343F
+... EU EU 372022452
+... FI FI 20946063
+... FR FR 23000047372
+... HU HU 18206373
+... IE IE 4550159S
+... IT IT 06863340961
+... LT LT 354991917
+... LU LU 20993674
+... LV LV 40003754957
+... MT MT 19661023
+... NL NL 818643778B01
+... PL PL 7671325342
+... RO RO 16621241
+... SE SE 556043606401
+... SI SI 70310815
+... SK SK 2022749619
+... XI XI 432525179
+...
+... '''
+>>> [x for x in numbers.splitlines() if x and vat.is_valid(x)]
+[]

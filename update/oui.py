@@ -33,15 +33,19 @@ import requests
 
 # The URLs of the MA-L, MA-M and MA-S registries that are downloaded to
 # construct a full list of manufacturer prefixes.
-mal_url = 'http://standards-oui.ieee.org/oui/oui.csv'
-mam_url = 'http://standards-oui.ieee.org/oui28/mam.csv'
-mas_url = 'http://standards-oui.ieee.org/oui36/oui36.csv'
+mal_url = 'https://standards-oui.ieee.org/oui/oui.csv'
+mam_url = 'https://standards-oui.ieee.org/oui28/mam.csv'
+mas_url = 'https://standards-oui.ieee.org/oui36/oui36.csv'
+
+
+# The user agent that will be passed in requests
+user_agent = 'Mozilla/5.0 (compatible; python-stdnum updater; +https://arthurdejong.org/python-stdnum/)'
 
 
 def download_csv(url):
     """Download the list from the site and provide assignment and
     organisation names."""
-    response = requests.get(url, timeout=30)
+    response = requests.get(url, timeout=500, headers={'User-Agent': user_agent})
     response.raise_for_status()
     for row in csv.DictReader(line.decode('utf-8') for line in response.iter_lines()):
         o = row['Organization Name'].strip().replace('"', '%')

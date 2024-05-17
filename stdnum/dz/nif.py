@@ -1,4 +1,4 @@
-# pin.py - functions for handling Algeria NIF numbers
+# nif.py - functions for handling Algeria NIF numbers
 # coding: utf-8
 #
 # Copyright (C) 2022 Leandro Regueiro

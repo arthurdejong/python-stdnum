@@ -1,4 +1,4 @@
-# pin.py - functions for handling Tunisia MF numbers
+# mf.py - functions for handling Tunisia MF numbers
 # coding: utf-8
 #
 # Copyright (C) 2022 Leandro Regueiro

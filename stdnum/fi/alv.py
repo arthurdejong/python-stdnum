@@ -1,4 +1,4 @@
-# vat.py - functions for handling Finnish VAT numbers
+# alv.py - functions for handling Finnish VAT numbers
 # coding: utf-8
 #
 # Copyright (C) 2012-2015 Arthur de Jong

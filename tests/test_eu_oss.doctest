@@ -1,0 +1,68 @@
+test_eu_oss.doctest - more detailed doctests for the stdnum.eu.oss module
+
+Copyright (C) 2023 Arthur de Jong
+Copyright (C) 2023 Sergi Almacellas Abellana
+
+This library is free software; you can redistribute it and/or
+modify it under the terms of the GNU Lesser General Public
+License as published by the Free Software Foundation; either
+version 2.1 of the License, or (at your option) any later version.
+
+This library is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+Lesser General Public License for more details.
+
+You should have received a copy of the GNU Lesser General Public
+License along with this library; if not, write to the Free Software
+Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
+02110-1301 USA
+
+
+This file contains more detailed doctests for the stdnum.eu.oss module.
+
+>>> from stdnum.eu import oss
+
+#>>> from stdnum.exceptions import *
+
+
+Extra tests for some corner cases.
+
+>>> oss.validate('AA826010755')  # first digits wrong
+Traceback (most recent call last):
+    ...
+InvalidComponent: ...
+>>> oss.validate('EU372A22452')  # some digits not numeric
+Traceback (most recent call last):
+    ...
+InvalidFormat: ...
+>>> oss.validate('EU123010755')  # MSI wrong
+Traceback (most recent call last):
+    ...
+InvalidComponent: ...
+>>> oss.validate('EU3720000224')
+Traceback (most recent call last):
+    ...
+InvalidLength: ...
+>>> oss.validate('IM372022452')
+Traceback (most recent call last):
+    ...
+InvalidLength: ...
+
+
+
+These have been found online and should all be valid numbers. Interestingly
+the VIES VAT number validation does not support validating numbers issued
+under the non-union or import schemes.
+
+https://en.wikipedia.org/wiki/VAT_identification_number also lists
+EU826010755 for Godaddy and EU826009064 for AWS but neither seem to be valid.
+
+>>> numbers = '''
+...
+... EU372022452
+... IM3720000224
+...
+... '''
+>>> [x for x in numbers.splitlines() if x and not oss.is_valid(x)]
+[]

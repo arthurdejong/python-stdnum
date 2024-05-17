@@ -1,5 +1,5 @@
-# coding=utf-8
 # bis.py - functions for handling Belgian BIS numbers
+# coding: utf-8
 #
 # Copyright (C) 2023 Jeff Horemans
 #

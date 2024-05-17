@@ -115,15 +115,12 @@ def check_nalog(number, timeout=30):  # pragma: no cover (not part of normal tes
     # Since the nalog.gov.by web site currently provides an incomplete
     # certificate chain, we provide our own.
     import requests
-    from pkg_resources import resource_filename
-    certificate = resource_filename(__name__, 'portal.nalog.gov.by.crt')
     response = requests.get(
         'https://www.portal.nalog.gov.by/grp/getData',
         params={
             'unp': compact(number),
             'charset': 'UTF-8',
             'type': 'json'},
-        timeout=timeout,
-        verify=certificate)
-    if response.ok:
-        return response.json()['ROW']
+        timeout=timeout)
+    if response.ok and response.content:
+        return response.json()['row']

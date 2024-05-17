@@ -1,4 +1,4 @@
-# vat.py - functions for handling Slovak VAT numbers
+# dph.py - functions for handling Slovak VAT numbers
 # coding: utf-8
 #
 # Copyright (C) 2012, 2013 Arthur de Jong

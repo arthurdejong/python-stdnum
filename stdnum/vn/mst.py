@@ -1,4 +1,4 @@
-# nit.py - functions for handling Vietnam MST numbers
+# mst.py - functions for handling Vietnam MST numbers
 # coding: utf-8
 #
 # Copyright (C) 2020 Leandro Regueiro

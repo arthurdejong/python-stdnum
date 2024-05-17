@@ -1,4 +1,4 @@
-test_gt_nit.doctest - more detailed doctests for stdnum.tn.mf module
+test_tn_mf.doctest - more detailed doctests for stdnum.tn.mf module
 
 Copyright (C) 2022 Leandro Regueiro
 

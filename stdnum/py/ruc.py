@@ -1,4 +1,4 @@
-# rut.py - functions for handling Paraguay RUC numbers
+# ruc.py - functions for handling Paraguay RUC numbers
 # coding: utf-8
 #
 # Copyright (C) 2019 Leandro Regueiro

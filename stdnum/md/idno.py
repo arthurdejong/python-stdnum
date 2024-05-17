@@ -1,4 +1,4 @@
-# rnc.py - functions for handling Moldavian company identification numbers
+# idno.py - functions for handling Moldavian company identification numbers
 # coding: utf-8
 #
 # Copyright (C) 2019 Arthur de Jong

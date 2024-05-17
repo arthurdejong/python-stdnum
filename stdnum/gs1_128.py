@@ -1,7 +1,7 @@
 # gs1_128.py - functions for handling GS1-128 codes
 #
 # Copyright (C) 2019 Sergi Almacellas Abellana
-# Copyright (C) 2020-2023 Arthur de Jong
+# Copyright (C) 2020-2024 Arthur de Jong
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -98,16 +98,16 @@ def _encode_value(fmt, _type, value):
             digits = digits[:9]
             return str(len(digits)) + (number + digits).rjust(length, '0')
     elif _type == 'date':
-        if isinstance(value, (list, tuple)) and fmt == 'N6..12':
+        if isinstance(value, (list, tuple)) and fmt in ('N6..12', 'N6[+N6]'):
             return '%s%s' % (
                 _encode_value('N6', _type, value[0]),
                 _encode_value('N6', _type, value[1]))
         elif isinstance(value, datetime.date):
-            if fmt in ('N6', 'N6..12'):
+            if fmt in ('N6', 'N6..12', 'N6[+N6]'):
                 return value.strftime('%y%m%d')
             elif fmt == 'N10':
                 return value.strftime('%y%m%d%H%M')
-            elif fmt in ('N6+N..4', 'N6[+N..4]'):
+            elif fmt in ('N6+N..4', 'N6[+N..4]', 'N6[+N4]'):
                 value = value.strftime('%y%m%d%H%M')
                 if value.endswith('00'):
                     value = value[:-2]
@@ -163,7 +163,7 @@ def _decode_value(fmt, _type, value):
                 return date.date()
             else:
                 return datetime.datetime.strptime(value, '%y%m%d').date()
-        elif len(value) == 12 and fmt in ('N12', 'N6..12'):
+        elif len(value) == 12 and fmt in ('N12', 'N6..12', 'N6[+N6]'):
             return (_decode_value('N6', _type, value[:6]), _decode_value('N6', _type, value[6:]))
         else:
             # other lengths are interpreted as variable-length datetime values

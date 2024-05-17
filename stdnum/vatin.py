@@ -1,7 +1,7 @@
 # vatin.py - function to validate any given VATIN.
 #
 # Copyright (C) 2020 Leandro Regueiro
-# Copyright (C) 2021 Arthur de Jong
+# Copyright (C) 2021-2024 Arthur de Jong
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -74,7 +74,10 @@ def compact(number):
     """Convert the number to the minimal representation."""
     number = clean(number).strip()
     module = _get_cc_module(number[:2])
-    return number[:2] + module.compact(number[2:])
+    try:
+        return number[:2].upper() + module.compact(number[2:])
+    except ValidationError:
+        return module.compact(number)
 
 
 def validate(number):

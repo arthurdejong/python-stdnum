@@ -1,0 +1,123 @@
+test_si_maticna.doctest - more detailed doctests for the stdnum.si.maticna module
+
+Copyright (C) 2023 Blaž Bregar
+
+This library is free software; you can redistribute it and/or
+modify it under the terms of the GNU Lesser General Public
+License as published by the Free Software Foundation; either
+version 2.1 of the License, or (at your option) any later version.
+
+This library is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+Lesser General Public License for more details.
+
+You should have received a copy of the GNU Lesser General Public
+License along with this library; if not, write to the Free Software
+Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
+02110-1301 USA
+
+
+This file contains more detailed doctests for the stdnum.si.emso. It
+tries to validate a number of numbers that have been found online.
+
+>>> from stdnum.si import maticna
+>>> from stdnum.exceptions import *
+
+
+Tests for some corner cases.
+
+>>> maticna.validate('9331310000')
+'9331310'
+>>> maticna.validate('9331310255')
+'9331310255'
+>>> maticna.validate('9331310 000')
+'9331310'
+>>> maticna.validate('9331310')
+'9331310'
+>>> maticna.validate('9331310255')
+'9331310255'
+>>> maticna.validate('8982279A00')
+'8982279A00'
+>>> maticna.validate('8982279J00')
+'8982279J00'
+>>> maticna.validate('8982279z00')
+'8982279Z00'
+>>> maticna.validate('8982279f00')
+'8982279F00'
+>>> maticna.validate('12345')
+Traceback (most recent call last):
+    ...
+InvalidLength: ...
+>>> maticna.validate('9331320000')
+Traceback (most recent call last):
+    ...
+InvalidChecksum: ...
+>>> maticna.validate('933A310100')
+Traceback (most recent call last):
+    ...
+InvalidFormat: ...
+>>> maticna.validate('93313100A0')
+Traceback (most recent call last):
+    ...
+InvalidFormat: ...
+>>> maticna.validate('9331310AA0')
+Traceback (most recent call last):
+    ...
+InvalidFormat: ...
+>>> maticna.validate('5491710')
+Traceback (most recent call last):
+    ...
+InvalidChecksum: ...
+>>> maticna.validate('9331310$$$')
+Traceback (most recent call last):
+    ...
+InvalidFormat: ...
+>>> maticna.validate('9015310')
+Traceback (most recent call last):
+    ...
+InvalidChecksum: ...
+>>> maticna.validate('2961970')
+Traceback (most recent call last):
+    ...
+InvalidChecksum: ...
+>>> maticna.validate('5015170')
+Traceback (most recent call last):
+    ...
+InvalidChecksum: ...
+>>> maticna.validate('3919110')
+Traceback (most recent call last):
+    ...
+InvalidChecksum: ...
+
+
+These have been found online and should all be valid numbers.
+
+>>> numbers = '''
+...
+... 1876031010
+... 3490360000
+... 3501264000
+... 5147174000
+... 5263565019
+... 5300231000
+... 5300231136
+... 5300231150
+... 5464943000
+... 5464943003
+... 5464943608
+... 5491711
+... 5860571000
+... 5860571084
+... 5860571255
+... 5860580000
+... 5860580150
+... 7282664000
+... 8071993000
+... 8339414000
+... 8982279000
+... 9331310
+...
+... '''
+>>> [x for x in numbers.splitlines() if x and not maticna.is_valid(x)]
+[]
