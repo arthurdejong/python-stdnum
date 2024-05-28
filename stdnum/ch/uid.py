@@ -26,6 +26,8 @@ protected with a simple checksum.
 
 This module only supports the "new" format that was introduced in 2011 which
 completely replaced the "old" 6-digit format in 2014.
+Stripped numbers without the CHE prefix are allowed and validated,
+but are returned with the prefix prepended.
 
 More information:
 
@@ -64,7 +66,7 @@ def calc_check_digit(number):
 
 def validate(number):
     """Check if the number is a valid UID. This checks the length, formatting
-    and check digit. Numbers without the CHE prefix are allowed."""
+    and check digit."""
     number = compact(number)
     if len(number) == 9 and isdigits(number):
         number = 'CHE' + number
