@@ -64,7 +64,7 @@ def calc_check_digit(number):
 
 def validate(number):
     """Check if the number is a valid UID. This checks the length, formatting
-    and check digit."""
+    and check digit. Numbers without the CHE prefix are allowed."""
     number = compact(number)
     if len(number) == 9 and isdigits(number):
         number = 'CHE' + number
