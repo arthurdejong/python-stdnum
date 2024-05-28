@@ -41,6 +41,7 @@ More information:
 
 * https://www.socialsecurity.be/site_nl/employer/applics/belgianidpro/index.htm
 * https://overheid.vlaanderen.be/personeel/regelgeving/insz-nummer
+* https://www.ksz-bcss.fgov.be/nl/project/rijksregisterksz-registers
 
 >>> compact('85.07.30-033 28')
 '85073003328'
