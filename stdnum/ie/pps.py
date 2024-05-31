@@ -55,7 +55,7 @@ from stdnum.ie import vat
 from stdnum.util import clean
 
 
-pps_re = re.compile(r'^\d{7}[A-W][AHWTX]?$')
+pps_re = re.compile(r'^\d{7}[A-W][ABHWTX]?$')
 """Regular expression used to check syntax of PPS numbers."""
 
 
@@ -71,7 +71,7 @@ def validate(number):
     number = compact(number)
     if not pps_re.match(number):
         raise InvalidFormat()
-    if len(number) == 9 and number[8] in 'AH':
+    if len(number) == 9 and number[8] in 'ABH':
         # new 2013 format
         if number[7] != vat.calc_check_digit(number[:7] + number[8:]):
             raise InvalidChecksum()
