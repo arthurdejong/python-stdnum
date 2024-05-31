@@ -25,10 +25,10 @@ two letters. The first letter is a check character.
 When present (which should be the case for new numbers as of 2013),
 the second letter can be 'A' (for individuals) or 'H' (for
 non-individuals, such as limited companies, trusts, partnerships
-and unincorporated bodies). As of 2024, B was accepted as a second 
+and unincorporated bodies). As of 2024, B was accepted as a second
 letter on all new PPS numbers.
 
-Pre-2013 values may have 'W', 'T', or 'X' as the second letter ; 
+Pre-2013 values may have 'W', 'T', or 'X' as the second letter ;
 it is ignored by the check.
 
 >>> validate('6433435F')  # pre-2013
