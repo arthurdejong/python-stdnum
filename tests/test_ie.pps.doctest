@@ -55,5 +55,5 @@ The validate() function should check with new format if last letter is A, B or H
 The validate() function should check with old format if last letter is W or T.
 >>> pps.validate('1234567TW')
 '1234567TW'
->>> pps.validate('1234567PT')
+>>> pps.validate('1234567TT')
 '1234567TT'
