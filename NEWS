@@ -470,7 +470,7 @@ changes from 1.1 to 1.2
   - VAT, MWST, TVA, IVA, TPV (Mehrwertsteuernummer, the Swiss VAT number)
   - CUSIP number (financial security identification number)
   - Wertpapierkennnummer (German securities identification code)
-  - Isikukood (Estonian Personcal ID number)
+  - Isikukood (Estonian Personal ID number)
   - Finnish Association Identifier
   - Y-tunnus (Finnish business identifier)
   - SEDOL number (Stock Exchange Daily Official List number)
