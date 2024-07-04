@@ -1,0 +1,261 @@
+test_es_cae.doctest - more detailed doctests for stdnum.es.cae module
+
+Copyright (C) 2024 Quique Porta
+
+This library is free software; you can redistribute it and/or
+modify it under the terms of the GNU Lesser General Public
+License as published by the Free Software Foundation; either
+version 2.1 of the License, or (at your option) any later version.
+
+This library is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+Lesser General Public License for more details.
+
+You should have received a copy of the GNU Lesser General Public
+License along with this library; if not, write to the Free Software
+Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
+02110-1301 USA
+
+
+This file contains more detailed doctests for the stdnum.es.cae and related
+modules. It tries to cover more corner cases and detailed functionality that
+is not really useful as module documentation.
+
+>>> from stdnum.es import cae
+
+
+>>> cae.compact('ES00008V1567A')  # valid CAE
+'ES00008V1567A'
+>>> cae.is_valid('ES10008V1567A')  # invalid CAE characters third, fourth and fifth must be zero
+False
+>>> cae.is_valid('ES01008V1567A')  # invalid CAE characters third, fourth and fifth must be zero
+False
+>>> cae.is_valid('ES00108V1567A')  # invalid CAE characters third, fourth and fifth must be zero
+False
+>>> cae.is_valid('ES00008V1567')  # invalid CAE length
+False
+>>> cae.is_valid('IT00008V1567A')  # invalid CAE not starting with ES
+False
+>>> cae.is_valid('ES00000V1567A')  # invalid CAE office
+False
+>>> cae.is_valid('ES00008XX567A')  # invalid CAE activity key
+False
+>>> cae.is_valid('ES00008V1X67A')  # invalid CAE characters tenth, eleventh and twelfth must be digits
+False
+>>> cae.is_valid('ES00008V15X7A')  # invalid CAE characters tenth, eleventh and twelfth must be digits
+False
+>>> cae.is_valid('ES00008V156XA')  # invalid CAE characters tenth, eleventh and twelfth must be digits
+False
+>>> cae.is_valid('ES00008V15670')  # invalid CAE last character must be a letter
+False
+
+
+These should all be valid numbers.
+
+>>> numbers = '''
+...
+... ES00001BA567A
+... ES00001H0567A
+... ES00002OV567A
+... ES00002RF567A
+... ES00002V1567A
+... ES00003A1567A
+... ES00003A2567A
+... ES00003OV567A
+... ES00003VD567A
+... ES00004A0567A
+... ES00004A7567A
+... ES00004A9567A
+... ES00004AX567A
+... ES00004DM567A
+... ES00004F1567A
+... ES00004H9567A
+... ES00004OA567A
+... ES00005HX567A
+... ES00006HC567A
+... ES00006HL567A
+... ES00006HS567A
+... ES00006M7567A
+... ES00006RF567A
+... ES00007A7567A
+... ES00007HN567A
+... ES00007OB567A
+... ES00007OV567A
+... ES00009DM567A
+... ES00010H9567A
+... ES00010HF567A
+... ES00010HL567A
+... ES00010HS567A
+... ES00010HX567A
+... ES00011B6567A
+... ES00011C7567A
+... ES00011DA567A
+... ES00011H9567A
+... ES00011HL567A
+... ES00011HQ567A
+... ES00011L0567A
+... ES00012AX567A
+... ES00012DM567A
+... ES00012TT567A
+... ES00013A6567A
+... ES00013HA567A
+... ES00014A7567A
+... ES00014HC567A
+... ES00014L7567A
+... ES00015AC567A
+... ES00015HH567A
+... ES00016AW567A
+... ES00016DP567A
+... ES00016HJ567A
+... ES00017HF567A
+... ES00017L0567A
+... ES00017L7567A
+... ES00018HX567A
+... ES00019H1567A
+... ES00019HD567A
+... ES00019HX567A
+... ES00019TT567A
+... ES00020B1567A
+... ES00020H2567A
+... ES00020H9567A
+... ES00020L3567A
+... ES00020TT567A
+... ES00021H1567A
+... ES00021H8567A
+... ES00021OH567A
+... ES00021OT567A
+... ES00022C7567A
+... ES00022HR567A
+... ES00022OV567A
+... ES00023AT567A
+... ES00023AW567A
+... ES00023AX567A
+... ES00023HU567A
+... ES00024AT567A
+... ES00024HA567A
+... ES00024HC567A
+... ES00024HJ567A
+... ES00025E7567A
+... ES00025OH567A
+... ES00025OR567A
+... ES00026B6567A
+... ES00026H6567A
+... ES00027E7567A
+... ES00027HD567A
+... ES00027HR567A
+... ES00027M7567A
+... ES00027OT567A
+... ES00027OV567A
+... ES00028A2567A
+... ES00028B6567A
+... ES00028HA567A
+... ES00028HD567A
+... ES00028PF567A
+... ES00029B7567A
+... ES00029EC567A
+... ES00029HD567A
+... ES00029HV567A
+... ES00030E7567A
+... ES00030HM567A
+... ES00030HU567A
+... ES00031L7567A
+... ES00031OB567A
+... ES00032A9567A
+... ES00032BA567A
+... ES00032L2567A
+... ES00032OR567A
+... ES00033H7567A
+... ES00033H8567A
+... ES00033HR567A
+... ES00034AX567A
+... ES00034HI567A
+... ES00034VD567A
+... ES00035A0567A
+... ES00035AW567A
+... ES00036E7567A
+... ES00036H2567A
+... ES00036HL567A
+... ES00036HN567A
+... ES00036HR567A
+... ES00036VD567A
+... ES00037HE567A
+... ES00037HM567A
+... ES00037HS567A
+... ES00037L3567A
+... ES00037L7567A
+... ES00038A2567A
+... ES00038H6567A
+... ES00038OT567A
+... ES00039B6567A
+... ES00039H7567A
+... ES00039HI567A
+... ES00039HP567A
+... ES00040A6567A
+... ES00040AX567A
+... ES00040H0567A
+... ES00040H1567A
+... ES00041A0567A
+... ES00041A6567A
+... ES00041H7567A
+... ES00041HJ567A
+... ES00041HN567A
+... ES00041HU567A
+... ES00042A7567A
+... ES00042HM567A
+... ES00042RF567A
+... ES00043A0567A
+... ES00043AF567A
+... ES00043H2567A
+... ES00043HX567A
+... ES00043RF567A
+... ES00043V1567A
+... ES00044AC567A
+... ES00044DA567A
+... ES00044RF567A
+... ES00044TT567A
+... ES00045HR567A
+... ES00045OB567A
+... ES00046B0567A
+... ES00046H9567A
+... ES00046HQ567A
+... ES00047DM567A
+... ES00047HL567A
+... ES00047HZ567A
+... ES00048HX567A
+... ES00048OR567A
+... ES00048OT567A
+... ES00048RF567A
+... ES00049AT567A
+... ES00049C1567A
+... ES00049E7567A
+... ES00049HA567A
+... ES00050HL567A
+... ES00050HX567A
+... ES00051C1567A
+... ES00051E7567A
+... ES00051F1567A
+... ES00051H6567A
+... ES00051OR567A
+... ES00051OV567A
+... ES00052A0567A
+... ES00052A7567A
+... ES00052AX567A
+... ES00052H1567A
+... ES00052HE567A
+... ES00052HZ567A
+... ES00052OB567A
+... ES00052T7567A
+... ES00053F1567A
+... ES00053L3567A
+... ES00053VD567A
+... ES00054AT567A
+... ES00054F1567A
+... ES00054HR567A
+... ES00054HT567A
+... ES00055DF567A
+... ES00056HA567A
+...
+... '''
+>>> [x for x in numbers.splitlines() if x and not cae.is_valid(x)]
+[]
