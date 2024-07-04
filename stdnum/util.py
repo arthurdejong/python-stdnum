@@ -253,7 +253,7 @@ def get_soap_client(wsdlurl, timeout=30):  # pragma: no cover (not part of norma
         # try zeep first
         try:
             from zeep.transports import Transport
-            transport = Transport(timeout=timeout)
+            transport = Transport(operation_timeout=timeout, timeout=timeout)
             from zeep import CachingClient
             client = CachingClient(wsdlurl, transport=transport).service
         except ImportError:
