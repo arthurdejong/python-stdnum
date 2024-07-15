@@ -1,6 +1,6 @@
 # stdnum.wsgi - simple WSGI application to check numbers
 #
-# Copyright (C) 2017-2023 Arthur de Jong
+# Copyright (C) 2017-2024 Arthur de Jong
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -43,9 +43,8 @@ def get_conversions(module, number):
     """Return the possible conversions for the number."""
     for name, func in inspect.getmembers(module, inspect.isfunction):
         if name.startswith('to_') or name.startswith('get_'):
-            args, varargs, varkw, defaults = inspect.getargspec(func)
-            if defaults:
-                args = args[:-len(defaults)]
+            signature = inspect.signature(func)
+            args = [p.name for p in signature.parameters.values() if p.default == p.empty]
             if args == ['number'] and not name.endswith('binary'):
                 try:
                     prop = name.split('_', 1)[1].replace('_', ' ')
