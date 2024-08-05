@@ -1,0 +1,70 @@
+test_rs_pib.doctest - more detailed doctests for the stdnum.rs.pib module
+
+Copyright (C) 2017 Arthur de Jong
+
+This library is free software; you can redistribute it and/or
+modify it under the terms of the GNU Lesser General Public
+License as published by the Free Software Foundation; either
+version 2.1 of the License, or (at your option) any later version.
+
+This library is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+Lesser General Public License for more details.
+
+You should have received a copy of the GNU Lesser General Public
+License along with this library; if not, write to the Free Software
+Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
+
+
+This file contains more detailed doctests for the stdnum.rs.pib module.
+
+>>> from stdnum.rs import jmbg
+>>> from stdnum.exceptions import *
+
+
+These have been generated online and should all be valid numbers.
+
+>>> numbers = '''
+...
+... 0101900710004
+... 0101900710012
+... 0101900710020
+... 0101900710039
+... 0101900710047
+... 0101900715006
+... 0101900715014
+... 0101900715022
+... 0101900715030
+... 0101900715049
+... 0101900720018
+... 0101900720026
+... 0101900720034
+... 0101900720042
+... 0101900725001
+... 0101900725028
+... 0101900725036
+... 0101900725044
+... 3112900730008
+... 3112900730016
+... 3112900730024
+... 3112900730032
+... 3112900730040
+... 3112900730059
+... 3112900730067
+... 3112900730075
+... 3112900730083
+... 3112900730091
+... 3112900735018
+... 3112900735026
+... 3112900735034
+... 3112900735042
+... 3112900735050
+... 3112900735069
+... 3112900735077
+... 3112900735085
+... 3112900735093
+...
+... '''
+>>> [x for x in numbers.splitlines() if x and not jmbg.is_valid(x)]
+[]
