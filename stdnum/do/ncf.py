@@ -19,6 +19,7 @@
 # 02110-1301 USA
 
 # Development of this functionality was funded by iterativo | https://iterativo.do
+# Maintained by Infinity Services | https://infinityservices.com.do
 
 """NCF (Números de Comprobante Fiscal, Dominican Republic receipt number).
 
