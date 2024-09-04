@@ -43,12 +43,7 @@ InvalidChecksum: ...
 import json
 
 from stdnum.exceptions import *
-from stdnum.util import clean, isdigits, get_soap_client
-try:
-    from zeep import Client, Transport
-
-except (ImportError, IOError) as err:
-    print(err)
+from stdnum.util import clean, isdigits
 
 from zeep import Client, Transport
 import requests
