@@ -42,8 +42,11 @@ InvalidChecksum: ...
 import json
 
 from stdnum.exceptions import *
-from stdnum.util import clean, get_soap_client, isdigits
+from stdnum.util import clean, isdigits
 
+from zeep import Client, Transport
+import requests
+import urllib3
 
 # list of RNCs that do not match the checksum but are nonetheless valid
 whitelist = set('''
@@ -57,6 +60,15 @@ whitelist = set('''
 dgii_wsdl = 'https://www.dgii.gov.do/wsMovilDGII/WSMovilDGII.asmx?WSDL'
 """The WSDL URL of DGII validation service."""
 
+# Disable Warning
+urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
+
+def get_soap_client(wsdl_url, timeout=30):
+    """Override get_soap_client, disable ssl validation"""
+    session = requests.Session()
+    session.verify = False
+    transport = Transport(session=session, timeout=timeout)
+    return Client(wsdl=wsdl_url, transport=transport)
 
 def compact(number):
     """Convert the number to the minimal representation. This strips the
@@ -138,7 +150,7 @@ def check_dgii(number, timeout=30):  # pragma: no cover
     # network access for the tests and unnecessarily load the online service
     number = compact(number)
     client = get_soap_client(dgii_wsdl, timeout)
-    result = client.GetContribuyentes(
+    result = client.service.GetContribuyentes(
         value=number,
         patronBusqueda=0,   # search type: 0=by number, 1=by name
         inicioFilas=1,      # start result (1-based)
@@ -181,7 +193,7 @@ def search_dgii(keyword, end_at=10, start_at=1, timeout=30):  # pragma: no cover
     # this function isn't automatically tested because it would require
     # network access for the tests and unnecessarily load the online service
     client = get_soap_client(dgii_wsdl, timeout)
-    results = client.GetContribuyentes(
+    results = client.service.GetContribuyentes(
         value=keyword,
         patronBusqueda=1,       # search type: 0=by number, 1=by name
         inicioFilas=start_at,   # start result (1-based)
