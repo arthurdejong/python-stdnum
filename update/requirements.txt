@@ -2,3 +2,4 @@ lxml
 openpyxl
 requests
 xlrd
+zeep
