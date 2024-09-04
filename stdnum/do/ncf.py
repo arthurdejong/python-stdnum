@@ -59,6 +59,16 @@ InvalidFormat: ...
 from stdnum.exceptions import *
 from stdnum.util import clean, isdigits
 
+from requests.adapters import HTTPAdapter
+from urllib3.util.retry import Retry
+import requests
+import time
+from requests.packages.urllib3.exceptions import InsecureRequestWarning
+
+
+# Suppress InsecureRequestWarning
+requests.packages.urllib3.disable_warnings(InsecureRequestWarning)
+
 
 def compact(number):
     """Convert the number to the minimal representation. This strips the
@@ -157,6 +167,54 @@ def _convert_result(result):  # pragma: no cover
         for key, value in result.items())
 
 
+def _get_form_parameters(document):
+    """Extracts necessary form parameters from the HTML document."""
+    return {
+        '__EVENTVALIDATION': document.find('.//input[@name="__EVENTVALIDATION"]').get('value'),
+        '__VIEWSTATE': document.find('.//input[@name="__VIEWSTATE"]').get('value'),
+       '__VIEWSTATEGENERATOR': document.find('.//input[@name="__VIEWSTATEGENERATOR"]').get('value'),
+    }
+
+
+def _parse_result(document, ncf):
+    """Parses the HTML document to extract the result."""
+    result_path = './/div[@id="cphMain_PResultadoFE"]' if ncf.startswith(
+        'E') else './/div[@id="cphMain_pResultado"]'
+    result = document.find(result_path)
+
+    if result is not None:
+        lbl_path = './/*[@id="cphMain_lblEstadoFe"]' if ncf.startswith(
+            'E') else './/*[@id="cphMain_lblInformacion"]'
+        data = {
+            'validation_message': document.findtext(lbl_path).strip(),
+        }
+        data.update({
+            key.text.strip(): value.text.strip()
+            for key, value in zip(result.findall('.//th'), result.findall('.//td/span'))
+            if key.text and value.text
+        })
+        return _convert_result(data)
+
+    return None
+
+
+def _build_post_data(rnc, ncf, form_params, buyer_rnc=None, security_code=None):
+    """Builds the data dictionary for the POST request."""
+    data = {
+        **form_params,
+        '__ASYNCPOST': "true",
+        'ctl00$smMain': 'ctl00$upMainMaster|ctl00$cphMain$btnConsultar',
+        'ctl00$cphMain$btnConsultar': 'Buscar',
+        'ctl00$cphMain$txtNCF': ncf,
+        'ctl00$cphMain$txtRNC': rnc,
+    }
+
+    if ncf.startswith('E'):
+        data['ctl00$cphMain$txtRncComprador'] = buyer_rnc
+        data['ctl00$cphMain$txtCodigoSeg'] = security_code
+
+    return data
+
 def check_dgii(rnc, ncf, buyer_rnc=None, security_code=None, timeout=30):  # pragma: no cover
     """Validate the RNC, NCF combination on using the DGII online web service.
 
@@ -204,32 +262,30 @@ def check_dgii(rnc, ncf, buyer_rnc=None, security_code=None, timeout=30):  # pra
     session.headers.update({
         'User-Agent': 'Mozilla/5.0 (python-stdnum)',
     })
-    # Get the page to pick up needed form parameters
-    document = lxml.html.fromstring(
-        session.get(url, timeout=timeout).text)
-    validation = document.find('.//input[@name="__EVENTVALIDATION"]').get('value')
-    viewstate = document.find('.//input[@name="__VIEWSTATE"]').get('value')
-    data = {
-        '__EVENTVALIDATION': validation,
-        '__VIEWSTATE': viewstate,
-        'ctl00$cphMain$btnConsultar': 'Buscar',
-        'ctl00$cphMain$txtNCF': ncf,
-        'ctl00$cphMain$txtRNC': rnc,
-    }
-    if ncf[0] == 'E':
-        data['ctl00$cphMain$txtRncComprador'] = buyer_rnc
-        data['ctl00$cphMain$txtCodigoSeg'] = security_code
-    # Do the actual request
-    document = lxml.html.fromstring(
-        session.post(url, data=data, timeout=timeout).text)
-    result_path = './/div[@id="cphMain_PResultadoFE"]' if ncf[0] == 'E' else './/div[@id="cphMain_pResultado"]'
-    result = document.find(result_path)
-    if result is not None:
-        lbl_path = './/*[@id="cphMain_lblEstadoFe"]' if ncf[0] == 'E' else './/*[@id="cphMain_lblInformacion"]'
-        data = {
-            'validation_message': document.findtext(lbl_path).strip(),
-        }
-        data.update(zip(
-            [x.text.strip() for x in result.findall('.//th') if x.text],
-            [x.text.strip() for x in result.findall('.//td/span') if x.text]))
-        return _convert_result(data)
+
+    # Config retries
+    retries = Retry(
+        total=5,
+        backoff_factor=0.5,
+        status_forcelist=[500, 502, 503, 504],
+        raise_on_status=False
+    )
+    session.mount('https://', HTTPAdapter(max_retries=retries))
+
+    response = session.get(url, timeout=timeout, verify=False)
+    response.raise_for_status()
+    document = lxml.html.fromstring(response.text)
+
+    # Extract necessary form parameters
+    form_params = _get_form_parameters(document)
+
+    # Build data for the POST request
+    post_data = _build_post_data(
+        rnc, ncf, form_params, buyer_rnc, security_code)
+
+    response = session.post(url, data=post_data, timeout=timeout, verify=False)
+    response.raise_for_status()
+    document = lxml.html.fromstring(response.text)
+
+    # Parse and return the result
+    return _parse_result(document, ncf)
