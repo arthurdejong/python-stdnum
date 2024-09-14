@@ -1,7 +1,7 @@
 # ncf.py - functions for handling Dominican Republic invoice numbers
 # coding: utf-8
 #
-# Copyright (C) 2017-2018 Arthur de Jong
+# Copyright (C) 2017-2024 Arthur de Jong
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -157,13 +157,19 @@ def _convert_result(result):  # pragma: no cover
         for key, value in result.items())
 
 
-def check_dgii(rnc, ncf, buyer_rnc=None, security_code=None, timeout=30):  # pragma: no cover
+def check_dgii(rnc, ncf, buyer_rnc=None, security_code=None, timeout=30, verify=True):  # pragma: no cover
     """Validate the RNC, NCF combination on using the DGII online web service.
 
     This uses the validation service run by the the Dirección General de
     Impuestos Internos, the Dominican Republic tax department to check
     whether the combination of RNC and NCF is valid. The timeout is in
     seconds.
+
+    The `timeout` argument specifies the network timeout in seconds.
+
+    The `verify` argument is either a boolean that determines whether the
+    server's certificate is validate or a string which must be a path the CA
+    certificate bundle to use for verification.
 
     Returns a dict with the following structure for a NCF::
 
@@ -201,6 +207,7 @@ def check_dgii(rnc, ncf, buyer_rnc=None, security_code=None, timeout=30):  # pra
         buyer_rnc = rnc_compact(buyer_rnc)
     url = 'https://dgii.gov.do/app/WebApps/ConsultasWeb2/ConsultasWeb/consultas/ncf.aspx'
     session = requests.Session()
+    session.verify = verify
     session.headers.update({
         'User-Agent': 'Mozilla/5.0 (python-stdnum)',
     })

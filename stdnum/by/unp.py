@@ -1,7 +1,7 @@
 # unp.py - functions for handling Belarusian UNP numbers
 # coding: utf-8
 #
-# Copyright (C) 2020 Arthur de Jong
+# Copyright (C) 2020-2024 Arthur de Jong
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -104,8 +104,14 @@ def is_valid(number):
         return False
 
 
-def check_nalog(number, timeout=30):  # pragma: no cover (not part of normal test suite)
+def check_nalog(number, timeout=30, verify=True):  # pragma: no cover (not part of normal test suite)
     """Retrieve registration information from the portal.nalog.gov.by web site.
+
+    The `timeout` argument specifies the network timeout in seconds.
+
+    The `verify` argument is either a boolean that determines whether the
+    server's certificate is validate or a string which must be a path the CA
+    certificate bundle to use for verification.
 
     This basically returns the JSON response from the web service as a dict.
     Will return ``None`` if the number is invalid or unknown.
@@ -121,6 +127,7 @@ def check_nalog(number, timeout=30):  # pragma: no cover (not part of normal tes
             'unp': compact(number),
             'charset': 'UTF-8',
             'type': 'json'},
-        timeout=timeout)
+        timeout=timeout,
+        verify=verify)
     if response.ok and response.content:
         return response.json()['row']

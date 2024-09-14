@@ -2,7 +2,7 @@
 # coding: utf-8
 #
 # Copyright (C) 2015 Holvi Payment Services Oy
-# Copyright (C) 2018-2022 Arthur de Jong
+# Copyright (C) 2018-2024 Arthur de Jong
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -325,8 +325,14 @@ def is_valid(number):
 _offeneregister_url = 'https://db.offeneregister.de/openregister.json'
 
 
-def check_offeneregister(number, timeout=30):  # pragma: no cover (not part of normal test suite)
+def check_offeneregister(number, timeout=30, verify=True):  # pragma: no cover (not part of normal test suite)
     """Retrieve registration information from the OffeneRegister.de web site.
+
+    The `timeout` argument specifies the network timeout in seconds.
+
+    The `verify` argument is either a boolean that determines whether the
+    server's certificate is validate or a string which must be a path the CA
+    certificate bundle to use for verification.
 
     This basically returns the JSON response from the web service as a dict.
     It will contain something like the following::
@@ -362,7 +368,8 @@ def check_offeneregister(number, timeout=30):  # pragma: no cover (not part of n
                    limit 1
                    ''',
             'p0': '%s %s %s' % (court, registry, number)},
-        timeout=timeout)
+        timeout=timeout,
+        verify=verify)
     response.raise_for_status()
     try:
         json = response.json()

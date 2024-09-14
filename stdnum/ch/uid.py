@@ -1,7 +1,7 @@
 # uid.py - functions for handling Swiss business identifiers
 # coding: utf-8
 #
-# Copyright (C) 2015-2022 Arthur de Jong
+# Copyright (C) 2015-2024 Arthur de Jong
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -100,11 +100,17 @@ def format(number):
 uid_wsdl = 'https://www.uid-wse.admin.ch/V5.0/PublicServices.svc?wsdl'
 
 
-def check_uid(number, timeout=30):  # pragma: no cover
+def check_uid(number, timeout=30, verify=True):  # pragma: no cover
     """Look up information via the Swiss Federal Statistical Office web service.
 
     This uses the UID registry web service run by the the Swiss Federal
     Statistical Office to provide more details on the provided number.
+
+    The `timeout` argument specifies the network timeout in seconds.
+
+    The `verify` argument is either a boolean that determines whether the
+    server's certificate is validate or a string which must be a path the CA
+    certificate bundle to use for verification.
 
     Returns a dict-like object for valid numbers with the following structure::
 
@@ -145,7 +151,7 @@ def check_uid(number, timeout=30):  # pragma: no cover
     # this function isn't always tested because it would require network access
     # for the tests and might unnecessarily load the web service
     number = compact(number)
-    client = get_soap_client(uid_wsdl, timeout)
+    client = get_soap_client(uid_wsdl, timeout=timeout, verify=verify)
     try:
         return client.GetByUID(uid={'uidOrganisationIdCategorie': number[:3], 'uidOrganisationId': number[3:]})[0]
     except Exception:  # noqa: B902 (exception type depends on SOAP client)

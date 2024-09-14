@@ -84,8 +84,6 @@ setup(
         # The SOAP feature is only required for a number of online tests
         # of numbers such as the EU VAT VIES lookup, the Dominican Republic
         # DGII services or the Turkish T.C. Kimlik validation.
-        'SOAP': ['zeep'],      # recommended implementation
-        'SOAP-ALT': ['suds'],  # but this should also work
-        'SOAP-FALLBACK': ['PySimpleSOAP'],  # this is a fallback
+        'SOAP': ['zeep'],
     },
 )

@@ -1,7 +1,7 @@
 # util.py - common utility functions
 # coding: utf-8
 #
-# Copyright (C) 2012-2021 Arthur de Jong
+# Copyright (C) 2012-2024 Arthur de Jong
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -28,6 +28,7 @@ stdnum.
 import pkgutil
 import pydoc
 import re
+import ssl
 import sys
 import unicodedata
 import warnings
@@ -244,42 +245,81 @@ def get_cc_module(cc, name):
 _soap_clients = {}
 
 
-def get_soap_client(wsdlurl, timeout=30):  # pragma: no cover (not part of normal test suite)
+def _get_zeep_soap_client(wsdlurl, timeout, verify):  # pragma: no cover (not part of normal test suite)
+    from requests import Session
+    from zeep import CachingClient
+    from zeep.transports import Transport
+    session = Session()
+    session.verify = verify
+    transport = Transport(operation_timeout=timeout, timeout=timeout, session=session)
+    return CachingClient(wsdlurl, transport=transport).service
+
+
+def _get_suds_soap_client(wsdlurl, timeout, verify):  # pragma: no cover (not part of normal test suite)
+    # other implementations require passing the proxy config
+    try:
+        from urllib.request import getproxies
+    except ImportError:  # Python 2 specific
+        from urllib import getproxies
+    try:
+        from urllib.request import HTTPSHandler
+    except ImportError:  # Python 2 specific
+        from urllib2 import HTTPSHandler
+    from suds.client import Client
+    from suds.transport.http import HttpTransport
+
+    class CustomSudsTransport(HttpTransport):
+
+        def u2handlers(self):
+            handlers = super(CustomSudsTransport, self).u2handlers()
+            if isinstance(verify, str):
+                if not os.path.isdir(verify):
+                    ssl_context = ssl.create_default_context(ssl.Purpose.SERVER_AUTH, capath=verify)
+                else:
+                    ssl_context = ssl.create_default_context(ssl.Purpose.SERVER_AUTH, cafile=verify)
+            else:
+                ssl_context = ssl.create_default_context(ssl.Purpose.SERVER_AUTH)
+                if verify is False:
+                    ssl_context.check_hostname = False
+                    ssl_context.verify_mode = ssl.CERT_NONE
+            handlers.append(HTTPSHandler(context=ssl_context))
+            return handlers
+    warnings.warn(
+        'Use of Suds for SOAP requests is deprecated, please use Zeep instead',
+        DeprecationWarning, stacklevel=1)
+    return Client(wsdlurl, proxy=getproxies(), timeout=timeout, transport=CustomSudsTransport()).service
+
+
+def _get_pysimplesoap_soap_client(wsdlurl, timeout, verify):  # pragma: no cover (not part of normal test suite)
+    from pysimplesoap.client import SoapClient
+    if verify is False:
+        raise ValueError('PySimpleSOAP does not support verify=False')
+    kwargs = {}
+    if isinstance(verify, str):
+        kwargs['cacert'] = verify
+    warnings.warn(
+        'Use of PySimpleSOAP for SOAP requests is deprecated, please use Zeep instead',
+        DeprecationWarning, stacklevel=1)
+    return SoapClient(wsdl=wsdlurl, proxy=getproxies(), timeout=timeout, **kwargs)
+
+
+def get_soap_client(wsdlurl, timeout=30, verify=True):  # pragma: no cover (not part of normal test suite)
     """Get a SOAP client for performing requests. The client is cached. The
-    timeout is in seconds."""
+    timeout is in seconds. The verify parameter is either True (the default), False
+    (to disabled certificate validation) or string value pointing to a CA certificate
+    file.
+    """
     # this function isn't automatically tested because the functions using
-    # it are not automatically tested
+    # it are not automatically tested and it requires network access for proper
+    # testing
     if (wsdlurl, timeout) not in _soap_clients:
-        # try zeep first
-        try:
-            from zeep.transports import Transport
-            transport = Transport(operation_timeout=timeout, timeout=timeout)
-            from zeep import CachingClient
-            client = CachingClient(wsdlurl, transport=transport).service
-        except ImportError:
-            # fall back to non-caching zeep client
+        for function in (_get_zeep_soap_client, _get_suds_soap_client, _get_pysimplesoap_soap_client):
             try:
-                from zeep import Client
-                client = Client(wsdlurl, transport=transport).service
+                client = function(wsdlurl, timeout, verify)
+                break
             except ImportError:
-                # other implementations require passing the proxy config
-                try:
-                    from urllib import getproxies
-                except ImportError:
-                    from urllib.request import getproxies
-                # fall back to suds
-                try:
-                    from suds.client import Client
-                    client = Client(
-                        wsdlurl, proxy=getproxies(), timeout=timeout).service
-                except ImportError:
-                    # use pysimplesoap as last resort
-                    try:
-                        from pysimplesoap.client import SoapClient
-                        client = SoapClient(
-                            wsdl=wsdlurl, proxy=getproxies(), timeout=timeout)
-                    except ImportError:
-                        raise ImportError(
-                            'No SOAP library (such as zeep) found')
+                pass
+        else:
+            raise ImportError('No SOAP library (such as zeep) found')
         _soap_clients[(wsdlurl, timeout)] = client
     return _soap_clients[(wsdlurl, timeout)]
