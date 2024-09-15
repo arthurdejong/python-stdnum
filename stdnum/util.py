@@ -312,7 +312,7 @@ def get_soap_client(wsdlurl, timeout=30, verify=True):  # pragma: no cover (not 
     # this function isn't automatically tested because the functions using
     # it are not automatically tested and it requires network access for proper
     # testing
-    if (wsdlurl, timeout) not in _soap_clients:
+    if (wsdlurl, timeout, verify) not in _soap_clients:
         for function in (_get_zeep_soap_client, _get_suds_soap_client, _get_pysimplesoap_soap_client):
             try:
                 client = function(wsdlurl, timeout, verify)
@@ -321,5 +321,5 @@ def get_soap_client(wsdlurl, timeout=30, verify=True):  # pragma: no cover (not 
                 pass
         else:
             raise ImportError('No SOAP library (such as zeep) found')
-        _soap_clients[(wsdlurl, timeout)] = client
-    return _soap_clients[(wsdlurl, timeout)]
+        _soap_clients[(wsdlurl, timeout, verify)] = client
+    return _soap_clients[(wsdlurl, timeout, verify)]
