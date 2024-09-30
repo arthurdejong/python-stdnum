@@ -50,11 +50,27 @@ _isrc_re = re.compile(
 
 
 # These special codes are allowed for ISRC
+# Source: https://isrc.ifpi.org/downloads/Valid_Characters.pdf
 _country_codes = set(_iso_3116_1_country_codes + [
-    'QM',  # US new registrants due to US codes became exhausted
+    'BC',  # Pro-música Brazil - Brasil
+    'BK',  # Pro-música Brazil - Brasil
+    'BP',  # Pro-música Brazil - Brasil
+    'BX',  # Pro-música Brazil - Brasil
+    'CB',  # Connect - Canada
     'CP',  # reserved for further overflow
     'DG',  # reserved for further overflow
-    'ZZ',  # International ISRC Agency codes
+    'FX',  # SCPP - France
+    'GX',  # PPL UK - United Kingdom
+    'KS',  # KMCA - South Korea
+    'QM',  # US new registrants due to US codes became exhausted
+    'QN',  # International ISRC Agency codes - Worldwide
+    'QT',  # RIAA - US
+    'QZ',  # RIAA - US
+    'UK',  # PPL UK - United Kingdom
+    'XK',  # International ISRC Agency codes - Kosovo
+    'YU',  # International ISRC Agency codes - Former Yugoslavia before 2006
+    'ZB',  # RISA - South Africa
+    'ZZ',  # International ISRC Agency codes - Worldwide
 ])
 
 
