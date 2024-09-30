@@ -32,7 +32,7 @@ This is the official BOE (Boletín Oficial del Estado) about the CAE number:
 https://www.boe.es/boe/dias/2006/12/28/pdfs/A46098-46100.pdf
 
 This is the online checker from the Spanish Tax Agency (Agencia Tributaria):
-https://www2.agenciatributaria.gob.es/wlpl/inwinvoc/es.aeat.dit.adu.adce.cae.cw.AccW
+https://www2.agenciatributaria.gob.es/L/inwinvoc/es.aeat.dit.adu.adce.cae.cw.AccW?fAccion=consulta
 
 This is the explanation of the CAE number in the Spanish Tax Agency:
 https://sede.agenciatributaria.gob.es/Sede/impuestos-especiales-medioambientales/censo-impuestos-especiales-medioambientales/registro-impuestos-especiales-fabricacion.html?faqId=3cc75c714b11c710VgnVCM100000dc381e0aRCRD
