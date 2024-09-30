@@ -29,6 +29,12 @@ is not really useful as module documentation.
 'ES00008V1567A'
 >>> cae.is_valid('ES00008V1567A')  # valid CAE
 True
+>>> cae.is_valid('ES10008V1567A')  # invalid CAE characters third, fourth and fifth must be zero
+False
+>>> cae.is_valid('ES01008V1567A')  # invalid CAE characters third, fourth and fifth must be zero
+False
+>>> cae.is_valid('ES00108V1567A')  # invalid CAE characters third, fourth and fifth must be zero
+False
 >>> cae.is_valid('ES00008V1567')  # invalid CAE length
 False
 >>> cae.is_valid('IT00008V1567A')  # invalid CAE not starting with ES
@@ -36,6 +42,14 @@ False
 >>> cae.is_valid('ES00000V1567A')  # invalid CAE office
 False
 >>> cae.is_valid('ES00008XX567A')  # invalid CAE activity key
+False
+>>> cae.is_valid('ES00008V1X67A')  # invalid CAE characters tenth, eleventh and twelfth must be digits
+False
+>>> cae.is_valid('ES00008V15X7A')  # invalid CAE characters tenth, eleventh and twelfth must be digits
+False
+>>> cae.is_valid('ES00008V156XA')  # invalid CAE characters tenth, eleventh and twelfth must be digits
+False
+>>> cae.is_valid('ES00008V15670')  # invalid CAE last character must be a letter
 False
 >>> cae.is_valid('ES00001A1567A')  # valid CAE
 True

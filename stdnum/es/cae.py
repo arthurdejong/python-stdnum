@@ -72,10 +72,19 @@ def validate(number):
     if number[:2] != 'ES':
         raise InvalidFormat()
 
+    if number[2:5] != '000':
+        raise InvalidFormat()
+
     if number[5:7] not in OFFICES:
         raise InvalidFormat()
 
     if number[7:9] not in ACTIVITY_KEYS:
+        raise InvalidFormat()
+
+    if not number[9:12].isdigit():
+        raise InvalidFormat()
+
+    if not number[12].isalpha():
         raise InvalidFormat()
 
     return number
