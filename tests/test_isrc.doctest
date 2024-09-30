@@ -34,6 +34,10 @@ These are normal variations that should just work.
 'USSKG1912345'
 >>> isrc.validate('us-skg1912345')
 'USSKG1912345'
+>>> isrc.validate('GX26J2400002')
+'GX26J2400002'
+>>> isrc.validate('FXR592300639')
+'FXR592300639'
 
 
 Tests for mangling and incorrect country codes.
