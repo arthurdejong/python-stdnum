@@ -1,0 +1,117 @@
+test_ao_nif.doctest - more detailed doctests for stdnum.ao.nif module
+
+Copyright (C) 2023 Leandro Regueiro
+
+This library is free software; you can redistribute it and/or
+modify it under the terms of the GNU Lesser General Public
+License as published by the Free Software Foundation; either
+version 2.1 of the License, or (at your option) any later version.
+
+This library is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+Lesser General Public License for more details.
+
+You should have received a copy of the GNU Lesser General Public
+License along with this library; if not, write to the Free Software
+Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
+02110-1301 USA
+
+
+This file contains more detailed doctests for the stdnum.ao.nif module. It
+tries to test more corner cases and detailed functionality that is not really
+useful as module documentation.
+
+>>> from stdnum.ao import nif
+
+
+Tests for some corner cases.
+
+>>> nif.validate('5000767115')
+'5000767115'
+>>> nif.validate('500 002 85 50')
+'5000028550'
+>>> nif.validate('541.745.0855')
+'5417450855'
+>>> nif.validate('000238553CA017')
+'000238553CA017'
+>>> nif.validate('12345')
+Traceback (most recent call last):
+    ...
+InvalidLength: ...
+>>> nif.validate('V234567890')
+Traceback (most recent call last):
+    ...
+InvalidFormat: ...
+>>> nif.validate('V23456789XX234')
+Traceback (most recent call last):
+    ...
+InvalidFormat: ...
+>>> nif.validate('12345678901234')
+Traceback (most recent call last):
+    ...
+InvalidFormat: ...
+>>> nif.validate('123456789XX23V')
+Traceback (most recent call last):
+    ...
+InvalidFormat: ...
+>>> nif.format('500 002 85 50')
+'5000028550'
+
+
+These have been found online and should all be valid numbers.
+
+>>> numbers = '''
+...
+... 5000767115
+... 7403008227
+... 541.745.0855
+... 5000392413
+... 5000817880
+... 5403088601
+... 5000856070
+... 5417061590
+... 5410000510
+... 5417166103
+... 5000505870
+... 540 111 34 20
+... 5000354643
+... 5417423610
+... 5000429660
+... 500 002 85 50
+... 5001078976
+... 5000292605
+... 5000436577
+... 5401061072
+... 5403011362
+... 5401040580
+... 5000636983
+... 5410001095
+... 5417251674
+... 5417407844
+... 5480010743
+... 5410003144
+... 5417017027
+... 5000638170
+... 5417166103
+... 5000392413
+... 5005005000
+... 5417144096
+... 7419001367
+... 5000466123
+... 5000816311
+... 5000740896
+... 5410003691
+... 5401111380
+... 5000952583
+... 5000562386
+... 5410003705
+... 5000430820
+... 5000816310
+... 000238553CA017
+... 541 734 128 2
+... 5417655872
+...
+... '''
+>>> [x for x in numbers.splitlines() if x and not nif.is_valid(x)]
+[]
