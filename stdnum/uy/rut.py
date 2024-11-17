@@ -87,7 +87,7 @@ def validate(number):
         raise InvalidLength()
     if not isdigits(number):
         raise InvalidFormat()
-    if number[:2] < '01' or number[:2] > '21':
+    if number[:2] < '01' or number[:2] > '22':
         raise InvalidComponent()
     if number[2:8] == '000000':
         raise InvalidComponent()
