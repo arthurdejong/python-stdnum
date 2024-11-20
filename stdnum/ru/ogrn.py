@@ -83,6 +83,7 @@ def calculate_control_digit(grn: str) -> Optional[int]:
         return calculated_digit
     return None
 
+
 def validate(text: str) -> bool:
     """Check if the number is a valid OGRN."""
     normalized_text = format(text)
