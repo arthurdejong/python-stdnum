@@ -19,7 +19,7 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 # 02110-1301 USA
 
-"""ОГРН (Основной государственный регистрационный номер, Primary State Registration Number).
+'''ОГРН (Основной государственный регистрационный номер, Primary State Registration Number).
 
 The OGRN is a Russian  identifier for legal entities that consists of either 13 or 15 digits.
 
@@ -31,12 +31,13 @@ False
 True
 >>> validate('10277395526422') # 14 digits
 False
-"""
+'''
 
 import re
 from typing import Optional
 
-# Regular expression to match valid OGRN, which is either 13 or 15 digits.
+
+
 OGRN_RE = re.compile(r'\b(\d{13}|\d{15})\b')
 
 # Valid set of federal subject codes.
@@ -46,7 +47,7 @@ VALID_FEDERAL_SUBJECT_CODES = set(range(1, 80)) | {83, 86, 87, 89, 91, 92, 99}
 
 
 def is_valid(text: str) -> bool:
-    """Determine if the given string is a valid OGRN."""
+    '''Determine if the given string is a valid OGRN.'''
     if OGRN_RE.match(text) is None:
         return False
 
@@ -65,7 +66,7 @@ def is_valid(text: str) -> bool:
 
 
 def format(text: str) -> Optional[str]:
-    """Normalize the given string to a valid OGRN."""
+    '''Normalize the given string to a valid OGRN.'''
     match = OGRN_RE.search(text)
     if match is None:
         return None
@@ -73,7 +74,7 @@ def format(text: str) -> Optional[str]:
 
 
 def calculate_control_digit(grn: str) -> Optional[int]:
-    """Calculate the control digit of the OGRN based on its length."""
+    '''Calculate the control digit of the OGRN based on its length.'''
     if len(grn) == 13:
         number = int(grn[:12])
         mod_result = number % 11
@@ -89,7 +90,7 @@ def calculate_control_digit(grn: str) -> Optional[int]:
     return None
 
 def validate(text: str) -> bool:
-    """Check if the number is a valid OGRN."""
+    '''Check if the number is a valid OGRN.'''
     normalized_text = format(text)
     if normalized_text is None:
         return False
