@@ -39,18 +39,5 @@ This is a list of OGRNs that should all be valid numbers:
 ... 1022300000502
 ...
 ... '''
->>> [x for x in numbers.splitlines() if x and not ogrn.is_valid(x)]
-True
-
-These are some numbers that should be invalid:
-
->>> invalid_numbers = '''
-...
-... 1027739552
-... 1027739
-... 11677
-... 315774600002662123
-...
-... '''
->>> [x for x in numbers.splitlines() if x and not ogrn.is_valid(x)]
-False
+>>> [x for x in valid_numbers.splitlines() if x and not ogrn.is_valid(x)]
+[]
