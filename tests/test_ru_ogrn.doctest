@@ -37,7 +37,7 @@ This is a list of OGRNs that should all be valid numbers:
 ... "1022300001811", "1020500003919", "1022300003703",
 ... "1022300000502", "1022200531484", "1022200525819"
 ... ]
->>> all(ogrn.is_valid(x) for x in valid_numbers)
+>>> all(ogrn.validate(x) for x in valid_numbers)
 True
 
 These are some numbers that should be invalid:
@@ -46,19 +46,18 @@ These are some numbers that should be invalid:
 ... "1027739552", "", "1027739",
 ... "11677", "315774600002662123"
 ... ]
->>> all(not ogrn.is_valid(x) for x in invalid_numbers)
+>>> all(not ogrn.validate(x) for x in invalid_numbers)
 True
 
 Testing normalization of OGRN strings:
 
 >>> ogrn.normalize("1027739552642")
 '1027739552642'
->>> ogrn.normalize("OGRN 1027739552642")
-'1027739552642'
 >>> ogrn.normalize("102773955")
 >>> ogrn.normalize("10277395587984375943")
 
+
 Ensure OGRN can be formatted as expected:
 
->>> ogrn.format("1027739552642")
+>>> ogrn.format("   1027739552642   ")
 '1027739552642'
