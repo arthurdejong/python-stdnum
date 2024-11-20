@@ -2,7 +2,7 @@
 # ogrn.py - functions for handling Russian company registration numbers
 # coding: utf-8
 #
-# Copyright (C) 2024 OpenSanctions
+# Copyright (C) 2010-2024 Arthur de Jong and others
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -23,13 +23,13 @@
 
 The OGRN is a Russian  identifier for legal entities that consists of either 13 or 15 digits.
 
->>> validate("1022200525819")
+>>> validate('1022200525819')
 True
->>> validate("1027739") # too short
+>>> validate('1027739') # too short
 False
->>> validate("1022500001325")
+>>> validate('1022500001325')
 True
->>> validate("10277395526422") # 14 digits
+>>> validate('10277395526422') # 14 digits
 False
 """
 
@@ -37,7 +37,7 @@ import re
 from typing import Optional
 
 # Regular expression to match valid OGRN, which is either 13 or 15 digits.
-OGRN_RE = re.compile(r"\b(\d{13}|\d{15})\b")
+OGRN_RE = re.compile(r'\b(\d{13}|\d{15})\b')
 
 # Valid set of federal subject codes.
 VALID_FEDERAL_SUBJECT_CODES = set(range(1, 80)) | {83, 86, 87, 89, 91, 92, 99}
@@ -51,7 +51,7 @@ def is_valid(text: str) -> bool:
         return False
 
     # # Validate registration type, ensuring the first digit is not zero.
-    if text[0] == "0":
+    if text[0] == '0':
         return False
 
     # Validate the federal subject code is within the allowable range.
@@ -64,7 +64,7 @@ def is_valid(text: str) -> bool:
     return control_digit == calculate_control_digit(text)
 
 
-def normalize(text: str) -> Optional[str]:
+def format(text: str) -> Optional[str]:
     """Normalize the given string to a valid OGRN."""
     match = OGRN_RE.search(text)
     if match is None:
@@ -90,7 +90,7 @@ def calculate_control_digit(grn: str) -> Optional[int]:
 
 def validate(text: str) -> bool:
     """Check if the number is a valid OGRN."""
-    normalized_text = normalize(text)
+    normalized_text = format(text)
     if normalized_text is None:
         return False
     return is_valid(normalized_text)
