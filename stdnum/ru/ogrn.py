@@ -19,16 +19,17 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 # 02110-1301 USA
 
-"""
-ОГРН (Основной государственный регистрационный номер, Primary State Registration Number).
+"""ОГРН (Основной государственный регистрационный номер, Primary State Registration Number).
+
 The OGRN is a Russian  identifier for legal entities that consists of either 13 or 15 digits.
->>> OGRN.is_valid("1022200525819")
+
+>>> validate("1022200525819")
 True
->>> OGRN.is_valid("1027739") # too short
+>>> validate("1027739") # too short
 False
->>> OGRN.is_valid("1022500001325")
+>>> validate("1022500001325")
 True
->>> OGRN.is_valid("10277395526422") # 14 digits
+>>> validate("10277395526422") # 14 digits
 False
 """
 
@@ -94,5 +95,3 @@ def validate(text: str) -> bool:
         return False
     return is_valid(normalized_text)
 
-x = "1022200525819"
-print(validate(x))
