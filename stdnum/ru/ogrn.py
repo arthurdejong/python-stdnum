@@ -69,6 +69,7 @@ def validate(text: str) -> bool:
         raise InvalidChecksum()
     return True
 
+
 def format(text: str) -> Optional[str]:
     """Normalize the given string to a valid OGRN."""
     if not isinstance(text, str):
