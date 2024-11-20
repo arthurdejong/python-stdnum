@@ -44,28 +44,22 @@ from typing import Optional
 from stdnum.exceptions import ValidationError
 
 
-OGRN_RE = re.compile(r'\b(\d{13}|\d{15})\b')
-
-# Valid set of federal subject codes.
-VALID_FEDERAL_SUBJECT_CODES = set(range(1, 80)) | {83, 86, 87, 89, 91, 92, 99}
-
-
 def is_valid(text: str):
     """Determine if the given string is a valid OGRN."""
-    if OGRN_RE.match(text) is None:
-        raise ValidationError("Invalid length for OGRN.")
+    if re.compile(r'\b(\d{13}|\d{15})\b').match(text) is None:
+        raise ValidationError('Invalid length for OGRN.')
     if text[0] == '0':
-        raise ValidationError("Invalid first digit for OGRN.")
+        raise ValidationError('Invalid first digit for OGRN.')
     federal_subject_code = int(text[3:5])
-    if federal_subject_code not in VALID_FEDERAL_SUBJECT_CODES:
-        raise ValidationError("Invalid check digit for OGRN.")
+    if federal_subject_code not in set(range(1, 80)) | {83, 86, 87, 89, 91, 92, 99}:
+        raise ValidationError('Invalid check digit for OGRN.')
     control_digit = int(text[-1])
     return control_digit == calculate_control_digit(text)
 
 
 def format(text: str) -> Optional[str]:
     """Normalize the given string to a valid OGRN."""
-    match = OGRN_RE.search(text)
+    match = re.compile(r'\b(\d{13}|\d{15})\b').search(text)
     if match is None:
         return None
     return match.group(1)
