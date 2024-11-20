@@ -50,17 +50,11 @@ def is_valid(text: str) -> bool:
     '''Determine if the given string is a valid OGRN.'''
     if OGRN_RE.match(text) is None:
         return False
-
-    # # Validate registration type, ensuring the first digit is not zero.
     if text[0] == '0':
         return False
-
-    # Validate the federal subject code is within the allowable range.
     federal_subject_code = int(text[3:5])
     if federal_subject_code not in VALID_FEDERAL_SUBJECT_CODES:
         return False
-
-    # Validate control digit logic
     control_digit = int(text[-1])
     return control_digit == calculate_control_digit(text)
 
@@ -78,13 +72,11 @@ def calculate_control_digit(grn: str) -> Optional[int]:
     if len(grn) == 13:
         number = int(grn[:12])
         mod_result = number % 11
-        # Return the modulus result, or 0 if it results in 10.
         calculated_digit = mod_result if mod_result != 10 else 0
         return calculated_digit
     elif len(grn) == 15:
         number = int(grn[:14])
         mod_result = number % 13
-        # Return the modulus result, or 0 if it results in 10.
         calculated_digit = mod_result if mod_result != 10 else 0
         return calculated_digit
     return None
@@ -95,4 +87,3 @@ def validate(text: str) -> bool:
     if normalized_text is None:
         return False
     return is_valid(normalized_text)
-
