@@ -41,6 +41,8 @@ Traceback (most recent call last):
 import re
 from typing import Optional
 
+from stdnum.exceptions import ValidationError
+
 
 OGRN_RE = re.compile(r'\b(\d{13}|\d{15})\b')
 
@@ -48,15 +50,15 @@ OGRN_RE = re.compile(r'\b(\d{13}|\d{15})\b')
 VALID_FEDERAL_SUBJECT_CODES = set(range(1, 80)) | {83, 86, 87, 89, 91, 92, 99}
 
 
-def is_valid(text: str) -> bool:
+def is_valid(text: str):
     """Determine if the given string is a valid OGRN."""
     if OGRN_RE.match(text) is None:
-        return False
+        raise ValidationError("Invalid length for OGRN.")
     if text[0] == '0':
-        return False
+        raise ValidationError("Invalid first digit for OGRN.")
     federal_subject_code = int(text[3:5])
     if federal_subject_code not in VALID_FEDERAL_SUBJECT_CODES:
-        return False
+        raise ValidationError("Invalid check digit for OGRN.")
     control_digit = int(text[-1])
     return control_digit == calculate_control_digit(text)
 
