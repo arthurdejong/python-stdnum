@@ -40,7 +40,7 @@ InvalidChecksum: ...
 import re
 from typing import Optional
 
-from stdnum.exceptions import ValidationError, InvalidLength, InvalidChecksum, InvalidComponent
+from stdnum.exceptions import *
 
 
 def validate(text: str) -> bool:
@@ -87,7 +87,7 @@ def calculate_control_digit(grn: str) -> Optional[int]:
 
 def is_valid(text: str) -> bool:
     """Check if the number is a valid OGRN."""
-    try:    
+    try:
         normalized_text = format(text)
         return bool(normalized_text and validate(normalized_text))
     except ValidationError:
