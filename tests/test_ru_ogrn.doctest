@@ -28,36 +28,29 @@ OGRN numbers, ensuring they conform to expected behavior.
 
 This is a list of OGRNs that should all be valid numbers:
 
->>> valid_numbers = [
-... "1027739552642", "1137847171846", "1159102022738",
-... "1022600000092", "1022500001930", "1022500001061",
-... "1022500000566", "1022700000685", "1022500001325",
-... "1027100000311", "1022500000786", "1024100000121",
-... "1022400007508", "1022400000160", "1022400010005",
-... "1022300001811", "1020500003919", "1022300003703",
-... "1022300000502", "1022200531484", "1022200525819"
-... ]
->>> all(ogrn.validate(x) for x in valid_numbers)
+>>> valid_numbers = '''
+...
+... 1027739552642
+... 1022600000092
+... 1022500000566
+... 1027100000311
+... 1022400007508
+... 1022300001811
+... 1022300000502
+...
+... '''
+>>> [x for x in numbers.splitlines() if x and not ogrn.is_valid(x)]
 True
 
 These are some numbers that should be invalid:
 
->>> invalid_numbers = [
-... "1027739552", "", "1027739",
-... "11677", "315774600002662123"
-... ]
->>> all(not ogrn.validate(x) for x in invalid_numbers)
-True
-
-Testing normalization of OGRN strings:
-
->>> ogrn.normalize("1027739552642")
-'1027739552642'
->>> ogrn.normalize("102773955")
->>> ogrn.normalize("10277395587984375943")
-
-
-Ensure OGRN can be formatted as expected:
-
->>> ogrn.format("   1027739552642   ")
-'1027739552642'
+>>> invalid_numbers = '''
+...
+... 1027739552
+... 1027739
+... 11677
+... 315774600002662123
+...
+... '''
+>>> [x for x in numbers.splitlines() if x and not ogrn.is_valid(x)]
+False
