@@ -26,11 +26,16 @@ The OGRN is a Russian  identifier for legal entities that consists of either 13 
 >>> validate('1022200525819')
 True
 >>> validate('1027739') # too short
-False
+Traceback (most recent call last):
+    ...
 >>> validate('1022500001325')
 True
 >>> validate('10277395526422') # 14 digits
-False
+Traceback (most recent call last):
+    ...
+>>> validate('1022500001328') # invalid check digit
+Traceback (most recent call last):
+    ...
 """
 
 import re
