@@ -35,6 +35,20 @@ InvalidLength: ...
 Traceback (most recent call last):
     ...
 InvalidChecksum: ...
+>>> validate('0022500001325') # starts with 0
+Traceback (most recent call last):
+    ...
+InvalidComponent: ...
+>>> validate('102250000') # too short
+Traceback (most recent call last):
+    ...
+InvalidLength: ...
+>>> validate('1029500001325') # invalid federal subject code
+Traceback (most recent call last):
+    ...
+InvalidComponent: ...
+>>> validate('385768585948949') # 15 digits
+True
 """
 
 import re
@@ -45,11 +59,6 @@ from stdnum.exceptions import *
 
 def validate(text: str) -> bool:
     """Determine if the given string is a valid OGRN."""
-    if not isinstance(text, str) or text is None:
-        raise TypeError("Expected a string or bytes-like object, got '{}'"
-                        .format(type(text).__name__))
-    if len(text) not in {13, 15} or not text.isdigit():
-        raise InvalidLength()
     if text[0] == '0':
         raise InvalidComponent()
     federal_subject_code = int(text[3:5])
@@ -82,7 +91,8 @@ def calculate_control_digit(grn: str) -> Optional[int]:
         mod_result = number % 13
         calculated_digit = mod_result if mod_result != 10 else 0
         return calculated_digit
-    return None
+    else:
+        raise InvalidLength()
 
 
 def is_valid(text: str) -> bool:
