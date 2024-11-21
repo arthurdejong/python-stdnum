@@ -71,7 +71,7 @@ def validate(text):
 
 def format(text):
     """Normalize the given string to a valid OGRN."""
-    if not isinstance(text):
+    if not isinstance(text, str):
         return None
     match = re.compile(r'\b(\d{13}|\d{15})\b').search(text)
     if match is None:
