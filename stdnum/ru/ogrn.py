@@ -52,12 +52,11 @@ True
 """
 
 import re
-from typing import Optional
 
 from stdnum.exceptions import *
 
 
-def validate(text: str) -> bool:
+def validate(text):
     """Determine if the given string is a valid OGRN."""
     if text[0] == '0':
         raise InvalidComponent()
@@ -70,9 +69,9 @@ def validate(text: str) -> bool:
     return True
 
 
-def format(text: str) -> Optional[str]:
+def format(text):
     """Normalize the given string to a valid OGRN."""
-    if not isinstance(text, str):
+    if not isinstance(text):
         return None
     match = re.compile(r'\b(\d{13}|\d{15})\b').search(text)
     if match is None:
@@ -80,7 +79,7 @@ def format(text: str) -> Optional[str]:
     return match.group(1)
 
 
-def calculate_control_digit(grn: str) -> Optional[int]:
+def calculate_control_digit(grn):
     """Calculate the control digit of the OGRN based on its length."""
     if len(grn) == 13:
         number = int(grn[:12])
@@ -96,7 +95,7 @@ def calculate_control_digit(grn: str) -> Optional[int]:
         raise InvalidLength()
 
 
-def is_valid(text: str) -> bool:
+def is_valid(text):
     """Check if the number is a valid OGRN."""
     try:
         normalized_text = format(text)
