@@ -19,7 +19,7 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 # 02110-1301 USA
 
-"""ОГРН (Основной государственный регистрационный номер, Primary State Registration Number).
+""" OGRN (Primary State Registration Number).
 
 The OGRN is a Russian  identifier for legal entities that consists of either 13 or 15 digits.
 
