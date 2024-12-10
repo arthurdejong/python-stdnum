@@ -54,7 +54,7 @@ from stdnum.exceptions import *
 
 def validate(text):
     """Determine if the given string is a valid OGRN."""
-    if text[0] == "0":
+    if text[0] == '0':
         raise InvalidComponent()
     control_digit = int(text[-1])
     if control_digit != calculate_control_digit(text):
