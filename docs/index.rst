@@ -298,6 +298,7 @@ Available formats
    ro.onrc
    rs.pib
    ru.inn
+   ru.ogrn
    se.orgnr
    se.personnummer
    se.postnummer
