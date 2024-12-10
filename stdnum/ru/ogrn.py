@@ -1,4 +1,3 @@
-
 # ogrn.py - functions for handling Russian company registration numbers
 # coding: utf-8
 #
@@ -58,10 +57,7 @@ from stdnum.exceptions import *
 
 def validate(text):
     """Determine if the given string is a valid OGRN."""
-    if text[0] == '0':
-        raise InvalidComponent()
-    federal_subject_code = int(text[3:5])
-    if federal_subject_code not in set(range(1, 80)) | {83, 86, 87, 89, 91, 92, 99}:
+    if text[0] == "0":
         raise InvalidComponent()
     control_digit = int(text[-1])
     if control_digit != calculate_control_digit(text):
@@ -73,7 +69,7 @@ def format(text):
     """Normalize the given string to a valid OGRN."""
     if not isinstance(text, str):
         return None
-    match = re.compile(r'\b(\d{13}|\d{15})\b').search(text)
+    match = re.compile(r"\b(\d{13}|\d{15})\b").search(text)
     if match is None:
         raise InvalidLength()
     return match.group(1)
