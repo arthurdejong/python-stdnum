@@ -1,3 +1,4 @@
+
 # ogrn.py - functions for handling Russian company registration numbers
 # coding: utf-8
 #
@@ -69,7 +70,7 @@ def format(text):
     """Normalize the given string to a valid OGRN."""
     if not isinstance(text, str):
         return None
-    match = re.compile(r"\b(\d{13}|\d{15})\b").search(text)
+    match = re.compile(r'\b(\d{13}|\d{15})\b').search(text)
     if match is None:
         raise InvalidLength()
     return match.group(1)
