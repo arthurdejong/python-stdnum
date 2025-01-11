@@ -1,0 +1,43 @@
+test_ru_ogrn.doctest - more detailed doctests for the stdnum.ru.ogrn module
+
+Copyright (C) 2010-2024 Arthur de Jong and others
+
+This library is free software; you can redistribute it and/or
+modify it under the terms of the GNU Lesser General Public
+License as published by the Free Software Foundation; either
+version 2.1 of the License, or (at your option) any later version.
+
+This library is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+Lesser General Public License for more details.
+
+You should have received a copy of the GNU Lesser General Public
+License along with this library; if not, write to the Free Software
+Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
+02110-1301 USA
+
+
+This file contains more detailed doctests for the stdnum.ru.ogrn module.
+
+These tests validate the format, normalization, and validity of various
+OGRN numbers, ensuring they conform to expected behavior.
+
+>>> from stdnum.ru import ogrn
+>>> from stdnum.exceptions import *
+
+This is a list of OGRNs that should all be valid numbers:
+
+>>> valid_numbers = '''
+...
+... 1027739552642
+... 1022600000092
+... 1022500000566
+... 1027100000311
+... 1022400007508
+... 1022300001811
+... 1022300000502
+...
+... '''
+>>> [x for x in valid_numbers.splitlines() if x and not ogrn.is_valid(x)]
+[]
