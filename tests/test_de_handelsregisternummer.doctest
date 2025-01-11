@@ -1,6 +1,6 @@
 test_de_handelsregisternummer.doctest - tests for German register number
 
-Copyright (C) 2018-2019 Arthur de Jong
+Copyright (C) 2018-2025 Arthur de Jong
 
 This library is free software; you can redistribute it and/or
 modify it under the terms of the GNU Lesser General Public
@@ -62,18 +62,14 @@ funky so they work both in Python 2 and Python 3.
 'Berlin (Charlottenburg) HRB 11223 B'
 >>> handelsregisternummer.validate('St. Ingbert HRA 61755')
 'St. Ingbert (St Ingbert) HRA 61755'
->>> number = u'K\xf6ln HRB 49263'  # Unicode
->>> handelsregisternummer.validate(number) == number
-True
->>> utf8 = 'K\xc3\xb6ln HRB 49263'  # UTF-8
->>> handelsregisternummer.validate(utf8) == 'Köln HRB 49263'
-True
->>> iso885915 = 'K\xf6ln HRB 49263'  # ISO-8859-15
->>> handelsregisternummer.validate(iso885915) == 'Köln HRB 49263'
-True
->>> ascii = 'Koln HRB 49263'  # ASCII replaced
->>> handelsregisternummer.validate(ascii) == 'Köln HRB 49263'
-True
+>>> handelsregisternummer.validate('Köln HRB 49263')
+'Köln HRB 49263'
+>>> handelsregisternummer.validate('K\xc3\xb6ln HRB 49263')
+'Köln HRB 49263'
+>>> handelsregisternummer.validate('K\xf6ln HRB 49263')
+'Köln HRB 49263'
+>>> handelsregisternummer.validate('Koln HRB 49263')  # ASCII replaced
+'Köln HRB 49263'
 >>> handelsregisternummer.validate('KXln HRB 49263')  # too wrong
 Traceback (most recent call last):
   ...

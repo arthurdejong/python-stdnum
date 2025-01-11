@@ -1,7 +1,7 @@
 # nace.py - functions for handling EU NACE classification
 # coding: utf-8
 #
-# Copyright (C) 2017-2019 Arthur de Jong
+# Copyright (C) 2017-2025 Arthur de Jong
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -38,7 +38,7 @@ More information:
 'A'
 >>> validate('62.01')
 '6201'
->>> str(get_label('62.01'))
+>>> get_label('62.01')
 'Computer programming activities'
 >>> validate('62.05')
 Traceback (most recent call last):

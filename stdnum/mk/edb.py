@@ -2,6 +2,7 @@
 # coding: utf-8
 #
 # Copyright (C) 2022 Leandro Regueiro
+# Copyright (C) 2025 Arthur de Jong
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -53,10 +54,9 @@ def compact(number):
     whitespace.
     """
     number = clean(number, ' -').upper().strip()
-    # First two are ASCII, second two are Cyrillic and only strip matching
-    # types to avoid implicit conversion to unicode strings in Python 2.7
-    for prefix in ('MK', u'MK', 'МК', u'МК'):
-        if isinstance(number, type(prefix)) and number.startswith(prefix):
+    # First two are ASCII, second two are Cyrillic
+    for prefix in ('MK', 'МК'):
+        if number.startswith(prefix):
             number = number[len(prefix):]
     return number
 

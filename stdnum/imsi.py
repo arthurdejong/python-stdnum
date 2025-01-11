@@ -1,7 +1,7 @@
 # imsi.py - functions for handling International Mobile Subscriber Identity
 #           (IMSI) numbers
 #
-# Copyright (C) 2011-2015 Arthur de Jong
+# Copyright (C) 2011-2025 Arthur de Jong
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -35,7 +35,7 @@ InvalidComponent: ...
 ('310', '150', '123456789')
 >>> info('460001234567890')['mcc']
 '460'
->>> str(info('460001234567890')['country'])
+>>> info('460001234567890')['country']
 'China'
 """
 

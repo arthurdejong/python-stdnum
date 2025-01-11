@@ -1,6 +1,7 @@
 test_cn_ric.doctest - more detailed doctests for stdnum.cn.ric module
 
 Copyright (C) 2014 Jiangge Zhang
+Copyright (C) 2025 Arthur de Jong
 
 This library is free software; you can redistribute it and/or
 modify it under the terms of the GNU Lesser General Public
@@ -46,12 +47,10 @@ datetime.date(2014, 10, 5)
 
 Get the birth place:
 
->>> c = ric.get_birth_place('360426199101010071')['county']
->>> c == u'\u5fb7\u5b89\u53bf'
-True
->>> c = ric.get_birth_place('44011320141005001x')['county']
->>> c == u'\u756a\u79ba\u533a'
-True
+>>> ric.get_birth_place('360426199101010071')['county']
+'德安县'
+>>> ric.get_birth_place('44011320141005001x')['county']
+'番禺区'
 
 
 Invalid format:

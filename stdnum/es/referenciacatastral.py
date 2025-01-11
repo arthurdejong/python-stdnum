@@ -2,7 +2,7 @@
 # coding: utf-8
 #
 # Copyright (C) 2016 David García Garzón
-# Copyright (C) 2016-2017 Arthur de Jong
+# Copyright (C) 2016-2025 Arthur de Jong
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -55,10 +55,10 @@ InvalidChecksum: ...
 """
 
 from stdnum.exceptions import *
-from stdnum.util import clean, to_unicode
+from stdnum.util import clean
 
 
-alphabet = u'ABCDEFGHIJKLMNÑOPQRSTUVWXYZ0123456789'
+alphabet = 'ABCDEFGHIJKLMNÑOPQRSTUVWXYZ0123456789'
 
 
 def compact(number):
@@ -91,7 +91,7 @@ def _check_digit(number):
 
 def calc_check_digits(number):
     """Calculate the check digits for the number."""
-    number = to_unicode(compact(number))
+    number = compact(number)
     return (
         _check_digit(number[0:7] + number[14:18]) +
         _check_digit(number[7:14] + number[14:18]))
@@ -101,12 +101,11 @@ def validate(number):
     """Check if the number is a valid Cadastral Reference. This checks the
     length, formatting and check digits."""
     number = compact(number)
-    n = to_unicode(number)
-    if not all(c in alphabet for c in n):
+    if not all(c in alphabet for c in number):
         raise InvalidFormat()
-    if len(n) != 20:
+    if len(number) != 20:
         raise InvalidLength()
-    if calc_check_digits(n) != n[18:]:
+    if calc_check_digits(number) != number[18:]:
         raise InvalidChecksum()
     return number
 

@@ -1,7 +1,7 @@
 # ncf.py - functions for handling Dominican Republic invoice numbers
 # coding: utf-8
 #
-# Copyright (C) 2017-2024 Arthur de Jong
+# Copyright (C) 2017-2025 Arthur de Jong
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -135,21 +135,21 @@ def _convert_result(result):  # pragma: no cover
         'MENSAJE_VALIDACION': 'validation_message',
         'RNC': 'rnc',
         'NCF': 'ncf',
-        u'RNC / Cédula': 'rnc',
-        u'RNC/Cédula': 'rnc',
-        u'Nombre / Razón Social': 'name',
-        u'Nombre/Razón Social': 'name',
+        'RNC / Cédula': 'rnc',
+        'RNC/Cédula': 'rnc',
+        'Nombre / Razón Social': 'name',
+        'Nombre/Razón Social': 'name',
         'Estado': 'status',
         'Tipo de comprobante': 'type',
-        u'Válido hasta': 'valid_until',
-        u'Código de Seguridad': 'security_code',
+        'Válido hasta': 'valid_until',
+        'Código de Seguridad': 'security_code',
         'Rnc Emisor': 'issuing_rnc',
         'Rnc Comprador': 'buyer_rnc',
         'Monto Total': 'total',
         'Total de ITBIS': 'total_itbis',
         'Fecha Emisi&oacuten': 'issuing_date',
-        u'Fecha Emisión': 'issuing_date',
-        u'Fecha de Firma': 'signature_date',
+        'Fecha Emisión': 'issuing_date',
+        'Fecha de Firma': 'signature_date',
         'e-NCF': 'ncf',
     }
     return dict(

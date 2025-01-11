@@ -1,7 +1,7 @@
 # unp.py - functions for handling Belarusian UNP numbers
 # coding: utf-8
 #
-# Copyright (C) 2020-2024 Arthur de Jong
+# Copyright (C) 2020-2025 Arthur de Jong
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -42,13 +42,13 @@ InvalidChecksum: ...
 """
 
 from stdnum.exceptions import *
-from stdnum.util import clean, isdigits, to_unicode
+from stdnum.util import clean, isdigits
 
 
 # Mapping of Cyrillic letters to Latin letters
 _cyrillic_to_latin = dict(zip(
-    u'АВЕКМНОРСТ',
-    u'ABEKMHOPCT',
+    'АВЕКМНОРСТ',
+    'ABEKMHOPCT',
 ))
 
 
@@ -56,14 +56,11 @@ def compact(number):
     """Convert the number to the minimal representation. This strips the
     number of any valid separators and removes surrounding whitespace."""
     number = clean(number, ' ').upper().strip()
-    for prefix in ('УНП', u'УНП', 'UNP', u'UNP'):
-        if type(number) == type(prefix) and number.startswith(prefix):
+    for prefix in ('УНП', 'UNP'):
+        if number.startswith(prefix):
             number = number[len(prefix):]
     # Replace Cyrillic letters with Latin letters
-    cleaned = ''.join(_cyrillic_to_latin.get(x, x) for x in to_unicode(number))
-    if type(cleaned) != type(number):  # pragma: no cover (Python2 only)
-        cleaned = cleaned.encode('utf-8')
-    return cleaned
+    return ''.join(_cyrillic_to_latin.get(x, x) for x in number)
 
 
 def calc_check_digit(number):

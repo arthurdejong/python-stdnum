@@ -1,6 +1,6 @@
 test_my_nric.doctest - more detailed doctests for stdnum.my.nric module
 
-Copyright (C) 2013, 2014 Arthur de Jong
+Copyright (C) 2013-2025 Arthur de Jong
 
 This library is free software; you can redistribute it and/or
 modify it under the terms of the GNU Lesser General Public
@@ -52,13 +52,13 @@ datetime.date(1988, 2, 29)
 
 Get the birth place:
 
->>> str(nric.get_birth_place('770305-02-1234')['state'])
+>>> nric.get_birth_place('770305-02-1234')['state']
 'Kedah'
->>> str(nric.get_birth_place('890131-06-1224')['state'])
+>>> nric.get_birth_place('890131-06-1224')['state']
 'Pahang'
->>> str(nric.get_birth_place('810909785542')['country']).upper()
+>>> nric.get_birth_place('810909785542')['country'].upper()
 'SRI LANKA'
->>> str(nric.get_birth_place('880229875542')['countries']).upper()
+>>> nric.get_birth_place('880229875542')['countries'].upper()
 'BRITAIN, GREAT BRITAIN, IRELAND'
 
 

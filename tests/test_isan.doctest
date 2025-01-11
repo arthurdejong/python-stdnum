@@ -1,6 +1,6 @@
 test_isan.doctest - more detailed doctests for stdnum.isan module
 
-Copyright (C) 2010, 2012, 2013 Arthur de Jong
+Copyright (C) 2010-2025 Arthur de Jong
 
 This library is free software; you can redistribute it and/or
 modify it under the terms of the GNU Lesser General Public
@@ -113,8 +113,5 @@ A simple test for the to_binary() function.
 
 >>> import binascii
 >>> import sys
->>> x = binascii.b2a_hex(isan.to_binary('0000-0000-D07A-0090-Q'))
->>> if sys.version > '3':
-...     x = str(x, encoding='ascii')
->>> x
-'00000000d07a0090'
+>>> binascii.b2a_hex(isan.to_binary('0000-0000-D07A-0090-Q'))
+b'00000000d07a0090'

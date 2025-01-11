@@ -2,6 +2,7 @@ test_eg_tn.doctest - more detailed doctests for stdnum.eg.tn module
 coding: utf-8
 
 Copyright (C) 2022 Leandro Regueiro
+Copyright (C) 2025 Arthur de Jong
 
 This library is free software; you can redistribute it and/or
 modify it under the terms of the GNU Lesser General Public
@@ -36,15 +37,15 @@ Tests for some corner cases.
 '421159723'
 >>> tn.validate('347/404/847')
 '347404847'
->>> tn.validate(u'٣٣١-١٠٥-٢٦٨')
+>>> tn.validate('٣٣١-١٠٥-٢٦٨')
 '331105268'
->>> tn.validate(u'۹٤۹-۸۹۱-۲۰٤')
+>>> tn.validate('۹٤۹-۸۹۱-۲۰٤')
 '949891204'
 >>> tn.format('100531385')
 '100-531-385'
->>> tn.format(u'٣٣١-١٠٥-٢٦٨')
+>>> tn.format('٣٣١-١٠٥-٢٦٨')
 '331-105-268'
->>> tn.format(u'۹٤۹-۸۹۱-۲۰٤')
+>>> tn.format('۹٤۹-۸۹۱-۲۰٤')
 '949-891-204'
 >>> tn.validate('12345')
 Traceback (most recent call last):
@@ -58,7 +59,7 @@ InvalidFormat: ...
 
 These have been found online and should all be valid numbers.
 
->>> numbers = u'''
+>>> numbers = '''
 ...
 ... 039-528-313
 ... 100-131-778

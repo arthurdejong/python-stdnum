@@ -1,6 +1,6 @@
 test_util.doctest - more detailed doctests for the stdnum.util package
 
-Copyright (C) 2017-2019 Arthur de Jong
+Copyright (C) 2017-2025 Arthur de Jong
 
 This library is free software; you can redistribute it and/or
 modify it under the terms of the GNU Lesser General Public
@@ -23,6 +23,7 @@ tries to test more corner cases and detailed functionality. This module is
 meant for internal use by stdnum modules and is not guaranteed to remain
 stable and as such not part of the public API of stdnum.
 
+>>> import warnings
 >>> from stdnum.util import (
 ...     get_number_modules, get_module_name, get_module_description,
 ...     clean, isdigits, to_unicode)
@@ -30,14 +31,24 @@ stable and as such not part of the public API of stdnum.
 
 The to_unicode() function is used to force conversion of a string to unicode
 if it is not already a unicode string. This is mostly used to convert numbers
-with non-ASCII characters in it.
+with non-ASCII characters in it. This function is deprecated and should no
+longer be used.
 
 >>> n_str = b'\xc3\x91'.decode('utf-8')  # Ñ character as unicode string
->>> to_unicode(n_str) ==  n_str
+>>> with warnings.catch_warnings(record=True) as w:
+...     to_unicode(n_str) ==  n_str
+...     issubclass(w[-1].category, DeprecationWarning)
 True
->>> to_unicode(n_str.encode('utf-8')) ==  n_str
 True
->>> to_unicode(n_str.encode('iso-8859-1')) ==  n_str
+>>> with warnings.catch_warnings(record=True) as w:
+...     to_unicode(n_str.encode('utf-8')) ==  n_str
+...     issubclass(w[-1].category, DeprecationWarning)
+True
+True
+>>> with warnings.catch_warnings(record=True) as w:
+...     to_unicode(n_str.encode('iso-8859-1')) ==  n_str
+...     issubclass(w[-1].category, DeprecationWarning)
+True
 True
 
 
@@ -100,7 +111,7 @@ handle aliases properly.
 'stdnum.nl.btw'
 >>> get_cc_module('is', 'vat').__name__
 'stdnum.is_.vsk'
->>> get_cc_module(u'nl', u'vat').__name__
+>>> get_cc_module('nl', 'vat').__name__
 'stdnum.nl.btw'
 >>> get_cc_module('unknown', 'vat') is None
 True

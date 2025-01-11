@@ -1,7 +1,7 @@
 # rfc.py - functions for handling Mexican tax numbers
 # coding: utf-8
 #
-# Copyright (C) 2015 Arthur de Jong
+# Copyright (C) 2015-2025 Arthur de Jong
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -64,7 +64,7 @@ import datetime
 import re
 
 from stdnum.exceptions import *
-from stdnum.util import clean, to_unicode
+from stdnum.util import clean
 
 
 # these values should not appear as first part of a personal number
@@ -78,7 +78,7 @@ _name_blacklist = set([
 
 
 # characters used for checksum calculation,
-_alphabet = u'0123456789ABCDEFGHIJKLMN&OPQRSTUVWXYZ Ñ'
+_alphabet = '0123456789ABCDEFGHIJKLMN&OPQRSTUVWXYZ Ñ'
 
 
 def compact(number):
@@ -102,7 +102,6 @@ def _get_date(number):
 def calc_check_digit(number):
     """Calculate the check digit. The number passed should not have the
     check digit included."""
-    number = to_unicode(number)
     number = ('   ' + number)[-12:]
     check = sum(_alphabet.index(n) * (13 - i) for i, n in enumerate(number))
     return _alphabet[(11 - check) % 11]
@@ -111,25 +110,24 @@ def calc_check_digit(number):
 def validate(number, validate_check_digits=False):
     """Check if the number is a valid RFC."""
     number = compact(number)
-    n = to_unicode(number)
-    if len(n) in (10, 13):
+    if len(number) in (10, 13):
         # number assigned to person
-        if not re.match(u'^[A-Z&Ñ]{4}[0-9]{6}[0-9A-Z]{0,3}$', n):
+        if not re.match('^[A-Z&Ñ]{4}[0-9]{6}[0-9A-Z]{0,3}$', number):
             raise InvalidFormat()
-        if n[:4] in _name_blacklist:
+        if number[:4] in _name_blacklist:
             raise InvalidComponent()
-        _get_date(n[4:10])
-    elif len(n) == 12:
+        _get_date(number[4:10])
+    elif len(number) == 12:
         # number assigned to company
-        if not re.match(u'^[A-Z&Ñ]{3}[0-9]{6}[0-9A-Z]{3}$', n):
+        if not re.match('^[A-Z&Ñ]{3}[0-9]{6}[0-9A-Z]{3}$', number):
             raise InvalidFormat()
-        _get_date(n[3:9])
+        _get_date(number[3:9])
     else:
         raise InvalidLength()
-    if validate_check_digits and len(n) >= 12:
-        if not re.match(u'^[1-9A-V][1-9A-Z][0-9A]$', n[-3:]):
+    if validate_check_digits and len(number) >= 12:
+        if not re.match('^[1-9A-V][1-9A-Z][0-9A]$', number[-3:]):
             raise InvalidComponent()
-        if n[-1] != calc_check_digit(n[:-1]):
+        if number[-1] != calc_check_digit(number[:-1]):
             raise InvalidChecksum()
     return number
 

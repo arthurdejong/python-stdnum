@@ -2,7 +2,7 @@
 # coding: utf-8
 #
 # Copyright (C) 2015 Holvi Payment Services Oy
-# Copyright (C) 2018-2024 Arthur de Jong
+# Copyright (C) 2018-2025 Arthur de Jong
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -54,7 +54,7 @@ import re
 import unicodedata
 
 from stdnum.exceptions import *
-from stdnum.util import clean, to_unicode
+from stdnum.util import clean
 
 
 # The known courts that have a Handelsregister
@@ -216,7 +216,7 @@ GERMAN_COURTS = (
 def _to_min(court):
     """Convert the court name for quick comparison without encoding issues."""
     return ''.join(
-        x for x in unicodedata.normalize('NFD', to_unicode(court).lower())
+        x for x in unicodedata.normalize('NFD', court.lower())
         if x in 'abcdefghijklmnopqrstuvwxyz')
 
 
@@ -306,8 +306,6 @@ def validate(number, company_form=None):
     court = _courts.get(_to_min(court))
     if not court:
         raise InvalidComponent()
-    if not isinstance(court, type(number)):  # pragma: no cover (Python 2 code)
-        court = court.decode('utf-8')
     if company_form and COMPANY_FORM_REGISTRY_TYPES.get(company_form) != registry:
         raise InvalidComponent()
     return ' '.join(x for x in [court, registry, number, qualifier] if x)

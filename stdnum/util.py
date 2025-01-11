@@ -1,7 +1,7 @@
 # util.py - common utility functions
 # coding: utf-8
 #
-# Copyright (C) 2012-2024 Arthur de Jong
+# Copyright (C) 2012-2025 Arthur de Jong
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -49,10 +49,7 @@ def _mk_char_map(mapping):
     to tuples with unicode characters as key."""
     for key, value in mapping.items():
         for char in key.split(','):
-            try:
-                yield (unicodedata.lookup(char), value)
-            except KeyError:  # pragma: no cover (does not happen on Python3)
-                pass
+            yield (unicodedata.lookup(char), value)
 
 
 # build mapping of Unicode characters to equivalent ASCII characters
@@ -171,16 +168,7 @@ def clean(number, deletechars=''):
         number = ''.join(x for x in number)
     except Exception:  # noqa: B902
         raise InvalidFormat()
-    if sys.version < '3' and isinstance(number, str):  # pragma: no cover (Python 2 specific code)
-        try:
-            number = _clean_chars(number.decode()).encode()
-        except UnicodeError:
-            try:
-                number = _clean_chars(number.decode('utf-8')).encode('utf-8')
-            except UnicodeError:
-                pass
-    else:  # pragma: no cover (Python 3 specific code)
-        number = _clean_chars(number)
+    number = _clean_chars(number)
     return ''.join(x for x in number if x not in deletechars)
 
 
@@ -192,8 +180,11 @@ def isdigits(number):
 
 
 def to_unicode(text):
-    """Convert the specified text to a unicode string."""
-    if not isinstance(text, type(u'')):
+    """DEPRECATED: Will be removed in an upcoming release."""  # noqa: D40
+    warnings.warn(
+        'to_unicode() will be removed in an upcoming release',
+        DeprecationWarning, stacklevel=2)
+    if not isinstance(text, str):
         try:
             return text.decode('utf-8')
         except UnicodeDecodeError:
@@ -235,7 +226,7 @@ def get_cc_module(cc, name):
     if cc in ('in', 'is', 'if'):
         cc += '_'
     try:
-        mod = __import__('stdnum.%s' % cc, globals(), locals(), [str(name)])
+        mod = __import__('stdnum.%s' % cc, globals(), locals(), [name])
         return getattr(mod, name, None)
     except ImportError:
         return
@@ -256,15 +247,8 @@ def _get_zeep_soap_client(wsdlurl, timeout, verify):  # pragma: no cover (not pa
 
 
 def _get_suds_soap_client(wsdlurl, timeout, verify):  # pragma: no cover (not part of normal test suite)
-    # other implementations require passing the proxy config
-    try:
-        from urllib.request import getproxies
-    except ImportError:  # Python 2 specific
-        from urllib import getproxies
-    try:
-        from urllib.request import HTTPSHandler
-    except ImportError:  # Python 2 specific
-        from urllib2 import HTTPSHandler
+    from urllib.request import HTTPSHandler, getproxies
+
     from suds.client import Client
     from suds.transport.http import HttpTransport
 

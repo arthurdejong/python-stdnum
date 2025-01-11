@@ -1,6 +1,6 @@
 # mac.py - functions for handling MAC (Ethernet) addresses
 #
-# Copyright (C) 2018 Arthur de Jong
+# Copyright (C) 2018-2025 Arthur de Jong
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -35,7 +35,7 @@ More information:
 'D0-50-99-84-A2-A0'
 >>> is_multicast('d0:50:99:84:a2:a0')
 False
->>> str(get_manufacturer('d0:50:99:84:a2:a0'))
+>>> get_manufacturer('d0:50:99:84:a2:a0')
 'ASRock Incorporation'
 >>> get_oui('d0:50:99:84:a2:a0')
 'D05099'

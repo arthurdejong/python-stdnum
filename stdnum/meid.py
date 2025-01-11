@@ -1,6 +1,6 @@
 # meid.py - functions for handling Mobile Equipment Identifiers (MEIDs)
 #
-# Copyright (C) 2010-2017 Arthur de Jong
+# Copyright (C) 2010-2025 Arthur de Jong
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -105,15 +105,6 @@ def compact(number, strip_check_digit=True):
     return number + cd
 
 
-def _bit_length(n):
-    """Return the number of bits necessary to store the number in binary."""
-    try:
-        return n.bit_length()
-    except AttributeError:  # pragma: no cover (Python 2.6 only)
-        import math
-        return int(math.log(n, 2)) + 1
-
-
 def validate(number, strip_check_digit=True):
     """Check if the number is a valid MEID number. This converts the
     representation format of the number (if it is decimal it is not converted
@@ -128,7 +119,7 @@ def validate(number, strip_check_digit=True):
         # convert to hex
         manufacturer_code = int(number[0:10])
         serial_num = int(number[10:18])
-        if _bit_length(manufacturer_code) > 32 or _bit_length(serial_num) > 24:
+        if manufacturer_code.bit_length() > 32 or serial_num.bit_length() > 24:
             raise InvalidComponent()
         number = '%08X%06X' % (manufacturer_code, serial_num)
         cd = calc_check_digit(number)

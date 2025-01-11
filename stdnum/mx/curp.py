@@ -1,7 +1,7 @@
 # curp.py - functions for handling Mexican personal identifiers
 # coding: utf-8
 #
-# Copyright (C) 2019 Arthur de Jong
+# Copyright (C) 2019-2025 Arthur de Jong
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -114,7 +114,7 @@ def validate(number, validate_check_digits=True):
     number = compact(number)
     if len(number) != 18:
         raise InvalidLength()
-    if not re.match(u'^[A-Z]{4}[0-9]{6}[A-Z]{6}[0-9A-Z][0-9]$', number):
+    if not re.match('^[A-Z]{4}[0-9]{6}[A-Z]{6}[0-9A-Z][0-9]$', number):
         raise InvalidFormat()
     if number[:4] in _name_blacklist:
         raise InvalidComponent()

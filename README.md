@@ -283,13 +283,12 @@ Requirements
 ------------
 
 The modules should not require any external Python modules and should be pure
-Python. The modules are developed and tested with Python 2.7 and 3.6 but may
-also work with older versions of Python.
+Python. The modules are developed and tested with Python 3 versions (see `setup.py`).
 
 Copyright
 ---------
 
-Copyright (C) 2010-2024 Arthur de Jong and others
+Copyright (C) 2010-2025 Arthur de Jong and others
 
 This library is free software; you can redistribute it and/or
 modify it under the terms of the GNU Lesser General Public
