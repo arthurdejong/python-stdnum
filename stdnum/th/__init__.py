@@ -19,3 +19,6 @@
 # 02110-1301 USA
 
 """Collection of Thai numbers."""
+
+# provide aliases
+from stdnum.th import moa as vat  # noqa: F401
