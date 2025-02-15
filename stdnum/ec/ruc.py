@@ -99,8 +99,11 @@ def validate(number):
         except ValidationError:
             _validate_natural(number)
     elif number[2] == '9':
-        # 9 = juridical RUC
-        _validate_juridical(number)
+        # 9 = juridical RUC (or public RUC)
+        try:
+            _validate_public(number)
+        except ValidationError:
+            _validate_juridical(number)
     else:
         raise InvalidComponent()  # third digit wrong
     return number
