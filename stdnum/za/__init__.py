@@ -19,3 +19,6 @@
 # 02110-1301 USA
 
 """Collection of South Africa numbers."""
+
+# provide aliases
+from stdnum.za import tin as vat  # noqa: F401
