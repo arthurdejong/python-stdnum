@@ -19,6 +19,7 @@
 # 02110-1301 USA
 
 """Collection of Hungarian numbers."""
+from __future__ import annotations
 
 # provide vat as an alias
 from stdnum.hu import anum as vat  # noqa: F401

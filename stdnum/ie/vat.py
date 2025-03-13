@@ -40,12 +40,13 @@ InvalidFormat: ...
 >>> convert('1F23456T')
 '0234561T'
 """
+from __future__ import annotations
 
 from stdnum.exceptions import *
 from stdnum.util import clean, isdigits
 
 
-def compact(number):
+def compact(number: str) -> str:
     """Convert the number to the minimal representation. This strips the
     number of any valid separators and removes surrounding whitespace."""
     number = clean(number, ' -').upper().strip()
@@ -57,7 +58,7 @@ def compact(number):
 _alphabet = 'WABCDEFGHIJKLMNOPQRSTUV'
 
 
-def calc_check_digit(number):
+def calc_check_digit(number: str) -> str:
     """Calculate the check digit. The number passed should not have the
     check digit included."""
     number = compact(number).zfill(7)
@@ -66,7 +67,7 @@ def calc_check_digit(number):
         9 * _alphabet.index(number[7:])) % 23]
 
 
-def validate(number):
+def validate(number: str) -> str:
     """Check if the number provided is a valid VAT number. This checks the
     length, formatting and check digit."""
     number = compact(number)
@@ -89,7 +90,7 @@ def validate(number):
     return number
 
 
-def is_valid(number):
+def is_valid(number: str) -> bool:
     """Check if the number provided is a valid VAT number. This checks the
     length, formatting and check digit."""
     try:
@@ -98,7 +99,7 @@ def is_valid(number):
         return False
 
 
-def convert(number):
+def convert(number: str) -> str:
     """Convert an "old" style 8-digit VAT number where the second character
     is a letter to the new 8-digit format where only the last digit is a
     character."""

@@ -19,6 +19,7 @@
 # 02110-1301 USA
 
 """Collection of Swedish numbers."""
+from __future__ import annotations
 
 # provide aliases
 from stdnum.se import personnummer as personalid  # noqa: F401

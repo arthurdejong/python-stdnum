@@ -41,16 +41,18 @@ Traceback (most recent call last):
     ...
 InvalidChecksum: ...
 """
+from __future__ import annotations
 
 import hashlib
 import struct
 from functools import reduce
 
+from stdnum import _typing as t
 from stdnum.exceptions import *
 from stdnum.util import clean
 
 
-def compact(number):
+def compact(number: str) -> str:
     """Convert the number to the minimal representation. This strips the
     number of any valid separators and removes surrounding whitespace."""
     number = clean(number, ' ').strip()
@@ -63,7 +65,7 @@ def compact(number):
 _base58_alphabet = '123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz'
 
 
-def b58decode(s):
+def b58decode(s: str) -> bytes:
     """Decode a Base58 encoded string to a bytestring."""
     value = reduce(lambda a, c: a * 58 + _base58_alphabet.index(c), s, 0)
     result = b''
@@ -84,18 +86,18 @@ _bech32_generator = (
     (1 << 3, 0x3d4233dd), (1 << 4, 0x2a1462b3))
 
 
-def bech32_checksum(values):
+def bech32_checksum(values: t.Iterable[int]) -> int:
     """Calculate the Bech32 checksum."""
     chk = 1
     for value in values:
         top = chk >> 25
         chk = (chk & 0x1ffffff) << 5 | value
-        for t, v in _bech32_generator:
-            chk ^= v if top & t else 0
+        for test, val in _bech32_generator:
+            chk ^= val if top & test else 0
     return chk
 
 
-def b32decode(data):
+def b32decode(data: t.Iterable[int]) -> bytes:
     """Decode a list of Base32 values to a bytestring."""
     acc, bits = 0, 0
     result = b''
@@ -110,12 +112,12 @@ def b32decode(data):
     return result
 
 
-def _expand_hrp(hrp):
+def _expand_hrp(hrp: str) -> list[int]:
     """Convert the human-readable part to format for checksum calculation."""
     return [ord(c) >> 5 for c in hrp] + [0] + [ord(c) & 31 for c in hrp]
 
 
-def validate(number):
+def validate(number: str) -> str:
     """Check if the number provided is valid. This checks the length and
     check digit."""
     number = compact(number)
@@ -150,7 +152,7 @@ def validate(number):
     return number
 
 
-def is_valid(number):
+def is_valid(number: str) -> bool:
     """Check if the number provided is valid. This checks the length and
     check digit."""
     try:

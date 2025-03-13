@@ -44,6 +44,7 @@ Traceback (most recent call last):
     ...
 InvalidFormat: ...
 """
+from __future__ import annotations
 
 from stdnum.exceptions import *
 from stdnum.util import clean, get_soap_client, isdigits
@@ -53,13 +54,13 @@ tckimlik_wsdl = 'https://tckimlik.nvi.gov.tr/Service/KPSPublic.asmx?WSDL'
 """The WSDL URL of the T.C. Kimlik validation service."""
 
 
-def compact(number):
+def compact(number: str) -> str:
     """Convert the number to the minimal representation. This strips the
     number of any valid separators and removes surrounding whitespace."""
     return clean(number).strip()
 
 
-def calc_check_digits(number):
+def calc_check_digits(number: str) -> str:
     """Calculate the check digits for the specified number. The number
     passed should not have the check digit included."""
     check1 = (10 - sum((3, 1)[i % 2] * int(n)
@@ -68,7 +69,7 @@ def calc_check_digits(number):
     return '%d%d' % (check1, check2)
 
 
-def validate(number):
+def validate(number: str) -> str:
     """Check if the number is a valid T.C. Kimlik number. This checks the
     length and check digits."""
     number = compact(number)
@@ -81,7 +82,7 @@ def validate(number):
     return number
 
 
-def is_valid(number):
+def is_valid(number: str) -> bool:
     """Check if the number is a valid T.C. Kimlik number."""
     try:
         return bool(validate(number))
@@ -89,7 +90,7 @@ def is_valid(number):
         return False
 
 
-def check_kps(number, name, surname, birth_year, timeout=30, verify=True):  # pragma: no cover
+def check_kps(number, name, surname, birth_year, timeout=30, verify=True):  # type: ignore # pragma: no cover
     """Use the T.C. Kimlik validation service to check the provided number.
 
     Query the online T.C. Kimlik validation service run by the Directorate

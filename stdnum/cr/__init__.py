@@ -19,4 +19,6 @@
 # 02110-1301 USA
 
 """Collection of Costa Rican numbers."""
+from __future__ import annotations
+
 from stdnum.cr import cpj as vat  # noqa: F401

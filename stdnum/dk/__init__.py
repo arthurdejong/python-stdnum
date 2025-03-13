@@ -19,6 +19,7 @@
 # 02110-1301 USA
 
 """Collection of Danish numbers."""
+from __future__ import annotations
 
 # provide aliases
 from stdnum.dk import cpr as personalid  # noqa: F401

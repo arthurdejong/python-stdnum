@@ -19,4 +19,6 @@
 # 02110-1301 USA
 
 """Collection of Peruvian numbers."""
+from __future__ import annotations
+
 from stdnum.pe import ruc as vat  # noqa: F401

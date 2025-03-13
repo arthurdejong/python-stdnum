@@ -19,6 +19,7 @@
 # 02110-1301 USA
 
 """Collection of Singapore numbers."""
+from __future__ import annotations
 
 # provide aliases
 from stdnum.sg import uen as vat  # noqa: F401

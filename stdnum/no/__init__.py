@@ -19,6 +19,7 @@
 # 02110-1301 USA
 
 """Collection of Norwegian numbers."""
+from __future__ import annotations
 
 # provide aliases
 from stdnum.no import fodselsnummer as personalid  # noqa: F401

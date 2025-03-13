@@ -19,6 +19,7 @@
 # 02110-1301 USA
 
 """Collection of Spanish numbers."""
+from __future__ import annotations
 
 # provide vat as an alias
 from stdnum.es import nif as vat  # noqa: F401

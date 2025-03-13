@@ -19,6 +19,7 @@
 # 02110-1301 USA
 
 """Collection of Australian numbers."""
+from __future__ import annotations
 
 # provide aliases
 from stdnum.au import abn as vat  # noqa: F401

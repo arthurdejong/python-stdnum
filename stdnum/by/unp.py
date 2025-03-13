@@ -40,6 +40,7 @@ Traceback (most recent call last):
     ...
 InvalidChecksum: ...
 """
+from __future__ import annotations
 
 from stdnum.exceptions import *
 from stdnum.util import clean, isdigits
@@ -52,7 +53,7 @@ _cyrillic_to_latin = dict(zip(
 ))
 
 
-def compact(number):
+def compact(number: str) -> str:
     """Convert the number to the minimal representation. This strips the
     number of any valid separators and removes surrounding whitespace."""
     number = clean(number, ' ').upper().strip()
@@ -63,7 +64,7 @@ def compact(number):
     return ''.join(_cyrillic_to_latin.get(x, x) for x in number)
 
 
-def calc_check_digit(number):
+def calc_check_digit(number: str) -> str:
     """Calculate the check digit for the number."""
     number = compact(number)
     alphabet = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ'
@@ -76,7 +77,7 @@ def calc_check_digit(number):
     return str(c)
 
 
-def validate(number):
+def validate(number: str) -> str:
     """Check if the number is a valid number. This checks the length,
     formatting and check digit."""
     number = compact(number)
@@ -93,7 +94,7 @@ def validate(number):
     return number
 
 
-def is_valid(number):
+def is_valid(number: str) -> bool:
     """Check if the number is a valid number."""
     try:
         return bool(validate(number))
@@ -101,7 +102,7 @@ def is_valid(number):
         return False
 
 
-def check_nalog(number, timeout=30, verify=True):  # pragma: no cover (not part of normal test suite)
+def check_nalog(number, timeout=30, verify=True):  # type: ignore # pragma: no cover (not part of normal test suite)
     """Retrieve registration information from the portal.nalog.gov.by web site.
 
     The `timeout` argument specifies the network timeout in seconds.

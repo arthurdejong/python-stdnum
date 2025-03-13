@@ -43,18 +43,19 @@ Traceback (most recent call last):
     ...
 InvalidChecksum: ...
 """
+from __future__ import annotations
 
 from stdnum.exceptions import *
 from stdnum.util import clean, isdigits
 
 
-def compact(number):
+def compact(number: str) -> str:
     """Convert the number to the minimal representation. This strips the
     number of any valid separators and removes surrounding whitespace."""
     return clean(number, ' ')
 
 
-def calc_check_digit(number):
+def calc_check_digit(number: str) -> str:
     """Calculate the control digit of the OGRN based on its length."""
     if len(number) == 13:
         return str(int(number[:-1]) % 11 % 10)
@@ -62,7 +63,7 @@ def calc_check_digit(number):
         return str(int(number[:-1]) % 13)
 
 
-def validate(number):
+def validate(number: str) -> str:
     """Determine if the given number is a valid OGRN."""
     number = compact(number)
     if not isdigits(number):
@@ -80,7 +81,7 @@ def validate(number):
     return number
 
 
-def is_valid(number):
+def is_valid(number: str) -> bool:
     """Check if the number is a valid OGRN."""
     try:
         return bool(validate(number))

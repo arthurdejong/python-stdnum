@@ -23,7 +23,7 @@
 The number VAT identification number (VATIN) is an identifier used in many
 countries. It starts with an ISO 3166-1 alpha-2 (2 letters) country code
 (except for Greece, which uses EL, instead of GR) and is followed by the
-country-specific the identifier.
+country-specific identifier.
 
 This module supports all VAT numbers that are supported in python-stdnum.
 
@@ -46,9 +46,11 @@ Traceback (most recent call last):
     ...
 InvalidComponent: ...
 """
+from __future__ import annotations
 
 import re
 
+from stdnum import _typing as t
 from stdnum.exceptions import *
 from stdnum.util import clean, get_cc_module
 
@@ -57,7 +59,7 @@ from stdnum.util import clean, get_cc_module
 _country_modules = dict()
 
 
-def _get_cc_module(cc):
+def _get_cc_module(cc: str) -> t.NumberValidationModule:
     """Get the VAT number module based on the country code."""
     # Greece uses a "wrong" country code, special case for Northern Ireland
     cc = cc.lower().replace('el', 'gr').replace('xi', 'gb')
@@ -65,12 +67,14 @@ def _get_cc_module(cc):
         raise InvalidFormat()
     if cc not in _country_modules:
         _country_modules[cc] = get_cc_module(cc, 'vat')
-    if not _country_modules[cc]:
+
+    module = _country_modules[cc]
+    if module is None:
         raise InvalidComponent()  # unknown/unsupported country code
-    return _country_modules[cc]
+    return module
 
 
-def compact(number):
+def compact(number: str) -> str:
     """Convert the number to the minimal representation."""
     number = clean(number).strip()
     module = _get_cc_module(number[:2])
@@ -80,7 +84,7 @@ def compact(number):
         return module.compact(number)
 
 
-def validate(number):
+def validate(number: str) -> str:
     """Check if the number is a valid VAT number.
 
     This performs the country-specific check for the number.
@@ -93,7 +97,7 @@ def validate(number):
         return module.validate(number)
 
 
-def is_valid(number):
+def is_valid(number: str) -> bool:
     """Check if the number is a valid VAT number."""
     try:
         return bool(validate(number))

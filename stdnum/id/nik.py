@@ -54,6 +54,7 @@ Traceback (most recent call last):
     ...
 InvalidComponent: ...
 """
+from __future__ import annotations
 
 import datetime
 
@@ -61,7 +62,7 @@ from stdnum.exceptions import *
 from stdnum.util import clean, isdigits
 
 
-def compact(number):
+def compact(number: str) -> str:
     """Convert the number to the minimal representation.
 
     This strips the number of any valid separators and removes
@@ -70,7 +71,7 @@ def compact(number):
     return clean(number, ' -.').strip()
 
 
-def get_birth_date(number, minyear=1920):
+def get_birth_date(number: str, minyear: int = 1920) -> datetime.date:
     """Get the birth date from the person's NIK.
 
     Note that the number only encodes the last two digits of the year so
@@ -90,7 +91,7 @@ def get_birth_date(number, minyear=1920):
         raise InvalidComponent()
 
 
-def _check_registration_place(number):
+def _check_registration_place(number: str) -> dict[str, str]:
     """Use the number to look up the place of registration of the person."""
     from stdnum import numdb
     results = numdb.get('id/loc').info(number[:4])[0][1]
@@ -99,7 +100,7 @@ def _check_registration_place(number):
     return results
 
 
-def validate(number):
+def validate(number: str) -> str:
     """Check if the number is a valid Indonesian NIK."""
     number = compact(number)
     if not isdigits(number):
@@ -111,7 +112,7 @@ def validate(number):
     return number
 
 
-def is_valid(number):
+def is_valid(number: str) -> bool:
     """Check if the number is a valid Indonesian NIK."""
     try:
         return bool(validate(number))

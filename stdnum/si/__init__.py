@@ -20,6 +20,7 @@
 # 02110-1301 USA
 
 """Collection of Slovenian numbers."""
+from __future__ import annotations
 
 # provide aliases
 from stdnum.si import ddv as vat  # noqa: F401

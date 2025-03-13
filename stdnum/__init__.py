@@ -36,6 +36,7 @@ InvalidChecksum: ...
 Apart from the validate() function, many modules provide extra
 parsing, validation, formatting or conversion functions.
 """
+from __future__ import annotations
 
 from stdnum.util import get_cc_module
 

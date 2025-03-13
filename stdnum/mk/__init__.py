@@ -19,6 +19,7 @@
 # 02110-1301 USA
 
 """Collection of North Macedonia numbers."""
+from __future__ import annotations
 
 # provide aliases
 from stdnum.mk import edb as vat  # noqa: F401

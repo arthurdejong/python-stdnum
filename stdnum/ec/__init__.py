@@ -19,6 +19,7 @@
 # 02110-1301 USA
 
 """Collection of Ecuadorian numbers."""
+from __future__ import annotations
 
 # provide vat as an alias
 from stdnum.ec import ruc as vat  # noqa: F401

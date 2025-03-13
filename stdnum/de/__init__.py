@@ -19,6 +19,7 @@
 # 02110-1301 USA
 
 """Collection of German numbers."""
+from __future__ import annotations
 
 # provide businessid as an alias
 from stdnum.de import handelsregisternummer as businessid  # noqa: F401

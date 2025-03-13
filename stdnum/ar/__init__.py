@@ -19,6 +19,7 @@
 # 02110-1301 USA
 
 """Collection of Argentinian numbers."""
+from __future__ import annotations
 
 # provide aliases
 from stdnum.ar import cuit as vat  # noqa: F401

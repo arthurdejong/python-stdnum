@@ -19,6 +19,7 @@
 # 02110-1301 USA
 
 """Collection of Austrian numbers."""
+from __future__ import annotations
 
 # provide aliases
 from stdnum.at import postleitzahl as postal_code  # noqa: F401
