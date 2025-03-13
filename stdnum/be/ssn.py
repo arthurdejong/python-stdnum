@@ -126,6 +126,7 @@ def guess_type(number):
     for mod in _ssn_modules:
         if mod.is_valid(number):
             return mod.__name__.rsplit('.', 1)[-1]
+    return None
 
 
 def format(number):
@@ -153,3 +154,4 @@ def get_gender(number):
     for mod in _ssn_modules:
         if mod.is_valid(number):
             return mod.get_gender(number)
+    return None

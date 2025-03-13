@@ -153,7 +153,7 @@ def check_dgii(number, timeout=30, verify=True):  # pragma: no cover
     if result and 'GetContribuyentesResult' in result:
         result = result['GetContribuyentesResult']  # PySimpleSOAP only
     if result == '0':
-        return
+        return None
     result = [x for x in result.split('@@@')]
     return _convert_result(result[0])
 

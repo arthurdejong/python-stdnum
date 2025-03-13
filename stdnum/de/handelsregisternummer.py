@@ -373,4 +373,4 @@ def check_offeneregister(number, timeout=30, verify=True):  # pragma: no cover (
         json = response.json()
         return dict(zip(json['columns'], json['rows'][0]))
     except (KeyError, IndexError) as e:  # noqa: F841
-        return  # number not found
+        return None  # number not found

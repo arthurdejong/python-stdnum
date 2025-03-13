@@ -68,7 +68,7 @@ def _get_cc_module(cc):
     if cc == 'el':
         cc = 'gr'
     if cc not in MEMBER_STATES:
-        return
+        return None
     if cc == 'xi':
         cc = 'gb'
     if cc not in _country_modules:

@@ -63,6 +63,7 @@ def get_gender(number):
         return 'M'
     elif number[-1] in '2468':
         return 'F'
+    return None
 
 
 # Valid Province IDs

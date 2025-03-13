@@ -184,6 +184,7 @@ def get_birth_date(number):
     year, month, day = _get_birth_date_parts(compact(number))
     if year and month and day:
         return datetime.date(year, month, day)
+    return None
 
 
 def get_gender(number):

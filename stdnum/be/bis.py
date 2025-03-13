@@ -123,3 +123,4 @@ def get_gender(number):
     number = compact(number)
     if int(number[2:4]) >= 40:
         return nn.get_gender(number)
+    return None

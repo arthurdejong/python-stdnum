@@ -240,3 +240,4 @@ def check_dgii(rnc, ncf, buyer_rnc=None, security_code=None, timeout=30, verify=
             [x.text.strip() for x in result.findall('.//th') if x.text],
             [x.text.strip() for x in result.findall('.//td/span') if x.text]))
         return _convert_result(data)
+    return None
