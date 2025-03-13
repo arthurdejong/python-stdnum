@@ -77,11 +77,8 @@ _permutation_table = (
 def checksum(number):
     """Calculate the Verhoeff checksum over the provided number. The checksum
     is returned as an int. Valid numbers should have a checksum of 0."""
-    # transform number list
-    number = tuple(int(n) for n in reversed(str(number)))
-    # calculate checksum
     check = 0
-    for i, n in enumerate(number):
+    for i, n in enumerate(int(n) for n in reversed(str(number))):
         check = _multiplication_table[check][_permutation_table[i % 8][n]]
     return check
 

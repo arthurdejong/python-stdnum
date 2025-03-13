@@ -197,7 +197,7 @@ def info(number, separator=''):
         number = number[len(ai):]
         # figure out the value part
         value = number[:_max_length(info['format'], info['type'])]
-        if separator and info.get('fnc1', False):
+        if separator and info.get('fnc1'):
             idx = number.find(separator)
             if idx > 0:
                 value = number[:idx]
@@ -243,7 +243,7 @@ def encode(data, separator='', parentheses=False):
             mod.validate(value)
         value = _encode_value(info['format'], info['type'], value)
         # store variable-sized values separate from fixed-size values
-        if info.get('fnc1', False):
+        if info.get('fnc1'):
             variable_values.append((ai_fmt % ai, info['format'], info['type'], value))
         else:
             fixed_values.append(ai_fmt % ai + value)

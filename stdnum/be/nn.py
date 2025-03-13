@@ -182,7 +182,7 @@ def get_birth_month(number):
 def get_birth_date(number):
     """Return the date of birth."""
     year, month, day = _get_birth_date_parts(compact(number))
-    if None not in (year, month, day):
+    if year and month and day:
         return datetime.date(year, month, day)
 
 

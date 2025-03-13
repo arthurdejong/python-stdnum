@@ -23,7 +23,7 @@
 The number VAT identification number (VATIN) is an identifier used in many
 countries. It starts with an ISO 3166-1 alpha-2 (2 letters) country code
 (except for Greece, which uses EL, instead of GR) and is followed by the
-country-specific the identifier.
+country-specific identifier.
 
 This module supports all VAT numbers that are supported in python-stdnum.
 
@@ -65,9 +65,10 @@ def _get_cc_module(cc):
         raise InvalidFormat()
     if cc not in _country_modules:
         _country_modules[cc] = get_cc_module(cc, 'vat')
-    if not _country_modules[cc]:
+    module = _country_modules[cc]
+    if not module:
         raise InvalidComponent()  # unknown/unsupported country code
-    return _country_modules[cc]
+    return module
 
 
 def compact(number):

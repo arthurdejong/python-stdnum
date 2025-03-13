@@ -74,9 +74,7 @@ def info(number):
 
 def to_bic(number):
     """Return the BIC for the bank that this number refers to."""
-    bic = info(number).get('bic')
-    if bic:
-        return str(bic)
+    return info(number).get('bic')
 
 
 def validate(number):

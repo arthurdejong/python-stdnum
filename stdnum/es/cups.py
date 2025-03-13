@@ -94,8 +94,8 @@ def validate(number):
         raise InvalidComponent()
     if not isdigits(number[2:18]):
         raise InvalidFormat()
-    if number[20:]:
-        pnumber, ptype = number[20:]
+    if len(number) == 22:
+        pnumber, ptype = number[20], number[21]
         if not isdigits(pnumber):
             raise InvalidFormat()
         if ptype not in 'FPRCXYZ':

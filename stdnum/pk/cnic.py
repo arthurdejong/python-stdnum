@@ -78,7 +78,7 @@ PROVINCES = {
 
 
 def get_province(number):
-    """Get the person's birth gender ('M' or 'F')."""
+    """Get the person's province."""
     number = compact(number)
     return PROVINCES.get(number[0])
 
