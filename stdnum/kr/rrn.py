@@ -45,26 +45,28 @@ Traceback (most recent call last):
 InvalidChecksum: ...
 """
 
+from __future__ import annotations
+
 import datetime
 
 from stdnum.exceptions import *
 from stdnum.util import clean, isdigits
 
 
-def compact(number):
+def compact(number: str) -> str:
     """Convert the number to the minimal representation. This strips the
     number of any valid separators and removes surrounding whitespace."""
     return clean(number, '-').strip()
 
 
-def calc_check_digit(number):
+def calc_check_digit(number: str) -> str:
     """Calculate the check digit."""
     weights = (2, 3, 4, 5, 6, 7, 8, 9, 2, 3, 4, 5)
     check = sum(w * int(n) for w, n in zip(weights, number))
     return str((11 - (check % 11)) % 10)
 
 
-def get_birth_date(number, allow_future=True):
+def get_birth_date(number: str, allow_future: bool = True) -> datetime.date:
     """Split the date parts from the number and return the birth date. If
     allow_future is False birth dates in the future are rejected."""
     number = compact(number)
@@ -90,7 +92,7 @@ def get_birth_date(number, allow_future=True):
     return date_of_birth
 
 
-def validate(number, allow_future=True):
+def validate(number: str, allow_future: bool = True) -> str:
     """Check if the number is a valid RNN. This checks the length, formatting
     and check digit. If allow_future is False birth dates in the future are
     rejected."""
@@ -110,7 +112,7 @@ def validate(number, allow_future=True):
     return number
 
 
-def is_valid(number, allow_future=True):
+def is_valid(number: str, allow_future: bool = True) -> bool:
     """Check if the number provided is valid."""
     try:
         return bool(validate(number, allow_future))
@@ -118,7 +120,7 @@ def is_valid(number, allow_future=True):
         return False
 
 
-def format(number):
+def format(number: str) -> str:
     """Reformat the number to the standard presentation format."""
     number = compact(number)
     if len(number) == 13:

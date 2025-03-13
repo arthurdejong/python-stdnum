@@ -50,19 +50,21 @@ Traceback (most recent call last):
 InvalidComponent: ...
 """
 
+from __future__ import annotations
+
 import datetime
 
 from stdnum.exceptions import *
 from stdnum.util import clean, isdigits
 
 
-def compact(number):
+def compact(number: str) -> str:
     """Convert the number to the minimal representation. This strips
     surrounding whitespace and separation dash."""
     return clean(number, ' ').strip()
 
 
-def get_birth_date(number):
+def get_birth_date(number: str) -> datetime.date:
     """Split the date parts from the number and return the date of birth."""
     number = compact(number)
     year = int(number[0:2])
@@ -80,7 +82,7 @@ def get_birth_date(number):
         raise InvalidComponent()
 
 
-def get_gender(number):
+def get_gender(number: str) -> str:
     """Get the gender (M/F) from the person's NI."""
     number = compact(number)
     if int(number[9]) % 2:
@@ -89,7 +91,7 @@ def get_gender(number):
         return 'M'
 
 
-def validate(number):
+def validate(number: str) -> str:
     """Check if the number is a valid NI. This checks the length, formatting
     and check digit."""
     number = compact(number)
@@ -101,7 +103,7 @@ def validate(number):
     return number
 
 
-def is_valid(number):
+def is_valid(number: str) -> bool:
     """Check if the number is a valid NI."""
     try:
         return bool(validate(number))

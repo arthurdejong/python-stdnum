@@ -61,12 +61,14 @@ InvalidChecksum: ...
 '1-85798-218-5'
 """
 
+from __future__ import annotations
+
 from stdnum import ean
 from stdnum.exceptions import *
 from stdnum.util import clean, isdigits
 
 
-def compact(number, convert=False):
+def compact(number: str, convert: bool = False) -> str:
     """Convert the ISBN to the minimal representation. This strips the number
     of any valid ISBN separators and removes surrounding whitespace. If the
     convert parameter is True the number is also converted to ISBN-13
@@ -79,7 +81,7 @@ def compact(number, convert=False):
     return number
 
 
-def _calc_isbn10_check_digit(number):
+def _calc_isbn10_check_digit(number: str) -> str:
     """Calculate the ISBN check digit for 10-digit numbers. The number passed
     should not have the check digit included."""
     check = sum((i + 1) * int(n)
@@ -87,7 +89,7 @@ def _calc_isbn10_check_digit(number):
     return 'X' if check == 10 else str(check)
 
 
-def validate(number, convert=False):
+def validate(number: str, convert: bool = False) -> str:
     """Check if the number provided is a valid ISBN (either a legacy 10-digit
     one or a 13-digit one). This checks the length and the check digit but does
     not check if the group and publisher are valid (use split() for that)."""
@@ -108,7 +110,7 @@ def validate(number, convert=False):
     return number
 
 
-def isbn_type(number):
+def isbn_type(number: str) -> str | None:
     """Check the passed number and return 'ISBN13', 'ISBN10' or None (for
     invalid) for checking the type of number passed."""
     try:
@@ -121,7 +123,7 @@ def isbn_type(number):
         return 'ISBN13'
 
 
-def is_valid(number):
+def is_valid(number: str) -> bool:
     """Check if the number provided is a valid ISBN (either a legacy 10-digit
     one or a 13-digit one). This checks the length and the check digit but does
     not check if the group and publisher are valid (use split() for that)."""
@@ -131,7 +133,7 @@ def is_valid(number):
         return False
 
 
-def to_isbn13(number):
+def to_isbn13(number: str) -> str:
     """Convert the number to ISBN-13 format."""
     number = number.strip()
     min_number = clean(number, ' -')
@@ -150,7 +152,7 @@ def to_isbn13(number):
         return '978' + number
 
 
-def to_isbn10(number):
+def to_isbn10(number: str) -> str:
     """Convert the number to ISBN-10 format."""
     number = number.strip()
     min_number = compact(number, convert=False)
@@ -172,7 +174,7 @@ def to_isbn10(number):
         return number + digit
 
 
-def split(number, convert=False):
+def split(number: str, convert: bool = False) -> tuple[str, str, str, str, str]:
     """Split the specified ISBN into an EAN.UCC prefix, a group prefix, a
     registrant, an item number and a check digit. If the number is in ISBN-10
     format the returned EAN.UCC prefix is '978'. If the convert parameter is
@@ -195,7 +197,7 @@ def split(number, convert=False):
     return ('' if delprefix else prefix, group, publisher, itemnr, number[-1])
 
 
-def format(number, separator='-', convert=False):
+def format(number: str, separator: str = '-', convert: bool = False) -> str:
     """Reformat the number to the standard presentation format with the
     EAN.UCC prefix (if any), the group prefix, the registrant, the item
     number and the check digit separated (if possible) by the specified

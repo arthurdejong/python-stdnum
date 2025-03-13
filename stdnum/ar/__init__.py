@@ -20,6 +20,8 @@
 
 """Collection of Argentinian numbers."""
 
+from __future__ import annotations
+
 # provide aliases
 from stdnum.ar import cuit as vat  # noqa: F401
 from stdnum.ar import dni as personalid  # noqa: F401

@@ -6,7 +6,10 @@ __pycache__
 
 # /
 /.coverage
+/.mypy_cache
+/.ruff_cache
 /.tox
+/.venv
 /build
 /coverage
 /dist

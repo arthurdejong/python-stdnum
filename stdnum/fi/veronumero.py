@@ -43,17 +43,19 @@ Traceback (most recent call last):
 InvalidLength: ...
 """
 
+from __future__ import annotations
+
 from stdnum.exceptions import *
 from stdnum.util import clean, isdigits
 
 
-def compact(number):
+def compact(number: str) -> str:
     """Convert the Veronumero to the minimal representation. This strips
     surrounding whitespace and removes separators."""
     return clean(number, ' ').strip()
 
 
-def validate(number):
+def validate(number: str) -> str:
     """Check if the number is a valid tax number. This checks the length and
     formatting."""
     number = compact(number)
@@ -65,7 +67,7 @@ def validate(number):
     return number
 
 
-def is_valid(number):
+def is_valid(number: str) -> bool:
     """Check if the number is a valid tax number."""
     try:
         return bool(validate(number))

@@ -47,6 +47,8 @@ More information:
 '000307052'
 """  # noqa: E501
 
+from __future__ import annotations
+
 from stdnum.exceptions import *
 from stdnum.util import clean, isdigits
 
@@ -55,12 +57,12 @@ from stdnum.util import clean, isdigits
 _base32_alphabet = '0123456789BCDFGHJKLMNPQRSTUVWXYZ'
 
 
-def compact(number):
+def compact(number: str) -> str:
     """Convert the number to the minimal representation."""
     return clean(number, ' ').upper().strip()
 
 
-def from_base32(number):
+def from_base32(number: str) -> str:
     """Convert a BASE32 representation of an AIC to a BASE10 one."""
     number = compact(number)
     if not all(x in _base32_alphabet for x in number):
@@ -70,7 +72,7 @@ def from_base32(number):
     return str(s).zfill(9)
 
 
-def to_base32(number):
+def to_base32(number: str) -> str:
     """Convert a BASE10 representation of an AIC to a BASE32 one."""
     number = compact(number)
     if not isdigits(number):
@@ -84,7 +86,7 @@ def to_base32(number):
     return res.zfill(6)
 
 
-def calc_check_digit(number):
+def calc_check_digit(number: str) -> str:
     """Calculate the check digit for the BASE10 AIC code."""
     number = compact(number)
     weights = (1, 2, 1, 2, 1, 2, 1, 2)
@@ -92,7 +94,7 @@ def calc_check_digit(number):
                for x in (w * int(n) for w, n in zip(weights, number))) % 10)
 
 
-def validate_base10(number):
+def validate_base10(number: str) -> str:
     """Check if a string is a valid BASE10 representation of an AIC."""
     number = compact(number)
     if len(number) != 9:
@@ -106,7 +108,7 @@ def validate_base10(number):
     return number
 
 
-def validate_base32(number):
+def validate_base32(number: str) -> str:
     """Check if a string is a valid BASE32 representation of an AIC."""
     number = compact(number)
     if len(number) != 6:
@@ -114,7 +116,7 @@ def validate_base32(number):
     return validate_base10(from_base32(number))
 
 
-def validate(number):
+def validate(number: str) -> str:
     """Check if a string is a valid AIC. BASE10 is the canonical form and
     is 9 chars long, while BASE32 is 6 chars."""
     number = compact(number)
@@ -124,7 +126,7 @@ def validate(number):
         return validate_base10(number)
 
 
-def is_valid(number):
+def is_valid(number: str) -> bool:
     """Check if the given string is a valid AIC code."""
     try:
         return bool(validate(number))

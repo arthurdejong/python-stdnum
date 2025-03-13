@@ -38,6 +38,8 @@ Traceback (most recent call last):
 InvalidFormat: ...
 """
 
+from __future__ import annotations
+
 import re
 
 from stdnum.exceptions import *
@@ -47,7 +49,7 @@ from stdnum.util import clean
 _cas_re = re.compile(r'^[1-9][0-9]{1,6}-[0-9]{2}-[0-9]$')
 
 
-def compact(number):
+def compact(number: str) -> str:
     """Convert the number to the minimal representation."""
     number = clean(number, ' ').strip()
     if '-' not in number:
@@ -55,7 +57,7 @@ def compact(number):
     return number
 
 
-def calc_check_digit(number):
+def calc_check_digit(number: str) -> str:
     """Calculate the check digit for the number. The passed number should not
     have the check digit included."""
     number = number.replace('-', '')
@@ -63,7 +65,7 @@ def calc_check_digit(number):
         sum((i + 1) * int(n) for i, n in enumerate(reversed(number))) % 10)
 
 
-def validate(number):
+def validate(number: str) -> str:
     """Check if the number provided is a valid CAS RN."""
     number = compact(number)
     if not 7 <= len(number) <= 12:
@@ -75,7 +77,7 @@ def validate(number):
     return number
 
 
-def is_valid(number):
+def is_valid(number: str) -> bool:
     """Check if the number provided is a valid CAS RN."""
     try:
         return bool(validate(number))

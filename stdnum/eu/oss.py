@@ -50,6 +50,7 @@ More information:
 'EU372022452'
 """
 
+from __future__ import annotations
 
 from stdnum.exceptions import *
 from stdnum.util import clean, isdigits
@@ -88,12 +89,12 @@ ISO_3166_1_MEMBER_STATES = (
 """The collection of member state codes (for MSI) that may make up a VAT number."""
 
 
-def compact(number):
+def compact(number: str) -> str:
     """Compact European VAT Number"""
     return clean(number, ' -').upper().strip()
 
 
-def validate(number):
+def validate(number: str) -> str:
     """Validate European VAT Number"""
     number = compact(number)
     if number.startswith('EU'):
@@ -111,7 +112,7 @@ def validate(number):
     return number
 
 
-def is_valid(number):
+def is_valid(number: str) -> bool:
     """Check if the number is a valid VAT number. This performs the
     country-specific check for the number."""
     try:

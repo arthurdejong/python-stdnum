@@ -60,11 +60,13 @@ InvalidFormat: ...
 '00021600180833713010'
 """
 
+from __future__ import annotations
+
 from stdnum.exceptions import *
 from stdnum.util import clean, isdigits
 
 
-def compact(number):
+def compact(number: str) -> str:
     """Convert the number to the minimal representation.
 
     This strips the number of any valid separators, removes surrounding
@@ -73,7 +75,7 @@ def compact(number):
     return clean(number, ' ')
 
 
-def validate(number):
+def validate(number: str) -> str:
     """Check if the number is a valid Algeria NIF number.
 
     This checks the length and formatting.
@@ -86,7 +88,7 @@ def validate(number):
     return number
 
 
-def is_valid(number):
+def is_valid(number: str) -> bool:
     """Check if the number is a valid Algeria NIF number."""
     try:
         return bool(validate(number))
@@ -94,6 +96,6 @@ def is_valid(number):
         return False
 
 
-def format(number):
+def format(number: str) -> str:
     """Reformat the number to the standard presentation format."""
     return compact(number)

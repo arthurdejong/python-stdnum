@@ -19,4 +19,7 @@
 # 02110-1301 USA
 
 """Collection of Brazilian numbers."""
+
+from __future__ import annotations
+
 from stdnum.br import cnpj as vat  # noqa: F401

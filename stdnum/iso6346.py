@@ -42,6 +42,8 @@ InvalidChecksum: ...
 'TASU 117000 0'
 """
 
+from __future__ import annotations
+
 import re
 
 from stdnum.exceptions import *
@@ -51,13 +53,13 @@ from stdnum.util import clean
 _iso6346_re = re.compile(r'^\w{3}(U|J|Z|R)\d{7}$')
 
 
-def compact(number):
+def compact(number: str) -> str:
     """Convert the number to the minimal representation. This strips the
     number of any valid separators and removes surrounding whitespace."""
     return clean(number, ' ').strip().upper()
 
 
-def calc_check_digit(number):
+def calc_check_digit(number: str) -> str:
     """Calculate check digit and return it for the 10 digit owner code and
     serial number."""
     number = compact(number)
@@ -67,7 +69,7 @@ def calc_check_digit(number):
         for i, n in enumerate(number)) % 11 % 10)
 
 
-def validate(number):
+def validate(number: str) -> str:
     """Validate the given number (unicode) for conformity to ISO 6346."""
     number = compact(number)
     if len(number) != 11:
@@ -79,7 +81,7 @@ def validate(number):
     return number
 
 
-def is_valid(number):
+def is_valid(number: str) -> bool:
     """Check whether the number conforms to the standard ISO6346. Unlike
     the validate function, this will not raise ValidationError(s)."""
     try:
@@ -88,7 +90,7 @@ def is_valid(number):
         return False
 
 
-def format(number):
+def format(number: str) -> str:
     """Reformat the number to the standard presentation format."""
     number = compact(number)
     return ' '.join((number[:4], number[4:-1], number[-1:]))

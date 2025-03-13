@@ -20,5 +20,7 @@
 
 """Collection of Faroe Islands numbers."""
 
+from __future__ import annotations
+
 # provide aliases
 from stdnum.fo import vn as vat  # noqa: F401

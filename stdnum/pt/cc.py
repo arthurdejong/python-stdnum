@@ -42,6 +42,8 @@ InvalidChecksum: ...
 '00000000 0 ZZ4'
 """
 
+from __future__ import annotations
+
 import re
 
 from stdnum.exceptions import *
@@ -51,24 +53,25 @@ from stdnum.util import clean
 _cc_re = re.compile(r'^\d*[A-Z0-9]{2}\d$')
 
 
-def compact(number):
+def compact(number: str) -> str:
     """Convert the number to the minimal representation. This strips the
     number of any valid separators and removes surrounding whitespace."""
     number = clean(number, ' ').upper().strip()
     return number
 
 
-def calc_check_digit(number):
+def calc_check_digit(number: str) -> str:
     """Calculate the check digit for the number."""
+    def cutoff(x: int) -> int:
+        return x - 9 if x > 9 else x
     alphabet = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ'
-    cutoff = lambda x: x - 9 if x > 9 else x
     s = sum(
         cutoff(alphabet.index(n) * 2) if i % 2 == 0 else alphabet.index(n)
         for i, n in enumerate(number[::-1]))
     return str((10 - s) % 10)
 
 
-def validate(number):
+def validate(number: str) -> str:
     """Check if the number is a valid cartao de cidadao number."""
     number = compact(number)
     if not _cc_re.match(number):
@@ -78,7 +81,7 @@ def validate(number):
     return number
 
 
-def is_valid(number):
+def is_valid(number: str) -> bool:
     """Check if the number is a valid cartao de cidadao number."""
     try:
         return bool(validate(number))
@@ -86,7 +89,7 @@ def is_valid(number):
         return False
 
 
-def format(number):
+def format(number: str) -> str:
     """Reformat the number to the standard presentation format."""
     number = compact(number)
     return ' '.join([number[:-4], number[-4], number[-3:]])

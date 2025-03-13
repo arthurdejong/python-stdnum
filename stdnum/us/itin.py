@@ -49,6 +49,8 @@ InvalidComponent: ...
 '123'
 """
 
+from __future__ import annotations
+
 import re
 
 from stdnum.exceptions import *
@@ -63,13 +65,13 @@ _itin_re = re.compile(r'^(?P<area>[0-9]{3})-?(?P<group>[0-9]{2})-?[0-9]{4}$')
 _allowed_groups = set((str(x) for x in range(70, 100) if x not in (89, 93)))
 
 
-def compact(number):
+def compact(number: str) -> str:
     """Convert the number to the minimal representation. This strips the
     number of any valid separators and removes surrounding whitespace."""
     return clean(number, '-').strip()
 
 
-def validate(number):
+def validate(number: str) -> str:
     """Check if the number is a valid ITIN. This checks the length, groups
     and formatting if it is present."""
     match = _itin_re.search(clean(number, '').strip())
@@ -82,7 +84,7 @@ def validate(number):
     return compact(number)
 
 
-def is_valid(number):
+def is_valid(number: str) -> bool:
     """Check if the number is a valid ITIN."""
     try:
         return bool(validate(number))
@@ -90,7 +92,7 @@ def is_valid(number):
         return False
 
 
-def format(number):
+def format(number: str) -> str:
     """Reformat the number to the standard presentation format."""
     if len(number) == 9:
         number = number[:3] + '-' + number[3:5] + '-' + number[5:]

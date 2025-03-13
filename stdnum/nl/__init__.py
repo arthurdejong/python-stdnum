@@ -20,6 +20,8 @@
 
 """Collection of Dutch numbers."""
 
+from __future__ import annotations
+
 # provide aliases
 from stdnum.nl import btw as vat  # noqa: F401
 from stdnum.nl import postcode as postal_code  # noqa: F401

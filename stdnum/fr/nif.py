@@ -48,22 +48,24 @@ InvalidComponent: ...
 '30 23 217 600 053'
 """
 
+from __future__ import annotations
+
 from stdnum.exceptions import *
 from stdnum.util import clean, isdigits
 
 
-def compact(number):
+def compact(number: str) -> str:
     """Convert the number to the minimal representation. This strips the
     number of any valid separators and removes surrounding whitespace."""
     return clean(number, ' ').strip()
 
 
-def calc_check_digits(number):
+def calc_check_digits(number: str) -> str:
     """Calculate the check digits for the number."""
     return '%03d' % (int(number[:10]) % 511)
 
 
-def validate(number):
+def validate(number: str) -> str:
     """Check if the number provided is a valid NIF."""
     number = compact(number)
     if not isdigits(number):
@@ -77,7 +79,7 @@ def validate(number):
     return number
 
 
-def is_valid(number):
+def is_valid(number: str) -> bool:
     """Check if the number provided is a valid NIF."""
     try:
         return bool(validate(number))
@@ -85,7 +87,7 @@ def is_valid(number):
         return False
 
 
-def format(number):
+def format(number: str) -> str:
     """Reformat the number to the standard presentation format."""
     number = compact(number)
     return ' '.join((number[:2], number[2:4], number[4:7],

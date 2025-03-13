@@ -43,11 +43,13 @@ InvalidChecksum: ...
 '18547290'
 """
 
+from __future__ import annotations
+
 from stdnum.exceptions import *
 from stdnum.util import clean, isdigits
 
 
-def compact(number):
+def compact(number: str) -> str:
     """Convert the number to the minimal representation. This strips the
     number of any valid separators and removes surrounding whitespace."""
     number = clean(number, ' -').upper().strip()
@@ -56,7 +58,7 @@ def compact(number):
     return number
 
 
-def calc_check_digit(number):
+def calc_check_digit(number: str) -> str:
     """Calculate the check digit."""
     weights = (7, 5, 3, 2, 1, 7, 5, 3, 2)
     number = number.zfill(9)
@@ -64,7 +66,7 @@ def calc_check_digit(number):
     return str(check % 11 % 10)
 
 
-def validate(number):
+def validate(number: str) -> str:
     """Check if the number is a valid CUI or CIF number. This checks the length,
     formatting and check digit."""
     number = compact(number)
@@ -77,7 +79,7 @@ def validate(number):
     return number
 
 
-def is_valid(number):
+def is_valid(number: str) -> bool:
     """Check if the number is a valid CUI or CIF number."""
     try:
         return bool(validate(number))

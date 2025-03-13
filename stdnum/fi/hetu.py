@@ -41,6 +41,8 @@ InvalidComponent: ...
 '131052A308T'
 """
 
+from __future__ import annotations
+
 import datetime
 import re
 
@@ -62,17 +64,17 @@ _hetu_re = re.compile(r'^(?P<day>[0123]\d)(?P<month>[01]\d)(?P<year>\d\d)'
                       r'(?P<control>[0-9ABCDEFHJKLMNPRSTUVWXY])$')
 
 
-def compact(number):
+def compact(number: str) -> str:
     """Convert the HETU to the minimal representation. This strips
     surrounding whitespace and converts it to upper case."""
     return clean(number, '').upper().strip()
 
 
-def _calc_checksum(number):
+def _calc_checksum(number: str) -> str:
     return '0123456789ABCDEFHJKLMNPRSTUVWXY'[int(number) % 31]
 
 
-def validate(number, allow_temporary=False):
+def validate(number: str, allow_temporary: bool = False) -> str:
     """Check if the number is a valid HETU. It checks the format, whether a
     valid date is given and whether the check digit is correct. Allows
     temporary identifier range for individuals (900-999) if allow_temporary
@@ -104,7 +106,7 @@ def validate(number, allow_temporary=False):
     return number
 
 
-def is_valid(number, allow_temporary=False):
+def is_valid(number: str, allow_temporary: bool = False) -> bool:
     """Check if the number is a valid HETU."""
     try:
         return bool(validate(number, allow_temporary))

@@ -49,6 +49,8 @@ datetime.date(1975, 3, 30)
 '750330 5044 08 9'
 """
 
+from __future__ import annotations
+
 import datetime
 
 from stdnum import luhn
@@ -56,7 +58,7 @@ from stdnum.exceptions import *
 from stdnum.util import clean, isdigits
 
 
-def compact(number):
+def compact(number: str) -> str:
     """Convert the number to the minimal representation.
 
     This strips the number of any valid separators and removes surrounding
@@ -65,7 +67,7 @@ def compact(number):
     return clean(number, ' ')
 
 
-def get_birth_date(number):
+def get_birth_date(number: str) -> datetime.date:
     """Split the date parts from the number and return the date of birth.
 
     Since the number only uses two digits for the year, the century may be
@@ -84,7 +86,7 @@ def get_birth_date(number):
         raise InvalidComponent()
 
 
-def get_gender(number):
+def get_gender(number: str) -> str:
     """Get the gender (M/F) from the person's ID number."""
     number = compact(number)
     if number[6] in '01234':
@@ -93,7 +95,7 @@ def get_gender(number):
         return 'M'
 
 
-def get_citizenship(number):
+def get_citizenship(number: str) -> str:
     """Get the citizenship status (citizen/resident) from the ID number."""
     number = compact(number)
     if number[10] == '0':
@@ -104,7 +106,7 @@ def get_citizenship(number):
         raise InvalidComponent()
 
 
-def validate(number):
+def validate(number: str) -> str:
     """Check if the number is a valid South African ID number.
 
     This checks the length, formatting and check digit.
@@ -119,7 +121,7 @@ def validate(number):
     return luhn.validate(number)
 
 
-def is_valid(number):
+def is_valid(number: str) -> bool:
     """Check if the number is a valid South African ID number."""
     try:
         return bool(validate(number))
@@ -127,7 +129,7 @@ def is_valid(number):
         return False
 
 
-def format(number):
+def format(number: str) -> str:
     """Reformat the number to the standard presentation format."""
     number = compact(number)
     return ' '.join((number[:6], number[6:10], number[10:12], number[12:]))

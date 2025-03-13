@@ -45,6 +45,8 @@ InvalidChecksum: ...
 '12340'
 """
 
+from __future__ import annotations
+
 from stdnum.exceptions import *
 
 
@@ -74,7 +76,7 @@ _permutation_table = (
     (7, 0, 4, 6, 9, 1, 3, 2, 5, 8))
 
 
-def checksum(number):
+def checksum(number: str) -> int:
     """Calculate the Verhoeff checksum over the provided number. The checksum
     is returned as an int. Valid numbers should have a checksum of 0."""
     check = 0
@@ -83,7 +85,7 @@ def checksum(number):
     return check
 
 
-def validate(number):
+def validate(number: str) -> str:
     """Check if the number provided passes the Verhoeff checksum."""
     if not bool(number):
         raise InvalidFormat()
@@ -96,7 +98,7 @@ def validate(number):
     return number
 
 
-def is_valid(number):
+def is_valid(number: str) -> bool:
     """Check if the number provided passes the Verhoeff checksum."""
     try:
         return bool(validate(number))
@@ -104,7 +106,7 @@ def is_valid(number):
         return False
 
 
-def calc_check_digit(number):
+def calc_check_digit(number: str) -> str:
     """Calculate the extra digit that should be appended to the number to
     make it a valid number."""
     return str(_multiplication_table[checksum(str(number) + '0')].index(0))

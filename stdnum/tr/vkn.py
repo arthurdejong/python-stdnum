@@ -40,17 +40,19 @@ Traceback (most recent call last):
 InvalidLength: ...
 """
 
+from __future__ import annotations
+
 from stdnum.exceptions import *
 from stdnum.util import clean, isdigits
 
 
-def compact(number):
+def compact(number: str) -> str:
     """Convert the number to the minimal representation. This strips the
     number of any valid separators and removes surrounding whitespace."""
     return clean(number).strip()
 
 
-def calc_check_digit(number):
+def calc_check_digit(number: str) -> str:
     """Calculate the check digit for the specified number."""
     s = 0
     for i, n in enumerate(reversed(number[:9]), 1):
@@ -61,7 +63,7 @@ def calc_check_digit(number):
     return str((10 - s) % 10)
 
 
-def validate(number):
+def validate(number: str) -> str:
     """Check if the number is a valid Vergi Kimlik Numarası. This checks the
     length and check digits."""
     number = compact(number)
@@ -74,7 +76,7 @@ def validate(number):
     return number
 
 
-def is_valid(number):
+def is_valid(number: str) -> bool:
     """Check if the number is a valid Vergi Kimlik Numarası. This checks the
     length and check digits."""
     try:

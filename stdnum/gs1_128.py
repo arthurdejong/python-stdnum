@@ -47,6 +47,8 @@ More information:
 '013842587609507417181119371'
 """
 
+from __future__ import annotations
+
 import datetime
 import decimal
 import re
@@ -54,6 +56,12 @@ import re
 from stdnum import numdb
 from stdnum.exceptions import *
 from stdnum.util import clean
+
+
+TYPE_CHECKING = False
+if TYPE_CHECKING:  # pragma: no cover (only used when type checking)
+    from collections.abc import Mapping
+    from typing import Any
 
 
 # our open copy of the application identifier database
@@ -68,7 +76,7 @@ _ai_validators = {
 }
 
 
-def compact(number):
+def compact(number: str) -> str:
     """Convert the GS1-128 to the minimal representation.
 
     This strips the number of any valid separators and removes surrounding
@@ -78,11 +86,12 @@ def compact(number):
     return clean(number, '()').strip()
 
 
-def _encode_value(fmt, _type, value):
+def _encode_value(fmt: str, _type: str, value: object) -> str:
     """Encode the specified value given the format and type."""
     if _type == 'decimal':
         if isinstance(value, (list, tuple)) and fmt.startswith('N3+'):
             number = _encode_value(fmt[3:], _type, value[1])
+            assert isinstance(value[0], str)
             return number[0] + value[0].rjust(3, '0') + number[1:]
         value = str(value)
         if fmt.startswith('N..'):
@@ -126,22 +135,25 @@ def _encode_value(fmt, _type, value):
     return str(value)
 
 
-def _max_length(fmt, _type):
+def _max_length(fmt: str, _type: str) -> int:
     """Determine the maximum length based on the format ad type."""
-    length = sum(int(re.match(r'^[NXY][0-9]*?[.]*([0-9]+)[\[\]]?$', x).group(1)) for x in fmt.split('+'))
+    length = sum(
+        int(re.match(r'^[NXY][0-9]*?[.]*([0-9]+)[\[\]]?$', x).group(1))  # type: ignore[misc, union-attr]
+        for x in fmt.split('+')
+    )
     if _type == 'decimal':
         length += 1
     return length
 
 
-def _pad_value(fmt, _type, value):
+def _pad_value(fmt: str, _type: str, value: str) -> str:
     """Pad the value to the maximum length for the format."""
     if _type in ('decimal', 'int'):
         return value.rjust(_max_length(fmt, _type), '0')
     return value.ljust(_max_length(fmt, _type))
 
 
-def _decode_value(fmt, _type, value):
+def _decode_value(fmt: str, _type: str, value: str) -> Any:
     """Decode the specified value given the fmt and type."""
     if _type == 'decimal':
         if fmt.startswith('N3+'):
@@ -173,7 +185,7 @@ def _decode_value(fmt, _type, value):
     return value.strip()
 
 
-def info(number, separator=''):
+def info(number: str, separator: str = '') -> dict[str, Any]:
     """Return a dictionary containing the information from the GS1-128 code.
 
     The returned dictionary maps application identifiers to values with the
@@ -214,7 +226,7 @@ def info(number, separator=''):
     return data
 
 
-def encode(data, separator='', parentheses=False):
+def encode(data: Mapping[str, object], separator: str = '', parentheses: bool = False) -> str:
     """Generate a GS1-128 for the application identifiers supplied.
 
     The provided dictionary is expected to map application identifiers to
@@ -259,7 +271,7 @@ def encode(data, separator='', parentheses=False):
         ])
 
 
-def validate(number, separator=''):
+def validate(number: str, separator: str = '') -> str:
     """Check if the number provided is a valid GS1-128.
 
     This checks formatting of the number and values and returns a stable
@@ -280,7 +292,7 @@ def validate(number, separator=''):
         raise InvalidFormat()
 
 
-def is_valid(number, separator=''):
+def is_valid(number: str, separator: str = '') -> bool:
     """Check if the number provided is a valid GS1-128."""
     try:
         return bool(validate(number))

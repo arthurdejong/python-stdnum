@@ -41,6 +41,8 @@ InvalidChecksum: ...
 'GB00BYXJL758'
 """
 
+from __future__ import annotations
+
 from stdnum.exceptions import *
 from stdnum.util import clean
 
@@ -88,13 +90,13 @@ _country_codes = set(_iso_3116_1_country_codes + [
 _alphabet = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ'
 
 
-def compact(number):
+def compact(number: str) -> str:
     """Convert the number to the minimal representation. This strips the
     number of any valid separators and removes surrounding whitespace."""
     return clean(number, ' ').strip().upper()
 
 
-def calc_check_digit(number):
+def calc_check_digit(number: str) -> str:
     """Calculate the check digits for the number."""
     # convert to numeric first, then double some, then sum individual digits
     number = ''.join(str(_alphabet.index(n)) for n in number)
@@ -103,7 +105,7 @@ def calc_check_digit(number):
     return str((10 - sum(int(n) for n in number)) % 10)
 
 
-def validate(number):
+def validate(number: str) -> str:
     """Check if the number provided is valid. This checks the length and
     check digit."""
     number = compact(number)
@@ -118,7 +120,7 @@ def validate(number):
     return number
 
 
-def is_valid(number):
+def is_valid(number: str) -> bool:
     """Check if the number provided is valid. This checks the length and
     check digit."""
     try:
@@ -127,7 +129,7 @@ def is_valid(number):
         return False
 
 
-def from_natid(country_code, number):
+def from_natid(country_code: str, number: str) -> str:
     """Generate an ISIN from a national security identifier."""
     number = country_code.upper() + compact(number).zfill(9)
     return number + calc_check_digit(number)

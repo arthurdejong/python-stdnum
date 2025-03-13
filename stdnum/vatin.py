@@ -47,17 +47,19 @@ Traceback (most recent call last):
 InvalidComponent: ...
 """
 
+from __future__ import annotations
+
 import re
 
 from stdnum.exceptions import *
-from stdnum.util import clean, get_cc_module
+from stdnum.util import NumberValidationModule, clean, get_cc_module
 
 
 # Cache of country code modules
 _country_modules = dict()
 
 
-def _get_cc_module(cc):
+def _get_cc_module(cc: str) -> NumberValidationModule:
     """Get the VAT number module based on the country code."""
     # Greece uses a "wrong" country code, special case for Northern Ireland
     cc = cc.lower().replace('el', 'gr').replace('xi', 'gb')
@@ -71,7 +73,7 @@ def _get_cc_module(cc):
     return module
 
 
-def compact(number):
+def compact(number: str) -> str:
     """Convert the number to the minimal representation."""
     number = clean(number).strip()
     module = _get_cc_module(number[:2])
@@ -81,7 +83,7 @@ def compact(number):
         return module.compact(number)
 
 
-def validate(number):
+def validate(number: str) -> str:
     """Check if the number is a valid VAT number.
 
     This performs the country-specific check for the number.
@@ -94,7 +96,7 @@ def validate(number):
         return module.validate(number)
 
 
-def is_valid(number):
+def is_valid(number: str) -> bool:
     """Check if the number is a valid VAT number."""
     try:
         return bool(validate(number))

@@ -20,5 +20,7 @@
 
 """Collection of Andorran numbers."""
 
+from __future__ import annotations
+
 # Provide aliases.
 from stdnum.ad import nrt as vat  # noqa: F401

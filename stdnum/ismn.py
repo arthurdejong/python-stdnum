@@ -42,18 +42,20 @@ InvalidChecksum: ...
 '9790230671187'
 """
 
+from __future__ import annotations
+
 from stdnum import ean
 from stdnum.exceptions import *
 from stdnum.util import clean
 
 
-def compact(number):
+def compact(number: str) -> str:
     """Convert the ISMN to the minimal representation. This strips the number
     of any valid ISMN separators and removes surrounding whitespace."""
     return clean(number, ' -.').strip().upper()
 
 
-def validate(number):
+def validate(number: str) -> str:
     """Check if the number provided is a valid ISMN (either a legacy 10-digit
     one or a 13-digit one). This checks the length and the check bit but does
     not check if the publisher is known."""
@@ -71,7 +73,7 @@ def validate(number):
     return number
 
 
-def ismn_type(number):
+def ismn_type(number: str) -> str | None:
     """Check the type of ISMN number passed and return 'ISMN13', 'ISMN10'
     or None (for invalid)."""
     try:
@@ -84,7 +86,7 @@ def ismn_type(number):
         return 'ISMN13'
 
 
-def is_valid(number):
+def is_valid(number: str) -> bool:
     """Check if the number provided is a valid ISMN (either a legacy 10-digit
     one or a 13-digit one). This checks the length and the check bit but does
     not check if the publisher is known."""
@@ -94,7 +96,7 @@ def is_valid(number):
         return False
 
 
-def to_ismn13(number):
+def to_ismn13(number: str) -> str:
     """Convert the number to ISMN13 (EAN) format."""
     number = number.strip()
     min_number = compact(number)
@@ -115,7 +117,7 @@ _ranges = (
     (6, '700000', '899999'), (7, '9000000', '9999999'))
 
 
-def split(number):
+def split(number: str) -> tuple[str, str, str, str, str]:
     """Split the specified ISMN into a bookland prefix (979), an ISMN
     prefix (0), a publisher element (3 to 7 digits), an item element (2 to
     6 digits) and a check digit."""
@@ -126,9 +128,10 @@ def split(number):
         if low <= number[4:4 + length] <= high:
             return (number[:3], number[3], number[4:4 + length],
                     number[4 + length:-1], number[-1])
+    raise AssertionError('unreachable')  # pragma: no cover
 
 
-def format(number, separator='-'):
+def format(number: str, separator: str = '-') -> str:
     """Reformat the number to the standard presentation format with the
     prefixes, the publisher element, the item element and the check-digit
     separated by the specified separator. The number is converted to the

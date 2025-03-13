@@ -20,5 +20,7 @@
 
 """Collection of Indian numbers."""
 
+from __future__ import annotations
+
 # provide aliases
 from stdnum.in_ import gstin as vat  # noqa: F401

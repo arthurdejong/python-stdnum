@@ -41,26 +41,28 @@ Traceback (most recent call last):
 InvalidComponent: ...
 """
 
+from __future__ import annotations
+
 import datetime
 
 from stdnum.exceptions import *
 from stdnum.util import clean, isdigits
 
 
-def compact(number):
+def compact(number: str) -> str:
     """Convert the number to the minimal representation. This strips the
     number of any valid separators and removes surrounding whitespace."""
     return clean(number, ' -.').upper().strip()
 
 
-def calc_check_digit(number):
+def calc_check_digit(number: str) -> str:
     """Calculate the check digit. The number passed should not have the
     check digit included."""
     weights = (2, 4, 8, 5, 10, 9, 7, 3, 6)
     return str(sum(w * int(n) for w, n in zip(weights, number)) % 11 % 10)
 
 
-def get_birth_date(number):
+def get_birth_date(number: str) -> datetime.date:
     """Split the date parts from the number and return the birth date."""
     number = compact(number)
     year = int(number[0:2]) + 1900
@@ -78,7 +80,7 @@ def get_birth_date(number):
         raise InvalidComponent()
 
 
-def validate(number):
+def validate(number: str) -> str:
     """Check if the number is a valid national identification number. This
     checks the length, formatting, embedded date and check digit."""
     number = compact(number)
@@ -95,7 +97,7 @@ def validate(number):
     return number
 
 
-def is_valid(number):
+def is_valid(number: str) -> bool:
     """Check if the number is a valid national identification number."""
     try:
         return bool(validate(number))

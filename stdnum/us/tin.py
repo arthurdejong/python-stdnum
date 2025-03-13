@@ -48,6 +48,8 @@ InvalidFormat: ...
 '123-456'
 """
 
+from __future__ import annotations
+
 from stdnum.exceptions import *
 from stdnum.us import atin, ein, itin, ptin, ssn
 from stdnum.util import clean
@@ -56,25 +58,25 @@ from stdnum.util import clean
 _tin_modules = (ssn, itin, ein, ptin, atin)
 
 
-def compact(number):
+def compact(number: str) -> str:
     """Convert the number to the minimal representation. This strips the
     number of any valid separators and removes surrounding whitespace."""
     return clean(number, '-').strip()
 
 
-def validate(number):
+def validate(number: str) -> str:
     """Check if the number is a valid TIN. This searches for the proper
     sub-type and validates using that."""
     for mod in _tin_modules:
         try:
-            return mod.validate(number)
+            return mod.validate(number)  # type: ignore[no-any-return]
         except ValidationError:
             pass  # try next module
     # fallback
     raise InvalidFormat()
 
 
-def is_valid(number):
+def is_valid(number: str) -> bool:
     """Check if the number is a valid TIN."""
     try:
         return bool(validate(number))
@@ -82,7 +84,7 @@ def is_valid(number):
         return False
 
 
-def guess_type(number):
+def guess_type(number: str) -> list[str]:
     """Return a list of possible TIN types for which this number is
     valid.."""
     return [mod.__name__.rsplit('.', 1)[-1]
@@ -90,9 +92,9 @@ def guess_type(number):
             if mod.is_valid(number)]
 
 
-def format(number):
+def format(number: str) -> str:
     """Reformat the number to the standard presentation format."""
     for mod in _tin_modules:
         if mod.is_valid(number) and hasattr(mod, 'format'):
-            return mod.format(number)
+            return mod.format(number)  # type: ignore[no-any-return]
     return number

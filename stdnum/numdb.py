@@ -59,7 +59,16 @@ To split the number and get properties for each part:
 
 """
 
+from __future__ import annotations
+
 import re
+
+
+TYPE_CHECKING = False
+if TYPE_CHECKING:  # pragma: no cover (only used when type checking)
+    from collections.abc import Generator, Iterable
+    from typing import IO, Any
+    PrefixInfo = tuple[int, str, str, dict[str, str], list['PrefixInfo']]
 
 
 _line_re = re.compile(
@@ -84,19 +93,21 @@ _open_databases = {}
 class NumDB():
     """Number database."""
 
-    def __init__(self):
+    prefixes: list[PrefixInfo]
+
+    def __init__(self) -> None:
         """Construct an empty database."""
         self.prefixes = []
 
     @staticmethod
-    def _find(number, prefixes):
+    def _find(number: str, prefixes: list[PrefixInfo]) -> list[tuple[str, dict[str, str]]]:
         """Lookup the specified number in the list of prefixes, this will
         return basically what info() should return but works recursively."""
         if not number:
             return []
         part = number
-        properties = {}
-        next_prefixes = []
+        properties: dict[str, Any] = {}
+        next_prefixes: list[PrefixInfo] = []
         # go over prefixes and find matches
         for length, low, high, props, children in prefixes:
             if len(part) >= length and low <= part[:length] <= high:
@@ -110,20 +121,22 @@ class NumDB():
         # return first part and recursively find next matches
         return [(part, properties)] + NumDB._find(number[len(part):], next_prefixes)
 
-    def info(self, number):
+    def info(self, number: str) -> list[tuple[str, dict[str, str]]]:
         """Split the provided number in components and associate properties
         with each component. This returns a tuple of tuples. Each tuple
         consists of a string (a part of the number) and a dict of properties.
         """
         return NumDB._find(number, self.prefixes)
 
-    def split(self, number):
+    def split(self, number: str) -> list[str]:
         """Split the provided number in components. This returns a tuple with
         the number of components identified."""
         return [part for part, props in self.info(number)]
 
 
-def _parse(fp):
+def _parse(
+    fp: Iterable[str],
+) -> Generator[tuple[int, int, str, str, dict[str, str], list[PrefixInfo]]]:
     """Read lines of text from the file pointer and generate indent, length,
     low, high, properties tuples."""
     for line in fp:
@@ -132,10 +145,11 @@ def _parse(fp):
             continue  # pragma: no cover (optimisation takes it out)
         # any other line should parse
         match = _line_re.search(line)
+        assert match is not None
         indent = len(match.group('indent'))
         ranges = match.group('ranges')
         props = dict(_prop_re.findall(match.group('props')))
-        children = []
+        children: list[PrefixInfo] = []
         for rnge in ranges.split(','):
             if '-' in rnge:
                 low, high = rnge.split('-')
@@ -144,7 +158,7 @@ def _parse(fp):
             yield indent, len(low), low, high, props, children
 
 
-def read(fp):
+def read(fp: Iterable[str]) -> NumDB:
     """Return a new database with the data read from the specified file."""
     last_indent = 0
     db = NumDB()
@@ -153,22 +167,22 @@ def read(fp):
         if indent > last_indent:
             # set our stack location to the last parent entry
             stack[indent] = stack[last_indent][-1][4]
-        stack[indent].append([length, low, high, props, children])
+        stack[indent].append((length, low, high, props, children))
         last_indent = indent
     return db
 
 
-def _get_resource_stream(name):
+def _get_resource_stream(name: str) -> IO[bytes]:
     """Return a readable file-like object for the resource."""
     try:  # pragma: no cover (Python 3.9 and newer)
         import importlib.resources
         return importlib.resources.files(__package__).joinpath(name).open('rb')
     except (ImportError, AttributeError):  # pragma: no cover (older Python versions)
-        import pkg_resources
-        return pkg_resources.resource_stream(__name__, name)
+        import pkg_resources  # type: ignore[import-untyped]
+        return pkg_resources.resource_stream(__name__, name)  # type: ignore[no-any-return]
 
 
-def get(name):
+def get(name: str) -> NumDB:
     """Open a database with the specified name to perform queries on."""
     if name not in _open_databases:
         import codecs

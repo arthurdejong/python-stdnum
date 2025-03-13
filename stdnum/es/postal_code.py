@@ -54,17 +54,18 @@ Traceback (most recent call last):
 InvalidLength: ...
 """
 
+from __future__ import annotations
 
 from stdnum.exceptions import *
 from stdnum.util import clean, isdigits
 
 
-def compact(number):
+def compact(number: str) -> str:
     """Convert the number to the minimal representation."""
     return clean(number, ' ').strip()
 
 
-def validate(number):
+def validate(number: str) -> str:
     """Check if the number provided is a valid postal code."""
     number = compact(number)
     if len(number) != 5:
@@ -76,7 +77,7 @@ def validate(number):
     return number
 
 
-def is_valid(number):
+def is_valid(number: str) -> bool:
     """Check if the number provided is a valid postal code."""
     try:
         return bool(validate(number))

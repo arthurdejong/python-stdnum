@@ -20,5 +20,7 @@
 
 """Collection of South Korean numbers."""
 
+from __future__ import annotations
+
 # provide aliases
 from stdnum.kr import brn as vat  # noqa: F401

@@ -40,6 +40,8 @@ Traceback (most recent call last):
 InvalidLength: ...
 """
 
+from __future__ import annotations
+
 from stdnum.es import dni
 from stdnum.exceptions import *
 from stdnum.util import isdigits
@@ -52,7 +54,7 @@ __all__ = ['compact', 'calc_check_digit', 'validate', 'is_valid']
 compact = dni.compact
 
 
-def calc_check_digit(number):
+def calc_check_digit(number: str) -> str:
     """Calculate the check digit. The number passed should not have the
     check digit included."""
     # replace XYZ with 012
@@ -60,7 +62,7 @@ def calc_check_digit(number):
     return dni.calc_check_digit(number)
 
 
-def validate(number):
+def validate(number: str) -> str:
     """Check if the number provided is a valid NIE. This checks the length,
     formatting and check digit."""
     number = compact(number)
@@ -73,7 +75,7 @@ def validate(number):
     return number
 
 
-def is_valid(number):
+def is_valid(number: str) -> bool:
     """Check if the number provided is a valid NIE. This checks the length,
     formatting and check digit."""
     try:

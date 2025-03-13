@@ -20,5 +20,7 @@
 
 """Collection of Lithuanian numbers."""
 
+from __future__ import annotations
+
 # provide vat as an alias
 from stdnum.lt import pvm as vat  # noqa: F401

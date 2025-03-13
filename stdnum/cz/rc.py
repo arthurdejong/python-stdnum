@@ -47,19 +47,21 @@ InvalidLength: ...
 '710319/2745'
 """
 
+from __future__ import annotations
+
 import datetime
 
 from stdnum.exceptions import *
 from stdnum.util import clean, isdigits
 
 
-def compact(number):
+def compact(number: str) -> str:
     """Convert the number to the minimal representation. This strips the
     number of any valid separators and removes surrounding whitespace."""
     return clean(number, ' /').upper().strip()
 
 
-def get_birth_date(number):
+def get_birth_date(number: str) -> datetime.date:
     """Split the date parts from the number and return the birth date."""
     number = compact(number)
     year = 1900 + int(number[0:2])
@@ -81,7 +83,7 @@ def get_birth_date(number):
         raise InvalidComponent()
 
 
-def validate(number):
+def validate(number: str) -> str:
     """Check if the number is a valid birth number. This checks the length,
     formatting, embedded date and check digit."""
     number = compact(number)
@@ -99,7 +101,7 @@ def validate(number):
     return number
 
 
-def is_valid(number):
+def is_valid(number: str) -> bool:
     """Check if the number is a valid birth number."""
     try:
         return bool(validate(number))
@@ -107,7 +109,7 @@ def is_valid(number):
         return False
 
 
-def format(number):
+def format(number: str) -> str:
     """Reformat the number to the standard presentation format."""
     number = compact(number)
     return number[:6] + '/' + number[6:]

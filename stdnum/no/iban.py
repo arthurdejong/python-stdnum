@@ -44,6 +44,8 @@ Traceback (most recent call last):
 InvalidChecksum: ...
 """
 
+from __future__ import annotations
+
 from stdnum import iban
 from stdnum.exceptions import *
 from stdnum.no import kontonr
@@ -56,7 +58,7 @@ compact = iban.compact
 format = iban.format
 
 
-def to_kontonr(number):
+def to_kontonr(number: str) -> str:
     """Return the Norwegian bank account number part of the number."""
     number = compact(number)
     if not number.startswith('NO'):
@@ -64,14 +66,14 @@ def to_kontonr(number):
     return number[4:]
 
 
-def validate(number):
+def validate(number: str) -> str:
     """Check if the number provided is a valid Norwegian IBAN."""
     number = iban.validate(number, check_country=False)
     kontonr.validate(to_kontonr(number))
     return number
 
 
-def is_valid(number):
+def is_valid(number: str) -> bool:
     """Check if the number provided is a valid Norwegian IBAN."""
     try:
         return bool(validate(number))

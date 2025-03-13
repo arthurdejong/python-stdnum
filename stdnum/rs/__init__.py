@@ -20,5 +20,7 @@
 
 """Collection of Serbian numbers."""
 
+from __future__ import annotations
+
 # provide vat as an alias
 from stdnum.rs import pib as vat  # noqa: F401

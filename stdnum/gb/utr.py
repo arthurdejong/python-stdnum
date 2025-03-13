@@ -35,24 +35,26 @@ Traceback (most recent call last):
 InvalidChecksum: ..
 """
 
+from __future__ import annotations
+
 from stdnum.exceptions import *
 from stdnum.util import clean, isdigits
 
 
-def compact(number):
+def compact(number: str) -> str:
     """Convert the number to the minimal representation. This strips the
     number of any valid separators and removes surrounding whitespace."""
     return clean(number, ' ').upper().strip().lstrip('K')
 
 
-def calc_check_digit(number):
+def calc_check_digit(number: str) -> str:
     """Calculate the check digit for the number. The passed number should not
     have the check digit (the first one) included."""
     weights = (6, 7, 8, 9, 10, 5, 4, 3, 2)
     return '21987654321'[sum(int(n) * w for n, w in zip(number, weights)) % 11]
 
 
-def validate(number):
+def validate(number: str) -> str:
     """Check if the number is a valid UTR."""
     number = compact(number)
     if not isdigits(number):
@@ -64,7 +66,7 @@ def validate(number):
     return number
 
 
-def is_valid(number):
+def is_valid(number: str) -> bool:
     """Check if the number is a valid UTR."""
     try:
         return bool(validate(number))

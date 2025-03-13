@@ -60,6 +60,8 @@ InvalidChecksum: ...
 'GODE 561231 GR8'
 """
 
+from __future__ import annotations
+
 import datetime
 import re
 
@@ -81,13 +83,13 @@ _name_blacklist = set([
 _alphabet = '0123456789ABCDEFGHIJKLMN&OPQRSTUVWXYZ Ñ'
 
 
-def compact(number):
+def compact(number: str) -> str:
     """Convert the number to the minimal representation. This strips
     surrounding whitespace and separation dash."""
     return clean(number, '-_ ').upper().strip()
 
 
-def _get_date(number):
+def _get_date(number: str) -> datetime.date:
     """Convert the part of the number that represents a date into a
     datetime. Note that the century may be incorrect."""
     year = int(number[0:2])
@@ -99,7 +101,7 @@ def _get_date(number):
         raise InvalidComponent()
 
 
-def calc_check_digit(number):
+def calc_check_digit(number: str) -> str:
     """Calculate the check digit. The number passed should not have the
     check digit included."""
     number = ('   ' + number)[-12:]
@@ -107,7 +109,7 @@ def calc_check_digit(number):
     return _alphabet[(11 - check) % 11]
 
 
-def validate(number, validate_check_digits=False):
+def validate(number: str, validate_check_digits: bool = False) -> str:
     """Check if the number is a valid RFC."""
     number = compact(number)
     if len(number) in (10, 13):
@@ -132,7 +134,7 @@ def validate(number, validate_check_digits=False):
     return number
 
 
-def is_valid(number, validate_check_digits=False):
+def is_valid(number: str, validate_check_digits: bool = False) -> bool:
     """Check if the number provided is a valid RFC."""
     try:
         return bool(validate(number, validate_check_digits))
@@ -140,7 +142,7 @@ def is_valid(number, validate_check_digits=False):
         return False
 
 
-def format(number, separator=' '):
+def format(number: str, separator: str = ' ') -> str:
     """Reformat the number to the standard presentation format."""
     number = compact(number)
     if len(number) == 12:

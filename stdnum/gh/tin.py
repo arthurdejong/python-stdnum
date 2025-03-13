@@ -47,6 +47,8 @@ Traceback (most recent call last):
 InvalidChecksum: ...
 """  # noqa: E501
 
+from __future__ import annotations
+
 import re
 
 from stdnum.exceptions import *
@@ -56,7 +58,7 @@ from stdnum.util import clean
 _gh_tin_re = re.compile(r'^[PCGQV]{1}00[A-Z0-9]{8}$')
 
 
-def compact(number):
+def compact(number: str) -> str:
     """Convert the number to the minimal representation.
 
     This strips the number of any valid separators and removes surrounding
@@ -65,13 +67,13 @@ def compact(number):
     return clean(number, ' ').upper()
 
 
-def calc_check_digit(number):
+def calc_check_digit(number: str) -> str:
     """Calculate the check digit for the TIN."""
     check = sum((i + 1) * int(n) for i, n in enumerate(number[1:10])) % 11
     return 'X' if check == 10 else str(check)
 
 
-def validate(number):
+def validate(number: str) -> str:
     """Check if the number is a valid Ghana TIN."""
     number = compact(number)
     if len(number) != 11:
@@ -83,7 +85,7 @@ def validate(number):
     return number
 
 
-def is_valid(number):
+def is_valid(number: str) -> bool:
     """Check if the number is a valid Ghana TIN."""
     try:
         return bool(validate(number))

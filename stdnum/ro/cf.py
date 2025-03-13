@@ -30,12 +30,14 @@ The Romanian CF is used for VAT purposes and can be from 2 to 10 digits long.
 '1630615123457'
 """
 
+from __future__ import annotations
+
 from stdnum.exceptions import *
 from stdnum.ro import cnp, cui
 from stdnum.util import clean
 
 
-def compact(number):
+def compact(number: str) -> str:
     """Convert the number to the minimal representation. This strips the
     number of any valid separators and removes surrounding whitespace."""
     return clean(number, ' -').upper().strip()
@@ -45,7 +47,7 @@ def compact(number):
 calc_check_digit = cui.calc_check_digit
 
 
-def validate(number):
+def validate(number: str) -> str:
     """Check if the number is a valid VAT number. This checks the length,
     formatting and check digit."""
     number = compact(number)
@@ -62,7 +64,7 @@ def validate(number):
     return number
 
 
-def is_valid(number):
+def is_valid(number: str) -> bool:
     """Check if the number is a valid VAT number."""
     try:
         return bool(validate(number))

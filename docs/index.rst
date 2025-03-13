@@ -9,7 +9,7 @@ Common Interface
 
 Most of the number format modules implement the following functions:
 
-.. function:: module.validate(number)
+.. function:: module.validate(number: str) -> str
 
    Validate the number and return a compact, consistent representation of
    the number or code. If the validation fails,
@@ -19,7 +19,7 @@ Most of the number format modules implement the following functions:
    :raises ValidationError: When the specified number is invalid
    :returns:  str -- A compact (canonical) representation of the number
 
-.. function:: module.is_valid(number)
+.. function:: module.is_valid(number: str) -> bool
 
    Return either ``True`` or ``False`` depending on whether the passed number
    is in any supported and valid form and passes all embedded checks of the
@@ -27,7 +27,7 @@ Most of the number format modules implement the following functions:
 
    :returns: bool -- ``True`` if validated, ``False`` otherwise
 
-.. function:: module.compact(number)
+.. function:: module.compact(number: str) -> str
 
    Return a compact representation of the number or code. This function
    generally does not do validation but may raise exceptions for wildly
@@ -35,7 +35,7 @@ Most of the number format modules implement the following functions:
 
    :returns: str -- The compacted number
 
-.. function:: module.format(number)
+.. function:: module.format(number: str) -> str
 
    Return a formatted version of the number in the preferred format.
    This function generally expects to be passed a valid number or code and
@@ -45,7 +45,7 @@ Most of the number format modules implement the following functions:
 
 The check digit modules generally also provide the following functions:
 
-.. function:: module.checksum(number)
+.. function:: module.checksum(number: str) -> int
 
    Calculate the checksum over the provided number. This is generally a
    number that can be used to determine whether the provided number is
@@ -53,7 +53,7 @@ The check digit modules generally also provide the following functions:
 
    :returns: int -- A numeric checksum over the number
 
-.. function:: module.calc_check_digit(number)
+.. function:: module.calc_check_digit(number: str) -> str
 
    Calculate the check digit that should be added to the number to make it
    valid.

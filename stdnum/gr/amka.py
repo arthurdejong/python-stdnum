@@ -41,6 +41,8 @@ datetime.date(1930, 1, 1)
 'M'
 """
 
+from __future__ import annotations
+
 import datetime
 
 from stdnum import luhn
@@ -48,13 +50,13 @@ from stdnum.exceptions import *
 from stdnum.util import clean, isdigits
 
 
-def compact(number):
+def compact(number: str) -> str:
     """Convert the number to the minimal representation. This strips the
     number of any valid separators and removes surrounding whitespace."""
     return clean(number, ' -').strip()
 
 
-def get_birth_date(number):
+def get_birth_date(number: str) -> datetime.date:
     """Split the date parts from the number and return the date of birth.
     Since only two digits are used for the year, the century may be
     incorrect."""
@@ -71,7 +73,7 @@ def get_birth_date(number):
             raise InvalidComponent()
 
 
-def get_gender(number):
+def get_gender(number: str) -> str:
     """Get the gender (M/F) from the person's AMKA."""
     number = compact(number)
     if int(number[9]) % 2:
@@ -80,7 +82,7 @@ def get_gender(number):
         return 'F'
 
 
-def validate(number):
+def validate(number: str) -> str:
     """Check if the number is a valid AMKA. This checks the length,
     formatting and check digit."""
     number = compact(number)
@@ -93,7 +95,7 @@ def validate(number):
     return number
 
 
-def is_valid(number):
+def is_valid(number: str) -> bool:
     """Check if the number is a valid AMKA."""
     try:
         return bool(validate(number))

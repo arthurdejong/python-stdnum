@@ -37,11 +37,13 @@ InvalidChecksum: ...
 'A1-2425G-ABC1234002-M'
 """
 
+from __future__ import annotations
+
 from stdnum.exceptions import *
 from stdnum.util import clean
 
 
-def compact(number):
+def compact(number: str) -> str:
     """Convert the GRid to the minimal representation. This strips the
     number of any valid separators and removes surrounding whitespace."""
     number = clean(number, ' -').strip().upper()
@@ -50,7 +52,7 @@ def compact(number):
     return number
 
 
-def validate(number):
+def validate(number: str) -> str:
     """Check if the number is a valid GRid."""
     from stdnum.iso7064 import mod_37_36
     number = compact(number)
@@ -59,7 +61,7 @@ def validate(number):
     return mod_37_36.validate(number)
 
 
-def is_valid(number):
+def is_valid(number: str) -> bool:
     """Check if the number is a valid GRid."""
     try:
         return bool(validate(number))
@@ -67,8 +69,8 @@ def is_valid(number):
         return False
 
 
-def format(number, separator='-'):
+def format(number: str, separator: str = '-') -> str:
     """Reformat the number to the standard presentation format."""
     number = compact(number)
-    number = (number[0:2], number[2:7], number[7:17], number[17:])
-    return separator.join(x for x in number if x)
+    parts = (number[0:2], number[2:7], number[7:17], number[17:])
+    return separator.join(x for x in parts if x)

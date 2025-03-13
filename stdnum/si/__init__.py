@@ -21,6 +21,8 @@
 
 """Collection of Slovenian numbers."""
 
+from __future__ import annotations
+
 # provide aliases
 from stdnum.si import ddv as vat  # noqa: F401
 from stdnum.si import emso as personalid  # noqa: F401

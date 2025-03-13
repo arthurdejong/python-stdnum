@@ -62,17 +62,19 @@ InvalidChecksum: ...
 'ES2121000418450200051331'
 """
 
+from __future__ import annotations
+
 from stdnum.exceptions import *
 from stdnum.util import clean, isdigits
 
 
-def compact(number):
+def compact(number: str) -> str:
     """Convert the number to the minimal representation. This strips the
     number of any valid separators and removes surrounding whitespace."""
     return clean(number, ' -').strip().upper()
 
 
-def format(number):
+def format(number: str) -> str:
     """Reformat the number to the standard presentation format."""
     number = compact(number)
     return ' '.join([
@@ -84,13 +86,13 @@ def format(number):
     ])
 
 
-def _calc_check_digit(number):
+def _calc_check_digit(number: str) -> str:
     """Calculate a single check digit on the provided part of the number."""
     check = sum(int(n) * 2 ** i for i, n in enumerate(number)) % 11
     return str(check if check < 2 else 11 - check)
 
 
-def calc_check_digits(number):
+def calc_check_digits(number: str) -> str:
     """Calculate the check digits for the number. The supplied number should
     have check digits included but are ignored."""
     number = compact(number)
@@ -98,7 +100,7 @@ def calc_check_digits(number):
         _calc_check_digit('00' + number[:8]) + _calc_check_digit(number[10:]))
 
 
-def validate(number):
+def validate(number: str) -> str:
     """Check if the number provided is a valid CCC."""
     number = compact(number)
     if len(number) != 20:
@@ -110,7 +112,7 @@ def validate(number):
     return number
 
 
-def is_valid(number):
+def is_valid(number: str) -> bool:
     """Check if the number provided is a valid CCC."""
     try:
         return bool(validate(number))
@@ -118,7 +120,7 @@ def is_valid(number):
         return False
 
 
-def to_iban(number):
+def to_iban(number: str) -> str:
     """Convert the number to an IBAN."""
     from stdnum import iban
     separator = ' ' if ' ' in number else ''

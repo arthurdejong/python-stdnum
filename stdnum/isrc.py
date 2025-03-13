@@ -36,6 +36,8 @@ Traceback (most recent call last):
 InvalidComponent: ...
 """
 
+from __future__ import annotations
+
 import re
 
 from stdnum.exceptions import *
@@ -74,13 +76,13 @@ _country_codes = set(_iso_3116_1_country_codes + [
 ])
 
 
-def compact(number):
+def compact(number: str) -> str:
     """Convert the ISRC to the minimal representation. This strips the
     number of any valid separators and removes surrounding whitespace."""
     return clean(number, ' -').strip().upper()
 
 
-def validate(number):
+def validate(number: str) -> str:
     """Check if the number provided is a valid ISRC. This checks the length,
     the alphabet, and the country code but does not check if the registrant
     code is known."""
@@ -95,7 +97,7 @@ def validate(number):
     return number
 
 
-def is_valid(number):
+def is_valid(number: str) -> bool:
     """Check if the number provided is a valid ISRC."""
     try:
         return bool(validate(number))
@@ -103,7 +105,7 @@ def is_valid(number):
         return False
 
 
-def format(number, separator='-'):
+def format(number: str, separator: str = '-') -> str:
     """Reformat the number to the standard presentation format."""
     number = compact(number)
     return separator.join((number[0:2], number[2:5], number[5:7], number[7:]))

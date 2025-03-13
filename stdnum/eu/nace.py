@@ -52,19 +52,21 @@ InvalidLength: ...
 '62.01'
 """  # noqa: E501
 
+from __future__ import annotations
+
 import warnings
 
 from stdnum.exceptions import *
 from stdnum.util import clean, isdigits
 
 
-def compact(number):
+def compact(number: str) -> str:
     """Convert the number to the minimal representation. This strips the
     number of any valid separators and removes surrounding whitespace."""
     return clean(number, '.').strip()
 
 
-def info(number):
+def info(number: str) -> dict[str, str]:
     """Lookup information about the specified NACE. This returns a dict."""
     number = compact(number)
     from stdnum import numdb
@@ -76,12 +78,12 @@ def info(number):
     return info
 
 
-def get_label(number):
+def get_label(number: str) -> str:
     """Lookup the category label for the number."""
     return info(number)['label']
 
 
-def label(number):  # pragma: no cover (deprecated function)
+def label(number: str) -> str:  # pragma: no cover (deprecated function)
     """DEPRECATED: use `get_label()` instead."""  # noqa: D40
     warnings.warn(
         'label() has been to get_label()',
@@ -89,7 +91,7 @@ def label(number):  # pragma: no cover (deprecated function)
     return get_label(number)
 
 
-def validate(number):
+def validate(number: str) -> str:
     """Check if the number is a valid NACE. This checks the format and
     searches the registry to see if it exists."""
     number = compact(number)
@@ -105,7 +107,7 @@ def validate(number):
     return number
 
 
-def is_valid(number):
+def is_valid(number: str) -> bool:
     """Check if the number is a valid NACE. This checks the format and
     searches the registry to see if it exists."""
     try:
@@ -114,6 +116,6 @@ def is_valid(number):
         return False
 
 
-def format(number):
+def format(number: str) -> str:
     """Reformat the number to the standard presentation format."""
     return '.'.join((number[:2], number[2:])).strip('.')

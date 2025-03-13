@@ -49,6 +49,9 @@ InvalidLength: ...
 
 # since this number is essentially the same as the Czech counterpart
 # (until 1993 the Czech Republic and Slovakia were one country)
+
+from __future__ import annotations
+
 from stdnum.cz.rc import compact, format, is_valid, validate
 
 

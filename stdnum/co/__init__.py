@@ -20,6 +20,9 @@
 
 """Collection of Colombian numbers."""
 
+from __future__ import annotations
+
+
 # provide vat and rut as an alias
 from stdnum.co import nit as vat  # noqa: F401, isort:skip
 from stdnum.co import nit as rut  # noqa: F401, isort:skip

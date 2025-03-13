@@ -36,6 +36,8 @@ InvalidChecksum: ...
 '46 443 121 975'
 """
 
+from __future__ import annotations
+
 from stdnum import luhn
 from stdnum.exceptions import *
 from stdnum.util import clean, isdigits
@@ -47,13 +49,13 @@ from stdnum.util import clean, isdigits
 # https://avis-situation-sirene.insee.fr/
 
 
-def compact(number):
+def compact(number: str) -> str:
     """Convert the number to the minimal representation. This strips the
     number of any valid separators and removes surrounding whitespace."""
     return clean(number, ' .').strip()
 
 
-def validate(number):
+def validate(number: str) -> str:
     """Check if the number provided is a valid SIREN. This checks the length,
     formatting and check digit."""
     number = compact(number)
@@ -65,7 +67,7 @@ def validate(number):
     return number
 
 
-def is_valid(number):
+def is_valid(number: str) -> bool:
     """Check if the number provided is a valid SIREN."""
     try:
         return bool(validate(number))
@@ -73,7 +75,7 @@ def is_valid(number):
         return False
 
 
-def to_tva(number):
+def to_tva(number: str) -> str:
     """Return a TVA that prepends the two extra check digits to the SIREN."""
     # note that this always returns numeric check digits
     # it is unclean when the alphabetic ones are used

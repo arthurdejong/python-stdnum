@@ -50,11 +50,18 @@ Traceback (most recent call last):
 InvalidComponent: ...
 """
 
+from __future__ import annotations
+
 import re
 import unicodedata
 
 from stdnum.exceptions import *
 from stdnum.util import clean
+
+
+TYPE_CHECKING = False
+if TYPE_CHECKING:  # pragma: no cover (typechecking only import)
+    from typing import Any
 
 
 # The known courts that have a Handelsregister
@@ -213,7 +220,7 @@ GERMAN_COURTS = (
 )
 
 
-def _to_min(court):
+def _to_min(court: str) -> str:
     """Convert the court name for quick comparison without encoding issues."""
     return ''.join(
         x for x in unicodedata.normalize('NFD', court.lower())
@@ -280,7 +287,7 @@ _formats = [
 ]
 
 
-def _split(number):
+def _split(number: str) -> tuple[str, str, str, str | None]:
     """Split the number into a court, registry, register number and
     optionally qualifier."""
     number = clean(number).strip()
@@ -291,17 +298,18 @@ def _split(number):
     raise InvalidFormat()
 
 
-def compact(number):
+def compact(number: str) -> str:
     """Convert the number to the minimal representation. This strips the
     number of any valid separators and removes surrounding whitespace."""
     court, registry, number, qualifier = _split(number)
     return ' '.join(x for x in [court, registry, number, qualifier] if x)
 
 
-def validate(number, company_form=None):
+def validate(number: str, company_form: str | None = None) -> str:
     """Check if the number is a valid company registry number. If a
     company_form (eg. GmbH or PartG) is given, the number is validated to
     have the correct registry type."""
+    court: str | None
     court, registry, number, qualifier = _split(number)
     court = _courts.get(_to_min(court))
     if not court:
@@ -311,7 +319,7 @@ def validate(number, company_form=None):
     return ' '.join(x for x in [court, registry, number, qualifier] if x)
 
 
-def is_valid(number):
+def is_valid(number: str) -> bool:
     """Check if the number is a valid company registry number."""
     try:
         return bool(validate(number))
@@ -323,7 +331,11 @@ def is_valid(number):
 _offeneregister_url = 'https://db.offeneregister.de/openregister.json'
 
 
-def check_offeneregister(number, timeout=30, verify=True):  # pragma: no cover (not part of normal test suite)
+def check_offeneregister(
+    number: str,
+    timeout: float = 30,
+    verify: bool | str = True,
+) -> dict[str, Any] | None:  # pragma: no cover (not part of normal test suite)
     """Retrieve registration information from the OffeneRegister.de web site.
 
     The `timeout` argument specifies the network timeout in seconds.

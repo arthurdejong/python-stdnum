@@ -20,5 +20,7 @@
 
 """Collection of New Zealand numbers."""
 
+from __future__ import annotations
+
 # provide aliases
 from stdnum.nz import ird as vat  # noqa: F401

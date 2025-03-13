@@ -20,5 +20,7 @@
 
 """Collection of Italian numbers."""
 
+from __future__ import annotations
+
 # provide vat as an alias
 from stdnum.it import iva as vat  # noqa: F401

@@ -19,4 +19,7 @@
 # 02110-1301 USA
 
 """Collection of Turkish numbers."""
+
+from __future__ import annotations
+
 from stdnum.tr import vkn as vat  # noqa: F401

@@ -47,6 +47,8 @@ InvalidFormat: ..
 
 """
 
+from __future__ import annotations
+
 import re
 
 from stdnum.exceptions import *
@@ -56,13 +58,13 @@ from stdnum.util import clean
 _bic_re = re.compile(r'^[A-Z]{6}[0-9A-Z]{2}([0-9A-Z]{3})?$')
 
 
-def compact(number):
+def compact(number: str) -> str:
     """Convert the number to the minimal representation. This strips the
     number of any surrounding whitespace."""
     return clean(number, ' -').strip().upper()
 
 
-def validate(number):
+def validate(number: str) -> str:
     """Check if the number is a valid routing number. This checks the length
     and characters in each position."""
     number = compact(number)
@@ -74,7 +76,7 @@ def validate(number):
     return number
 
 
-def is_valid(number):
+def is_valid(number: str) -> bool:
     """Check if the number provided is a valid BIC."""
     try:
         return bool(validate(number))
@@ -82,6 +84,6 @@ def is_valid(number):
         return False
 
 
-def format(number):
+def format(number: str) -> str:
     """Reformat the number to the standard presentation format."""
     return compact(number)

@@ -20,5 +20,7 @@
 
 """Collection of Monacan numbers."""
 
+from __future__ import annotations
+
 # provide vat as an alias
 from stdnum.mc import tva as vat  # noqa: F401

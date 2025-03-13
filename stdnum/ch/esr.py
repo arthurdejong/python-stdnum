@@ -49,17 +49,19 @@ InvalidChecksum: ...
 '00 00000 00000 00000 00018 78583'
 """
 
+from __future__ import annotations
+
 from stdnum.exceptions import *
 from stdnum.util import clean, isdigits
 
 
-def compact(number):
+def compact(number: str) -> str:
     """Convert the number to the minimal representation. This strips
     surrounding whitespace and separators."""
     return clean(number, ' ').lstrip('0')
 
 
-def calc_check_digit(number):
+def calc_check_digit(number: str) -> str:
     """Calculate the check digit for number. The number passed should
     not have the check digit included."""
     _digits = (0, 9, 4, 6, 8, 2, 7, 1, 3, 5)
@@ -69,7 +71,7 @@ def calc_check_digit(number):
     return str((10 - c) % 10)
 
 
-def validate(number):
+def validate(number: str) -> str:
     """Check if the number is a valid ESR. This checks the length, formatting
     and check digit."""
     number = compact(number)
@@ -82,7 +84,7 @@ def validate(number):
     return number
 
 
-def is_valid(number):
+def is_valid(number: str) -> bool:
     """Check if the number is a valid ESR."""
     try:
         return bool(validate(number))
@@ -90,7 +92,7 @@ def is_valid(number):
         return False
 
 
-def format(number):
+def format(number: str) -> str:
     """Reformat the number to the standard presentation format."""
     number = compact(number).zfill(27)
     return number[:2] + ' ' + ' '.join(

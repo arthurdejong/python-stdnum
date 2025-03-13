@@ -36,11 +36,12 @@ class TestDGII(unittest.TestCase):
     """Test the web services provided by the the Dirección General de
     Impuestos Internos (DGII), the Dominican Republic tax department."""
 
-    def test_check_dgii(self):
+    def test_check_dgii(self) -> None:
         """Test stdnum.do.ncf.check_dgii()"""
         # Test a normal valid number
         result = ncf.check_dgii('130546312', 'A010010011500000038')
         self.assertTrue(result)
+        assert result
         self.assertIn('name', result.keys())
         self.assertIn('rnc', result.keys())
         self.assertIn('ncf', result.keys())
@@ -58,6 +59,7 @@ class TestDGII(unittest.TestCase):
         # Test the new format
         result = ncf.check_dgii('130546312', 'B0100000005')
         self.assertTrue(result)
+        assert result
         self.assertIn('name', result.keys())
         self.assertIn('rnc', result.keys())
         self.assertIn('ncf', result.keys())
@@ -68,6 +70,7 @@ class TestDGII(unittest.TestCase):
         result = ncf.check_dgii('101010632', 'E310049533639',
                                 buyer_rnc='22400559690', security_code='hnI63Q')
         self.assertTrue(result)
+        assert result
         self.assertIn('status', result.keys())
         self.assertEqual(result['issuing_rnc'], '101010632')
         self.assertEqual(result['buyer_rnc'], '22400559690')

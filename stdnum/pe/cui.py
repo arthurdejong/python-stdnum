@@ -42,17 +42,19 @@ InvalidChecksum: ...
 '10101174102'
 """
 
+from __future__ import annotations
+
 from stdnum.exceptions import *
 from stdnum.util import clean, isdigits
 
 
-def compact(number):
+def compact(number: str) -> str:
     """Convert the number to the minimal representation. This strips the
     number of any valid separators and removes surrounding whitespace."""
     return clean(number, ' -').strip().upper()
 
 
-def calc_check_digits(number):
+def calc_check_digits(number: str) -> str:
     """Calculate the possible check digits for the CUI."""
     number = compact(number)
     weights = (3, 2, 7, 6, 5, 4, 3, 2)
@@ -60,14 +62,14 @@ def calc_check_digits(number):
     return '65432110987'[c] + 'KJIHGFEDCBA'[c]
 
 
-def to_ruc(number):
+def to_ruc(number: str) -> str:
     """Convert the number to a valid RUC."""
     from stdnum.pe import ruc
     number = '10' + compact(number)[:8]
     return number + ruc.calc_check_digit(number)
 
 
-def validate(number):
+def validate(number: str) -> str:
     """Check if the number provided is a valid CUI. This checks the length,
     formatting and check digit."""
     number = compact(number)
@@ -80,7 +82,7 @@ def validate(number):
     return number
 
 
-def is_valid(number):
+def is_valid(number: str) -> bool:
     """Check if the number provided is a valid CUI. This checks the length,
     formatting and check digit."""
     try:

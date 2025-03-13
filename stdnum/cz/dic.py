@@ -40,12 +40,14 @@ InvalidChecksum: ...
 '640903926'
 """
 
+from __future__ import annotations
+
 from stdnum.cz import rc
 from stdnum.exceptions import *
 from stdnum.util import clean, isdigits
 
 
-def compact(number):
+def compact(number: str) -> str:
     """Convert the number to the minimal representation. This strips the
     number of any valid separators and removes surrounding whitespace."""
     number = clean(number, ' /').upper().strip()
@@ -54,21 +56,21 @@ def compact(number):
     return number
 
 
-def calc_check_digit_legal(number):
+def calc_check_digit_legal(number: str) -> str:
     """Calculate the check digit for 8 digit legal entities. The number
     passed should not have the check digit included."""
     check = (11 - sum((8 - i) * int(n) for i, n in enumerate(number))) % 11
     return str((check or 1) % 10)
 
 
-def calc_check_digit_special(number):
+def calc_check_digit_special(number: str) -> str:
     """Calculate the check digit for special cases. The number passed
     should not have the first and last digits included."""
     check = sum((8 - i) * int(n) for i, n in enumerate(number)) % 11
     return str((8 - (10 - check) % 11) % 10)
 
 
-def validate(number):
+def validate(number: str) -> str:
     """Check if the number is a valid VAT number. This checks the length,
     formatting and check digit."""
     number = compact(number)
@@ -92,7 +94,7 @@ def validate(number):
     return number
 
 
-def is_valid(number):
+def is_valid(number: str) -> bool:
     """Check if the number is a valid VAT number."""
     try:
         return bool(validate(number))

@@ -52,6 +52,8 @@ Traceback (most recent call last):
 InvalidChecksum: ...
 """
 
+from __future__ import annotations
+
 import re
 
 from stdnum import luhn
@@ -62,13 +64,13 @@ from stdnum.util import clean
 _EPIC_RE = re.compile(r'^[A-Z]{3}[0-9]{7}$')
 
 
-def compact(number):
+def compact(number: str) -> str:
     """Convert the number to the minimal representation. This strips the
     number of any valid separators and removes surrounding whitespace."""
     return clean(number, ' -').upper().strip()
 
 
-def validate(number):
+def validate(number: str) -> str:
     """Check if the number provided is a valid EPIC number. This checks the
     length, formatting and checksum."""
     number = compact(number)
@@ -80,7 +82,7 @@ def validate(number):
     return number
 
 
-def is_valid(number):
+def is_valid(number: str) -> bool:
     """Check if the number provided is a valid EPIC number. This checks the
     length, formatting and checksum."""
     try:

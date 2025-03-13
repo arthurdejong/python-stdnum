@@ -38,17 +38,19 @@ InvalidFormat: ...
 '16.727.230/0001-97'
 """
 
+from __future__ import annotations
+
 from stdnum.exceptions import *
 from stdnum.util import clean, isdigits
 
 
-def compact(number):
+def compact(number: str) -> str:
     """Convert the number to the minimal representation. This strips the
     number of any valid separators and removes surrounding whitespace."""
     return clean(number, ' -./').strip()
 
 
-def calc_check_digits(number):
+def calc_check_digits(number: str) -> str:
     """Calculate the check digits for the number."""
     d1 = (11 - sum(((3 - i) % 8 + 2) * int(n)
                    for i, n in enumerate(number[:12]))) % 11 % 10
@@ -58,7 +60,7 @@ def calc_check_digits(number):
     return '%d%d' % (d1, d2)
 
 
-def validate(number):
+def validate(number: str) -> str:
     """Check if the number is a valid CNPJ. This checks the length and
     whether the check digits are correct."""
     number = compact(number)
@@ -71,7 +73,7 @@ def validate(number):
     return number
 
 
-def is_valid(number):
+def is_valid(number: str) -> bool:
     """Check if the number is a valid CNPJ."""
     try:
         return bool(validate(number))
@@ -79,7 +81,7 @@ def is_valid(number):
         return False
 
 
-def format(number):
+def format(number: str) -> str:
     """Reformat the number to the standard presentation format."""
     number = compact(number)
     return (number[0:2] + '.' + number[2:5] + '.' + number[5:8] + '/' +

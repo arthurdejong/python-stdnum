@@ -44,12 +44,14 @@ More information:
 '31'
 """
 
+from __future__ import annotations
+
 import re
 
 from stdnum import numdb
 from stdnum.exceptions import *
 from stdnum.iso7064 import mod_97_10
-from stdnum.util import clean, get_cc_module
+from stdnum.util import NumberValidationModule, clean, get_cc_module
 
 
 # our open copy of the IBAN database
@@ -62,23 +64,23 @@ _struct_re = re.compile(r'([1-9][0-9]*)!([nac])')
 _country_modules = {}
 
 
-def compact(number):
+def compact(number: str) -> str:
     """Convert the iban number to the minimal representation. This strips the
     number of any valid separators and removes surrounding whitespace."""
     return clean(number, ' -.').strip().upper()
 
 
-def calc_check_digits(number):
+def calc_check_digits(number: str) -> str:
     """Calculate the check digits that should be put in the number to make
     it valid. Check digits in the supplied number are ignored."""
     number = compact(number)
     return mod_97_10.calc_check_digits(number[4:] + number[:2])
 
 
-def _struct_to_re(structure):
+def _struct_to_re(structure: str) -> re.Pattern[str]:
     """Convert an IBAN structure to a regular expression that can be used
     to validate the number."""
-    def conv(match):
+    def conv(match: re.Match[str]) -> str:
         chars = {
             'n': '[0-9]',
             'a': '[A-Z]',
@@ -88,7 +90,7 @@ def _struct_to_re(structure):
     return re.compile('^%s$' % _struct_re.sub(conv, structure))
 
 
-def _get_cc_module(cc):
+def _get_cc_module(cc: str) -> NumberValidationModule | None:
     """Get the IBAN module based on the country code."""
     cc = cc.lower()
     if cc not in _country_modules:
@@ -96,7 +98,7 @@ def _get_cc_module(cc):
     return _country_modules[cc]
 
 
-def validate(number, check_country=True):
+def validate(number: str, check_country: bool = True) -> str:
     """Check if the number provided is a valid IBAN. The country-specific
     check can be disabled with the check_country argument."""
     number = compact(number)
@@ -119,7 +121,7 @@ def validate(number, check_country=True):
     return number
 
 
-def is_valid(number, check_country=True):
+def is_valid(number: str, check_country: bool = True) -> bool:
     """Check if the number provided is a valid IBAN."""
     try:
         return bool(validate(number, check_country=check_country))
@@ -127,7 +129,7 @@ def is_valid(number, check_country=True):
         return False
 
 
-def format(number, separator=' '):
+def format(number: str, separator: str = ' ') -> str:
     """Reformat the passed number to the space-separated format."""
     number = compact(number)
     return separator.join(number[i:i + 4] for i in range(0, len(number), 4))

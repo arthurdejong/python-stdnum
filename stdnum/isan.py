@@ -47,12 +47,14 @@ InvalidChecksum: ...
 '<ISAN root="1881-66C7-3420" episode="6541" version="9F3A-0245" />'
 """
 
+from __future__ import annotations
+
 from stdnum.exceptions import *
 from stdnum.iso7064 import mod_37_36
 from stdnum.util import clean
 
 
-def split(number):
+def split(number: str) -> tuple[str, str, str, str, str]:
     """Split the number into a root, an episode or part, a check digit a
     version and another check digit. If any of the parts are missing an empty
     string is returned."""
@@ -65,17 +67,17 @@ def split(number):
         return number[0:12], number[12:16], number[16:], '', ''
 
 
-def compact(number, strip_check_digits=True):
+def compact(number: str, strip_check_digits: bool = True) -> str:
     """Convert the ISAN to the minimal representation. This strips the number
     of any valid separators and removes surrounding whitespace. The check
     digits are removed by default."""
-    number = list(split(number))
+    parts = list(split(number))
     if strip_check_digits:
-        number[2] = number[4] = ''
-    return ''.join(number)
+        parts[2] = parts[4] = ''
+    return ''.join(parts)
 
 
-def validate(number, strip_check_digits=False, add_check_digits=False):
+def validate(number: str, strip_check_digits: bool = False, add_check_digits: bool = False) -> str:
     """Check if the number provided is a valid ISAN. If check digits are
     present in the number they are validated. If strip_check_digits is True
     any existing check digits will be removed (after checking). If
@@ -106,7 +108,7 @@ def validate(number, strip_check_digits=False, add_check_digits=False):
     return root + episode + check1 + version + check2
 
 
-def is_valid(number):
+def is_valid(number: str) -> bool:
     """Check if the number provided is a valid ISAN. If check digits are
     present in the number they are validated."""
     try:
@@ -115,7 +117,12 @@ def is_valid(number):
         return False
 
 
-def format(number, separator='-', strip_check_digits=False, add_check_digits=True):
+def format(
+    number: str,
+    separator: str = '-',
+    strip_check_digits: bool = False,
+    add_check_digits: bool = True,
+) -> str:
     """Reformat the number to the standard presentation format. If
     add_check_digits is True the check digit will be added if they are not
     present yet. If both strip_check_digits and add_check_digits are True the
@@ -127,30 +134,30 @@ def format(number, separator='-', strip_check_digits=False, add_check_digits=Tru
         check1 = mod_37_36.calc_check_digit(root + episode)
     if add_check_digits and not check2 and version:
         check2 = mod_37_36.calc_check_digit(root + episode + version)
-    number = [root[i:i + 4] for i in range(0, 12, 4)] + [episode]
+    parts = [root[i:i + 4] for i in range(0, 12, 4)] + [episode]
     if check1:
-        number.append(check1)
+        parts.append(check1)
     if version:
-        number.extend((version[0:4], version[4:]))
+        parts.extend((version[0:4], version[4:]))
     if check2:
-        number.append(check2)
-    return separator.join(number)
+        parts.append(check2)
+    return separator.join(parts)
 
 
-def to_binary(number):
+def to_binary(number: str) -> bytes:
     """Convert the number to its binary representation (without the check
     digits)."""
     from binascii import a2b_hex
     return a2b_hex(compact(number, strip_check_digits=True))
 
 
-def to_xml(number):
+def to_xml(number: str) -> str:
     """Return the XML form of the ISAN as a string."""
     number = format(number, strip_check_digits=True, add_check_digits=False)
     return '<ISAN root="%s" episode="%s" version="%s" />' % (
         number[0:14], number[15:19], number[20:])
 
 
-def to_urn(number):
+def to_urn(number: str) -> str:
     """Return the URN representation of the ISAN."""
     return 'URN:ISAN:' + format(number, add_check_digits=True)

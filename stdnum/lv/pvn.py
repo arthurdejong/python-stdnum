@@ -39,6 +39,8 @@ Traceback (most recent call last):
 InvalidComponent: ...
 """
 
+from __future__ import annotations
+
 import datetime
 
 from stdnum.exceptions import *
@@ -50,7 +52,7 @@ from stdnum.util import clean, isdigits
 # https://www6.vid.gov.lv/VID_PDB?aspxerrorpath=/vid_pdb/pvn.asp
 
 
-def compact(number):
+def compact(number: str) -> str:
     """Convert the number to the minimal representation. This strips the
     number of any valid separators and removes surrounding whitespace."""
     number = clean(number, ' -').upper().strip()
@@ -59,13 +61,13 @@ def compact(number):
     return number
 
 
-def checksum(number):
+def checksum(number: str) -> int:
     """Calculate the checksum for legal entities."""
     weights = (9, 1, 4, 8, 3, 10, 2, 5, 7, 6, 1)
     return sum(w * int(n) for w, n in zip(weights, number)) % 11
 
 
-def calc_check_digit_pers(number):
+def calc_check_digit_pers(number: str) -> str:
     """Calculate the check digit for personal codes. The number passed
     should not have the check digit included."""
     # note that this algorithm has not been confirmed by an independent source
@@ -74,7 +76,7 @@ def calc_check_digit_pers(number):
     return str(check % 11 % 10)
 
 
-def get_birth_date(number):
+def get_birth_date(number: str) -> datetime.date:
     """Split the date parts from the number and return the birth date."""
     number = compact(number)
     day = int(number[0:2])
@@ -87,7 +89,7 @@ def get_birth_date(number):
         raise InvalidComponent()
 
 
-def validate(number):
+def validate(number: str) -> str:
     """Check if the number is a valid VAT number. This checks the length,
     formatting and check digit."""
     number = compact(number)
@@ -108,7 +110,7 @@ def validate(number):
     return number
 
 
-def is_valid(number):
+def is_valid(number: str) -> bool:
     """Check if the number is a valid VAT number."""
     try:
         return bool(validate(number))

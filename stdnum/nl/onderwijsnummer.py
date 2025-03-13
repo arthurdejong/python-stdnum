@@ -43,6 +43,8 @@ Traceback (most recent call last):
 InvalidFormat: ...
 """
 
+from __future__ import annotations
+
 from stdnum.exceptions import *
 from stdnum.nl.bsn import checksum, compact
 from stdnum.util import isdigits
@@ -51,7 +53,7 @@ from stdnum.util import isdigits
 __all__ = ['compact', 'validate', 'is_valid']
 
 
-def validate(number):
+def validate(number: str) -> str:
     """Check if the number is a valid onderwijsnummer. This checks the length
     and whether the check digit is correct and whether it starts with the
     right sequence."""
@@ -67,7 +69,7 @@ def validate(number):
     return number
 
 
-def is_valid(number):
+def is_valid(number: str) -> bool:
     """Check if the number is a valid onderwijsnummer."""
     try:
         return bool(validate(number))

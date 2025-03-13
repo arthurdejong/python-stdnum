@@ -41,17 +41,19 @@ InvalidChecksum: ...
 '20-26756539-3'
 """
 
+from __future__ import annotations
+
 from stdnum.exceptions import *
 from stdnum.util import clean, isdigits
 
 
-def compact(number):
+def compact(number: str) -> str:
     """Convert the number to the minimal representation. This strips the
     number of any valid separators and removes surrounding whitespace."""
     return clean(number, ' -').strip()
 
 
-def calc_check_digit(number):
+def calc_check_digit(number: str) -> str:
     """Calculate the check digit."""
     weights = (5, 4, 3, 2, 7, 6, 5, 4, 3, 2)
     check = sum(w * int(n) for w, n in zip(weights, number)) % 11
@@ -66,7 +68,7 @@ _cuit_tpes = (
 )
 
 
-def validate(number):
+def validate(number: str) -> str:
     """Check if the number is a valid CUIT."""
     number = compact(number)
     if len(number) != 11:
@@ -80,7 +82,7 @@ def validate(number):
     return number
 
 
-def is_valid(number):
+def is_valid(number: str) -> bool:
     """Check if the number is a valid CUIT."""
     try:
         return bool(validate(number))
@@ -88,7 +90,7 @@ def is_valid(number):
         return False
 
 
-def format(number):
+def format(number: str) -> str:
     """Reformat the number to the standard presentation format."""
     number = compact(number)
     return (number[0:2] + '-' + number[2:10] + '-' + number[10:])

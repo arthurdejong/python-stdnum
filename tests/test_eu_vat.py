@@ -36,14 +36,14 @@ class TestVies(unittest.TestCase):
     """Test the VIES web service provided by the European commission for
     validation VAT numbers of European countries."""
 
-    def test_check_vies(self):
+    def test_check_vies(self) -> None:
         """Test stdnum.eu.vat.check_vies()"""
         result = vat.check_vies('NL4495445B01')
         self.assertTrue(result['valid'])
         self.assertEqual(result['countryCode'], 'NL')
         self.assertEqual(result['vatNumber'], '004495445B01')
 
-    def test_check_vies_approx(self):
+    def test_check_vies_approx(self) -> None:
         """Test stdnum.eu.vat.check_vies_approx()"""
         result = vat.check_vies_approx('NL4495445B01', 'NL4495445B01')
         self.assertTrue(result['valid'])

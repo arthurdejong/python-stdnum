@@ -39,6 +39,8 @@ Traceback (most recent call last):
 InvalidLength: ...
 """
 
+from __future__ import annotations
+
 from stdnum.exceptions import *
 from stdnum.util import clean, isdigits
 
@@ -51,13 +53,13 @@ _lownumbers = set((
     87, 88, 91, 92, 94, 95, 96, 97, 99))
 
 
-def compact(number):
+def compact(number: str) -> str:
     """Convert the number to the minimal representation. This strips
     surrounding whitespace and separation dash."""
     return clean(number, '.').strip().lstrip('0')
 
 
-def validate(number):
+def validate(number: str) -> str:
     """Check if the number is a valid COE. This checks the length and
     formatting."""
     number = compact(number)
@@ -70,7 +72,7 @@ def validate(number):
     return number
 
 
-def is_valid(number):
+def is_valid(number: str) -> bool:
     """Check if the number is a valid COE."""
     try:
         return bool(validate(number))

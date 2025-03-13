@@ -43,17 +43,19 @@ InvalidChecksum: ...
 'CHE-107.787.577 IVA'
 """
 
+from __future__ import annotations
+
 from stdnum.ch import uid
 from stdnum.exceptions import *
 
 
-def compact(number):
+def compact(number: str) -> str:
     """Convert the number to the minimal representation. This strips
     surrounding whitespace and separators."""
     return uid.compact(number)
 
 
-def validate(number):
+def validate(number: str) -> str:
     """Check if the number is a valid VAT number. This checks the length,
     formatting and check digit."""
     number = compact(number)
@@ -65,7 +67,7 @@ def validate(number):
     return number
 
 
-def is_valid(number):
+def is_valid(number: str) -> bool:
     """Check if the number is a valid VAT number."""
     try:
         return bool(validate(number))
@@ -73,7 +75,7 @@ def is_valid(number):
         return False
 
 
-def format(number):
+def format(number: str) -> str:
     """Reformat the number to the standard presentation format."""
     number = compact(number)
     return uid.format(number[:12]) + ' ' + number[12:]

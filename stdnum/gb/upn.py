@@ -48,6 +48,8 @@ Traceback (most recent call last):
 InvalidComponent: ...
 """
 
+from __future__ import annotations
+
 from stdnum.exceptions import *
 from stdnum.util import clean, isdigits
 
@@ -72,20 +74,20 @@ _la_numbers = set((
     919, 921, 925, 926, 928, 929, 931, 933, 935, 936, 937, 938))
 
 
-def compact(number):
+def compact(number: str) -> str:
     """Convert the number to the minimal representation. This strips the
     number of any valid separators and removes surrounding whitespace."""
     return clean(number, ' ').upper().strip()
 
 
-def calc_check_digit(number):
+def calc_check_digit(number: str) -> str:
     """Calculate the check digit for the number."""
     check = sum(i * _alphabet.index(n)
                 for i, n in enumerate(number[-12:], 2)) % 23
     return _alphabet[check]
 
 
-def validate(number):
+def validate(number: str) -> str:
     """Check if the number is a valid UPN. This checks length, formatting and
     check digits."""
     number = compact(number)
@@ -100,7 +102,7 @@ def validate(number):
     return number
 
 
-def is_valid(number):
+def is_valid(number: str) -> bool:
     """Check if the number is a valid UPN."""
     try:
         return bool(validate(number))

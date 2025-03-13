@@ -30,7 +30,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        tox_job: [docs, flake8, headers]
+        tox_job: [docs, flake8, mypy, headers]
     steps:
       - uses: actions/checkout@v3
       - name: Set up Python

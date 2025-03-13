@@ -44,17 +44,19 @@ More information:
 '59-119/9013'
 """
 
+from __future__ import annotations
+
 from stdnum.exceptions import *
 from stdnum.util import clean, isdigits
 
 
-def compact(number):
+def compact(number: str) -> str:
     """Convert the number to the minimal representation. This strips the
     number of any valid separators and removes surrounding whitespace."""
     return clean(number, ' -./,').strip()
 
 
-def _min_fa(office):
+def _min_fa(office: str) -> str:
     """Convert the tax office name to something that we can use for
     comparison without running into encoding issues."""
     return ''.join(
@@ -62,7 +64,7 @@ def _min_fa(office):
         if x in 'bcdefghijklmnopqrstvwxyz')
 
 
-def calc_check_digit(number):
+def calc_check_digit(number: str) -> str:
     """Calculate the check digit."""
     number = compact(number)
     s = sum(
@@ -71,7 +73,7 @@ def calc_check_digit(number):
     return str((10 - s) % 10)
 
 
-def info(number):
+def info(number: str) -> dict[str, str]:
     """Return a dictionary of data about the supplied number. This typically
     returns the the tax office and region."""
     number = compact(number)
@@ -79,7 +81,7 @@ def info(number):
     return numdb.get('at/fa').info(number[:2])[0][1]
 
 
-def validate(number, office=None):
+def validate(number: str, office: str | None = None) -> str:
     """Check if the number is a valid tax identification number. This checks
     the length and formatting. The tax office can be supplied to check that
     the number was issued in the specified tax office."""
@@ -93,12 +95,12 @@ def validate(number, office=None):
     i = info(number)
     if not i:
         raise InvalidComponent()
-    if office and _min_fa(i.get('office')) != _min_fa(office):
+    if office and _min_fa(i.get('office', '')) != _min_fa(office):
         raise InvalidComponent()
     return number
 
 
-def is_valid(number, office=None):
+def is_valid(number: str, office: str | None = None) -> bool:
     """Check if the number is a valid tax identification number. This checks
     the length, formatting and check digit."""
     try:
@@ -107,7 +109,7 @@ def is_valid(number, office=None):
         return False
 
 
-def format(number):
+def format(number: str) -> str:
     """Reformat the number to the standard presentation format."""
     number = compact(number)
     return '%s-%s/%s' % (number[:2], number[2:5], number[5:])

@@ -46,11 +46,18 @@ InvalidChecksum: ...
 'CHE-100.155.212'
 """
 
+from __future__ import annotations
+
 from stdnum.exceptions import *
 from stdnum.util import clean, get_soap_client, isdigits
 
 
-def compact(number):
+TYPE_CHECKING = False
+if TYPE_CHECKING:  # pragma: no cover (typechecking only import)
+    from typing import Any
+
+
+def compact(number: str) -> str:
     """Convert the number to the minimal representation. This strips
     surrounding whitespace and separators."""
     number = clean(number, ' -.').strip().upper()
@@ -59,7 +66,7 @@ def compact(number):
     return number
 
 
-def calc_check_digit(number):
+def calc_check_digit(number: str) -> str:
     """Calculate the check digit for organisations. The number passed should
     not have the check digit included."""
     weights = (5, 4, 3, 2, 7, 6, 5, 4)
@@ -67,7 +74,7 @@ def calc_check_digit(number):
     return str((11 - s) % 11)
 
 
-def validate(number):
+def validate(number: str) -> str:
     """Check if the number is a valid UID. This checks the length, formatting
     and check digit."""
     number = compact(number)
@@ -82,7 +89,7 @@ def validate(number):
     return number
 
 
-def is_valid(number):
+def is_valid(number: str) -> bool:
     """Check if the number is a valid UID."""
     try:
         return bool(validate(number))
@@ -90,7 +97,7 @@ def is_valid(number):
         return False
 
 
-def format(number):
+def format(number: str) -> str:
     """Reformat the number to the standard presentation format."""
     number = compact(number)
     return number[:3] + '-' + '.'.join(
@@ -100,7 +107,11 @@ def format(number):
 uid_wsdl = 'https://www.uid-wse.admin.ch/V5.0/PublicServices.svc?wsdl'
 
 
-def check_uid(number, timeout=30, verify=True):  # pragma: no cover
+def check_uid(
+    number: str,
+    timeout: float = 30,
+    verify: bool | str = True,
+) -> dict[str, Any] | None:  # pragma: no cover
     """Look up information via the Swiss Federal Statistical Office web service.
 
     This uses the UID registry web service run by the the Swiss Federal
@@ -153,8 +164,10 @@ def check_uid(number, timeout=30, verify=True):  # pragma: no cover
     number = compact(number)
     client = get_soap_client(uid_wsdl, timeout=timeout, verify=verify)
     try:
-        return client.GetByUID(uid={'uidOrganisationIdCategorie': number[:3], 'uidOrganisationId': number[3:]})[0]
+        return client.GetByUID(  # type: ignore[no-any-return]
+            uid={'uidOrganisationIdCategorie': number[:3], 'uidOrganisationId': number[3:]},
+        )[0]
     except Exception:  # noqa: B902 (exception type depends on SOAP client)
         # Error responses by the server seem to result in exceptions raised
         # by the SOAP client implementation
-        return
+        return None

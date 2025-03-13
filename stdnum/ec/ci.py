@@ -35,24 +35,27 @@ Traceback (most recent call last):
 InvalidLength: ...
 """
 
+from __future__ import annotations
+
 from stdnum.exceptions import *
 from stdnum.util import clean, isdigits
 
 
-def compact(number):
+def compact(number: str) -> str:
     """Convert the number to the minimal representation. This strips the
     number of any valid separators and removes surrounding whitespace."""
     return clean(number, ' -').upper().strip()
 
 
-def _checksum(number):
+def _checksum(number: str) -> int:
     """Calculate a checksum over the number."""
-    fold = lambda x: x - 9 if x > 9 else x
+    def fold(x: int) -> int:
+        return x - 9 if x > 9 else x
     return sum(fold((2, 1)[i % 2] * int(n))
                for i, n in enumerate(number)) % 10
 
 
-def validate(number):
+def validate(number: str) -> str:
     """Check if the number provided is a valid CI number. This checks the
     length, formatting and check digit."""
     number = compact(number)
@@ -69,7 +72,7 @@ def validate(number):
     return number
 
 
-def is_valid(number):
+def is_valid(number: str) -> bool:
     """Check if the number provided is a valid CI number. This checks the
     length, formatting and check digit."""
     try:

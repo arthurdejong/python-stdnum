@@ -58,6 +58,8 @@ InvalidFormat: ...
 'XXXX XXXX 2346'
 """
 
+from __future__ import annotations
+
 import re
 
 from stdnum import verhoeff
@@ -69,13 +71,13 @@ aadhaar_re = re.compile(r'^[2-9][0-9]{11}$')
 """Regular expression used to check syntax of Aadhaar numbers."""
 
 
-def compact(number):
+def compact(number: str) -> str:
     """Convert the number to the minimal representation. This strips the
     number of any valid separators and removes surrounding whitespace."""
     return clean(number, ' -').strip()
 
 
-def validate(number):
+def validate(number: str) -> str:
     """Check if the number provided is a valid Aadhaar number. This checks
     the length, formatting and check digit."""
     number = compact(number)
@@ -89,7 +91,7 @@ def validate(number):
     return number
 
 
-def is_valid(number):
+def is_valid(number: str) -> bool:
     """Check if the number provided is a valid Aadhaar number. This checks
     the length, formatting and check digit."""
     try:
@@ -98,13 +100,13 @@ def is_valid(number):
         return False
 
 
-def format(number):
+def format(number: str) -> str:
     """Reformat the number to the standard presentation format."""
     number = compact(number)
     return ' '.join((number[:4], number[4:8], number[8:]))
 
 
-def mask(number):
+def mask(number: str) -> str:
     """Masks the first 8 digits as per Ministry of Electronics and
     Information Technology (MeitY) guidelines."""
     number = compact(number)

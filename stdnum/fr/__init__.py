@@ -20,5 +20,7 @@
 
 """Collection of French numbers."""
 
+from __future__ import annotations
+
 # provide vat as an alias
 from stdnum.fr import tva as vat  # noqa: F401

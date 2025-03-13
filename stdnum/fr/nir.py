@@ -61,17 +61,19 @@ InvalidLength: ...
 '2 95 10 99 126 111 93'
 """
 
+from __future__ import annotations
+
 from stdnum.exceptions import *
 from stdnum.util import clean, isdigits
 
 
-def compact(number):
+def compact(number: str) -> str:
     """Convert the number to the minimal representation. This strips the
     number of any valid separators and removes surrounding whitespace."""
     return clean(number, ' .').strip().upper()
 
 
-def calc_check_digits(number):
+def calc_check_digits(number: str) -> str:
     """Calculate the check digits for the number."""
     department = number[5:7]
     if department == '2A':
@@ -81,7 +83,7 @@ def calc_check_digits(number):
     return '%02d' % (97 - (int(number[:13]) % 97))
 
 
-def validate(number):
+def validate(number: str) -> str:
     """Check if the number provided is valid. This checks the length
     and check digits."""
     number = compact(number)
@@ -96,7 +98,7 @@ def validate(number):
     return number
 
 
-def is_valid(number):
+def is_valid(number: str) -> bool:
     """Check if the number provided is valid."""
     try:
         return bool(validate(number))
@@ -104,7 +106,7 @@ def is_valid(number):
         return False
 
 
-def format(number, separator=' '):
+def format(number: str, separator: str = ' ') -> str:
     """Reformat the number to the standard presentation format."""
     number = compact(number)
     return separator.join((

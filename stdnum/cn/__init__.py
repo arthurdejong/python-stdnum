@@ -20,5 +20,7 @@
 
 """Collection of China (PRC) numbers."""
 
+from __future__ import annotations
+
 # Provide vat as an alias.
 from stdnum.cn import uscc as vat  # noqa: F401

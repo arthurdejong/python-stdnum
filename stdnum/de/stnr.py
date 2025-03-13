@@ -50,14 +50,21 @@ Traceback (most recent call last):
 InvalidLength: ...
 """
 
+from __future__ import annotations
+
 import re
 
 from stdnum.exceptions import *
 from stdnum.util import clean, isdigits
 
 
+TYPE_CHECKING = False
+if TYPE_CHECKING:  # pragma: no cover (typechecking only import)
+    from collections.abc import Iterable
+
+
 # The number formats per region (regional and country-wide format)
-_number_formats_per_region = {
+_number_formats_per_region_raw = {
     'Baden-Württemberg': ['FFBBBUUUUP', '28FF0BBBUUUUP'],
     'Bayern': ['FFFBBBUUUUP', '9FFF0BBBUUUUP'],
     'Berlin': ['FFBBBUUUUP', '11FF0BBBUUUUP'],
@@ -76,11 +83,11 @@ _number_formats_per_region = {
     'Thüringen': ['1FFBBBUUUUP', '41FF0BBBUUUUP'],
 }
 
-REGIONS = sorted(_number_formats_per_region.keys())
+REGIONS = sorted(_number_formats_per_region_raw.keys())
 """Valid regions recognised by this module."""
 
 
-def _clean_region(region):
+def _clean_region(region: str) -> str:
     """Convert the region name to something that we can use for comparison
     without running into encoding issues."""
     return ''.join(
@@ -90,28 +97,28 @@ def _clean_region(region):
 
 class _Format():
 
-    def __init__(self, fmt):
+    def __init__(self, fmt: str) -> None:
         self._fmt = fmt
         self._re = re.compile('^%s$' % re.sub(
             r'([FBUP])\1*',
             lambda x: r'(\d{%d})' % len(x.group(0)), fmt))
 
-    def match(self, number):
+    def match(self, number: str) -> re.Match[str] | None:
         return self._re.match(number)
 
-    def replace(self, f, b, u, p):
+    def replace(self, f: str, b: str, u: str, p: str) -> str:
         items = iter([f, b, u, p])
         return re.sub(r'([FBUP])\1*', lambda x: next(items), self._fmt)
 
 
 # Convert the structure to something that we can easily use
 _number_formats_per_region = dict(
-    (_clean_region(region), [
-        region, _Format(formats[0]), _Format(formats[1])])
-    for region, formats in _number_formats_per_region.items())
+    (_clean_region(region), (
+        region, _Format(formats[0]), _Format(formats[1])))
+    for region, formats in _number_formats_per_region_raw.items())
 
 
-def _get_formats(region=None):
+def _get_formats(region: str | None = None) -> Iterable[tuple[str, _Format, _Format]]:
     """Return the formats for the region."""
     if region:
         region = _clean_region(region)
@@ -121,13 +128,13 @@ def _get_formats(region=None):
     return _number_formats_per_region.values()
 
 
-def compact(number):
+def compact(number: str) -> str:
     """Convert the number to the minimal representation. This strips the
     number of any valid separators and removes surrounding whitespace."""
     return clean(number, ' -./,').strip()
 
 
-def validate(number, region=None):
+def validate(number: str, region: str | None = None) -> str:
     """Check if the number is a valid tax number. This checks the length and
     formatting. The region can be supplied to verify that the number is
     assigned in that region."""
@@ -142,7 +149,7 @@ def validate(number, region=None):
     return number
 
 
-def is_valid(number, region=None):
+def is_valid(number: str, region: str | None = None) -> bool:
     """Check if the number is a valid tax number. This checks the length and
     formatting. The region can be supplied to verify that the number is
     assigned in that region."""
@@ -152,7 +159,7 @@ def is_valid(number, region=None):
         return False
 
 
-def guess_regions(number):
+def guess_regions(number: str) -> list[str]:
     """Return a list of regions this number is valid for."""
     number = compact(number)
     return sorted(
@@ -160,7 +167,7 @@ def guess_regions(number):
         if region_fmt.match(number) or country_fmt.match(number))
 
 
-def to_regional_number(number):
+def to_regional_number(number: str) -> str:
     """Convert the number to a regional (10 or 11 digit) number."""
     number = compact(number)
     for _region, region_fmt, country_fmt in _get_formats():
@@ -170,16 +177,16 @@ def to_regional_number(number):
     raise InvalidFormat()
 
 
-def to_country_number(number, region=None):
+def to_country_number(number: str, region: str | None = None) -> str:
     """Convert the number to the nationally unique number. The region is
     needed if the number is not only valid for one particular region."""
     number = compact(number)
-    formats = (
+    formats_iter = (
         (region_fmt.match(number), country_fmt)
         for _region, region_fmt, country_fmt in _get_formats(region))
     formats = [
         (region_match, country_fmt)
-        for region_match, country_fmt in formats
+        for region_match, country_fmt in formats_iter
         if region_match]
     if not formats:
         raise InvalidFormat()
@@ -188,7 +195,7 @@ def to_country_number(number, region=None):
     return formats[0][1].replace(*formats[0][0].groups())
 
 
-def format(number, region=None):
+def format(number: str, region: str | None = None) -> str:
     """Reformat the passed number to the standard format."""
     number = compact(number)
     for _region, region_fmt, _country_fmt in _get_formats(region):

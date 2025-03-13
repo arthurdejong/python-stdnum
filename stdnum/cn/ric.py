@@ -32,19 +32,21 @@ digit is the checksum.
 '360426199101010071'
 """
 
+from __future__ import annotations
+
 import datetime
 
 from stdnum.exceptions import *
 from stdnum.util import clean, isdigits
 
 
-def compact(number):
+def compact(number: str) -> str:
     """Convert the number to the minimal representation. This strips the
     number of any valid separators and removes surrounding whitespace."""
     return clean(number).upper().strip()
 
 
-def get_birth_date(number):
+def get_birth_date(number: str) -> datetime.date:
     """Split the date parts from the number and return the birth date.
     Note that in some cases it may return the registration date instead of
     the birth date and it may be a century off."""
@@ -58,7 +60,7 @@ def get_birth_date(number):
         raise InvalidComponent()
 
 
-def get_birth_place(number):
+def get_birth_place(number: str) -> dict[str, str]:
     """Use the number to look up the place of birth of the person."""
     from stdnum import numdb
     number = compact(number)
@@ -68,14 +70,14 @@ def get_birth_place(number):
     return results
 
 
-def calc_check_digit(number):
+def calc_check_digit(number: str) -> str:
     """Calculate the check digit. The number passed should have the check
     digit included."""
     checksum = (1 - 2 * int(number[:-1], 13)) % 11
     return 'X' if checksum == 10 else str(checksum)
 
 
-def validate(number):
+def validate(number: str) -> str:
     """Check if the number is a valid RIC number. This checks the length,
     formatting and birth date and place."""
     number = compact(number)
@@ -90,7 +92,7 @@ def validate(number):
     return number
 
 
-def is_valid(number):
+def is_valid(number: str) -> bool:
     """Check if the number is a valid RIC number."""
     try:
         return bool(validate(number))
@@ -98,6 +100,6 @@ def is_valid(number):
         return False
 
 
-def format(number):
+def format(number: str) -> str:
     """Reformat the number to the standard presentation format."""
     return compact(number)

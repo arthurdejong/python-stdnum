@@ -47,19 +47,21 @@ InvalidChecksum: ...
 '732 829 320 00074'
 """
 
+from __future__ import annotations
+
 from stdnum import luhn
 from stdnum.exceptions import *
 from stdnum.fr import siren
 from stdnum.util import clean, isdigits
 
 
-def compact(number):
+def compact(number: str) -> str:
     """Convert the number to the minimal representation. This strips the
     number of any valid separators and removes surrounding whitespace."""
     return clean(number, ' .').strip()
 
 
-def validate(number):
+def validate(number: str) -> str:
     """Check if the number is a valid SIRET. This checks the length,
     formatting and check digit."""
     number = compact(number)
@@ -78,7 +80,7 @@ def validate(number):
     return number
 
 
-def is_valid(number):
+def is_valid(number: str) -> bool:
     """Check if the number is a valid SIRET."""
     try:
         return bool(validate(number))
@@ -86,7 +88,7 @@ def is_valid(number):
         return False
 
 
-def to_siren(number):
+def to_siren(number: str) -> str:
     """Convert the SIRET number to a SIREN number.
 
     The SIREN number is the 9 first digits of the SIRET number.
@@ -101,7 +103,7 @@ def to_siren(number):
     return ''.join(_siren)
 
 
-def to_tva(number):
+def to_tva(number: str) -> str:
     """Convert the SIRET number to a TVA number.
 
     The TVA number is built from the SIREN number, prepended by two extra
@@ -110,7 +112,7 @@ def to_tva(number):
     return siren.to_tva(to_siren(number))
 
 
-def format(number, separator=' '):
+def format(number: str, separator: str = ' ') -> str:
     """Reformat the number to the standard presentation format."""
     number = compact(number)
     return separator.join((number[0:3], number[3:6], number[6:9], number[9:]))

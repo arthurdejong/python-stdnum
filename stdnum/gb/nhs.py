@@ -41,23 +41,25 @@ InvalidChecksum: ...
 '943 476 5870'
 """
 
+from __future__ import annotations
+
 from stdnum.exceptions import *
 from stdnum.util import clean, isdigits
 
 
-def compact(number):
+def compact(number: str) -> str:
     """Convert the number to the minimal representation. This strips the
     number of any valid separators and removes surrounding whitespace."""
     return clean(number, ' -').strip()
 
 
-def checksum(number):
+def checksum(number: str) -> int:
     """Calculate the checksum. The checksum is only used for the 9 digits
     of the number and the result can either be 0 or 42."""
     return sum(i * int(n) for i, n in enumerate(reversed(number), 1)) % 11
 
 
-def validate(number):
+def validate(number: str) -> str:
     """Check if the number is valid. This checks the length and check
     digit."""
     number = compact(number)
@@ -70,7 +72,7 @@ def validate(number):
     return number
 
 
-def is_valid(number):
+def is_valid(number: str) -> bool:
     """Check if the number is valid."""
     try:
         return bool(validate(number))
@@ -78,7 +80,7 @@ def is_valid(number):
         return False
 
 
-def format(number, separator=' '):
+def format(number: str, separator: str = ' ') -> str:
     """Reformat the number to the standard presentation format."""
     number = compact(number)
     return separator.join((number[0:3], number[3:6], number[6:]))

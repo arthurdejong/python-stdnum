@@ -35,11 +35,13 @@ InvalidChecksum: ...
 '980 7806 84'
 """
 
+from __future__ import annotations
+
 from stdnum.exceptions import *
 from stdnum.util import clean, isdigits
 
 
-def compact(number):
+def compact(number: str) -> str:
     """Convert the number to the minimal representation. This strips the
     number of any valid separators and removes surrounding whitespace."""
     number = clean(number, ' -.').upper().strip()
@@ -48,14 +50,14 @@ def compact(number):
     return number
 
 
-def checksum(number):
+def checksum(number: str) -> int:
     """Calculate the checksum. The checksum is only used for the 9 digits
     of the number and the result can either be 0 or 42."""
     weights = (8, 7, 6, 5, 4, 3, 2, 10, 1)
     return sum(w * int(n) for w, n in zip(weights, number)) % 97
 
 
-def validate(number):
+def validate(number: str) -> str:
     """Check if the number is a valid VAT number. This checks the length,
     formatting and check digit."""
     number = compact(number)
@@ -100,7 +102,7 @@ def validate(number):
     return number
 
 
-def is_valid(number):
+def is_valid(number: str) -> bool:
     """Check if the number is a valid VAT number."""
     try:
         return bool(validate(number))
@@ -108,7 +110,7 @@ def is_valid(number):
         return False
 
 
-def format(number):
+def format(number: str) -> str:
     """Reformat the number to the standard presentation format."""
     number = compact(number)
     if len(number) == 5:

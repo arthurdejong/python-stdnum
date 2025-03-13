@@ -40,6 +40,8 @@ InvalidComponent: ...
 '120174-3399'
 """
 
+from __future__ import annotations
+
 import datetime
 import re
 
@@ -58,20 +60,20 @@ _kennitala_re = re.compile(
     r'(?P<century>[09])$')
 
 
-def compact(number):
+def compact(number: str) -> str:
     """Convert the kennitala to the minimal representation. This
     strips surrounding whitespace and separation dash, and converts it
     to upper case."""
     return clean(number, '-').upper().strip()
 
 
-def checksum(number):
+def checksum(number: str) -> int:
     """Calculate the checksum."""
     weights = (3, 2, 7, 6, 5, 4, 3, 2, 1, 0)
     return sum(w * int(n) for w, n in zip(weights, number)) % 11
 
 
-def validate(number):
+def validate(number: str) -> str:
     """Check if the number provided is a valid kennitala. It checks the
     format, whether a valid date is given and whether the check digit is
     correct."""
@@ -100,7 +102,7 @@ def validate(number):
     return number
 
 
-def is_valid(number):
+def is_valid(number: str) -> bool:
     """Check if the number provided is a valid HETU. It checks the format,
     whether a valid date is given and whether the check digit is correct."""
     try:
@@ -109,7 +111,7 @@ def is_valid(number):
         return False
 
 
-def format(number):
+def format(number: str) -> str:
     """Reformat the number to the standard presentation format."""
     number = compact(number)
     return number[:6] + '-' + number[6:]
