@@ -36,12 +36,6 @@ class TestDGII(unittest.TestCase):
     """Test the web services provided by the the Dirección General de
     Impuestos Internos (DGII), the Dominican Republic tax department."""
 
-    def setUp(self):
-        """Prepare the test."""
-        # For Python 2.7 compatibility
-        if not hasattr(self, 'assertRegex'):
-            self.assertRegex = self.assertRegexpMatches
-
     def test_check_dgii(self):
         """Test stdnum.do.rnc.check_dgii()"""
         # Test a normal valid number
