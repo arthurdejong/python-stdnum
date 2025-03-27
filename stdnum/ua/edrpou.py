@@ -43,19 +43,20 @@ InvalidLength: ...
 >>> format(' 32855961 ')
 '32855961'
 """
+from __future__ import annotations
 
 from stdnum.exceptions import *
 from stdnum.util import clean, isdigits
 
 
-def compact(number):
+def compact(number: str) -> str:
     """Convert the number to the minimal representation."""
     return clean(number, ' ').strip()
 
 
-def calc_check_digit(number):
+def calc_check_digit(number: str) -> str:
     """Calculate the check digit for number."""
-    weights = (1, 2, 3, 4, 5, 6, 7)
+    weights: tuple[int, ...] = (1, 2, 3, 4, 5, 6, 7)
     if number[0] in '345':
         weights = (7, 1, 2, 3, 4, 5, 6)
     total = sum(w * int(n) for w, n in zip(weights, number))
@@ -67,7 +68,7 @@ def calc_check_digit(number):
     return str(total % 11 % 10)
 
 
-def validate(number):
+def validate(number: str) -> str:
     """Check if the number is a valid Ukraine EDRPOU (ЄДРПОУ) number.
 
     This checks the length, formatting and check digit.
@@ -82,7 +83,7 @@ def validate(number):
     return number
 
 
-def is_valid(number):
+def is_valid(number: str) -> bool:
     """Check if the number is a valid Ukraine EDRPOU (ЄДРПОУ) number."""
     try:
         return bool(validate(number))
@@ -90,6 +91,6 @@ def is_valid(number):
         return False
 
 
-def format(number):
+def format(number: str) -> str:
     """Reformat the number to the standard presentation format."""
     return compact(number)

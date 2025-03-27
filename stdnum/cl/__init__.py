@@ -19,6 +19,8 @@
 # 02110-1301 USA
 
 """Collection of Chilean numbers."""
+from __future__ import annotations
+
 
 # provide vat and run as an alias
 from stdnum.cl import rut as vat  # noqa: F401, isort:skip

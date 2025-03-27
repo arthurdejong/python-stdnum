@@ -19,6 +19,7 @@
 # 02110-1301 USA
 
 """Collection of Belgian numbers."""
+from __future__ import annotations
 
 # provide businessid as an alias
 from stdnum.be import nn as personalid  # noqa: F401

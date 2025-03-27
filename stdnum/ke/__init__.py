@@ -19,6 +19,7 @@
 # 02110-1301 USA
 
 """Collection of Kenyan numbers."""
+from __future__ import annotations
 
 # provide aliases
 from stdnum.ke import pin as vat  # noqa: F401

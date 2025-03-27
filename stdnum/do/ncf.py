@@ -55,12 +55,14 @@ Traceback (most recent call last):
     ...
 InvalidFormat: ...
 """
+from __future__ import annotations
 
+from stdnum import _typing as t
 from stdnum.exceptions import *
 from stdnum.util import clean, isdigits
 
 
-def compact(number):
+def compact(number: str) -> str:
     """Convert the number to the minimal representation. This strips the
     number of any valid separators and removes surrounding whitespace."""
     return clean(number, ' ').strip().upper()
@@ -95,7 +97,7 @@ _ecf_document_types = (
 )
 
 
-def validate(number):
+def validate(number: str) -> str:
     """Check if the number provided is a valid NCF."""
     number = compact(number)
     if len(number) == 13:
@@ -118,7 +120,7 @@ def validate(number):
     return number
 
 
-def is_valid(number):
+def is_valid(number: str) -> bool:
     """Check if the number provided is a valid NCF."""
     try:
         return bool(validate(number))
@@ -126,7 +128,7 @@ def is_valid(number):
         return False
 
 
-def _convert_result(result):  # pragma: no cover
+def _convert_result(result: t.Mapping[str, str]) -> dict[str, str]:  # pragma: no cover
     """Translate SOAP result entries into dictionaries."""
     translation = {
         'NOMBRE': 'name',
@@ -157,7 +159,14 @@ def _convert_result(result):  # pragma: no cover
         for key, value in result.items())
 
 
-def check_dgii(rnc, ncf, buyer_rnc=None, security_code=None, timeout=30, verify=True):  # pragma: no cover
+def check_dgii(
+    rnc: str,
+    ncf: str,
+    buyer_rnc: str | None = None,
+    security_code: str | None = None,
+    timeout: float = 30,
+    verify: bool = True,
+) -> dict[str, str] | None:  # pragma: no cover
     """Validate the RNC, NCF combination on using the DGII online web service.
 
     This uses the validation service run by the the Dirección General de
@@ -198,7 +207,7 @@ def check_dgii(rnc, ncf, buyer_rnc=None, security_code=None, timeout=30, verify=
         }
 
     Will return None if the number is invalid or unknown."""
-    import lxml.html
+    import lxml.html  # type: ignore
     import requests
     from stdnum.do.rnc import compact as rnc_compact  # noqa: I003
     rnc = rnc_compact(rnc)
@@ -240,3 +249,4 @@ def check_dgii(rnc, ncf, buyer_rnc=None, security_code=None, timeout=30, verify=
             [x.text.strip() for x in result.findall('.//th') if x.text],
             [x.text.strip() for x in result.findall('.//td/span') if x.text]))
         return _convert_result(data)
+    return None

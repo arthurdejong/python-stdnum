@@ -42,20 +42,20 @@ InvalidLength: ...
 >>> format('000000012281955X')
 '0000 0001 2281 955X'
 """
-
+from __future__ import annotations
 
 from stdnum.exceptions import *
 from stdnum.iso7064 import mod_11_2
 from stdnum.util import clean, isdigits
 
 
-def compact(number):
+def compact(number: str) -> str:
     """Convert the ISNI to the minimal representation. This strips the number
     of any valid ISNI separators and removes surrounding whitespace."""
     return clean(number, ' -').strip().upper()
 
 
-def validate(number):
+def validate(number: str) -> str:
     """Check if the number is a valid ISNI. This checks the length and
     whether the check digit is correct."""
     number = compact(number)
@@ -67,7 +67,7 @@ def validate(number):
     return number
 
 
-def is_valid(number):
+def is_valid(number: str) -> bool:
     """Check if the number provided is a valid ISNI."""
     try:
         return bool(validate(number))
@@ -75,7 +75,7 @@ def is_valid(number):
         return False
 
 
-def format(number):
+def format(number: str) -> str:
     """Reformat the number to the standard presentation format."""
     number = compact(number)
     return ' '.join((number[:4], number[4:8], number[8:12], number[12:16]))

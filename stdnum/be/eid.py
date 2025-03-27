@@ -53,18 +53,19 @@ InvalidChecksum: ...
 >>> format('591191706458')
 '591-1917064-58'
 """
+from __future__ import annotations
 
 from stdnum.exceptions import *
 from stdnum.util import clean, isdigits
 
 
-def compact(number):
+def compact(number: str) -> str:
     """Convert the number to the minimal representation. This strips the
     number of any valid separators and removes surrounding whitespace."""
     return clean(number, ' -./').upper().strip()
 
 
-def _calc_check_digits(number):
+def _calc_check_digits(number: str) -> str:
     """Calculate the expected check digits for the number, calculated as
     the remainder of dividing the first 10 digits of the number by 97.
     If the remainder is 0, the check number is set to 97.
@@ -72,7 +73,7 @@ def _calc_check_digits(number):
     return '%02d' % ((int(number[:10]) % 97) or 97)
 
 
-def validate(number):
+def validate(number: str) -> str:
     """Check if the number is a valid ID card number.
     This checks the length, formatting and check digit."""
     number = compact(number)
@@ -85,7 +86,7 @@ def validate(number):
     return number
 
 
-def is_valid(number):
+def is_valid(number: str) -> bool:
     """Check if the number is a valid Belgian ID Card number."""
     try:
         return bool(validate(number))
@@ -93,7 +94,7 @@ def is_valid(number):
         return False
 
 
-def format(number):
+def format(number: str) -> str:
     """Reformat the number to the standard presentation format."""
     number = compact(number)
     return '-'.join((number[:3], number[3:10], number[10:]))

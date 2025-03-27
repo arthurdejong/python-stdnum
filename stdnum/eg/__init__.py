@@ -19,6 +19,7 @@
 # 02110-1301 USA
 
 """Collection of Egypt numbers."""
+from __future__ import annotations
 
 # provide aliases
 from stdnum.eg import tn as vat  # noqa: F401

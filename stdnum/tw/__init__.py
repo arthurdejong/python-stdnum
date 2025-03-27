@@ -19,6 +19,7 @@
 # 02110-1301 USA
 
 """Collection of Taiwanese numbers."""
+from __future__ import annotations
 
 # provide aliases
 from stdnum.tw import ubn as vat  # noqa: F401

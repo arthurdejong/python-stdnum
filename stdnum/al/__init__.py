@@ -19,6 +19,7 @@
 # 02110-1301 USA
 
 """Collection of Albanian numbers."""
+from __future__ import annotations
 
 # provide vat as an alias
 from stdnum.al import nipt as vat  # noqa: F401

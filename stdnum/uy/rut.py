@@ -47,6 +47,7 @@ InvalidLength: ...
 >>> format('211003420017')
 '21-100342-001-7'
 """
+from __future__ import annotations
 
 from stdnum.exceptions import *
 from stdnum.util import clean, isdigits
@@ -58,7 +59,7 @@ from stdnum.util import clean, isdigits
 # https://servicios.dgi.gub.uy/ServiciosEnLinea/ampliar/servicios-automatizados
 
 
-def compact(number):
+def compact(number: str) -> str:
     """Convert the number to the minimal representation.
 
     This strips the number of any valid separators and removes surrounding
@@ -70,14 +71,14 @@ def compact(number):
     return number
 
 
-def calc_check_digit(number):
+def calc_check_digit(number: str) -> str:
     """Calculate the check digit."""
     weights = (4, 3, 2, 9, 8, 7, 6, 5, 4, 3, 2)
     total = sum(int(n) * w for w, n in zip(weights, number))
     return str(-total % 11)
 
 
-def validate(number):
+def validate(number: str) -> str:
     """Check if the number is a valid Uruguay RUT number.
 
     This checks the length, formatting and check digit.
@@ -98,7 +99,7 @@ def validate(number):
     return number
 
 
-def is_valid(number):
+def is_valid(number: str) -> bool:
     """Check if the number is a valid Uruguay RUT number."""
     try:
         return bool(validate(number))
@@ -106,7 +107,7 @@ def is_valid(number):
         return False
 
 
-def format(number):
+def format(number: str) -> str:
     """Reformat the number to the standard presentation format."""
     number = compact(number)
     return '-'.join([number[:2], number[2:-4], number[-4:-1], number[-1]])

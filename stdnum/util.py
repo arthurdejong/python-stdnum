@@ -24,6 +24,7 @@ This module is meant for internal use by stdnum modules and is not
 guaranteed to remain stable and as such not part of the public API of
 stdnum.
 """
+from __future__ import annotations
 
 import pkgutil
 import pydoc
@@ -33,6 +34,7 @@ import sys
 import unicodedata
 import warnings
 
+from stdnum import _typing as t
 from stdnum.exceptions import *
 
 
@@ -44,7 +46,7 @@ _strip_doctest_re = re.compile(r'^>>> .*\Z', re.DOTALL | re.MULTILINE)
 _digits_re = re.compile(r'^[0-9]+$')
 
 
-def _mk_char_map(mapping):
+def _mk_char_map(mapping: t.Mapping[str, str]) -> t.Generator[tuple[str, str]]:
     """Transform a dictionary with comma separated uniode character names
     to tuples with unicode characters as key."""
     for key, value in mapping.items():
@@ -151,12 +153,12 @@ _char_map = dict(_mk_char_map({
 }))
 
 
-def _clean_chars(number):
+def _clean_chars(number: str) -> str:
     """Replace various Unicode characters with their ASCII counterpart."""
     return ''.join(_char_map.get(x, x) for x in number)
 
 
-def clean(number, deletechars=''):
+def clean(number: str, deletechars: str = '') -> str:
     """Remove the specified characters from the supplied number.
 
     >>> clean('123-456:78 9', ' -:')
@@ -172,18 +174,16 @@ def clean(number, deletechars=''):
     return ''.join(x for x in number if x not in deletechars)
 
 
-def isdigits(number):
+def isdigits(number: str) -> bool:
     """Check whether the provided string only consists of digits."""
     # This function is meant to replace str.isdigit() which will also return
     # True for all kind of unicode digits which is generally not what we want
     return bool(_digits_re.match(number))
 
 
-def to_unicode(text):
+@t.deprecated('to_unicode() will be removed in an upcoming release')
+def to_unicode(text: str | bytes) -> str:
     """DEPRECATED: Will be removed in an upcoming release."""  # noqa: D40
-    warnings.warn(
-        'to_unicode() will be removed in an upcoming release',
-        DeprecationWarning, stacklevel=2)
     if not isinstance(text, str):
         try:
             return text.decode('utf-8')
@@ -192,7 +192,7 @@ def to_unicode(text):
     return text
 
 
-def get_number_modules(base='stdnum'):
+def get_number_modules(base: str = 'stdnum') -> t.Generator[t.NumberValidationModule]:
     """Yield all the number validation modules under the specified module."""
     __import__(base)
     module = sys.modules[base]
@@ -201,25 +201,31 @@ def get_number_modules(base='stdnum'):
         warnings.filterwarnings('ignore', category=DeprecationWarning, module=r'stdnum\..*')
         for _loader, name, _is_pkg in pkgutil.walk_packages(
                 module.__path__, module.__name__ + '.'):
+
+            # we don't want the runtime overhead of loading this module
+            # additionally it would put a hard requirement on typing_extensions
+            if name == 'stdnum._types':
+                continue
+
             __import__(name)
             module = sys.modules[name]
             if hasattr(module, 'validate') and module.__name__ == name:
                 yield module
 
 
-def get_module_name(module):
+def get_module_name(module: object) -> str:
     """Return the short description of the number."""
     return pydoc.splitdoc(pydoc.getdoc(module))[0].strip('.')
 
 
-def get_module_description(module):
+def get_module_description(module: object) -> str:
     """Return a description of the number."""
     doc = pydoc.splitdoc(pydoc.getdoc(module))[1]
     # remove the doctests
     return _strip_doctest_re.sub('', doc).strip()
 
 
-def get_cc_module(cc, name):
+def get_cc_module(cc: str, name: str) -> t.NumberValidationModule | None:
     """Find the country-specific named module."""
     cc = cc.lower()
     # add suffix for python reserved words
@@ -229,32 +235,41 @@ def get_cc_module(cc, name):
         mod = __import__('stdnum.%s' % cc, globals(), locals(), [name])
         return getattr(mod, name, None)
     except ImportError:
-        return
+        return None
 
 
 # this is a cache of SOAP clients
 _soap_clients = {}
 
 
-def _get_zeep_soap_client(wsdlurl, timeout, verify):  # pragma: no cover (not part of normal test suite)
+def _get_zeep_soap_client(
+    wsdlurl: str,
+    timeout: float,
+    verify: bool | str,
+) -> t.Any:  # pragma: no cover (not part of normal test suite)
     from requests import Session
     from zeep import CachingClient
     from zeep.transports import Transport
     session = Session()
     session.verify = verify
-    transport = Transport(operation_timeout=timeout, timeout=timeout, session=session)
-    return CachingClient(wsdlurl, transport=transport).service
+    transport = Transport(operation_timeout=timeout, timeout=timeout, session=session)  # type: ignore[no-untyped-call]
+    return CachingClient(wsdlurl, transport=transport).service  # type: ignore[no-untyped-call]
 
 
-def _get_suds_soap_client(wsdlurl, timeout, verify):  # pragma: no cover (not part of normal test suite)
+def _get_suds_soap_client(
+    wsdlurl: str,
+    timeout: float,
+    verify: bool | str,
+) -> t.Any:  # pragma: no cover (not part of normal test suite)
+    import os.path
     from urllib.request import HTTPSHandler, getproxies
 
-    from suds.client import Client
-    from suds.transport.http import HttpTransport
+    from suds.client import Client  # type: ignore
+    from suds.transport.http import HttpTransport  # type: ignore
 
-    class CustomSudsTransport(HttpTransport):
+    class CustomSudsTransport(HttpTransport):  # type: ignore[misc]
 
-        def u2handlers(self):
+        def u2handlers(self):  # type: ignore[no-untyped-def]
             handlers = super(CustomSudsTransport, self).u2handlers()
             if isinstance(verify, str):
                 if not os.path.isdir(verify):
@@ -274,8 +289,14 @@ def _get_suds_soap_client(wsdlurl, timeout, verify):  # pragma: no cover (not pa
     return Client(wsdlurl, proxy=getproxies(), timeout=timeout, transport=CustomSudsTransport()).service
 
 
-def _get_pysimplesoap_soap_client(wsdlurl, timeout, verify):  # pragma: no cover (not part of normal test suite)
-    from pysimplesoap.client import SoapClient
+def _get_pysimplesoap_soap_client(
+    wsdlurl: str,
+    timeout: float,
+    verify: bool | str,
+) -> t.Any:  # pragma: no cover (not part of normal test suite)
+    from urllib.request import getproxies
+
+    from pysimplesoap.client import SoapClient  # type: ignore
     if verify is False:
         raise ValueError('PySimpleSOAP does not support verify=False')
     kwargs = {}
@@ -287,7 +308,11 @@ def _get_pysimplesoap_soap_client(wsdlurl, timeout, verify):  # pragma: no cover
     return SoapClient(wsdl=wsdlurl, proxy=getproxies(), timeout=timeout, **kwargs)
 
 
-def get_soap_client(wsdlurl, timeout=30, verify=True):  # pragma: no cover (not part of normal test suite)
+def get_soap_client(
+    wsdlurl: str,
+    timeout: float = 30,
+    verify: bool = True,
+) -> t.Any:  # pragma: no cover (not part of normal test suite)
     """Get a SOAP client for performing requests. The client is cached. The
     timeout is in seconds. The verify parameter is either True (the default), False
     (to disabled certificate validation) or string value pointing to a CA certificate

@@ -19,6 +19,7 @@
 # 02110-1301 USA
 
 """Collection of Polish numbers."""
+from __future__ import annotations
 
 # provide vat as an alias
 from stdnum.pl import nip as vat  # noqa: F401

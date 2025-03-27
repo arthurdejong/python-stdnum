@@ -45,12 +45,13 @@ InvalidChecksum: ...
 >>> format('CHE100155212')
 'CHE-100.155.212'
 """
+from __future__ import annotations
 
 from stdnum.exceptions import *
 from stdnum.util import clean, get_soap_client, isdigits
 
 
-def compact(number):
+def compact(number: str) -> str:
     """Convert the number to the minimal representation. This strips
     surrounding whitespace and separators."""
     number = clean(number, ' -.').strip().upper()
@@ -59,7 +60,7 @@ def compact(number):
     return number
 
 
-def calc_check_digit(number):
+def calc_check_digit(number: str) -> str:
     """Calculate the check digit for organisations. The number passed should
     not have the check digit included."""
     weights = (5, 4, 3, 2, 7, 6, 5, 4)
@@ -67,7 +68,7 @@ def calc_check_digit(number):
     return str((11 - s) % 11)
 
 
-def validate(number):
+def validate(number: str) -> str:
     """Check if the number is a valid UID. This checks the length, formatting
     and check digit."""
     number = compact(number)
@@ -82,7 +83,7 @@ def validate(number):
     return number
 
 
-def is_valid(number):
+def is_valid(number: str) -> bool:
     """Check if the number is a valid UID."""
     try:
         return bool(validate(number))
@@ -90,7 +91,7 @@ def is_valid(number):
         return False
 
 
-def format(number):
+def format(number: str) -> str:
     """Reformat the number to the standard presentation format."""
     number = compact(number)
     return number[:3] + '-' + '.'.join(
@@ -100,7 +101,7 @@ def format(number):
 uid_wsdl = 'https://www.uid-wse.admin.ch/V5.0/PublicServices.svc?wsdl'
 
 
-def check_uid(number, timeout=30, verify=True):  # pragma: no cover
+def check_uid(number, timeout=30, verify=True):  # type: ignore # pragma: no cover
     """Look up information via the Swiss Federal Statistical Office web service.
 
     This uses the UID registry web service run by the the Swiss Federal

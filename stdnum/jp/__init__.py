@@ -19,4 +19,6 @@
 # 02110-1301 USA
 
 """Collection of Japanese numbers."""
+from __future__ import annotations
+
 from stdnum.jp import cn as vat  # noqa: F401

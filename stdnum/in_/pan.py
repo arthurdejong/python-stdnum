@@ -58,9 +58,11 @@ InvalidComponent: ...
 >>> info('AAPPV8261K')['holder_type']
 'Individual'
 """
+from __future__ import annotations
 
 import re
 
+from stdnum import _typing as t
 from stdnum.exceptions import *
 from stdnum.util import clean
 
@@ -83,13 +85,13 @@ _pan_holder_types = {
 # Type 'K' may have been discontinued, not listed on Income Text Dept website.
 
 
-def compact(number):
+def compact(number: str) -> str:
     """Convert the number to the minimal representation. This strips the
     number of any valid separators and removes surrounding whitespace."""
     return clean(number, ' -').upper().strip()
 
 
-def validate(number):
+def validate(number: str) -> str:
     """Check if the number provided is a valid PAN. This checks the length
     and formatting."""
     number = compact(number)
@@ -103,7 +105,7 @@ def validate(number):
     return number
 
 
-def is_valid(number):
+def is_valid(number: str) -> bool:
     """Check if the number provided is a valid PAN. This checks the length
     and formatting."""
     try:
@@ -112,20 +114,22 @@ def is_valid(number):
         return False
 
 
-def info(number):
+def info(number: str) -> t.PANInfo:
     """Provide information that can be decoded from the PAN."""
     number = compact(number)
     holder_type = _pan_holder_types.get(number[3])
     if not holder_type:
         raise InvalidComponent()
-    return {
+    # we exclude the backwards compatibility key from the typed dict
+    # so people that use type hints can migrate to the new key
+    return {  # type: ignore[typeddict-unknown-key]
         'holder_type': holder_type,
         'card_holder_type': holder_type,  # for backwards compatibility
         'initial': number[4],
     }
 
 
-def mask(number):
+def mask(number: str) -> str:
     """Mask the PAN as per Central Board of Direct Taxes (CBDT) masking
     standard."""
     number = compact(number)

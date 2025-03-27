@@ -63,7 +63,6 @@ setup(
         'Operating System :: OS Independent',
         'Programming Language :: Python',
         'Programming Language :: Python :: 3',
-        'Programming Language :: Python :: 3.6',
         'Programming Language :: Python :: 3.7',
         'Programming Language :: Python :: 3.8',
         'Programming Language :: Python :: 3.9',
@@ -77,8 +76,11 @@ setup(
         'Topic :: Text Processing :: General',
     ],
     packages=find_packages(),
-    install_requires=[],
-    package_data={'': ['*.dat', '*.crt']},
+    python_requires='>=3.7',
+    install_requires=[
+        'importlib_resources >= 1.3  ; python_version < "3.9"',
+    ],
+    package_data={'': ['*.dat', '*.crt', 'py.typed']},
     extras_require={
         # The SOAP feature is only required for a number of online tests
         # of numbers such as the EU VAT VIES lookup, the Dominican Republic

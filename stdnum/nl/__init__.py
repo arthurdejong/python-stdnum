@@ -19,6 +19,7 @@
 # 02110-1301 USA
 
 """Collection of Dutch numbers."""
+from __future__ import annotations
 
 # provide aliases
 from stdnum.nl import btw as vat  # noqa: F401

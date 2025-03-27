@@ -19,6 +19,7 @@
 # 02110-1301 USA
 
 """Collection of Belarusian numbers."""
+from __future__ import annotations
 
 # provide aliases
 from stdnum.by import unp as vat  # noqa: F401

@@ -19,6 +19,7 @@
 # 02110-1301 USA
 
 """Collection of Luxembourgian numbers."""
+from __future__ import annotations
 
 # provide vat as an alias
 from stdnum.lu import tva as vat  # noqa: F401

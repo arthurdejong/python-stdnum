@@ -41,10 +41,12 @@ datetime.date(1931, 8, 20)
 >>> get_gender('BOXW310820HNERXN09')
 'M'
 """
+from __future__ import annotations
 
 import datetime
 import re
 
+from stdnum import _typing as t
 from stdnum.exceptions import *
 from stdnum.util import clean
 
@@ -66,13 +68,13 @@ _valid_states = set('''
 '''.split())
 
 
-def compact(number):
+def compact(number: str) -> str:
     """Convert the number to the minimal representation. This strips
     surrounding whitespace and separation dash."""
     return clean(number, '-_ ').upper().strip()
 
 
-def get_birth_date(number):
+def get_birth_date(number: str) -> datetime.date:
     """Split the date parts from the number and return the birth date."""
     number = compact(number)
     year = int(number[4:6])
@@ -88,7 +90,7 @@ def get_birth_date(number):
         raise InvalidComponent()
 
 
-def get_gender(number):
+def get_gender(number: str) -> t.Literal['M', 'F']:
     """Get the gender (M/F) from the person's CURP."""
     number = compact(number)
     if number[10] == 'H':
@@ -103,13 +105,13 @@ def get_gender(number):
 _alphabet = '0123456789ABCDEFGHIJKLMN&OPQRSTUVWXYZ'
 
 
-def calc_check_digit(number):
+def calc_check_digit(number: str) -> str:
     """Calculate the check digit."""
     check = sum(_alphabet.index(c) * (18 - i) for i, c in enumerate(number[:17]))
     return str((10 - check % 10) % 10)
 
 
-def validate(number, validate_check_digits=True):
+def validate(number: str, validate_check_digits: bool = True) -> str:
     """Check if the number is a valid CURP."""
     number = compact(number)
     if len(number) != 18:
@@ -127,7 +129,7 @@ def validate(number, validate_check_digits=True):
     return number
 
 
-def is_valid(number, validate_check_digits=True):
+def is_valid(number: str, validate_check_digits: bool = True) -> bool:
     """Check if the number provided is a valid CURP."""
     try:
         return bool(validate(number, validate_check_digits))

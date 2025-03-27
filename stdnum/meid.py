@@ -37,7 +37,9 @@ InvalidChecksum: ...
 >>> format('af0123450abcDEC', format='dec', add_check_digit=True)
 '29360 87365 0070 3710 0'
 """
+from __future__ import annotations
 
+from stdnum import _typing as t
 from stdnum.exceptions import *
 from stdnum.util import clean, isdigits
 
@@ -45,20 +47,20 @@ from stdnum.util import clean, isdigits
 _hex_alphabet = '0123456789ABCDEF'
 
 
-def _cleanup(number):
+def _cleanup(number: str) -> str:
     """Remove any grouping information from the number and removes surrounding
     whitespace."""
     return clean(number, ' -').strip().upper()
 
 
-def _ishex(number):
+def _ishex(number: str) -> bool:
     for x in number:
         if x not in _hex_alphabet:
             return False
     return True
 
 
-def _parse(number):
+def _parse(number: str) -> tuple[str, str]:
     number = _cleanup(number)
     if len(number) in (14, 15):
         # 14 or 15 digit hex representation
@@ -74,7 +76,7 @@ def _parse(number):
         raise InvalidLength()
 
 
-def calc_check_digit(number):
+def calc_check_digit(number: str) -> str:
     """Calculate the check digit for the number. The number should not
     already have a check digit."""
     # both the 18-digit decimal format and the 14-digit hex format
@@ -86,7 +88,7 @@ def calc_check_digit(number):
         return luhn.calc_check_digit(number, alphabet=_hex_alphabet)
 
 
-def compact(number, strip_check_digit=True):
+def compact(number: str, strip_check_digit: bool = True) -> str:
     """Convert the MEID number to the minimal (hexadecimal) representation.
     This strips grouping information, removes surrounding whitespace and
     converts to hexadecimal if needed. If the check digit is to be preserved
@@ -105,7 +107,7 @@ def compact(number, strip_check_digit=True):
     return number + cd
 
 
-def validate(number, strip_check_digit=True):
+def validate(number: str, strip_check_digit: bool = True) -> str:
     """Check if the number is a valid MEID number. This converts the
     representation format of the number (if it is decimal it is not converted
     to hexadecimal)."""
@@ -136,7 +138,7 @@ def validate(number, strip_check_digit=True):
     return number + cd
 
 
-def is_valid(number):
+def is_valid(number: str) -> bool:
     """Check if the number is a valid MEID number."""
     try:
         return bool(validate(number))
@@ -144,7 +146,12 @@ def is_valid(number):
         return False
 
 
-def format(number, separator=' ', format=None, add_check_digit=False):
+def format(
+    number: str,
+    separator: str = ' ',
+    format: t.Literal['dec', 'hex'] | None = None,
+    add_check_digit: bool = False,
+) -> str:
     """Reformat the number to the standard presentation format. The separator
     used can be provided. If the format is specified (either 'hex' or 'dec')
     the number is reformatted in that format, otherwise the current
@@ -167,22 +174,23 @@ def format(number, separator=' ', format=None, add_check_digit=False):
     if add_check_digit and not cd:
         cd = calc_check_digit(number)
     # split number according to format
+    parts: t.Iterable[str]
     if len(number) == 14:
-        number = [number[i * 2:i * 2 + 2]
-                  for i in range(7)] + [cd]
+        parts = [number[i * 2:i * 2 + 2]
+                 for i in range(7)] + [cd]
     else:
-        number = (number[:5], number[5:10], number[10:14], number[14:], cd)
-    return separator.join(x for x in number if x)
+        parts = (number[:5], number[5:10], number[10:14], number[14:], cd)
+    return separator.join(x for x in parts if x)
 
 
-def to_binary(number):
+def to_binary(number: str) -> bytes:
     """Convert the number to its binary representation (without the check
     digit)."""
     from binascii import a2b_hex
     return a2b_hex(compact(number, strip_check_digit=True))
 
 
-def to_pseudo_esn(number):
+def to_pseudo_esn(number: str) -> str:
     """Convert the provided MEID to a pseudo ESN (pESN). The ESN is returned
     in compact hexadecimal representation."""
     # return the last 6 digits of the SHA1  hash prefixed with the reserved

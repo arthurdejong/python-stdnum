@@ -19,4 +19,6 @@
 # 02110-1301 USA
 
 """Collection of Canadian numbers."""
+from __future__ import annotations
+
 from stdnum.ca import bn as vat  # noqa: F401

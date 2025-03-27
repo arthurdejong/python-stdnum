@@ -44,6 +44,7 @@ InvalidChecksum: ...
 >>> format('0993000133978')
 '0-99-3-000-13397-8'
 """
+from __future__ import annotations
 
 from stdnum.exceptions import *
 from stdnum.th import pin
@@ -57,13 +58,13 @@ __all__ = ['compact', 'calc_check_digit', 'validate', 'is_valid', 'format']
 calc_check_digit = pin.calc_check_digit
 
 
-def compact(number):
+def compact(number: str) -> str:
     """Convert the number to the minimal representation. This strips the
     number of any valid separators and removes surrounding whitespace."""
     return clean(number, ' -').strip()
 
 
-def validate(number):
+def validate(number: str) -> str:
     """Check if the number is a valid MOA Number. This checks the length,
     formatting, component and check digit."""
     number = compact(number)
@@ -78,7 +79,7 @@ def validate(number):
     return number
 
 
-def is_valid(number):
+def is_valid(number: str) -> bool:
     """Check whether the number is valid."""
     try:
         return bool(validate(number))
@@ -86,7 +87,7 @@ def is_valid(number):
         return False
 
 
-def format(number):
+def format(number: str) -> str:
     """Reformat the number to the standard presentation format."""
     number = compact(number)
     return '-'.join((

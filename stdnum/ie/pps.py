@@ -50,6 +50,7 @@ Traceback (most recent call last):
     ...
 InvalidChecksum: ...
 """
+from __future__ import annotations
 
 import re
 
@@ -62,13 +63,13 @@ pps_re = re.compile(r'^\d{7}[A-W][ABHWTX]?$')
 """Regular expression used to check syntax of PPS numbers."""
 
 
-def compact(number):
+def compact(number: str) -> str:
     """Convert the number to the minimal representation. This strips the
     number of any valid separators and removes surrounding whitespace."""
     return clean(number, ' -').upper().strip()
 
 
-def validate(number):
+def validate(number: str) -> str:
     """Check if the number provided is a valid PPS number. This checks the
     length, formatting and check digit."""
     number = compact(number)
@@ -85,7 +86,7 @@ def validate(number):
     return number
 
 
-def is_valid(number):
+def is_valid(number: str) -> bool:
     """Check if the number provided is a valid PPS number. This checks the
     length, formatting and check digit."""
     try:

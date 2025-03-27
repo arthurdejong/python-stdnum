@@ -19,6 +19,7 @@
 # 02110-1301 USA
 
 """Collection of Moroccan numbers."""
+from __future__ import annotations
 
 # provide vat as an alias
 from stdnum.ma import ice as vat  # noqa: F401

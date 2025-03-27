@@ -19,6 +19,7 @@
 # 02110-1301 USA
 
 """Collection of Icelandic numbers."""
+from __future__ import annotations
 
 # provide aliases
 from stdnum.is_ import kennitala as personalid  # noqa: F401

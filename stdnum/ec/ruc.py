@@ -35,7 +35,9 @@ Traceback (most recent call last):
     ...
 InvalidLength: ...
 """
+from __future__ import annotations
 
+from stdnum import _typing as t
 from stdnum.ec import ci
 from stdnum.exceptions import *
 from stdnum.util import isdigits
@@ -48,12 +50,12 @@ __all__ = ['compact', 'validate', 'is_valid']
 compact = ci.compact
 
 
-def _checksum(number, weights):
+def _checksum(number: str, weights: t.Iterable[int]) -> int:
     """Calculate a checksum over the number given the weights."""
     return sum(w * int(n) for w, n in zip(weights, number)) % 11
 
 
-def _validate_natural(number):
+def _validate_natural(number: str) -> str:
     """Check if the number is a valid natural RUC (CI plus establishment)."""
     if number[-3:] == '000':
         raise InvalidComponent()  # establishment number wrong
@@ -61,7 +63,7 @@ def _validate_natural(number):
     return number
 
 
-def _validate_public(number):
+def _validate_public(number: str) -> str:
     """Check if the number is a valid public RUC."""
     if number[-4:] == '0000':
         raise InvalidComponent()  # establishment number wrong
@@ -70,7 +72,7 @@ def _validate_public(number):
     return number
 
 
-def _validate_juridical(number):
+def _validate_juridical(number: str) -> str:
     """Check if the number is a valid juridical RUC."""
     if number[-3:] == '000':
         raise InvalidComponent()  # establishment number wrong
@@ -79,7 +81,7 @@ def _validate_juridical(number):
     return number
 
 
-def validate(number):
+def validate(number: str) -> str:
     """Check if the number provided is a valid RUC number. This checks the
     length, formatting, check digit and check sum."""
     number = compact(number)
@@ -109,7 +111,7 @@ def validate(number):
     return number
 
 
-def is_valid(number):
+def is_valid(number: str) -> bool:
     """Check if the number provided is a valid RUC number. This checks the
     length, formatting and check digit."""
     try:

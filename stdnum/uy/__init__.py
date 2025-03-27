@@ -19,6 +19,7 @@
 # 02110-1301 USA
 
 """Collection of Uruguayan numbers."""
+from __future__ import annotations
 
 # provide aliases
 from stdnum.uy import rut as vat  # noqa: F401

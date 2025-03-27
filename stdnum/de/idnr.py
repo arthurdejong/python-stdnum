@@ -44,6 +44,7 @@ InvalidFormat: ...
 >>> format('36574261809')
 '36 574 261 809'
 """
+from __future__ import annotations
 
 from collections import defaultdict
 
@@ -52,13 +53,13 @@ from stdnum.iso7064 import mod_11_10
 from stdnum.util import clean, isdigits
 
 
-def compact(number):
+def compact(number: str) -> str:
     """Convert the number to the minimal representation. This strips the
     number of any valid separators and removes surrounding whitespace."""
     return clean(number, ' -./,').strip()
 
 
-def validate(number):
+def validate(number: str) -> str:
     """Check if the number provided is a valid tax identification number.
     This checks the length, formatting and check digit."""
     number = compact(number)
@@ -70,7 +71,7 @@ def validate(number):
         raise InvalidFormat()
     # In the first 10 digits exactly one digit must be repeated two or
     # three times and other digits can appear only once.
-    counter = defaultdict(int)
+    counter: dict[str, int] = defaultdict(int)
     for n in number[:10]:
         counter[n] += 1
     counts = [c for c in counter.values() if c > 1]
@@ -79,7 +80,7 @@ def validate(number):
     return mod_11_10.validate(number)
 
 
-def is_valid(number):
+def is_valid(number: str) -> bool:
     """Check if the number provided is a valid tax identification number.
     This checks the length, formatting and check digit."""
     try:
@@ -88,7 +89,7 @@ def is_valid(number):
         return False
 
 
-def format(number):
+def format(number: str) -> str:
     """Reformat the number to the standard presentation format."""
     number = compact(number)
     return ' '.join((number[:2], number[2:5], number[5:8], number[8:]))

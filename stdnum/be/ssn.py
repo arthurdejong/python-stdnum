@@ -88,7 +88,11 @@ datetime.date(1998, 7, 28)
 'M'
 
 """
+from __future__ import annotations
 
+import datetime
+
+from stdnum import _typing as t
 from stdnum.be import bis, nn
 from stdnum.exceptions import *
 
@@ -96,13 +100,13 @@ from stdnum.exceptions import *
 _ssn_modules = (nn, bis)
 
 
-def compact(number):
+def compact(number: str) -> str:
     """Convert the number to the minimal representation. This strips the
     number of any valid separators and removes surrounding whitespace."""
     return nn.compact(number)
 
 
-def validate(number):
+def validate(number: str) -> str:
     """Check if the number is a valid Belgian SSN. This searches for
     the proper sub-type and validates using that."""
     try:
@@ -113,7 +117,7 @@ def validate(number):
         return nn.validate(number)
 
 
-def is_valid(number):
+def is_valid(number: str) -> bool:
     """Check if the number is a valid Belgian SSN number."""
     try:
         return bool(validate(number))
@@ -121,35 +125,37 @@ def is_valid(number):
         return False
 
 
-def guess_type(number):
+def guess_type(number: str) -> str | None:
     """Return the Belgian SSN type for which this number is valid."""
     for mod in _ssn_modules:
         if mod.is_valid(number):
             return mod.__name__.rsplit('.', 1)[-1]
+    return None
 
 
-def format(number):
+def format(number: str) -> str:
     """Reformat the number to the standard presentation format."""
     return nn.format(number)
 
 
-def get_birth_year(number):
+def get_birth_year(number: str) -> int | None:
     """Return the year of the birth date."""
     return nn.get_birth_year(number)
 
 
-def get_birth_month(number):
+def get_birth_month(number: str) -> int | None:
     """Return the month of the birth date."""
     return nn.get_birth_month(number)
 
 
-def get_birth_date(number):
+def get_birth_date(number: str) -> datetime.date | None:
     """Return the date of birth."""
     return nn.get_birth_date(number)
 
 
-def get_gender(number):
+def get_gender(number: str) -> t.Literal['M', 'F'] | None:
     """Get the person's gender ('M' or 'F')."""
     for mod in _ssn_modules:
         if mod.is_valid(number):
-            return mod.get_gender(number)
+            return mod.get_gender(number)  # type: ignore[no-any-return]
+    return None
