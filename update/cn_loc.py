@@ -76,8 +76,8 @@ def group_data(data_collection):
     for code, name in sorted(data_collection.items()):
         if code.endswith('00'):
             continue  # county only
-        province_code = code[:2] + '0000'
-        prefecture_code = code[:4] + '00'
+        province_code = f"{code[:2]}0000"
+        prefecture_code = f"{code[:4]}00"
         province_name = data_collection[province_code]
         prefecture_name = data_collection[prefecture_code]
         yield code, name, prefecture_name, province_name
