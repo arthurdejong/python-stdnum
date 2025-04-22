@@ -36,6 +36,14 @@ class TestDGII(unittest.TestCase):
     """Test the web services provided by the the Dirección General de
     Impuestos Internos (DGII), the Dominican Republic tax department."""
 
+    # Theses tests currently fail because the SOAP service at
+    # https://www.dgii.gov.do/wsMovilDGII/WSMovilDGII.asmx?WSDL
+    # is no longer available. There is a new one at
+    # https://www.dgii.gov.do/ventanillaunica/ventanillaunica.asmx?WSDL
+    # but it has a different API and seems to require authentication.
+    # See https://github.com/arthurdejong/python-stdnum/pull/462
+    # and https://github.com/arthurdejong/python-stdnum/issues/461
+    @unittest.expectedFailure
     def test_check_dgii(self):
         """Test stdnum.do.cedula.check_dgii()"""
         # Test a normal valid number

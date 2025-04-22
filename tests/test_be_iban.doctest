@@ -37,6 +37,15 @@ Traceback (most recent call last):
 InvalidChecksum: ...
 
 
+Some bank account numbers don't have a BIC.
+(this is a constructed bank account number, no actual one was found in the wild)
+
+>>> iban.validate('BE45102000000089')
+'BE45102000000089'
+>>> iban.to_bic('BE45102000000089') is None
+True
+
+
 These should all be valid numbers combined with the appropriate BIC code for
 the IBAN.
 

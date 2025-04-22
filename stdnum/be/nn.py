@@ -184,7 +184,7 @@ def get_birth_month(number: str) -> int | None:
 def get_birth_date(number: str) -> datetime.date | None:
     """Return the date of birth."""
     year, month, day = _get_birth_date_parts(compact(number))
-    if year is not None and month is not None and day is not None:
+    if year and month and day:
         return datetime.date(year, month, day)
     return None
 

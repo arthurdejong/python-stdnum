@@ -249,7 +249,7 @@ def encode(data: t.Mapping[str, object], separator: str = '', parentheses: bool 
             mod.validate(value)
         value = _encode_value(info['format'], info['type'], value)
         # store variable-sized values separate from fixed-size values
-        if info.get('fnc1', False):
+        if info.get('fnc1'):
             variable_values.append((ai_fmt % ai, info['format'], info['type'], value))
         else:
             fixed_values.append(ai_fmt % ai + value)

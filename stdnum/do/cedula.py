@@ -179,7 +179,11 @@ def format(number: str) -> str:
     return '-'.join((number[:3], number[3:-1], number[-1]))
 
 
-def check_dgii(number: str, timeout: float = 30) -> dict[str, t.Any] | None:  # pragma: no cover
+def check_dgii(
+    number: str,
+    timeout: float = 30,
+    verify: bool = True,
+) -> dict[str, t.Any] | None:  # pragma: no cover
     """Lookup the number using the DGII online web service.
 
     This uses the validation service run by the the Dirección General de
@@ -201,7 +205,7 @@ def check_dgii(number: str, timeout: float = 30) -> dict[str, t.Any] | None:  # 
     # this function isn't automatically tested because it would require
     # network access for the tests and unnecessarily load the online service
     # we use the RNC implementation and change the rnc result to cedula
-    result = rnc.check_dgii(number, timeout)
+    result = rnc.check_dgii(number, timeout, verify)
     if result and 'rnc' in result:
         result['cedula'] = result.pop('rnc')
     return result

@@ -67,9 +67,8 @@ def _get_cc_module(cc: str) -> t.NumberValidationModule:
         raise InvalidFormat()
     if cc not in _country_modules:
         _country_modules[cc] = get_cc_module(cc, 'vat')
-
     module = _country_modules[cc]
-    if module is None:
+    if not module:
         raise InvalidComponent()  # unknown/unsupported country code
     return module
 
