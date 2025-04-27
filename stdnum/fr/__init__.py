@@ -20,5 +20,6 @@
 
 """Collection of French numbers."""
 
-# provide vat as an alias
+# provide excise and vat as an alias
+from stdnum.fr import accise as excise  # noqa: F401
 from stdnum.fr import tva as vat  # noqa: F401
