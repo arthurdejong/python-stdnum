@@ -30,7 +30,7 @@ import requests
 
 
 # the location of the GS1 application identifiers
-download_url = 'https://www.gs1.org/standards/barcodes/application-identifiers'
+download_url = 'https://ref.gs1.org/ai/'
 
 
 # The user agent that will be passed in requests
@@ -55,8 +55,8 @@ def fetch_ais():
             yield (
                 ai,
                 formatstring,
-                entry['fnc1required'],
-                entry['label'].strip(),
+                entry['separatorRequired'],
+                entry['title'].strip(),
                 entry['description'].strip())
 
 
