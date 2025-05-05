@@ -3,7 +3,7 @@
 # update/cn_loc.py - script to fetch data from the CN Open Data community
 #
 # Copyright (C) 2014-2015 Jiangge Zhang
-# Copyright (C) 2015-2022 Arthur de Jong
+# Copyright (C) 2015-2025 Arthur de Jong
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -25,9 +25,9 @@ Github."""
 
 from __future__ import print_function, unicode_literals
 
+import datetime
 import sys
 from collections import OrderedDict
-from datetime import datetime
 
 import requests
 
@@ -87,7 +87,7 @@ if __name__ == '__main__':
     """Output a data file in the right format."""
     print("# generated from National Bureau of Statistics of the People's")
     print('# Republic of China, downloaded from %s' % data_url)
-    print('# %s' % datetime.utcnow())
+    print('# %s' % datetime.datetime.now(datetime.UTC))
     data_collection = fetch_data()
     for data in group_data(data_collection):
         print('%s county="%s" prefecture="%s" province="%s"' % data)
