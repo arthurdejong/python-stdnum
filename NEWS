@@ -1,3 +1,42 @@
+changes from 1.20 to 2.0
+------------------------
+
+* Only support Python 3.8 and newer (drop Python 2 support so major version bump)
+* Include type hints for mypy (thanks David Salvisberg)
+
+* Add modules for the following number formats:
+
+  - eID Number (Belgian electronic Identity Card Number) (thanks Jeff Horemans)
+  - SSN, INSZ, NISS (Belgian social security number) (thanks Jeff Horemans)
+  - CAE (Código de Actividad y Establecimiento, Spanish activity establishment code)
+    (thanks Quique Porta)
+  - NIK (Nomor Induk Kependudukan, Indonesian identity number)
+  - ISNI (International Standard Name Identifier) (thanks Henning Kage)
+  - IN (個人番号, kojin bangō, Japanese Individual Number) (thanks Luca Sicurello)
+  - Identiteitskaartnummer, Paspoortnummer (the Dutch passport number)
+    (thanks Jeff Horemans)
+  - ОГРН, OGRN, PSRN, ОГРНИП, OGRNIP (Russian Primary State Registration Number)
+    (thanks Ivan Stavropoltsev)
+
+* Fix Czech RČ check digit validation (thanks Jan Chaloupecky)
+* Support Ecuador public RUC with juridical format (thanks Leandro)
+* Allow Uruguay RUT numbers starting with 22
+* Add missing music industry ISRC country codes (thanks Victor Sordoillet)
+* Support 16 digit Indonesian NPWP numbers (thanks Chris Smola)
+* Adjust Swiss uid module to accept numbers without CHE prefix (thanks Jeff Horemans)
+* Update Irish PPS validator to support new numbers (thanks Olly Middleton)
+* Add missing vat alias for Thailand VAT number (thanks Leandro Regueiro)
+* Add more tests for the Verhoeff implementation
+* Ensure that certificate verification can be configured using the verify
+  argument when using web services
+* The check_dgii() and search_dgii() functions from the Dominican Republic Cedula
+  and RNC modules no longer work due to a change in the DGII online web service
+* Various small code cleanups (thanks David Salvisberg)
+* Various small fixes to update scripts
+* The stdnum.util.to_unicode() function is now deprecated and will be removed
+  in an upcoming release
+
+
 changes from 1.19 to 1.20
 -------------------------
 

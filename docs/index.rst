@@ -127,8 +127,10 @@ Available formats
    au.acn
    au.tfn
    be.bis
+   be.eid
    be.iban
    be.nn
+   be.ssn
    be.vat
    bg.egn
    bg.pnf
@@ -178,6 +180,7 @@ Available formats
    ee.kmkr
    ee.registrikood
    eg.tn
+   es.cae
    es.ccc
    es.cif
    es.cups
@@ -221,6 +224,7 @@ Available formats
    hr.oib
    hu.anum
    iban
+   id.nik
    id.npwp
    ie.pps
    ie.vat
@@ -241,6 +245,7 @@ Available formats
    isil
    isin
    ismn
+   isni
    iso11649
    iso6346
    isrc
@@ -249,6 +254,7 @@ Available formats
    it.codicefiscale
    it.iva
    jp.cn
+   jp.in_
    ke.pin
    kr.brn
    kr.rrn
@@ -274,6 +280,7 @@ Available formats
    nl.brin
    nl.bsn
    nl.btw
+   nl.identiteitskaartnummer
    nl.onderwijsnummer
    nl.postcode
    no.fodselsnummer
@@ -298,6 +305,7 @@ Available formats
    ro.onrc
    rs.pib
    ru.inn
+   ru.ogrn
    se.orgnr
    se.personnummer
    se.postnummer

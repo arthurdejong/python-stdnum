@@ -1,3 +1,496 @@
+2025-05-05  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [f2967d3] stdnum/at/postleitzahl.dat, stdnum/be/banks.dat,
+	  stdnum/cfi.dat, stdnum/cn/loc.dat, stdnum/cz/banks.dat,
+	  stdnum/gs1_ai.dat, stdnum/iban.dat, stdnum/imsi.dat,
+	  stdnum/isbn.dat, stdnum/isil.dat, stdnum/my/bp.dat,
+	  stdnum/nz/banks.dat, stdnum/oui.dat, tests/test_gs1_128.doctest,
+	  tox.ini: Update database files
+
+	  This also updates the GS1-128 tests because a previously unused
+	  AI is now in use. This also adds the updating of the Czech bank
+	  numbers to tox.
+
+2025-05-05  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [c118723] update/at_postleitzahl.py: Remove duplicate Austrian
+	  post offices
+
+2025-05-05  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [1a87baf] update/my_bp.crt, update/my_bp.py: Drop custom
+	  certificates for www.jpn.gov.my
+
+	  The certificate chain for www.jpn.gov.my seems to have been fixed.
+
+2025-05-05  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [44575a1] update/iban.py: Allow reading IBAN registry from the
+	  command line
+
+	  It seems that the Swift website currently uses TLS fingerprinting
+	  to block downloads of the IBAN registry except in certain browsers.
+
+	  It also fixes an idiosyncrasy in the IBAN registry iteself where
+	  the Norwegian BBAN format string was not correct.
+
+2025-05-05  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [44c2355] update/gs1_ai.py: Fix the downloading of GS1 application
+	  identifiers
+
+	  The URL changed and the embedded JSON also slightly changed.
+
+2025-05-05  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [01e87f9] update/cn_loc.py, update/gs1_ai.py: Fix datetime
+	  related deprecation warnings in update scripts
+
+2025-05-05  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [37320ea] update/be_banks.py, update/requirements.txt: Fix the
+	  downloading of Belgian bank identifiers
+
+	  The site switched from XLS to XLSX files.
+
+2025-05-05  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [98b4fa0] stdnum/util.py, update/cfi.py, update/isil.py,
+	  update/my_bp.py: Always pass regex flags as keyword argument
+
+	  In particular with re.sub() it got confused with the count
+	  positional argument.
+
+	  Fixes a9039c1
+
+2025-05-05  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [6e8c783] stdnum/cr/cpj.py, stdnum/fr/nir.py, stdnum/si/maticna.py:
+	  Switch some URLs to HTTPS
+
+2022-09-04  Leandro Regueiro <leandro.regueiro@gmail.com>
+
+	* [497bb11] stdnum/th/__init__.py: Add VAT alias for Thailand
+	  TIN number
+
+	  Based on
+	  https://github.com/arthurdejong/python-stdnum/issues/118#issuecomment-920521305
+	  Closes https://github.com/arthurdejong/python-stdnum/pull/314
+
+2025-05-05  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [bfac07b] stdnum/ua/edrpou.py: Fix typo
+
+	  Fixes b7b2af8
+
+2025-04-04  Luca Sicurello <luca.sicu02@gmail.com>
+
+	* [fca47b0] stdnum/jp/in_.py: Add Japanese Individual Number
+
+2025-03-13  David Salvisberg <david.salvisberg@seantis.ch>
+
+	* [0e857fb] .github/workflows/test.yml, .gitignore, docs/index.rst,
+	  setup.cfg, setup.py, stdnum/__init__.py, stdnum/ad/__init__.py,
+	  stdnum/ad/nrt.py, stdnum/al/__init__.py, stdnum/al/nipt.py,
+	  stdnum/ar/__init__.py, stdnum/ar/cbu.py, stdnum/ar/cuit.py,
+	  stdnum/ar/dni.py, stdnum/at/__init__.py, stdnum/at/businessid.py,
+	  stdnum/at/postleitzahl.py, stdnum/at/tin.py, stdnum/at/uid.py,
+	  stdnum/at/vnr.py, stdnum/au/__init__.py, stdnum/au/abn.py,
+	  stdnum/au/acn.py, stdnum/au/tfn.py, stdnum/be/__init__.py,
+	  stdnum/be/bis.py, stdnum/be/eid.py, stdnum/be/iban.py,
+	  stdnum/be/nn.py, stdnum/be/ssn.py, stdnum/be/vat.py,
+	  stdnum/bg/egn.py, stdnum/bg/pnf.py, stdnum/bg/vat.py,
+	  stdnum/bic.py, stdnum/bitcoin.py, stdnum/br/__init__.py,
+	  stdnum/br/cnpj.py, stdnum/br/cpf.py, stdnum/by/__init__.py,
+	  stdnum/by/unp.py, stdnum/ca/__init__.py, stdnum/ca/bc_phn.py,
+	  stdnum/ca/bn.py, stdnum/ca/sin.py, stdnum/casrn.py, stdnum/cfi.py,
+	  stdnum/ch/esr.py, stdnum/ch/ssn.py, stdnum/ch/uid.py,
+	  stdnum/ch/vat.py, stdnum/cl/__init__.py, stdnum/cl/rut.py,
+	  stdnum/cn/__init__.py, stdnum/cn/ric.py, stdnum/cn/uscc.py,
+	  stdnum/co/__init__.py, stdnum/co/nit.py, stdnum/cr/__init__.py,
+	  stdnum/cr/cpf.py, stdnum/cr/cpj.py, stdnum/cr/cr.py,
+	  stdnum/cu/ni.py, stdnum/cusip.py, stdnum/cy/vat.py,
+	  stdnum/cz/__init__.py, stdnum/cz/bankaccount.py,
+	  stdnum/cz/dic.py, stdnum/cz/rc.py, stdnum/damm.py,
+	  stdnum/de/__init__.py, stdnum/de/handelsregisternummer.py,
+	  stdnum/de/idnr.py, stdnum/de/stnr.py, stdnum/de/vat.py,
+	  stdnum/de/wkn.py, stdnum/dk/__init__.py, stdnum/dk/cpr.py,
+	  stdnum/dk/cvr.py, stdnum/do/__init__.py, stdnum/do/cedula.py,
+	  stdnum/do/ncf.py, stdnum/do/rnc.py, stdnum/dz/__init__.py,
+	  stdnum/dz/nif.py, stdnum/ean.py, stdnum/ec/__init__.py,
+	  stdnum/ec/ci.py, stdnum/ec/ruc.py, stdnum/ee/__init__.py,
+	  stdnum/ee/ik.py, stdnum/ee/kmkr.py, stdnum/ee/registrikood.py,
+	  stdnum/eg/__init__.py, stdnum/eg/tn.py, stdnum/es/__init__.py,
+	  stdnum/es/cae.py, stdnum/es/ccc.py, stdnum/es/cif.py,
+	  stdnum/es/cups.py, stdnum/es/dni.py, stdnum/es/iban.py,
+	  stdnum/es/nie.py, stdnum/es/nif.py, stdnum/es/postal_code.py,
+	  stdnum/es/referenciacatastral.py, stdnum/eu/at_02.py,
+	  stdnum/eu/banknote.py, stdnum/eu/ecnumber.py, stdnum/eu/eic.py,
+	  stdnum/eu/nace.py, stdnum/eu/oss.py, stdnum/eu/vat.py,
+	  stdnum/exceptions.py, stdnum/fi/__init__.py, stdnum/fi/alv.py,
+	  stdnum/fi/associationid.py, stdnum/fi/hetu.py,
+	  stdnum/fi/veronumero.py, stdnum/fi/ytunnus.py,
+	  stdnum/figi.py, stdnum/fo/__init__.py, stdnum/fo/vn.py,
+	  stdnum/fr/__init__.py, stdnum/fr/nif.py, stdnum/fr/nir.py,
+	  stdnum/fr/siren.py, stdnum/fr/siret.py, stdnum/fr/tva.py,
+	  stdnum/gb/nhs.py, stdnum/gb/sedol.py, stdnum/gb/upn.py,
+	  stdnum/gb/utr.py, stdnum/gb/vat.py, stdnum/gh/__init__.py,
+	  stdnum/gh/tin.py, stdnum/gn/__init__.py, stdnum/gn/nifp.py,
+	  stdnum/gr/amka.py, stdnum/gr/vat.py, stdnum/grid.py,
+	  stdnum/gs1_128.py, stdnum/gt/__init__.py, stdnum/gt/nit.py,
+	  stdnum/hr/__init__.py, stdnum/hr/oib.py, stdnum/hu/__init__.py,
+	  stdnum/hu/anum.py, stdnum/iban.py, stdnum/id/__init__.py,
+	  stdnum/id/nik.py, stdnum/id/npwp.py, stdnum/ie/pps.py,
+	  stdnum/ie/vat.py, stdnum/il/__init__.py, stdnum/il/hp.py,
+	  stdnum/il/idnr.py, stdnum/imei.py, stdnum/imo.py, stdnum/imsi.py,
+	  stdnum/in_/__init__.py, stdnum/in_/aadhaar.py, stdnum/in_/epic.py,
+	  stdnum/in_/gstin.py, stdnum/in_/pan.py, stdnum/in_/vid.py,
+	  stdnum/is_/__init__.py, stdnum/is_/kennitala.py, stdnum/is_/vsk.py,
+	  stdnum/isan.py, stdnum/isbn.py, stdnum/isil.py, stdnum/isin.py,
+	  stdnum/ismn.py, stdnum/isni.py, stdnum/iso11649.py,
+	  stdnum/iso6346.py, stdnum/iso7064/mod_11_10.py,
+	  stdnum/iso7064/mod_11_2.py, stdnum/iso7064/mod_37_2.py,
+	  stdnum/iso7064/mod_37_36.py, stdnum/iso7064/mod_97_10.py,
+	  stdnum/isrc.py, stdnum/issn.py, stdnum/it/__init__.py,
+	  stdnum/it/aic.py, stdnum/it/codicefiscale.py, stdnum/it/iva.py,
+	  stdnum/jp/__init__.py, stdnum/jp/cn.py, stdnum/ke/__init__.py,
+	  stdnum/ke/pin.py, stdnum/kr/__init__.py, stdnum/kr/brn.py,
+	  stdnum/kr/rrn.py, stdnum/lei.py, stdnum/li/peid.py,
+	  stdnum/lt/__init__.py, stdnum/lt/asmens.py,
+	  stdnum/lt/pvm.py, stdnum/lu/__init__.py, stdnum/lu/tva.py,
+	  stdnum/luhn.py, stdnum/lv/__init__.py, stdnum/lv/pvn.py,
+	  stdnum/ma/__init__.py, stdnum/ma/ice.py, stdnum/mac.py,
+	  stdnum/mc/__init__.py, stdnum/mc/tva.py, stdnum/md/idno.py,
+	  stdnum/me/__init__.py, stdnum/me/iban.py, stdnum/me/pib.py,
+	  stdnum/meid.py, stdnum/mk/__init__.py, stdnum/mk/edb.py,
+	  stdnum/mt/vat.py, stdnum/mu/nid.py, stdnum/mx/__init__.py,
+	  stdnum/mx/curp.py, stdnum/mx/rfc.py, stdnum/my/nric.py,
+	  stdnum/nl/__init__.py, stdnum/nl/brin.py, stdnum/nl/bsn.py,
+	  stdnum/nl/btw.py, stdnum/nl/identiteitskaartnummer.py,
+	  stdnum/nl/onderwijsnummer.py, stdnum/nl/postcode.py,
+	  stdnum/no/__init__.py, stdnum/no/fodselsnummer.py,
+	  stdnum/no/iban.py, stdnum/no/kontonr.py, stdnum/no/mva.py,
+	  stdnum/no/orgnr.py, stdnum/numdb.py, stdnum/nz/__init__.py,
+	  stdnum/nz/bankaccount.py, stdnum/nz/ird.py, stdnum/pe/__init__.py,
+	  stdnum/pe/cui.py, stdnum/pe/ruc.py, stdnum/pk/cnic.py,
+	  stdnum/pl/__init__.py, stdnum/pl/nip.py, stdnum/pl/pesel.py,
+	  stdnum/pl/regon.py, stdnum/pt/__init__.py, stdnum/pt/cc.py,
+	  stdnum/pt/nif.py, stdnum/py.typed, stdnum/py/__init__.py,
+	  stdnum/py/ruc.py, stdnum/ro/__init__.py, stdnum/ro/cf.py,
+	  stdnum/ro/cnp.py, stdnum/ro/cui.py, stdnum/ro/onrc.py,
+	  stdnum/rs/__init__.py, stdnum/rs/pib.py, stdnum/ru/__init__.py,
+	stdnum/ru/inn.py, stdnum/ru/ogrn.py, stdnum/se/__init__.py,
+	  stdnum/se/orgnr.py, stdnum/se/personnummer.py,
+	  stdnum/se/postnummer.py, stdnum/se/vat.py,
+	  stdnum/sg/__init__.py, stdnum/sg/uen.py, stdnum/si/__init__.py,
+	  stdnum/si/ddv.py, stdnum/si/emso.py, stdnum/si/maticna.py,
+	  stdnum/sk/__init__.py, stdnum/sk/dph.py, stdnum/sk/rc.py,
+	  stdnum/sm/__init__.py, stdnum/sm/coe.py, stdnum/sv/__init__.py,
+	  stdnum/sv/nit.py, stdnum/th/moa.py, stdnum/th/pin.py,
+	  stdnum/th/tin.py, stdnum/tn/__init__.py, stdnum/tn/mf.py,
+	  stdnum/tr/__init__.py, stdnum/tr/tckimlik.py, stdnum/tr/vkn.py,
+	  stdnum/tw/__init__.py, stdnum/tw/ubn.py, stdnum/ua/edrpou.py,
+	  stdnum/ua/rntrc.py, stdnum/us/atin.py, stdnum/us/ein.py,
+	  stdnum/us/itin.py, stdnum/us/ptin.py, stdnum/us/rtn.py,
+	  stdnum/us/ssn.py, stdnum/us/tin.py, stdnum/util.py,
+	  stdnum/uy/__init__.py, stdnum/uy/rut.py, stdnum/vatin.py,
+	  stdnum/ve/__init__.py, stdnum/ve/rif.py, stdnum/verhoeff.py,
+	  stdnum/vn/__init__.py, stdnum/vn/mst.py, stdnum/za/idnr.py,
+	  stdnum/za/tin.py, tests/test_by_unp.py, tests/test_ch_uid.py,
+	  tests/test_de_handelsregisternummer.py, tests/test_do_cedula.py,
+	  tests/test_do_ncf.py, tests/test_do_rnc.py, tests/test_eu_vat.py,
+	  tox.ini: Add type hints
+
+	  Closes https://github.com/arthurdejong/python-stdnum/pull/467
+	  Closes https://github.com/arthurdejong/python-stdnum/issues/433
+
+2025-04-21  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [bc689fd] stdnum/do/cedula.py: Add missing verify argument to
+	  Cedula check_dgii()
+
+2025-03-13  David Salvisberg <david.salvisberg@seantis.ch>
+
+	* [8283dbb] stdnum/be/bis.py, stdnum/be/nn.py, stdnum/be/ssn.py,
+	  stdnum/de/handelsregisternummer.py, stdnum/do/ncf.py,
+	  stdnum/do/rnc.py, stdnum/eu/vat.py, stdnum/pk/cnic.py,
+	  stdnum/util.py: Explicity return None
+
+	  As per PEP 8.
+
+	  See https://peps.python.org/pep-0008/
+
+2025-03-13  David Salvisberg <david.salvisberg@seantis.ch>
+
+	* [6b9bbe2] stdnum/be/iban.py, stdnum/be/nn.py,
+	  stdnum/cz/bankaccount.py, stdnum/es/cups.py, stdnum/gs1_128.py,
+	  stdnum/pk/cnic.py, stdnum/vatin.py, stdnum/verhoeff.py,
+	  tests/test_be_iban.doctest: Small code cleanups
+
+2025-04-21  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [3542c06] .github/workflows/test.yml, setup.py, tox.ini: Drop
+	  support for Python 3.6 and 3.7
+
+	  Sadly GitHub has dropped the ability to run tests with these
+	  versions of Python.
+
+2025-03-27  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [ae0d86c] tests/test_do_cedula.py, tests/test_do_rnc.py: Ignore
+	  test failures from www.dgii.gov.do
+
+	  There was a change in the SOAP service and there is a new
+	  URL. However, the API has changed and seems to require
+	  authentication.
+
+	  We ignore test failures for now but unless a solution is found
+	  the DGII validation will be removed.
+
+	  See: https://github.com/arthurdejong/python-stdnum/pull/462 See:
+	  https://github.com/arthurdejong/python-stdnum/issues/461
+
+2025-03-27  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [dcd7fa6] tests/test_do_rnc.py: Drop more Python 2.7 compatibility
+	  code
+
+2025-03-27  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [852515c] stdnum/cz/rc.py, tests/test_cz_rc.doctest: Fix Czech
+	  Rodné číslo check digit validation
+
+	  It seems that a small minority of numbers assigned
+	  with a checksum of 10 are still valid and expected
+	  to have a check digit value of 0. According to
+	  https://www.domzo13.cz/sw/evok/help/born_numbers.html this
+	  practice even happended (but less frequently) after 1985.
+
+	  Closes https://github.com/arthurdejong/python-stdnum/issues/468
+
+2025-02-16  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [fc766bc] .github/workflows/test.yml, setup.py, tox.ini: Add
+	  support for Python 3.13
+
+2024-12-10  nvmbrasserie <ivan@opensanctions.org>
+
+	* [1386f67] stdnum/ru/ogrn.py, tests/test_ru_ogrn.doctest: Add
+	  Russian ОГРН
+
+	  Closes https://github.com/arthurdejong/python-stdnum/pull/459
+
+2024-07-04  Quique Porta <me@quiqueporta.com>
+
+	* [8519221] stdnum/es/cae.py, tests/test_es_cae.doctest: Add
+	  Spanish CAE Number
+
+	  Closes https://github.com/arthurdejong/python-stdnum/pull/446
+
+2025-02-15  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [0f94ca6] stdnum/ec/ruc.py, tests/test_ec_ruc.doctest: Support
+	  Ecuador public RUC with juridical format
+
+	  It seems that numbers with a format used for juridical RUCs have
+	  been issued to companies.
+
+	  Closes https://github.com/arthurdejong/python-stdnum/issues/457
+
+2025-02-15  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [928a09d] stdnum/isni.py: Add International Standard Name
+	  Identifier
+
+	  Closes https://github.com/arthurdejong/python-stdnum/issues/463
+
+2025-01-11  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [2b92075] .github/workflows/test.yml, README.md,
+	  online_check/stdnum.wsgi, setup.cfg, setup.py, stdnum/by/unp.py,
+	  stdnum/de/handelsregisternummer.py, stdnum/do/ncf.py,
+	  stdnum/eg/tn.py, stdnum/es/referenciacatastral.py,
+	  stdnum/eu/nace.py, stdnum/imsi.py,
+	  stdnum/mac.py, stdnum/meid.py, stdnum/mk/edb.py,
+	  stdnum/mx/curp.py, stdnum/mx/rfc.py, stdnum/util.py,
+	  tests/test_by_unp.doctest, tests/test_cn_ric.doctest,
+	  tests/test_de_handelsregisternummer.doctest,
+	  tests/test_de_stnr.doctest, tests/test_eg_tn.doctest,
+	  tests/test_es_referenciacatastral.doctest, tests/test_isan.doctest,
+	  tests/test_mac.doctest, tests/test_mk_edb.doctest,
+	  tests/test_my_nric.doctest, tests/test_robustness.doctest,
+	  tests/test_util.doctest, tox.ini: Drop Python 2 support
+
+	  This deprecates the stdnum.util.to_unicode() function because
+	  we no longer have to deal with bytestrings.
+
+2024-11-17  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [0218601] stdnum/uy/rut.py, tests/test_uy_rut.doctest: Allow
+	  Uruguay RUT number starting with 22
+
+2024-09-30  Victor Sordoillet <victor@groover.co>
+
+	* [bcd5018] stdnum/isrc.py, tests/test_isrc.doctest: Add missing
+	  music industry ISRC country codes
+
+	  Closes https://github.com/arthurdejong/python-stdnum/pull/455
+	  Closes https://github.com/arthurdejong/python-stdnum/issues/454
+
+2024-10-11  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [020f1df] .github/workflows/test.yml: Use older Github runner
+	  for Python 3.7 tests
+
+2024-10-11  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [051e63f] tests/test_verhoeff.doctest: Add more tests for
+	  Verhoeff implementation
+
+	  See https://github.com/arthurdejong/python-stdnum/issues/456
+
+2024-09-21  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [dc850d6] tox.ini: Ignore deprecation warnings in flake8 target
+
+	  This silences a ton of ast deprecation warnings that we can't
+	  fix in python-stdnum anyway.
+
+2024-09-15  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [0ceb2b9] stdnum/util.py: Ensure get_soap_client() caches
+	  with verify
+
+	  This fixes the get_soap_client() function to cache SOAP clients
+	  taking the verify argument into account.
+
+	  Fixes 3fcebb2
+
+2024-07-25  Jeff Horemans <jeff.horemans@vortex-financials.be>
+
+	* [6c2873c] stdnum/be/eid.py: Add Belgian eID card number
+
+	  Closes https://github.com/arthurdejong/python-stdnum/pull/448
+
+2024-07-25  Jeff Horemans <jeff.horemans@vortex-financials.be>
+
+	* [56036d0] stdnum/nl/identiteitskaartnummer.py: Add Dutch
+	  identiteitskaartnummer
+
+	  Closes https://github.com/arthurdejong/python-stdnum/pull/449
+
+2024-09-14  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [3fcebb2] setup.py, stdnum/by/unp.py, stdnum/ch/uid.py,
+	  stdnum/de/handelsregisternummer.py, stdnum/do/ncf.py,
+	  stdnum/do/rnc.py, stdnum/eu/vat.py, stdnum/tr/tckimlik.py,
+	  stdnum/util.py: Customise certificate validation for web services
+
+	  This adds a `verify` argument to all functions that use network
+	  services for lookups. The option is used to configure how
+	  certificate validation works, the same as in the requests library.
+
+	  For SOAP requests this is implemented properly when using the
+	  Zeep library. The implementations using Suds and PySimpleSOAP
+	  have been updated on a best-effort basis but their use has been
+	  deprecated because they do not seem to work in practice in a
+	  lot of cases already.
+
+	  Related to https://github.com/arthurdejong/python-stdnum/issues/452
+	  Related to https://github.com/arthurdejong/python-stdnum/pull/453
+
+2024-07-04  Joris Makauskis <jmak@odoo.com>
+
+	* [6cbb9bc] stdnum/util.py: Fix zeep client timeout parameter
+
+	  The timeout parameter of the zeep transport class is not
+	  responsable for POST/GET timeouts. The operational_timeout
+	  parameter should be used for that.
+
+	  See https://github.com/mvantellingen/python-zeep/issues/140
+
+	  Closes https://github.com/arthurdejong/python-stdnum/issues/444
+	  Closes https://github.com/arthurdejong/python-stdnum/pull/445
+
+2023-07-04  Jeff Horemans <jeff.horemans@vortex-financials.be>
+
+	* [af3a728] stdnum/be/ssn.py, tests/test_be_ssn.doctest: Add
+	  Belgian SSN number
+
+	  Closes https://github.com/arthurdejong/python-stdnum/pull/438
+
+2024-07-15  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [0da257c] online_check/stdnum.wsgi: Replace use of deprecated
+	  inspect.getargspec()
+
+	  Use the inspect.signature() function instead. The
+	  inspect.getargspec() function was removed in Python 3.11.
+
+2024-06-23  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [e951dac] stdnum/id/npwp.py, tests/test_id_npwp.doctest: Support
+	  16 digit Indonesian NPWP numbers
+
+	  The Indonesian NPWP is being switched from 15 to 16 digits. The
+	  number is now the NIK for Indonesian citizens and the old format
+	  with a leading 0 for others (organisations and non-citizens).
+
+	  See
+	  https://www.grantthornton.co.id/insights/global-insights1/updates-regarding-the-format-of-indonesian-tax-id-numbers/
+
+	  Closes https://github.com/arthurdejong/python-stdnum/issues/432
+
+2024-05-17  Jeff Horemans <jeff.horemans@vortex-financials.be>
+
+	* [1da003f] stdnum/ch/uid.py: Adjust Swiss uid module to accept
+	  numbers without CHE prefix
+
+	  Closes https://github.com/arthurdejong/python-stdnum/pull/437
+	  Closes https://github.com/arthurdejong/python-stdnum/issues/423
+
+2024-05-21  petr.prikryl <petr.prikryl@olc.cz>
+
+	* [91959bd] stdnum/cz/banks.dat: Update Czech database files
+
+	  Closes https://github.com/arthurdejong/python-stdnum/pull/439
+	  Closes https://github.com/arthurdejong/python-stdnum/pull/435
+
+2024-05-31  Olly Middleton <olly@wegotpop.com>
+
+	* [58ecb03] stdnum/ie/pps.py, tests/test_ie_pps.doctest: Update
+	  Irish PPS validator to support new numbers
+
+	  See https://www.charteredaccountants.ie/News/b-range-pps-numbers
+
+	  Closes https://github.com/arthurdejong/python-stdnum/issues/440
+	  Closes https://github.com/arthurdejong/python-stdnum/pull/441
+
+2024-06-13  vanderkoort <vanderkoort@gmail.com>
+
+	* [fb4d792] NEWS: Fix a typo
+
+	  Closes https://github.com/arthurdejong/python-stdnum/pull/443
+
+2024-05-19  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [5aeaeff] stdnum/id/loc.dat, stdnum/id/nik.py: Add support for
+	  Indonesian NIK
+
+2024-05-19  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [0690996] .github/workflows/test.yml, setup.py, tox.ini: Drop
+	  support for Python 3.5
+
+	  We don't have an easy way to test with Python 3.5 any more.
+
+2024-03-17  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [201d4d1] ChangeLog, NEWS, README.md, docs/conf.py, docs/index.rst,
+	  docs/stdnum.ca.bc_phn.rst, docs/stdnum.eu.ecnumber.rst,
+	  docs/stdnum.in_.vid.rst, stdnum/__init__.py: Get files ready
+	  for 1.20 release
+
 2024-03-17  Arthur de Jong <arthur@arthurdejong.org>
 
 	* [b454d3a] stdnum/at/postleitzahl.dat, stdnum/be/banks.dat,
