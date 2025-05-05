@@ -2,6 +2,7 @@
 # coding: utf-8
 #
 # Copyright (C) 2018 Arthur de Jong
+# Copyright (C) 2023 Leandro Regueiro
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -19,3 +20,6 @@
 # 02110-1301 USA
 
 """Collection of Mauritian numbers."""
+
+# provide aliases
+from stdnum.mu import tan as vat  # noqa: F401
