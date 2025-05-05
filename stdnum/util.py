@@ -62,7 +62,7 @@ else:
 
 
 # Regular expression to match doctests in docstrings
-_strip_doctest_re = re.compile(r'^>>> .*\Z', re.DOTALL | re.MULTILINE)
+_strip_doctest_re = re.compile(r'^>>> .*\Z', flags=re.DOTALL | re.MULTILINE)
 
 
 # Regular expression to match digits

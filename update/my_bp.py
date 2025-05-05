@@ -2,7 +2,7 @@
 
 # update/my_bp.py - script to download data from Malaysian government site
 #
-# Copyright (C) 2013-2022 Arthur de Jong
+# Copyright (C) 2013-2025 Arthur de Jong
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -39,7 +39,7 @@ country_list_url = 'https://www.jpn.gov.my/en/kod-negara-eng'
 user_agent = 'Mozilla/5.0 (compatible; python-stdnum updater; +https://arthurdejong.org/python-stdnum/)'
 
 
-spaces_re = re.compile(r'\s+', re.UNICODE)
+spaces_re = re.compile(r'\s+', flags=re.UNICODE)
 
 
 def clean(td):

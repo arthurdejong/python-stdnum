@@ -2,7 +2,7 @@
 
 # update/cfi.py - script to download CFI code list from the SIX group
 #
-# Copyright (C) 2022-2024 Arthur de Jong
+# Copyright (C) 2022-2025 Arthur de Jong
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -35,7 +35,7 @@ download_url = 'https://www.six-group.com/en/products-services/financial-informa
 
 def normalise(value):
     """Clean and minimise attribute names and values."""
-    return re.sub(r' *[(\[\n].*', '', value, re.MULTILINE).strip()
+    return re.sub(r' *[(\[\n].*', '', value, flags=re.MULTILINE).strip()
 
 
 def get_categories(sheet):
