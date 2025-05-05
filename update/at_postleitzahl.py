@@ -3,7 +3,7 @@
 
 # update/at_postleitzahl.py - download list of Austrian postal codes
 #
-# Copyright (C) 2018-2021 Arthur de Jong
+# Copyright (C) 2018-2025 Arthur de Jong
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -54,9 +54,9 @@ if __name__ == '__main__':
     print('# version %s published %s' % (
         data['version']['id'], data['version']['published']))
     # build an ordered list of postal codes
-    results = []
+    results = set()
     for row in data['data']:
         if row['adressierbar'] == 'Ja':
-            results.append((str(row['plz']), row['ort'], regions[row['bundesland']]))
+            results.add((str(row['plz']), row['ort'], regions[row['bundesland']]))
     for code, location, region in sorted(results):
         print('%s location="%s" region="%s"' % (code, location, region))
