@@ -61,7 +61,7 @@ def calc_check_digit(number: str) -> str:
     """Calculate the check digit. The number passed should not have
     the check digit included."""
     weights = (6, 5, 4, 3, 2, 7, 6, 5, 4, 3, 2)
-    s = sum(w * int(n) for w, n in zip(weights, number)) % 11
+    s = sum(w * int(n) for w, n in zip(weights, number))
     return str(-s % 11 % 10)
 
 
