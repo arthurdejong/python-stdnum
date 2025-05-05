@@ -1,7 +1,7 @@
 test_gs1_128.doctest - more detailed doctests for the stdnum.gs1_128 module
 
 Copyright (C) 2019 Sergi Almacellas Abellaan
-Copyright (C) 2020 Arthur de Jong
+Copyright (C) 2020-2025 Arthur de Jong
 
 This library is free software; you can redistribute it and/or
 modify it under the terms of the GNU Lesser General Public
@@ -40,7 +40,7 @@ will be converted to the correct representation.
 '(01)38425876095074(17)181119(37)1'
 >>> gs1_128.encode({'02': '98412345678908', '310': 17.23, '37': 32})
 '029841234567890831020017233732'
->>> gs1_128.encode({'03': '1234'})  # unknown AI
+>>> gs1_128.encode({'09': '1234'})  # unknown AI
 Traceback (most recent call last):
     ...
 InvalidComponent: ...
@@ -114,7 +114,7 @@ pprint.pprint(gs1_128.info('(01)38425876095074(17)181119(37)1 '))
 {'01': '38425876095074', '10': '123456', '17': datetime.date(2026, 4, 30)}
 >>> pprint.pprint(gs1_128.info('(01)38425876095074(17)261200(10)123456'))
 {'01': '38425876095074', '10': '123456', '17': datetime.date(2026, 12, 31)}
->>> gs1_128.info('(03)38425876095074')  # unknown AI
+>>> gs1_128.info('(09)38425876095074')  # unknown AI
 Traceback (most recent call last):
     ...
 InvalidComponent: ...
