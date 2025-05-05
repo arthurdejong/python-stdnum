@@ -22,7 +22,7 @@
 
 The ЄДРПОУ (Єдиного державного реєстру підприємств та організацій України,
 Unified State Register of Enterprises and Organizations of Ukraine) is a
-unique identification number of a legal entities in Ukraine. Th number
+unique identification number of a legal entities in Ukraine. The number
 consists of 8 digits, the last being a check digit.
 
 More information:
