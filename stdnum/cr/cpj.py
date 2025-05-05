@@ -32,7 +32,7 @@ More information:
 
 * https://www.hacienda.go.cr/consultapagos/ayuda_cedulas.htm
 * https://www.procomer.com/downloads/quiero/guia_solicitud_vuce.pdf (page 11)
-* http://www.registronacional.go.cr/personas_juridicas/documentos/Consultas/Listado%20de%20Clases%20y%20Tipos%20Cedulas%20Juridicas.pdf
+* https://rnpdigital.com/personas_juridicas/documentos/Consultas/Listado%20de%20Clases%20y%20Tipos%20Cedulas%20Juridicas.pdf
 * https://www.hacienda.go.cr/ATV/frmConsultaSituTributaria.aspx
 
 >>> validate('3-101-999999')

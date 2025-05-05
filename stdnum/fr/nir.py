@@ -35,7 +35,7 @@ More information:
 
 * https://www.insee.fr/en/metadonnees/definition/c1409
 * https://en.wikipedia.org/wiki/INSEE_code
-* http://resoo.org/docs/_docs/regles-numero-insee.pdf
+* https://web.archive.org/web/20160910153938/http://resoo.org/docs/_docs/regles-numero-insee.pdf
 * https://fr.wikipedia.org/wiki/Numéro_de_sécurité_sociale_en_France
 * https://xml.insee.fr/schema/nir.html
 

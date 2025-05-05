@@ -33,7 +33,7 @@ always represents the main registered address.
 
 More information:
 
-* http://www.pisrs.si/Pis.web/pregledPredpisa?id=URED7599
+* https://pisrs.si/pregledPredpisa?id=URED7599
 
 >>> validate('9331310000')
 '9331310'
