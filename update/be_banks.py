@@ -3,7 +3,7 @@
 
 # update/be_banks.py - script to download Bank list from Belgian National Bank
 #
-# Copyright (C) 2018-2019 Arthur de Jong
+# Copyright (C) 2018-2025 Arthur de Jong
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -23,15 +23,16 @@
 """This script downloads the list of banks with bank codes as used in the
 IBAN and BIC codes as published by the Belgian National Bank."""
 
+import io
 import os.path
 
+import openpyxl
 import requests
-import xlrd
 
 
 # The location of the XLS version of the bank identification codes. Also see
 # https://www.nbb.be/en/payment-systems/payment-standards/bank-identification-codes
-download_url = 'https://www.nbb.be/doc/be/be/protocol/current_codes.xls'
+download_url = 'https://www.nbb.be/doc/be/be/protocol/current_codes.xlsx'
 
 
 # List of values that refer to non-existing, reserved or otherwise not-
@@ -60,7 +61,7 @@ def clean(value):
 
 def get_values(sheet):
     """Return values (from, to, bic, bank_name) from the worksheet."""
-    rows = sheet.get_rows()
+    rows = sheet.iter_rows()
     # skip first two rows
     try:
         next(rows)
@@ -79,9 +80,9 @@ def get_values(sheet):
 if __name__ == '__main__':
     response = requests.get(download_url, timeout=30)
     response.raise_for_status()
-    workbook = xlrd.open_workbook(file_contents=response.content)
-    sheet = workbook.sheet_by_index(0)
-    version = sheet.cell(0, 0).value
+    workbook = openpyxl.load_workbook(io.BytesIO(response.content), read_only=True)
+    sheet = workbook.worksheets[0]
+    version = sheet.cell(1, 1).value
     print('# generated from %s downloaded from' %
           os.path.basename(download_url))
     print('# %s' % download_url)
