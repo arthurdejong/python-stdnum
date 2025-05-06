@@ -75,6 +75,10 @@ _ai_validators = {
     '8007': 'stdnum.iban',
 }
 
+_TRADE_MEASURE_PREFIXES = {
+    '31', '32', '35', '36',
+}
+
 
 def compact(number: str) -> str:
     """Convert the GS1-128 to the minimal representation.
@@ -195,6 +199,9 @@ def info(number: str, separator: str = '') -> dict[str, Any]:
     If a `separator` is provided it will be used as FNC1 to determine the end
     of variable-sized values.
     """
+    for grp in re.findall(r'\((\d+)\)', number):
+        if grp[:2] in _TRADE_MEASURE_PREFIXES and len(grp) != 4:
+            raise InvalidComponent()
     number = compact(number)
     data = {}
     identifier = ''
@@ -253,7 +260,14 @@ def encode(data: Mapping[str, object], separator: str = '', parentheses: bool = 
         if ai in _ai_validators:
             mod = __import__(_ai_validators[ai], globals(), locals(), ['validate'])
             mod.validate(value)
-        value = _encode_value(info['format'], info['type'], value)
+        raw = _encode_value(info['format'], info['type'], value)
+        if info['type'] == 'decimal' and info['format'] == 'N6' and ai[:2] in _TRADE_MEASURE_PREFIXES:
+            # insert decimal count into AI and drop it from the value payload
+            dec = raw[0]
+            ai = ai + dec
+            value = raw[1:]
+        else:
+            value = raw
         # store variable-sized values separate from fixed-size values
         if info.get('fnc1'):
             variable_values.append((ai_fmt % ai, info['format'], info['type'], value))

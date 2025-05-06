@@ -65,7 +65,7 @@ properly.
 ...     '313': '123.456',  # str
 ...     '391': ('123', Decimal('123.456')),  # currency number combo
 ... }, parentheses=True)
-'(310)2001723(311)0000456(312)5033333(313)3123456(391)3123123456'
+'(3102)001723(3110)000456(3125)033333(3133)123456(391)3123123456'
 
 We generate dates in various formats, depending on the AI.
 
@@ -88,6 +88,8 @@ We generate dates in various formats, depending on the AI.
 '(7011)181119'
 >>> gs1_128.encode({'7011': datetime.datetime(2018, 11, 19, 12, 45)}, parentheses=True)
 '(7011)1811191245'
+>>> gs1_128.encode({'01': '98456789014533', '310': Decimal('0.035')}, parentheses=True)
+'(01)98456789014533(3103)000035'
 
 If we try to encode an invalid EAN we will get an error.
 
@@ -104,7 +106,7 @@ pprint.pprint(gs1_128.info('(01)38425876095074(17)181119(37)1 '))
 {'01': '38425876095074', '17': datetime.date(2018, 11, 19), '37': 1}
 >>> pprint.pprint(gs1_128.info('013842587609507417181119371'))
 {'01': '38425876095074', '17': datetime.date(2018, 11, 19), '37': 1}
->>> pprint.pprint(gs1_128.info('(02)98412345678908(310)3017230(37)32'))
+>>> pprint.pprint(gs1_128.info('(02)98412345678908(3103)017230(37)32'))
 {'02': '98412345678908', '310': Decimal('17.230'), '37': 32}
 >>> pprint.pprint(gs1_128.info('(01)58425876097843(10)123456              (17)181119(37)18'))
 {'01': '58425876097843', '10': '123456', '17': datetime.date(2018, 11, 19), '37': 18}
@@ -124,8 +126,16 @@ InvalidComponent: ...
 We can decode decimal values from various formats.
 
 >>> pprint.pprint(gs1_128.info('(310)5033333'))
+Traceback (most recent call last):
+    ...
+InvalidComponent: ...
+>>> pprint.pprint(gs1_128.info('(3105)033333'))
 {'310': Decimal('0.33333')}
->>> pprint.pprint(gs1_128.info('(310)0033333'))
+>>> pprint.pprint(gs1_128.info('(01)98456789014533(3103)000035'))
+{'01': '98456789014533', '310': Decimal('0.035')}
+>>> pprint.pprint(gs1_128.info('(3105)033333'))
+{'310': Decimal('0.33333')}
+>>> pprint.pprint(gs1_128.info('(3100)033333'))
 {'310': Decimal('33333')}
 >>> pprint.pprint(gs1_128.info('(391)3123123456'))
 {'391': ('123', Decimal('123.456'))}
