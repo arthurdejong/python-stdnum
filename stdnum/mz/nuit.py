@@ -2,6 +2,7 @@
 # coding: utf-8
 #
 # Copyright (C) 2023 Leandro Regueiro
+# Copyright (C) 2025 Luca Sicurello
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -48,7 +49,7 @@ from stdnum.exceptions import *
 from stdnum.util import clean, isdigits
 
 
-def compact(number):
+def compact(number: str) -> str:
     """Convert the number to the minimal representation.
 
     This strips the number of any valid separators and removes surrounding
@@ -57,7 +58,15 @@ def compact(number):
     return clean(number, ' -.').strip()
 
 
-def validate(number):
+def calc_check_digit(number: str) -> str:
+    """Calculate the check digit. The number passed should not have
+    the check digit included."""
+    weights = (8, 9, 4, 5, 6, 7, 8, 9)
+    check = sum(w * int(n) for w, n in zip(weights, number)) % 11
+    return '01234567891'[check]
+
+
+def validate(number: str) -> str:
     """Check if the number is a valid Mozambique NUIT number.
 
     This checks the length and formatting.
@@ -67,10 +76,12 @@ def validate(number):
         raise InvalidLength()
     if not isdigits(number):
         raise InvalidFormat()
+    if calc_check_digit(number[:-1]) != number[-1]:
+        raise InvalidChecksum()
     return number
 
 
-def is_valid(number):
+def is_valid(number: str) -> bool:
     """Check if the number is a valid Mozambique NUIT number."""
     try:
         return bool(validate(number))
@@ -78,7 +89,7 @@ def is_valid(number):
         return False
 
 
-def format(number):
+def format(number: str) -> str:
     """Reformat the number to the standard presentation format."""
     number = compact(number)
     return ' '.join([number[:3], number[3:-3], number[-3:]])
