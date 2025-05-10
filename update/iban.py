@@ -74,7 +74,7 @@ if __name__ == '__main__':
         bban = bban.replace(' ', '')
         cc = data['IBAN prefix country code (ISO 3166)'][:2]
         cname = data['Name of country']
-        if bban.startswith(cc + '2!n'):
+        if bban.startswith(f"{cc}2!n"):
             bban = bban[5:]
         if bban.startswith(cc):
             bban = bban[2:]

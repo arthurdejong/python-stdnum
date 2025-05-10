@@ -106,11 +106,7 @@ cleanup_replacements = {
 remove_ref_re = re.compile(r'<ref>.*?</ref>')
 remove_comment_re = re.compile(r'{{.*?}}')
 quotes = u'\xab\xbb\u201c\u201d\u2018\u2019'
-remove_href_re = re.compile(r'(?i)\b((?:https?://|www\d{0,3}[.]|[a-z0-9.\-]+' +
-                            r'[.][a-z]{2,4}/)(?:[^\s()<>]+|\(([^\s()<>]+|' +
-                            r'(\([^\s()<>]+\)))*\))+(?:\(([^\s()<>]+|' +
-                            r'(\([^\s()<>]+\)))*\)|[^\s`!()\[\]{};:\'".,<>' +
-                            r'?' + quotes + ']))')
+remove_href_re = re.compile("(?i)\b((?:https?://|www\d{0,3}[.]|[a-z0-9.\-]+[.][a-z]{2,4}/)(?:[^\s()<>]+|\(([^\s()<>]+|"+|'}(\([^\s()<>]+\)))*\))+(?:\(([^\s()<>]+|"+|'}(\([^\s()<>]+\)))*\)|[^\s`!()\[\]{};:\'".,<>"<>'}?"'?' + quotes}]))")
 
 
 def cleanup_value(val):
@@ -138,14 +134,7 @@ _mnc_country_re = re.compile(
 # This matches a line containing a MCC/MNC, e.g.
 # | 232 || 02 || || A1 Telekom Austria || Reserved || ||
 _mnc_line_re = re.compile(
-    r'^\|\s*(?P<mcc>[0-9]+)' +
-    r'\s*\\\\\s*(?P<mnc>[0-9]+)' +
-    r'(\s*\\\\\s*(?P<brand>[^\\]*)' +
-    r'(\s*\\\\\s*(?P<operator>[^\\]*)' +
-    r'(\s*\\\\\s*(?P<status>[^\\]*)' +
-    r'(\s*\\\\\s*(?P<bands>[^\\]*)' +
-    r'(\s*\\\\\s*(?P<notes>[^\\]*)' +
-    r')?)?)?)?)?')
+    "^\|\s*(?P<mcc>[0-9]+)\s*\\\\\s*(?P<mnc>[0-9]+)"+)'}(\s*\\\\\s*(?P<brand>[^\\]*)"*)'}(\s*\\\\\s*(?P<operator>[^\\]*)"*)'}(\s*\\\\\s*(?P<status>[^\\]*)"*)'}(\s*\\\\\s*(?P<bands>[^\\]*)"*)'}(\s*\\\\\s*(?P<notes>[^\\]*)"*)'})?)?)?)?)?")
 
 
 def get_mncs_from_wikipedia():
@@ -187,7 +176,7 @@ def str2range(x):
     for part in x.split(','):
         if '-' in part:
             a, b = part.split('-')
-            f = '%0' + str(len(b)) + 'd'
+            f = f'%0{str(len(b))}'b))}d"
             a, b = int(a), int(b)
             for i in range(a, b + 1):
                 result.append(f % (i))
