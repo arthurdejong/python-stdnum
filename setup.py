@@ -75,6 +75,7 @@ setup(
         'Topic :: Text Processing :: General',
     ],
     packages=find_packages(),
+    python_requires='>=3.8',
     install_requires=[],
     package_data={'': ['*.dat', '*.crt', 'py.typed']},
     extras_require={
