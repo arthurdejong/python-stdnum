@@ -1,3 +1,36 @@
+2025-05-17  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [a753ebf] stdnum/at/postleitzahl.dat, stdnum/cn/loc.dat,
+	  stdnum/gs1_ai.dat, stdnum/imsi.dat, stdnum/isbn.dat,
+	  stdnum/my/bp.dat, stdnum/nz/banks.dat, stdnum/oui.dat,
+	  update/my_bp.py: Update database files
+
+	  This also updates the URLs for the National Registration Department
+	  of Malaysia.
+
+2025-05-14  Cédric Krier <ced@b2ck.com>
+
+	* [972b42d] setup.py: Define minimal Python version in setup.py
+
+	  Closes https://github.com/arthurdejong/python-stdnum/issues/474
+	  Closes https://github.com/arthurdejong/python-stdnum/pull/475
+	  Fixes 3542c06
+
+2025-05-05  Luca <luca.sicu02@gmail.com>
+
+	* [8b78f78] stdnum/jp/in_.py: Remove superfluous modulus operation
+
+	  Closes https://github.com/arthurdejong/python-stdnum/pull/470
+
+2025-05-05  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [ad4af91] ChangeLog, NEWS, README.md, docs/conf.py,
+	  docs/index.rst, docs/stdnum.be.eid.rst, docs/stdnum.be.ssn.rst,
+	  docs/stdnum.es.cae.rst, docs/stdnum.id.nik.rst,
+	  docs/stdnum.isni.rst, docs/stdnum.jp.in_.rst,
+	  docs/stdnum.nl.identiteitskaartnummer.rst, docs/stdnum.ru.ogrn.rst,
+	  stdnum/__init__.py: Get files ready for 2.0 release
+
 2025-05-05  Arthur de Jong <arthur@arthurdejong.org>
 
 	* [f2967d3] stdnum/at/postleitzahl.dat, stdnum/be/banks.dat,

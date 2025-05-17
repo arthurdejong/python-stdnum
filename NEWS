@@ -1,3 +1,12 @@
+changes from 2.0 to 2.1
+-----------------------
+
+* Add python_requires to setup.py to avoid installation with older Python versions
+  (thanks Cédric Krier)
+* Remove superfluous modulus operation in Japanese Individual Number
+  (thanks Luca Sicurello)
+
+
 changes from 1.20 to 2.0
 ------------------------
 
