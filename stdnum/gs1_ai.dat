@@ -1,5 +1,5 @@
 # generated from https://ref.gs1.org/ai/
-# on 2025-05-05 17:42:08.911766+00:00
+# on 2025-05-17 11:59:28.567729+00:00
 00 format="N18" type="str" name="SSCC" description="Serial Shipping Container Code (SSCC)"
 01 format="N14" type="str" name="GTIN" description="Global Trade Item Number (GTIN)"
 02 format="N14" type="str" name="CONTENT" description="Global Trade Item Number (GTIN) of contained trade items"

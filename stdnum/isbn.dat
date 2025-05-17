@@ -1,7 +1,7 @@
 # generated from RangeMessage.xml, downloaded from
 # https://www.isbn-international.org/export_rangemessage.xml
-# file serial f6c8e205-9cb7-410c-a55b-51d56d08e4db
-# file date Mon, 5 May 2025 18:42:13 BST
+# file serial 69f579cf-48bc-4bc2-8be2-7c4c20bd6e7c
+# file date Sat, 17 May 2025 13:00:06 BST
 978
  0-5,600-649,65-65,7-7,80-94,950-989,9900-9989,99900-99999
  0 agency="English language"
@@ -90,7 +90,7 @@
   00-01,320-442,44300-44499,445-449,5500-7793,77940-77949,7795-8499
   94000-99999
  626 agency="Taiwan"
-  00-04,300-499,7000-7999,95000-99999
+  00-04,300-499,7000-7999,92500-99999
  627 agency="Pakistan"
   30-31,500-529,7400-7999,94500-95149
  628 agency="Colombia"

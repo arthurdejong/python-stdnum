@@ -30,8 +30,8 @@ import requests
 
 
 # URLs that are downloaded
-state_list_url = 'https://www.jpn.gov.my/en/kod-negeri-eng'
-country_list_url = 'https://www.jpn.gov.my/en/kod-negara-eng'
+state_list_url = 'https://www.jpn.gov.my/index.php?option=com_content&view=article&id=453&lang=en'
+country_list_url = 'https://www.jpn.gov.my/index.php?option=com_content&view=article&id=471&lang=en'
 
 
 # The user agent that will be passed in requests

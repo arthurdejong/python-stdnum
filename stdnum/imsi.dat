@@ -856,8 +856,8 @@
  06 bands="LTE 800 / LTE 1800 / LTE 2600" brand="beCloud" cc="by" country="Belarus" operator="Belorussian Cloud Technologies" status="Operational"
  00-99
 259
- 01 bands="GSM 900 / GSM 1800 / UMTS 2100 / LTE 800 / LTE 1800 / LTE 2600" brand="Orange" cc="md" country="Moldova" operator="Orange Moldova" status="Operational"
- 02 bands="GSM 900 / GSM 1800 / UMTS 2100 / LTE 1800 / LTE 2600" brand="Moldcell" cc="md" country="Moldova" operator="Moldcell" status="Operational"
+ 01 bands="GSM 900 / GSM 1800 / UMTS 2100 / LTE 800 / LTE 1800 / LTE 2600 / 5G 2100 / 5G 3500" brand="Orange" cc="md" country="Moldova" operator="Orange Moldova" status="Operational"
+ 02 bands="GSM 900 / GSM 1800 / UMTS 2100 / LTE 1800 / LTE 2600 / 5G 2100" brand="Moldcell" cc="md" country="Moldova" operator="Moldcell" status="Operational"
  03 bands="CDMA 450" brand="Moldtelecom" cc="md" country="Moldova" operator="Moldtelecom" status="Operational"
  04 bands="GSM 900 / GSM 1800" brand="Eventis" cc="md" country="Moldova" operator="Eventis Telecom" status="Not operational"
  05 bands="UMTS 900 / UMTS 2100 / LTE 1800" brand="Moldtelecom" cc="md" country="Moldova" operator="Moldtelecom" status="Operational"
@@ -1080,9 +1080,9 @@
  66 cc="ge" country="Georgia" operator="Icecell Telecom LLC"
  00-99
 283
- 01 bands="GSM 900 / GSM 1800 / UMTS 2100 / LTE 450 / LTE 1800" brand="Team Telecom Armenia" cc="am" country="Armenia" operator="Telecom Armenia" status="Operational"
+ 01 bands="GSM 900 / GSM 1800 / UMTS 2100 / LTE 450 / LTE 1800" brand="Team" cc="am" country="Armenia" operator="Telecom Armenia" status="Operational"
  04 bands="GSM 900 / UMTS 900" brand="Karabakh Telecom" cc="am" country="Armenia" operator="Karabakh Telecom" status="Not operational"
- 05 bands="GSM 900 / GSM 1800 / UMTS 2100 / LTE 2600 / 5G 800" brand="VivaCell-MTS" cc="am" country="Armenia" operator="K Telecom CJSC" status="Operational"
+ 05 bands="GSM 900 / GSM 1800 / UMTS 2100 / LTE 2600 / 5G 800" brand="Viva Armenia" cc="am" country="Armenia" operator="K Telecom CJSC" status="Operational"
  10 bands="GSM 900 / GSM 1800 / UMTS 900 / UMTS 2100 / LTE 800 / LTE 1800 / LTE 2600" brand="Ucom" cc="am" country="Armenia" operator="Ucom LLC" status="Operational"
  00-99
 284
@@ -1237,7 +1237,7 @@
  820 brand="Rogers Wireless" cc="ca" country="Canada" operator="Rogers Communications"
  848 cc="ca" country="Canada" operator="Vocom International Telecommunications, Inc"
  860 brand="Telus" cc="ca" country="Canada" operator="Telus Mobility"
- 880 bands="UMTS 850 / UMTS 1900" brand="Bell / Telus / SaskTel" cc="ca" country="Canada" operator="Shared Telus, Bell, and SaskTel" status="Operational"
+ 880 bands="UMTS 850 / UMTS 1900" brand="Telus / SaskTel" cc="ca" country="Canada" operator="Shared Telus, Bell, and SaskTel" status="Operational"
  910 bands="LTE 700" cc="ca" country="Canada" operator="Halton Regional Police Service" status="Operational"
  911 bands="LTE 700" cc="ca" country="Canada" operator="Halton Regional Police Service" status="Operational"
  920 brand="Rogers Wireless" cc="ca" country="Canada" operator="Rogers Communications" status="Not operational"
@@ -3343,11 +3343,11 @@
  00-99
 659
  02 bands="GSM 900 / GSM 1800 / UMTS 2100 / LTE" brand="MTN" cc="ss" country="South Sudan" operator="MTN South Sudan" status="Operational"
- 03 bands="GSM 900 / GSM 1800" brand="Gemtel" cc="ss" country="South Sudan" operator="Gemtel" status="Operational"
+ 03 bands="GSM 900 / GSM 1800" brand="Gemtel" cc="ss" country="South Sudan" operator="Gemtel" status="Not operational"
  04 bands="GSM 900 / GSM 1800" brand="Vivacell" cc="ss" country="South Sudan" operator="Network of the World (NOW)" status="Not operational"
- 05 bands="LTE" brand="DIGITEL" cc="ss" country="South Sudan" operator="DIGITEL Holdings Ltd." status="Operational"
+ 05 bands="GSM 900 / GSM 1800 / UMTS 2100 / LTE 800 / LTE 1800" brand="DIGITEL" cc="ss" country="South Sudan" operator="DIGITEL Holdings Ltd." status="Operational"
  06 bands="GSM 900 / GSM 1800 / UMTS 2100 / LTE 2100" brand="Zain" cc="ss" country="South Sudan" operator="Zain South Sudan" status="Operational"
- 07 bands="CDMA" brand="Sudani" cc="ss" country="South Sudan" operator="Sudani" status="Operational"
+ 07 bands="CDMA" brand="Sudani" cc="ss" country="South Sudan" operator="Sudani" status="Not operational"
  00-99
 702
  67 bands="GSM 850 / GSM 1900 / UMTS 850 / UMTS 1900 / LTE 700 / LTE 1900" brand="DigiCell" cc="bz" country="Belize" operator="Belize Telemedia Limited (BTL)" status="Operational"
