@@ -60,11 +60,11 @@ def fetch_ais():
                 entry['description'].strip())
 
 
-def group_ai_ranges():
+def group_ai_ranges(ranges):
     """Combine downloaded application identifiers into ranges."""
     first = None
     prev = (None, ) * 5
-    for value in sorted(fetch_ais()):
+    for value in sorted(ranges):
         if value[1:] != prev[1:]:
             if first:
                 yield (first, *prev)
@@ -76,7 +76,7 @@ def group_ai_ranges():
 if __name__ == '__main__':
     print('# generated from %s' % download_url)
     print('# on %s' % datetime.datetime.now(datetime.UTC))
-    for ai1, ai2, format, require_fnc1, name, description in group_ai_ranges():
+    for ai1, ai2, format, require_fnc1, name, description in group_ai_ranges(fetch_ais()):
         _type = 'str'
         if re.match(r'^(N[68]\[?\+)?N[0-9]*[.]*[0-9]+\]?$', format) and 'date' in description.lower():
             _type = 'date'
@@ -85,10 +85,8 @@ if __name__ == '__main__':
         ai = ai1
         if ai1 != ai2:
             if len(ai1) == 4:
-                ai = ai1[:3]
                 _type = 'decimal'
-            else:
-                ai = '%s-%s' % (ai1, ai2)
+            ai = '%s-%s' % (ai1, ai2)
         print('%s format="%s" type="%s"%s name="%s" description="%s"' % (
             ai, format, _type,
             ' fnc1="1"' if require_fnc1 else '',
