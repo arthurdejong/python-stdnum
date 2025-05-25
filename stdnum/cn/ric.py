@@ -1,6 +1,7 @@
 # ric.py - functions for handling Chinese Resident Identity Card Number
 #
 # Copyright (C) 2014 Jiangge Zhang
+# Copyright (C) 2025 Arthur de Jong
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -64,10 +65,25 @@ def get_birth_place(number: str) -> dict[str, str]:
     """Use the number to look up the place of birth of the person."""
     from stdnum import numdb
     number = compact(number)
-    results = numdb.get('cn/loc').info(number[:6])[0][1]
-    if not results:
+    results = numdb.get('cn/loc').info(number[:6])
+    info = {k: v for part, props in results for k, v in props.items()}
+    if not info:
         raise InvalidComponent()
-    return results
+    year = get_birth_date(number).year
+    # check if any found county was assigned at the birth year
+    for county in info['county'].split(','):
+        if not county.startswith('['):
+            return info
+        startend, county = county[1:].split(']')
+        start, end = startend.split('-')
+        if start and year < int(start):
+            continue
+        if end and year > int(end):
+            continue
+        info['county'] = county
+        return info
+    # none of the found counties were valid when the number was assigned
+    raise InvalidComponent()
 
 
 def calc_check_digit(number: str) -> str:
