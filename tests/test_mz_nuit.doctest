@@ -1,0 +1,145 @@
+test_mz_nuit.doctest - more detailed doctests for stdnum.mz.nuit module
+
+Copyright (C) 2023 Leandro Regueiro
+
+This library is free software; you can redistribute it and/or
+modify it under the terms of the GNU Lesser General Public
+License as published by the Free Software Foundation; either
+version 2.1 of the License, or (at your option) any later version.
+
+This library is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+Lesser General Public License for more details.
+
+You should have received a copy of the GNU Lesser General Public
+License along with this library; if not, write to the Free Software
+Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
+02110-1301 USA
+
+
+This file contains more detailed doctests for the stdnum.mz.nuit module. It
+tries to test more corner cases and detailed functionality that is not really
+useful as module documentation.
+
+>>> from stdnum.mz import nuit
+
+
+Tests for some corner cases.
+
+>>> nuit.validate('400339910')
+'400339910'
+>>> nuit.validate('400 005 834')
+'400005834'
+>>> nuit.validate('100.033.593')
+'100033593'
+>>> nuit.validate('12345')
+Traceback (most recent call last):
+    ...
+InvalidLength: ...
+>>> nuit.validate('VV3456789')
+Traceback (most recent call last):
+    ...
+InvalidFormat: ...
+>>> nuit.validate('101935626')
+Traceback (most recent call last):
+    ...
+InvalidChecksum: ...
+>>> nuit.format('400339910')
+'400 339 910'
+>>> nuit.format('100.033.593')
+'100 033 593'
+
+
+These have been found online and should all be valid numbers.
+
+>>> numbers = '''
+...
+... 400339910
+... 400 005 834
+... 500171650
+... 700152855
+... 400 005 834
+... 400027145
+... 400001391
+... 400584291
+... 103017602
+... 400872120
+... 500001615
+... 400786704
+... 500 024 240
+... 400066183
+... 500006005
+... 401 191 607
+... 400 102 961
+... 105564724
+... 500003545
+... 400787451
+... 116773767
+... 111878641
+... 154695168
+... 102889010
+... 101908372
+... 149349324
+... 400339910
+... 400509182
+... 400 006 245
+... 400778922
+... 400015546
+... 401343261
+... 401120807
+... 400 108 791
+... 400 415 870
+... 108 755 423
+... 108 755 385
+... 400007225
+... 401508317
+... 400535825
+... 400418810
+... 401129006
+... 400058172
+... 400267839
+... 500017341
+... 700074854
+... 401215298
+... 400786704
+... 400058921
+... 400238685
+... 400005516
+... 500050012
+... 400 052 786
+... 400 111 200
+... 400824037
+... 400 410 151
+... 120883275
+... 100002892
+... 118924045
+... 400157715
+... 400370028
+... 129926945
+... 400364001
+... 101002561
+... 400551847
+... 400 769 052
+... 400 120 323
+... 100.033.593
+... 105032031
+... 401430989
+... 103709776
+... 500171650
+... 400316341
+... 400509182
+... 400021260
+... 400129551
+... 400187398
+... 600000063
+... 400102961
+... 400994579
+... 400905649
+... 500003839
+... 401041877
+... 400068038
+...
+... '''
+>>> [x for x in numbers.splitlines() if x and not nuit.is_valid(x)]
+[]
