@@ -178,7 +178,7 @@ def _get_resource_stream(name: str) -> IO[bytes]:
         import importlib.resources
         return importlib.resources.files(__package__).joinpath(name).open('rb')
     except (ImportError, AttributeError):  # pragma: no cover (older Python versions)
-        import pkg_resources  # type: ignore[import-untyped]
+        import pkg_resources  # type: ignore
         return pkg_resources.resource_stream(__name__, name)  # type: ignore[no-any-return]
 
 
