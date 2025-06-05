@@ -19,3 +19,6 @@
 # 02110-1301 USA
 
 """Collection of Liechtenstein numbers."""
+
+# provide aliases
+from stdnum.li import peid as vat  # noqa: F401
