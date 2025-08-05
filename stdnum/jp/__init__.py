@@ -23,3 +23,4 @@
 from __future__ import annotations
 
 from stdnum.jp import cn as vat  # noqa: F401
+from stdnum.jp import in_  # noqa: F401

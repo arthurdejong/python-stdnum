@@ -19,3 +19,7 @@
 # 02110-1301 USA
 
 """Collection of Greek numbers."""
+
+# Import all submodules to make them available via dir()
+from stdnum.gr import amka  # noqa: F401
+from stdnum.gr import vat  # noqa: F401

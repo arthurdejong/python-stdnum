@@ -23,3 +23,4 @@
 from __future__ import annotations
 
 from stdnum.tr import vkn as vat  # noqa: F401
+from stdnum.tr import tckimlik  # noqa: F401

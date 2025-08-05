@@ -19,3 +19,6 @@
 # 02110-1301 USA
 
 """Collection of Malaysian numbers."""
+
+# Import all submodules to make them available via dir()
+from stdnum.my import nric  # noqa: F401

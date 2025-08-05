@@ -23,3 +23,4 @@
 from __future__ import annotations
 
 from stdnum.br import cnpj as vat  # noqa: F401
+from stdnum.br import cpf  # noqa: F401

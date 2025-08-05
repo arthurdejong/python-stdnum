@@ -19,3 +19,12 @@
 # 02110-1301 USA
 
 """Collection of United States numbers."""
+
+# Import all submodules to make them available via dir()
+from stdnum.us import atin  # noqa: F401
+from stdnum.us import ein  # noqa: F401
+from stdnum.us import itin  # noqa: F401
+from stdnum.us import ptin  # noqa: F401
+from stdnum.us import rtn  # noqa: F401
+from stdnum.us import ssn  # noqa: F401
+from stdnum.us import tin  # noqa: F401

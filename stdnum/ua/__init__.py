@@ -19,3 +19,7 @@
 # 02110-1301 USA
 
 """Collection of Ukrainian numbers."""
+
+# Import all submodules to make them available via dir()
+from stdnum.ua import edrpou  # noqa: F401
+from stdnum.ua import rntrc  # noqa: F401

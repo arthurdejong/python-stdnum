@@ -19,3 +19,7 @@
 # 02110-1301 USA
 
 """Collection of South Africa numbers."""
+
+# Import all submodules to make them available via dir()
+from stdnum.za import idnr  # noqa: F401
+from stdnum.za import tin  # noqa: F401

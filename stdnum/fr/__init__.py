@@ -24,3 +24,7 @@ from __future__ import annotations
 
 # provide vat as an alias
 from stdnum.fr import tva as vat  # noqa: F401
+from stdnum.fr import nif  # noqa: F401
+from stdnum.fr import nir  # noqa: F401
+from stdnum.fr import siren  # noqa: F401
+from stdnum.fr import siret  # noqa: F401

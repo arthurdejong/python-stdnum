@@ -24,3 +24,5 @@ from __future__ import annotations
 
 # provide vat as an alias
 from stdnum.it import iva as vat  # noqa: F401
+from stdnum.it import aic  # noqa: F401
+from stdnum.it import codicefiscale  # noqa: F401

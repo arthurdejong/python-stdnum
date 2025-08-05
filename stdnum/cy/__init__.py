@@ -19,3 +19,6 @@
 # 02110-1301 USA
 
 """Collection of Cypriot numbers."""
+
+# Import all submodules to make them available via dir()
+from stdnum.cy import vat  # noqa: F401

@@ -24,3 +24,6 @@ from __future__ import annotations
 
 # provide vat as an alias
 from stdnum.ro import cf as vat  # noqa: F401
+from stdnum.ro import cnp  # noqa: F401
+from stdnum.ro import cui  # noqa: F401
+from stdnum.ro import onrc  # noqa: F401

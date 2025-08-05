@@ -19,3 +19,6 @@
 # 02110-1301 USA
 
 """Collection of Pakistani numbers."""
+
+# Import all submodules to make them available via dir()
+from stdnum.pk import cnic  # noqa: F401

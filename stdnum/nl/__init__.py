@@ -25,3 +25,7 @@ from __future__ import annotations
 # provide aliases
 from stdnum.nl import btw as vat  # noqa: F401
 from stdnum.nl import postcode as postal_code  # noqa: F401
+from stdnum.nl import brin  # noqa: F401
+from stdnum.nl import bsn  # noqa: F401
+from stdnum.nl import identiteitskaartnummer  # noqa: F401
+from stdnum.nl import onderwijsnummer  # noqa: F401
