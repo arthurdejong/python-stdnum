@@ -24,3 +24,5 @@ from __future__ import annotations
 
 # provide vat as an alias
 from stdnum.pl import nip as vat  # noqa: F401
+from stdnum.pl import pesel  # noqa: F401
+from stdnum.pl import regon  # noqa: F401

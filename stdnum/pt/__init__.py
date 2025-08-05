@@ -24,3 +24,4 @@ from __future__ import annotations
 
 # provide vat as an alias
 from stdnum.pt import nif as vat  # noqa: F401
+from stdnum.pt import cc  # noqa: F401

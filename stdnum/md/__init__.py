@@ -19,3 +19,6 @@
 # 02110-1301 USA
 
 """Collection of Moldavian numbers."""
+
+# Import all submodules to make them available via dir()
+from stdnum.md import idno  # noqa: F401

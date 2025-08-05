@@ -24,3 +24,7 @@ from __future__ import annotations
 
 # provide aliases
 from stdnum.in_ import gstin as vat  # noqa: F401
+from stdnum.in_ import aadhaar  # noqa: F401
+from stdnum.in_ import epic  # noqa: F401
+from stdnum.in_ import pan  # noqa: F401
+from stdnum.in_ import vid  # noqa: F401

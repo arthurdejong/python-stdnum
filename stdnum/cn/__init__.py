@@ -24,3 +24,4 @@ from __future__ import annotations
 
 # Provide vat as an alias.
 from stdnum.cn import uscc as vat  # noqa: F401
+from stdnum.cn import ric  # noqa: F401

@@ -19,3 +19,8 @@
 # 02110-1301 USA
 
 """Collection of Bulgarian numbers."""
+
+# Import all submodules to make them available via dir()
+from stdnum.bg import egn  # noqa: F401
+from stdnum.bg import pnf  # noqa: F401
+from stdnum.bg import vat  # noqa: F401

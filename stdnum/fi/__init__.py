@@ -26,3 +26,5 @@ from __future__ import annotations
 from stdnum.fi import alv as vat  # noqa: F401
 from stdnum.fi import hetu as personalid  # noqa: F401
 from stdnum.fi import ytunnus as businessid  # noqa: F401
+from stdnum.fi import associationid  # noqa: F401
+from stdnum.fi import veronumero  # noqa: F401

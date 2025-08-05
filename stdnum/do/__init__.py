@@ -23,3 +23,5 @@
 from __future__ import annotations
 
 from stdnum.do import rnc as vat  # noqa: F401
+from stdnum.do import cedula  # noqa: F401
+from stdnum.do import ncf  # noqa: F401

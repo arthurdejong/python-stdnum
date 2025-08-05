@@ -25,3 +25,6 @@ from __future__ import annotations
 # provide aliases
 from stdnum.no import fodselsnummer as personalid  # noqa: F401
 from stdnum.no import mva as vat  # noqa: F401
+from stdnum.no import iban  # noqa: F401
+from stdnum.no import kontonr  # noqa: F401
+from stdnum.no import orgnr  # noqa: F401

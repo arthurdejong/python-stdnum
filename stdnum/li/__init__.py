@@ -19,3 +19,6 @@
 # 02110-1301 USA
 
 """Collection of Liechtenstein numbers."""
+
+# Import all submodules to make them available via dir()
+from stdnum.li import peid  # noqa: F401

@@ -24,3 +24,5 @@ from __future__ import annotations
 
 # provide vat as an alias
 from stdnum.cz import dic as vat  # noqa: F401
+from stdnum.cz import bankaccount  # noqa: F401
+from stdnum.cz import rc  # noqa: F401

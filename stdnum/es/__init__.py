@@ -24,3 +24,12 @@ from __future__ import annotations
 
 # provide vat as an alias
 from stdnum.es import nif as vat  # noqa: F401
+from stdnum.es import cae  # noqa: F401
+from stdnum.es import ccc  # noqa: F401
+from stdnum.es import cif  # noqa: F401
+from stdnum.es import cups  # noqa: F401
+from stdnum.es import dni  # noqa: F401
+from stdnum.es import iban  # noqa: F401
+from stdnum.es import nie  # noqa: F401
+from stdnum.es import postal_code  # noqa: F401
+from stdnum.es import referenciacatastral  # noqa: F401

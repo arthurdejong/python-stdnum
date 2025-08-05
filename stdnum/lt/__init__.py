@@ -24,3 +24,4 @@ from __future__ import annotations
 
 # provide vat as an alias
 from stdnum.lt import pvm as vat  # noqa: F401
+from stdnum.lt import asmens  # noqa: F401

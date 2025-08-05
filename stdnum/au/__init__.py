@@ -24,3 +24,5 @@ from __future__ import annotations
 
 # provide aliases
 from stdnum.au import abn as vat  # noqa: F401
+from stdnum.au import acn  # noqa: F401
+from stdnum.au import tfn  # noqa: F401

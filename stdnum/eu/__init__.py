@@ -19,3 +19,12 @@
 # 02110-1301 USA
 
 """Collection of European Union numbers."""
+
+# Import all submodules to make them available via dir()
+from stdnum.eu import at_02  # noqa: F401
+from stdnum.eu import banknote  # noqa: F401
+from stdnum.eu import ecnumber  # noqa: F401
+from stdnum.eu import eic  # noqa: F401
+from stdnum.eu import nace  # noqa: F401
+from stdnum.eu import oss  # noqa: F401
+from stdnum.eu import vat  # noqa: F401

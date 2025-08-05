@@ -24,3 +24,7 @@ from __future__ import annotations
 
 # provide businessid as an alias
 from stdnum.de import handelsregisternummer as businessid  # noqa: F401
+from stdnum.de import idnr  # noqa: F401
+from stdnum.de import stnr  # noqa: F401
+from stdnum.de import vat  # noqa: F401
+from stdnum.de import wkn  # noqa: F401
