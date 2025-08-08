@@ -41,6 +41,8 @@ InvalidChecksum: ...
 Traceback (most recent call last):
     ...
 InvalidFormat: ...
+>>> to_siren('Fr 40 303 265 045')
+'303265045'
 """
 
 from __future__ import annotations
@@ -101,3 +103,15 @@ def is_valid(number: str) -> bool:
         return bool(validate(number))
     except ValidationError:
         return False
+
+
+def to_siren(number: str) -> str:
+    """Convert the VAT number to a SIREN number.
+
+    The SIREN number is the 9 last digits of the VAT number.
+    """
+    number = compact(number)
+    if number[2:5] == '000':
+        # numbers from Monaco are valid TVA but not SIREN
+        raise InvalidComponent()
+    return number[2:]
