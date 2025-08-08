@@ -49,9 +49,9 @@ InvalidFormat: ...
 Traceback (most recent call last):
     ...
 InvalidFormat: ...
->>> format('RCS Nancy B323159716')
+>>> format('RCS Nancy B323159715')
 'RCS Nancy B 323 159 715'
->>> to_siren("RCS Nancy B 323159 716")
+>>> to_siren("RCS Nancy B 323159 715")
 "323159 716"
 """
 
