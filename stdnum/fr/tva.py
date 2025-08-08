@@ -110,7 +110,7 @@ def to_siren(number: str) -> str:
 
     The SIREN number is the 9 last digits of the VAT number.
     """
-    _siren = []
+    _siren: list[str] = []
     digit_count = 0
     for char in reversed(number):
         if digit_count < 9:
