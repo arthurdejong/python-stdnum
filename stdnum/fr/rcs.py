@@ -64,12 +64,12 @@ import re
 
 from stdnum.exceptions import *
 from stdnum.fr import siren
-from stdnum.util import isdigits
+from stdnum.util import isdigits, clean
 
 RCS_VALIDATION_REGEX = r"^ *(?P<tag>RCS|rcs) +(?P<city>.*?) +(?P<letter>[AB]) *(?P<siren>(?:\d *){9})\b *$"
 
 def validate(number:str) -> str:
-    match = re.match(RCS_VALIDATION_REGEX, number)
+    match = re.match(RCS_VALIDATION_REGEX, clean(number))
     if not match:
         raise InvalidFormat()
     siren_number = siren.validate(match.group("siren"))
@@ -88,7 +88,7 @@ def is_valid(number: str) -> bool:
 
 def format(number: str) -> str:
     """Reformat the number to the standard presentation format."""
-    match = re.match(RCS_VALIDATION_REGEX, number)
+    match = re.match(RCS_VALIDATION_REGEX, clean(number))
     if not match:
         raise InvalidFormat()
     return " ".join(("RCS", match.group('city'), match.group('letter'), siren.format(match.group('siren'))))
