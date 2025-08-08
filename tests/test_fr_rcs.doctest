@@ -44,5 +44,5 @@ Traceback (most recent call last):
 InvalidFormat: ...
 >>> rcs.format('RCS Nancy B323159715')
 'RCS Nancy B 323 159 715'
->>> to_siren("RCS Nancy B 323159 715")
+>>> rcs.to_siren("RCS Nancy B 323159 715")
 "323159 715"
