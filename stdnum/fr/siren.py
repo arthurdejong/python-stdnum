@@ -84,8 +84,8 @@ def to_tva(number: str) -> str:
         ' ' if ' ' in number else '',
         number)
 
+
 def format(number: str, separator: str = ' ') -> str:
     """Reformat the number to the standard presentation format."""
     number = compact(number)
     return separator.join((number[0:3], number[3:6], number[6:9]))
-
