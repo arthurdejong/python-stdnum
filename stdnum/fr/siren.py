@@ -34,6 +34,8 @@ Traceback (most recent call last):
 InvalidChecksum: ...
 >>> to_tva('443 121 975')
 '46 443 121 975'
+>>> format('404833048')
+'404 833 048'
 """
 
 from __future__ import annotations
@@ -83,3 +85,9 @@ def to_tva(number: str) -> str:
         int(compact(number) + '12') % 97,
         ' ' if ' ' in number else '',
         number)
+
+
+def format(number: str, separator: str = ' ') -> str:
+    """Reformat the number to the standard presentation format."""
+    number = compact(number)
+    return separator.join((number[:3], number[3:6], number[6:]))
