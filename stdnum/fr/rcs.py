@@ -64,7 +64,7 @@ import re
 
 from stdnum.exceptions import *
 from stdnum.fr import siren
-from stdnum.util import clean
+from stdnum.util import isdigits
 
 RCS_VALIDATION_REGEX = r"^ *(?P<tag>RCS|rcs) +(?P<city>.*?) +(?P<letter>[AB]) *(?P<siren>(?:\d *){9})\b *$"
 
