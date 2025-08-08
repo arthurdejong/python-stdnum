@@ -20,7 +20,7 @@
 
 """RCS (French registration number for commercial companies).
 
-The RCS number (Registre du commerce et des sociétés) is given by INSEE to a company with commercial activity 
+The RCS number (Registre du commerce et des sociétés) is given by INSEE to a company with commercial activity
 when created. It is required for most of administrative procedures.
 
 The number consists of "RCS" letters followed by name of the city where the company was registered
@@ -60,15 +60,23 @@ InvalidFormat: ...
 """
 
 from __future__ import annotations
+
 import re
 
 from stdnum.exceptions import *
 from stdnum.fr import siren
-from stdnum.util import isdigits, clean
+from stdnum.util import clean, isdigits
 
-RCS_VALIDATION_REGEX = r"^ *(?P<tag>RCS|rcs) +(?P<city>.*?) +(?P<letter>[AB]) *(?P<siren>(?:\d *){9})\b *$"
 
-def validate(number:str) -> str:
+RCS_VALIDATION_REGEX = (
+    r"^ *(?P<tag>RCS|rcs) +(?P<city>.*?) +(?P<letter>[AB]) *(?P<siren>(?:\d *){9})\b *$"
+)
+
+
+def validate(number: str) -> str:
+    """
+    Validate number is a valid french RCS number.
+    """
     match = re.match(RCS_VALIDATION_REGEX, clean(number))
     if not match:
         raise InvalidFormat()
@@ -91,10 +99,17 @@ def format(number: str) -> str:
     match = re.match(RCS_VALIDATION_REGEX, clean(number))
     if not match:
         raise InvalidFormat()
-    return " ".join(("RCS", match.group('city'), match.group('letter'), siren.format(match.group('siren'))))
+    return " ".join(
+        (
+            "RCS",
+            match.group("city"),
+            match.group("letter"),
+            siren.format(match.group("siren")),
+        )
+    )
 
 
-def to_siren(number:str)->str:
+def to_siren(number: str) -> str:
     """Extract SIREN number from the RCS number.
 
     The SIREN number is the 9 last digits of the RCS number.
@@ -103,7 +118,7 @@ def to_siren(number:str)->str:
     digit_count = 0
     for char in reversed(number):
         if digit_count < 9:
-            _siren.insert(0,char)
+            _siren.insert(0, char)
             if isdigits(char):
                 digit_count += 1
-    return ''.join(_siren)
+    return "".join(_siren)
