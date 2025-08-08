@@ -114,7 +114,7 @@ def to_siren(number: str) -> str:
     digit_count = 0
     for char in reversed(number):
         if digit_count < 9:
-            _siren.insert(0,char)
+            _siren.insert(0, char)
             if isdigits(char):
                 digit_count += 1
     return ''.join(_siren)
