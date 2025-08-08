@@ -51,8 +51,12 @@ Traceback (most recent call last):
 InvalidFormat: ...
 >>> format('RCS Nancy B323159715')
 'RCS Nancy B 323 159 715'
+>>> format('bad')
+Traceback (most recent call last):
+    ...
+InvalidFormat: ...
 >>> to_siren("RCS Nancy B 323159 715")
-"323159 716"
+'323159 715'
 """
 
 from __future__ import annotations
