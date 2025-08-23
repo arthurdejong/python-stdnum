@@ -19,3 +19,7 @@
 # 02110-1301 USA
 
 """Collection of Irish numbers."""
+
+# Import all submodules to make them available via dir()
+from stdnum.ie import pps  # noqa: F401
+from stdnum.ie import vat  # noqa: F401

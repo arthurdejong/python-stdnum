@@ -19,3 +19,9 @@
 # 02110-1301 USA
 
 """Collection of Swiss numbers."""
+
+# Import all submodules to make them available via dir()
+from stdnum.ch import esr  # noqa: F401
+from stdnum.ch import ssn  # noqa: F401
+from stdnum.ch import uid  # noqa: F401
+from stdnum.ch import vat  # noqa: F401

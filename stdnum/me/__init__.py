@@ -24,3 +24,4 @@ from __future__ import annotations
 
 # provide aliases
 from stdnum.me import pib as vat  # noqa: F401
+from stdnum.me import iban  # noqa: F401

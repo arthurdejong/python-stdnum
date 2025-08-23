@@ -19,3 +19,12 @@
 # 02110-1301 USA
 
 """Collection of United Kingdom numbers."""
+
+from __future__ import annotations
+
+# Import all submodules to make them available via dir()
+from stdnum.gb import nhs  # noqa: F401
+from stdnum.gb import sedol  # noqa: F401
+from stdnum.gb import upn  # noqa: F401
+from stdnum.gb import utr  # noqa: F401
+from stdnum.gb import vat  # noqa: F401

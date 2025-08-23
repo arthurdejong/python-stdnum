@@ -25,3 +25,5 @@ from __future__ import annotations
 # provide aliases
 from stdnum.se import personnummer as personalid  # noqa: F401
 from stdnum.se import postnummer as postal_code  # noqa: F401
+from stdnum.se import orgnr  # noqa: F401
+from stdnum.se import vat  # noqa: F401

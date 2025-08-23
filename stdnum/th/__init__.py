@@ -24,3 +24,5 @@ from __future__ import annotations
 
 # provide aliases
 from stdnum.th import moa as vat  # noqa: F401
+from stdnum.th import pin  # noqa: F401
+from stdnum.th import tin  # noqa: F401

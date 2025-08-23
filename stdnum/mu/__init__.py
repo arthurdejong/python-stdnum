@@ -19,3 +19,6 @@
 # 02110-1301 USA
 
 """Collection of Mauritian numbers."""
+
+# Import all submodules to make them available via dir()
+from stdnum.mu import nid  # noqa: F401

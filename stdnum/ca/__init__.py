@@ -23,3 +23,5 @@
 from __future__ import annotations
 
 from stdnum.ca import bn as vat  # noqa: F401
+from stdnum.ca import bc_phn  # noqa: F401
+from stdnum.ca import sin  # noqa: F401

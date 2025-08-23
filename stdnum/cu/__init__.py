@@ -19,3 +19,6 @@
 # 02110-1301 USA
 
 """Collection of Cuban numbers."""
+
+# Import all submodules to make them available via dir()
+from stdnum.cu import ni  # noqa: F401

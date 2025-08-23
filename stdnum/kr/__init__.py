@@ -24,3 +24,4 @@ from __future__ import annotations
 
 # provide aliases
 from stdnum.kr import brn as vat  # noqa: F401
+from stdnum.kr import rrn  # noqa: F401

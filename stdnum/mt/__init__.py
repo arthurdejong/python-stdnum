@@ -19,3 +19,6 @@
 # 02110-1301 USA
 
 """Collection of Maltese numbers."""
+
+# Import all submodules to make them available via dir()
+from stdnum.mt import vat  # noqa: F401

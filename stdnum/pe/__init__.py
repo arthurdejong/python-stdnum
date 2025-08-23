@@ -23,3 +23,4 @@
 from __future__ import annotations
 
 from stdnum.pe import ruc as vat  # noqa: F401
+from stdnum.pe import cui  # noqa: F401
