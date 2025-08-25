@@ -111,6 +111,7 @@ Currently this package supports the following formats:
  * SIREN (a French company identification number)
  * SIRET (a French company establishment identification number)
  * n° TVA (taxe sur la valeur ajoutée, French VAT number)
+ * RCS (another French company identification number, proof of registration)
  * NHS (United Kingdom National Health Service patient identifier)
  * SEDOL number (Stock Exchange Daily Official List number)
  * UPN (English Unique Pupil Number)
