@@ -36,7 +36,7 @@ class TestSeed(unittest.TestCase):
     """Test the SEED web service provided by the European commission for
     validation Excise numbers of European countries."""
 
-    def test_check_seed(self):
+    def test_check_seed(self) -> None:
         """Test stdnum.eu.excise.check_seed()"""
         result = excise.check_seed('FR012907E0820')
         self.assertTrue('errorDescription' not in result)

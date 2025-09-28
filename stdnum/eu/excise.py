@@ -40,9 +40,17 @@ More information:
 'LU00000987ABC'
 """
 
+from __future__ import annotations
+
 from stdnum.eu.vat import MEMBER_STATES
 from stdnum.exceptions import *
-from stdnum.util import clean, get_cc_module, get_soap_client
+from stdnum.util import (
+    NumberValidationModule, clean, get_cc_module, get_soap_client)
+
+
+TYPE_CHECKING = False
+if TYPE_CHECKING:  # pragma: no cover (typechecking only import)
+    from typing import Any
 
 
 _country_modules = dict()
@@ -51,7 +59,7 @@ seed_wsdl = 'https://ec.europa.eu/taxation_customs/dds2/seed/services/excise/ver
 """The WSDL URL of the System for Exchange of Excise Data (SEED)."""
 
 
-def _get_cc_module(cc):
+def _get_cc_module(cc: str) -> NumberValidationModule | None:
     """Get the Excise number module based on the country code."""
     cc = cc.lower()
     if cc not in MEMBER_STATES:
@@ -61,14 +69,14 @@ def _get_cc_module(cc):
     return _country_modules[cc]
 
 
-def compact(number):
+def compact(number: str) -> str:
     """Convert the number to the minimal representation. This strips the number
     of any valid separators and removes surrounding whitespace."""
     number = clean(number, ' ').upper().strip()
     return number
 
 
-def validate(number):
+def validate(number: str) -> str:
     """Check if the number is a valid Excise number."""
     number = clean(number, ' ').upper().strip()
     cc = number[:2]
@@ -80,7 +88,7 @@ def validate(number):
     return number
 
 
-def is_valid(number):
+def is_valid(number: str) -> bool:
     """Check if the number is a valid Excise number."""
     try:
         return bool(validate(number))
@@ -88,11 +96,14 @@ def is_valid(number):
         return False
 
 
-def check_seed(number, timeout=30):  # pragma: no cover (not part of normal test suite)
+def check_seed(
+        number: str,
+        timeout: float = 30,
+) -> dict[str, Any]:  # pragma: no cover (not part of normal test suite)
     """Query the online European Commission System for Exchange of Excise Data
     (SEED) for validity of the provided number. Note that the service has
     usage limitations (see the VIES website for details). The timeout is in
     seconds. This returns a dict-like object."""
     number = compact(number)
     client = get_soap_client(seed_wsdl, timeout)
-    return client.verifyExcise(number)
+    return client.verifyExcise(number)  # type: ignore[no-any-return]
