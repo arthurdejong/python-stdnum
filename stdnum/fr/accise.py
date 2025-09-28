@@ -18,7 +18,7 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 # 02110-1301 USA
 
-"""n° d'accise.
+"""n° d'accise (French number to identify taxpayers of excise taxes).
 
 The n° d'accise always start by FR0 following by the 2 ending digits of the
 year, 3 number of customs office, one letter for the type and an ordering

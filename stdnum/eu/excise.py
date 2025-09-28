@@ -21,7 +21,8 @@
 """Excise Number
 
 The Excise Number is the identification number issued by the competent
-authority in respect of the person or premises.
+authority in respect of the person or premises. It is used to identify the
+taxpayers of excise taxes.
 
 The first two letters are the ISO country code of the Member State where the
 operator is located (e.g. LU);
