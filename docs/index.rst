@@ -130,6 +130,7 @@ Available formats
    be.eid
    be.iban
    be.nn
+   be.ogm_vcs
    be.ssn
    be.vat
    bg.egn
