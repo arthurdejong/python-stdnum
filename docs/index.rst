@@ -194,6 +194,7 @@ Available formats
    eu.banknote
    eu.ecnumber
    eu.eic
+   eu.excise
    eu.nace
    eu.oss
    eu.vat
@@ -204,6 +205,7 @@ Available formats
    fi.ytunnus
    figi
    fo.vn
+   fr.accise
    fr.nif
    fr.nir
    fr.siren
