@@ -34,27 +34,29 @@ valid if the number modulo 97 is 1. As such it has two check digits.
 '35'
 """
 
+from __future__ import annotations
+
 from stdnum.exceptions import *
 
 
-def _to_base10(number):
+def _to_base10(number: str) -> str:
     """Prepare the number to its base10 representation."""
     return ''.join(
         str(int(x, 36)) for x in number)
 
 
-def checksum(number):
+def checksum(number: str) -> int:
     """Calculate the checksum. A valid number should have a checksum of 1."""
     return int(_to_base10(number)) % 97
 
 
-def calc_check_digits(number):
+def calc_check_digits(number: str) -> str:
     """Calculate the extra digits that should be appended to the number to
     make it a valid number."""
     return '%02d' % (98 - checksum(number + '00'))
 
 
-def validate(number):
+def validate(number: str) -> str:
     """Check whether the check digit is valid."""
     try:
         valid = checksum(number) == 1
@@ -65,7 +67,7 @@ def validate(number):
     return number
 
 
-def is_valid(number):
+def is_valid(number: str) -> bool:
     """Check whether the check digit is valid."""
     try:
         return bool(validate(number))

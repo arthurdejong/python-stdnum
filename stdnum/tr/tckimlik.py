@@ -1,7 +1,7 @@
 # tckimlik.py - functions for handling T.C. Kimlik No.
 # coding: utf-8
 #
-# Copyright (C) 2016-2018 Arthur de Jong
+# Copyright (C) 2016-2024 Arthur de Jong
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -45,6 +45,8 @@ Traceback (most recent call last):
 InvalidFormat: ...
 """
 
+from __future__ import annotations
+
 from stdnum.exceptions import *
 from stdnum.util import clean, get_soap_client, isdigits
 
@@ -53,13 +55,13 @@ tckimlik_wsdl = 'https://tckimlik.nvi.gov.tr/Service/KPSPublic.asmx?WSDL'
 """The WSDL URL of the T.C. Kimlik validation service."""
 
 
-def compact(number):
+def compact(number: str) -> str:
     """Convert the number to the minimal representation. This strips the
     number of any valid separators and removes surrounding whitespace."""
     return clean(number).strip()
 
 
-def calc_check_digits(number):
+def calc_check_digits(number: str) -> str:
     """Calculate the check digits for the specified number. The number
     passed should not have the check digit included."""
     check1 = (10 - sum((3, 1)[i % 2] * int(n)
@@ -68,7 +70,7 @@ def calc_check_digits(number):
     return '%d%d' % (check1, check2)
 
 
-def validate(number):
+def validate(number: str) -> str:
     """Check if the number is a valid T.C. Kimlik number. This checks the
     length and check digits."""
     number = compact(number)
@@ -81,7 +83,7 @@ def validate(number):
     return number
 
 
-def is_valid(number):
+def is_valid(number: str) -> bool:
     """Check if the number is a valid T.C. Kimlik number."""
     try:
         return bool(validate(number))
@@ -89,17 +91,33 @@ def is_valid(number):
         return False
 
 
-def check_kps(number, name, surname, birth_year, timeout):  # pragma: no cover
-    """Query the online T.C. Kimlik validation service run by the Directorate
+def check_kps(
+    number: str,
+    name: str,
+    surname: str,
+    birth_year: int,
+    timeout: float = 30,
+    verify: bool | str = True,
+) -> bool:  # pragma: no cover
+    """Use the T.C. Kimlik validation service to check the provided number.
+
+    Query the online T.C. Kimlik validation service run by the Directorate
     of Population and Citizenship Affairs. The timeout is in seconds. This
     returns a boolean but may raise a SOAP exception for missing or invalid
-    values."""
+    values.
+
+    The `timeout` argument specifies the network timeout in seconds.
+
+    The `verify` argument is either a boolean that determines whether the
+    server's certificate is validate or a string which must be a path the CA
+    certificate bundle to use for verification.
+    """
     # this function isn't automatically tested because it would require
     # network access for the tests and unnecessarily load the online service
     number = compact(number)
-    client = get_soap_client(tckimlik_wsdl, timeout)
+    client = get_soap_client(tckimlik_wsdl, timeout=timeout, verify=verify)
     result = client.TCKimlikNoDogrula(
         TCKimlikNo=number, Ad=name, Soyad=surname, DogumYili=birth_year)
     if hasattr(result, 'get'):
-        return result.get('TCKimlikNoDogrulaResult')
-    return result
+        return result.get('TCKimlikNoDogrulaResult')  # type: ignore[no-any-return]
+    return result  # type: ignore[no-any-return]

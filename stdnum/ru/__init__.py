@@ -20,5 +20,7 @@
 
 """Collection of Russian numbers."""
 
+from __future__ import annotations
+
 # provide vat as an alias
 from stdnum.ru import inn as vat  # noqa: F401

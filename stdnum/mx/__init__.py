@@ -20,6 +20,8 @@
 
 """Collection of Mexican numbers."""
 
+from __future__ import annotations
+
 # provide aliases
 from stdnum.mx import curp as personalid  # noqa: F401
 from stdnum.mx import rfc as vat  # noqa: F401

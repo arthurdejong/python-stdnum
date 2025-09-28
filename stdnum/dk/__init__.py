@@ -20,6 +20,8 @@
 
 """Collection of Danish numbers."""
 
+from __future__ import annotations
+
 # provide aliases
 from stdnum.dk import cpr as personalid  # noqa: F401
 from stdnum.dk import cvr as vat  # noqa: F401

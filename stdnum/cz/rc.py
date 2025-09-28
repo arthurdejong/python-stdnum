@@ -1,7 +1,7 @@
 # rc.py - functions for handling Czech birth numbers
 # coding: utf-8
 #
-# Copyright (C) 2012-2019 Arthur de Jong
+# Copyright (C) 2012-2025 Arthur de Jong
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -47,19 +47,21 @@ InvalidLength: ...
 '710319/2745'
 """
 
+from __future__ import annotations
+
 import datetime
 
 from stdnum.exceptions import *
 from stdnum.util import clean, isdigits
 
 
-def compact(number):
+def compact(number: str) -> str:
     """Convert the number to the minimal representation. This strips the
     number of any valid separators and removes surrounding whitespace."""
     return clean(number, ' /').upper().strip()
 
 
-def get_birth_date(number):
+def get_birth_date(number: str) -> datetime.date:
     """Split the date parts from the number and return the birth date."""
     number = compact(number)
     year = 1900 + int(number[0:2])
@@ -81,7 +83,7 @@ def get_birth_date(number):
         raise InvalidComponent()
 
 
-def validate(number):
+def validate(number: str) -> str:
     """Check if the number is a valid birth number. This checks the length,
     formatting, embedded date and check digit."""
     number = compact(number)
@@ -90,20 +92,16 @@ def validate(number):
     if len(number) not in (9, 10):
         raise InvalidLength()
     # check if birth date is valid
-    birth_date = get_birth_date(number)
-    # TODO: check that the birth date is not in the future
+    get_birth_date(number)
     # check the check digit (10 digit numbers only)
     if len(number) == 10:
-        check = int(number[:-1]) % 11
-        # before 1985 the checksum could be 0 or 10
-        if birth_date < datetime.date(1985, 1, 1):
-            check = check % 10
+        check = int(number[:-1]) % 11 % 10
         if number[-1] != str(check):
             raise InvalidChecksum()
     return number
 
 
-def is_valid(number):
+def is_valid(number: str) -> bool:
     """Check if the number is a valid birth number."""
     try:
         return bool(validate(number))
@@ -111,7 +109,7 @@ def is_valid(number):
         return False
 
 
-def format(number):
+def format(number: str) -> str:
     """Reformat the number to the standard presentation format."""
     number = compact(number)
     return number[:6] + '/' + number[6:]

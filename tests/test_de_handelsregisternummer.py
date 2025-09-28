@@ -35,10 +35,12 @@ from stdnum.de import handelsregisternummer
 class TestOffeneRegister(unittest.TestCase):
     """Test the web services provided by the OffeneRegister.de web site."""
 
-    def test_check_offeneregister(self):
+    def test_check_offeneregister(self) -> None:
         """Test stdnum.de.handelsregisternummer.check_offeneregister()"""
         # Test a normal valid number
         result = handelsregisternummer.check_offeneregister('Chemnitz HRB 32854')
+        self.assertTrue(result)
+        assert result
         self.assertTrue(all(
             key in result.keys()
             for key in ['companyId', 'courtCode', 'courtName', 'name', 'nativeReferenceNumber']))

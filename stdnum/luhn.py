@@ -44,21 +44,23 @@ InvalidChecksum: ...
 14
 """
 
+from __future__ import annotations
+
 from stdnum.exceptions import *
 
 
-def checksum(number, alphabet='0123456789'):
+def checksum(number: str, alphabet: str = '0123456789') -> int:
     """Calculate the Luhn checksum over the provided number. The checksum
     is returned as an int. Valid numbers should have a checksum of 0."""
     n = len(alphabet)
-    number = tuple(alphabet.index(i)
+    values = tuple(alphabet.index(i)
                    for i in reversed(str(number)))
-    return (sum(number[::2]) +
+    return (sum(values[::2]) +
             sum(sum(divmod(i * 2, n))
-                for i in number[1::2])) % n
+                for i in values[1::2])) % n
 
 
-def validate(number, alphabet='0123456789'):
+def validate(number: str, alphabet: str = '0123456789') -> str:
     """Check if the number provided passes the Luhn checksum."""
     if not bool(number):
         raise InvalidFormat()
@@ -71,7 +73,7 @@ def validate(number, alphabet='0123456789'):
     return number
 
 
-def is_valid(number, alphabet='0123456789'):
+def is_valid(number: str, alphabet: str = '0123456789') -> bool:
     """Check if the number passes the Luhn checksum."""
     try:
         return bool(validate(number, alphabet))
@@ -79,7 +81,7 @@ def is_valid(number, alphabet='0123456789'):
         return False
 
 
-def calc_check_digit(number, alphabet='0123456789'):
+def calc_check_digit(number: str, alphabet: str = '0123456789') -> str:
     """Calculate the extra digit that should be appended to the number to
     make it a valid number."""
     ck = checksum(str(number) + alphabet[0], alphabet)

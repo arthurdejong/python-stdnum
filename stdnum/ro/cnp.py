@@ -50,6 +50,8 @@ Traceback (most recent call last):
 InvalidChecksum: ...
 """
 
+from __future__ import annotations
+
 import datetime
 
 from stdnum.exceptions import *
@@ -111,13 +113,13 @@ _COUNTIES = {
 }
 
 
-def compact(number):
+def compact(number: str) -> str:
     """Convert the number to the minimal representation. This strips the
     number of any valid separators and removes surrounding whitespace."""
     return clean(number, ' -').strip()
 
 
-def calc_check_digit(number):
+def calc_check_digit(number: str) -> str:
     """Calculate the check digit for personal codes."""
     # note that this algorithm has not been confirmed by an independent source
     weights = (2, 7, 9, 1, 4, 6, 3, 5, 8, 2, 7, 9)
@@ -125,7 +127,7 @@ def calc_check_digit(number):
     return '1' if check == 10 else str(check)
 
 
-def get_birth_date(number):
+def get_birth_date(number: str) -> datetime.date:
     """Split the date parts from the number and return the birth date."""
     number = compact(number)
     centuries = {
@@ -140,7 +142,7 @@ def get_birth_date(number):
         raise InvalidComponent()
 
 
-def get_county(number):
+def get_county(number: str) -> str:
     """Get the county name from the number"""
     try:
         return _COUNTIES[compact(number)[7:9]]
@@ -148,7 +150,7 @@ def get_county(number):
         raise InvalidComponent()
 
 
-def validate(number):
+def validate(number: str) -> str:
     """Check if the number is a valid VAT number. This checks the length,
     formatting and check digit."""
     number = compact(number)
@@ -169,7 +171,7 @@ def validate(number):
     return number
 
 
-def is_valid(number):
+def is_valid(number: str) -> bool:
     """Check if the number is a valid VAT number."""
     try:
         return bool(validate(number))

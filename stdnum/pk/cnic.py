@@ -46,23 +46,26 @@ More Information:
 '34201-0891231-8'
 """
 
+from __future__ import annotations
+
 from stdnum.exceptions import *
 from stdnum.util import clean, isdigits
 
 
-def compact(number):
+def compact(number: str) -> str:
     """Convert the number to the minimal representation. This strips the
     number of any valid separators and removes surrounding whitespace."""
     return clean(number, '-').strip()
 
 
-def get_gender(number):
+def get_gender(number: str) -> str | None:
     """Get the person's birth gender ('M' or 'F')."""
     number = compact(number)
     if number[-1] in '13579':
         return 'M'
     elif number[-1] in '2468':
         return 'F'
+    return None
 
 
 # Valid Province IDs
@@ -77,13 +80,13 @@ PROVINCES = {
 }
 
 
-def get_province(number):
-    """Get the person's birth gender ('M' or 'F')."""
+def get_province(number: str) -> str | None:
+    """Get the person's province."""
     number = compact(number)
     return PROVINCES.get(number[0])
 
 
-def validate(number):
+def validate(number: str) -> str:
     """Check if the number is a valid CNIC. This checks the length, formatting
     and some digits."""
     number = compact(number)
@@ -98,7 +101,7 @@ def validate(number):
     return number
 
 
-def is_valid(number):
+def is_valid(number: str) -> bool:
     """Check if the number is a valid CNIC."""
     try:
         return bool(validate(number))
@@ -106,7 +109,7 @@ def is_valid(number):
         return False
 
 
-def format(number):
+def format(number: str) -> str:
     """Reformat the number to the standard presentation format."""
     number = compact(number)
     return '-'.join((number[:5], number[5:12], number[12:]))

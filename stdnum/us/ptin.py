@@ -33,6 +33,8 @@ Traceback (most recent call last):
 InvalidFormat: ...
 """
 
+from __future__ import annotations
+
 import re
 
 from stdnum.exceptions import *
@@ -43,13 +45,13 @@ from stdnum.util import clean
 _ptin_re = re.compile(r'^P[0-9]{8}$')
 
 
-def compact(number):
+def compact(number: str) -> str:
     """Convert the number to the minimal representation. This strips the
     number of any valid separators and removes surrounding whitespace."""
     return clean(number, '-').strip()
 
 
-def validate(number):
+def validate(number: str) -> str:
     """Check if the number is a valid PTIN. This checks the length, groups
     and formatting if it is present."""
     number = compact(number).upper()
@@ -59,7 +61,7 @@ def validate(number):
     return number
 
 
-def is_valid(number):
+def is_valid(number: str) -> bool:
     """Check if the number is a valid ATIN."""
     try:
         return bool(validate(number))

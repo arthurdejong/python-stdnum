@@ -45,6 +45,8 @@ datetime.date(1981, 12, 28)
 '880320-0016'
 """
 
+from __future__ import annotations
+
 import datetime
 
 from stdnum import luhn
@@ -52,7 +54,7 @@ from stdnum.exceptions import *
 from stdnum.util import clean, isdigits
 
 
-def compact(number):
+def compact(number: str) -> str:
     """Convert the number to the minimal representation. This strips the
     number of any valid separators and removes surrounding whitespace."""
     number = clean(number, ' :')
@@ -61,7 +63,7 @@ def compact(number):
     return number[:-5].replace('-', '').replace('+', '') + number[-5:]
 
 
-def get_birth_date(number):
+def get_birth_date(number: str) -> datetime.date:
     """Determine the birth date from the number.
 
     For people aged 100 and up, the minus/dash in the personnummer is changed to a plus
@@ -90,7 +92,7 @@ def get_birth_date(number):
         raise InvalidComponent()
 
 
-def get_gender(number):
+def get_gender(number: str) -> str:
     """Get the person's birth gender ('M' or 'F')."""
     number = compact(number)
     if int(number[-2]) % 2:
@@ -99,7 +101,7 @@ def get_gender(number):
         return 'F'
 
 
-def validate(number):
+def validate(number: str) -> str:
     """Check if the number is a valid identity number."""
     number = compact(number)
     if len(number) not in (11, 13):
@@ -112,7 +114,7 @@ def validate(number):
     return number
 
 
-def is_valid(number):
+def is_valid(number: str) -> bool:
     """Check if the number is a valid identity number."""
     try:
         return bool(validate(number))
@@ -120,6 +122,6 @@ def is_valid(number):
         return False
 
 
-def format(number):
+def format(number: str) -> str:
     """Reformat the number to the standard presentation format."""
     return compact(number)

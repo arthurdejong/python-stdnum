@@ -53,10 +53,18 @@ InvalidChecksum: ...
 9
 """
 
+from __future__ import annotations
+
 from stdnum.exceptions import *
 
 
-_operation_table = (
+TYPE_CHECKING = False
+if TYPE_CHECKING:  # pragma: no cover (only used when type checking)
+    from collections.abc import Sequence
+    DammTable = Sequence[Sequence[int]]
+
+
+_operation_table: DammTable = (
     (0, 3, 1, 7, 5, 9, 8, 6, 4, 2),
     (7, 0, 9, 2, 1, 5, 4, 8, 6, 3),
     (4, 2, 0, 6, 8, 7, 1, 3, 5, 9),
@@ -69,7 +77,7 @@ _operation_table = (
     (2, 5, 8, 1, 4, 3, 6, 7, 9, 0))
 
 
-def checksum(number, table=None):
+def checksum(number: str, table: DammTable | None = None) -> int:
     """Calculate the Damm checksum over the provided number. The checksum is
     returned as an integer value and should be 0 when valid."""
     table = table or _operation_table
@@ -79,7 +87,7 @@ def checksum(number, table=None):
     return i
 
 
-def validate(number, table=None):
+def validate(number: str, table: DammTable | None = None) -> str:
     """Check if the number provided passes the Damm algorithm."""
     if not bool(number):
         raise InvalidFormat()
@@ -92,7 +100,7 @@ def validate(number, table=None):
     return number
 
 
-def is_valid(number, table=None):
+def is_valid(number: str, table: DammTable | None = None) -> bool:
     """Check if the number provided passes the Damm algorithm."""
     try:
         return bool(validate(number, table=table))
@@ -100,7 +108,7 @@ def is_valid(number, table=None):
         return False
 
 
-def calc_check_digit(number, table=None):
+def calc_check_digit(number: str, table: DammTable | None = None) -> str:
     """Calculate the extra digit that should be appended to the number to
     make it a valid number."""
     return str(checksum(number, table=table))

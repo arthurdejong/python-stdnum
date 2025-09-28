@@ -38,6 +38,8 @@ More information:
 * https://mnis.govmu.org/English/ID%20Card/Pages/default.aspx
 """
 
+from __future__ import annotations
+
 import datetime
 import re
 
@@ -52,20 +54,20 @@ _nid_re = re.compile('^[A-Z][0-9]+[0-9A-Z]$')
 _alphabet = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ'
 
 
-def compact(number):
+def compact(number: str) -> str:
     """Convert the number to the minimal representation. This strips
     surrounding whitespace and separation dash."""
     return clean(number, ' ').upper().strip()
 
 
-def calc_check_digit(number):
+def calc_check_digit(number: str) -> str:
     """Calculate the check digit for the number."""
     check = sum((14 - i) * _alphabet.index(n)
                 for i, n in enumerate(number[:13]))
     return _alphabet[(17 - check) % 17]
 
 
-def _get_date(number):
+def _get_date(number: str) -> datetime.date:
     """Convert the part of the number that represents a date into a
     datetime. Note that the century may be incorrect."""
     day = int(number[1:3])
@@ -77,7 +79,7 @@ def _get_date(number):
         raise InvalidComponent()
 
 
-def validate(number):
+def validate(number: str) -> str:
     """Check if the number is a valid ID number."""
     number = compact(number)
     if len(number) != 14:
@@ -90,7 +92,7 @@ def validate(number):
     return number
 
 
-def is_valid(number):
+def is_valid(number: str) -> bool:
     """Check if the number provided is a valid RFC."""
     try:
         return bool(validate(number))

@@ -30,8 +30,12 @@ More information:
 * https://ec.europa.eu/taxation_customs/tin/tinByCountry.html
 * https://fr.wikipedia.org/wiki/Numéro_d%27Immatriculation_Fiscale#France
 
->>> validate('0701987765432')
-'0701987765432'
+>>> validate('3023217600053')
+'3023217600053'
+>>> validate('3023217600054')
+Traceback (most recent call last):
+    ...
+InvalidChecksum: ...
 >>> validate('070198776543')
 Traceback (most recent call last):
     ...
@@ -40,21 +44,28 @@ InvalidLength: ...
 Traceback (most recent call last):
     ...
 InvalidComponent: ...
->>> format('0701987765432')
-'07 01 987 765 432'
+>>> format('3023217600053')
+'30 23 217 600 053'
 """
+
+from __future__ import annotations
 
 from stdnum.exceptions import *
 from stdnum.util import clean, isdigits
 
 
-def compact(number):
+def compact(number: str) -> str:
     """Convert the number to the minimal representation. This strips the
     number of any valid separators and removes surrounding whitespace."""
     return clean(number, ' ').strip()
 
 
-def validate(number):
+def calc_check_digits(number: str) -> str:
+    """Calculate the check digits for the number."""
+    return '%03d' % (int(number[:10]) % 511)
+
+
+def validate(number: str) -> str:
     """Check if the number provided is a valid NIF."""
     number = compact(number)
     if not isdigits(number):
@@ -63,10 +74,12 @@ def validate(number):
         raise InvalidComponent()
     if len(number) != 13:
         raise InvalidLength()
+    if calc_check_digits(number) != number[-3:]:
+        raise InvalidChecksum()
     return number
 
 
-def is_valid(number):
+def is_valid(number: str) -> bool:
     """Check if the number provided is a valid NIF."""
     try:
         return bool(validate(number))
@@ -74,7 +87,7 @@ def is_valid(number):
         return False
 
 
-def format(number):
+def format(number: str) -> str:
     """Reformat the number to the standard presentation format."""
     number = compact(number)
     return ' '.join((number[:2], number[2:4], number[4:7],

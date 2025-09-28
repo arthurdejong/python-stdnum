@@ -20,5 +20,7 @@
 
 """Collection of Romanian numbers."""
 
+from __future__ import annotations
+
 # provide vat as an alias
 from stdnum.ro import cf as vat  # noqa: F401

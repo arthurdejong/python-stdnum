@@ -63,6 +63,8 @@ InvalidFormat: ...
 '1496298/T/P/N/000'
 """
 
+from __future__ import annotations
+
 import re
 
 from stdnum.exceptions import *
@@ -76,7 +78,7 @@ _VALID_TVA_CODES = ('A', 'P', 'B', 'D', 'N')
 _VALID_CATEGORY_CODES = ('M', 'P', 'C', 'N', 'E')
 
 
-def compact(number):
+def compact(number: str) -> str:
     """Convert the number to the minimal representation.
 
     This strips the number of any valid separators, removes surrounding
@@ -90,7 +92,7 @@ def compact(number):
     return number
 
 
-def validate(number):
+def validate(number: str) -> str:
     """Check if the number is a valid Tunisia MF number.
 
     This checks the length and formatting.
@@ -115,7 +117,7 @@ def validate(number):
     return number
 
 
-def is_valid(number):
+def is_valid(number: str) -> bool:
     """Check if the number is a valid Tunisia MF number."""
     try:
         return bool(validate(number))
@@ -123,7 +125,7 @@ def is_valid(number):
         return False
 
 
-def format(number):
+def format(number: str) -> str:
     """Reformat the number to the standard presentation format."""
     result = compact(number)
     if len(result) == 8:

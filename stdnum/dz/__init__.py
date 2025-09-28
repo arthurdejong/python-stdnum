@@ -20,5 +20,7 @@
 
 """Collection of Algerian numbers."""
 
+from __future__ import annotations
+
 # provide vat as an alias
 from stdnum.dz import nif as vat  # noqa: F401

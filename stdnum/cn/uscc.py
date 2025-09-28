@@ -71,6 +71,8 @@ InvalidLength: ...
 '91110000600037341L'
 """
 
+from __future__ import annotations
+
 from stdnum.exceptions import *
 from stdnum.util import clean, isdigits
 
@@ -78,7 +80,7 @@ from stdnum.util import clean, isdigits
 _alphabet = '0123456789ABCDEFGHJKLMNPQRTUWXY'
 
 
-def compact(number):
+def compact(number: str) -> str:
     """Convert the number to the minimal representation.
 
     This strips the number of any valid separators and removes surrounding
@@ -87,7 +89,7 @@ def compact(number):
     return clean(number, ' -').upper().strip()
 
 
-def calc_check_digit(number):
+def calc_check_digit(number: str) -> str:
     """Calculate the check digit for the number."""
     weights = (1, 3, 9, 27, 19, 26, 16, 17, 20, 29, 25, 13, 8, 24, 10, 30, 28)
     number = compact(number)
@@ -95,7 +97,7 @@ def calc_check_digit(number):
     return _alphabet[(31 - total) % 31]
 
 
-def validate(number):
+def validate(number: str) -> str:
     """Check if the number is a valid USCC.
 
     This checks the length, formatting and check digit.
@@ -112,7 +114,7 @@ def validate(number):
     return number
 
 
-def is_valid(number):
+def is_valid(number: str) -> bool:
     """Check if the number is a valid USCC."""
     try:
         return bool(validate(number))
@@ -120,6 +122,6 @@ def is_valid(number):
         return False
 
 
-def format(number):
+def format(number: str) -> str:
     """Reformat the number to the standard presentation format."""
     return compact(number)

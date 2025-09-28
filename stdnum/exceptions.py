@@ -24,6 +24,8 @@ The validation functions of stdnum should raise one of the below exceptions
 when validation of the number fails.
 """
 
+from __future__ import annotations
+
 
 __all__ = ['ValidationError', 'InvalidFormat', 'InvalidChecksum',
            'InvalidLength', 'InvalidComponent']
@@ -35,7 +37,7 @@ class ValidationError(ValueError):
     This exception should normally not be raised, only subclasses of this
     exception."""
 
-    def __str__(self):
+    def __str__(self) -> str:
         """Return the exception message."""
         return ''.join(self.args[:1]) or getattr(self, 'message', '')
 

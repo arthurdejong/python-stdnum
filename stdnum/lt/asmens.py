@@ -37,18 +37,20 @@ Traceback (most recent call last):
 InvalidChecksum: ...
 """
 
+from __future__ import annotations
+
 from stdnum.ee.ik import calc_check_digit, get_birth_date
 from stdnum.exceptions import *
 from stdnum.util import clean, isdigits
 
 
-def compact(number):
+def compact(number: str) -> str:
     """Convert the number to the minimal representation. This strips the
     number of any valid separators and removes surrounding whitespace."""
     return clean(number, ' ').strip()
 
 
-def validate(number, validate_birth_date=True):
+def validate(number: str, validate_birth_date: bool = True) -> str:
     """Check if the number provided is valid. This checks the length,
     formatting, embedded date and check digit."""
     number = compact(number)
@@ -63,7 +65,7 @@ def validate(number, validate_birth_date=True):
     return number
 
 
-def is_valid(number, validate_birth_date=True):
+def is_valid(number: str, validate_birth_date: bool = True) -> bool:
     """Check if the number provided is valid. This checks the length,
     formatting, embedded date and check digit."""
     try:

@@ -60,6 +60,8 @@ InvalidComponent: ...
 '111-22-3333'
 """
 
+from __future__ import annotations
+
 import re
 
 from stdnum.exceptions import *
@@ -74,13 +76,13 @@ _ssn_re = re.compile(
 _ssn_blacklist = set(('078-05-1120', '457-55-5462', '219-09-9999'))
 
 
-def compact(number):
+def compact(number: str) -> str:
     """Convert the number to the minimal representation. This strips the
     number of any valid separators and removes surrounding whitespace."""
     return clean(number, '-').strip()
 
 
-def validate(number):
+def validate(number: str) -> str:
     """Check if the number is a valid SSN. This checks the length, groups and
     formatting if it is present."""
     match = _ssn_re.search(clean(number, '').strip())
@@ -100,7 +102,7 @@ def validate(number):
     return compact(number)
 
 
-def is_valid(number):
+def is_valid(number: str) -> bool:
     """Check if the number is a valid SSN."""
     try:
         return bool(validate(number))
@@ -108,7 +110,7 @@ def is_valid(number):
         return False
 
 
-def format(number):
+def format(number: str) -> str:
     """Reformat the number to the standard presentation format."""
     if len(number) == 9:
         number = number[:3] + '-' + number[3:5] + '-' + number[5:]

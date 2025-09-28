@@ -34,23 +34,25 @@ Traceback (most recent call last):
 InvalidChecksum: ...
 """
 
+from __future__ import annotations
+
 from stdnum.exceptions import *
 from stdnum.util import clean, isdigits
 
 
-def compact(number):
+def compact(number: str) -> str:
     """Convert the number to the minimal representation. This strips the
     number of any valid separators and removes surrounding whitespace."""
     return clean(number, ' ').upper().strip()
 
 
-def checksum(number):
+def checksum(number: str) -> int:
     """Calculate the checksum over the number."""
     # replace letters by their ASCII number
     return sum(int(x) if isdigits(x) else ord(x) for x in number) % 9
 
 
-def validate(number):
+def validate(number: str) -> str:
     """Check if the number is a valid banknote serial number."""
     number = compact(number)
     if not number[:2].isalnum() or not isdigits(number[2:]):
@@ -64,7 +66,7 @@ def validate(number):
     return number
 
 
-def is_valid(number):
+def is_valid(number: str) -> bool:
     """Check if the number is a valid banknote serial number."""
     try:
         return bool(validate(number))

@@ -1,6 +1,6 @@
 # mac.py - functions for handling MAC (Ethernet) addresses
 #
-# Copyright (C) 2018 Arthur de Jong
+# Copyright (C) 2018-2025 Arthur de Jong
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -35,13 +35,15 @@ More information:
 'D0-50-99-84-A2-A0'
 >>> is_multicast('d0:50:99:84:a2:a0')
 False
->>> str(get_manufacturer('d0:50:99:84:a2:a0'))
+>>> get_manufacturer('d0:50:99:84:a2:a0')
 'ASRock Incorporation'
 >>> get_oui('d0:50:99:84:a2:a0')
 'D05099'
 >>> get_iab('d0:50:99:84:a2:a0')
 '84A2A0'
 """
+
+from __future__ import annotations
 
 import re
 
@@ -53,14 +55,14 @@ from stdnum.util import clean
 _mac_re = re.compile('^([0-9a-f]{2}:){5}[0-9a-f]{2}$')
 
 
-def compact(number):
+def compact(number: str) -> str:
     """Convert the MAC address to the minimal, consistent representation."""
     number = clean(number, ' ').strip().lower().replace('-', ':')
     # zero-pad single-digit elements
     return ':'.join('0' + n if len(n) == 1 else n for n in number.split(':'))
 
 
-def _lookup(number):
+def _lookup(number: str) -> tuple[str, str]:
     """Look up the manufacturer in the IEEE OUI registry."""
     number = compact(number).replace(':', '').upper()
     info = numdb.get('oui').info(number)
@@ -72,23 +74,23 @@ def _lookup(number):
         raise InvalidComponent()
 
 
-def get_manufacturer(number):
+def get_manufacturer(number: str) -> str:
     """Look up the manufacturer in the IEEE OUI registry."""
     return _lookup(number)[1]
 
 
-def get_oui(number):
+def get_oui(number: str) -> str:
     """Return the OUI (organization unique ID) part of the address."""
     return _lookup(number)[0]
 
 
-def get_iab(number):
+def get_iab(number: str) -> str:
     """Return the IAB (individual address block) part of the address."""
     number = compact(number).replace(':', '').upper()
     return number[len(get_oui(number)):]
 
 
-def is_unicast(number):
+def is_unicast(number: str) -> bool:
     """Check whether the number is a unicast address.
 
     Unicast addresses are received by one node in a network (LAN)."""
@@ -96,7 +98,7 @@ def is_unicast(number):
     return int(number[:2], 16) & 1 == 0
 
 
-def is_multicast(number):
+def is_multicast(number: str) -> bool:
     """Check whether the number is a multicast address.
 
     Multicast addresses are meant to be received by (potentially) multiple
@@ -104,7 +106,7 @@ def is_multicast(number):
     return not is_unicast(number)
 
 
-def is_broadcast(number):
+def is_broadcast(number: str) -> bool:
     """Check whether the number is the broadcast address.
 
     Broadcast addresses are meant to be received by all nodes in a network."""
@@ -112,18 +114,18 @@ def is_broadcast(number):
     return number == 'ff:ff:ff:ff:ff:ff'
 
 
-def is_universally_administered(number):
+def is_universally_administered(number: str) -> bool:
     """Check if the address is supposed to be assigned by the manufacturer."""
     number = compact(number)
     return int(number[:2], 16) & 2 == 0
 
 
-def is_locally_administered(number):
+def is_locally_administered(number: str) -> bool:
     """Check if the address is meant to be configured by an administrator."""
     return not is_universally_administered(number)
 
 
-def validate(number, validate_manufacturer=None):
+def validate(number: str, validate_manufacturer: bool | None = None) -> str:
     """Check if the number provided is a valid MAC address.
 
     The existence of the manufacturer is by default only checked for
@@ -141,7 +143,7 @@ def validate(number, validate_manufacturer=None):
     return number
 
 
-def is_valid(number, validate_manufacturer=None):
+def is_valid(number: str, validate_manufacturer: bool | None = None) -> bool:
     """Check if the number provided is a valid IBAN."""
     try:
         return bool(validate(number, validate_manufacturer=validate_manufacturer))
@@ -149,6 +151,6 @@ def is_valid(number, validate_manufacturer=None):
         return False
 
 
-def to_eui48(number):
+def to_eui48(number: str) -> str:
     """Convert the MAC address to EUI-48 format."""
     return compact(number).upper().replace(':', '-')

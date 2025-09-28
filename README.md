@@ -29,8 +29,10 @@ Currently this package supports the following formats:
  * ACN (Australian Company Number)
  * TFN (Australian Tax File Number)
  * BIS (Belgian BIS number)
+ * eID Number (Belgian electronic Identity Card Number)
  * Belgian IBAN (International Bank Account Number)
  * NN, NISS, RRN (Belgian national number)
+ * SSN, INSZ, NISS (Belgian social security number)
  * BTW, TVA, NWSt, ondernemingsnummer (Belgian enterprise number)
  * EGN (ЕГН, Единен граждански номер, Bulgarian personal identity codes)
  * PNF (ЛНЧ, Личен номер на чужденец, Bulgarian number of a foreigner)
@@ -40,6 +42,7 @@ Currently this package supports the following formats:
  * CNPJ (Cadastro Nacional da Pessoa Jurídica, Brazilian company identifier)
  * CPF (Cadastro de Pessoas Físicas, Brazilian national identifier)
  * УНП, UNP (Учетный номер плательщика, the Belarus VAT number)
+ * BC PHN (British Columbia Personal Health Number)
  * BN (Canadian Business Number)
  * SIN (Canadian Social Insurance Number)
  * CAS RN (Chemical Abstracts Service Registry Number)
@@ -79,6 +82,7 @@ Currently this package supports the following formats:
  * KMKR (Käibemaksukohuslase, Estonian VAT number)
  * Registrikood (Estonian organisation registration code)
  * Tax Registration Number (الرقم الضريبي, Egypt tax number)
+ * CAE (Código de Actividad y Establecimiento, Spanish activity establishment code)
  * CCC (Código Cuenta Corriente, Spanish Bank Account Code)
  * CIF (Código de Identificación Fiscal, Spanish company tax number)
  * CUPS (Código Unificado de Punto de Suministro, Spanish meter point number)
@@ -90,6 +94,7 @@ Currently this package supports the following formats:
  * Referencia Catastral (Spanish real estate property id)
  * SEPA Identifier of the Creditor (AT-02)
  * Euro banknote serial numbers
+ * EC Number (European Community number)
  * EIC (European Energy Identification Code)
  * NACE (classification for businesses in the European Union)
  * OSS (European VAT on e-Commerce - One Stop Shop)
@@ -121,6 +126,7 @@ Currently this package supports the following formats:
  * OIB (Osobni identifikacijski broj, Croatian identification number)
  * ANUM (Közösségi adószám, Hungarian VAT number)
  * IBAN (International Bank Account Number)
+ * NIK (Nomor Induk Kependudukan, Indonesian identity number)
  * NPWP (Nomor Pokok Wajib Pajak, Indonesian VAT Number)
  * PPS No (Personal Public Service Number, Irish personal number)
  * VAT (Irish tax reference number)
@@ -133,6 +139,7 @@ Currently this package supports the following formats:
  * EPIC (Electoral Photo Identity Card, Indian Voter ID)
  * GSTIN (Goods and Services Tax identification number, Indian VAT number)
  * PAN (Permanent Account Number, Indian income tax identifier)
+ * VID (Indian personal virtual identity number)
  * Kennitala (Icelandic personal and organisation identity code)
  * VSK number (Virðisaukaskattsnúmer, Icelandic VAT number)
  * ISAN (International Standard Audiovisual Number)
@@ -140,6 +147,7 @@ Currently this package supports the following formats:
  * ISIL (International Standard Identifier for Libraries)
  * ISIN (International Securities Identification Number)
  * ISMN (International Standard Music Number)
+ * ISNI (International Standard Name Identifier)
  * ISO 11649 (Structured Creditor Reference)
  * ISO 6346 (International standard for container identification)
  * ISRC (International Standard Recording Code)
@@ -148,6 +156,7 @@ Currently this package supports the following formats:
  * Codice Fiscale (Italian tax code for individuals)
  * Partita IVA (Italian VAT number)
  * CN (法人番号, hōjin bangō, Japanese Corporate Number)
+ * IN (個人番号, kojin bangō, Japanese Individual Number)
  * PIN (Personal Identification Number, Kenya tax number)
  * BRN (사업자 등록 번호, South Korea Business Registration Number)
  * RRN (South Korean resident registration number)
@@ -173,6 +182,7 @@ Currently this package supports the following formats:
  * BRIN number (the Dutch school identification number)
  * BSN (Burgerservicenummer, the Dutch citizen identification number)
  * Btw-identificatienummer (Omzetbelastingnummer, the Dutch VAT number)
+ * Identiteitskaartnummer, Paspoortnummer (the Dutch passport number)
  * Onderwijsnummer (the Dutch student identification number)
  * Postcode (the Dutch postal code)
  * Fødselsnummer (Norwegian birth number, the national identity number)
@@ -197,6 +207,7 @@ Currently this package supports the following formats:
  * ONRC (Ordine din Registrul Comerţului, Romanian Trade Register identifier)
  * PIB (Poreski Identifikacioni Broj, Serbian tax identification number)
  * ИНН (Идентификационный номер налогоплательщика, Russian tax identifier)
+ * ОГРН, OGRN, PSRN, ОГРНИП, OGRNIP (Russian Primary State Registration Number)
  * Orgnr (Organisationsnummer, Swedish company number)
  * Personnummer (Swedish personal identity number)
  * Postcode (the Swedish postal code)
@@ -280,13 +291,12 @@ Requirements
 ------------
 
 The modules should not require any external Python modules and should be pure
-Python. The modules are developed and tested with Python 2.7 and 3.6 but may
-also work with older versions of Python.
+Python. The modules are developed and tested with Python 3 versions (see `setup.py`).
 
 Copyright
 ---------
 
-Copyright (C) 2010-2023 Arthur de Jong and others
+Copyright (C) 2010-2025 Arthur de Jong and others
 
 This library is free software; you can redistribute it and/or
 modify it under the terms of the GNU Lesser General Public

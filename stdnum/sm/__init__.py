@@ -20,5 +20,7 @@
 
 """Collection of San Marino numbers."""
 
+from __future__ import annotations
+
 # provide vat as an alias
 from stdnum.sm import coe as vat  # noqa: F401

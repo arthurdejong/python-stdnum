@@ -1,6 +1,6 @@
 test_mac.doctest - more detailed doctests for the stdnum.mac module
 
-Copyright (C) 2018 Arthur de Jong
+Copyright (C) 2018-2025 Arthur de Jong
 
 This library is free software; you can redistribute it and/or
 modify it under the terms of the GNU Lesser General Public
@@ -77,9 +77,9 @@ True
 We can lookup the organisation that registered the OUI part of the MAC
 address.
 
->>> str(mac.get_manufacturer('2c:76:8a:ad:f2:74'))
+>>> mac.get_manufacturer('2c:76:8a:ad:f2:74')
 'Hewlett Packard'
->>> str(mac.get_manufacturer('fe:54:00:76:07:0a'))  # libvirt MAC address
+>>> mac.get_manufacturer('fe:54:00:76:07:0a')  # libvirt MAC address
 Traceback (most recent call last):
     ...
 InvalidComponent: ...

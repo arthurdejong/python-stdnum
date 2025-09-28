@@ -46,18 +46,20 @@ InvalidChecksum: ...
 ('35686800', '004141', '')
 """
 
+from __future__ import annotations
+
 from stdnum import luhn
 from stdnum.exceptions import *
 from stdnum.util import clean, isdigits
 
 
-def compact(number):
+def compact(number: str) -> str:
     """Convert the IMEI number to the minimal representation. This strips the
     number of any valid separators and removes surrounding whitespace."""
     return clean(number, ' -').strip().upper()
 
 
-def validate(number):
+def validate(number: str) -> str:
     """Check if the number provided is a valid IMEI (or IMEISV) number."""
     number = compact(number)
     if not isdigits(number):
@@ -71,7 +73,7 @@ def validate(number):
     return number
 
 
-def imei_type(number):
+def imei_type(number: str) -> str | None:
     """Check the passed number and return 'IMEI', 'IMEISV' or None (for
     invalid) for checking the type of number passed."""
     try:
@@ -84,7 +86,7 @@ def imei_type(number):
         return 'IMEISV'
 
 
-def is_valid(number):
+def is_valid(number: str) -> bool:
     """Check if the number provided is a valid IMEI (or IMEISV) number."""
     try:
         return bool(validate(number))
@@ -92,7 +94,7 @@ def is_valid(number):
         return False
 
 
-def split(number):
+def split(number: str) -> tuple[str, str, str]:
     """Split the number into a Type Allocation Code (TAC), serial number
     and either the checksum (for IMEI) or the software version number (for
     IMEISV)."""
@@ -100,10 +102,10 @@ def split(number):
     return (number[:8], number[8:14], number[14:])
 
 
-def format(number, separator='-', add_check_digit=False):
+def format(number: str, separator: str = '-', add_check_digit: bool = False) -> str:
     """Reformat the number to the standard presentation format."""
     number = compact(number)
     if len(number) == 14 and add_check_digit:
         number += luhn.calc_check_digit(number)
-    number = (number[:2], number[2:8], number[8:14], number[14:])
-    return separator.join(x for x in number if x)
+    parts = (number[:2], number[2:8], number[8:14], number[14:])
+    return separator.join(x for x in parts if x)

@@ -53,17 +53,19 @@ InvalidChecksum: ...
 'ES 1234 1234 5678 9012 JY 1F'
 """
 
+from __future__ import annotations
+
 from stdnum.exceptions import *
 from stdnum.util import clean, isdigits
 
 
-def compact(number):
+def compact(number: str) -> str:
     """Convert the number to the minimal representation. This strips the
     number of any valid separators and removes surrounding whitespace."""
     return clean(number, ' -').strip().upper()
 
 
-def format(number):
+def format(number: str) -> str:
     """Reformat the number to the standard presentation format."""
     number = compact(number)
     return ' '.join((
@@ -77,14 +79,14 @@ def format(number):
     )).strip()
 
 
-def calc_check_digits(number):
+def calc_check_digits(number: str) -> str:
     """Calculate the check digits for the number."""
     alphabet = 'TRWAGMYFPDXBNJZSQVHLCKE'
     check0, check1 = divmod(int(number[2:18]) % 529, 23)
     return alphabet[check0] + alphabet[check1]
 
 
-def validate(number):
+def validate(number: str) -> str:
     """Check if the number provided is a valid CUPS. This checks length,
     formatting and check digits."""
     number = compact(number)
@@ -94,8 +96,8 @@ def validate(number):
         raise InvalidComponent()
     if not isdigits(number[2:18]):
         raise InvalidFormat()
-    if number[20:]:
-        pnumber, ptype = number[20:]
+    if len(number) == 22:
+        pnumber, ptype = number[20], number[21]
         if not isdigits(pnumber):
             raise InvalidFormat()
         if ptype not in 'FPRCXYZ':
@@ -105,7 +107,7 @@ def validate(number):
     return number
 
 
-def is_valid(number):
+def is_valid(number: str) -> bool:
     """Check if the number provided is a valid CUPS."""
     try:
         return bool(validate(number))

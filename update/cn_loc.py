@@ -3,7 +3,7 @@
 # update/cn_loc.py - script to fetch data from the CN Open Data community
 #
 # Copyright (C) 2014-2015 Jiangge Zhang
-# Copyright (C) 2015-2022 Arthur de Jong
+# Copyright (C) 2015-2025 Arthur de Jong
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -20,74 +20,122 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 # 02110-1301 USA
 
-"""This script downloads birth place codes from the CN Open Data community on
-Github."""
+"""This downloads the birth place codes from from Wikipedia."""
 
-from __future__ import print_function, unicode_literals
-
-import sys
-from collections import OrderedDict
-from datetime import datetime
+import re
+import unicodedata
+from collections import defaultdict
 
 import requests
 
 
-data_url = 'https://github.com/cn/GB2260'
-data_revisions = [
-    'GB2260-2002',
-    'GB2260-2003',
-    'GB2260-200306',
-    'GB2260-2004',
-    'GB2260-200403',
-    'GB2260-200409',
-    'GB2260-2005',
-    'GB2260-200506',
-    'GB2260-2006',
-    'GB2260-2007',
-    'GB2260-2008',
-    'GB2260-2009',
-    'GB2260-2010',
-    'GB2260-2011',
-    'GB2260-2012',
-    'GB2260-2013',
-    'GB2260-2014',
-]
+# The wikipedia pages to download
+wikipedia_pages = [f'中华人民共和国行政区划代码 ({i}区)' for i in range(1, 9)]
 
 
-def fetch_data():
-    """Return the data from tab-separated revisions as one code/name dict."""
-    data_collection = OrderedDict()
-    for revision in data_revisions:
-        response = requests.get('%s/raw/release/%s.txt' % (data_url, revision), timeout=120)
-        response.raise_for_status()
-        if response.ok:
-            print('%s is fetched' % revision, file=sys.stderr)
-        else:
-            print('%s is missing' % revision, file=sys.stderr)
+def get_wikipedia_url(page):
+    """Get the Simplified Chinese Wikipedia page URL."""
+    return f'https://zh.wikipedia.org/w/index.php?title={page.replace(" ", "_")}&action=raw'  # noqa: E231
+
+
+# Regular expression for matching province heading
+province_re = re.compile(r'^== *(?P<province>.*) +\((?P<prefix>[0-9]+)\) +==')
+
+# Regular expression for matching table row
+entry_re = re.compile(
+    r'^\| *(?P<number>[0-9]{6}) *' +
+    r'\|\| *(?P<activation>.*) *' +
+    r'\|\| *(?P<revocation>.*) *' +
+    r'\|\| *(?P<county>.*) *' +
+    r'\|\| *(?P<code>.*)')
+
+
+def clean(value):
+    """Normalise (partially) unicode strings."""
+    # Remove unicode parenthesis that include space with normal ones
+    value = value.replace(
+        unicodedata.lookup('FULLWIDTH LEFT PARENTHESIS'), ' (',
+    ).replace(
+        unicodedata.lookup('FULLWIDTH RIGHT PARENTHESIS'), ') ',
+    )
+    # Remove Wikipedia links
+    return re.sub(r'\[\[([^]|]*\|)?([^]|]+)\]\]', r'\2', value)
+
+
+def parse_county(county, activation, revocation):
+    """Parse the county string and return ranges counties."""
+    for value in county.split('<br>'):
+        m = re.match(r'(?P<county>.*) +\((?P<year>[0-9]{4})年至今\) +', value)
+        # This parses various formats as seen on Wikipedia
+        if m:  # starting with year
+            yield f'[{m.group("year")}-{revocation}]{m.group("county")}'
             continue
-        for line in response.text.strip().split('\n'):
-            code, name = line.split('\t')
-            data_collection[code.strip()] = name.strip()
-    return data_collection
+        m = re.match(r'(?P<county>.*) +\((?P<year>[0-9]{4})年前\) +', value)
+        if m:  # before given year
+            yield f'[{activation}-{int(m.group("year")) - 1}]{m.group("county")}'
+            continue
+        m = re.match(r'(?P<county>.*) +\((?P<years>[0-9]{4}-[0-9]{4})年曾撤销\) +', value)
+        if m:  # abolished between years
+            if activation or revocation:
+                yield f'[{activation}-{revocation}]{m.group("county")}'
+            else:
+                yield m.group('county')
+            continue
+        m = re.match(r'(?P<county>.*) +\((?P<start>[0-9]{4})年?-(?P<end>[0-9]{4})年\) +', value)
+        if m:
+            yield f'[{m.group("start")}-{int(m.group("end")) - 1}]{m.group("county")}'
+            continue
+        if activation or revocation:
+            yield f'[{activation}-{revocation}]{value}'
+        else:
+            yield value
 
 
-def group_data(data_collection):
-    """Filter the data and return codes with names."""
-    for code, name in sorted(data_collection.items()):
-        if code.endswith('00'):
-            continue  # county only
-        province_code = code[:2] + '0000'
-        prefecture_code = code[:4] + '00'
-        province_name = data_collection[province_code]
-        prefecture_name = data_collection[prefecture_code]
-        yield code, name, prefecture_name, province_name
+def parse_page(content):
+    """Parse the contents of the Wikipedia page and return number, county, province tuples."""
+    province = None
+    prefix = None
+    for line in clean(content).splitlines():
+        line = clean(line)
+        m = province_re.match(line)
+        if m:
+            province = m.group('province')
+            prefix = m.group('prefix')
+            continue
+        m = entry_re.match(line)
+        if m:
+            number = m.group('number')
+            assert number.startswith(prefix)
+            counties = m.group('county')
+            try:
+                activation = str(int(m.group('activation')))
+            except ValueError:
+                activation = ''
+            try:
+                revocation = str(int(m.group('revocation')))
+            except ValueError:
+                revocation = ''
+            for county in parse_county(counties, activation, revocation):
+                yield prefix, province, number, county.strip()
 
 
 if __name__ == '__main__':
     """Output a data file in the right format."""
-    print("# generated from National Bureau of Statistics of the People's")
-    print('# Republic of China, downloaded from %s' % data_url)
-    print('# %s' % datetime.utcnow())
-    data_collection = fetch_data()
-    for data in group_data(data_collection):
-        print('%s county="%s" prefecture="%s" province="%s"' % data)
+    print('# Downloaded from')
+    for page in wikipedia_pages:
+        print(f'# {get_wikipedia_url(page)}')
+    # Download all data
+    provinces = {}
+    numbers = defaultdict(lambda: defaultdict(list))
+    for page in wikipedia_pages:
+        response = requests.get(get_wikipedia_url(page), timeout=30)
+        response.raise_for_status()
+        for prefix, province, number, county in parse_page(response.text):
+            provinces[prefix] = province
+            numbers[prefix][number].append(county)
+    # Print data
+    for prefix, province in sorted(provinces.items()):
+        print(f'{prefix} province="{province}"')
+        for number, counties in sorted(numbers[prefix].items()):
+            county = ','.join(sorted(counties))
+            print(f'  {number[2:]} county="{county}"')

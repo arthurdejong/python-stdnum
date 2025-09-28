@@ -1,0 +1,56 @@
+test_fr_rcs.doctest - more detailed doctests for the stdnum.fr.rcs module
+
+Copyright (C) 2025 Fabien Michel
+
+This library is free software; you can redistribute it and/or
+modify it under the terms of the GNU Lesser General Public
+License as published by the Free Software Foundation; either
+version 2.1 of the License, or (at your option) any later version.
+
+This library is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+Lesser General Public License for more details.
+
+You should have received a copy of the GNU Lesser General Public
+License along with this library; if not, write to the Free Software
+Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
+02110-1301 USA
+
+
+This file contains more detailed doctests for the stdnum.fr.rcs module.
+
+>>> from stdnum.fr import rcs
+>>> from stdnum.exceptions import *
+
+
+>>> rcs.validate('RCS Nancy B 323 159 715')
+'RCS Nancy B 323159715'
+>>> rcs.validate('RCS Nancy B 323159715')
+'RCS Nancy B 323159715'
+>>> rcs.validate('RCS Nancy B323 159715')
+'RCS Nancy B 323159715'
+>>> rcs.validate('RCS Nancy B 323 159 716')
+Traceback (most recent call last):
+    ...
+InvalidChecksum: ...
+>>> rcs.validate('RCSNancy B 323 159 716')
+Traceback (most recent call last):
+    ...
+InvalidFormat: ...
+>>> rcs.validate('RCS NancyB 323 159 716')
+Traceback (most recent call last):
+    ...
+InvalidFormat: ...
+>>> rcs.format('RCS Nancy B323159715')
+'RCS Nancy B 323 159 715'
+>>> rcs.format('invalid')
+Traceback (most recent call last):
+    ...
+InvalidFormat: ...
+>>> rcs.to_siren('RCS Nancy B 323159 715')
+'323159715'
+>>> rcs.to_siren('invalid')
+Traceback (most recent call last):
+    ...
+InvalidFormat: ...

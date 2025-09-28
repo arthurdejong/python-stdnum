@@ -55,6 +55,8 @@ InvalidChecksum: ...
 'H'
 """
 
+from __future__ import annotations
+
 import datetime
 import re
 
@@ -91,13 +93,13 @@ _odd_values.update(
 del values
 
 
-def compact(number):
+def compact(number: str) -> str:
     """Convert the number to the minimal representation. This strips the
     number of any valid separators and removes surrounding whitespace."""
     return clean(number, ' -:').strip().upper()
 
 
-def calc_check_digit(number):
+def calc_check_digit(number: str) -> str:
     """Compute the control code for the given personal number. The passed
     number should be the first 15 characters of a fiscal code."""
     code = sum(_odd_values[x] if n % 2 == 0 else _even_values[x]
@@ -105,7 +107,7 @@ def calc_check_digit(number):
     return 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'[code % 26]
 
 
-def get_birth_date(number, minyear=1920):
+def get_birth_date(number: str, minyear: int = 1920) -> datetime.date:
     """Get the birth date from the person's fiscal code.
 
     Only the last two digits of the year are stored in the number. The dates
@@ -132,7 +134,7 @@ def get_birth_date(number, minyear=1920):
         raise InvalidComponent()
 
 
-def get_gender(number):
+def get_gender(number: str) -> str:
     """Get the gender of the person's fiscal code.
 
     >>> get_gender('RCCMNL83S18D969H')
@@ -146,7 +148,7 @@ def get_gender(number):
     return 'M' if int(number[9:11]) < 32 else 'F'
 
 
-def validate(number):
+def validate(number: str) -> str:
     """Check if the given fiscal code is valid. This checks the length and
     whether the check digit is correct."""
     number = compact(number)
@@ -163,7 +165,7 @@ def validate(number):
     return number
 
 
-def is_valid(number):
+def is_valid(number: str) -> bool:
     """Check if the given fiscal code is valid."""
     try:
         return bool(validate(number))

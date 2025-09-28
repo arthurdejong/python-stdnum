@@ -35,17 +35,19 @@ InvalidChecksum: ...
 '213.123.432-1'
 """
 
+from __future__ import annotations
+
 from stdnum.exceptions import *
 from stdnum.util import clean, isdigits
 
 
-def compact(number):
+def compact(number: str) -> str:
     """Convert the number to the minimal representation. This strips
     surrounding whitespace and separation dash."""
     return clean(number, '.,- ').upper().strip()
 
 
-def calc_check_digit(number):
+def calc_check_digit(number: str) -> str:
     """Calculate the check digit. The number passed should not have the
     check digit included."""
     weights = (3, 7, 13, 17, 19, 23, 29, 37, 41, 43, 47, 53, 59, 67, 71)
@@ -53,7 +55,7 @@ def calc_check_digit(number):
     return '01987654321'[s]
 
 
-def validate(number):
+def validate(number: str) -> str:
     """Check if the number is a valid NIT. This checks the length, formatting
     and check digit."""
     number = compact(number)
@@ -66,7 +68,7 @@ def validate(number):
     return number
 
 
-def is_valid(number):
+def is_valid(number: str) -> bool:
     """Check if the number is a valid NIT."""
     try:
         return bool(validate(number))
@@ -74,7 +76,7 @@ def is_valid(number):
         return False
 
 
-def format(number):
+def format(number: str) -> str:
     """Reformat the number to the standard presentation format."""
     number = compact(number)
     return '.'.join(

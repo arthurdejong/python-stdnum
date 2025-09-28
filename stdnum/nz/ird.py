@@ -46,11 +46,13 @@ InvalidLength: ...
 '49-098-576'
 """  # noqa: E501
 
+from __future__ import annotations
+
 from stdnum.exceptions import *
 from stdnum.util import clean, isdigits
 
 
-def compact(number):
+def compact(number: str) -> str:
     """Convert the number to the minimal representation."""
     number = clean(number, ' -').upper().strip()
     if number.startswith('NZ'):
@@ -58,7 +60,7 @@ def compact(number):
     return number
 
 
-def calc_check_digit(number):
+def calc_check_digit(number: str) -> str:
     """Calculate the check digit.
 
     The number passed should not have the check digit included.
@@ -74,7 +76,7 @@ def calc_check_digit(number):
     return str(s)
 
 
-def validate(number):
+def validate(number: str) -> str:
     """Check if the number is a valid IRD number."""
     number = compact(number)
     if len(number) not in (8, 9):
@@ -88,7 +90,7 @@ def validate(number):
     return number
 
 
-def is_valid(number):
+def is_valid(number: str) -> bool:
     """Check if the number is a valid IRD number."""
     try:
         return bool(validate(number))
@@ -96,7 +98,7 @@ def is_valid(number):
         return False
 
 
-def format(number):
+def format(number: str) -> str:
     """Reformat the number to the standard presentation format."""
     number = compact(number)
     return '-'.join([number[:-6], number[-6:-3], number[-3:]])

@@ -2,6 +2,7 @@
 # coding: utf-8
 #
 # Copyright (C) 2022 Leandro Regueiro
+# Copyright (C) 2025 Arthur de Jong
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -42,33 +43,34 @@ InvalidChecksum: ...
 '4057009501106'
 """
 
+from __future__ import annotations
+
 from stdnum.exceptions import *
 from stdnum.util import clean, isdigits
 
 
-def compact(number):
+def compact(number: str) -> str:
     """Convert the number to the minimal representation.
 
     This strips the number of any valid separators and removes surrounding
     whitespace.
     """
     number = clean(number, ' -').upper().strip()
-    # First two are ASCII, second two are Cyrillic and only strip matching
-    # types to avoid implicit conversion to unicode strings in Python 2.7
-    for prefix in ('MK', u'MK', 'МК', u'МК'):
-        if isinstance(number, type(prefix)) and number.startswith(prefix):
+    # First two are ASCII, second two are Cyrillic
+    for prefix in ('MK', 'МК'):
+        if number.startswith(prefix):
             number = number[len(prefix):]
     return number
 
 
-def calc_check_digit(number):
+def calc_check_digit(number: str) -> str:
     """Calculate the check digit."""
     weights = (7, 6, 5, 4, 3, 2, 7, 6, 5, 4, 3, 2)
     total = sum(int(n) * w for n, w in zip(number, weights))
     return str((-total % 11) % 10)
 
 
-def validate(number):
+def validate(number: str) -> str:
     """Check if the number is a valid North Macedonia ЕДБ number.
 
     This checks the length, formatting and check digit.
@@ -83,7 +85,7 @@ def validate(number):
     return number
 
 
-def is_valid(number):
+def is_valid(number: str) -> bool:
     """Check if the number is a valid North Macedonia ЕДБ number."""
     try:
         return bool(validate(number))
@@ -91,6 +93,6 @@ def is_valid(number):
         return False
 
 
-def format(number):
+def format(number: str) -> str:
     """Reformat the number to the standard presentation format."""
     return compact(number)

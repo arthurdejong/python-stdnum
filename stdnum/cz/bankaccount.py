@@ -48,6 +48,8 @@ InvalidComponent: ...
 'KOMBCZPP'
 """
 
+from __future__ import annotations
+
 import re
 
 from stdnum.exceptions import *
@@ -58,7 +60,7 @@ _bankaccount_re = re.compile(
     r'((?P<prefix>[0-9]{0,6})-)?(?P<root>[0-9]{2,10})\/(?P<bank>[0-9]{4})')
 
 
-def compact(number):
+def compact(number: str) -> str:
     """Convert the number to the minimal representation. This strips the
     number of any valid separators and removes surrounding whitespace."""
     number = clean(number).strip()
@@ -71,7 +73,7 @@ def compact(number):
     return number
 
 
-def _split(number):
+def _split(number: str) -> tuple[str | None, str, str]:
     """Split valid numbers into prefix, root and bank parts of the number."""
     match = _bankaccount_re.match(number)
     if not match:
@@ -79,7 +81,7 @@ def _split(number):
     return match.group('prefix'), match.group('root'), match.group('bank')
 
 
-def _info(bank):
+def _info(bank: str) -> dict[str, str]:
     """Look up information for the bank."""
     from stdnum import numdb
     info = {}
@@ -88,29 +90,29 @@ def _info(bank):
     return info
 
 
-def info(number):
+def info(number: str) -> dict[str, str]:
     """Return a dictionary of data about the supplied number. This typically
     returns the name of the bank and branch and a BIC if it is valid."""
     prefix, root, bank = _split(compact(number))
     return _info(bank)
 
 
-def to_bic(number):
+def to_bic(number: str) -> str | None:
     """Return the BIC for the bank that this number refers to."""
-    bic = info(number).get('bic')
-    if bic:
-        return str(bic)
+    return info(number).get('bic')
 
 
-def _calc_checksum(number):
+def _calc_checksum(number: str) -> int:
     weights = (6, 3, 7, 9, 10, 5, 8, 4, 2, 1)
     return sum(w * int(n) for w, n in zip(weights, number.zfill(10))) % 11
 
 
-def validate(number):
+def validate(number: str) -> str:
     """Check if the number provided is a valid bank account number."""
     number = compact(number)
     prefix, root, bank = _split(number)
+    # guaranteed to be present because compacts adds a missing prefix
+    assert prefix
     if _calc_checksum(prefix) != 0:
         raise InvalidChecksum()
     if _calc_checksum(root) != 0:
@@ -120,7 +122,7 @@ def validate(number):
     return number
 
 
-def is_valid(number):
+def is_valid(number: str) -> bool:
     """Check if the number provided is a valid bank account number."""
     try:
         return bool(validate(number))
@@ -128,6 +130,6 @@ def is_valid(number):
         return False
 
 
-def format(number):
+def format(number: str) -> str:
     """Reformat the number to the standard presentation format."""
     return compact(number)

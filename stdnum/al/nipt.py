@@ -50,6 +50,8 @@ Traceback (most recent call last):
 InvalidFormat: ...
 """
 
+from __future__ import annotations
+
 import re
 
 from stdnum.exceptions import *
@@ -60,7 +62,7 @@ from stdnum.util import clean
 _nipt_re = re.compile(r'^[A-M][0-9]{8}[A-Z]$')
 
 
-def compact(number):
+def compact(number: str) -> str:
     """Convert the number to the minimal representation. This strips the
     number of any valid separators and removes surrounding whitespace."""
     number = clean(number, ' ').upper().strip()
@@ -71,7 +73,7 @@ def compact(number):
     return number
 
 
-def validate(number):
+def validate(number: str) -> str:
     """Check if the number is a valid VAT number. This checks the length and
     formatting."""
     number = compact(number)
@@ -82,7 +84,7 @@ def validate(number):
     return number
 
 
-def is_valid(number):
+def is_valid(number: str) -> bool:
     """Check if the number is a valid VAT number."""
     try:
         return bool(validate(number))

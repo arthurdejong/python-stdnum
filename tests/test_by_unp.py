@@ -35,10 +35,12 @@ from stdnum.by import unp
 class TestNalog(unittest.TestCase):
     """Test the web services provided by the portal.nalog.gov.by web site."""
 
-    def test_check_nalog(self):
+    def test_check_nalog(self) -> None:
         """Test stdnum.by.unp.check_nalog()"""
         # Test a normal valid number
         result = unp.check_nalog('191682495')
+        self.assertTrue(result)
+        assert result
         self.assertDictEqual(
             result,
             {

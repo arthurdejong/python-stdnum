@@ -47,6 +47,8 @@ InvalidComponent: ...
 }
 """
 
+from __future__ import annotations
+
 from stdnum import numdb
 from stdnum.exceptions import *
 from stdnum.util import clean
@@ -56,13 +58,13 @@ from stdnum.util import clean
 _cfidb = numdb.get('cfi')
 
 
-def compact(number):
+def compact(number: str) -> str:
     """Convert the number to the minimal representation. This strips the
     number of any valid separators and removes surrounding whitespace."""
     return clean(number, ' -').strip().upper()
 
 
-def info(number):
+def info(number: str) -> dict[str, str]:
     """Look up information about the number."""
     number = compact(number)
     info = _cfidb.info(number)
@@ -79,7 +81,7 @@ def info(number):
     return properties
 
 
-def validate(number):
+def validate(number: str) -> str:
     """Check if the number provided is valid. This checks the length and
     format."""
     number = compact(number)
@@ -91,7 +93,7 @@ def validate(number):
     return number
 
 
-def is_valid(number):
+def is_valid(number: str) -> bool:
     """Check if the number provided is valid. This checks the length and
     check digit."""
     try:

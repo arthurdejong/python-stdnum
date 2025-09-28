@@ -20,5 +20,7 @@
 
 """Collection of Slovak numbers."""
 
+from __future__ import annotations
+
 # provide vat as an alias
 from stdnum.sk import dph as vat  # noqa: F401

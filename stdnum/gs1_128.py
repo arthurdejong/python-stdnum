@@ -1,7 +1,7 @@
 # gs1_128.py - functions for handling GS1-128 codes
 #
 # Copyright (C) 2019 Sergi Almacellas Abellana
-# Copyright (C) 2020-2023 Arthur de Jong
+# Copyright (C) 2020-2025 Arthur de Jong
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -47,6 +47,8 @@ More information:
 '013842587609507417181119371'
 """
 
+from __future__ import annotations
+
 import datetime
 import decimal
 import re
@@ -54,6 +56,12 @@ import re
 from stdnum import numdb
 from stdnum.exceptions import *
 from stdnum.util import clean
+
+
+TYPE_CHECKING = False
+if TYPE_CHECKING:  # pragma: no cover (only used when type checking)
+    from collections.abc import Mapping
+    from typing import Any
 
 
 # our open copy of the application identifier database
@@ -68,7 +76,7 @@ _ai_validators = {
 }
 
 
-def compact(number):
+def compact(number: str) -> str:
     """Convert the GS1-128 to the minimal representation.
 
     This strips the number of any valid separators and removes surrounding
@@ -78,102 +86,138 @@ def compact(number):
     return clean(number, '()').strip()
 
 
-def _encode_value(fmt, _type, value):
+def _encode_decimal(ai: str, fmt: str, value: object) -> tuple[str, str]:
+    """Encode the specified decimal value given the format."""
+    # For decimal types the last digit of the AI is used to encode the
+    # number of decimal places (we replace the last digit)
+    if isinstance(value, (list, tuple)) and fmt.startswith('N3+'):
+        # Two numbers, where the number of decimal places is expected to apply
+        # to the second value
+        ai, number = _encode_decimal(ai, fmt[3:], value[1])
+        return ai, str(value[0]).rjust(3, '0') + number
+    value = str(value)
+    if fmt.startswith('N..'):
+        # Variable length number up to a certain length
+        length = int(fmt[3:])
+        value = value[:length + 1]
+        number, decimals = (value.split('.') + [''])[:2]
+        decimals = decimals[:9]
+        return ai[:-1] + str(len(decimals)), number + decimals
+    else:
+        # Fixed length numeric
+        length = int(fmt[1:])
+        value = value[:length + 1]
+        number, decimals = (value.split('.') + [''])[:2]
+        decimals = decimals[:9]
+        return ai[:-1] + str(len(decimals)), (number + decimals).rjust(length, '0')
+
+
+def _encode_date(fmt: str, value: object) -> str:
+    """Encode the specified date value given the format."""
+    if isinstance(value, (list, tuple)) and fmt in ('N6..12', 'N6[+N6]'):
+        # Two date values
+        return '%s%s' % (
+            _encode_date('N6', value[0]),
+            _encode_date('N6', value[1]),
+        )
+    elif isinstance(value, datetime.date):
+        # Format date in different formats
+        if fmt in ('N6', 'N6..12', 'N6[+N6]'):
+            return value.strftime('%y%m%d')
+        elif fmt == 'N10':
+            return value.strftime('%y%m%d%H%M')
+        elif fmt in ('N6+N..4', 'N6[+N..4]', 'N6[+N4]'):
+            value = value.strftime('%y%m%d%H%M')
+            if value.endswith('00'):
+                value = value[:-2]
+            if value.endswith('00'):
+                value = value[:-2]
+            return value
+        elif fmt in ('N8+N..4', 'N8[+N..4]'):
+            value = value.strftime('%y%m%d%H%M%S')
+            if value.endswith('00'):
+                value = value[:-2]
+            if value.endswith('00'):
+                value = value[:-2]
+            return value
+        else:  # pragma: no cover (all formats should be covered)
+            raise ValueError('unsupported format: %s' % fmt)
+    else:
+        # Value is assumed to be in the correct format already
+        return str(value)
+
+
+def _encode_value(ai: str, fmt: str, _type: str, value: object) -> tuple[str, str]:
     """Encode the specified value given the format and type."""
     if _type == 'decimal':
-        if isinstance(value, (list, tuple)) and fmt.startswith('N3+'):
-            number = _encode_value(fmt[3:], _type, value[1])
-            return number[0] + value[0].rjust(3, '0') + number[1:]
-        value = str(value)
-        if fmt.startswith('N..'):
-            length = int(fmt[3:])
-            value = value[:length + 1]
-            number, digits = (value.split('.') + [''])[:2]
-            digits = digits[:9]
-            return str(len(digits)) + number + digits
-        else:
-            length = int(fmt[1:])
-            value = value[:length + 1]
-            number, digits = (value.split('.') + [''])[:2]
-            digits = digits[:9]
-            return str(len(digits)) + (number + digits).rjust(length, '0')
+        return _encode_decimal(ai, fmt, value)
     elif _type == 'date':
-        if isinstance(value, (list, tuple)) and fmt == 'N6..12':
-            return '%s%s' % (
-                _encode_value('N6', _type, value[0]),
-                _encode_value('N6', _type, value[1]))
-        elif isinstance(value, datetime.date):
-            if fmt in ('N6', 'N6..12'):
-                return value.strftime('%y%m%d')
-            elif fmt == 'N10':
-                return value.strftime('%y%m%d%H%M')
-            elif fmt in ('N6+N..4', 'N6[+N..4]'):
-                value = value.strftime('%y%m%d%H%M')
-                if value.endswith('00'):
-                    value = value[:-2]
-                if value.endswith('00'):
-                    value = value[:-2]
-                return value
-            elif fmt in ('N8+N..4', 'N8[+N..4]'):
-                value = value.strftime('%y%m%d%H%M%S')
-                if value.endswith('00'):
-                    value = value[:-2]
-                if value.endswith('00'):
-                    value = value[:-2]
-                return value
-            else:  # pragma: no cover (all formats should be covered)
-                raise ValueError('unsupported format: %s' % fmt)
-    return str(value)
+        return ai, _encode_date(fmt, value)
+    else:  # str or int types
+        return ai, str(value)
 
 
-def _max_length(fmt, _type):
-    """Determine the maximum length based on the format ad type."""
-    length = sum(int(re.match(r'^[NXY][0-9]*?[.]*([0-9]+)[\[\]]?$', x).group(1)) for x in fmt.split('+'))
-    if _type == 'decimal':
-        length += 1
-    return length
+def _max_length(fmt: str) -> int:
+    """Determine the maximum length based on the format."""
+    return sum(
+        int(re.match(r'^[NXY][0-9]*?[.]*([0-9]+)[\[\]]?$', x).group(1))  # type: ignore[misc, union-attr]
+        for x in fmt.split('+')
+    )
 
 
-def _pad_value(fmt, _type, value):
+def _pad_value(fmt: str, _type: str, value: str) -> str:
     """Pad the value to the maximum length for the format."""
     if _type in ('decimal', 'int'):
-        return value.rjust(_max_length(fmt, _type), '0')
-    return value.ljust(_max_length(fmt, _type))
+        return value.rjust(_max_length(fmt), '0')
+    else:
+        return value.ljust(_max_length(fmt))
 
 
-def _decode_value(fmt, _type, value):
+def _decode_decimal(ai: str, fmt: str, value: str) -> decimal.Decimal | tuple[str, decimal.Decimal]:
+    """Decode the specified decimal value given the fmt."""
+    if fmt.startswith('N3+'):
+        # If the number consists of two parts, it is assumed that the decimal
+        # from the AI applies to the second part
+        return (value[:3], _decode_decimal(ai, fmt[3:], value[3:]))  # type: ignore[return-value]
+    decimals = int(ai[-1])
+    if decimals:
+        value = value[:-decimals] + '.' + value[-decimals:]
+    return decimal.Decimal(value)
+
+
+def _decode_date(fmt: str, value: str) -> datetime.date | datetime.datetime | tuple[datetime.date, datetime.date]:
+    """Decode the specified date value given the fmt."""
+    if len(value) == 6:
+        if value[4:] == '00':
+            # When day == '00', it must be interpreted as last day of month
+            date = datetime.datetime.strptime(value[:4], '%y%m')
+            if date.month == 12:
+                date = date.replace(day=31)
+            else:
+                date = date.replace(month=date.month + 1, day=1) - datetime.timedelta(days=1)
+            return date.date()
+        else:
+            return datetime.datetime.strptime(value, '%y%m%d').date()
+    elif len(value) == 12 and fmt in ('N12', 'N6..12', 'N6[+N6]'):
+        return (_decode_date('N6', value[:6]), _decode_date('N6', value[6:]))  # type: ignore[return-value]
+    else:
+        # Other lengths are interpreted as variable-length datetime values
+        return datetime.datetime.strptime(value, '%y%m%d%H%M%S'[:len(value)])
+
+
+def _decode_value(ai: str, fmt: str, _type: str, value: str) -> Any:
     """Decode the specified value given the fmt and type."""
     if _type == 'decimal':
-        if fmt.startswith('N3+'):
-            return (value[1:4], _decode_value(fmt[3:], _type, value[0] + value[4:]))
-        digits = int(value[0])
-        value = value[1:]
-        if digits:
-            value = value[:-digits] + '.' + value[-digits:]
-        return decimal.Decimal(value)
+        return _decode_decimal(ai, fmt, value)
     elif _type == 'date':
-        if len(value) == 6:
-            if value[4:] == '00':
-                # When day == '00', it must be interpreted as last day of month
-                date = datetime.datetime.strptime(value[:4], '%y%m')
-                if date.month == 12:
-                    date = date.replace(day=31)
-                else:
-                    date = date.replace(month=date.month + 1, day=1) - datetime.timedelta(days=1)
-                return date.date()
-            else:
-                return datetime.datetime.strptime(value, '%y%m%d').date()
-        elif len(value) == 12 and fmt in ('N12', 'N6..12'):
-            return (_decode_value('N6', _type, value[:6]), _decode_value('N6', _type, value[6:]))
-        else:
-            # other lengths are interpreted as variable-length datetime values
-            return datetime.datetime.strptime(value, '%y%m%d%H%M%S'[:len(value)])
+        return _decode_date(fmt, value)
     elif _type == 'int':
         return int(value)
-    return value.strip()
+    else:  # str
+        return value.strip()
 
 
-def info(number, separator=''):
+def info(number: str, separator: str = '') -> dict[str, Any]:
     """Return a dictionary containing the information from the GS1-128 code.
 
     The returned dictionary maps application identifiers to values with the
@@ -196,8 +240,8 @@ def info(number, separator=''):
             raise InvalidComponent()
         number = number[len(ai):]
         # figure out the value part
-        value = number[:_max_length(info['format'], info['type'])]
-        if separator and info.get('fnc1', False):
+        value = number[:_max_length(info['format'])]
+        if separator and info.get('fnc1'):
             idx = number.find(separator)
             if idx > 0:
                 value = number[:idx]
@@ -207,14 +251,14 @@ def info(number, separator=''):
             mod = __import__(_ai_validators[ai], globals(), locals(), ['validate'])
             mod.validate(value)
         # convert the number
-        data[ai] = _decode_value(info['format'], info['type'], value)
+        data[ai] = _decode_value(ai, info['format'], info['type'], value)
         # skip separator
         if separator and number.startswith(separator):
             number = number[len(separator):]
     return data
 
 
-def encode(data, separator='', parentheses=False):
+def encode(data: Mapping[str, object], separator: str = '', parentheses: bool = False) -> str:
     """Generate a GS1-128 for the application identifiers supplied.
 
     The provided dictionary is expected to map application identifiers to
@@ -241,12 +285,12 @@ def encode(data, separator='', parentheses=False):
         if ai in _ai_validators:
             mod = __import__(_ai_validators[ai], globals(), locals(), ['validate'])
             mod.validate(value)
-        value = _encode_value(info['format'], info['type'], value)
+        ai, value = _encode_value(ai, info['format'], info['type'], value)
         # store variable-sized values separate from fixed-size values
-        if info.get('fnc1', False):
-            variable_values.append((ai_fmt % ai, info['format'], info['type'], value))
-        else:
+        if not info.get('fnc1'):
             fixed_values.append(ai_fmt % ai + value)
+        else:
+            variable_values.append((ai_fmt % ai, info['format'], info['type'], value))
     # we need the separator for all but the last variable-sized value
     # (or pad values if we don't have a separator)
     return ''.join(
@@ -259,7 +303,7 @@ def encode(data, separator='', parentheses=False):
         ])
 
 
-def validate(number, separator=''):
+def validate(number: str, separator: str = '') -> str:
     """Check if the number provided is a valid GS1-128.
 
     This checks formatting of the number and values and returns a stable
@@ -280,7 +324,7 @@ def validate(number, separator=''):
         raise InvalidFormat()
 
 
-def is_valid(number, separator=''):
+def is_valid(number: str, separator: str = '') -> bool:
     """Check if the number provided is a valid GS1-128."""
     try:
         return bool(validate(number))

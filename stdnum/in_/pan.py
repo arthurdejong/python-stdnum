@@ -59,6 +59,8 @@ InvalidComponent: ...
 'Individual'
 """
 
+from __future__ import annotations
+
 import re
 
 from stdnum.exceptions import *
@@ -83,13 +85,13 @@ _pan_holder_types = {
 # Type 'K' may have been discontinued, not listed on Income Text Dept website.
 
 
-def compact(number):
+def compact(number: str) -> str:
     """Convert the number to the minimal representation. This strips the
     number of any valid separators and removes surrounding whitespace."""
     return clean(number, ' -').upper().strip()
 
 
-def validate(number):
+def validate(number: str) -> str:
     """Check if the number provided is a valid PAN. This checks the length
     and formatting."""
     number = compact(number)
@@ -103,7 +105,7 @@ def validate(number):
     return number
 
 
-def is_valid(number):
+def is_valid(number: str) -> bool:
     """Check if the number provided is a valid PAN. This checks the length
     and formatting."""
     try:
@@ -112,7 +114,7 @@ def is_valid(number):
         return False
 
 
-def info(number):
+def info(number: str) -> dict[str, str]:
     """Provide information that can be decoded from the PAN."""
     number = compact(number)
     holder_type = _pan_holder_types.get(number[3])
@@ -125,7 +127,7 @@ def info(number):
     }
 
 
-def mask(number):
+def mask(number: str) -> str:
     """Mask the PAN as per Central Board of Direct Taxes (CBDT) masking
     standard."""
     number = compact(number)

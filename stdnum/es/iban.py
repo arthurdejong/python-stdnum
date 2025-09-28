@@ -44,6 +44,8 @@ Traceback (most recent call last):
 InvalidChecksum: ...
 """
 
+from __future__ import annotations
+
 from stdnum import iban
 from stdnum.es import ccc
 from stdnum.exceptions import *
@@ -56,7 +58,7 @@ compact = iban.compact
 format = iban.format
 
 
-def to_ccc(number):
+def to_ccc(number: str) -> str:
     """Return the CCC (Código Cuenta Corriente) part of the number."""
     number = compact(number)
     if not number.startswith('ES'):
@@ -64,14 +66,14 @@ def to_ccc(number):
     return number[4:]
 
 
-def validate(number):
+def validate(number: str) -> str:
     """Check if the number provided is a valid Spanish IBAN."""
     number = iban.validate(number, check_country=False)
     ccc.validate(to_ccc(number))
     return number
 
 
-def is_valid(number):
+def is_valid(number: str) -> bool:
     """Check if the number provided is a valid Spanish IBAN."""
     try:
         return bool(validate(number))

@@ -1,6 +1,7 @@
 test_mk_edb.doctest - more detailed doctests for stdnum.mk.edb module
 
 Copyright (C) 2022 Leandro Regueiro
+Copyright (C) 2025 Arthur de Jong
 
 This library is free software; you can redistribute it and/or
 modify it under the terms of the GNU Lesser General Public
@@ -29,13 +30,13 @@ Tests for some corner cases.
 
 >>> edb.validate('4030000375897')
 '4030000375897'
->>> str(edb.validate(u'МК 4020990116747'))  # Cyrillic letters
+>>> edb.validate('МК 4020990116747')  # Cyrillic letters
 '4020990116747'
 >>> edb.validate('MK4057009501106')  # ASCII letters
 '4057009501106'
 >>> edb.validate('МК4030006603425')  # Cyrillic letters
 '4030006603425'
->>> str(edb.validate(u'МК4030006603425'))  # Cyrillic letters
+>>> edb.validate('МК4030006603425')  # Cyrillic letters
 '4030006603425'
 >>> edb.validate('12345')
 Traceback (most recent call last):
@@ -51,11 +52,11 @@ Traceback (most recent call last):
 InvalidChecksum: ...
 >>> edb.format('4030000375897')
 '4030000375897'
->>> str(edb.format(u'МК 4020990116747'))  # Cyrillic letters
+>>> edb.format('МК 4020990116747')  # Cyrillic letters
 '4020990116747'
 >>> edb.format('MK4057009501106')  # ASCII letters
 '4057009501106'
->>> str(edb.format(u'МК4030006603425'))  # Cyrillic letters
+>>> edb.format('МК4030006603425')  # Cyrillic letters
 '4030006603425'
 
 

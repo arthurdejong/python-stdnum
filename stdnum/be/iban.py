@@ -47,6 +47,8 @@ InvalidComponent: ...
 True
 """
 
+from __future__ import annotations
+
 from stdnum import iban
 from stdnum.exceptions import *
 
@@ -58,13 +60,13 @@ compact = iban.compact
 format = iban.format
 
 
-def _calc_check_digits(number):
+def _calc_check_digits(number: str) -> str:
     """Calculate the check digits over the provided part of the number."""
     check = int(number) % 97
     return '%02d' % (check or 97)
 
 
-def info(number):
+def info(number: str) -> dict[str, str]:
     """Return a dictionary of data about the supplied number. This typically
     returns the name of the bank and a BIC if it is valid."""
     number = compact(number)
@@ -72,14 +74,12 @@ def info(number):
     return numdb.get('be/banks').info(number[4:7])[0][1]
 
 
-def to_bic(number):
+def to_bic(number: str) -> str | None:
     """Return the BIC for the bank that this number refers to."""
-    bic = info(number).get('bic')
-    if bic:
-        return str(bic)
+    return info(number).get('bic')
 
 
-def validate(number):
+def validate(number: str) -> str:
     """Check if the number provided is a valid Belgian IBAN."""
     number = iban.validate(number, check_country=False)
     if not number.startswith('BE'):
@@ -91,7 +91,7 @@ def validate(number):
     return number
 
 
-def is_valid(number):
+def is_valid(number: str) -> bool:
     """Check if the number provided is a valid Belgian IBAN."""
     try:
         return bool(validate(number))

@@ -33,7 +33,7 @@ always represents the main registered address.
 
 More information:
 
-* http://www.pisrs.si/Pis.web/pregledPredpisa?id=URED7599
+* https://pisrs.si/pregledPredpisa?id=URED7599
 
 >>> validate('9331310000')
 '9331310'
@@ -43,13 +43,15 @@ Traceback (most recent call last):
 InvalidChecksum: ...
 """
 
+from __future__ import annotations
+
 import re
 
 from stdnum.exceptions import *
 from stdnum.util import clean, isdigits
 
 
-def compact(number):
+def compact(number: str) -> str:
     """Convert the number to the minimal representation. This strips the
     number of any valid separators and removes surrounding whitespace."""
     number = clean(number, '. ').strip().upper()
@@ -58,7 +60,7 @@ def compact(number):
     return number
 
 
-def calc_check_digit(number):
+def calc_check_digit(number: str) -> str:
     """Calculate the check digit."""
     weights = (7, 6, 5, 4, 3, 2)
     total = sum(int(n) * w for n, w in zip(number, weights))
@@ -68,7 +70,7 @@ def calc_check_digit(number):
     return str(remainder % 10)
 
 
-def validate(number):
+def validate(number: str) -> str:
     """Check if the number is a valid Corporate Registration number. This
     checks the length and check digit."""
     number = compact(number)
@@ -83,7 +85,7 @@ def validate(number):
     return number
 
 
-def is_valid(number):
+def is_valid(number: str) -> bool:
     """Check if provided is valid ID. This checks the length,
     formatting and check digit."""
     try:

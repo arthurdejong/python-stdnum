@@ -65,18 +65,22 @@ datetime.date(1998, 7, 28)
 'M'
 """
 
+from __future__ import annotations
+
+import datetime
+
 from stdnum.be import nn
 from stdnum.exceptions import *
 from stdnum.util import isdigits
 
 
-def compact(number):
+def compact(number: str) -> str:
     """Convert the number to the minimal representation. This strips the number
     of any valid separators and removes surrounding whitespace."""
     return nn.compact(number)
 
 
-def validate(number):
+def validate(number: str) -> str:
     """Check if the number is a valid BIS Number."""
     number = compact(number)
     if not isdigits(number) or int(number) <= 0:
@@ -89,7 +93,7 @@ def validate(number):
     return number
 
 
-def is_valid(number):
+def is_valid(number: str) -> bool:
     """Check if the number is a valid BIS Number."""
     try:
         return bool(validate(number))
@@ -97,29 +101,30 @@ def is_valid(number):
         return False
 
 
-def format(number):
+def format(number: str) -> str:
     """Reformat the number to the standard presentation format."""
     return nn.format(number)
 
 
-def get_birth_year(number):
+def get_birth_year(number: str) -> int | None:
     """Return the year of the birth date."""
     return nn.get_birth_year(number)
 
 
-def get_birth_month(number):
+def get_birth_month(number: str) -> int | None:
     """Return the month of the birth date."""
     return nn.get_birth_month(number)
 
 
-def get_birth_date(number):
+def get_birth_date(number: str) -> datetime.date | None:
     """Return the date of birth."""
     return nn.get_birth_date(number)
 
 
-def get_gender(number):
+def get_gender(number: str) -> str | None:
     """Get the person's gender ('M' or 'F'), which for BIS
     numbers is only known if the month was incremented with 40."""
     number = compact(number)
     if int(number[2:4]) >= 40:
         return nn.get_gender(number)
+    return None

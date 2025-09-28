@@ -36,6 +36,8 @@ Traceback (most recent call last):
 InvalidLength: ...
 """
 
+from __future__ import annotations
+
 from stdnum.ec import ci
 from stdnum.exceptions import *
 from stdnum.util import isdigits
@@ -48,12 +50,12 @@ __all__ = ['compact', 'validate', 'is_valid']
 compact = ci.compact
 
 
-def _checksum(number, weights):
+def _checksum(number: str, weights: list[int]) -> int:
     """Calculate a checksum over the number given the weights."""
     return sum(w * int(n) for w, n in zip(weights, number)) % 11
 
 
-def _validate_natural(number):
+def _validate_natural(number: str) -> str:
     """Check if the number is a valid natural RUC (CI plus establishment)."""
     if number[-3:] == '000':
         raise InvalidComponent()  # establishment number wrong
@@ -61,25 +63,25 @@ def _validate_natural(number):
     return number
 
 
-def _validate_public(number):
+def _validate_public(number: str) -> str:
     """Check if the number is a valid public RUC."""
     if number[-4:] == '0000':
         raise InvalidComponent()  # establishment number wrong
-    if _checksum(number[:9], (3, 2, 7, 6, 5, 4, 3, 2, 1)) != 0:
+    if _checksum(number[:9], [3, 2, 7, 6, 5, 4, 3, 2, 1]) != 0:
         raise InvalidChecksum()
     return number
 
 
-def _validate_juridical(number):
+def _validate_juridical(number: str) -> str:
     """Check if the number is a valid juridical RUC."""
     if number[-3:] == '000':
         raise InvalidComponent()  # establishment number wrong
-    if _checksum(number[:10], (4, 3, 2, 7, 6, 5, 4, 3, 2, 1)) != 0:
+    if _checksum(number[:10], [4, 3, 2, 7, 6, 5, 4, 3, 2, 1]) != 0:
         raise InvalidChecksum()
     return number
 
 
-def validate(number):
+def validate(number: str) -> str:
     """Check if the number provided is a valid RUC number. This checks the
     length, formatting, check digit and check sum."""
     number = compact(number)
@@ -99,14 +101,17 @@ def validate(number):
         except ValidationError:
             _validate_natural(number)
     elif number[2] == '9':
-        # 9 = juridical RUC
-        _validate_juridical(number)
+        # 9 = juridical RUC (or public RUC)
+        try:
+            _validate_public(number)
+        except ValidationError:
+            _validate_juridical(number)
     else:
         raise InvalidComponent()  # third digit wrong
     return number
 
 
-def is_valid(number):
+def is_valid(number: str) -> bool:
     """Check if the number provided is a valid RUC number. This checks the
     length, formatting and check digit."""
     try:

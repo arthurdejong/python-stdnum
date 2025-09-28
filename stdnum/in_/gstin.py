@@ -59,6 +59,8 @@ InvalidChecksum: ...
 'Maharashtra'
 """
 
+from __future__ import annotations
+
 import re
 
 from stdnum import luhn
@@ -112,13 +114,13 @@ _STATE_CODES = {
 }
 
 
-def compact(number):
+def compact(number: str) -> str:
     """Convert the number to the minimal representation. This strips the
     number of any valid separators and removes surrounding whitespace."""
     return clean(number, ' -').upper().strip()
 
 
-def validate(number):
+def validate(number: str) -> str:
     """Check if the number provided is a valid GSTIN. This checks the length,
     formatting and check digit."""
     number = compact(number)
@@ -133,7 +135,7 @@ def validate(number):
     return number
 
 
-def is_valid(number):
+def is_valid(number: str) -> bool:
     """Check if the number provided is a valid GSTIN. This checks the length,
     formatting and check digit."""
     try:
@@ -142,13 +144,13 @@ def is_valid(number):
         return False
 
 
-def to_pan(number):
+def to_pan(number: str) -> str:
     """Convert the number to a PAN."""
     number = compact(number)
     return number[2:12]
 
 
-def info(number):
+def info(number: str) -> dict[str, str | int | None]:
     """Provide information that can be decoded locally from GSTIN (without
     API)."""
     number = validate(number)

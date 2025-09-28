@@ -1,7 +1,7 @@
 # util.py - common utility functions
 # coding: utf-8
 #
-# Copyright (C) 2012-2021 Arthur de Jong
+# Copyright (C) 2012-2025 Arthur de Jong
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -25,9 +25,12 @@ guaranteed to remain stable and as such not part of the public API of
 stdnum.
 """
 
+from __future__ import annotations
+
 import pkgutil
 import pydoc
 import re
+import ssl
 import sys
 import unicodedata
 import warnings
@@ -35,23 +38,43 @@ import warnings
 from stdnum.exceptions import *
 
 
+TYPE_CHECKING = False
+if TYPE_CHECKING:  # pragma: no cover (only used when type checking)
+    from collections.abc import Generator
+    from typing import Any, Protocol
+
+    class NumberValidationModule(Protocol):
+        """Minimal interface for a number validation module."""
+
+        def compact(self, number: str) -> str:
+            """Convert the number to the minimal representation."""
+
+        def validate(self, number: str) -> str:
+            """Check if the number provided is a valid number of its type."""
+
+        def is_valid(self, number: str) -> bool:
+            """Check if the number provided is a valid number of its type."""
+
+
+else:
+
+    NumberValidationModule = None
+
+
 # Regular expression to match doctests in docstrings
-_strip_doctest_re = re.compile(r'^>>> .*\Z', re.DOTALL | re.MULTILINE)
+_strip_doctest_re = re.compile(r'^>>> .*\Z', flags=re.DOTALL | re.MULTILINE)
 
 
 # Regular expression to match digits
 _digits_re = re.compile(r'^[0-9]+$')
 
 
-def _mk_char_map(mapping):
+def _mk_char_map(mapping: dict[str, str]) -> Generator[tuple[str, str]]:
     """Transform a dictionary with comma separated uniode character names
     to tuples with unicode characters as key."""
     for key, value in mapping.items():
         for char in key.split(','):
-            try:
-                yield (unicodedata.lookup(char), value)
-            except KeyError:  # pragma: no cover (does not happen on Python3)
-                pass
+            yield (unicodedata.lookup(char), value)
 
 
 # build mapping of Unicode characters to equivalent ASCII characters
@@ -153,12 +176,12 @@ _char_map = dict(_mk_char_map({
 }))
 
 
-def _clean_chars(number):
+def _clean_chars(number: str) -> str:
     """Replace various Unicode characters with their ASCII counterpart."""
     return ''.join(_char_map.get(x, x) for x in number)
 
 
-def clean(number, deletechars=''):
+def clean(number: str, deletechars: str = '') -> str:
     """Remove the specified characters from the supplied number.
 
     >>> clean('123-456:78 9', ' -:')
@@ -170,29 +193,23 @@ def clean(number, deletechars=''):
         number = ''.join(x for x in number)
     except Exception:  # noqa: B902
         raise InvalidFormat()
-    if sys.version < '3' and isinstance(number, str):  # pragma: no cover (Python 2 specific code)
-        try:
-            number = _clean_chars(number.decode()).encode()
-        except UnicodeError:
-            try:
-                number = _clean_chars(number.decode('utf-8')).encode('utf-8')
-            except UnicodeError:
-                pass
-    else:  # pragma: no cover (Python 3 specific code)
-        number = _clean_chars(number)
+    number = _clean_chars(number)
     return ''.join(x for x in number if x not in deletechars)
 
 
-def isdigits(number):
+def isdigits(number: str) -> bool:
     """Check whether the provided string only consists of digits."""
     # This function is meant to replace str.isdigit() which will also return
     # True for all kind of unicode digits which is generally not what we want
     return bool(_digits_re.match(number))
 
 
-def to_unicode(text):
-    """Convert the specified text to a unicode string."""
-    if not isinstance(text, type(u'')):
+def to_unicode(text: str | bytes) -> str:
+    """DEPRECATED: Will be removed in an upcoming release."""  # noqa: D40
+    warnings.warn(
+        'to_unicode() will be removed in an upcoming release',
+        DeprecationWarning, stacklevel=2)
+    if not isinstance(text, str):
         try:
             return text.decode('utf-8')
         except UnicodeDecodeError:
@@ -200,7 +217,7 @@ def to_unicode(text):
     return text
 
 
-def get_number_modules(base='stdnum'):
+def get_number_modules(base: str = 'stdnum') -> Generator[NumberValidationModule]:
     """Yield all the number validation modules under the specified module."""
     __import__(base)
     module = sys.modules[base]
@@ -215,71 +232,122 @@ def get_number_modules(base='stdnum'):
                 yield module
 
 
-def get_module_name(module):
+def get_module_name(module: object) -> str:
     """Return the short description of the number."""
     return pydoc.splitdoc(pydoc.getdoc(module))[0].strip('.')
 
 
-def get_module_description(module):
+def get_module_description(module: object) -> str:
     """Return a description of the number."""
     doc = pydoc.splitdoc(pydoc.getdoc(module))[1]
     # remove the doctests
     return _strip_doctest_re.sub('', doc).strip()
 
 
-def get_cc_module(cc, name):
+def get_cc_module(cc: str, name: str) -> NumberValidationModule | None:
     """Find the country-specific named module."""
     cc = cc.lower()
     # add suffix for python reserved words
     if cc in ('in', 'is', 'if'):
         cc += '_'
     try:
-        mod = __import__('stdnum.%s' % cc, globals(), locals(), [str(name)])
+        mod = __import__('stdnum.%s' % cc, globals(), locals(), [name])
         return getattr(mod, name, None)
     except ImportError:
-        return
+        return None
 
 
 # this is a cache of SOAP clients
 _soap_clients = {}
 
 
-def get_soap_client(wsdlurl, timeout=30):  # pragma: no cover (not part of normal test suite)
+def _get_zeep_soap_client(
+    wsdlurl: str,
+    timeout: float,
+    verify: bool | str,
+) -> Any:  # pragma: no cover (not part of normal test suite)
+    from requests import Session
+    from zeep import CachingClient
+    from zeep.transports import Transport
+    session = Session()
+    session.verify = verify
+    transport = Transport(operation_timeout=timeout, timeout=timeout, session=session)  # type: ignore[no-untyped-call]
+    return CachingClient(wsdlurl, transport=transport).service  # type: ignore[no-untyped-call]
+
+
+def _get_suds_soap_client(
+    wsdlurl: str,
+    timeout: float,
+    verify: bool | str,
+) -> Any:  # pragma: no cover (not part of normal test suite)
+    import os.path
+    from urllib.request import HTTPSHandler, getproxies
+
+    from suds.client import Client  # type: ignore
+    from suds.transport.http import HttpTransport  # type: ignore
+
+    class CustomSudsTransport(HttpTransport):  # type: ignore[misc]
+
+        def u2handlers(self):  # type: ignore[no-untyped-def]
+            handlers = super(CustomSudsTransport, self).u2handlers()
+            if isinstance(verify, str):
+                if not os.path.isdir(verify):
+                    ssl_context = ssl.create_default_context(ssl.Purpose.SERVER_AUTH, capath=verify)
+                else:
+                    ssl_context = ssl.create_default_context(ssl.Purpose.SERVER_AUTH, cafile=verify)
+            else:
+                ssl_context = ssl.create_default_context(ssl.Purpose.SERVER_AUTH)
+                if verify is False:
+                    ssl_context.check_hostname = False
+                    ssl_context.verify_mode = ssl.CERT_NONE
+            handlers.append(HTTPSHandler(context=ssl_context))
+            return handlers
+    warnings.warn(
+        'Use of Suds for SOAP requests is deprecated, please use Zeep instead',
+        DeprecationWarning, stacklevel=1)
+    return Client(wsdlurl, proxy=getproxies(), timeout=timeout, transport=CustomSudsTransport()).service
+
+
+def _get_pysimplesoap_soap_client(
+    wsdlurl: str,
+    timeout: float,
+    verify: bool | str,
+) -> Any:  # pragma: no cover (not part of normal test suite)
+    from urllib.request import getproxies
+
+    from pysimplesoap.client import SoapClient  # type: ignore
+    if verify is False:
+        raise ValueError('PySimpleSOAP does not support verify=False')
+    kwargs = {}
+    if isinstance(verify, str):
+        kwargs['cacert'] = verify
+    warnings.warn(
+        'Use of PySimpleSOAP for SOAP requests is deprecated, please use Zeep instead',
+        DeprecationWarning, stacklevel=1)
+    return SoapClient(wsdl=wsdlurl, proxy=getproxies(), timeout=timeout, **kwargs)
+
+
+def get_soap_client(
+    wsdlurl: str,
+    timeout: float = 30,
+    verify: bool | str = True,
+) -> Any:  # pragma: no cover (not part of normal test suite)
     """Get a SOAP client for performing requests. The client is cached. The
-    timeout is in seconds."""
+    timeout is in seconds. The verify parameter is either True (the default), False
+    (to disabled certificate validation) or string value pointing to a CA certificate
+    file.
+    """
     # this function isn't automatically tested because the functions using
-    # it are not automatically tested
-    if (wsdlurl, timeout) not in _soap_clients:
-        # try zeep first
-        try:
-            from zeep.transports import Transport
-            transport = Transport(timeout=timeout)
-            from zeep import CachingClient
-            client = CachingClient(wsdlurl, transport=transport).service
-        except ImportError:
-            # fall back to non-caching zeep client
+    # it are not automatically tested and it requires network access for proper
+    # testing
+    if (wsdlurl, timeout, verify) not in _soap_clients:
+        for function in (_get_zeep_soap_client, _get_suds_soap_client, _get_pysimplesoap_soap_client):
             try:
-                from zeep import Client
-                client = Client(wsdlurl, transport=transport).service
+                client = function(wsdlurl, timeout, verify)
+                break
             except ImportError:
-                # other implementations require passing the proxy config
-                try:
-                    from urllib import getproxies
-                except ImportError:
-                    from urllib.request import getproxies
-                # fall back to suds
-                try:
-                    from suds.client import Client
-                    client = Client(
-                        wsdlurl, proxy=getproxies(), timeout=timeout).service
-                except ImportError:
-                    # use pysimplesoap as last resort
-                    try:
-                        from pysimplesoap.client import SoapClient
-                        client = SoapClient(
-                            wsdl=wsdlurl, proxy=getproxies(), timeout=timeout)
-                    except ImportError:
-                        raise ImportError(
-                            'No SOAP library (such as zeep) found')
-        _soap_clients[(wsdlurl, timeout)] = client
-    return _soap_clients[(wsdlurl, timeout)]
+                pass
+        else:
+            raise ImportError('No SOAP library (such as zeep) found')
+        _soap_clients[(wsdlurl, timeout, verify)] = client
+    return _soap_clients[(wsdlurl, timeout, verify)]

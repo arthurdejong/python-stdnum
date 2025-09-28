@@ -44,24 +44,26 @@ InvalidLength: ...
 '1112.22.333'
 """
 
+from __future__ import annotations
+
 from stdnum.exceptions import *
 from stdnum.util import clean, isdigits
 
 
-def compact(number):
+def compact(number: str) -> str:
     """Convert the number to the minimal representation. This strips the
     number of any valid separators and removes surrounding whitespace."""
     return clean(number, ' -.').strip().zfill(9)
 
 
-def checksum(number):
+def checksum(number: str) -> int:
     """Calculate the checksum over the number. A valid number should have
     a checksum of 0."""
     return (sum((9 - i) * int(n) for i, n in enumerate(number[:-1])) -
             int(number[-1])) % 11
 
 
-def validate(number):
+def validate(number: str) -> str:
     """Check if the number is a valid BSN. This checks the length and whether
     the check digit is correct."""
     number = compact(number)
@@ -74,7 +76,7 @@ def validate(number):
     return number
 
 
-def is_valid(number):
+def is_valid(number: str) -> bool:
     """Check if the number is a valid BSN."""
     try:
         return bool(validate(number))
@@ -82,7 +84,7 @@ def is_valid(number):
         return False
 
 
-def format(number):
+def format(number: str) -> str:
     """Reformat the passed number to the standard presentation format."""
     number = compact(number)
     return number[:4] + '.' + number[4:6] + '.' + number[6:]

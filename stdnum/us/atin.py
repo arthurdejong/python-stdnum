@@ -35,6 +35,8 @@ InvalidFormat: ...
 '123'
 """
 
+from __future__ import annotations
+
 import re
 
 from stdnum.exceptions import *
@@ -45,13 +47,13 @@ from stdnum.util import clean
 _atin_re = re.compile(r'^[0-9]{3}-?[0-9]{2}-?[0-9]{4}$')
 
 
-def compact(number):
+def compact(number: str) -> str:
     """Convert the number to the minimal representation. This strips the
     number of any valid separators and removes surrounding whitespace."""
     return clean(number, '-').strip()
 
 
-def validate(number):
+def validate(number: str) -> str:
     """Check if the number is a valid ATIN. This checks the length and
     formatting if it is present."""
     match = _atin_re.search(clean(number, '').strip())
@@ -61,7 +63,7 @@ def validate(number):
     return compact(number)
 
 
-def is_valid(number):
+def is_valid(number: str) -> bool:
     """Check if the number is a valid ATIN."""
     try:
         return bool(validate(number))
@@ -69,7 +71,7 @@ def is_valid(number):
         return False
 
 
-def format(number):
+def format(number: str) -> str:
     """Reformat the number to the standard presentation format."""
     if len(number) == 9:
         number = number[:3] + '-' + number[3:5] + '-' + number[5:]

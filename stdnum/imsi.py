@@ -1,7 +1,7 @@
 # imsi.py - functions for handling International Mobile Subscriber Identity
 #           (IMSI) numbers
 #
-# Copyright (C) 2011-2015 Arthur de Jong
+# Copyright (C) 2011-2025 Arthur de Jong
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -35,21 +35,23 @@ InvalidComponent: ...
 ('310', '150', '123456789')
 >>> info('460001234567890')['mcc']
 '460'
->>> str(info('460001234567890')['country'])
+>>> info('460001234567890')['country']
 'China'
 """
+
+from __future__ import annotations
 
 from stdnum.exceptions import *
 from stdnum.util import clean, isdigits
 
 
-def compact(number):
+def compact(number: str) -> str:
     """Convert the IMSI number to the minimal representation. This strips the
     number of any valid separators and removes surrounding whitespace."""
     return clean(number, ' -').strip().upper()
 
 
-def split(number):
+def split(number: str) -> tuple[str, ...]:
     """Split the specified IMSI into a Mobile Country Code (MCC), a Mobile
     Network Code (MNC), a Mobile Station Identification Number (MSIN)."""
     # clean up number
@@ -59,7 +61,7 @@ def split(number):
     return tuple(numdb.get('imsi').split(number))
 
 
-def validate(number):
+def validate(number: str) -> str:
     """Check if the number provided is a valid IMSI."""
     number = compact(number)
     if not isdigits(number):
@@ -71,7 +73,7 @@ def validate(number):
     return number
 
 
-def info(number):
+def info(number: str) -> dict[str, str]:
     """Return a dictionary of data about the supplied number."""
     # clean up number
     number = compact(number)
@@ -88,7 +90,7 @@ def info(number):
     return info
 
 
-def is_valid(number):
+def is_valid(number: str) -> bool:
     """Check if the number provided is a valid IMSI."""
     try:
         return bool(validate(number))

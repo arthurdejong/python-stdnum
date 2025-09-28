@@ -37,6 +37,8 @@ Traceback (most recent call last):
 InvalidComponent: ...
 """
 
+from __future__ import annotations
+
 from stdnum import iban
 from stdnum.exceptions import *
 
@@ -48,12 +50,12 @@ compact = iban.compact
 format = iban.format
 
 
-def _checksum(number):
+def _checksum(number: str) -> int:
     """Calculate the check digits over the provided part of the number."""
     return int(number) % 97
 
 
-def validate(number):
+def validate(number: str) -> str:
     """Check if the number provided is a valid Montenegro IBAN."""
     number = iban.validate(number, check_country=False)
     if not number.startswith('ME'):
@@ -63,7 +65,7 @@ def validate(number):
     return number
 
 
-def is_valid(number):
+def is_valid(number: str) -> bool:
     """Check if the number provided is a valid Montenegro IBAN."""
     try:
         return bool(validate(number))

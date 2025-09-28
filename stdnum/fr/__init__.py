@@ -20,6 +20,8 @@
 
 """Collection of French numbers."""
 
+from __future__ import annotations
+
 # provide excise and vat as an alias
 from stdnum.fr import accise as excise  # noqa: F401
 from stdnum.fr import tva as vat  # noqa: F401

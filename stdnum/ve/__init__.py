@@ -20,5 +20,7 @@
 
 """Collection of Venezuelan numbers."""
 
+from __future__ import annotations
+
 # provide aliases
 from stdnum.ve import rif as vat  # noqa: F401

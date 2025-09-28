@@ -42,6 +42,8 @@ InvalidComponent: ...
 '01-0242-0100194-000'
 """
 
+from __future__ import annotations
+
 from stdnum.exceptions import *
 from stdnum.util import clean, isdigits
 
@@ -84,21 +86,21 @@ _moduli = {
 }
 
 
-def compact(number):
+def compact(number: str) -> str:
     """Convert the number to the minimal representation. This strips the
     number of any valid separators and removes surrounding whitespace."""
-    number = clean(number).strip().replace(' ', '-').split('-')
-    if len(number) == 4:
+    parts = clean(number).strip().replace(' ', '-').split('-')
+    if len(parts) == 4:
         # zero pad the different sections if they are found
         lengths = (2, 4, 7, 3)
-        return ''.join(n.zfill(l) for n, l in zip(number, lengths))
+        return ''.join(n.zfill(l) for n, l in zip(parts, lengths))
     else:
         # otherwise zero pad the account type
-        number = ''.join(number)
+        number = ''.join(parts)
         return number[:13] + number[13:].zfill(3)
 
 
-def info(number):
+def info(number: str) -> dict[str, str]:
     """Return a dictionary of data about the supplied number. This typically
     returns the name of the bank and branch and a BIC if it is valid."""
     number = compact(number)
@@ -109,7 +111,7 @@ def info(number):
     return info
 
 
-def _calc_checksum(number):
+def _calc_checksum(number: str) -> int:
     # pick the algorithm and parameters
     algorithm = _algorithms.get(number[:2], 'X')
     if algorithm == 'A' and number[6:13] >= '0990000':
@@ -122,7 +124,7 @@ def _calc_checksum(number):
         (w * int(n) for w, n in zip(weights, number))) % mod2
 
 
-def validate(number):
+def validate(number: str) -> str:
     """Check if the number provided is a valid bank account number."""
     number = compact(number)
     if not isdigits(number):
@@ -137,7 +139,7 @@ def validate(number):
     return number
 
 
-def is_valid(number):
+def is_valid(number: str) -> bool:
     """Check if the number provided is a valid bank account number."""
     try:
         return bool(validate(number))
@@ -145,7 +147,7 @@ def is_valid(number):
         return False
 
 
-def format(number):
+def format(number: str) -> str:
     """Reformat the number to the standard presentation format."""
     number = compact(number)
     return '-'.join([

@@ -82,6 +82,8 @@ datetime.date(1985, 7, 30)
 'M'
 """
 
+from __future__ import annotations
+
 import calendar
 import datetime
 
@@ -89,14 +91,14 @@ from stdnum.exceptions import *
 from stdnum.util import clean, isdigits
 
 
-def compact(number):
+def compact(number: str) -> str:
     """Convert the number to the minimal representation. This strips the number
     of any valid separators and removes surrounding whitespace."""
     number = clean(number, ' -.').strip()
     return number
 
 
-def _checksum(number):
+def _checksum(number: str) -> int:
     """Calculate the checksum and return the detected century."""
     numbers = [number]
     if int(number[:2]) + 2000 <= datetime.date.today().year:
@@ -107,7 +109,7 @@ def _checksum(number):
     raise InvalidChecksum()
 
 
-def _get_birth_date_parts(number):
+def _get_birth_date_parts(number: str) -> tuple[int | None, int | None, int | None]:
     """Check if the number's encoded birth date is valid, and return the contained
     birth year, month and day of month, accounting for unknown values."""
     century = _checksum(number)
@@ -138,7 +140,7 @@ def _get_birth_date_parts(number):
     return (year, month, day)
 
 
-def validate(number):
+def validate(number: str) -> str:
     """Check if the number is a valid National Number."""
     number = compact(number)
     if not isdigits(number) or int(number) <= 0:
@@ -151,7 +153,7 @@ def validate(number):
     return number
 
 
-def is_valid(number):
+def is_valid(number: str) -> bool:
     """Check if the number is a valid National Number."""
     try:
         return bool(validate(number))
@@ -159,7 +161,7 @@ def is_valid(number):
         return False
 
 
-def format(number):
+def format(number: str) -> str:
     """Reformat the number to the standard presentation format."""
     number = compact(number)
     return (
@@ -167,26 +169,27 @@ def format(number):
         '-' + '.'.join([number[6:9], number[9:11]]))
 
 
-def get_birth_year(number):
+def get_birth_year(number: str) -> int | None:
     """Return the year of the birth date."""
     year, month, day = _get_birth_date_parts(compact(number))
     return year
 
 
-def get_birth_month(number):
+def get_birth_month(number: str) -> int | None:
     """Return the month of the birth date."""
     year, month, day = _get_birth_date_parts(compact(number))
     return month
 
 
-def get_birth_date(number):
+def get_birth_date(number: str) -> datetime.date | None:
     """Return the date of birth."""
     year, month, day = _get_birth_date_parts(compact(number))
-    if None not in (year, month, day):
+    if year and month and day:
         return datetime.date(year, month, day)
+    return None
 
 
-def get_gender(number):
+def get_gender(number: str) -> str:
     """Get the person's gender ('M' or 'F')."""
     number = compact(number)
     if int(number[6:9]) % 2:

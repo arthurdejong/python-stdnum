@@ -1,7 +1,7 @@
 # ncf.py - functions for handling Dominican Republic invoice numbers
 # coding: utf-8
 #
-# Copyright (C) 2017-2018 Arthur de Jong
+# Copyright (C) 2017-2025 Arthur de Jong
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -56,11 +56,13 @@ Traceback (most recent call last):
 InvalidFormat: ...
 """
 
+from __future__ import annotations
+
 from stdnum.exceptions import *
 from stdnum.util import clean, isdigits
 
 
-def compact(number):
+def compact(number: str) -> str:
     """Convert the number to the minimal representation. This strips the
     number of any valid separators and removes surrounding whitespace."""
     return clean(number, ' ').strip().upper()
@@ -95,7 +97,7 @@ _ecf_document_types = (
 )
 
 
-def validate(number):
+def validate(number: str) -> str:
     """Check if the number provided is a valid NCF."""
     number = compact(number)
     if len(number) == 13:
@@ -118,7 +120,7 @@ def validate(number):
     return number
 
 
-def is_valid(number):
+def is_valid(number: str) -> bool:
     """Check if the number provided is a valid NCF."""
     try:
         return bool(validate(number))
@@ -126,7 +128,7 @@ def is_valid(number):
         return False
 
 
-def _convert_result(result):  # pragma: no cover
+def _convert_result(result: dict[str, str]) -> dict[str, str]:  # pragma: no cover
     """Translate SOAP result entries into dictionaries."""
     translation = {
         'NOMBRE': 'name',
@@ -135,21 +137,21 @@ def _convert_result(result):  # pragma: no cover
         'MENSAJE_VALIDACION': 'validation_message',
         'RNC': 'rnc',
         'NCF': 'ncf',
-        u'RNC / Cédula': 'rnc',
-        u'RNC/Cédula': 'rnc',
-        u'Nombre / Razón Social': 'name',
-        u'Nombre/Razón Social': 'name',
+        'RNC / Cédula': 'rnc',
+        'RNC/Cédula': 'rnc',
+        'Nombre / Razón Social': 'name',
+        'Nombre/Razón Social': 'name',
         'Estado': 'status',
         'Tipo de comprobante': 'type',
-        u'Válido hasta': 'valid_until',
-        u'Código de Seguridad': 'security_code',
+        'Válido hasta': 'valid_until',
+        'Código de Seguridad': 'security_code',
         'Rnc Emisor': 'issuing_rnc',
         'Rnc Comprador': 'buyer_rnc',
         'Monto Total': 'total',
         'Total de ITBIS': 'total_itbis',
         'Fecha Emisi&oacuten': 'issuing_date',
-        u'Fecha Emisión': 'issuing_date',
-        u'Fecha de Firma': 'signature_date',
+        'Fecha Emisión': 'issuing_date',
+        'Fecha de Firma': 'signature_date',
         'e-NCF': 'ncf',
     }
     return dict(
@@ -157,13 +159,26 @@ def _convert_result(result):  # pragma: no cover
         for key, value in result.items())
 
 
-def check_dgii(rnc, ncf, buyer_rnc=None, security_code=None, timeout=30):  # pragma: no cover
+def check_dgii(
+    rnc: str,
+    ncf: str,
+    buyer_rnc: str | None = None,
+    security_code: str | None = None,
+    timeout: float = 30,
+    verify: bool | str = True,
+) -> dict[str, str] | None:  # pragma: no cover
     """Validate the RNC, NCF combination on using the DGII online web service.
 
     This uses the validation service run by the the Dirección General de
     Impuestos Internos, the Dominican Republic tax department to check
     whether the combination of RNC and NCF is valid. The timeout is in
     seconds.
+
+    The `timeout` argument specifies the network timeout in seconds.
+
+    The `verify` argument is either a boolean that determines whether the
+    server's certificate is validate or a string which must be a path the CA
+    certificate bundle to use for verification.
 
     Returns a dict with the following structure for a NCF::
 
@@ -192,7 +207,7 @@ def check_dgii(rnc, ncf, buyer_rnc=None, security_code=None, timeout=30):  # pra
         }
 
     Will return None if the number is invalid or unknown."""
-    import lxml.html
+    import lxml.html  # type: ignore
     import requests
     from stdnum.do.rnc import compact as rnc_compact  # noqa: I003
     rnc = rnc_compact(rnc)
@@ -201,6 +216,7 @@ def check_dgii(rnc, ncf, buyer_rnc=None, security_code=None, timeout=30):  # pra
         buyer_rnc = rnc_compact(buyer_rnc)
     url = 'https://dgii.gov.do/app/WebApps/ConsultasWeb2/ConsultasWeb/consultas/ncf.aspx'
     session = requests.Session()
+    session.verify = verify
     session.headers.update({
         'User-Agent': 'Mozilla/5.0 (python-stdnum)',
     })
@@ -233,3 +249,4 @@ def check_dgii(rnc, ncf, buyer_rnc=None, security_code=None, timeout=30):  # pra
             [x.text.strip() for x in result.findall('.//th') if x.text],
             [x.text.strip() for x in result.findall('.//td/span') if x.text]))
         return _convert_result(data)
+    return None

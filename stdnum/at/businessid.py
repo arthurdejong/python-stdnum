@@ -38,6 +38,8 @@ Traceback (most recent call last):
 InvalidFormat: ...
 """
 
+from __future__ import annotations
+
 import re
 
 from stdnum.exceptions import *
@@ -47,7 +49,7 @@ from stdnum.util import clean
 _businessid_re = re.compile('^[0-9]+[a-z]$')
 
 
-def compact(number):
+def compact(number: str) -> str:
     """Convert the number to the minimal representation. This strips the
     number of any valid separators and removes surrounding whitespace.
     Preceding "FN" is also removed."""
@@ -57,7 +59,7 @@ def compact(number):
     return number
 
 
-def validate(number):
+def validate(number: str) -> str:
     """Check if the number is a valid company register number. This only
     checks the formatting."""
     number = compact(number)
@@ -66,7 +68,7 @@ def validate(number):
     return number
 
 
-def is_valid(number):
+def is_valid(number: str) -> bool:
     """Check if the number is a valid company register number."""
     try:
         return bool(validate(number))

@@ -36,10 +36,14 @@ class TestUid(unittest.TestCase):
     """Test the UID Webservice provided by the Swiss Federal Statistical
     Office for validating UID numbers."""
 
-    def test_check_uid(self):
+    def test_check_uid(self) -> None:
         """Test stdnum.ch.uid.check_uid()"""
         result = uid.check_uid('CHE113690319')
         self.assertTrue(result)
-        self.assertEqual(result['organisation']['organisationIdentification']['uid']['uidOrganisationId'], 113690319)
-        self.assertEqual(result['organisation']['organisationIdentification']['legalForm'], '0220')
-        self.assertEqual(result['vatRegisterInformation']['vatStatus'], '2')
+        self.assertEqual(
+            result['organisation']['organisationIdentification']['uid']['uidOrganisationId'],  # type: ignore[index]
+            113690319)
+        self.assertEqual(
+            result['organisation']['organisationIdentification']['legalForm'],  # type: ignore[index]
+            '0220')
+        self.assertEqual(result['vatRegisterInformation']['vatStatus'], '2')  # type: ignore[index]

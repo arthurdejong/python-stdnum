@@ -20,5 +20,7 @@
 
 """Collection of Israeli numbers."""
 
+from __future__ import annotations
+
 # provide aliases
 from stdnum.il import hp as vat  # noqa: F401

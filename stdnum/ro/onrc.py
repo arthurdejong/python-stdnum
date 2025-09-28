@@ -35,6 +35,8 @@ Traceback (most recent call last):
 InvalidComponent: ...
 """
 
+from __future__ import annotations
+
 import datetime
 import re
 
@@ -56,7 +58,7 @@ _onrc_re = re.compile(r'^[A-Z][0-9]+/[0-9]+/[0-9]+$')
 _counties = set(list(range(1, 41)) + [51, 52])
 
 
-def compact(number):
+def compact(number: str) -> str:
     """Convert the number to the minimal representation. This strips the
     number of any valid separators and removes surrounding whitespace."""
     number = _cleanup_re.sub('/', clean(number).upper().strip())
@@ -73,7 +75,7 @@ def compact(number):
     return number
 
 
-def validate(number):
+def validate(number: str) -> str:
     """Check if the number is a valid ONRC."""
     number = compact(number)
     if not _onrc_re.match(number):
@@ -92,7 +94,7 @@ def validate(number):
     return number
 
 
-def is_valid(number):
+def is_valid(number: str) -> bool:
     """Check if the number is a valid ONRC."""
     try:
         return bool(validate(number))

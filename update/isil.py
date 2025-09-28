@@ -2,7 +2,7 @@
 
 # update/isil.py - script to download ISIL agencies
 #
-# Copyright (C) 2011-2019 Arthur de Jong
+# Copyright (C) 2011-2025 Arthur de Jong
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -29,7 +29,7 @@ import lxml.html
 import requests
 
 
-spaces_re = re.compile(r'\s+', re.UNICODE)
+spaces_re = re.compile(r'\s+', flags=re.UNICODE)
 
 # the web page that holds information on the ISIL authorities
 download_url = 'https://slks.dk/english/work-areas/libraries-and-literature/library-standards/isil'

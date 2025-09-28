@@ -56,26 +56,28 @@ datetime.date(1962, 10, 21)
 '211062-5629'
 """
 
+from __future__ import annotations
+
 import datetime
 
 from stdnum.exceptions import *
 from stdnum.util import clean, isdigits
 
 
-def compact(number):
+def compact(number: str) -> str:
     """Convert the number to the minimal representation. This strips the
     number of any valid separators and removes surrounding whitespace."""
     return clean(number, ' -').strip()
 
 
-def checksum(number):
+def checksum(number: str) -> int:
     """Calculate the checksum. Note that the checksum isn't actually used
     any more. Valid numbers used to have a checksum of 0."""
     weights = (4, 3, 2, 7, 6, 5, 4, 3, 2, 1)
     return sum(w * int(n) for w, n in zip(weights, number)) % 11
 
 
-def get_birth_date(number):
+def get_birth_date(number: str) -> datetime.date:
     """Split the date parts from the number and return the birth date."""
     number = compact(number)
     day = int(number[0:2])
@@ -93,7 +95,7 @@ def get_birth_date(number):
         raise InvalidComponent('The number does not contain valid birth date information.')
 
 
-def validate(number):
+def validate(number: str) -> str:
     """Check if the number provided is a valid CPR number. This checks the
     length, formatting, embedded date and check digit."""
     number = compact(number)
@@ -107,7 +109,7 @@ def validate(number):
     return number
 
 
-def is_valid(number):
+def is_valid(number: str) -> bool:
     """Check if the number provided is a valid CPR number. This checks the
     length, formatting, embedded date and check digit."""
     try:
@@ -116,7 +118,7 @@ def is_valid(number):
         return False
 
 
-def format(number):
+def format(number: str) -> str:
     """Reformat the number to the standard presentation format."""
     number = compact(number)
     return '-'.join((number[:6], number[6:]))

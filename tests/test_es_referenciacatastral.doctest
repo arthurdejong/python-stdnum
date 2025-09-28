@@ -1,7 +1,7 @@
 test_es_referenciacatastral.doctest - more detailed doctests for stdnum.es.referenciacatastral module
 
 Copyright (C) 2016 David García Garzón
-Copyright (C) 2015-2017 Arthur de Jong
+Copyright (C) 2015-2025 Arthur de Jong
 
 This library is free software; you can redistribute it and/or
 modify it under the terms of the GNU Lesser General Public
@@ -77,12 +77,12 @@ seems that unicode literals do not work so we are escaping Ñ.
 
 >>> referenciacatastral.calc_check_digits('9872023 ÑH5797S 0001')
 'WP'
->>> referenciacatastral.calc_check_digits(u'9872023 \xd1H5797S 0001')
+>>> referenciacatastral.calc_check_digits('9872023 \xd1H5797S 0001')
 'WP'
->>> referenciacatastral.validate('9872023 ÑH5797S 0001 WP') == '9872023ÑH5797S0001WP'
-True
->>> referenciacatastral.validate(u'9872023 \xd1H5797S 0001 WP') == u'9872023\xd1H5797S0001WP'
-True
+>>> referenciacatastral.validate('9872023 ÑH5797S 0001 WP')
+'9872023ÑH5797S0001WP'
+>>> referenciacatastral.validate('9872023 \xd1H5797S 0001 WP')
+'9872023\xd1H5797S0001WP'
 
 
 These have been found online and should all be valid numbers.

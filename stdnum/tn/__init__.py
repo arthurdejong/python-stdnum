@@ -20,5 +20,7 @@
 
 """Collection of Tunisian numbers."""
 
+from __future__ import annotations
+
 # provide aliases
 from stdnum.tn import mf as vat  # noqa: F401

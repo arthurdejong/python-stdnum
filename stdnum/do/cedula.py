@@ -37,6 +37,8 @@ InvalidFormat: ...
 '224-0002211-1'
 """
 
+from __future__ import annotations
+
 from stdnum import luhn
 from stdnum.do import rnc
 from stdnum.exceptions import *
@@ -145,13 +147,13 @@ whitelist = set('''
 '''.split())
 
 
-def compact(number):
+def compact(number: str) -> str:
     """Convert the number to the minimal representation. This strips the
     number of any valid separators and removes surrounding whitespace."""
     return clean(number, ' -').strip()
 
 
-def validate(number):
+def validate(number: str) -> str:
     """Check if the number provided is a valid cedula."""
     number = compact(number)
     if not isdigits(number):
@@ -163,7 +165,7 @@ def validate(number):
     return luhn.validate(number)
 
 
-def is_valid(number):
+def is_valid(number: str) -> bool:
     """Check if the number provided is a valid cedula."""
     try:
         return bool(validate(number))
@@ -171,13 +173,17 @@ def is_valid(number):
         return False
 
 
-def format(number):
+def format(number: str) -> str:
     """Reformat the number to the standard presentation format."""
     number = compact(number)
     return '-'.join((number[:3], number[3:-1], number[-1]))
 
 
-def check_dgii(number, timeout=30):  # pragma: no cover
+def check_dgii(
+    number: str,
+    timeout: float = 30,
+    verify: bool | str = True,
+) -> dict[str, str] | None:  # pragma: no cover
     """Lookup the number using the DGII online web service.
 
     This uses the validation service run by the the Dirección General de
@@ -199,7 +205,7 @@ def check_dgii(number, timeout=30):  # pragma: no cover
     # this function isn't automatically tested because it would require
     # network access for the tests and unnecessarily load the online service
     # we use the RNC implementation and change the rnc result to cedula
-    result = rnc.check_dgii(number, timeout)
+    result = rnc.check_dgii(number, timeout, verify)
     if result and 'rnc' in result:
         result['cedula'] = result.pop('rnc')
     return result

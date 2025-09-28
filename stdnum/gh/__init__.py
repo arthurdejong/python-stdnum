@@ -20,5 +20,7 @@
 
 """Collection of Ghana numbers."""
 
+from __future__ import annotations
+
 # provide aliases
 from stdnum.gh import tin as vat  # noqa: F401

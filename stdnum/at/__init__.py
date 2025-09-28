@@ -20,6 +20,8 @@
 
 """Collection of Austrian numbers."""
 
+from __future__ import annotations
+
 # provide aliases
 from stdnum.at import postleitzahl as postal_code  # noqa: F401
 from stdnum.at import uid as vat  # noqa: F401

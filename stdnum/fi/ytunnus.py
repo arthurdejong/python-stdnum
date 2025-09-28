@@ -33,23 +33,25 @@ InvalidChecksum: ...
 '2077474-0'
 """
 
+from __future__ import annotations
+
 from stdnum.exceptions import *
 from stdnum.fi import alv
 
 
-def compact(number):
+def compact(number: str) -> str:
     """Convert the number to the minimal representation. This strips the
     number of any valid separators and removes surrounding whitespace."""
     return alv.compact(number)
 
 
-def validate(number):
+def validate(number: str) -> str:
     """Check if the number is a valid business identifier. This checks the
     length, formatting and check digit."""
     return alv.validate(number)
 
 
-def is_valid(number):
+def is_valid(number: str) -> bool:
     """Check if the number is a valid business identifier."""
     try:
         return bool(validate(number))
@@ -57,7 +59,7 @@ def is_valid(number):
         return False
 
 
-def format(number):
+def format(number: str) -> str:
     """Reformat the number to the standard presentation format."""
     number = compact(number)
     return number[:7] + '-' + number[7:]

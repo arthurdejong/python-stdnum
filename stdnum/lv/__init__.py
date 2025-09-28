@@ -20,5 +20,7 @@
 
 """Collection of Latvian numbers."""
 
+from __future__ import annotations
+
 # provide vat as an alias
 from stdnum.lv import pvn as vat  # noqa: F401

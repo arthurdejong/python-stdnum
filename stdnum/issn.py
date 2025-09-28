@@ -49,18 +49,20 @@ InvalidLength: ...
 '9770264359008'
 """
 
+from __future__ import annotations
+
 from stdnum import ean
 from stdnum.exceptions import *
 from stdnum.util import clean, isdigits
 
 
-def compact(number):
+def compact(number: str) -> str:
     """Convert the ISSN to the minimal representation. This strips the number
     of any valid ISSN separators and removes surrounding whitespace."""
     return clean(number, ' -').strip().upper()
 
 
-def calc_check_digit(number):
+def calc_check_digit(number: str) -> str:
     """Calculate the ISSN check digit for 8-digit numbers. The number passed
     should not have the check digit included."""
     check = (11 - sum((8 - i) * int(n)
@@ -68,7 +70,7 @@ def calc_check_digit(number):
     return 'X' if check == 10 else str(check)
 
 
-def validate(number):
+def validate(number: str) -> str:
     """Check if the number is a valid ISSN. This checks the length and
     whether the check digit is correct."""
     number = compact(number)
@@ -81,7 +83,7 @@ def validate(number):
     return number
 
 
-def is_valid(number):
+def is_valid(number: str) -> bool:
     """Check if the number provided is a valid ISSN."""
     try:
         return bool(validate(number))
@@ -89,13 +91,13 @@ def is_valid(number):
         return False
 
 
-def format(number):
+def format(number: str) -> str:
     """Reformat the number to the standard presentation format."""
     number = compact(number)
     return number[:4] + '-' + number[4:]
 
 
-def to_ean(number, issue_code='00'):
+def to_ean(number: str, issue_code: str = '00') -> str:
     """Convert the number to EAN-13 format."""
     number = '977' + validate(number)[:-1] + issue_code
     return number + ean.calc_check_digit(number)

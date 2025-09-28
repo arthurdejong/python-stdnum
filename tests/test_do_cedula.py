@@ -36,10 +36,20 @@ class TestDGII(unittest.TestCase):
     """Test the web services provided by the the Dirección General de
     Impuestos Internos (DGII), the Dominican Republic tax department."""
 
-    def test_check_dgii(self):
+    # Theses tests currently fail because the SOAP service at
+    # https://www.dgii.gov.do/wsMovilDGII/WSMovilDGII.asmx?WSDL
+    # is no longer available. There is a new one at
+    # https://www.dgii.gov.do/ventanillaunica/ventanillaunica.asmx?WSDL
+    # but it has a different API and seems to require authentication.
+    # See https://github.com/arthurdejong/python-stdnum/pull/462
+    # and https://github.com/arthurdejong/python-stdnum/issues/461
+    @unittest.expectedFailure
+    def test_check_dgii(self) -> None:
         """Test stdnum.do.cedula.check_dgii()"""
         # Test a normal valid number
         result = cedula.check_dgii('05500023407')
+        self.assertTrue(result)
+        assert result
         self.assertTrue(all(
             key in result.keys()
             for key in ['cedula', 'name', 'commercial_name', 'category', 'status']))
@@ -52,4 +62,6 @@ class TestDGII(unittest.TestCase):
         self.assertIsNone(cedula.check_dgii('12345678903'))
         # Test a number on the whitelist
         result = cedula.check_dgii('02300052220')
+        self.assertTrue(result)
+        assert result
         self.assertEqual(result['cedula'], '02300052220')

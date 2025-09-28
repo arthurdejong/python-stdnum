@@ -20,5 +20,7 @@
 
 """Collection of El Salvador numbers."""
 
+from __future__ import annotations
+
 # provide aliases
 from stdnum.sv import nit as vat  # noqa: F401

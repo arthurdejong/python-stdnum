@@ -46,24 +46,26 @@ InvalidComponent: ...
 '756.9217.0769.85'
 """
 
+from __future__ import annotations
+
 from stdnum import ean
 from stdnum.exceptions import *
 from stdnum.util import clean
 
 
-def compact(number):
+def compact(number: str) -> str:
     """Convert the number to the minimal representation. This strips the
     number of any valid separators and removes surrounding whitespace."""
     return clean(number, ' .').strip()
 
 
-def format(number):
+def format(number: str) -> str:
     """Reformat the number to the standard presentation format."""
     number = compact(number)
     return '.'.join((number[:3], number[3:7], number[7:11], number[11:]))
 
 
-def validate(number):
+def validate(number: str) -> str:
     """Check if the number is a valid Swiss Sozialversicherungsnummer."""
     number = compact(number)
     if len(number) != 13:
@@ -73,7 +75,7 @@ def validate(number):
     return ean.validate(number)
 
 
-def is_valid(number):
+def is_valid(number: str) -> bool:
     """Check if the number is a valid Swiss Sozialversicherungsnummer."""
     try:
         return bool(validate(number))

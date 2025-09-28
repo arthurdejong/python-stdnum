@@ -42,12 +42,14 @@ InvalidChecksum: ...
 'NO93 8601 11 17947'
 """
 
+from __future__ import annotations
+
 from stdnum import luhn
 from stdnum.exceptions import *
 from stdnum.util import clean, isdigits
 
 
-def compact(number):
+def compact(number: str) -> str:
     """Convert the number to the minimal representation. This strips the
     number of any valid separators and removes surrounding whitespace."""
     number = clean(number, ' .-').strip()
@@ -56,13 +58,13 @@ def compact(number):
     return number
 
 
-def _calc_check_digit(number):
+def _calc_check_digit(number: str) -> str:
     """Calculate the check digit for the 11-digit number."""
     weights = (6, 7, 8, 9, 4, 5, 6, 7, 8, 9)
     return str(sum(w * int(n) for w, n in zip(weights, number)) % 11)
 
 
-def validate(number):
+def validate(number: str) -> str:
     """Check if the number provided is a valid bank account number."""
     number = compact(number)
     if not isdigits(number):
@@ -77,7 +79,7 @@ def validate(number):
     return number
 
 
-def is_valid(number):
+def is_valid(number: str) -> bool:
     """Check if the number provided is a valid bank account number."""
     try:
         return bool(validate(number))
@@ -85,7 +87,7 @@ def is_valid(number):
         return False
 
 
-def to_iban(number):
+def to_iban(number: str) -> str:
     """Convert the number to an IBAN."""
     from stdnum import iban
     separator = ' ' if ' ' in number else ''
@@ -94,7 +96,7 @@ def to_iban(number):
         number))
 
 
-def format(number):
+def format(number: str) -> str:
     """Reformat the number to the standard presentation format."""
     number = compact(number).zfill(11)
     return '.'.join([

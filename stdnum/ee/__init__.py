@@ -20,5 +20,9 @@
 
 """Collection of Estonian numbers."""
 
-# provide vat as an alias
+from __future__ import annotations
+
+# provide aliases
+from stdnum.ee import ik as personalid  # noqa: F401
 from stdnum.ee import kmkr as vat  # noqa: F401
+from stdnum.ee import registrikood as businessid  # noqa: F401

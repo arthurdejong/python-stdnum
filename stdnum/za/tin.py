@@ -43,12 +43,14 @@ InvalidLength: ...
 '0843089848'
 """  # noqa: E501
 
+from __future__ import annotations
+
 from stdnum import luhn
 from stdnum.exceptions import *
 from stdnum.util import clean, isdigits
 
 
-def compact(number):
+def compact(number: str) -> str:
     """Convert the number to the minimal representation.
 
     This strips the number of any valid separators and removes surrounding
@@ -57,7 +59,7 @@ def compact(number):
     return clean(number, ' -/').upper().strip()
 
 
-def validate(number):
+def validate(number: str) -> str:
     """Check if the number is a valid South Africa Tax Reference Number.
 
     This checks the length, formatting and check digit.
@@ -72,7 +74,7 @@ def validate(number):
     return luhn.validate(number)
 
 
-def is_valid(number):
+def is_valid(number: str) -> bool:
     """Check if the number is a valid South Africa Tax Reference Number."""
     try:
         return bool(validate(number))
@@ -80,6 +82,6 @@ def is_valid(number):
         return False
 
 
-def format(number):
+def format(number: str) -> str:
     """Reformat the number to the standard presentation format."""
     return compact(number)

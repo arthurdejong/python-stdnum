@@ -60,6 +60,8 @@ InvalidLength: ...
 # start with an F for foreign companies but it is unclear whether this is
 # still current and not even examples of these numbers could be found.
 
+from __future__ import annotations
+
 from datetime import datetime
 
 from stdnum.exceptions import *
@@ -74,7 +76,7 @@ OTHER_UEN_ENTITY_TYPES = (
 )
 
 
-def compact(number):
+def compact(number: str) -> str:
     """Convert the number to the minimal representation.
 
     This converts to uppercase and removes surrounding whitespace. It
@@ -84,14 +86,14 @@ def compact(number):
     return clean(number).upper().strip()
 
 
-def calc_business_check_digit(number):
+def calc_business_check_digit(number: str) -> str:
     """Calculate the check digit for the Business (ROB) number."""
     number = compact(number)
     weights = (10, 4, 9, 3, 8, 2, 7, 1)
     return 'XMKECAWLJDB'[sum(int(n) * w for n, w in zip(number, weights)) % 11]
 
 
-def _validate_business(number):
+def _validate_business(number: str) -> str:
     """Perform validation on UEN - Business (ROB) numbers."""
     if not isdigits(number[:-1]):
         raise InvalidFormat()
@@ -102,14 +104,14 @@ def _validate_business(number):
     return number
 
 
-def calc_local_company_check_digit(number):
+def calc_local_company_check_digit(number: str) -> str:
     """Calculate the check digit for the Local Company (ROC) number."""
     number = compact(number)
     weights = (10, 8, 6, 4, 9, 7, 5, 3, 1)
     return 'ZKCMDNERGWH'[sum(int(n) * w for n, w in zip(number, weights)) % 11]
 
 
-def _validate_local_company(number):
+def _validate_local_company(number: str) -> str:
     """Perform validation on UEN - Local Company (ROC) numbers."""
     if not isdigits(number[:-1]):
         raise InvalidFormat()
@@ -121,7 +123,7 @@ def _validate_local_company(number):
     return number
 
 
-def calc_other_check_digit(number):
+def calc_other_check_digit(number: str) -> str:
     """Calculate the check digit for the other entities number."""
     number = compact(number)
     alphabet = 'ABCDEFGHJKLMNPQRSTUVWX0123456789'
@@ -129,7 +131,7 @@ def calc_other_check_digit(number):
     return alphabet[(sum(alphabet.index(n) * w for n, w in zip(number, weights)) - 5) % 11]
 
 
-def _validate_other(number):
+def _validate_other(number: str) -> str:
     """Perform validation on other UEN numbers."""
     if number[0] not in ('R', 'S', 'T'):
         raise InvalidComponent()
@@ -147,7 +149,7 @@ def _validate_other(number):
     return number
 
 
-def validate(number):
+def validate(number: str) -> str:
     """Check if the number is a valid Singapore UEN number."""
     number = compact(number)
     if len(number) not in (9, 10):
@@ -159,7 +161,7 @@ def validate(number):
     return _validate_other(number)
 
 
-def is_valid(number):
+def is_valid(number: str) -> bool:
     """Check if the number is a valid Singapore UEN number."""
     try:
         return bool(validate(number))
@@ -167,6 +169,6 @@ def is_valid(number):
         return False
 
 
-def format(number):
+def format(number: str) -> str:
     """Reformat the number to the standard presentation format."""
     return compact(number)

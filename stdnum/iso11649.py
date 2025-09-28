@@ -45,18 +45,20 @@ InvalidChecksum: ...
 'RF18 5390 0754 7034'
 """
 
+from __future__ import annotations
+
 from stdnum.exceptions import *
 from stdnum.iso7064 import mod_97_10
 from stdnum.util import clean
 
 
-def compact(number):
+def compact(number: str) -> str:
     """Convert the number to the minimal representation. This strips the
     number of any invalid separators and removes surrounding whitespace."""
     return clean(number, ' -.,/:').upper().strip()
 
 
-def validate(number):
+def validate(number: str) -> str:
     """Check if the number provided is a valid ISO 11649 structured creditor
     reference number."""
     number = compact(number)
@@ -68,7 +70,7 @@ def validate(number):
     return number
 
 
-def is_valid(number):
+def is_valid(number: str) -> bool:
     """Check if the number provided is a valid ISO 11649 structured creditor
     number. This checks the length, formatting and check digits."""
     try:
@@ -77,7 +79,7 @@ def is_valid(number):
         return False
 
 
-def format(number):
+def format(number: str) -> str:
     """Format the number provided for output.
 
     Blocks of 4 characters, the last block can be less than 4 characters. See

@@ -1,7 +1,7 @@
 test_gs1_128.doctest - more detailed doctests for the stdnum.gs1_128 module
 
 Copyright (C) 2019 Sergi Almacellas Abellaan
-Copyright (C) 2020 Arthur de Jong
+Copyright (C) 2020-2025 Arthur de Jong
 
 This library is free software; you can redistribute it and/or
 modify it under the terms of the GNU Lesser General Public
@@ -38,34 +38,42 @@ will be converted to the correct representation.
 
 >>> gs1_128.encode({'01': '38425876095074', '17': datetime.date(2018, 11, 19), '37': 1}, parentheses=True)
 '(01)38425876095074(17)181119(37)1'
->>> gs1_128.encode({'02': '98412345678908', '310': 17.23, '37': 32})
+>>> gs1_128.encode({'02': '98412345678908', '3100': 17.23, '37': 32})
 '029841234567890831020017233732'
->>> gs1_128.encode({'03': '1234'})  # unknown AI
+>>> gs1_128.encode({'02': '98412345678908', '3100': 17.23, '37': 32}, parentheses=True)
+'(02)98412345678908(3102)001723(37)32'
+>>> gs1_128.encode({'253': '1234567890005000123'})
+'2531234567890005000123'
+>>> gs1_128.encode({'09': '1234'})  # unknown AI
 Traceback (most recent call last):
     ...
 InvalidComponent: ...
->>> gs1_128.encode({'253': '1234567890005000123'})
-'2531234567890005000123'
+>>> gs1_128.encode({'310': 17.23})  # no longer detected as part of the 3100-3105 range
+Traceback (most recent call last):
+    ...
+InvalidComponent: ...
 
 If we have a separator we use it to separate variable-length values, otherwise
 we pad all variable-length values to the maximum length (except the last one).
 
->>> gs1_128.encode({'01': '58425876097843', '10': '123456', '37': 18, '390': 42, '392': 12}, parentheses=True)
-'(01)58425876097843(10)123456              (37)00000018(390)0000000000000042(392)012'
->>> gs1_128.encode({'01': '58425876097843', '10': '123456', '37': 18, '390': 42, '392': 12}, parentheses=True, separator='[FNC1]')
-'(01)58425876097843(10)123456[FNC1](37)18[FNC1](390)042[FNC1](392)012'
+>>> gs1_128.encode({'01': '58425876097843', '10': '123456', '37': 18, '3900': 42, '3920': 12}, parentheses=True)
+'(01)58425876097843(10)123456              (37)00000018(3900)000000000000042(3920)12'
+>>> gs1_128.encode({'01': '58425876097843', '10': '123456', '37': 18, '3900': 42, '3920': 12}, parentheses=True, separator='[FNC1]')
+'(01)58425876097843(10)123456[FNC1](37)18[FNC1](3900)42[FNC1](3920)12'
 
 Numeric values can be provided in several forms and precision is encoded
 properly.
 
 >>> gs1_128.encode({
-...     '310': 17.23,  # float
-...     '311': 456,  # int
-...     '312': 1.0 / 3.0,  # float with lots of digits
-...     '313': '123.456',  # str
-...     '391': ('123', Decimal('123.456')),  # currency number combo
+...     '3100': 17.23,  # float
+...     '3110': 456,  # int
+...     '3120': 1.0 / 3.0,  # float with lots of digits
+...     '3130': '123.456',  # str
+...     '3910': ('123', Decimal('123.456')),  # currency number combo
 ... }, parentheses=True)
-'(310)2001723(311)0000456(312)5033333(313)3123456(391)3123123456'
+'(3102)001723(3110)000456(3125)033333(3133)123456(3913)123123456'
+>>> gs1_128.encode({'01': '98456789014533', '3100': Decimal('0.035')}, parentheses=True)
+'(01)98456789014533(3103)000035'
 
 We generate dates in various formats, depending on the AI.
 
@@ -104,8 +112,8 @@ pprint.pprint(gs1_128.info('(01)38425876095074(17)181119(37)1 '))
 {'01': '38425876095074', '17': datetime.date(2018, 11, 19), '37': 1}
 >>> pprint.pprint(gs1_128.info('013842587609507417181119371'))
 {'01': '38425876095074', '17': datetime.date(2018, 11, 19), '37': 1}
->>> pprint.pprint(gs1_128.info('(02)98412345678908(310)3017230(37)32'))
-{'02': '98412345678908', '310': Decimal('17.230'), '37': 32}
+>>> pprint.pprint(gs1_128.info('(02)98412345678908(3103)017230(37)32'))
+{'02': '98412345678908', '3103': Decimal('17.230'), '37': 32}
 >>> pprint.pprint(gs1_128.info('(01)58425876097843(10)123456              (17)181119(37)18'))
 {'01': '58425876097843', '10': '123456', '17': datetime.date(2018, 11, 19), '37': 18}
 >>> pprint.pprint(gs1_128.info('|(01)58425876097843|(10)123456|(17)181119(37)18', separator='|'))
@@ -114,7 +122,7 @@ pprint.pprint(gs1_128.info('(01)38425876095074(17)181119(37)1 '))
 {'01': '38425876095074', '10': '123456', '17': datetime.date(2026, 4, 30)}
 >>> pprint.pprint(gs1_128.info('(01)38425876095074(17)261200(10)123456'))
 {'01': '38425876095074', '10': '123456', '17': datetime.date(2026, 12, 31)}
->>> gs1_128.info('(03)38425876095074')  # unknown AI
+>>> gs1_128.info('(09)38425876095074')  # unknown AI
 Traceback (most recent call last):
     ...
 InvalidComponent: ...
@@ -123,12 +131,14 @@ InvalidComponent: ...
 
 We can decode decimal values from various formats.
 
->>> pprint.pprint(gs1_128.info('(310)5033333'))
-{'310': Decimal('0.33333')}
->>> pprint.pprint(gs1_128.info('(310)0033333'))
-{'310': Decimal('33333')}
->>> pprint.pprint(gs1_128.info('(391)3123123456'))
-{'391': ('123', Decimal('123.456'))}
+>>> pprint.pprint(gs1_128.info('(3105)033333'))
+{'3105': Decimal('0.33333')}
+>>> pprint.pprint(gs1_128.info('(3103)000035'))
+{'3103': Decimal('0.035')}
+>>> pprint.pprint(gs1_128.info('(3100)033333'))
+{'3100': Decimal('33333')}
+>>> pprint.pprint(gs1_128.info('(3913)123123456'))
+{'3913': ('123', Decimal('123.456'))}
 
 We an decode date files from various formats.
 

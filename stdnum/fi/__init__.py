@@ -20,6 +20,8 @@
 
 """Collection of Finnish numbers."""
 
+from __future__ import annotations
+
 # provide vat as an alias
 from stdnum.fi import alv as vat  # noqa: F401
 from stdnum.fi import hetu as personalid  # noqa: F401

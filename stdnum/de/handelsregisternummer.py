@@ -2,7 +2,7 @@
 # coding: utf-8
 #
 # Copyright (C) 2015 Holvi Payment Services Oy
-# Copyright (C) 2018-2022 Arthur de Jong
+# Copyright (C) 2018-2025 Arthur de Jong
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -50,11 +50,18 @@ Traceback (most recent call last):
 InvalidComponent: ...
 """
 
+from __future__ import annotations
+
 import re
 import unicodedata
 
 from stdnum.exceptions import *
-from stdnum.util import clean, to_unicode
+from stdnum.util import clean
+
+
+TYPE_CHECKING = False
+if TYPE_CHECKING:  # pragma: no cover (typechecking only import)
+    from typing import Any
 
 
 # The known courts that have a Handelsregister
@@ -213,10 +220,10 @@ GERMAN_COURTS = (
 )
 
 
-def _to_min(court):
+def _to_min(court: str) -> str:
     """Convert the court name for quick comparison without encoding issues."""
     return ''.join(
-        x for x in unicodedata.normalize('NFD', to_unicode(court).lower())
+        x for x in unicodedata.normalize('NFD', court.lower())
         if x in 'abcdefghijklmnopqrstuvwxyz')
 
 
@@ -280,7 +287,7 @@ _formats = [
 ]
 
 
-def _split(number):
+def _split(number: str) -> tuple[str, str, str, str | None]:
     """Split the number into a court, registry, register number and
     optionally qualifier."""
     number = clean(number).strip()
@@ -291,29 +298,28 @@ def _split(number):
     raise InvalidFormat()
 
 
-def compact(number):
+def compact(number: str) -> str:
     """Convert the number to the minimal representation. This strips the
     number of any valid separators and removes surrounding whitespace."""
     court, registry, number, qualifier = _split(number)
     return ' '.join(x for x in [court, registry, number, qualifier] if x)
 
 
-def validate(number, company_form=None):
+def validate(number: str, company_form: str | None = None) -> str:
     """Check if the number is a valid company registry number. If a
     company_form (eg. GmbH or PartG) is given, the number is validated to
     have the correct registry type."""
+    court: str | None
     court, registry, number, qualifier = _split(number)
     court = _courts.get(_to_min(court))
     if not court:
         raise InvalidComponent()
-    if not isinstance(court, type(number)):  # pragma: no cover (Python 2 code)
-        court = court.decode('utf-8')
     if company_form and COMPANY_FORM_REGISTRY_TYPES.get(company_form) != registry:
         raise InvalidComponent()
     return ' '.join(x for x in [court, registry, number, qualifier] if x)
 
 
-def is_valid(number):
+def is_valid(number: str) -> bool:
     """Check if the number is a valid company registry number."""
     try:
         return bool(validate(number))
@@ -325,8 +331,18 @@ def is_valid(number):
 _offeneregister_url = 'https://db.offeneregister.de/openregister.json'
 
 
-def check_offeneregister(number, timeout=30):  # pragma: no cover (not part of normal test suite)
+def check_offeneregister(
+    number: str,
+    timeout: float = 30,
+    verify: bool | str = True,
+) -> dict[str, Any] | None:  # pragma: no cover (not part of normal test suite)
     """Retrieve registration information from the OffeneRegister.de web site.
+
+    The `timeout` argument specifies the network timeout in seconds.
+
+    The `verify` argument is either a boolean that determines whether the
+    server's certificate is validate or a string which must be a path the CA
+    certificate bundle to use for verification.
 
     This basically returns the JSON response from the web service as a dict.
     It will contain something like the following::
@@ -362,10 +378,11 @@ def check_offeneregister(number, timeout=30):  # pragma: no cover (not part of n
                    limit 1
                    ''',
             'p0': '%s %s %s' % (court, registry, number)},
-        timeout=timeout)
+        timeout=timeout,
+        verify=verify)
     response.raise_for_status()
     try:
         json = response.json()
         return dict(zip(json['columns'], json['rows'][0]))
     except (KeyError, IndexError) as e:  # noqa: F841
-        return  # number not found
+        return None  # number not found

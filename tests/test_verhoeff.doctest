@@ -1,6 +1,6 @@
 test_verhoeff.doctest - more detailed doctests for stdnum.verhoeff module
 
-Copyright (C) 2010, 2011, 2013 Arthur de Jong
+Copyright (C) 2010-2024 Arthur de Jong
 
 This library is free software; you can redistribute it and/or
 modify it under the terms of the GNU Lesser General Public
@@ -63,3 +63,25 @@ Adding a check digit to the numbers so they are all valid:
 '7'
 >>> verhoeff.validate('3984382462386423786482364872364827347')
 '3984382462386423786482364872364827347'
+
+
+More test cases taken from https://rosettacode.org/wiki/Verhoeff_algorithm
+
+>>> verhoeff.is_valid('123459')
+False
+>>> verhoeff.calc_check_digit('123456789012')
+'0'
+>>> verhoeff.is_valid('1234567890120')
+True
+>>> verhoeff.is_valid('1234567890129')
+False
+>>> verhoeff.calc_check_digit('236')
+'3'
+>>> verhoeff.is_valid('2363')
+True
+>>> verhoeff.is_valid('2369')
+False
+>>> verhoeff.calc_check_digit('12345')
+'1'
+>>> verhoeff.is_valid('123451')
+True

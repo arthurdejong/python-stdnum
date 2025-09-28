@@ -20,5 +20,7 @@
 
 """Collection of Croatian numbers."""
 
+from __future__ import annotations
+
 # provide vat as an alias
 from stdnum.hr import oib as vat  # noqa: F401

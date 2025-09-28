@@ -9,7 +9,7 @@ Common Interface
 
 Most of the number format modules implement the following functions:
 
-.. function:: module.validate(number)
+.. function:: module.validate(number: str) -> str
 
    Validate the number and return a compact, consistent representation of
    the number or code. If the validation fails,
@@ -19,7 +19,7 @@ Most of the number format modules implement the following functions:
    :raises ValidationError: When the specified number is invalid
    :returns:  str -- A compact (canonical) representation of the number
 
-.. function:: module.is_valid(number)
+.. function:: module.is_valid(number: str) -> bool
 
    Return either ``True`` or ``False`` depending on whether the passed number
    is in any supported and valid form and passes all embedded checks of the
@@ -27,7 +27,7 @@ Most of the number format modules implement the following functions:
 
    :returns: bool -- ``True`` if validated, ``False`` otherwise
 
-.. function:: module.compact(number)
+.. function:: module.compact(number: str) -> str
 
    Return a compact representation of the number or code. This function
    generally does not do validation but may raise exceptions for wildly
@@ -35,7 +35,7 @@ Most of the number format modules implement the following functions:
 
    :returns: str -- The compacted number
 
-.. function:: module.format(number)
+.. function:: module.format(number: str) -> str
 
    Return a formatted version of the number in the preferred format.
    This function generally expects to be passed a valid number or code and
@@ -45,7 +45,7 @@ Most of the number format modules implement the following functions:
 
 The check digit modules generally also provide the following functions:
 
-.. function:: module.checksum(number)
+.. function:: module.checksum(number: str) -> int
 
    Calculate the checksum over the provided number. This is generally a
    number that can be used to determine whether the provided number is
@@ -53,7 +53,7 @@ The check digit modules generally also provide the following functions:
 
    :returns: int -- A numeric checksum over the number
 
-.. function:: module.calc_check_digit(number)
+.. function:: module.calc_check_digit(number: str) -> str
 
    Calculate the check digit that should be added to the number to make it
    valid.
@@ -127,8 +127,10 @@ Available formats
    au.acn
    au.tfn
    be.bis
+   be.eid
    be.iban
    be.nn
+   be.ssn
    be.vat
    bg.egn
    bg.pnf
@@ -138,6 +140,7 @@ Available formats
    br.cnpj
    br.cpf
    by.unp
+   ca.bc_phn
    ca.bn
    ca.sin
    casrn
@@ -177,6 +180,7 @@ Available formats
    ee.kmkr
    ee.registrikood
    eg.tn
+   es.cae
    es.ccc
    es.cif
    es.cups
@@ -188,6 +192,7 @@ Available formats
    es.referenciacatastral
    eu.at_02
    eu.banknote
+   eu.ecnumber
    eu.eic
    eu.nace
    eu.oss
@@ -219,6 +224,7 @@ Available formats
    hr.oib
    hu.anum
    iban
+   id.nik
    id.npwp
    ie.pps
    ie.vat
@@ -231,6 +237,7 @@ Available formats
    in_.epic
    in_.gstin
    in_.pan
+   in_.vid
    is_.kennitala
    is_.vsk
    isan
@@ -238,6 +245,7 @@ Available formats
    isil
    isin
    ismn
+   isni
    iso11649
    iso6346
    isrc
@@ -246,6 +254,7 @@ Available formats
    it.codicefiscale
    it.iva
    jp.cn
+   jp.in_
    ke.pin
    kr.brn
    kr.rrn
@@ -271,6 +280,7 @@ Available formats
    nl.brin
    nl.bsn
    nl.btw
+   nl.identiteitskaartnummer
    nl.onderwijsnummer
    nl.postcode
    no.fodselsnummer
@@ -295,6 +305,7 @@ Available formats
    ro.onrc
    rs.pib
    ru.inn
+   ru.ogrn
    se.orgnr
    se.personnummer
    se.postnummer

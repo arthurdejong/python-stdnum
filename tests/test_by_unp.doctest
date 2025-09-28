@@ -1,6 +1,6 @@
 test_by_unp.doctest - more detailed doctests for stdnum.by.unp module
 
-Copyright (C) 2020 Arthur de Jong
+Copyright (C) 2020-2025 Arthur de Jong
 
 This library is free software; you can redistribute it and/or
 modify it under the terms of the GNU Lesser General Public
@@ -31,8 +31,6 @@ Tests for some corner cases.
 >>> unp.validate('591705582')
 '591705582'
 >>> unp.validate('УНП 591705582')
-'591705582'
->>> str(unp.validate(u'\u0423\u041d\u041f 591705582'))
 '591705582'
 >>> unp.validate('UNP 591705582')
 '591705582'

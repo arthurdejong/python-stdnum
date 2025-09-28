@@ -20,5 +20,7 @@
 
 """Collection of Guinea numbers."""
 
+from __future__ import annotations
+
 # provide aliases
 from stdnum.gn import nifp as vat  # noqa: F401

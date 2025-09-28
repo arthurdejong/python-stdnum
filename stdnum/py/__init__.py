@@ -20,5 +20,7 @@
 
 """Collection of Paraguayan numbers."""
 
+from __future__ import annotations
+
 # provide aliases
 from stdnum.py import ruc as vat  # noqa: F401

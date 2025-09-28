@@ -32,7 +32,7 @@ More information:
 
 * https://www.hacienda.go.cr/consultapagos/ayuda_cedulas.htm
 * https://www.procomer.com/downloads/quiero/guia_solicitud_vuce.pdf (page 11)
-* http://www.registronacional.go.cr/personas_juridicas/documentos/Consultas/Listado%20de%20Clases%20y%20Tipos%20Cedulas%20Juridicas.pdf
+* https://rnpdigital.com/personas_juridicas/documentos/Consultas/Listado%20de%20Clases%20y%20Tipos%20Cedulas%20Juridicas.pdf
 * https://www.hacienda.go.cr/ATV/frmConsultaSituTributaria.aspx
 
 >>> validate('3-101-999999')
@@ -49,11 +49,13 @@ InvalidLength: ...
 '4-000-042138'
 """  # noqa: E501
 
+from __future__ import annotations
+
 from stdnum.exceptions import *
 from stdnum.util import clean, isdigits
 
 
-def compact(number):
+def compact(number: str) -> str:
     """Convert the number to the minimal representation.
 
     This strips the number of any valid separators and removes surrounding
@@ -62,7 +64,7 @@ def compact(number):
     return clean(number, ' -').upper().strip()
 
 
-def validate(number):
+def validate(number: str) -> str:
     """Check if the number is a valid Costa Rica CPJ number.
 
     This checks the length and formatting.
@@ -89,7 +91,7 @@ def validate(number):
     return number
 
 
-def is_valid(number):
+def is_valid(number: str) -> bool:
     """Check if the number is a valid Costa Rica CPJ number."""
     try:
         return bool(validate(number))
@@ -97,7 +99,7 @@ def is_valid(number):
         return False
 
 
-def format(number):
+def format(number: str) -> str:
     """Reformat the number to the standard presentation format."""
     number = compact(number)
     return '-'.join([number[0], number[1:4], number[4:]])

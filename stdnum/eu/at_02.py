@@ -38,6 +38,8 @@ contains the country-specific identifier.
 '23'
 """
 
+from __future__ import annotations
+
 from stdnum.exceptions import *
 from stdnum.iso7064 import mod_97_10
 from stdnum.util import clean
@@ -47,20 +49,20 @@ from stdnum.util import clean
 _alphabet = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ'
 
 
-def compact(number):
+def compact(number: str) -> str:
     """Convert the AT-02 number to the minimal representation. This strips
     the number of any valid separators and removes invalid characters."""
     return clean(number, ' -/?:().m\'+"').strip().upper()
 
 
-def _to_base10(number):
+def _to_base10(number: str) -> str:
     """Prepare the number to its base10 representation so it can be checked
     with the ISO 7064 Mod 97, 10 algorithm. That means excluding positions 5
     to 7 and moving the first four digits to the end."""
     return ''.join(str(_alphabet.index(x)) for x in number[7:] + number[:4])
 
 
-def validate(number):
+def validate(number: str) -> str:
     """Check if the number provided is a valid AT-02."""
     number = compact(number)
     try:
@@ -72,7 +74,7 @@ def validate(number):
     return number
 
 
-def is_valid(number):
+def is_valid(number: str) -> bool:
     """Check if the number provided is a valid AT-02."""
     try:
         return bool(validate(number))
@@ -80,7 +82,7 @@ def is_valid(number):
         return False
 
 
-def calc_check_digits(number):
+def calc_check_digits(number: str) -> str:
     """Calculate the check digits that should be put in the number to make it
     valid. Check digits in the supplied number are ignored."""
     number = compact(number)

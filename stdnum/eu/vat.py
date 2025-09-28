@@ -1,7 +1,7 @@
 # vat.py - functions for handling European VAT numbers
 # coding: utf-8
 #
-# Copyright (C) 2012-2021 Arthur de Jong
+# Copyright (C) 2012-2024 Arthur de Jong
 # Copyright (C) 2015 Lionel Elie Mamane
 #
 # This library is free software; you can redistribute it and/or
@@ -39,9 +39,14 @@ that country.
 ['nl']
 """
 
+from __future__ import annotations
+
+import datetime
+
 from stdnum.eu import oss
 from stdnum.exceptions import *
-from stdnum.util import clean, get_cc_module, get_soap_client
+from stdnum.util import (
+    NumberValidationModule, clean, get_cc_module, get_soap_client)
 
 
 MEMBER_STATES = set([
@@ -59,7 +64,7 @@ vies_wsdl = 'https://ec.europa.eu/taxation_customs/vies/checkVatService.wsdl'
 """The WSDL URL of the VAT Information Exchange System (VIES)."""
 
 
-def _get_cc_module(cc):
+def _get_cc_module(cc: str) -> NumberValidationModule | None:
     """Get the VAT number module based on the country code."""
     # Greece uses a "wrong" country code
     cc = cc.lower()
@@ -68,7 +73,7 @@ def _get_cc_module(cc):
     if cc == 'el':
         cc = 'gr'
     if cc not in MEMBER_STATES:
-        return
+        return None
     if cc == 'xi':
         cc = 'gb'
     if cc not in _country_modules:
@@ -76,7 +81,7 @@ def _get_cc_module(cc):
     return _country_modules[cc]
 
 
-def compact(number):
+def compact(number: str) -> str:
     """Convert the number to the minimal representation. This strips the
     number of any valid separators and removes surrounding whitespace."""
     number = clean(number, '').upper().strip()
@@ -90,7 +95,7 @@ def compact(number):
     return number
 
 
-def validate(number):
+def validate(number: str) -> str:
     """Check if the number is a valid VAT number. This performs the
     country-specific check for the number."""
     number = clean(number, '').upper().strip()
@@ -104,7 +109,7 @@ def validate(number):
     return number
 
 
-def is_valid(number):
+def is_valid(number: str) -> bool:
     """Check if the number is a valid VAT number. This performs the
     country-specific check for the number."""
     try:
@@ -113,40 +118,69 @@ def is_valid(number):
         return False
 
 
-def guess_country(number):
+def guess_country(number: str) -> list[str]:
     """Guess the country code based on the number. This checks the number
     against each of the validation routines and returns the list of countries
     for which it is valid. This returns lower case codes and returns gr (not
     el) for Greece."""
     return [cc
             for cc in MEMBER_STATES
-            if _get_cc_module(cc).is_valid(number)]
+            if _get_cc_module(cc).is_valid(number)]  # type: ignore[union-attr]
 
 
-def check_vies(number, timeout=30):  # pragma: no cover (not part of normal test suite)
-    """Query the online European Commission VAT Information Exchange System
+def check_vies(
+    number: str,
+    timeout: float = 30,
+    verify: bool | str = True,
+) -> dict[str, str | bool | datetime.date]:  # pragma: no cover (not part of normal test suite)
+    """Use the EU VIES service to validate the provided number.
+
+    Query the online European Commission VAT Information Exchange System
     (VIES) for validity of the provided number. Note that the service has
-    usage limitations (see the VIES website for details). The timeout is in
-    seconds. This returns a dict-like object."""
+    usage limitations (see the VIES website for details).
+
+    The `timeout` argument specifies the network timeout in seconds.
+
+    The `verify` argument is either a boolean that determines whether the
+    server's certificate is validate or a string which must be a path the CA
+    certificate bundle to use for verification.
+
+    Returns a dict-like object.
+    """
     # this function isn't automatically tested because it would require
     # network access for the tests and unnecessarily load the VIES website
     number = compact(number)
-    client = get_soap_client(vies_wsdl, timeout)
-    return client.checkVat(number[:2], number[2:])
+    client = get_soap_client(vies_wsdl, timeout=timeout, verify=verify)
+    return client.checkVat(number[:2], number[2:])  # type: ignore[no-any-return]
 
 
-def check_vies_approx(number, requester, timeout=30):  # pragma: no cover
-    """Query the online European Commission VAT Information Exchange System
+def check_vies_approx(
+    number: str,
+    requester: str,
+    timeout: float = 30,
+    verify: bool | str = True,
+) -> dict[str, str | bool | datetime.date]:  # pragma: no cover
+    """Use the EU VIES service to validate the provided number.
+
+    Query the online European Commission VAT Information Exchange System
     (VIES) for validity of the provided number, providing a validity
     certificate as proof. You will need to give your own VAT number for this
     to work. Note that the service has usage limitations (see the VIES
-    website for details). The timeout is in seconds. This returns a dict-like
-    object."""
+    website for details).
+
+    The `timeout` argument specifies the network timeout in seconds.
+
+    The `verify` argument is either a boolean that determines whether the
+    server's certificate is validate or a string which must be a path the CA
+    certificate bundle to use for verification.
+
+    Returns a dict-like object.
+    """
     # this function isn't automatically tested because it would require
     # network access for the tests and unnecessarily load the VIES website
     number = compact(number)
     requester = compact(requester)
-    client = get_soap_client(vies_wsdl, timeout)
-    return client.checkVatApprox(
+    client = get_soap_client(vies_wsdl, timeout=timeout, verify=verify)
+    return client.checkVatApprox(  # type: ignore[no-any-return]
         countryCode=number[:2], vatNumber=number[2:],
         requesterCountryCode=requester[:2], requesterVatNumber=requester[2:])

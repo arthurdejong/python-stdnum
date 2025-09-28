@@ -39,19 +39,21 @@ InvalidChecksum: ...
 datetime.date(1968, 5, 28)
 """
 
+from __future__ import annotations
+
 import datetime
 
 from stdnum.exceptions import *
 from stdnum.util import clean, isdigits
 
 
-def compact(number):
+def compact(number: str) -> str:
     """Convert the number to the minimal representation. This strips the
     number of any valid separators and removes surrounding whitespace."""
     return clean(number, ' ').strip()
 
 
-def get_birth_date(number):
+def get_birth_date(number: str) -> datetime.date:
     """Split the date parts from the number and return the birth date."""
     number = compact(number)
     if number[0] in '12':
@@ -73,7 +75,7 @@ def get_birth_date(number):
         raise InvalidComponent()
 
 
-def get_gender(number):
+def get_gender(number: str) -> str:
     """Get the person's birth gender ('M' or 'F')."""
     number = compact(number)
     if number[0] in '1357':
@@ -84,7 +86,7 @@ def get_gender(number):
         raise InvalidComponent()
 
 
-def calc_check_digit(number):
+def calc_check_digit(number: str) -> str:
     """Calculate the check digit."""
     check = sum(((i % 9) + 1) * int(n)
                 for i, n in enumerate(number[:-1])) % 11
@@ -94,7 +96,7 @@ def calc_check_digit(number):
     return str(check % 10)
 
 
-def validate(number):
+def validate(number: str) -> str:
     """Check if the number provided is valid. This checks the length,
     formatting, embedded date and check digit."""
     number = compact(number)
@@ -108,7 +110,7 @@ def validate(number):
     return number
 
 
-def is_valid(number):
+def is_valid(number: str) -> bool:
     """Check if the number provided is valid. This checks the length,
     formatting, embedded date and check digit."""
     try:

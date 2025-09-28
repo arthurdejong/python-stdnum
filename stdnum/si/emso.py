@@ -41,26 +41,28 @@ Traceback (most recent call last):
 InvalidChecksum: ...
 """
 
+from __future__ import annotations
+
 import datetime
 
 from stdnum.exceptions import *
 from stdnum.util import clean, isdigits
 
 
-def compact(number):
+def compact(number: str) -> str:
     """Convert the number to the minimal representation. This strips the
     number of any valid separators and removes surrounding whitespace."""
     return clean(number, ' ').strip()
 
 
-def calc_check_digit(number):
+def calc_check_digit(number: str) -> str:
     """Calculate the check digit."""
     weights = (7, 6, 5, 4, 3, 2, 7, 6, 5, 4, 3, 2)
     total = sum(int(n) * w for n, w in zip(number, weights))
     return str(-total % 11 % 10)
 
 
-def get_birth_date(number):
+def get_birth_date(number: str) -> datetime.date:
     """Return date of birth from valid EMŠO."""
     number = compact(number)
     day = int(number[:2])
@@ -76,7 +78,7 @@ def get_birth_date(number):
         raise InvalidComponent()
 
 
-def get_gender(number):
+def get_gender(number: str) -> str:
     """Get the person's birth gender ('M' or 'F')."""
     number = compact(number)
     if int(number[9:12]) < 500:
@@ -85,12 +87,12 @@ def get_gender(number):
         return 'F'
 
 
-def get_region(number):
+def get_region(number: str) -> str:
     """Return (political) region from valid EMŠO."""
     return number[7:9]
 
 
-def validate(number):
+def validate(number: str) -> str:
     """Check if the number is a valid EMŠO number. This checks the length,
     formatting and check digit."""
     number = compact(number)
@@ -104,7 +106,7 @@ def validate(number):
     return number
 
 
-def is_valid(number):
+def is_valid(number: str) -> bool:
     """Check if the number provided is a valid ID. This checks the length,
     formatting and check digit."""
     try:
@@ -113,6 +115,6 @@ def is_valid(number):
         return False
 
 
-def format(number):
+def format(number: str) -> str:
     """Reformat the number to the standard presentation format."""
     return compact(number)

@@ -30,24 +30,26 @@ module handles numbers EAN-13, EAN-8, UPC (12-digit) and GTIN (EAN-14) format.
 '98412345678908'
 """
 
+from __future__ import annotations
+
 from stdnum.exceptions import *
 from stdnum.util import clean, isdigits
 
 
-def compact(number):
+def compact(number: str) -> str:
     """Convert the EAN to the minimal representation. This strips the number
     of any valid separators and removes surrounding whitespace."""
     return clean(number, ' -').strip()
 
 
-def calc_check_digit(number):
+def calc_check_digit(number: str) -> str:
     """Calculate the EAN check digit for 13-digit numbers. The number passed
     should not have the check bit included."""
     return str((10 - sum((3, 1)[i % 2] * int(n)
                          for i, n in enumerate(reversed(number)))) % 10)
 
 
-def validate(number):
+def validate(number: str) -> str:
     """Check if the number provided is a valid EAN-13. This checks the length
     and the check bit but does not check whether a known GS1 Prefix and
     company identifier are referenced."""
@@ -61,7 +63,7 @@ def validate(number):
     return number
 
 
-def is_valid(number):
+def is_valid(number: str) -> bool:
     """Check if the number provided is a valid EAN-13. This checks the length
     and the check bit but does not check whether a known GS1 Prefix and
     company identifier are referenced."""

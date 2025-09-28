@@ -1,6 +1,7 @@
 test_id_npwp.doctest - more detailed doctests for stdnum.id.npwp module
 
 Copyright (C) 2020 Leandro Regueiro
+Copyright (C) 2024 Arthur de Jong
 
 This library is free software; you can redistribute it and/or
 modify it under the terms of the GNU Lesser General Public
@@ -47,6 +48,16 @@ InvalidFormat: ...
 Traceback (most recent call last):
     ...
 InvalidChecksum: ...
+
+
+Since 2024 the numbers have been changed to a 16 digit format. They can
+either be a NIK (for Indonesian citizens) or a 0 followed by the original
+15-digit number.
+
+>>> npwp.validate('3171011708450001')  # NIK
+'3171011708450001'
+>>> npwp.validate('083.132.665.7-201.000')  # extra 0 prepended
+'0831326657201000'
 
 
 These have been found online and should all be valid numbers.

@@ -34,12 +34,14 @@ Traceback (most recent call last):
 InvalidChecksum: ...
 """
 
+from __future__ import annotations
+
 from stdnum.bg import egn, pnf
 from stdnum.exceptions import *
 from stdnum.util import clean, isdigits
 
 
-def compact(number):
+def compact(number: str) -> str:
     """Convert the number to the minimal representation. This strips the
     number of any valid separators and removes surrounding whitespace."""
     number = clean(number, ' -.').upper().strip()
@@ -48,7 +50,7 @@ def compact(number):
     return number
 
 
-def calc_check_digit_legal(number):
+def calc_check_digit_legal(number: str) -> str:
     """Calculate the check digit for legal entities. The number passed
     should not have the check digit included."""
     check = sum((i + 1) * int(n) for i, n in enumerate(number)) % 11
@@ -57,14 +59,14 @@ def calc_check_digit_legal(number):
     return str(check % 10)
 
 
-def calc_check_digit_other(number):
+def calc_check_digit_other(number: str) -> str:
     """Calculate the check digit for others. The number passed should not
     have the check digit included."""
     weights = (4, 3, 2, 7, 6, 5, 4, 3, 2)
     return str((11 - sum(w * int(n) for w, n in zip(weights, number))) % 11)
 
 
-def validate(number):
+def validate(number: str) -> str:
     """Check if the number is a valid VAT number. This checks the length,
     formatting and check digit."""
     number = compact(number)
@@ -84,7 +86,7 @@ def validate(number):
     return number
 
 
-def is_valid(number):
+def is_valid(number: str) -> bool:
     """Check if the number is a valid VAT number."""
     try:
         return bool(validate(number))

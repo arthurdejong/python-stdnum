@@ -38,10 +38,12 @@ algorithm. For example Mod 11, 10:
 '002006673085'
 """
 
+from __future__ import annotations
+
 from stdnum.exceptions import *
 
 
-def checksum(number, alphabet='0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ'):
+def checksum(number: str, alphabet: str = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ') -> int:
     """Calculate the checksum. A valid number should have a checksum of 1."""
     modulus = len(alphabet)
     check = modulus // 2
@@ -50,14 +52,14 @@ def checksum(number, alphabet='0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ'):
     return check
 
 
-def calc_check_digit(number, alphabet='0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ'):
+def calc_check_digit(number: str, alphabet: str = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ') -> str:
     """Calculate the extra digit that should be appended to the number to
     make it a valid number."""
     modulus = len(alphabet)
     return alphabet[(1 - ((checksum(number, alphabet) or modulus) * 2) % (modulus + 1)) % modulus]
 
 
-def validate(number, alphabet='0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ'):
+def validate(number: str, alphabet: str = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ') -> str:
     """Check whether the check digit is valid."""
     try:
         valid = checksum(number, alphabet) == 1
@@ -68,7 +70,7 @@ def validate(number, alphabet='0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ'):
     return number
 
 
-def is_valid(number, alphabet='0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ'):
+def is_valid(number: str, alphabet: str = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ') -> bool:
     """Check whether the check digit is valid."""
     try:
         return bool(validate(number, alphabet))

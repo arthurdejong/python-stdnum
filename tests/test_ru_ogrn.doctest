@@ -1,0 +1,78 @@
+test_ru_ogrn.doctest - more detailed doctests for the stdnum.ru.ogrn module
+
+Copyright (C) 2024 Ivan Stavropoltsev
+
+This library is free software; you can redistribute it and/or
+modify it under the terms of the GNU Lesser General Public
+License as published by the Free Software Foundation; either
+version 2.1 of the License, or (at your option) any later version.
+
+This library is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+Lesser General Public License for more details.
+
+You should have received a copy of the GNU Lesser General Public
+License along with this library; if not, write to the Free Software
+Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
+02110-1301 USA
+
+
+This file contains more detailed doctests for the stdnum.ru.ogrn module.
+
+These tests validate the format, normalisation, and validity of various
+OGRN numbers, ensuring they conform to expected behaviour.
+
+>>> from stdnum.ru import ogrn
+>>> from stdnum.exceptions import *
+
+
+Checks of the 13 digit ОГРН, OGRN
+
+>>> ogrn.validate('1022500001325')
+'1022500001325'
+>>> ogrn.validate('10277395526422')  # 14 digits
+Traceback (most recent call last):
+    ...
+InvalidLength: ...
+>>> ogrn.validate('0022500001325')  # starts with 0
+Traceback (most recent call last):
+    ...
+InvalidComponent: ...
+>>> ogrn.validate('102250000')  # too short
+Traceback (most recent call last):
+    ...
+InvalidLength: ...
+>>> ogrn.validate('1022500001328')
+Traceback (most recent call last):
+    ...
+InvalidChecksum: ...
+
+
+Checks of the 13 digit ОГРНИП, OGRNIP
+
+>>> ogrn.validate('985768585948944')  # OGRNIP with invalid start digit
+Traceback (most recent call last):
+    ...
+InvalidComponent: ...
+>>> ogrn.validate('385768585948948')
+Traceback (most recent call last):
+    ...
+InvalidChecksum: ...
+
+
+This is a list of OGRNs that should all be valid numbers:
+
+>>> valid_numbers = '''
+...
+... 1022300000502
+... 1022300001811
+... 1022400007508
+... 1022500000566
+... 1022600000092
+... 1027100000311
+... 1027739552642
+...
+... '''
+>>> [x for x in valid_numbers.splitlines() if x and not ogrn.is_valid(x)]
+[]

@@ -55,6 +55,8 @@ InvalidComponent: ...
 'IT-RM0267'
 """
 
+from __future__ import annotations
+
 from stdnum.exceptions import *
 from stdnum.util import clean
 
@@ -64,13 +66,13 @@ _alphabet = set(
     '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz-:/')
 
 
-def compact(number):
+def compact(number: str) -> str:
     """Convert the ISIL to the minimal representation. This strips
     surrounding whitespace."""
     return clean(number, '').strip()
 
 
-def _is_known_agency(agency):
+def _is_known_agency(agency: str) -> bool:
     """Check whether the specified agency is valid."""
     # look it up in the db
     from stdnum import numdb
@@ -79,7 +81,7 @@ def _is_known_agency(agency):
     return len(results) == 1 and bool(results[0][1])
 
 
-def validate(number):
+def validate(number: str) -> str:
     """Check if the number provided is a valid ISIL."""
     number = compact(number)
     if not all(x in _alphabet for x in number):
@@ -91,7 +93,7 @@ def validate(number):
     return number
 
 
-def is_valid(number):
+def is_valid(number: str) -> bool:
     """Check if the number provided is a valid ISIL."""
     try:
         return bool(validate(number))
@@ -99,7 +101,7 @@ def is_valid(number):
         return False
 
 
-def format(number):
+def format(number: str) -> str:
     """Reformat the number to the standard presentation format."""
     number = compact(number)
     parts = number.split('-')

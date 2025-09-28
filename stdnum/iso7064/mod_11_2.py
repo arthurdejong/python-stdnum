@@ -37,10 +37,12 @@ For a module that can do generic Mod x, 2 calculations see the
 1
 """
 
+from __future__ import annotations
+
 from stdnum.exceptions import *
 
 
-def checksum(number):
+def checksum(number: str) -> int:
     """Calculate the checksum. A valid number should have a checksum of 1."""
     check = 0
     for n in number:
@@ -48,14 +50,14 @@ def checksum(number):
     return check
 
 
-def calc_check_digit(number):
+def calc_check_digit(number: str) -> str:
     """Calculate the extra digit that should be appended to the number to
     make it a valid number."""
     c = (1 - 2 * checksum(number)) % 11
     return 'X' if c == 10 else str(c)
 
 
-def validate(number):
+def validate(number: str) -> str:
     """Check whether the check digit is valid."""
     try:
         valid = checksum(number) == 1
@@ -66,7 +68,7 @@ def validate(number):
     return number
 
 
-def is_valid(number):
+def is_valid(number: str) -> bool:
     """Check whether the check digit is valid."""
     try:
         return bool(validate(number))

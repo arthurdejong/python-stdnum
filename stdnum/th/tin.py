@@ -43,6 +43,8 @@ InvalidFormat: ...
 '0-99-3-000-13397-8'
 """
 
+from __future__ import annotations
+
 from stdnum.exceptions import *
 from stdnum.th import moa, pin
 from stdnum.util import clean
@@ -51,13 +53,13 @@ from stdnum.util import clean
 _tin_modules = (moa, pin)
 
 
-def compact(number):
+def compact(number: str) -> str:
     """Convert the number to the minimal representation. This strips the
     number of any valid separators and removes surrounding whitespace."""
     return clean(number, ' -').strip()
 
 
-def tin_type(number):
+def tin_type(number: str) -> str | None:
     """Return a TIN type which this number is valid."""
     number = compact(number)
     for mod in _tin_modules:
@@ -67,19 +69,19 @@ def tin_type(number):
     return None
 
 
-def validate(number):
+def validate(number: str) -> str:
     """Check if the number is a valid TIN. This searches for the proper
     sub-type and validates using that."""
     for mod in _tin_modules:
         try:
-            return mod.validate(number)
+            return mod.validate(number)  # type: ignore[no-any-return]
         except ValidationError:
             pass  # try next module
     # fallback
     raise InvalidFormat()
 
 
-def is_valid(number):
+def is_valid(number: str) -> bool:
     """Check whether the number is valid."""
     try:
         return bool(validate(number))
@@ -87,9 +89,9 @@ def is_valid(number):
         return False
 
 
-def format(number):
+def format(number: str) -> str:
     """Reformat the number to the standard presentation format."""
     for mod in _tin_modules:
         if mod.is_valid(number):
-            return mod.format(number)
+            return mod.format(number)  # type: ignore[no-any-return]
     return number

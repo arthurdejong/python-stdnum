@@ -34,11 +34,13 @@ InvalidFormat: ...
 'DE000SKWM021'
 """
 
+from __future__ import annotations
+
 from stdnum.exceptions import *
 from stdnum.util import clean
 
 
-def compact(number):
+def compact(number: str) -> str:
     """Convert the number to the minimal representation. This strips the
     number of any valid separators and removes surrounding whitespace."""
     return clean(number, ' ').strip().upper()
@@ -48,7 +50,7 @@ def compact(number):
 _alphabet = '0123456789ABCDEFGH JKLMN PQRSTUVWXYZ'
 
 
-def validate(number):
+def validate(number: str) -> str:
     """Check if the number provided is valid. This checks the length and
     check digit."""
     number = compact(number)
@@ -59,7 +61,7 @@ def validate(number):
     return number
 
 
-def is_valid(number):
+def is_valid(number: str) -> bool:
     """Check if the number provided is valid. This checks the length and
     check digit."""
     try:
@@ -68,7 +70,7 @@ def is_valid(number):
         return False
 
 
-def to_isin(number):
+def to_isin(number: str) -> str:
     """Convert the number to an ISIN."""
     from stdnum import isin
     return isin.from_natid('DE', number)

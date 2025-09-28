@@ -2,7 +2,7 @@
 # coding: utf-8
 #
 # Copyright (C) 2016 David García Garzón
-# Copyright (C) 2016-2017 Arthur de Jong
+# Copyright (C) 2016-2025 Arthur de Jong
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -54,20 +54,22 @@ InvalidChecksum: ...
 '4A08169 P03PRAT 0001 LR'
 """
 
+from __future__ import annotations
+
 from stdnum.exceptions import *
-from stdnum.util import clean, to_unicode
+from stdnum.util import clean
 
 
-alphabet = u'ABCDEFGHIJKLMNÑOPQRSTUVWXYZ0123456789'
+alphabet = 'ABCDEFGHIJKLMNÑOPQRSTUVWXYZ0123456789'
 
 
-def compact(number):
+def compact(number: str) -> str:
     """Convert the number to the minimal representation. This strips the
     number of any valid separators and removes surrounding whitespace."""
     return clean(number, ' -').strip().upper()
 
 
-def format(number):
+def format(number: str) -> str:
     """Reformat the number to the standard presentation format."""
     number = compact(number)
     return ' '.join([
@@ -81,7 +83,7 @@ def format(number):
 # implementation by Vicente Sancho that can be found at
 # https://trellat.es/validar-la-referencia-catastral-en-javascript/
 
-def _check_digit(number):
+def _check_digit(number: str) -> str:
     """Calculate a single check digit on the provided part of the number."""
     weights = (13, 15, 12, 5, 4, 17, 9, 21, 3, 7, 1)
     s = sum(w * (int(n) if n.isdigit() else alphabet.find(n) + 1)
@@ -89,29 +91,28 @@ def _check_digit(number):
     return 'MQWERTYUIOPASDFGHJKLBZX'[s % 23]
 
 
-def calc_check_digits(number):
+def calc_check_digits(number: str) -> str:
     """Calculate the check digits for the number."""
-    number = to_unicode(compact(number))
+    number = compact(number)
     return (
         _check_digit(number[0:7] + number[14:18]) +
         _check_digit(number[7:14] + number[14:18]))
 
 
-def validate(number):
+def validate(number: str) -> str:
     """Check if the number is a valid Cadastral Reference. This checks the
     length, formatting and check digits."""
     number = compact(number)
-    n = to_unicode(number)
-    if not all(c in alphabet for c in n):
+    if not all(c in alphabet for c in number):
         raise InvalidFormat()
-    if len(n) != 20:
+    if len(number) != 20:
         raise InvalidLength()
-    if calc_check_digits(n) != n[18:]:
+    if calc_check_digits(number) != number[18:]:
         raise InvalidChecksum()
     return number
 
 
-def is_valid(number):
+def is_valid(number: str) -> bool:
     """Check if the number is a valid Cadastral Reference."""
     try:
         return bool(validate(number))

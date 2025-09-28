@@ -25,8 +25,11 @@ two letters. The first letter is a check character.
 When present (which should be the case for new numbers as of 2013),
 the second letter can be 'A' (for individuals) or 'H' (for
 non-individuals, such as limited companies, trusts, partnerships
-and unincorporated bodies). Pre-2013 values may have 'W', 'T',
-or 'X' as the second letter ; it is ignored by the check.
+and unincorporated bodies). As of 2024, B was accepted as a second
+letter on all new PPS numbers.
+
+Pre-2013 values may have 'W', 'T', or 'X' as the second letter ;
+it is ignored by the check.
 
 >>> validate('6433435F')  # pre-2013
 '6433435F'
@@ -48,6 +51,8 @@ Traceback (most recent call last):
 InvalidChecksum: ...
 """
 
+from __future__ import annotations
+
 import re
 
 from stdnum.exceptions import *
@@ -55,23 +60,23 @@ from stdnum.ie import vat
 from stdnum.util import clean
 
 
-pps_re = re.compile(r'^\d{7}[A-W][AHWTX]?$')
+pps_re = re.compile(r'^\d{7}[A-W][ABHWTX]?$')
 """Regular expression used to check syntax of PPS numbers."""
 
 
-def compact(number):
+def compact(number: str) -> str:
     """Convert the number to the minimal representation. This strips the
     number of any valid separators and removes surrounding whitespace."""
     return clean(number, ' -').upper().strip()
 
 
-def validate(number):
+def validate(number: str) -> str:
     """Check if the number provided is a valid PPS number. This checks the
     length, formatting and check digit."""
     number = compact(number)
     if not pps_re.match(number):
         raise InvalidFormat()
-    if len(number) == 9 and number[8] in 'AH':
+    if len(number) == 9 and number[8] in 'ABH':
         # new 2013 format
         if number[7] != vat.calc_check_digit(number[:7] + number[8:]):
             raise InvalidChecksum()
@@ -82,7 +87,7 @@ def validate(number):
     return number
 
 
-def is_valid(number):
+def is_valid(number: str) -> bool:
     """Check if the number provided is a valid PPS number. This checks the
     length, formatting and check digit."""
     try:

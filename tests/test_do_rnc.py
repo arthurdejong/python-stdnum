@@ -36,16 +36,20 @@ class TestDGII(unittest.TestCase):
     """Test the web services provided by the the Dirección General de
     Impuestos Internos (DGII), the Dominican Republic tax department."""
 
-    def setUp(self):
-        """Prepare the test."""
-        # For Python 2.7 compatibility
-        if not hasattr(self, 'assertRegex'):
-            self.assertRegex = self.assertRegexpMatches
-
-    def test_check_dgii(self):
+    # Theses tests currently fail because the SOAP service at
+    # https://www.dgii.gov.do/wsMovilDGII/WSMovilDGII.asmx?WSDL
+    # is no longer available. There is a new one at
+    # https://www.dgii.gov.do/ventanillaunica/ventanillaunica.asmx?WSDL
+    # but it has a different API and seems to require authentication.
+    # See https://github.com/arthurdejong/python-stdnum/pull/462
+    # and https://github.com/arthurdejong/python-stdnum/issues/461
+    @unittest.expectedFailure
+    def test_check_dgii(self) -> None:
         """Test stdnum.do.rnc.check_dgii()"""
         # Test a normal valid number
         result = rnc.check_dgii('131098193')
+        self.assertTrue(result)
+        assert result
         self.assertTrue(all(
             key in result.keys()
             for key in ['rnc', 'name', 'commercial_name', 'category', 'status']))
@@ -58,13 +62,25 @@ class TestDGII(unittest.TestCase):
         self.assertIsNone(rnc.check_dgii('814387152'))
         # Test a number on the whitelist
         result = rnc.check_dgii('501658167')
+        self.assertTrue(result)
+        assert result
         self.assertEqual(result['rnc'], '501658167')
         # Test the output unescaping (\t and \n) of the result so JSON
         # deserialisation works
         result = rnc.check_dgii('132070801')
+        self.assertTrue(result)
+        assert result
         self.assertEqual(result['rnc'], '132070801')
 
-    def test_search_dgii(self):
+    # Theses tests currently fail because the SOAP service at
+    # https://www.dgii.gov.do/wsMovilDGII/WSMovilDGII.asmx?WSDL
+    # is no longer available. There is a new one at
+    # https://www.dgii.gov.do/ventanillaunica/ventanillaunica.asmx?WSDL
+    # but it has a different API and seems to require authentication.
+    # See https://github.com/arthurdejong/python-stdnum/pull/462
+    # and https://github.com/arthurdejong/python-stdnum/issues/461
+    @unittest.expectedFailure
+    def test_search_dgii(self) -> None:
         """Test stdnum.do.rnc.search_dgii()"""
         # Search for some existing companies
         results = rnc.search_dgii('EXPORT DE')

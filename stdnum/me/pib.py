@@ -38,11 +38,13 @@ InvalidChecksum: ...
 '02655284'
 """
 
+from __future__ import annotations
+
 from stdnum.exceptions import *
 from stdnum.util import clean, isdigits
 
 
-def compact(number):
+def compact(number: str) -> str:
     """Convert the number to the minimal representation.
 
     This strips the number of any valid separators and removes surrounding
@@ -51,13 +53,13 @@ def compact(number):
     return clean(number, ' ')
 
 
-def calc_check_digit(number):
+def calc_check_digit(number: str) -> str:
     """Calculate the check digit for the number."""
     weights = (8, 7, 6, 5, 4, 3, 2)
     return str((-sum(w * int(n) for w, n in zip(weights, number))) % 11 % 10)
 
 
-def validate(number):
+def validate(number: str) -> str:
     """Check if the number is a valid Montenegro PIB number."""
     number = compact(number)
     if len(number) != 8:
@@ -69,7 +71,7 @@ def validate(number):
     return number
 
 
-def is_valid(number):
+def is_valid(number: str) -> bool:
     """Check if the number is a valid Montenegro PIB number."""
     try:
         return bool(validate(number))
@@ -77,6 +79,6 @@ def is_valid(number):
         return False
 
 
-def format(number):
+def format(number: str) -> str:
     """Reformat the number to the standard presentation format."""
     return compact(number)

@@ -50,28 +50,30 @@ Traceback (most recent call last):
 InvalidChecksum: ...
 """
 
+from __future__ import annotations
+
 from stdnum.exceptions import *
 from stdnum.util import clean, isdigits
 
 
-def compact(number):
+def compact(number: str) -> str:
     """Convert the number to the minimal representation. This strips the
     number of any valid separators and removes surrounding whitespace."""
     return clean(number, ' -').upper().strip()
 
 
-def calc_check_digit(number):
+def calc_check_digit(number: str) -> str:
     """Calculate the check digit for organisations. The number passed
     should not have the check digit included."""
     if len(number) == 8:
-        weights = (8, 9, 2, 3, 4, 5, 6, 7)
+        weights = [8, 9, 2, 3, 4, 5, 6, 7]
     else:
-        weights = (2, 4, 8, 5, 0, 9, 7, 3, 6, 1, 2, 4, 8)
+        weights = [2, 4, 8, 5, 0, 9, 7, 3, 6, 1, 2, 4, 8]
     check = sum(w * int(n) for w, n in zip(weights, number))
     return str(check % 11 % 10)
 
 
-def validate(number):
+def validate(number: str) -> str:
     """Check if the number is a valid REGON number. This checks the length,
     formatting and check digit."""
     number = compact(number)
@@ -86,7 +88,7 @@ def validate(number):
     return number
 
 
-def is_valid(number):
+def is_valid(number: str) -> bool:
     """Check if the number is a valid REGON number."""
     try:
         return bool(validate(number))

@@ -44,6 +44,8 @@ Traceback (most recent call last):
 InvalidFormat: ...
 """
 
+from __future__ import annotations
+
 from stdnum.exceptions import *
 from stdnum.util import clean
 
@@ -51,20 +53,20 @@ from stdnum.util import clean
 _alphabet = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ-'
 
 
-def compact(number):
+def compact(number: str) -> str:
     """Convert the number to the minimal representation. This strips the
     number of any valid separators and removes surrounding white space."""
     return clean(number, ' ').strip()
 
 
-def calc_check_digit(number):
+def calc_check_digit(number: str) -> str:
     """Calculate the check digit for the number."""
     number = compact(number)
     s = sum((16 - i) * _alphabet.index(n) for i, n in enumerate(number[:15]))
     return _alphabet[36 - ((s - 1) % 37)]
 
 
-def validate(number):
+def validate(number: str) -> str:
     """Check if the number is valid. This checks the length, format and check
     digit."""
     number = compact(number)
@@ -79,7 +81,7 @@ def validate(number):
     return number
 
 
-def is_valid(number):
+def is_valid(number: str) -> bool:
     """Check if the number is valid. This checks the length, format and check
     digit."""
     try:

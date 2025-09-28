@@ -50,6 +50,8 @@ InvalidFormat: ...
 'A004416331M'
 """
 
+from __future__ import annotations
+
 import re
 
 from stdnum.exceptions import *
@@ -62,13 +64,13 @@ from stdnum.util import clean
 _pin_re = re.compile(r'^[A|P]{1}[0-9]{9}[A-Z]{1}$')
 
 
-def compact(number):
+def compact(number: str) -> str:
     """Convert the number to the minimal representation. This strips the
     number of any valid separators and removes surrounding whitespace."""
     return clean(number, ' -').strip().upper()
 
 
-def validate(number):
+def validate(number: str) -> str:
     """Check if the number is a valid Kenya PIN number.
 
     This checks the length and formatting.
@@ -82,7 +84,7 @@ def validate(number):
     return number
 
 
-def is_valid(number):
+def is_valid(number: str) -> bool:
     """Check if the number is a valid Kenya PIN number."""
     try:
         return bool(validate(number))
@@ -90,6 +92,6 @@ def is_valid(number):
         return False
 
 
-def format(number):
+def format(number: str) -> str:
     """Reformat the number to the standard presentation format."""
     return compact(number)

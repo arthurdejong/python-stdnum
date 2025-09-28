@@ -20,5 +20,7 @@
 
 """Collection of Guatemalan numbers."""
 
+from __future__ import annotations
+
 # provide aliases
 from stdnum.gt import nit as vat  # noqa: F401

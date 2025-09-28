@@ -1,7 +1,7 @@
 # curp.py - functions for handling Mexican personal identifiers
 # coding: utf-8
 #
-# Copyright (C) 2019 Arthur de Jong
+# Copyright (C) 2019-2025 Arthur de Jong
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -42,6 +42,8 @@ datetime.date(1931, 8, 20)
 'M'
 """
 
+from __future__ import annotations
+
 import datetime
 import re
 
@@ -66,13 +68,13 @@ _valid_states = set('''
 '''.split())
 
 
-def compact(number):
+def compact(number: str) -> str:
     """Convert the number to the minimal representation. This strips
     surrounding whitespace and separation dash."""
     return clean(number, '-_ ').upper().strip()
 
 
-def get_birth_date(number):
+def get_birth_date(number: str) -> datetime.date:
     """Split the date parts from the number and return the birth date."""
     number = compact(number)
     year = int(number[4:6])
@@ -88,7 +90,7 @@ def get_birth_date(number):
         raise InvalidComponent()
 
 
-def get_gender(number):
+def get_gender(number: str) -> str:
     """Get the gender (M/F) from the person's CURP."""
     number = compact(number)
     if number[10] == 'H':
@@ -103,18 +105,18 @@ def get_gender(number):
 _alphabet = '0123456789ABCDEFGHIJKLMN&OPQRSTUVWXYZ'
 
 
-def calc_check_digit(number):
+def calc_check_digit(number: str) -> str:
     """Calculate the check digit."""
     check = sum(_alphabet.index(c) * (18 - i) for i, c in enumerate(number[:17]))
     return str((10 - check % 10) % 10)
 
 
-def validate(number, validate_check_digits=True):
+def validate(number: str, validate_check_digits: bool = True) -> str:
     """Check if the number is a valid CURP."""
     number = compact(number)
     if len(number) != 18:
         raise InvalidLength()
-    if not re.match(u'^[A-Z]{4}[0-9]{6}[A-Z]{6}[0-9A-Z][0-9]$', number):
+    if not re.match('^[A-Z]{4}[0-9]{6}[A-Z]{6}[0-9A-Z][0-9]$', number):
         raise InvalidFormat()
     if number[:4] in _name_blacklist:
         raise InvalidComponent()
@@ -127,7 +129,7 @@ def validate(number, validate_check_digits=True):
     return number
 
 
-def is_valid(number, validate_check_digits=True):
+def is_valid(number: str, validate_check_digits: bool = True) -> bool:
     """Check if the number provided is a valid CURP."""
     try:
         return bool(validate(number, validate_check_digits))

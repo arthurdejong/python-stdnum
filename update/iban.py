@@ -24,6 +24,8 @@ Financial Telecommunication which is the official IBAN registrar) to get
 the data needed to correctly parse and validate IBANs."""
 
 import csv
+import os.path
+import sys
 from collections import defaultdict
 
 import requests
@@ -31,6 +33,7 @@ import requests
 
 # The place where the current version of
 # swift_standards_infopaper_ibanregistry_1.txt can be downloaded.
+# Linked from https://www.swift.com/standards/data-standards/iban-international-bank-account-number
 download_url = 'https://www.swift.com/node/11971'
 
 
@@ -44,13 +47,20 @@ def get_country_codes(line):
 
 
 if __name__ == '__main__':
-    response = requests.get(download_url, timeout=30)
-    response.raise_for_status()
-    print('# generated from swift_standards_infopaper_ibanregistry_1.txt,')
-    print('# downloaded from %s' % download_url)
+    if len(sys.argv) > 1:
+        f = open(sys.argv[1], 'rt', encoding='iso-8859-15')
+        lines = iter(f)
+        print(f'# generated from {os.path.basename(sys.argv[1])}')
+        print(f'# downloaded from {download_url}')
+    else:
+        response = requests.get(download_url, timeout=30)
+        response.raise_for_status()
+        print('# generated from iban-registry_1.txt')
+        print(f'# downloaded from {download_url}')
+        lines = response.iter_lines(decode_unicode=True)
     values = defaultdict(dict)
     # the file is CSV but the data is in columns instead of rows
-    for row in csv.reader(response.iter_lines(decode_unicode=True), delimiter='\t', quotechar='"'):
+    for row in csv.reader(lines, delimiter='\t', quotechar='"'):
         # skip first row
         if row and row[0] != 'Data element':
             # first column contains label
@@ -66,6 +76,8 @@ if __name__ == '__main__':
         cname = data['Name of country']
         if bban.startswith(cc + '2!n'):
             bban = bban[5:]
+        if bban.startswith(cc):
+            bban = bban[2:]
         # print country line
         print('%s country="%s" bban="%s"' % (cc, cname, bban))
         # TODO: some countries have a fixed check digit value

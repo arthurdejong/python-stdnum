@@ -41,7 +41,11 @@ InvalidChecksum: ...
 Traceback (most recent call last):
     ...
 InvalidFormat: ...
+>>> to_siren('Fr 40 303 265 045')
+'303265045'
 """
+
+from __future__ import annotations
 
 from stdnum.exceptions import *
 from stdnum.fr import siren
@@ -52,7 +56,7 @@ from stdnum.util import clean, isdigits
 _alphabet = '0123456789ABCDEFGHJKLMNPQRSTUVWXYZ'
 
 
-def compact(number):
+def compact(number: str) -> str:
     """Convert the number to the minimal representation. This strips the
     number of any valid separators and removes surrounding whitespace."""
     number = clean(number, ' -.').upper().strip()
@@ -61,7 +65,7 @@ def compact(number):
     return number
 
 
-def validate(number):
+def validate(number: str) -> str:
     """Check if the number is a valid VAT number. This checks the length,
     formatting and check digit."""
     number = compact(number)
@@ -93,9 +97,21 @@ def validate(number):
     return number
 
 
-def is_valid(number):
+def is_valid(number: str) -> bool:
     """Check if the number is a valid VAT number."""
     try:
         return bool(validate(number))
     except ValidationError:
         return False
+
+
+def to_siren(number: str) -> str:
+    """Convert the VAT number to a SIREN number.
+
+    The SIREN number is the 9 last digits of the VAT number.
+    """
+    number = compact(number)
+    if number[2:5] == '000':
+        # numbers from Monaco are valid TVA but not SIREN
+        raise InvalidComponent()
+    return number[2:]

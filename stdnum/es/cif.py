@@ -50,6 +50,8 @@ InvalidFormat: ...
 ('A', '13', '58562', '5')
 """
 
+from __future__ import annotations
+
 from stdnum import luhn
 from stdnum.es import dni
 from stdnum.exceptions import *
@@ -63,7 +65,7 @@ __all__ = ['compact', 'validate', 'is_valid', 'split']
 compact = dni.compact
 
 
-def calc_check_digits(number):
+def calc_check_digits(number: str) -> str:
     """Calculate the check digits for the specified number. The number
     passed should not have the check digit included. This function returns
     both the number and character check digit candidates."""
@@ -71,7 +73,7 @@ def calc_check_digits(number):
     return check + 'JABCDEFGHI'[int(check)]
 
 
-def validate(number):
+def validate(number: str) -> str:
     """Check if the number provided is a valid DNI number. This checks the
     length, formatting and check digit."""
     number = compact(number)
@@ -91,7 +93,7 @@ def validate(number):
     return number
 
 
-def is_valid(number):
+def is_valid(number: str) -> bool:
     """Check if the number provided is a valid DNI number. This checks the
     length, formatting and check digit."""
     try:
@@ -100,7 +102,7 @@ def is_valid(number):
         return False
 
 
-def split(number):
+def split(number: str) -> tuple[str, str, str, str]:
     """Split the provided number into a letter to define the type of
     organisation, two digits that specify a province, a 5 digit sequence
     number within the province and a check digit."""

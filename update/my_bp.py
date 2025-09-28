@@ -2,7 +2,7 @@
 
 # update/my_bp.py - script to download data from Malaysian government site
 #
-# Copyright (C) 2013-2022 Arthur de Jong
+# Copyright (C) 2013-2025 Arthur de Jong
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -22,7 +22,6 @@
 """This script downloads the list of states and countries and their
 birthplace code from the National Registration Department of Malaysia."""
 
-import os
 import re
 from collections import defaultdict
 
@@ -31,15 +30,15 @@ import requests
 
 
 # URLs that are downloaded
-state_list_url = 'https://www.jpn.gov.my/en/kod-negeri-eng'
-country_list_url = 'https://www.jpn.gov.my/en/kod-negara-eng'
+state_list_url = 'https://www.jpn.gov.my/index.php?option=com_content&view=article&id=453&lang=en'
+country_list_url = 'https://www.jpn.gov.my/index.php?option=com_content&view=article&id=471&lang=en'
 
 
 # The user agent that will be passed in requests
 user_agent = 'Mozilla/5.0 (compatible; python-stdnum updater; +https://arthurdejong.org/python-stdnum/)'
 
 
-spaces_re = re.compile(r'\s+', re.UNICODE)
+spaces_re = re.compile(r'\s+', flags=re.UNICODE)
 
 
 def clean(td):
@@ -62,20 +61,19 @@ def parse(content):
 
 
 if __name__ == '__main__':
-    ca_certificate = os.path.join(os.path.dirname(__file__), 'my_bp.crt')
     headers = {
         'User-Agent': user_agent,
     }
     results = defaultdict(lambda: defaultdict(set))
     # read the states
-    response = requests.get(state_list_url, headers=headers, verify=ca_certificate, timeout=30)
+    response = requests.get(state_list_url, headers=headers, timeout=30)
     response.raise_for_status()
     for state, bps in parse(response.content):
         for bp in bps:
             results[bp]['state'] = state
             results[bp]['countries'].add('Malaysia')
     # read the countries
-    response = requests.get(country_list_url, headers=headers, verify=ca_certificate, timeout=30)
+    response = requests.get(country_list_url, headers=headers, timeout=30)
     response.raise_for_status()
     for country, bps in parse(response.content):
         for bp in bps:
