@@ -1,0 +1,46 @@
+test_eu_nace.doctest - more detailed doctests for the stdnum.eu.nace module
+
+Copyright (C) 2012-2023 Arthur de Jong
+
+This library is free software; you can redistribute it and/or
+modify it under the terms of the GNU Lesser General Public
+License as published by the Free Software Foundation; either
+version 2.1 of the License, or (at your option) any later version.
+
+This library is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+Lesser General Public License for more details.
+
+You should have received a copy of the GNU Lesser General Public
+License along with this library; if not, write to the Free Software
+Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
+02110-1301 USA
+
+
+This file contains more detailed doctests for the stdnum.eu.nace module. It
+tries to validate a number of VAT numbers that have been found online.
+
+>>> from stdnum.eu import nace
+>>> from stdnum.exceptions import *
+
+
+The label of a few numbers have been changed between revision 2.0 and revision
+2.1 of NACE
+
+>>> nace.get_label('01.11', revision='2.0')
+'Growing of cereals (except rice), leguminous crops and oil seeds'
+>>> nace.get_label('01.11', revision='2.1')
+'Growing of cereals, other than rice, leguminous crops and oil seeds'
+>>> nace.get_label('01.11')  # revision 2.1 is the default
+'Growing of cereals, other than rice, leguminous crops and oil seeds'
+
+
+Some number are new in revision 2.1
+
+>>> nace.validate('03.30')
+'0330'
+>>> nace.validate('03.30', revision='2.0')
+Traceback (most recent call last):
+    ...
+InvalidComponent: ...

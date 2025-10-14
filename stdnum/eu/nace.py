@@ -27,18 +27,20 @@ classification ISIC.
 
 The first 4 digits are the same in all EU countries while additional levels
 and digits may be vary between countries. This module validates the numbers
-according to revision 2 and based on the registry as published by the EC.
+according to revision 2.1 (or 2.0 if that version is supplied) and based on
+the registry as published by the EC.
 
 More information:
 
 * https://en.wikipedia.org/wiki/Statistical_Classification_of_Economic_Activities_in_the_European_Community
 * https://ec.europa.eu/eurostat/ramon/nomenclatures/index.cfm?TargetUrl=LST_NOM_DTL&StrNom=NACE_REV2&StrLanguageCode=EN&IntPcKey=&StrLayoutCode=HIERARCHIC
+* https://showvoc.op.europa.eu/#/datasets/ESTAT_Statistical_Classification_of_Economic_Activities_in_the_European_Community_Rev._2.1._%28NACE_2.1%29/data
 
 >>> validate('A')
 'A'
->>> validate('62.01')
+>>> validate('62.01', revision='2.0')
 '6201'
->>> get_label('62.01')
+>>> get_label('62.10')
 'Computer programming activities'
 >>> validate('62.05')
 Traceback (most recent call last):
@@ -60,27 +62,32 @@ from stdnum.exceptions import *
 from stdnum.util import clean, isdigits
 
 
+# The revision of the NACE definition to use
+DEFAULT_REVISION = '2.1'
+
+
 def compact(number: str) -> str:
     """Convert the number to the minimal representation. This strips the
     number of any valid separators and removes surrounding whitespace."""
     return clean(number, '.').strip()
 
 
-def info(number: str) -> dict[str, str]:
+def info(number: str, *, revision: str = DEFAULT_REVISION) -> dict[str, str]:
     """Lookup information about the specified NACE. This returns a dict."""
     number = compact(number)
+    revision = revision.replace('.', '')
     from stdnum import numdb
     info = dict()
-    for _n, i in numdb.get('eu/nace').info(number):
+    for _n, i in numdb.get(f'eu/nace{revision}').info(number):
         if not i:
             raise InvalidComponent()
         info.update(i)
     return info
 
 
-def get_label(number: str) -> str:
+def get_label(number: str, revision: str = DEFAULT_REVISION) -> str:
     """Lookup the category label for the number."""
-    return info(number)['label']
+    return info(number, revision=revision)['label']
 
 
 def label(number: str) -> str:  # pragma: no cover (deprecated function)
@@ -88,10 +95,10 @@ def label(number: str) -> str:  # pragma: no cover (deprecated function)
     warnings.warn(
         'label() has been to get_label()',
         DeprecationWarning, stacklevel=2)
-    return get_label(number)
+    return get_label(number, revision='2.0')
 
 
-def validate(number: str) -> str:
+def validate(number: str, revision: str = DEFAULT_REVISION) -> str:
     """Check if the number is a valid NACE. This checks the format and
     searches the registry to see if it exists."""
     number = compact(number)
@@ -103,15 +110,15 @@ def validate(number: str) -> str:
     else:
         if not isdigits(number):
             raise InvalidFormat()
-    info(number)
+    info(number, revision=revision)
     return number
 
 
-def is_valid(number: str) -> bool:
+def is_valid(number: str, revision: str = DEFAULT_REVISION) -> bool:
     """Check if the number is a valid NACE. This checks the format and
     searches the registry to see if it exists."""
     try:
-        return bool(validate(number))
+        return bool(validate(number, revision=revision))
     except ValidationError:
         return False
 
