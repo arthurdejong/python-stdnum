@@ -1,7 +1,7 @@
 # cnp.py - functions for handling Romanian CNP numbers
 # coding: utf-8
 #
-# Copyright (C) 2012-2020 Arthur de Jong
+# Copyright (C) 2012-2025 Arthur de Jong
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -110,6 +110,11 @@ _COUNTIES = {
     '48': 'Bucuresti - Sector 8 (desfiintat)',
     '51': 'Calarasi',
     '52': 'Giurgiu',
+    '70': 'Any',
+    '80': 'Unknown',
+    '81': 'Unknown',
+    '82': 'Unknown',
+    '83': 'Unknown',
 }
 
 
