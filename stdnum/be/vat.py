@@ -1,6 +1,6 @@
 # vat.py - functions for handling Belgian VAT numbers
 #
-# Copyright (C) 2012-2016 Arthur de Jong
+# Copyright (C) 2012-2025 Arthur de Jong
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -67,6 +67,8 @@ def validate(number: str) -> str:
         raise InvalidFormat()
     if len(number) != 10:
         raise InvalidLength()
+    if not number[0] in '01':
+        raise InvalidComponent()
     if checksum(number) != 0:
         raise InvalidChecksum()
     return number
