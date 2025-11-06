@@ -18,7 +18,7 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 # 02110-1301 USA
 
-"""NACE (classification for businesses in the European Union).
+"""NACE Rev2 (classification for businesses in the European Union).
 
 The NACE (nomenclature statistique des activités économiques dans la
 Communauté européenne) is a 4-level (and up to 4 digit) code for classifying
