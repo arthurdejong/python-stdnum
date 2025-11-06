@@ -1,4 +1,4 @@
-# nace21.py - functions for handling EU NACE classification
+# nace.py - functions for handling EU NACE classification
 # coding: utf-8
 #
 # Copyright (C) 2017-2025 Arthur de Jong
@@ -27,12 +27,12 @@ classification ISIC.
 
 The first 4 digits are the same in all EU countries while additional levels
 and digits may be vary between countries. This module validates the numbers
-according to revision 2.1 and based on the registry as published by the EC.
+according to revision 2 and based on the registry as published by the EC.
 
 More information:
 
 * https://en.wikipedia.org/wiki/Statistical_Classification_of_Economic_Activities_in_the_European_Community
-* https://showvoc.op.europa.eu/#/datasets/ESTAT_Statistical_Classification_of_Economic_Activities_in_the_European_Community_Rev._2.1._%28NACE_2.1%29/downloads
+* https://ec.europa.eu/eurostat/ramon/nomenclatures/index.cfm?TargetUrl=LST_NOM_DTL&StrNom=NACE_REV2&StrLanguageCode=EN&IntPcKey=&StrLayoutCode=HIERARCHIC
 
 >>> validate('A')
 'A'
@@ -71,7 +71,7 @@ def info(number: str) -> dict[str, str]:
     number = compact(number)
     from stdnum import numdb
     info = dict()
-    for _n, i in numdb.get('eu/nace21').info(number):
+    for _n, i in numdb.get('eu/nace/v2_0/nace').info(number):
         if not i:
             raise InvalidComponent()
         info.update(i)
@@ -81,6 +81,14 @@ def info(number: str) -> dict[str, str]:
 def get_label(number: str) -> str:
     """Lookup the category label for the number."""
     return info(number)['label']
+
+
+def label(number: str) -> str:  # pragma: no cover (deprecated function)
+    """DEPRECATED: use `get_label()` instead."""  # noqa: D40
+    warnings.warn(
+        'label() has been to get_label()',
+        DeprecationWarning, stacklevel=2)
+    return get_label(number)
 
 
 def validate(number: str) -> str:
