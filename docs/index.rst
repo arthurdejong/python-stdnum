@@ -195,6 +195,8 @@ Available formats
    eu.ecnumber
    eu.eic
    eu.nace
+   eu.nace.v2_0
+   eu.nace.v2_1
    eu.oss
    eu.vat
    fi.alv
