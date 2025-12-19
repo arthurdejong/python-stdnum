@@ -1,0 +1,71 @@
+test_de_leitweg.doctest - more detailed doctests for the stdnum.de.leitweg module
+
+Copyright (C) 2025 Holvi Payment Services Oy
+
+This library is free software; you can redistribute it and/or
+modify it under the terms of the GNU Lesser General Public
+License as published by the Free Software Foundation; either
+version 2.1 of the License, or (at your option) any later version.
+
+This library is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+Lesser General Public License for more details.
+
+You should have received a copy of the GNU Lesser General Public
+License along with this library; if not, write to the Free Software
+Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
+02110-1301 USA
+
+
+This file contains more detailed doctests for the stdnum.de.leitweg module. It
+tries to validate a number of numbers that have been found online.
+
+>>> from stdnum.de import leitweg
+>>> from stdnum.exceptions import *
+
+
+These are present in the verzeichnis.leitweg-id.de directory and should all be valid numbers.
+
+>>> valid_numbers = '''
+...
+... 16066069-0001-38
+... 13-L75810002000-60
+... 057660004004-31001-55
+... 991-03730-19
+... 992-90009-96
+... 08315033-ESCHBACH6626-66
+... 09274154-NFH-05
+... 05370032-WDF5271-06
+... 09778137-ETTRINGEN868331262-55
+... 08325024-787394066-26
+... 15088205-LEUNA6877-16
+... 09471131-GDEFD96158-46
+... 09780119-RATHAUSDIETMANNSRIED7247-90
+... 09176111-ADELSCHLAG-11
+... 09274193-WHM-62
+... 09177127-GEMEINDELENGDORF-24
+... 09176122-EGWEIL-38
+... 06533010-L357921748-84
+... 09176149-NASSENFELS-39
+... 09177131-NEUCHING-08
+...
+... '''
+>>> [x for x in valid_numbers.splitlines() if x and not leitweg.is_valid(x)]
+[]
+
+
+Unknown Kennzahl des Bundes(landes).
+
+>>> leitweg.validate('55-55-20')
+Traceback (most recent call last):
+    ...
+InvalidComponent: ...
+
+
+Invalid checksum.
+
+>>> leitweg.validate('992-90009-97')
+Traceback (most recent call last):
+    ...
+InvalidChecksum: ...
