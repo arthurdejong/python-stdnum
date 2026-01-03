@@ -1,7 +1,7 @@
 # pvn.py - functions for handling Latvian PVN (VAT) numbers
 # coding: utf-8
 #
-# Copyright (C) 2012-2019 Arthur de Jong
+# Copyright (C) 2012-2026 Arthur de Jong
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -23,7 +23,12 @@
 The PVN is a 11-digit number that can either be a reference to a legal
 entity (in which case the first digit > 3) or a natural person (in which
 case it should be the same as the personal code (personas kods)). Personal
-codes start with 6 digits to denote the birth date in the form ddmmyy.
+codes start "32". Older personal codes start with 6 digits to denote the birth
+date in the form ddmmyy.
+
+More information:
+
+* https://en.wikipedia.org/wiki/National_identification_number#Latvia
 
 >>> validate('LV 4000 3521 600')
 '40003521600'
@@ -31,12 +36,18 @@ codes start with 6 digits to denote the birth date in the form ddmmyy.
 Traceback (most recent call last):
     ...
 InvalidChecksum: ...
->>> validate('161175-19997')  # personal code
+>>> validate('161175-19997')  # personal code, old format
 '16117519997'
 >>> validate('161375-19997')  # invalid date
 Traceback (most recent call last):
     ...
 InvalidComponent: ...
+>>> validate('328673-00679')  # personal code, new format
+'32867300679'
+>>> validate('328673-00677')  # personal code, new format
+Traceback (most recent call last):
+    ...
+InvalidChecksum: ...
 """
 
 from __future__ import annotations
@@ -100,6 +111,10 @@ def validate(number: str) -> str:
     if number[0] > '3':
         # legal entity
         if checksum(number) != 3:
+            raise InvalidChecksum()
+    elif number.startswith('32'):
+        # personal code without a date of birth (issued from July 2017 onwards)
+        if calc_check_digit_pers(number[:-1]) != number[-1]:
             raise InvalidChecksum()
     else:
         # natural resident, check if birth date is valid
