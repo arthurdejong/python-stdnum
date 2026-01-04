@@ -30,7 +30,7 @@ to indicate the company's tax status and legal structure.
 
 More information:
 
-* https://www.wikiprocedure.com/index.php/Senegal_-_Obtain_a_Tax_Identification_Number
+* https://www.wikiprocedure.com/index.php/Senegal%5F-_Obtain_a_Tax_Identification_Number
 * https://nkac-audit.com/comprendre-le-ninea-votre-guide-de-lecture-simplifie/
 * https://www.creationdentreprise.sn/rechercher-une-societe
 * https://www.dci-sn.sn/index.php/obtenir-son-ninea
