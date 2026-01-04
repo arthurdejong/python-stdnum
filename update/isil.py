@@ -2,7 +2,7 @@
 
 # update/isil.py - script to download ISIL agencies
 #
-# Copyright (C) 2011-2025 Arthur de Jong
+# Copyright (C) 2011-2026 Arthur de Jong
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -35,6 +35,10 @@ spaces_re = re.compile(r'\s+', flags=re.UNICODE)
 download_url = 'https://slks.dk/english/work-areas/libraries-and-literature/library-standards/isil'
 
 
+# The user agent that will be passed in requests
+user_agent = 'Mozilla/5.0 (compatible; python-stdnum updater; +https://arthurdejong.org/python-stdnum/)'
+
+
 def clean(td):
     """Clean up the element removing unneeded stuff from it."""
     s = lxml.html.tostring(td, method='text', encoding='utf-8').decode('utf-8')
@@ -42,7 +46,7 @@ def clean(td):
 
 
 if __name__ == '__main__':
-    response = requests.get(download_url, timeout=30)
+    response = requests.get(download_url, timeout=30, headers={'User-Agent': user_agent})
     response.raise_for_status()
     print('# generated from ISIL Registration Authority, downloaded from')
     print('# %s' % download_url)

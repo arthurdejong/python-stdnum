@@ -35,6 +35,10 @@ import requests
 download_url = 'https://www.nbb.be/doc/be/be/protocol/grouped_list_current.xlsx'
 
 
+# The user agent that will be passed in requests
+user_agent = 'Mozilla/5.0 (compatible; python-stdnum updater; +https://arthurdejong.org/python-stdnum/)'
+
+
 # List of values that refer to non-existing, reserved or otherwise not-
 # allocated entries.
 not_applicable_values = (
@@ -79,7 +83,7 @@ def get_values(sheet):
 
 
 if __name__ == '__main__':
-    response = requests.get(download_url, timeout=30)
+    response = requests.get(download_url, timeout=30, headers={'User-Agent': user_agent})
     response.raise_for_status()
     workbook = openpyxl.load_workbook(io.BytesIO(response.content), read_only=True)
     sheet = workbook.worksheets[0]

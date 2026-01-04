@@ -4,6 +4,7 @@
 # update/cz_banks.py - script to download Bank list from Czech National Bank
 #
 # Copyright (C) 2022 Petr Přikryl
+# Copyright (C) 2026 Arthur de Jong
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -35,6 +36,10 @@ import requests
 download_url = 'https://www.cnb.cz/cs/platebni-styk/.galleries/ucty_kody_bank/download/kody_bank_CR.csv'
 
 
+# The user agent that will be passed in requests
+user_agent = 'Mozilla/5.0 (compatible; python-stdnum updater; +https://arthurdejong.org/python-stdnum/)'
+
+
 def get_values(csv_reader):
     """Return values (bank_number, bic, bank_name, certis) from the CSV."""
     # skip first row (header)
@@ -48,7 +53,7 @@ def get_values(csv_reader):
 
 
 if __name__ == '__main__':
-    response = requests.get(download_url, timeout=30)
+    response = requests.get(download_url, timeout=30, headers={'User-Agent': user_agent})
     response.raise_for_status()
     csv_reader = csv.reader(StringIO(response.content.decode('utf-8')), delimiter=';')
     print('# generated from %s downloaded from' % os.path.basename(download_url))

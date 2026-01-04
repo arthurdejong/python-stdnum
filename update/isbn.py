@@ -2,7 +2,7 @@
 
 # update/isbn.py - script to get ISBN prefix data
 #
-# Copyright (C) 2010-2019 Arthur de Jong
+# Copyright (C) 2010-2026 Arthur de Jong
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -33,6 +33,10 @@ import requests
 download_url = 'https://www.isbn-international.org/export_rangemessage.xml'
 
 
+# The user agent that will be passed in requests
+user_agent = 'Mozilla/5.0 (compatible; python-stdnum updater; +https://arthurdejong.org/python-stdnum/)'
+
+
 def ranges(group):
     """Provide the ranges for the group."""
     for rule in group.findall('./Rules/Rule'):
@@ -56,7 +60,7 @@ def wrap(text):
 if __name__ == '__main__':
     print('# generated from RangeMessage.xml, downloaded from')
     print('# %s' % download_url)
-    response = requests.get(download_url, timeout=30)
+    response = requests.get(download_url, timeout=30, headers={'User-Agent': user_agent})
     response.raise_for_status()
 
     # parse XML document

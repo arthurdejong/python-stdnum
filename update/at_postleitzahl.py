@@ -3,7 +3,7 @@
 
 # update/at_postleitzahl.py - download list of Austrian postal codes
 #
-# Copyright (C) 2018-2025 Arthur de Jong
+# Copyright (C) 2018-2026 Arthur de Jong
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -31,6 +31,10 @@ import requests
 download_url = 'https://data.rtr.at/api/v1/tables/plz.json'
 
 
+# The user agent that will be passed in requests
+user_agent = 'Mozilla/5.0 (compatible; python-stdnum updater; +https://arthurdejong.org/python-stdnum/)'
+
+
 # The list of regions that can be used in the document.
 regions = {
     'B': 'Burgenland',
@@ -46,7 +50,7 @@ regions = {
 
 
 if __name__ == '__main__':
-    response = requests.get(download_url, timeout=30)
+    response = requests.get(download_url, timeout=30, headers={'User-Agent': user_agent})
     response.raise_for_status()
     data = response.json()
     # print header

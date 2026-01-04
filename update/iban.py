@@ -2,7 +2,7 @@
 
 # update/iban.py - script to download and parse data from the IBAN registry
 #
-# Copyright (C) 2011-2019 Arthur de Jong
+# Copyright (C) 2011-2026 Arthur de Jong
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -37,6 +37,10 @@ import requests
 download_url = 'https://www.swift.com/node/11971'
 
 
+# The user agent that will be passed in requests
+user_agent = 'Mozilla/5.0 (compatible; python-stdnum updater; +https://arthurdejong.org/python-stdnum/)'
+
+
 def get_country_codes(line):
     """Return the list of country codes this line has."""
     # simplest case first
@@ -53,7 +57,7 @@ if __name__ == '__main__':
         print(f'# generated from {os.path.basename(sys.argv[1])}')
         print(f'# downloaded from {download_url}')
     else:
-        response = requests.get(download_url, timeout=30)
+        response = requests.get(download_url, timeout=30, headers={'User-Agent': user_agent})
         response.raise_for_status()
         print('# generated from iban-registry_1.txt')
         print(f'# downloaded from {download_url}')

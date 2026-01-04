@@ -2,7 +2,7 @@
 
 # update/imsi.py - script to download from Wikipedia to build the database
 #
-# Copyright (C) 2011-2022 Arthur de Jong
+# Copyright (C) 2011-2026 Arthur de Jong
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -49,6 +49,10 @@ wikipedia_pages = (
 
 # Sadly the full list requires an account at ITU-T:
 # https://www.itu.int/net/ITU-T/inrdb/
+
+
+# The user agent that will be passed in requests
+user_agent = 'Mozilla/5.0 (compatible; python-stdnum updater; +https://arthurdejong.org/python-stdnum/)'
 
 
 cleanup_replacements = {
@@ -155,7 +159,7 @@ def get_mncs_from_wikipedia():
     for page in wikipedia_pages:
         url = 'https://en.wikipedia.org/w/index.php?title=%s&action=raw' % (
             page.replace(' ', '_'))
-        response = requests.get(url, timeout=30)
+        response = requests.get(url, timeout=30, headers={'User-Agent': user_agent})
         response.raise_for_status()
         country = cc = ''
         for line in response.iter_lines(decode_unicode=True):

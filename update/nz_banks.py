@@ -3,7 +3,7 @@
 
 # update/nz_banks.py - script to download Bank list from Bank Branch Register
 #
-# Copyright (C) 2019-2024 Arthur de Jong
+# Copyright (C) 2019-2026 Arthur de Jong
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -33,6 +33,10 @@ import requests
 
 # The page that contains a link to the latest XLS version of the codes.
 download_url = 'https://www.paymentsnz.co.nz/resources/industry-registers/bank-branch-register/download/xlsx/'
+
+
+# The user agent that will be passed in requests
+user_agent = 'Mozilla/5.0 (compatible; python-stdnum updater; +https://arthurdejong.org/python-stdnum/)'
 
 
 def get_values(sheet):
@@ -67,7 +71,7 @@ def branch_list(branches):
 
 if __name__ == '__main__':
     # parse the download as an XLS
-    response = requests.get(download_url, timeout=30)
+    response = requests.get(download_url, timeout=30, headers={'User-Agent': user_agent})
     response.raise_for_status()
     content_disposition = response.headers.get('content-disposition', '')
     filename = re.findall(r'filename=?(.+)"?', content_disposition)[0].strip('"')

@@ -2,7 +2,7 @@
 
 # update/cfi.py - script to download CFI code list from the SIX group
 #
-# Copyright (C) 2022-2025 Arthur de Jong
+# Copyright (C) 2022-2026 Arthur de Jong
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -31,6 +31,10 @@ import requests
 
 # the location of the Statistical Classification file
 download_url = 'https://www.six-group.com/en/products-services/financial-information/data-standards.html'
+
+
+# The user agent that will be passed in requests
+user_agent = 'Mozilla/5.0 (compatible; python-stdnum updater; +https://arthurdejong.org/python-stdnum/)'
 
 
 def normalise(value):
@@ -76,14 +80,14 @@ def print_attributes(attributes, index=0):
 
 if __name__ == '__main__':
     # Download the page that contains the link to the current XLS file
-    response = requests.get(download_url, timeout=30)
+    response = requests.get(download_url, timeout=30, headers={'User-Agent': user_agent})
     response.raise_for_status()
     # Find the download link
     document = lxml.html.document_fromstring(response.content)
     links = [a.get('href') for a in document.findall('.//a[@href]')]
     link_url = next(a for a in links if re.match(r'.*/cfi/.*xlsx?$', a))
     # Download and parse the spreadsheet
-    response = requests.get(link_url, timeout=30)
+    response = requests.get(link_url, timeout=30, headers={'User-Agent': user_agent})
     response.raise_for_status()
     workbook = openpyxl.load_workbook(io.BytesIO(response.content), read_only=True)
 

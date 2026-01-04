@@ -3,7 +3,7 @@
 # update/cn_loc.py - script to fetch data from the CN Open Data community
 #
 # Copyright (C) 2014-2015 Jiangge Zhang
-# Copyright (C) 2015-2025 Arthur de Jong
+# Copyright (C) 2015-2026 Arthur de Jong
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -31,6 +31,10 @@ import requests
 
 # The wikipedia pages to download
 wikipedia_pages = [f'中华人民共和国行政区划代码 ({i}区)' for i in range(1, 9)]
+
+
+# The user agent that will be passed in requests
+user_agent = 'Mozilla/5.0 (compatible; python-stdnum updater; +https://arthurdejong.org/python-stdnum/)'
 
 
 def get_wikipedia_url(page):
@@ -128,7 +132,7 @@ if __name__ == '__main__':
     provinces = {}
     numbers = defaultdict(lambda: defaultdict(list))
     for page in wikipedia_pages:
-        response = requests.get(get_wikipedia_url(page), timeout=30)
+        response = requests.get(get_wikipedia_url(page), timeout=30, headers={'User-Agent': user_agent})
         response.raise_for_status()
         for prefix, province, number, county in parse_page(response.text):
             provinces[prefix] = province

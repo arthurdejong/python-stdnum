@@ -2,7 +2,7 @@
 
 # update/gs1_ai.py - script to get GS1 application identifiers
 #
-# Copyright (C) 2019-2025 Arthur de Jong
+# Copyright (C) 2019-2026 Arthur de Jong
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -39,10 +39,7 @@ user_agent = 'Mozilla/5.0 (compatible; python-stdnum updater; +https://arthurdej
 
 def fetch_ais():
     """Download application identifiers frm the GS1 website."""
-    headers = {
-        'User-Agent': user_agent,
-    }
-    response = requests.get(download_url, headers=headers, timeout=30)
+    response = requests.get(download_url, timeout=30, headers={'User-Agent': user_agent})
     document = lxml.html.document_fromstring(response.content)
     element = document.findall('.//script[@type="application/ld+json"]')[0]
     data = json.loads(element.text)

@@ -3,7 +3,7 @@
 
 # update/do_whitelists.py - script to update do.rnc and do.cedula whitelists
 #
-# Copyright (C) 2017-2019 Arthur de Jong
+# Copyright (C) 2017-2026 Arthur de Jong
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -45,6 +45,10 @@ from stdnum.do import cedula, rnc  # noqa, isort:skip
 download_url = 'https://www.dgii.gov.do/app/WebApps/Consultas/rnc/DGII_RNC.zip'
 
 
+# The user agent that will be passed in requests
+user_agent = 'Mozilla/5.0 (compatible; python-stdnum updater; +https://arthurdejong.org/python-stdnum/)'
+
+
 def handle_zipfile(f):
     """Parse the ZIP file and return a set of invalid RNC and Cedula."""
     # collections of invalid numbers found
@@ -70,7 +74,7 @@ if __name__ == '__main__':
     # Download and read the ZIP file with valid data
     with tempfile.TemporaryFile() as tmp:
         # Download the zip file to a temporary file
-        response = requests.get(download_url, stream=True, timeout=30)
+        response = requests.get(download_url, stream=True, timeout=30, headers={'User-Agent': user_agent})
         response.raise_for_status()
         print('%s: %s' % (
             os.path.basename(download_url),
