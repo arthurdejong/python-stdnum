@@ -1,3 +1,240 @@
+2026-01-04  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [e7e900a] .github/workflows/test.yml, setup.py, tox.ini: Add
+	  support for Python 3.14
+
+2026-01-04  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [97d8cae] stdnum/sn/ninea.py: URL escape the underscore because
+	  it confuses Sphinx
+
+2026-01-04  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [6070c60] stdnum/at/postleitzahl.dat, stdnum/be/banks.dat,
+	  stdnum/cn/loc.dat, stdnum/cz/banks.dat, stdnum/gs1_ai.dat,
+	  stdnum/iban.dat, stdnum/imsi.dat, stdnum/isbn.dat, stdnum/isil.dat,
+	  stdnum/nz/banks.dat, stdnum/oui.dat: Update database files
+
+2026-01-04  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [a7fd300] update/at_postleitzahl.py, update/be_banks.py,
+	  update/cfi.py, update/cn_loc.py, update/cz_banks.py,
+	  update/do_whitelists.py, update/gs1_ai.py, update/iban.py,
+	  update/imsi.py, update/isbn.py, update/isil.py, update/nz_banks.py:
+	  Consistently pass a user agent for update scripts
+
+	  The scourge of AI bots is forcing more and more sites to block
+	  bots that don't set particular user agents.
+
+2026-01-04  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [e7afc61] update/be_banks.py: Update download URL of Belgian
+	  bank numbers
+
+	  This also changes the handling to prefer the English name over
+	  other names and handles another variant of not-applicable values.
+
+2026-01-04  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [d332ee1] stdnum/sn/ninea.py, tests/test_sn_ninea.doctest:
+	  Add check digit validation to Senegal NINEA
+
+2023-02-12  Leandro Regueiro <leandro.regueiro@gmail.com>
+
+	* [dd22123] stdnum/sn/__init__.py, stdnum/sn/ninea.py,
+	  tests/test_sn_ninea.doctest: Add support for Senegal TIN
+
+	  Closes https://github.com/arthurdejong/python-stdnum/pull/395
+	  Closes https://github.com/arthurdejong/python-stdnum/issues/357
+
+2026-01-03  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [d3ec3bd] stdnum/br/cnpj.py: Support new format for Brazilian CNPJ
+
+	  The new format allows letters as well as numbers to identify
+	  companies.
+
+	  Closes https://github.com/arthurdejong/python-stdnum/issues/484
+
+2025-02-27  dotbit1 <68584562+dotbit1@users.noreply.github.com>
+
+	* [cd94bf1] stdnum/ro/onrc.py, tests/test_ro_onrc.doctest: Support
+	  the new Romanian ONRC format
+
+	  Closes https://github.com/arthurdejong/python-stdnum/pull/465
+
+2026-01-03  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [293136b] stdnum/lv/pvn.py: Support Latvian personal codes issued
+	  after 2017
+
+	  These numbers no longer embed a birth date in the format.
+
+	  Closes https://github.com/arthurdejong/python-stdnum/issues/486
+
+2023-12-08  Cédric Krier <ced@b2ck.com>
+
+	* [a906a1e] stdnum/eu/excise.py, stdnum/fr/__init__.py,
+	  stdnum/fr/accise.py, tests/test_fr_accise.doctest: Add accise -
+	  the French number for excise
+
+	  Closes https://github.com/arthurdejong/python-stdnum/pull/424
+
+2023-12-08  Cédric Krier <ced@b2ck.com>
+
+	* [1a254d9] stdnum/eu/excise.py, tests/test_eu_excise.doctest:
+	  Add European Excise Number
+
+	  Closes https://github.com/arthurdejong/python-stdnum/pull/424
+
+2025-09-28  Cédric Krier <ced@b2ck.com>
+
+	* [d534b3c] stdnum/be/ogm_vcs.py: Add Belgian OGM-VCS
+
+	  Closes https://github.com/arthurdejong/python-stdnum/pull/487
+
+2025-10-14  KathrinM <k.mallot@right-basedonscience.de>
+
+	* [2cf475c] stdnum/eu/nace.py, stdnum/eu/nace20.dat,
+	  stdnum/eu/nace21.dat, tests/test_eu_nace.doctest: Add support
+	  for nace revision 2.1
+
+	  This makes revision 2.1 the default but still allows validating
+	  against version 2.0 using the revision argument.
+
+	  Closes https://github.com/arthurdejong/python-stdnum/pull/490
+
+2025-12-19  Tuukka Tolvanen <ttolvanen@holvi.com>
+
+	* [acda255] stdnum/de/leitweg.py, tests/test_de_leitweg.doctest:
+	  Add DE Leitweg-ID
+
+	  Closes https://github.com/arthurdejong/python-stdnum/pull/491
+
+2025-12-16  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [c7a7fd1] .github/workflows/test.yml: Run flake8 with Python 3.13
+
+	  Python version 3.14 no longer works.
+
+2025-10-26  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [7a9b852] stdnum/ro/cnp.py: Mark more Romanian CNP county codes
+	  as valid
+
+	  According to
+	  https://ro.wikipedia.org/wiki/Carte_de_identitate_rom%C3%A2neasc%C4%83#Seriile_c%C4%83r%C8%9Bilor_de_identitate_(%C3%AEn_modelele_emise_%C3%AEnainte_de_2021)
+	  70 is used to represent any registration, regardless of county
+	  but while multiple documents claim 80-83 are also valid it is
+	  unclear what they represent.
+
+	  Closes https://github.com/arthurdejong/python-stdnum/issues/489
+
+2025-10-26  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [7ca9b6c] stdnum/be/vat.py, tests/test_be_vat.doctest: Validate
+	  first digit of Belgian VAT number
+
+	  Thanks to antonio-ginestar find pointing this out.
+
+	  Closes https://github.com/arthurdejong/python-stdnum/issues/488
+
+2022-09-17  Leandro Regueiro <leandro.regueiro@gmail.com>
+
+	* [a1fdd5d] stdnum/az/__init__.py, stdnum/az/voen.py,
+	  tests/test_az_voen.doctest: Add support for Azerbaijan TIN
+
+	  Thanks to Adam Handke for finding the weights for the check
+	  digit algorithm.
+
+	  Closes https://github.com/arthurdejong/python-stdnum/issues/200
+	  CLoses https://github.com/arthurdejong/python-stdnum/pull/329
+
+2025-08-08  Fabien MICHEL <fmichel@adista.fr>
+
+	* [e741318] stdnum/fr/rcs.py, tests/test_fr_rcs.doctest: Add French
+	  RCS number
+
+	  Closes https://github.com/arthurdejong/python-stdnum/pull/481
+
+2025-08-08  Fabien MICHEL <fmichel@adista.fr>
+
+	* [ca80cc4] stdnum/fr/siren.py: Add fr.siren.format() function
+
+2025-08-08  Fabien MICHEL <fmichel@adista.fr>
+
+	* [b3a42a1] stdnum/fr/tva.py, tests/test_fr_tva.doctest: Add
+	  fr.tva.to_siren() function
+
+	  The function can convert a French VAT number to a SIREN.
+
+	  Closes https://github.com/arthurdejong/python-stdnum/pull/480
+
+2025-08-14  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [843bbec] stdnum/bic.py, tests/test_bic.doctest: Add validation
+	  of country code in BIC
+
+	  Closes https://github.com/arthurdejong/python-stdnum/issues/482
+
+2025-06-05  Joni Saarinen <joni.saarinen@onebyte.fi>
+
+	* [deb0db1] stdnum/ee/__init__.py: Add personal id and business
+	  id alias for Estonia
+
+	  Closes https://github.com/arthurdejong/python-stdnum/pull/476
+
+2025-05-10  Luca <luca.sicu02@gmail.com>
+
+	* [1773a91] stdnum/mz/__init__.py, stdnum/mz/nuit.py,
+	  tests/test_mz_nuit.doctest: Add support for Mozambique TIN
+
+	  Closes https://github.com/arthurdejong/python-stdnum/issues/360
+	  Closes https://github.com/arthurdejong/python-stdnum/pull/392
+	  Closes https://github.com/arthurdejong/python-stdnum/pull/473
+
+2025-06-01  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [5ef6ade] stdnum/numdb.py: Use broader type ignore for
+	  pkg_resources import
+
+	  Apparently mypy changed for classifying the problem from
+	  import-untyped to import-not-found.
+
+2025-05-25  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [0e64cf6] stdnum/cn/loc.dat, stdnum/cn/ric.py,
+	  tests/test_cn_ric.doctest, update/cn_loc.py: Download Chinise
+	  location codes from Wikipedia
+
+	  The list on GitHub is missing historical information and also
+	  appears to no longer be updated. This changes the birth place
+	  lookup to take the birth year into account to determine whether
+	  a county was assigned at the time.
+
+	  Closes https://github.com/arthurdejong/python-stdnum/issues/442
+
+2025-05-18  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [210b9ce] stdnum/gs1_128.py, stdnum/gs1_ai.dat,
+	  tests/test_gs1_128.doctest, update/gs1_ai.py: Fix handling of
+	  decimals in Application Identifiers
+
+	  This fixes the handling of GS1-128 Application Identifiers with
+	  decimal types. Previously, with some 4 digit decimal application
+	  identifiers the number of decimals were incorrectly considered
+	  part of the value instead of the application identifier.
+
+	  For example (310)5033333 is not correct but it should be evaluated
+	  as (3105)033333 (application identifier 3105 and value 0.33333).
+
+	  Closes https://github.com/arthurdejong/python-stdnum/issues/471
+
+2025-05-17  Arthur de Jong <arthur@arthurdejong.org>
+
+	* [d66998e] ChangeLog, NEWS, stdnum/__init__.py: Get files ready
+	  for 2.1 release
+
 2025-05-17  Arthur de Jong <arthur@arthurdejong.org>
 
 	* [a753ebf] stdnum/at/postleitzahl.dat, stdnum/cn/loc.dat,

@@ -28,10 +28,12 @@ Currently this package supports the following formats:
  * ABN (Australian Business Number)
  * ACN (Australian Company Number)
  * TFN (Australian Tax File Number)
+ * VÖEN (Vergi ödəyicisinin eyniləşdirmə nömrəsi, Azerbaijan tax number)
  * BIS (Belgian BIS number)
  * eID Number (Belgian electronic Identity Card Number)
  * Belgian IBAN (International Bank Account Number)
  * NN, NISS, RRN (Belgian national number)
+ * Belgian OGM-VCS
  * SSN, INSZ, NISS (Belgian social security number)
  * BTW, TVA, NWSt, ondernemingsnummer (Belgian enterprise number)
  * EGN (ЕГН, Единен граждански номер, Bulgarian personal identity codes)
@@ -66,6 +68,7 @@ Currently this package supports the following formats:
  * RČ (Rodné číslo, the Czech birth number)
  * Handelsregisternummer (German company register number)
  * IdNr (Steuerliche Identifikationsnummer, German personal tax number)
+ * Leitweg-ID, a buyer reference or routing identifier for electronic invoices
  * St.-Nr. (Steuernummer, German tax number)
  * Ust ID Nr. (Umsatzsteur Identifikationnummer, German VAT number)
  * Wertpapierkennnummer (German securities identification code)
@@ -96,6 +99,7 @@ Currently this package supports the following formats:
  * Euro banknote serial numbers
  * EC Number (European Community number)
  * EIC (European Energy Identification Code)
+ * European Excise Number
  * NACE (classification for businesses in the European Union)
  * OSS (European VAT on e-Commerce - One Stop Shop)
  * VAT (European Union VAT number)
@@ -106,8 +110,10 @@ Currently this package supports the following formats:
  * Y-tunnus (Finnish business identifier)
  * FIGI (Financial Instrument Global Identifier)
  * V-number (Vinnutal, Faroe Islands tax number)
+ * n° d'accise (French number to identify taxpayers of excise taxes)
  * NIF (Numéro d'Immatriculation Fiscale, French tax identification number)
  * NIR (French personal identification number)
+ * RCS (French trade registration number for commercial companies)
  * SIREN (a French company identification number)
  * SIRET (a French company establishment identification number)
  * n° TVA (taxe sur la valeur ajoutée, French VAT number)
@@ -179,6 +185,7 @@ Currently this package supports the following formats:
  * CURP (Clave Única de Registro de Población, Mexican personal ID)
  * RFC (Registro Federal de Contribuyentes, Mexican tax number)
  * NRIC No. (Malaysian National Registration Identity Card Number)
+ * NUIT (Número Único de Identificação Tributaria, Mozambique tax number)
  * BRIN number (the Dutch school identification number)
  * BSN (Burgerservicenummer, the Dutch citizen identification number)
  * Btw-identificatienummer (Omzetbelastingnummer, the Dutch VAT number)
@@ -219,6 +226,7 @@ Currently this package supports the following formats:
  * IČ DPH (IČ pre daň z pridanej hodnoty, Slovak VAT number)
  * RČ (Rodné číslo, the Slovak birth number)
  * COE (Codice operatore economico, San Marino national tax number)
+ * NINEA (Numéro d'Identification Nationale des Entreprises et Associations, Senegal tax number)
  * NIT (Número de Identificación Tributaria, El Salvador tax number)
  * MOA (Thailand Memorandum of Association Number)
  * PIN (Thailand Personal Identification Number)
@@ -296,7 +304,7 @@ Python. The modules are developed and tested with Python 3 versions (see `setup.
 Copyright
 ---------
 
-Copyright (C) 2010-2025 Arthur de Jong and others
+Copyright (C) 2010-2026 Arthur de Jong and others
 
 This library is free software; you can redistribute it and/or
 modify it under the terms of the GNU Lesser General Public

@@ -1,3 +1,38 @@
+changes from 2.1 to 2.2
+-----------------------
+
+* Add modules for the following number formats:
+
+  - VÖEN (Vergi ödəyicisinin eyniləşdirmə nömrəsi, Azerbaijan tax number)
+    (thanks Leandro Regueiro)
+  - Belgian OGM-VCS
+    (thanks Cédric Krier)
+  - Leitweg-ID, a buyer reference or routing identifier for electronic invoices
+    (thanks Tuukka Tolvanen)
+  - European Excise Number (thanks Cédric Krier)
+  - n° d'accise (French number to identify taxpayers of excise taxes)
+    (thanks Cédric Krier)
+  - RCS (French trade registration number for commercial companies)
+    (thanks Fabien MICHEL)
+  - NUIT (Número Único de Identificação Tributaria, Mozambique tax number)
+    (thanks Luca and Leandro Regueiro)
+  - NINEA (Numéro d'Identification Nationale des Entreprises et Associations, Senegal tax number)
+    (thanks Leandro Regueiro)
+
+* Fix handling of decimals in Application Identifiers (thanks zipus)
+* Update list of valid Chinese counties (thanks 电子旅人 and Luca)
+* Mark more Romanian CNP county codes as valid (thanks luella-s)
+* Support Latvian personal codes issued after 2017 (thanks José Luis López Pino)
+* Provide aliases for Estonian numbers (thanks Joni Saarinen)
+* Add validation of country code in BIC (thanks Luuk Gubbels)
+* Add function to convert a French VAT number into a SIREN (thanks Fabien MICHEL)
+* Add a function to format a French SIREN (thanks Fabien MICHEL)
+* Add extra validation of Belgian VAT numbers (thanks Antonio Ginestar)
+* Add support for nace revision 2.1 (thanks KathrinM)
+* Support the new Romanian ONRC format (thanks dotbit1)
+* Support new format for Brazilian CNPJ (thanks Cloves Oliveira)
+
+
 changes from 2.0 to 2.1
 -----------------------
 

@@ -126,10 +126,12 @@ Available formats
    au.abn
    au.acn
    au.tfn
+   az.voen
    be.bis
    be.eid
    be.iban
    be.nn
+   be.ogm_vcs
    be.ssn
    be.vat
    bg.egn
@@ -164,6 +166,7 @@ Available formats
    cz.rc
    de.handelsregisternummer
    de.idnr
+   de.leitweg
    de.stnr
    de.vat
    de.wkn
@@ -194,6 +197,7 @@ Available formats
    eu.banknote
    eu.ecnumber
    eu.eic
+   eu.excise
    eu.nace
    eu.oss
    eu.vat
@@ -204,8 +208,10 @@ Available formats
    fi.ytunnus
    figi
    fo.vn
+   fr.accise
    fr.nif
    fr.nir
+   fr.rcs
    fr.siren
    fr.siret
    fr.tva
@@ -277,6 +283,7 @@ Available formats
    mx.curp
    mx.rfc
    my.nric
+   mz.nuit
    nl.brin
    nl.bsn
    nl.btw
@@ -317,6 +324,7 @@ Available formats
    sk.dph
    sk.rc
    sm.coe
+   sn.ninea
    sv.nit
    th.moa
    th.pin
