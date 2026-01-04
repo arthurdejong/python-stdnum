@@ -1,4 +1,4 @@
-# generated from BankBranchRegister-18May2025.xlsx downloaded from
+# generated from BankBranchRegister-05Jan2026.xlsx downloaded from
 # https://www.paymentsnz.co.nz/resources/industry-registers/bank-branch-register/download/xlsx/
 01 bank="ANZ Bank New Zealand"
  0001 branch="ANZ Retail 1"
@@ -225,6 +225,7 @@
  1846 branch="Manukau Mall"
  1849 branch="Grey Lynn"
  1853-1854 branch="Transaction Banking"
+ 1881 branch="PSO - Shared Ownership"
  1889 branch="CTM Processing"
  6150 branch="ANZ Corporate Headquarters - MBP"
 02 bank="Bank of New Zealand"
@@ -517,10 +518,9 @@
  1289-1292 branch="Wise Payments Ltd"
  1294 branch="Waddle Loans Ltd"
  1295 branch="Toll Networks (NZ) Ltd"
- 1296 branch="Toll Carriers Ltd"
+ 1296,1299 branch="TMNZ Limited Partnership"
  1297 branch="Latipay"
  1298 branch="Whangaparaoa"
- 1299 branch="Tax Management New Zealand Ltd"
  2025-2053 branch="BNZ Account"
  2054 branch="BNZ Account Test Branch"
  2055 branch="BNZ Account Training Branch"
@@ -866,6 +866,7 @@
  1917 branch="Transaction Banking 123"
  1918 branch="Transaction Banking 124"
  1919 branch="Transaction Banking 125"
+ 5050 branch="Westpc Insurance"
  7355 branch="Branch On Demand"
 04 bank="ANZ Bank New Zealand"
  2014-2015,2019-2024 branch="ANZ Institutional"

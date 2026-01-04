@@ -1,5 +1,5 @@
 # generated from https://ref.gs1.org/ai/
-# on 2025-05-18 14:21:46.081509+00:00
+# on 2026-01-04 16:48:51.071859+00:00
 00 format="N18" type="str" name="SSCC" description="Serial Shipping Container Code (SSCC)"
 01 format="N14" type="str" name="GTIN" description="Global Trade Item Number (GTIN)"
 02 format="N14" type="str" name="CONTENT" description="Global Trade Item Number (GTIN) of contained trade items"
@@ -170,6 +170,7 @@
 714 format="X..20" type="str" fnc1="1" name="NHRN AIM" description="National Healthcare Reimbursement Number (NHRN) - Portugal AIM"
 715 format="X..20" type="str" fnc1="1" name="NHRN NDC" description="National Healthcare Reimbursement Number (NHRN) - United States of America NDC"
 716 format="X..20" type="str" fnc1="1" name="NHRN AIC" description="National Healthcare Reimbursement Number (NHRN) - Italy AIC"
+717 format="X..20" type="str" fnc1="1" name="NHRN SRN" description="National Healthcare Reimbursement Number (NHRN) - Costa Rica Sanitary Register Number"
 7230 format="X2+X..28" type="str" fnc1="1" name="CERT # 0" description="Certification Reference"
 7231 format="X2+X..28" type="str" fnc1="1" name="CERT # 1" description="Certification Reference"
 7232 format="X2+X..28" type="str" fnc1="1" name="CERT # 2" description="Certification Reference"
@@ -213,6 +214,10 @@
 8020 format="X..25" type="str" fnc1="1" name="REF No." description="Payment slip reference number"
 8026 format="N14+N2+N2" type="str" fnc1="1" name="ITIP CONTENT" description="Identification of pieces of a trade item (ITIP) contained in a logistic unit"
 8030 format="Z..90" type="str" fnc1="1" name="DIGSIG" description="Digital Signature (DigSig)"
+8040 format="N15" type="str" fnc1="1" name="IMEI" description="Internatinal Mobile Equipment Identity (IMEI)"
+8041 format="N15" type="str" fnc1="1" name="IMEI2" description="Internatinal Mobile Equipment Identity 2 (IMEI2)"
+8042 format="N32" type="str" fnc1="1" name="ESIM" description="Embedded SIM number"
+8043 format="N18+[N1..N2]" type="str" fnc1="1" name="PSIM" description="Physical SIM number"
 8110 format="X..70" type="str" fnc1="1" name="" description="Coupon code identification for use in North America"
 8111 format="N4" type="str" fnc1="1" name="POINTS" description="Loyalty points of a coupon"
 8112 format="X..70" type="str" fnc1="1" name="" description="Positive offer file coupon code identification for use in North America"

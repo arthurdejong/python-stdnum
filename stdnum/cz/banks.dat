@@ -45,3 +45,5 @@
 8255 bic="COMMCZPP" bank="Bank of Communications Co., Ltd., Prague Branch odštěpný závod" certis="True"
 8265 bic="ICBKCZPP" bank="Industrial and Commercial Bank of China Limited, Prague Branch, odštěpný závod" certis="True"
 8500 bank="Multitude Bank p.l.c." certis="True"
+8610 bank="Devizová burza a.s."
+8660 bank="PAYMONT, UAB" certis="True"
