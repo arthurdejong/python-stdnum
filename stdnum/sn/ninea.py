@@ -2,6 +2,7 @@
 # coding: utf-8
 #
 # Copyright (C) 2023 Leandro Regueiro
+# Copyright (C) 2026 Arthur de Jong
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -41,6 +42,10 @@ More information:
 '30672212G2'
 >>> validate('3067221 2G2')
 '30672212G2'
+>>> validate('3067222')
+Traceback (most recent call last):
+    ...
+InvalidChecksum: ...
 >>> validate('1234567 0AZ')
 Traceback (most recent call last):
     ...
@@ -109,6 +114,12 @@ def _validate_cofi(number: str) -> None:
         raise InvalidComponent()
 
 
+def _checksum(number: str) -> int:
+    number = number.zfill(9)
+    weights = (1, 2, 1, 2, 1, 2, 1, 2, 1)
+    return sum(int(n) * w for n, w in zip(number, weights)) % 10
+
+
 def validate(number: str) -> str:
     """Check if the number is a valid Senegal NINEA.
 
@@ -125,6 +136,8 @@ def validate(number: str) -> str:
         raise InvalidFormat()
     if cofi:
         _validate_cofi(cofi)
+    if _checksum(number) != 0:
+        raise InvalidChecksum()
     return number + cofi
 
 
