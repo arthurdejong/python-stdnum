@@ -56,7 +56,7 @@ whitelist = set('''
 '''.split())
 
 
-dgii_wsdl = 'https://www.dgii.gov.do/wsMovilDGII/WSMovilDGII.asmx?WSDL'
+dgii_wsdl = 'https://www.dgii.gov.do/ventanillaunica/ventanillaunica.asmx?WSDL'
 """The WSDL URL of DGII validation service."""
 
 
