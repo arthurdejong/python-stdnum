@@ -19,3 +19,6 @@
 # 02110-1301 USA
 
 """Collection of Ukrainian numbers."""
+
+# provide aliases
+from stdnum.ua import edrpou as vat  # noqa: F401

@@ -19,3 +19,6 @@
 # 02110-1301 USA
 
 """Collection of Moldavian numbers."""
+
+# provide aliases
+from stdnum.md import idno as vat  # noqa: F401
