@@ -1,0 +1,177 @@
+test_tg_nif.doctest - more detailed doctests for stdnum.tg.nif module
+
+Copyright (C) 2023 Leandro Regueiro
+
+This library is free software; you can redistribute it and/or
+modify it under the terms of the GNU Lesser General Public
+License as published by the Free Software Foundation; either
+version 2.1 of the License, or (at your option) any later version.
+
+This library is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+Lesser General Public License for more details.
+
+You should have received a copy of the GNU Lesser General Public
+License along with this library; if not, write to the Free Software
+Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
+02110-1301 USA
+
+
+This file contains more detailed doctests for the stdnum.tg.nif module. It
+tries to test more corner cases and detailed functionality that is not really
+useful as module documentation.
+
+>>> from stdnum.tg import nif
+
+
+Tests for some corner cases.
+
+>>> nif.validate('1000174915')
+'1000174915'
+>>> nif.validate('1000 292 023')
+'1000292023'
+>>> nif.validate('12345')
+Traceback (most recent call last):
+    ...
+InvalidLength: ...
+>>> nif.validate('VV34567890')
+Traceback (most recent call last):
+    ...
+InvalidFormat: ...
+>>> nif.format('1000 292 023')
+'1000292023'
+
+
+These have been found online and should all be valid numbers.
+
+>>> numbers = '''
+...
+... 1000174915
+... 1000167004
+... 1000166131
+... 1000174339
+... 1000160992
+... 1000145206
+... 1000161073
+... 1000175320
+... 1000166365
+... 1000173844
+... 1000166185
+... 1000166419
+... 1000166455
+... 1000175248
+... 1000175680
+... 1000175698
+... 1000174969
+... 1000166338
+... 1000174213
+... 1000343454
+... 1000166374
+... 1000175860
+... 1001694618
+... 1000034173
+... 1000166401
+... 1000210995
+... 1000166689
+... 1000160785
+... 1000166608
+... 1000166158
+... 1000175068
+... 1000175869
+... 1000145062
+... 1000166743
+... 1000165159
+... 1000116001
+... 1000174735
+... 1000166716
+... 1000161442
+... 1000145044
+... 1000116343
+... 1000166977
+... 1000166293
+... 1000175788
+... 1000089811
+... 1000145152
+... 1000166536
+... 1000116325
+... 1000160974
+... 1000160911
+... 1000175419
+... 1000160380
+... 1000166671
+... 1000173970
+... 1000174807
+... 1000144405
+... 1000166554
+... 1000166203
+... 1000166464
+... 1000161343
+... 1000167076
+... 1000145035
+... 1000166491
+... 1000116748
+... 1000033084
+... 1000144576
+... 1000385632
+... 1000160416
+... 1000160326
+... 1000166500
+... 1000160425
+... 1000211141
+... 1000166347
+... 1000174249
+... 1000144801
+... 1000174816
+... 1000166842
+... 1000116172
+... 1000166356
+... 1000144927
+... 1000166995
+... 1000166644
+... 1000166680
+... 1000145071
+... 1000166410
+... 1000166167
+... 1000174276
+... 1000166221
+... 1000144774
+... 1000116568
+... 1000166194
+... 1000175662
+... 1000166329
+... 1000174006
+... 1000173808
+... 1000175698
+... 1000093762
+... 1000 292 023
+... 1000002610
+... 1000002619
+... 1000002628
+... 1000002637
+... 1000002646
+... 1000002655
+... 1000002664
+... 1000002673
+... 1000009189
+... 1000009198
+... 1000116496
+... 1001585478
+... 1000087624
+... 1000286204
+... 1000822999
+... 1001662737
+... 1000819204
+... 1000129582
+... 1000176698
+... 1000 2686 18
+... 1000145251
+... 1001527008
+... 1001090612
+... 1001808335
+... 1000165159
+... 1001405758
+...
+... '''
+>>> [x for x in numbers.splitlines() if x and not nif.is_valid(x)]
+[]
