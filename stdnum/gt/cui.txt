@@ -1,0 +1,121 @@
+# cui.py - functions for handling Guatemala CUI numbers
+#
+# Copyright (C) 2025 Arthur de Jong
+#
+# This library is free software; you can redistribute it and/or
+# modify it under the terms of the GNU Lesser General Public
+# License as published by the Free Software Foundation; either
+# version 2.1 of the License, or (at your option) any later version.
+#
+# This library is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+# Lesser General Public License for more details.
+#
+# You should have received a copy of the GNU Lesser General Public
+# License along with this library; if not, see <https://www.gnu.org/licenses/>.
+
+"""
+
+Guatemala – National ID Number (Código Único de Identificación, CUI)
+
+
+
+
+The Guatemalan National ID Number (Código Único de Identificación, CUI) is the official identification number issued to Guatemalan nationals and permanent residents. The CUI appears on the Personal Identification Document (Documento Personal de Identificación, DPI), which all Guatemalan nationals can obtain when they turn 18 years old. In other words, the DPI is the identification document itself, and the CUI is the number on that document.
+
+The CUI comprises a 13-digit numeric code:
+
+    The first eight digits (A) are randomly assigned numbers (número correlativo asignado).
+    The ninth digit (B) is a checksum digit (dígito verificador).
+    The tenth and eleventh digits (C) comprise a two-digit code denoting the department of birth.
+    The twelfth and thirteenth digits (D) comprise a two-digit code indicating the municipality of birth. A list of two-digit codes for departments and municipalities in Guatemala can be found here.
+
+The resulting ID number is structured as follows:
+
+AAAAAAAABCCDD
+
+Note that for naturalized citizens and permanent residents, the last four digits correspond to the department and municipality where they registered for the DPI.
+
+
+https://www.renap.gob.gt/noticias/codigo-unico-de-identificacion-cui#:~:text=Est%C3%A1%20compuesto%20por%2013%20d%C3%ADgitos,del%20municipio%20de%20su%20nacimiento
+
+"""
+
+from stdnum.exceptions import *
+from stdnum.util import clean, isdigits
+
+
+
+
+
+
+
+
+def check_vat(self):
+    """ Extention of the validation method to cover DPI/CUI and NIT. """
+    l10n_gt_partners = self.filtered(lambda p: p.country_code == 'GT')
+    l10n_gt_partners.l10n_gt_identification_validation()
+    return super(ResPartner, self - l10n_gt_partners).check_vat()
+
+
+def l10n_gt_identification_validation(self):
+    for record in self.filtered('vat'):
+        record.ensure_one()
+        if record.l10n_latam_identification_type_id == self.env.ref('l10n_gt.it_cui'):
+            cui_sum = sum(int(a) * b for a, b in zip(record.vat[:8], range(2, 10)))
+            cui_res = '0123456789K'[(cui_sum % 11)]
+            if record.vat[8] != cui_res:
+                raise ValidationError(_("Incorrect verification digit for the CUI identification type."))
+        elif record.l10n_latam_identification_type_id == self.env.ref('l10n_gt.it_nit'):
+            stdnum.gt.nit.validate(record.vat)
+
+
+
+
+
+
+
+def compact(number):
+    """Convert the number to the minimal representation. This strips the
+    number of any valid separators and removes surrounding whitespace."""
+    return clean(number, ' -').upper().strip().lstrip('0')
+    # FIXME: check
+
+
+def calc_check_digit(number):
+    """Calculate the check digit. The number passed should not have the
+    check digit included."""
+    c = -sum(i * int(n) for i, n in enumerate(reversed(number), 2)) % 11
+    return 'K' if c == 10 else str(c)
+
+
+def validate(number):
+    """Check if the number is a valid Guatemala NIT number.
+
+    This checks the length, formatting and check digit.
+    """
+    number = compact(number)
+    if len(number) < 2 or len(number) > 12:
+        raise InvalidLength()
+    if not isdigits(number[:-1]):
+        raise InvalidFormat()
+    if number[-1] != 'K' and not isdigits(number[-1]):
+        raise InvalidFormat()
+    if number[-1] != calc_check_digit(number[:-1]):
+        raise InvalidChecksum()
+    return number
+
+
+def is_valid(number):
+    """Check if the number is a valid Guatemala NIT number."""
+    try:
+        return bool(validate(number))
+    except ValidationError:
+        return False
+
+
+def format(number):
+    """Reformat the number to the standard presentation format."""
+    number = compact(number)
+    return '-'.join([number[:-1], number[-1]])
