@@ -56,7 +56,7 @@ MEMBER_STATES = set([
 country code of gr while for VAT purposes el is used instead. For Northern
 Ireland numbers are prefixed with xi of United Kingdom numbers."""
 
-_country_modules = dict()
+_country_modules: dict[str, NumberValidationModule | None] = {}
 
 vies_wsdl = 'https://ec.europa.eu/taxation_customs/vies/checkVatService.wsdl'
 """The WSDL URL of the VAT Information Exchange System (VIES)."""

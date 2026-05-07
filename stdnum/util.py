@@ -256,7 +256,7 @@ def get_cc_module(cc: str, name: str) -> NumberValidationModule | None:
 
 
 # this is a cache of SOAP clients
-_soap_clients = {}
+_soap_clients: dict[tuple[str, float, bool | str], Any] = {}
 
 
 def _get_zeep_soap_client(
