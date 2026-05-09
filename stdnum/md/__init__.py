@@ -17,3 +17,6 @@
 # License along with this library; if not, see <https://www.gnu.org/licenses/>.
 
 """Collection of Moldavian numbers."""
+
+# provide aliases
+from stdnum.md import idno as vat  # noqa: F401
