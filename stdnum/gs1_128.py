@@ -122,8 +122,15 @@ def _encode_date(fmt: str, value: object) -> str:
         # Format date in different formats
         if fmt in ('N6', 'N6..12', 'N6[+N6]'):
             return value.strftime('%y%m%d')
+        elif fmt == 'N8':
+            # Date with a four-digit year (YYYYMMDD), e.g. AI 7250 (DOB).
+            return value.strftime('%Y%m%d')
         elif fmt == 'N10':
             return value.strftime('%y%m%d%H%M')
+        elif fmt == 'N12':
+            # Date and time with a four-digit year (YYYYMMDDhhmm), e.g. AI 7251
+            # (DOB TIME).
+            return value.strftime('%Y%m%d%H%M')
         elif fmt in ('N6+N..4', 'N6[+N..4]', 'N6[+N4]'):
             value = value.strftime('%y%m%d%H%M')
             if value.endswith('00'):
@@ -185,7 +192,14 @@ def _decode_decimal(ai: str, fmt: str, value: str) -> decimal.Decimal | tuple[st
 
 def _decode_date(fmt: str, value: str) -> datetime.date | datetime.datetime | tuple[datetime.date, datetime.date]:
     """Decode the specified date value given the fmt."""
-    if len(value) == 6:
+    if fmt == 'N8':
+        # Date with a four-digit year (YYYYMMDD), e.g. AI 7250 (DOB).
+        return datetime.datetime.strptime(value, '%Y%m%d').date()
+    elif fmt == 'N12':
+        # Date and time with a four-digit year (YYYYMMDDhhmm), e.g. AI 7251
+        # (DOB TIME). This is a single datetime, not two YYMMDD dates.
+        return datetime.datetime.strptime(value, '%Y%m%d%H%M')
+    elif len(value) == 6:
         if value[4:] == '00':
             # When day == '00', it must be interpreted as last day of month
             date = datetime.datetime.strptime(value[:4], '%y%m')
@@ -196,7 +210,7 @@ def _decode_date(fmt: str, value: str) -> datetime.date | datetime.datetime | tu
             return date.date()
         else:
             return datetime.datetime.strptime(value, '%y%m%d').date()
-    elif len(value) == 12 and fmt in ('N12', 'N6..12', 'N6[+N6]'):
+    elif len(value) == 12 and fmt in ('N6..12', 'N6[+N6]'):
         return (_decode_date('N6', value[:6]), _decode_date('N6', value[6:]))  # type: ignore[return-value]
     else:
         # Other lengths are interpreted as variable-length datetime values
