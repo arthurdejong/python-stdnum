@@ -94,6 +94,10 @@ We generate dates in various formats, depending on the AI.
 '(7011)181119'
 >>> gs1_128.encode({'7011': datetime.datetime(2018, 11, 19, 12, 45)}, parentheses=True)
 '(7011)1811191245'
+>>> gs1_128.encode({'7250': datetime.date(1980, 7, 15)}, parentheses=True)  # four-digit year
+'(7250)19800715'
+>>> gs1_128.encode({'7251': datetime.datetime(1980, 7, 15, 14, 30)}, parentheses=True)
+'(7251)198007151430'
 
 If we try to encode an invalid EAN we will get an error.
 
@@ -154,6 +158,10 @@ We an decode date files from various formats.
 {'7011': datetime.date(2018, 11, 19)}
 >>> pprint.pprint(gs1_128.info('(7011)1811191245'))
 {'7011': datetime.datetime(2018, 11, 19, 12, 45)}
+>>> pprint.pprint(gs1_128.info('(7250)19800715'))
+{'7250': datetime.date(1980, 7, 15)}
+>>> pprint.pprint(gs1_128.info('(7251)198007151430'))
+{'7251': datetime.datetime(1980, 7, 15, 14, 30)}
 
 
 While the compact() function can clean up the number somewhat the validate()
