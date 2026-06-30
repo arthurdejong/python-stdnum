@@ -102,3 +102,19 @@ Check for VAT numbers that cannot be compacted without EU prefix:
 True
 >>> vatin.compact('EU191849184')
 'EU191849184'
+
+
+A duplicated country code prefix should not be accepted (#420). This used to
+pass because the country code was stripped twice (once here and once by the
+country module):
+
+>>> vatin.is_valid('BE 0308.357.159')
+True
+>>> vatin.is_valid('BE BE 0308.357.159')
+False
+>>> vatin.is_valid('BEBE0308357159')
+False
+>>> vatin.validate('BE BE 0308.357.159')
+Traceback (most recent call last):
+    ...
+InvalidFormat: ...
