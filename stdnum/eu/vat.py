@@ -1,7 +1,7 @@
 # vat.py - functions for handling European VAT numbers
 # coding: utf-8
 #
-# Copyright (C) 2012-2024 Arthur de Jong
+# Copyright (C) 2012-2026 Arthur de Jong
 # Copyright (C) 2015 Lionel Elie Mamane
 #
 # This library is free software; you can redistribute it and/or
@@ -56,7 +56,7 @@ MEMBER_STATES = set([
 country code of gr while for VAT purposes el is used instead. For Northern
 Ireland numbers are prefixed with xi of United Kingdom numbers."""
 
-_country_modules = dict()
+_country_modules: dict[str, NumberValidationModule | None] = dict()
 
 vies_wsdl = 'https://ec.europa.eu/taxation_customs/vies/checkVatService.wsdl'
 """The WSDL URL of the VAT Information Exchange System (VIES)."""

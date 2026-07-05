@@ -1,7 +1,7 @@
 # util.py - common utility functions
 # coding: utf-8
 #
-# Copyright (C) 2012-2025 Arthur de Jong
+# Copyright (C) 2012-2026 Arthur de Jong
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -256,7 +256,7 @@ def get_cc_module(cc: str, name: str) -> NumberValidationModule | None:
 
 
 # this is a cache of SOAP clients
-_soap_clients = {}
+_soap_clients: dict[tuple[str, float, bool | str], Any] = {}
 
 
 def _get_zeep_soap_client(
