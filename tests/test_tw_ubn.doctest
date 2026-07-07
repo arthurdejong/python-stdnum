@@ -45,6 +45,21 @@ Traceback (most recent call last):
 InvalidChecksum: ...
 
 
+Since 2023-04-01 the check digit only needs the weighted sum to be divisible
+by 5 (instead of 10), so numbers that were invalid under the old rule may now
+be valid. The special case for a 7 in the 7th position (where 1 may be added
+to the sum) still applies.
+
+>>> ubn.validate('10000004')
+'10000004'
+>>> ubn.validate('10000026')
+'10000026'
+>>> ubn.validate('10000073')
+'10000073'
+>>> ubn.validate('10000171')
+'10000171'
+
+
 These have been found online and should all be valid numbers.
 
 >>> numbers = '''
