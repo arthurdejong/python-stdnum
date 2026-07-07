@@ -22,10 +22,10 @@ The Unified Business Number (UBN, 統一編號) is the number assigned to busine
 within Taiwan for tax (VAT) purposes. The number consists of 8 digits, the
 last being a check digit.
 
-Since 2023-04-01 (民國112年) the Ministry of Finance relaxed the check digit
-logic so that the weighted sum only needs to be divisible by 5 (instead of 10)
-to increase the pool of available numbers. Numbers that were valid under the
-old rule (divisible by 10) remain valid under the new one.
+Since 2023-04-01 the Ministry of Finance relaxed the check digit logic so
+that the weighted sum only needs to be divisible by 5 (instead of 10) to
+increase the pool of available numbers. Numbers that were valid under the old
+rule (divisible by 10) remain valid under the new one.
 
 More information:
 
