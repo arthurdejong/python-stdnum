@@ -87,11 +87,26 @@ def validate(number: str) -> str:
     This performs the country-specific check for the number.
     """
     number = clean(number, '').strip()
-    module = _get_cc_module(number[:2])
+    cc = number[:2]
+    module = _get_cc_module(cc)
     try:
-        return number[:2].upper() + module.validate(number[2:])
+        # Most country modules accept and strip the optional country-code
+        # prefix themselves, so the full number is validated. Stripping the
+        # prefix here as well would silently accept a doubled country code
+        # such as "BE BE 0308.357.159" (see #420).
+        result = module.validate(number)
     except ValidationError:
-        return module.validate(number)
+        # Some country modules expect the national number without the country
+        # code prefix. Only retry that way when the remainder is not itself
+        # prefixed with the country code, otherwise a doubled prefix would be
+        # accepted.
+        remainder = re.sub(r'[^0-9A-Za-z]', '', number[2:])
+        if remainder[:2].upper() == cc.upper():
+            raise
+        result = module.validate(number[2:])
+    if not result.startswith(cc.upper()):
+        result = cc.upper() + result
+    return result
 
 
 def is_valid(number: str) -> bool:
