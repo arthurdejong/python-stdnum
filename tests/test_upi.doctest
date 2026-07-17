@@ -1,0 +1,83 @@
+test_upi.doctest - more detailed doctests for the stdnum.upi module
+
+Copyright (C) 2026 Jon Arnfred
+
+This library is free software; you can redistribute it and/or
+modify it under the terms of the GNU Lesser General Public
+License as published by the Free Software Foundation; either
+version 2.1 of the License, or (at your option) any later version.
+
+This library is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+Lesser General Public License for more details.
+
+You should have received a copy of the GNU Lesser General Public
+License along with this library; if not, see <https://www.gnu.org/licenses/>.
+
+
+This file contains more detailed doctests for the stdnum.upi module.
+
+>>> from stdnum import upi
+>>> from stdnum.exceptions import *
+
+
+Spaces and case are normalised by compact().
+
+>>> upi.compact(' qzk1 2rnsp6p6 ')
+'QZK12RNSP6P6'
+>>> upi.validate('qzk12rnsp6p6')
+'QZK12RNSP6P6'
+
+
+The prefix must be QZ and only digits and consonants other than Y are
+permitted.
+
+>>> upi.validate('XZK12RNSP6P6')
+Traceback (most recent call last):
+    ...
+InvalidComponent: ...
+>>> upi.validate('QZA12RNSP6P6')
+Traceback (most recent call last):
+    ...
+InvalidFormat: ...
+>>> upi.validate('QZY12RNSP6P6')
+Traceback (most recent call last):
+    ...
+InvalidFormat: ...
+>>> upi.validate('QZK12RNSP6P')
+Traceback (most recent call last):
+    ...
+InvalidLength: ...
+
+
+The final character is an ISO 7064 Mod 31, 30 check character.
+
+>>> upi.calc_check_digit('QZK12RNSP6P')
+'6'
+>>> upi.validate('QZK12RNSP6P7')
+Traceback (most recent call last):
+    ...
+InvalidChecksum: ...
+
+
+These examples have been published by the Derivatives Service Bureau, CME
+Group and in ISO 4914 supporting material.
+
+* https://www.anna-dsb.com/download/dsb-2770-isin-eq-sw-total-return-swap-basket-template-definition/
+* https://www.anna-dsb.com/download/dsb-2771-upi-eq-sw-total-return-swap-single-name-template-definition/
+* https://www.cmegroup.com/notices/reference-data-api/2024/02/20240222.html
+* https://zakon.rada.gov.ua/laws/show/z1549-21
+
+>>> numbers = '''
+...
+... QZDXL66WTF3C
+... QZK12RNSP6P6
+... QZNX2JD91QCG
+... QZVLFS6FH9VZ
+...
+... '''
+>>> [x for x in numbers.splitlines() if x and not upi.is_valid(x)]
+[]
+>>> upi.is_valid('QZK12RNSP6P7')
+False
