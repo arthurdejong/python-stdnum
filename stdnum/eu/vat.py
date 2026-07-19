@@ -130,6 +130,8 @@ def check_vies(
     number: str,
     timeout: float = 30,
     verify: bool | str = True,
+    *,
+    use_soap: bool = False,
 ) -> dict[str, str | bool | datetime.date]:  # pragma: no cover (not part of normal test suite)
     """Use the EU VIES service to validate the provided number.
 
@@ -148,8 +150,17 @@ def check_vies(
     # this function isn't automatically tested because it would require
     # network access for the tests and unnecessarily load the VIES website
     number = compact(number)
-    client = get_soap_client(vies_wsdl, timeout=timeout, verify=verify)
-    return client.checkVat(number[:2], number[2:])  # type: ignore[no-any-return]
+    if use_soap:
+        client = get_soap_client(vies_wsdl, timeout=timeout, verify=verify)
+        return client.checkVat(number[:2], number[2:])  # type: ignore[no-any-return]
+    else:
+        import requests
+        r = requests.post(
+            'https://ec.europa.eu/taxation_customs/vies/rest-api/check-vat-number',
+            json={'countryCode': number[:2], 'vatNumber': number[2:]},
+        )
+        r.raise_for_status()
+        return r.json()  # type: ignore[no-any-return]
 
 
 def check_vies_approx(
@@ -157,6 +168,8 @@ def check_vies_approx(
     requester: str,
     timeout: float = 30,
     verify: bool | str = True,
+    *,
+    use_soap: bool = False,
 ) -> dict[str, str | bool | datetime.date]:  # pragma: no cover
     """Use the EU VIES service to validate the provided number.
 
@@ -178,7 +191,21 @@ def check_vies_approx(
     # network access for the tests and unnecessarily load the VIES website
     number = compact(number)
     requester = compact(requester)
-    client = get_soap_client(vies_wsdl, timeout=timeout, verify=verify)
-    return client.checkVatApprox(  # type: ignore[no-any-return]
-        countryCode=number[:2], vatNumber=number[2:],
-        requesterCountryCode=requester[:2], requesterVatNumber=requester[2:])
+    if use_soap:
+        client = get_soap_client(vies_wsdl, timeout=timeout, verify=verify)
+        return client.checkVatApprox(  # type: ignore[no-any-return]
+            countryCode=number[:2], vatNumber=number[2:],
+            requesterCountryCode=requester[:2], requesterVatNumber=requester[2:])
+    else:
+        import requests
+        r = requests.post(
+            'https://ec.europa.eu/taxation_customs/vies/rest-api/check-vat-number',
+            json={
+                'countryCode': number[:2],
+                'vatNumber': number[2:],
+                'requesterCountryCode': requester[:2],
+                'requesterVatNumber': requester[2:],
+            },
+        )
+        r.raise_for_status()
+        return r.json()  # type: ignore[no-any-return]
