@@ -22,9 +22,15 @@ The Unified Business Number (UBN, 統一編號) is the number assigned to busine
 within Taiwan for tax (VAT) purposes. The number consists of 8 digits, the
 last being a check digit.
 
+Since 2023-04-01 the Ministry of Finance relaxed the check digit logic so
+that the weighted sum only needs to be divisible by 5 (instead of 10) to
+increase the pool of available numbers. Numbers that were valid under the old
+rule (divisible by 10) remain valid under the new one.
+
 More information:
 
 * https://zh.wikipedia.org/wiki/統一編號
+* https://www.fia.gov.tw/singlehtml/3?cntId=c4d9cff38c8642ef8872774ee9987283
 * https://findbiz.nat.gov.tw/fts/query/QueryBar/queryInit.do?request_locale=en
 
 >>> validate('00501503')
@@ -61,7 +67,7 @@ def calc_checksum(number: str) -> int:
     # convert to numeric first, then sum individual digits
     weights = (1, 2, 1, 2, 1, 2, 4, 1)
     number = ''.join(str(w * int(n)) for w, n in zip(weights, number))
-    return sum(int(n) for n in number) % 10
+    return sum(int(n) for n in number) % 5
 
 
 def validate(number: str) -> str:
@@ -75,7 +81,8 @@ def validate(number: str) -> str:
     if not isdigits(number):
         raise InvalidFormat()
     checksum = calc_checksum(number)
-    if not (checksum == 0 or (checksum == 9 and number[6] == '7')):
+    # if the 7th digit is 7 the check may also pass when adding 1 to the sum
+    if not (checksum == 0 or (checksum == 4 and number[6] == '7')):
         raise InvalidChecksum()
     return number
 
