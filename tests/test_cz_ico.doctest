@@ -1,0 +1,80 @@
+test_cz_ico.doctest - more detailed doctests for the stdnum.cz.ico module
+
+Copyright (C) 2026 Devashish Moghe
+
+This library is free software; you can redistribute it and/or
+modify it under the terms of the GNU Lesser General Public
+License as published by the Free Software Foundation; either
+version 2.1 of the License, or (at your option) any later version.
+
+This library is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+Lesser General Public License for more details.
+
+You should have received a copy of the GNU Lesser General Public
+License along with this library; if not, see <https://www.gnu.org/licenses/>.
+
+
+This file contains more detailed doctests for the stdnum.cz.ico module. It
+tries to validate a number of numbers that have been found online.
+
+>>> from stdnum.cz import ico
+>>> from stdnum.exceptions import *
+
+
+Tests for some corner cases.
+
+>>> ico.validate('00177041')
+'00177041'
+>>> ico.validate('001 77 041')
+'00177041'
+>>> ico.compact('001 77 041')
+'00177041'
+>>> ico.is_valid('00177041')
+True
+>>> ico.is_valid('00177042')
+False
+>>> ico.validate('00177042')
+Traceback (most recent call last):
+    ...
+InvalidChecksum: ...
+>>> ico.validate('123')
+Traceback (most recent call last):
+    ...
+InvalidLength: ...
+>>> ico.validate('2616868A')
+Traceback (most recent call last):
+    ...
+InvalidFormat: ...
+
+
+These have been found online and should all be valid numbers.
+
+>>> numbers = '''
+...
+... 00001350
+... 00006947
+... 00177041
+... 00514152
+... 01377281
+... 24704415
+... 25063677
+... 25672720
+... 26168685
+... 26185610
+... 28195329
+... 27082440
+... 45244782
+... 45272956
+... 45274649
+... 45317054
+... 45357366
+... 47114983
+... 49240901
+... 60193336
+... 70994226
+...
+... '''
+>>> [x for x in numbers.splitlines() if x and not ico.is_valid(x)]
+[]
