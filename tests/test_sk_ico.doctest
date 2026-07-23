@@ -1,0 +1,78 @@
+test_sk_ico.doctest - more detailed doctests for the stdnum.sk.ico module
+
+Copyright (C) 2026 Devashish Moghe
+
+This library is free software; you can redistribute it and/or
+modify it under the terms of the GNU Lesser General Public
+License as published by the Free Software Foundation; either
+version 2.1 of the License, or (at your option) any later version.
+
+This library is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+Lesser General Public License for more details.
+
+You should have received a copy of the GNU Lesser General Public
+License along with this library; if not, see <https://www.gnu.org/licenses/>.
+
+
+This file contains more detailed doctests for the stdnum.sk.ico module. It
+tries to validate a number of numbers that have been found online.
+
+>>> from stdnum.sk import ico
+>>> from stdnum.exceptions import *
+
+
+Tests for some corner cases.
+
+>>> ico.validate('31322832')
+'31322832'
+>>> ico.validate('31 322 832')
+'31322832'
+>>> ico.is_valid('31322832')
+True
+>>> ico.is_valid('31322833')
+False
+>>> ico.validate('31322833')
+Traceback (most recent call last):
+    ...
+InvalidChecksum: ...
+>>> ico.validate('313228')
+Traceback (most recent call last):
+    ...
+InvalidLength: ...
+>>> ico.validate('3132283A')
+Traceback (most recent call last):
+    ...
+InvalidFormat: ...
+
+
+These have been found online and should all be valid numbers.
+
+>>> numbers = '''
+...
+... 00151653
+... 00151742
+... 00686930
+... 31320155
+... 31321828
+... 31322832
+... 31333532
+... 31364501
+... 35697270
+... 35743565
+... 35757442
+... 35763469
+... 35790253
+... 35815256
+... 35829052
+... 35848863
+... 35876832
+... 35971894
+... 36199222
+... 36631124
+... 44483767
+...
+... '''
+>>> [x for x in numbers.splitlines() if x and not ico.is_valid(x)]
+[]
