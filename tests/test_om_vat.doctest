@@ -1,0 +1,65 @@
+test_om_vat.doctest - more detailed doctests for the stdnum.om.vat module
+
+Copyright (C) 2026 Devashish Moghe
+
+This library is free software; you can redistribute it and/or
+modify it under the terms of the GNU Lesser General Public
+License as published by the Free Software Foundation; either
+version 2.1 of the License, or (at your option) any later version.
+
+This library is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+Lesser General Public License for more details.
+
+You should have received a copy of the GNU Lesser General Public
+License along with this library; if not, see <https://www.gnu.org/licenses/>.
+
+
+This file contains more detailed doctests for the stdnum.om.vat module. It
+tries to validate a number of numbers that have been found online.
+
+>>> from stdnum.om import vat
+>>> from stdnum.exceptions import *
+
+
+Tests for some corner cases.
+
+>>> vat.validate('OM1100006083')
+'OM1100006083'
+>>> vat.validate('om1100006083')
+'OM1100006083'
+>>> vat.compact('OM 1100 0060 83')
+'OM1100006083'
+>>> vat.is_valid('OM1100006083')
+True
+>>> vat.is_valid('OM110000608')
+False
+>>> vat.validate('OM110000608')
+Traceback (most recent call last):
+    ...
+InvalidLength: ...
+>>> vat.validate('110000608312')
+Traceback (most recent call last):
+    ...
+InvalidFormat: ...
+>>> vat.validate('OM11000060AB')
+Traceback (most recent call last):
+    ...
+InvalidFormat: ...
+
+
+These have been found online and should all be valid numbers.
+
+>>> numbers = '''
+...
+... OM1100002920
+... OM1100005523
+... OM1100006083
+... OM1100006999
+... OM1100011333
+... OM1100018164
+...
+... '''
+>>> [x for x in numbers.splitlines() if x and not vat.is_valid(x)]
+[]
