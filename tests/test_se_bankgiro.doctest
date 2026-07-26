@@ -1,0 +1,100 @@
+test_se_bankgiro.doctest - more detailed doctests for stdnum.se.bankgiro module
+
+Copyright (C) 2026 Gracestack (Kim Cedendahl)
+
+This library is free software; you can redistribute it and/or
+modify it under the terms of the GNU Lesser General Public
+License as published by the Free Software Foundation; either
+version 2.1 of the License, or (at your option) any later version.
+
+This library is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+Lesser General Public License for more details.
+
+You should have received a copy of the GNU Lesser General Public
+License along with this library; if not, see <https://www.gnu.org/licenses/>.
+
+
+This file contains more detailed doctests for the stdnum.se.bankgiro
+module. It tries to cover more corner cases and detailed functionality.
+
+>>> from stdnum.se import bankgiro
+
+
+Test valid 7-digit numbers.
+
+>>> bankgiro.validate('9000001')
+'9000001'
+>>> bankgiro.validate('900-0001')
+'9000001'
+
+
+Test valid 8-digit numbers.
+
+>>> bankgiro.validate('50501501')
+'50501501'
+>>> bankgiro.validate('5050-1501')
+'50501501'
+
+
+Test formatting variants.
+
+>>> bankgiro.format('9000001')
+'900-0001'
+>>> bankgiro.format('50501501')
+'5050-1501'
+>>> bankgiro.format('900-0001')
+'900-0001'
+>>> bankgiro.format('5050-1501')
+'5050-1501'
+
+
+Test compact.
+
+>>> bankgiro.compact('900-0001')
+'9000001'
+>>> bankgiro.compact('  5050 1501  ')
+'50501501'
+
+
+Test invalid numbers (wrong check digit).
+
+>>> bankgiro.validate('9000002')
+Traceback (most recent call last):
+    ...
+InvalidChecksum: ...
+
+
+Test invalid length.
+
+>>> bankgiro.validate('12345')
+Traceback (most recent call last):
+    ...
+InvalidLength: ...
+>>> bankgiro.validate('123456789')
+Traceback (most recent call last):
+    ...
+InvalidLength: ...
+
+
+Test invalid format (non-numeric).
+
+>>> bankgiro.validate('abcdefg')
+Traceback (most recent call last):
+    ...
+InvalidFormat: ...
+>>> bankgiro.validate('')
+Traceback (most recent call last):
+    ...
+InvalidFormat: ...
+
+
+Test is_valid convenience function.
+
+>>> bankgiro.is_valid('9000001')
+True
+>>> bankgiro.is_valid('9000002')
+False
+>>> bankgiro.is_valid('')
+False
