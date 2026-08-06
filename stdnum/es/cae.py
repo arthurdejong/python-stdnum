@@ -31,7 +31,7 @@ place.
 
 More information:
 
-* https://www.boe.es/boe/dias/2006/12/28/pdfs/A46098-46100.pdf
+* https://www.boe.es/boe/dias/2007/12/01/pdfs/A49509-49640.pdf
 * https://www2.agenciatributaria.gob.es/L/inwinvoc/es.aeat.dit.adu.adce.cae.cw.AccW?fAccion=consulta
 
 >>> validate('ES00008V1488Q')
@@ -102,7 +102,7 @@ _OFFICES = {
     '45',  # Toledo
     '46',  # Valencia
     '47',  # Valladolid
-    '48',  # Bizcaia
+    '48',  # Bizkaia
     '49',  # Zamora
     '50',  # Zaragoza
     '51',  # Cartagena
@@ -127,7 +127,7 @@ _ACTIVITY_KEYS = {
     'A7',  # Depósitos fiscales de alcohol
     'AT',  # Almacenes fiscales de alcohol
     'B7',  # Depósitos fiscales de bebidas derivadas
-    'BT',  # Almacenes fiscales de bebidas alcohólicas
+    'BT',  # Almacenes fiscales de bebidas derivadas
     'C7',  # Depósitos fiscales de cerveza
     'DB',  # Depósitos fiscales de bebidas alcohólicas
     'E7',  # Depósitos fiscales de extractos y concentrados alcohólicos exclusivamente
@@ -155,8 +155,10 @@ _ACTIVITY_KEYS = {
     'HD',  # Industrias o establecimientos que someten productos a un tratamiento definido o,
            # Previa solicitud, a una transformación química
     'HH',  # Industrias extractoras de crudo de petróleo
+    'F7',  # Depósitos fiscales exclusivamente de biodiesel y biometanol
+    'GP',  # Instalaciones de consumo propio de gasóleo profesional
     'H7',  # Depósitos fiscales de hidrocarburos
-    'H8',  # Depósitos fiscales exclusivamente de biocarburantes
+    'H8',  # Depósitos fiscales exclusivamente de bioetanol
     'HB',  # Obtención accesoria de productos sujetos alimpuesto
     'HF',  # Almacenes fiscales para el suministro directo a instalaciones fijas
     'HI',  # Depósitos fiscales exclusivamente para la distribución de querosenos y gasolinas de aviación
