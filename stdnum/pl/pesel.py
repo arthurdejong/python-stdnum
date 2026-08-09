@@ -92,8 +92,10 @@ def calc_check_digit(number: str) -> str:
     """Calculate the check digit for organisations. The number passed
     should not have the check digit included."""
     weights = (1, 3, 7, 9, 1, 3, 7, 9, 1, 3)
-    check = sum(w * int(n) for w, n in zip(weights, number))
+    d = [ord(c) - 48 for c in number[:10]]
+    check = sum(d[i] * weights[i] for i in range(len(d)))
     return str((10 - check) % 10)
+
 
 
 def validate(number: str) -> str:
