@@ -52,7 +52,6 @@ def checksum(number: str) -> int:
     return sum(d[i] * weights[i] for i in range(len(d))) % 11
 
 
-
 def validate(number: str) -> str:
     """Check if the number is a valid VAT number. This checks the length,
     formatting and check digit."""

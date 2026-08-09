@@ -97,7 +97,6 @@ def calc_check_digit(number: str) -> str:
     return str((10 - check) % 10)
 
 
-
 def validate(number: str) -> str:
     """Check if the number is a valid national identification number. This
     checks the length, formatting and check digit."""
