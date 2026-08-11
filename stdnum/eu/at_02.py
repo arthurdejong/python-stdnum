@@ -33,7 +33,7 @@ contains the country-specific identifier.
 >>> compact('ES++()+23ZZZ4//7690558N')
 'ES23ZZZ47690558N'
 >>> compact('mt50zzz670169305t') # EPC262-08 Version 12.0 / 8.1.15 Malta, example identifier, lowercased
-'T50ZZZ670169305T'
+'MT50ZZZ670169305T'
 >>> calc_check_digits('ESXXZZZ47690558N')
 '23'
 """
@@ -52,7 +52,7 @@ _alphabet = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ'
 def compact(number: str) -> str:
     """Convert the AT-02 number to the minimal representation. This strips
     the number of any valid separators and removes invalid characters."""
-    return clean(number, ' -/?:().m\'+"').strip().upper()
+    return clean(number, ' -/?:().,\'+"').strip().upper()
 
 
 def _to_base10(number: str) -> str:
