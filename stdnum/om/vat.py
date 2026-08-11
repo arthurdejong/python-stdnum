@@ -2,6 +2,7 @@
 # coding: utf-8
 #
 # Copyright (C) 2026 Devashish Moghe
+# Copyright (C) 2026 Arthur de Jong
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -32,6 +33,10 @@ More information:
 
 >>> validate('OM1100006083')
 'OM1100006083'
+>>> validate('OM1100006084')
+Traceback (most recent call last):
+    ...
+InvalidChecksum: ...
 >>> validate('OM 1100 0060 83')
 'OM1100006083'
 >>> validate('110000608312')  # missing prefix
@@ -66,6 +71,14 @@ def compact(number: str) -> str:
     return clean(number, ' -').upper().strip()
 
 
+def calc_check_digit(number: str) -> str:
+    """Calculate the check digit."""
+    # We only know the weights of the last 5 digits so we skip the first 4
+    weights = (1, 6, 3, 7, 9)
+    check = (1 + sum(w * int(n) for w, n in zip(weights, number[6:]))) % 11
+    return 'X' if check == 10 else str(check)
+
+
 def validate(number: str) -> str:
     """Check if the number is a valid Oman VAT number. This checks the
     length and formatting."""
@@ -74,6 +87,8 @@ def validate(number: str) -> str:
         raise InvalidLength()
     if not _vatin_re.match(number):
         raise InvalidFormat()
+    if calc_check_digit(number) != number[-1]:
+        raise InvalidChecksum()
     return number
 
 

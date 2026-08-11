@@ -59,7 +59,22 @@ These have been found online and should all be valid numbers.
 ... OM1100006083
 ... OM1100006999
 ... OM1100011333
+... OM1100012379
 ... OM1100018164
+... OM1100019343
+... OM110002816X
+... OM1100038165
+... OM1100255952
+... OM1100355953
+... OM1100426520
+... OM1100426600
+... OM1100426619
+... OM1100426627
+... OM1100426707
+... OM1100426723
+... OM1100427603
+... OM1100455954
+... OM1200362117
 ...
 ... '''
 >>> [x for x in numbers.splitlines() if x and not vat.is_valid(x)]
