@@ -32,6 +32,8 @@ contains the country-specific identifier.
 'ES2300047690558N'
 >>> compact('ES++()+23ZZZ4//7690558N')
 'ES23ZZZ47690558N'
+>>> compact('mt50zzz670169305t') # EPC262-08 Version 12.0 / 8.1.15 Malta, example identifier, lowercased
+'T50ZZZ670169305T'
 >>> calc_check_digits('ESXXZZZ47690558N')
 '23'
 """
