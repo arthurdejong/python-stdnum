@@ -102,3 +102,9 @@ Check for VAT numbers that cannot be compacted without EU prefix:
 True
 >>> vatin.compact('EU191849184')
 'EU191849184'
+
+
+Check seemingly double country codes are handled correctly:
+
+>>> vatin.validate('MX MXDE 111111 GR2')  # the second "MX" is part of the number
+'MXMXDE111111GR2'
