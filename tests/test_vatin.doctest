@@ -104,7 +104,26 @@ True
 'EU191849184'
 
 
-Check seemingly double country codes are handled correctly:
+A duplicated country code prefix should not be accepted (#420). This used to
+pass because the country code was stripped twice, once here and once by the
+country module:
+
+>>> vatin.is_valid('BE 0308.357.159')
+True
+>>> vatin.is_valid('BE BE 0308.357.159')
+False
+>>> vatin.is_valid('BEBE0308357159')
+False
+>>> vatin.validate('BE BE 0308.357.159')
+Traceback (most recent call last):
+    ...
+InvalidFormat: ...
+
+
+Check seemingly double country codes are handled correctly. A national number
+may legitimately start with the country code, in which case it is kept:
 
 >>> vatin.validate('MX MXDE 111111 GR2')  # the second "MX" is part of the number
 'MXMXDE111111GR2'
+>>> vatin.validate('MXDE 111111 GR2')  # here "MX" is only the country code
+'MXDE111111GR2'
