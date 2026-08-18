@@ -87,11 +87,29 @@ def validate(number: str) -> str:
     This performs the country-specific check for the number.
     """
     number = clean(number, '').strip()
-    module = _get_cc_module(number[:2])
+    cc = number[:2].upper()
+    module = _get_cc_module(cc)
     try:
-        return number[:2].upper() + module.validate(number[2:])
+        # Most country modules accept and strip the optional country code
+        # prefix themselves, so the number can be validated as it is.
+        result = module.validate(number)
+        if not result.upper().startswith(cc):
+            result = cc + result
     except ValidationError:
-        return module.validate(number)
+        # Other country modules only accept the national number, so retry
+        # with the country code prefix removed.
+        national = number[2:]
+        result = module.validate(national)
+        # If the country module stripped a second country code off the
+        # national number then the prefix was duplicated and the number is
+        # not valid (see #420). A national number that legitimately starts
+        # with the country code, such as the Mexican RFC MXDE111111GR2,
+        # keeps its prefix when compacted and is accepted.
+        if (re.sub(r'[^0-9A-Za-z]', '', national)[:2].upper() == cc and
+                not module.compact(national).upper().startswith(cc)):
+            raise InvalidFormat()
+        result = cc + result
+    return result
 
 
 def is_valid(number: str) -> bool:
