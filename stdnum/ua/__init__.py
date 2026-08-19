@@ -17,3 +17,6 @@
 # License along with this library; if not, see <https://www.gnu.org/licenses/>.
 
 """Collection of Ukrainian numbers."""
+
+# provide aliases
+from stdnum.ua import edrpou as vat  # noqa: F401
