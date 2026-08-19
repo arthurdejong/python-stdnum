@@ -1,0 +1,256 @@
+test_bf_ifu.doctest - more detailed doctests for stdnum.bf.ifu module
+
+Copyright (C) 2023 Leandro Regueiro
+
+This library is free software; you can redistribute it and/or
+modify it under the terms of the GNU Lesser General Public
+License as published by the Free Software Foundation; either
+version 2.1 of the License, or (at your option) any later version.
+
+This library is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+Lesser General Public License for more details.
+
+You should have received a copy of the GNU Lesser General Public
+License along with this library; if not, write to the Free Software
+Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
+02110-1301 USA
+
+
+This file contains more detailed doctests for the stdnum.bf.ifu module. It
+tries to test more corner cases and detailed functionality that is not really
+useful as module documentation.
+
+>>> from stdnum.bf import ifu
+
+
+Tests for some corner cases.
+
+>>> ifu.validate('00014729V')
+'00014729V'
+>>> ifu.validate('0000 59 83 T')
+'00005983T'
+>>> ifu.validate('12345')
+Traceback (most recent call last):
+    ...
+InvalidLength: ...
+>>> ifu.validate('VV345678A')
+Traceback (most recent call last):
+    ...
+InvalidFormat: ...
+>>> ifu.validate('123456789')
+Traceback (most recent call last):
+    ...
+InvalidFormat: ...
+>>> ifu.format('0000 59 83 T')
+'00005983T'
+
+
+These have been found online and should all be valid numbers.
+
+>>> numbers = '''
+...
+... 00014729V
+... 0000 59 83 T
+... 00002597C
+... 00114782D
+... 00113681 W
+... 00005112P
+... 00024940N
+... 00106113L
+... 00118640P
+... 00109342A
+... 00095734N
+... 00041085Y
+... 00049455J
+... 00112375B
+... 00108291Y
+... 00105602V
+... 00028638T
+... 00004184C
+... 00002475L
+... 00068712S
+... 00030559W
+... 00100809A
+... 00046475W
+... 00004788U
+... 00045255L
+... 00027070Z
+... 00004196G
+... 00061051V
+... 00044493S
+... 00092211U
+... 00007151C
+... 00013647N
+... 00085469E
+... 00114793A
+... 00088424D
+... 00059379R
+... 00040060X
+... 00015274H
+... 00041850M
+... 00060062V
+... 00015965T
+... 00053217K
+... 00065890K
+... 00061772X
+... 00024934H
+... 00000346E
+... 00043589U
+... 00005643N
+... 00018945R
+... 00045073R
+... 00048430W
+... 00018284Z
+... 00043593N
+... 00059665T
+... 00042911R
+... 00005983T
+... 00000612L
+... 00016079H
+... 00030276N
+... 00009763S
+... 00007047V
+... 00011610K
+... 00037904A
+... 00060700T
+... 00010790T
+... 00006204X
+... 00064526S
+... 00055782Y
+... 00010855Z
+... 00063250A
+... 00034469W
+... 00029551F
+... 00041096K
+... 00002929N
+... 00007572J
+... 00023755F
+... 00062653E
+... 00007345N
+... 00002927P
+... 00059052S
+... 00002772D
+... 00028333B
+... 00014729V
+... 00034932K
+... 00027503K
+... 00008488E
+... 00000261N
+... 00011684A
+... 00051386U
+... 00034653W
+... 00065225B
+... 00004805C
+... 00033666X
+... 00023967E
+... 00022991L
+... 00055301V
+... 00006970E
+... 00033818N
+... 00009384A
+... 00017763Y
+... 00003744K
+... 00027465T
+... 00008443H
+... 00001199T
+... 00055532G
+... 00019340B
+... 00011789M
+... 00033863Y
+... 00032218K
+... 00035115X
+... 00003343N
+... 00034918U
+... 00037476V
+... 00029263Y
+... 00011425X
+... 00004268M
+... 00072439D
+... 00051703Z
+... 00030796Z
+... 00065712E
+... 00026127Z
+... 00050212T
+... 00034742D
+... 00003453T
+... 00017764Y
+... 00037703P
+... 00030202T
+... 00010206X
+... 00058000X
+... 00046438E
+... 00035561T
+... 00003126C
+... 00001379Z
+... 00036616A
+... 00019411Z
+... 00041324R
+... 72004531S
+... 00032293E
+... 00009786S
+... 00016696C
+... 00019411Z
+... 00041324R
+... 72004531S
+... 00032293E
+... 00009786S
+... 00007484V
+... 00021863M
+... 00016973Z
+... 00024407U
+... 00032177A
+... 00021050J
+... 00015052G
+... 00013445M
+... 00019148D
+... 00021050J
+... 00015052G
+... 00013445M
+... 00005847J
+... 00005906K
+... 00044686B
+... 00004443U
+... 00005637H
+... 00035653T
+... 00014309T
+... 00010064M
+... 00005918Y
+... 00010289N
+... 00021463U
+... 00005975K
+... 00034097S
+... 79506499X
+... 00038521F
+... 00000323E
+... 00000496M
+... 00007420L
+... 00004052 U
+... 00037929H
+... 00070665V
+... 00027622 Z
+... 00114204V
+... 00002888M
+... 00000 624 T
+... 00004430 L
+... 00069260Y
+... 00065152R
+... 00040484U
+... 00042208T
+... 00002855T
+... 00021943E
+... 00005141D
+... 00034456H
+... 00006669Z
+... 00042538C
+... 00124727C
+... 00097224 T
+... 00066145B
+... 00051680Z
+... 00095420 R
+... 00026749A
+...
+... '''
+>>> [x for x in numbers.splitlines() if x and not ifu.is_valid(x)]
+[]
