@@ -45,10 +45,15 @@ def compact(number: str) -> str:
     return number
 
 
+_weights = (6, 5, 7, 2, 3, 4, 5, 6, 7, -1)
+
+
 def checksum(number: str) -> int:
     """Calculate the checksum."""
-    weights = (6, 5, 7, 2, 3, 4, 5, 6, 7, -1)
-    return sum(w * int(n) for w, n in zip(weights, number)) % 11
+    total = 0
+    for w, n in zip(_weights, number):
+        total += w * (ord(n) - 48)
+    return total % 11
 
 
 def validate(number: str) -> str:
