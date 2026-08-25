@@ -2,6 +2,7 @@
 # coding: utf-8
 #
 # Copyright (C) 2013 Arthur de Jong
+# Copyright (C) 2023 Leandro Regueiro
 #
 # This library is free software; you can redistribute it and/or
 # modify it under the terms of the GNU Lesser General Public
@@ -17,3 +18,6 @@
 # License along with this library; if not, see <https://www.gnu.org/licenses/>.
 
 """Collection of Malaysian numbers."""
+
+# provide aliases
+from stdnum.my import itn as vat  # noqa: F401
