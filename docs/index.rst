@@ -164,6 +164,7 @@ Available formats
    cz.bankaccount
    cz.dic
    cz.rc
+   de.blz
    de.handelsregisternummer
    de.idnr
    de.leitweg
