@@ -1,0 +1,67 @@
+test_de_blz.doctest - more detailed doctests for the stdnum.de.blz module
+
+Copyright (C) 2026 Claude-Alain Martin
+
+This library is free software; you can redistribute it and/or
+modify it under the terms of the GNU Lesser General Public
+License as published by the Free Software Foundation; either
+version 2.1 of the License, or (at your option) any later version.
+
+This library is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+Lesser General Public License for more details.
+
+You should have received a copy of the GNU Lesser General Public
+License along with this library; if not, see <https://www.gnu.org/licenses/>.
+
+
+This file contains more detailed doctests for the stdnum.de.blz module. It
+tries to test more corner cases and detailed functionality that is not really
+useful as module documentation.
+
+>>> from stdnum.de import blz
+
+
+Codes of the register are valid, whatever the spacing:
+
+>>> blz.validate('37040044')
+'37040044'
+>>> blz.compact(' 700 500 00 ')
+'70050000'
+>>> blz.is_valid('70050000')
+True
+>>> blz.to_bic('70050000')
+'BYLADEMMXXX'
+
+
+A code that is about to be deleted is still in the register (it was really
+allocated) and names its successor when the Bundesbank publishes one:
+
+>>> import json
+>>> print(json.dumps(blz.info('10060198'), indent=2, sort_keys=True))
+{
+  "bank": "Pax-Bank",
+  "bic": "GENODED1PA6",
+  "city": "Berlin",
+  "deleted": "True",
+  "successor": "37060193"
+}
+>>> blz.is_valid(blz.info('10060198')['successor'])
+True
+
+
+Anything that is not an allocated 8 digit code is rejected:
+
+>>> blz.is_valid('12345678')
+False
+>>> blz.is_valid('1234567')
+False
+>>> blz.is_valid('123456789')
+False
+>>> blz.is_valid('1000000O')
+False
+>>> blz.info('12345678')
+{}
+>>> blz.to_bic('12345678') is None
+True
