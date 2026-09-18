@@ -1,0 +1,46 @@
+test_eu_eori.doctest - more detailed doctests for the stdnum.eu.eori module
+
+Copyright (C) 2026 Sergi Almacellas Abellana
+
+This library is free software; you can redistribute it and/or
+modify it under the terms of the GNU Lesser General Public
+License as published by the Free Software Foundation; either
+version 2.1 of the License, or (at your option) any later version.
+
+This library is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+Lesser General Public License for more details.
+
+You should have received a copy of the GNU Lesser General Public
+License along with this library; if not, see <https://www.gnu.org/licenses/>.
+
+This file contains more detailed doctests for the stdnum.eu.eori module.
+
+>>> from stdnum.eu import eori
+>>> from stdnum.exceptions import *
+
+EORI numbers are normalised and have a two-letter country code followed by at
+most 15 alphanumeric characters.
+
+>>> eori.compact('es- b64717838')
+'ESB64717838'
+>>> eori.validate('ESB64717838')
+'ESB64717838'
+
+Invalid lengths and characters are rejected.
+
+>>> eori.validate('ES')
+Traceback (most recent call last):
+    ...
+InvalidLength: ...
+>>> eori.validate('DE1234567890123456')
+Traceback (most recent call last):
+    ...
+InvalidLength: ...
+>>> eori.validate('E112345678')
+Traceback (most recent call last):
+    ...
+InvalidFormat: ...
+>>> eori.is_valid('ES123/456')
+False
