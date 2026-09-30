@@ -47,7 +47,7 @@ Traceback (most recent call last):
 InvalidChecksum: ...
 
 
-Checks of the 13 digit ОГРНИП, OGRNIP
+Checks of the 15 digit ОГРНИП, OGRNIP
 
 >>> ogrn.validate('985768585948944')  # OGRNIP with invalid start digit
 Traceback (most recent call last):
@@ -74,3 +74,17 @@ This is a list of OGRNs that should all be valid numbers:
 ... '''
 >>> [x for x in valid_numbers.splitlines() if x and not ogrn.is_valid(x)]
 []
+
+
+For OGRNIP, take the last digit of the remainder when dividing by 13,
+even when that remainder has two digits.
+
+>>> numbers = ['304500116000180', '398386756508891', '316774600000162']
+>>> [int(number[:-1]) % 13 for number in numbers]
+[10, 11, 12]
+>>> [ogrn.calc_check_digit(number) for number in numbers]
+['0', '1', '2']
+>>> [ogrn.validate(number) for number in numbers]
+['304500116000180', '398386756508891', '316774600000162']
+>>> [ogrn.is_valid(number[:-1] + '9') for number in numbers]
+[False, False, False]
