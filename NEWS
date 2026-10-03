@@ -1,3 +1,9 @@
+changes from 2.2
+----------------
+
+* Fix Base58 decoding of a Bitcoin address made only of the digit 1. That digit is a zero byte, so a string of them was one byte too long.
+
+
 changes from 2.1 to 2.2
 -----------------------
 

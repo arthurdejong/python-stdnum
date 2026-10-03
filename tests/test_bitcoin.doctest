@@ -23,6 +23,19 @@ useful as module documentation.
 >>> from stdnum import bitcoin
 
 
+The digit 1 is zero. A string of them is that many zero bytes, and an empty
+string is empty. A leftover zero must not add another byte.
+
+>>> bitcoin.b58decode('1')
+b'\x00'
+>>> bitcoin.b58decode('11')
+b'\x00\x00'
+>>> bitcoin.b58decode('2')
+b'\x01'
+>>> bitcoin.b58decode('')
+b''
+
+
 These are found and constructed P2PKH addresses (P2SH addresses are basically
 the same because they follow the same validation, except that the first digit
 is a 3).

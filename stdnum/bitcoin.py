@@ -68,10 +68,11 @@ def b58decode(s: str) -> bytes:
     """Decode a Base58 encoded string to a bytestring."""
     value = reduce(lambda a, c: a * 58 + _base58_alphabet.index(c), s, 0)
     result = b''
-    while value >= 256:
+    # A zero value has no payload bytes. Each leading 1 is already a zero
+    # byte, so packing the leftover 0 here would add one extra.
+    while value:
         value, mod = divmod(value, 256)
         result = struct.pack('B', mod) + result
-    result = struct.pack('B', value) + result
     return struct.pack('B', 0) * (len(s) - len(s.lstrip('1'))) + result
 
 
