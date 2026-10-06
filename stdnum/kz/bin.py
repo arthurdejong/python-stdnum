@@ -14,9 +14,7 @@
 # Lesser General Public License for more details.
 #
 # You should have received a copy of the GNU Lesser General Public
-# License along with this library; if not, write to the Free Software
-# Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
-# 02110-1301 USA
+# License along with this library; if not, see <https://www.gnu.org/licenses/>.
 
 """BIN or "БСН" (Business Identification Number, "бизнес-сәйкестендіру нөмірі",
 Kazakhstan tax number).
@@ -66,15 +64,20 @@ InvalidComponent: ...
 Traceback (most recent call last):
     ...
 InvalidComponent: ...
+>>> validate('940140000386')
+Traceback (most recent call last):
+    ...
+InvalidChecksum: ...
 >>> format('990 140 004 654')
 '990140004654'
 """  # noqa: E501
 
 from stdnum.exceptions import *
+from stdnum.kz.iin import calc_check_digit
 from stdnum.util import clean, isdigits
 
 
-def compact(number):
+def compact(number: str) -> str:
     """Convert the number to the minimal representation.
 
     This strips the number of any valid separators and removes surrounding
@@ -83,7 +86,7 @@ def compact(number):
     return clean(number, ' ')
 
 
-def validate(number):
+def validate(number: str) -> str:
     """Check if the number is a valid Kazakhstan BIN number.
 
     This checks the length and formatting.
@@ -99,10 +102,12 @@ def validate(number):
         raise InvalidComponent()
     if number[5] not in ('0', '1', '2', '3'):
         raise InvalidComponent()
+    if calc_check_digit(number[:-1]) != number[-1]:
+        raise InvalidChecksum()
     return number
 
 
-def is_valid(number):
+def is_valid(number: str) -> bool:
     """Check if the number is a valid Kazakhstan BIN number."""
     try:
         return bool(validate(number))
@@ -110,6 +115,6 @@ def is_valid(number):
         return False
 
 
-def format(number):
+def format(number: str) -> str:
     """Reformat the number to the standard presentation format."""
     return compact(number)
