@@ -1,0 +1,108 @@
+test_ir_nid.doctest - more detailed doctests for stdnum.ir.nid module
+
+Copyright (C) 2026 Amir Douzandeh
+
+This library is free software; you can redistribute it and/or
+modify it under the terms of the GNU Lesser General Public
+License as published by the Free Software Foundation; either
+version 2.1 of the License, or (at your option) any later version.
+
+This library is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+Lesser General Public License for more details.
+
+You should have received a copy of the GNU Lesser General Public
+License along with this library; if not, see <https://www.gnu.org/licenses/>.
+
+
+This file contains more detailed doctests for the stdnum.ir.nid module.
+
+>>> from stdnum.ir import nid
+>>> from stdnum.exceptions import *
+
+
+Numbers that are published as examples of valid national ID numbers.
+
+>>> numbers = '''
+...
+... 0499370899
+... 0084575948
+... 0067749828
+... 0012345679
+...
+... '''
+>>> [x for x in numbers.splitlines() if x and not nid.is_valid(x)]
+[]
+
+
+Leading zeros are often lost when the number is stored as an integer, so
+shorter numbers are padded.
+
+>>> nid.compact('84575948')
+'0084575948'
+>>> nid.validate('84575948')
+'0084575948'
+>>> nid.validate('12345679')
+'0012345679'
+>>> nid.validate('1234567')  # too short
+Traceback (most recent call last):
+    ...
+InvalidLength: ...
+>>> nid.validate('04993708990')  # too long
+Traceback (most recent call last):
+    ...
+InvalidLength: ...
+
+
+Separators and surrounding whitespace are removed.
+
+>>> nid.validate(' 049-937089-9 ')
+'0499370899'
+
+
+Numbers consisting of a single repeated digit are not valid, even though some
+of them pass the checksum.
+
+>>> nid.is_valid('0000000000')
+False
+>>> nid.is_valid('1111111111')
+False
+>>> nid.is_valid('2222222222')
+False
+>>> nid.validate('1111111111')
+Traceback (most recent call last):
+    ...
+InvalidFormat: ...
+
+
+Other invalid numbers.
+
+>>> nid.validate('0499370898')  # wrong check digit
+Traceback (most recent call last):
+    ...
+InvalidChecksum: ...
+>>> nid.validate('04993708A9')  # not numeric
+Traceback (most recent call last):
+    ...
+InvalidFormat: ...
+>>> nid.validate('\u0660\u0664\u0669\u0669\u0663\u0667\u0660\u0668\u0669\u0669')  # non-ASCII digits
+Traceback (most recent call last):
+    ...
+InvalidFormat: ...
+>>> nid.validate('')
+Traceback (most recent call last):
+    ...
+InvalidFormat: ...
+>>> nid.is_valid('0499370898')
+False
+
+
+Check digit calculation.
+
+>>> nid.calc_check_digits('049937089')
+'9'
+>>> nid.calc_check_digits('008457594')
+'8'
+>>> nid.calc_check_digits('000000000')
+'0'
