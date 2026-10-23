@@ -21,12 +21,14 @@
 """Orgnr (Organisasjonsnummer, Norwegian organisation number).
 
 The Organisasjonsnummer is a 9-digit number with a straightforward check
-mechanism.
+mechanism. The first digit is 8 or 9 and the last digit is a check digit
+calculated using modulus 11.
 
 More information:
 
 * https://nn.wikipedia.org/wiki/Organisasjonsnummer
 * https://no.wikipedia.org/wiki/Organisasjonsnummer
+* https://www.brreg.no/om-oss/registrene-vare/om-enhetsregisteret/organisasjonsnummeret/
 
 >>> validate('988 077 917')
 '988077917'
@@ -34,6 +36,10 @@ More information:
 Traceback (most recent call last):
     ...
 InvalidChecksum: ...
+>>> validate('100 000 008')
+Traceback (most recent call last):
+    ...
+InvalidComponent: ...
 >>> format('988077917')
 '988 077 917'
 """
@@ -64,6 +70,8 @@ def validate(number: str) -> str:
         raise InvalidFormat()
     if len(number) != 9:
         raise InvalidLength()
+    if number[0] not in '89':
+        raise InvalidComponent('The number must start with 8 or 9.')
     if checksum(number) != 0:
         raise InvalidChecksum()
     return number
