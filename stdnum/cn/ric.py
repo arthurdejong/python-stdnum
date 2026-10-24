@@ -65,7 +65,7 @@ def get_birth_place(number: str) -> dict[str, str]:
     number = compact(number)
     results = numdb.get('cn/loc').info(number[:6])
     info = {k: v for part, props in results for k, v in props.items()}
-    if not info:
+    if 'county' not in info:
         raise InvalidComponent()
     year = get_birth_date(number).year
     # check if any found county was assigned at the birth year
