@@ -22,6 +22,29 @@ This file contains more detailed doctests for the stdnum.lei module.
 >>> from stdnum.exceptions import *
 
 
+The number should be exactly 20 characters long. Leading zeros change the
+length but not the checksum.
+
+>>> lei.validate('213800KUD8LAJWSQ9D15')
+'213800KUD8LAJWSQ9D15'
+>>> lei.validate('0213800KUD8LAJWSQ9D15')
+Traceback (most recent call last):
+    ...
+InvalidLength: ...
+>>> lei.validate('1')
+Traceback (most recent call last):
+    ...
+InvalidLength: ...
+
+
+The last two characters are the check digits and should be numeric.
+
+>>> lei.validate('213800KUD8LAJWSQ9DAD')
+Traceback (most recent call last):
+    ...
+InvalidFormat: ...
+
+
 These have been found online and should all be valid numbers.
 
 >>> numbers = '''

@@ -42,7 +42,7 @@ from __future__ import annotations
 
 from stdnum.exceptions import *
 from stdnum.iso7064 import mod_97_10
-from stdnum.util import clean
+from stdnum.util import clean, isdigits
 
 
 def compact(number: str) -> str:
@@ -55,6 +55,12 @@ def validate(number: str) -> str:
     """Check if the number is valid. This checks the length, format and check
     digits."""
     number = compact(number)
+    if not all(x in '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ' for x in number):
+        raise InvalidFormat()
+    if len(number) != 20:
+        raise InvalidLength()
+    if not isdigits(number[-2:]):
+        raise InvalidFormat()
     mod_97_10.validate(number)
     return number
 
