@@ -55,6 +55,8 @@ InvalidChecksum: ...
 'AAPFU0939F'
 >>> info('27AAPFU0939F1ZV')['state']
 'Maharashtra'
+>>> info('38AAACB2894G1ZK')['state']  # Ladakh became a separate union territory in 2019
+'Ladakh'
 """
 
 from __future__ import annotations
@@ -109,6 +111,7 @@ _STATE_CODES = {
     '35': 'Anadaman and Nicobar Islands',
     '36': 'Telangana',
     '37': 'Andhra Pradesh (New)',
+    '38': 'Ladakh',
 }
 
 
