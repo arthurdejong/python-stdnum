@@ -48,7 +48,7 @@ from stdnum.exceptions import *
 from stdnum.util import clean
 
 
-_iso6346_re = re.compile(r'^\w{3}(U|J|Z|R)\d{7}$')
+_iso6346_re = re.compile(r'^[A-Z]{3}(U|J|Z|R)[0-9]{7}$')
 
 
 def compact(number: str) -> str:
