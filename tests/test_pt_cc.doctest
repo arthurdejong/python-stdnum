@@ -34,3 +34,16 @@ These have been found online and should all be valid numbers.
 ... '''
 >>> [x for x in numbers.splitlines() if x and not cc.is_valid(x)]
 []
+
+
+Non-ASCII digits are not valid and should be rejected with a validation
+error instead of crashing.
+
+>>> cc.is_valid('00000000 ٠ ZZ4')
+False
+>>> cc.is_valid('٠٠٠٠٠٠٠٠٠ZZ4')
+False
+>>> cc.validate('00000000 ٠ ZZ4')
+Traceback (most recent call last):
+    ...
+InvalidFormat: ...

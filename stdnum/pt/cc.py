@@ -48,7 +48,7 @@ from stdnum.exceptions import *
 from stdnum.util import clean
 
 
-_cc_re = re.compile(r'^\d*[A-Z0-9]{2}\d$')
+_cc_re = re.compile(r'^[0-9]*[A-Z0-9]{2}[0-9]$')
 
 
 def compact(number: str) -> str:
