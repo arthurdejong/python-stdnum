@@ -56,6 +56,8 @@ def calc_check_digits(number: str) -> str:
 
 def validate(number: str) -> str:
     """Check whether the check digit is valid."""
+    if not str(number).isascii():
+        raise InvalidFormat()
     try:
         valid = checksum(number) == 1
     except Exception:  # noqa: B902

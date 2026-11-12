@@ -87,6 +87,8 @@ def validate(number: str) -> str:
     """Check if the number provided passes the Verhoeff checksum."""
     if not bool(number):
         raise InvalidFormat()
+    if not str(number).isascii():
+        raise InvalidFormat()
     try:
         valid = checksum(number) == 0
     except Exception:  # noqa: B902
