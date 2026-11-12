@@ -77,3 +77,26 @@ range of 02 to 98 as is used in IBAN.
 '97'
 >>> mod_97_10.calc_check_digits('5335')
 '98'
+
+
+Non-ASCII digits (here ARABIC-INDIC DIGITs) are not valid and should be
+rejected instead of being treated as the digits they look like.
+
+>>> mod_11_10.validate('\u0667\u0669\u0664\u0666\u0662\u0663')
+Traceback (most recent call last):
+    ...
+InvalidFormat: ...
+>>> mod_11_10.is_valid('\u0667\u0669\u0664\u0666\u0662\u0663')
+False
+>>> mod_11_2.validate('\u0660\u0667\u0669\u0664\u0660')
+Traceback (most recent call last):
+    ...
+InvalidFormat: ...
+>>> mod_11_2.is_valid('\u0660\u0667\u0669\u0664\u0660')
+False
+>>> mod_97_10.validate('\u0660\u0668\u0666\u0668\u0666\u0660\u0660\u0661\u0662\u0665\u0666\u0665\u0661\u0665\u0660\u0660\u0661\u0661\u0662\u0661\u0667\u0665\u0661')
+Traceback (most recent call last):
+    ...
+InvalidFormat: ...
+>>> mod_97_10.is_valid('\u0660\u0668\u0666\u0668\u0666\u0660\u0660\u0661\u0662\u0665\u0666\u0665\u0661\u0665\u0660\u0660\u0661\u0661\u0662\u0661\u0667\u0665\u0661')
+False

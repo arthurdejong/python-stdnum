@@ -135,3 +135,14 @@ They should all be valid iso11649 structured creditor reference numbers
 ... '''
 >>> [x for x in numbers.splitlines() if x and not stdnum.iso11649.is_valid(x)]
 []
+
+
+Non-ASCII digits (here ARABIC-INDIC DIGITs) are not valid and should be
+rejected instead of being treated as the digits they look like.
+
+>>> stdnum.iso11649.validate('RF\u0661\u0668 \u0665\u0663\u0669\u0660 \u0660\u0667\u0665\u0664 \u0667\u0660\u0663\u0664')
+Traceback (most recent call last):
+    ...
+InvalidFormat: ...
+>>> stdnum.iso11649.is_valid('RF\u0661\u0668 \u0665\u0663\u0669\u0660 \u0660\u0667\u0665\u0664 \u0667\u0660\u0663\u0664')
+False
