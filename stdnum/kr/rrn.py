@@ -29,11 +29,17 @@ century and gender. The next four digits encode the place of birth for
 Koreans or the issuing agency for foreigners, followed by two digits for the
 community center number, one serial number and a check digit.
 
+Numbers given out since 2020-10-05 (to newborns and when a number is
+changed) have six random digits after the seventh digit, so for people born
+from 2020-09-05 on only the date of birth and the seventh digit can be
+checked.
+
 More information:
 
 * https://www.law.go.kr/lsSc.do?tabMenuId=tab18&p1=&subMenu=1&nwYn=1&section=&tabNo=&query=개인정보+보호법
 * https://en.wikipedia.org/wiki/Resident_registration_number
 * https://techscience.org/a/2015092901/
+* https://m.go.seoul.co.kr/news/2019/12/18/20191218014003
 
 >>> validate('971013-9019902')
 '9710139019902'
@@ -99,14 +105,18 @@ def validate(number: str, allow_future: bool = True) -> str:
         raise InvalidFormat()
     if len(number) != 13:
         raise InvalidLength()
-    get_birth_date(number, allow_future)
-    place_of_birth = int(number[7:9])
-    if place_of_birth > 96:
-        raise InvalidComponent()
-    # We cannot check the community center (CC), any information on
-    # valid/invalid CC digits is welcome.
-    if number[-1] != calc_check_digit(number[:-1]):
-        raise InvalidChecksum()
+    date_of_birth = get_birth_date(number, allow_future)
+    # Numbers given out since 2020-10-05 have six random digits after the
+    # seventh digit. A birth has to be reported within a month, so anyone
+    # born from 2020-09-05 on can have such a number.
+    if date_of_birth < datetime.date(2020, 9, 5):
+        place_of_birth = int(number[7:9])
+        if place_of_birth > 96:
+            raise InvalidComponent()
+        # We cannot check the community center (CC), any information on
+        # valid/invalid CC digits is welcome.
+        if number[-1] != calc_check_digit(number[:-1]):
+            raise InvalidChecksum()
     return number
 
 
