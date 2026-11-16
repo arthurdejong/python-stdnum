@@ -57,3 +57,18 @@ False
 Traceback (most recent call last):
     ...
 InvalidFormat: ...
+
+
+Letters and digits outside of the ASCII range are not valid and should be
+rejected with a validation error instead of crashing.
+
+>>> iso6346.is_valid('CSQU٣054383')
+False
+>>> iso6346.is_valid('CSÉU3054383')
+False
+>>> iso6346.is_valid('CS_U3054383')
+False
+>>> iso6346.validate('CSQU٣054383')
+Traceback (most recent call last):
+    ...
+InvalidFormat: ...
