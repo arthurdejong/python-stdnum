@@ -74,6 +74,24 @@ Traceback (most recent call last):
 InvalidComponent: ...
 
 
+Numbers given out since 2020-10-05 have six random digits after the seventh
+digit, so there is no place of birth or check digit to validate for people
+born after the change. The date of birth is still checked.
+
+>>> rrn.validate('210503-3999990')  # born 2021-05-03
+'2105033999990'
+>>> rrn.validate('200905-4123456')  # born 2020-09-05, reported after 2020-10-05
+'2009054123456'
+>>> rrn.validate('200904-4123456')  # born 2020-09-04, reported before the change
+Traceback (most recent call last):
+    ...
+InvalidChecksum: ...
+>>> rrn.validate('210230-3123456')  # invalid date of birth 2021-02-30
+Traceback (most recent call last):
+    ...
+InvalidComponent: ...
+
+
 These have been randomly
 `generated online <https://www.myfakeinfo.com/nationalidno/get-kr-resident-registration-number-with-name.php>`_
 and should all be valid numbers.
