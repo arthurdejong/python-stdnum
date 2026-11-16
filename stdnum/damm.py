@@ -89,6 +89,8 @@ def validate(number: str, table: DammTable | None = None) -> str:
     """Check if the number provided passes the Damm algorithm."""
     if not bool(number):
         raise InvalidFormat()
+    if not str(number).isascii():
+        raise InvalidFormat()
     try:
         valid = checksum(number, table=table) == 0
     except Exception:  # noqa: B902

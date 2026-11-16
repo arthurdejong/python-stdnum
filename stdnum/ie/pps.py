@@ -58,7 +58,7 @@ from stdnum.ie import vat
 from stdnum.util import clean
 
 
-pps_re = re.compile(r'^\d{7}[A-W][ABHWTX]?$')
+pps_re = re.compile(r'^[0-9]{7}[A-W][ABHWTX]?$')
 """Regular expression used to check syntax of PPS numbers."""
 
 
