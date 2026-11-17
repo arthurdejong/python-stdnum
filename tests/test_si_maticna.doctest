@@ -119,3 +119,9 @@ These have been found online and should all be valid numbers.
 ... '''
 >>> [x for x in numbers.splitlines() if x and not maticna.is_valid(x)]
 []
+
+
+Non-ASCII digits and letters are not valid and should be rejected.
+
+>>> maticna.is_valid('187603101\u0663')
+False

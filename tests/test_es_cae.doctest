@@ -257,3 +257,9 @@ These should all be valid numbers.
 ... '''
 >>> [x for x in numbers.splitlines() if x and not cae.is_valid(x)]
 []
+
+
+Non-ASCII digits and letters are not valid and should be rejected.
+
+>>> cae.is_valid('ES00008V1488\u00e9')
+False

@@ -34,8 +34,13 @@ InvalidChecksum: ...
 
 from __future__ import annotations
 
+import re
+
 from stdnum.exceptions import *
 from stdnum.util import clean, isdigits
+
+
+_prefix_re = re.compile(r'^[0-9A-Z]{2}$')
 
 
 def compact(number: str) -> str:
@@ -53,7 +58,7 @@ def checksum(number: str) -> int:
 def validate(number: str) -> str:
     """Check if the number is a valid banknote serial number."""
     number = compact(number)
-    if not number[:2].isalnum() or not isdigits(number[2:]):
+    if not _prefix_re.match(number[:2]) or not isdigits(number[2:]):
         raise InvalidFormat()
     if len(number) != 12:
         raise InvalidLength()

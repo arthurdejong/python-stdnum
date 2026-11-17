@@ -108,3 +108,9 @@ compact() and format() don't do much special:
 '131052A308T'
 >>> hetu.format('131052a308t')
 '131052A308T'
+
+
+Non-ASCII digits and letters are not valid and should be rejected.
+
+>>> hetu.is_valid('131052-30\u0668T')
+False

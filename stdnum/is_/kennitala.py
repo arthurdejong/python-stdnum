@@ -53,8 +53,8 @@ from stdnum.util import clean
 # organisations instead of birth date, the registration date is used,
 # and number 4 is added to the first digit.
 _kennitala_re = re.compile(
-    r'^(?P<day>[01234567]\d)(?P<month>[01]\d)(?P<year>\d\d)'
-    r'(?P<random>\d\d)(?P<control>\d)'
+    r'^(?P<day>[01234567][0-9])(?P<month>[01][0-9])(?P<year>[0-9][0-9])'
+    r'(?P<random>[0-9][0-9])(?P<control>[0-9])'
     r'(?P<century>[09])$')
 
 

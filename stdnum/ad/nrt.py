@@ -66,7 +66,7 @@ def validate(number: str) -> str:
     number = compact(number)
     if len(number) != 8:
         raise InvalidLength()
-    if not number[0].isalpha() or not number[-1].isalpha():
+    if not ('A' <= number[0] <= 'Z') or not ('A' <= number[-1] <= 'Z'):
         raise InvalidFormat()
     if not isdigits(number[1:-1]):
         raise InvalidFormat()
