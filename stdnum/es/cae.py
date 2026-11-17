@@ -225,7 +225,7 @@ def validate(number: str) -> str:
         raise InvalidFormat()
     if not isdigits(number[9:12]):
         raise InvalidFormat()
-    if not number[12].isalpha():
+    if not ('A' <= number[12] <= 'Z'):
         raise InvalidFormat()
     return number
 

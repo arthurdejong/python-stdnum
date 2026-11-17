@@ -244,3 +244,9 @@ These have been found online and should all be valid numbers.
 ... '''
 >>> [x for x in numbers.splitlines() if x and not onrc.is_valid(x)]
 []
+
+
+Non-ASCII digits and letters are not valid and should be rejected.
+
+>>> onrc.is_valid('J1/384/13.0\u0663.2015')
+False

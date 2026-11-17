@@ -44,3 +44,9 @@ These have been found online and should all be valid numbers.
 ... '''
 >>> [x for x in numbers.splitlines() if x and not kennitala.is_valid(x)]
 []
+
+
+Non-ASCII digits and letters are not valid and should be rejected.
+
+>>> kennitala.is_valid('120174-33\u06699')
+False

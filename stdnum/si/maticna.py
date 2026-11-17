@@ -76,7 +76,7 @@ def validate(number: str) -> str:
         raise InvalidLength()
     if not isdigits(number[:6]):
         raise InvalidFormat()
-    if not re.match(r'^([A-Za-z0-9]\d{2})?$', number[7:]):
+    if not re.match(r'^([A-Za-z0-9][0-9]{2})?$', number[7:]):
         raise InvalidFormat()
     if calc_check_digit(number) != number[6]:
         raise InvalidChecksum()

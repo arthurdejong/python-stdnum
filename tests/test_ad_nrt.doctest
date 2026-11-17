@@ -136,3 +136,9 @@ These have been found online and should all be valid numbers.
 ... '''
 >>> [x for x in numbers.splitlines() if x and not nrt.is_valid(x)]
 []
+
+
+Non-ASCII digits and letters are not valid and should be rejected.
+
+>>> nrt.is_valid('U-132950-\u00e9')
+False

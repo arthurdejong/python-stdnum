@@ -57,8 +57,8 @@ _century_codes.update(dict.fromkeys(('A', 'B', 'C', 'D', 'E', 'F'), 2000))
 # Finnish personal identity codes are composed of date part, century
 # indicating sign, individual number and control character.
 # ddmmyyciiiC
-_hetu_re = re.compile(r'^(?P<day>[0123]\d)(?P<month>[01]\d)(?P<year>\d\d)'
-                      r'(?P<century>[-+ABCDEFYXWVU])(?P<individual>\d\d\d)'
+_hetu_re = re.compile(r'^(?P<day>[0123][0-9])(?P<month>[01][0-9])(?P<year>[0-9][0-9])'
+                      r'(?P<century>[-+ABCDEFYXWVU])(?P<individual>[0-9][0-9][0-9])'
                       r'(?P<control>[0-9ABCDEFHJKLMNPRSTUVWXY])$')
 
 

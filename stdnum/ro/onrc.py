@@ -58,7 +58,7 @@ _cleanup_re = re.compile(r'[ /\\-]+')
 
 # This pattern should match numbers that for some reason have a full date
 # as last field for the old format
-_old_onrc_fulldate_re = re.compile(r'^([A-Z][0-9]+/[0-9]+/)\d{2}[.]\d{2}[.](\d{4})$')
+_old_onrc_fulldate_re = re.compile(r'^([A-Z][0-9]+/[0-9]+/)[0-9]{2}[.][0-9]{2}[.]([0-9]{4})$')
 
 # This pattern should match all valid numbers in the old format
 _old_onrc_re = re.compile(r'^[A-Z][0-9]+/[0-9]+/[0-9]+$')

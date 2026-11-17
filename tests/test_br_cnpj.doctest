@@ -56,3 +56,9 @@ These have been found online and should all be valid numbers.
 ... '''
 >>> [x for x in numbers.splitlines() if x and not cnpj.is_valid(x)]
 []
+
+
+Non-ASCII digits and letters are not valid and should be rejected.
+
+>>> cnpj.is_valid('07.195.358/000\u0661-66')
+False

@@ -69,3 +69,9 @@ These should all be valid serial numbers.
 ... '''
 >>> [x for x in numbers.splitlines() if x and not banknote.is_valid(x)]
 []
+
+
+Non-ASCII digits and letters are not valid and should be rejected.
+
+>>> banknote.is_valid('P\u00e96007033744')
+False

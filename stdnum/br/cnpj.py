@@ -47,7 +47,7 @@ from stdnum.util import clean
 
 
 # Minimal regex of valid characters
-_cnpj_re = re.compile(r'^[\dA-Z]+$')
+_cnpj_re = re.compile(r'^[0-9A-Z]+$')
 
 
 def compact(number: str) -> str:
