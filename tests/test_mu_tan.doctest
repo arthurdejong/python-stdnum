@@ -1,0 +1,57 @@
+test_mu_tan.doctest - more detailed doctests for stdnum.mu.tan module
+
+Copyright (C) 2023 Leandro Regueiro
+
+This library is free software; you can redistribute it and/or
+modify it under the terms of the GNU Lesser General Public
+License as published by the Free Software Foundation; either
+version 2.1 of the License, or (at your option) any later version.
+
+This library is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+Lesser General Public License for more details.
+
+You should have received a copy of the GNU Lesser General Public
+License along with this library; if not, write to the Free Software
+Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
+02110-1301 USA
+
+
+This file contains more detailed doctests for the stdnum.mu.tan module. It
+tries to test more corner cases and detailed functionality that is not really
+useful as module documentation.
+
+>>> from stdnum.mu import tan
+
+
+Tests for some corner cases.
+
+>>> tan.validate('20405553')
+'20405553'
+>>> tan.validate('12345')
+Traceback (most recent call last):
+    ...
+InvalidLength: ...
+>>> tan.validate('1234567V')
+Traceback (most recent call last):
+    ...
+InvalidFormat: ...
+>>> tan.validate('42345678')
+Traceback (most recent call last):
+    ...
+InvalidComponent: ...
+>>> tan.format('20405553')
+'20405553'
+
+
+These have been found online and should all be valid numbers.
+
+>>> numbers = '''
+...
+... 20405553
+... 18421000
+...
+... '''
+>>> [x for x in numbers.splitlines() if x and not tan.is_valid(x)]
+[]
