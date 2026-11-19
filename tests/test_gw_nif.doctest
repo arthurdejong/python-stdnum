@@ -1,0 +1,206 @@
+test_gw_nif.doctest - more detailed doctests for stdnum.gw.nif module
+
+Copyright (C) 2023 Leandro Regueiro
+
+This library is free software; you can redistribute it and/or
+modify it under the terms of the GNU Lesser General Public
+License as published by the Free Software Foundation; either
+version 2.1 of the License, or (at your option) any later version.
+
+This library is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+Lesser General Public License for more details.
+
+You should have received a copy of the GNU Lesser General Public
+License along with this library; if not, write to the Free Software
+Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
+02110-1301 USA
+
+
+This file contains more detailed doctests for the stdnum.gw.nif module. It
+tries to test more corner cases and detailed functionality that is not really
+useful as module documentation.
+
+>>> from stdnum.gw import nif
+
+
+Tests for some corner cases.
+
+>>> nif.validate('51 000 4610')
+'510004610'
+>>> nif.validate('510140343')
+'510140343'
+>>> nif.validate('12345')
+Traceback (most recent call last):
+    ...
+InvalidLength: ...
+>>> nif.validate('VV3456789')
+Traceback (most recent call last):
+    ...
+InvalidFormat: ...
+>>> nif.format('51 000 4610')
+'510004610'
+
+
+These have been found online and should all be valid numbers.
+
+>>> numbers = '''
+...
+... 510013899
+... 510010474
+... 510037259
+... 510035175
+... 510013538
+... 510000665
+... 510000371
+... 510009360
+... 510007406
+... 510008305
+... 510012248
+... 510122175
+... 510017460
+... 510004326
+... 510108075
+... 510029124
+... 510014437
+... 510009590
+... 510001092
+... 510005934
+... 510017738
+... 510015077
+... 510020747
+... 510013600
+... 510004334
+... 610000241
+... 510156215
+... 510015239
+... 510029787
+... 510022871
+... 510024017
+... 510019560
+... 510230830
+... 510019609
+... 610002317
+... 510023126
+... 510022049
+... 510021298
+... 810005697
+... 510106676
+... 510009751
+... 510000720
+... 810002604
+... 510008852
+... 510136974
+... 510017983
+... 510179240
+... 510226220
+... 510004911
+... 510002625
+... 510037372
+... 810009137
+... 510143806
+... 510019390
+... 810012219
+... 510014593
+... 510111350
+... 910000069
+... 910222797
+... 510139060
+... 510195636
+... 910000670
+... 510012825
+... 510038590
+... 510030050
+... 510005713
+... 910002053
+... 510129056
+... 510145248
+... 510028616
+... 510036708
+... 510005330
+... 510026320
+... 510114600
+... 510136648
+... 510016650
+... 510028071
+... 510036686
+... 510111904
+... 510012280
+... 510160468
+... 510014607
+... 510025897
+... 510010377
+... 510179797
+... 510115497
+... 610001396
+... 510108946
+... 510132782
+... 510116965
+... 510000134
+... 510178880
+... 510012078
+... 510131913
+... 510129242
+... 510002676
+... 510180205
+... 510001068
+... 510175848
+... 510001009
+... 510003141
+... 510102956
+... 510175619
+... 610001280
+... 510024947
+... 510002307
+... 510027040
+... 510030947
+... 510006183
+... 510038298
+... 610002295
+... 510039537
+... 910000093
+... 510010369
+... 510184030
+... 510114296
+... 510171214
+... 510003370
+... 510010741
+... 510010750
+... 510107389
+... 510124623
+... 510031404
+... 510170412
+... 510163432
+... 510130143
+... 510008143
+... 910003572
+... 510014542
+... 510027482
+... 510023274
+... 810008173
+... 910002614
+... 510107990
+... 510103928
+... 510014070
+... 510036597
+... 510026397
+... 510018599
+... 510007252
+... 510022847
+... 510009611
+... 510018025
+... 510009557
+... 510036597
+... 510036970
+... 510135358
+... 610 000 519
+... 51 000 4610
+... 510140343
+... 510010474
+... 510119220
+... 510000665
+...
+... '''
+>>> [x for x in numbers.splitlines() if x and not nif.is_valid(x)]
+[]
