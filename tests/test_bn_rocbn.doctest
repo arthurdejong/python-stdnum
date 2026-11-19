@@ -1,0 +1,91 @@
+test_bn_rocbn.doctest - more detailed doctests for stdnum.bn.rocbn module
+
+Copyright (C) 2023 Leandro Regueiro
+
+This library is free software; you can redistribute it and/or
+modify it under the terms of the GNU Lesser General Public
+License as published by the Free Software Foundation; either
+version 2.1 of the License, or (at your option) any later version.
+
+This library is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+Lesser General Public License for more details.
+
+You should have received a copy of the GNU Lesser General Public
+License along with this library; if not, write to the Free Software
+Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
+02110-1301 USA
+
+
+This file contains more detailed doctests for the stdnum.bn.rocbn module. It
+tries to test more corner cases and detailed functionality that is not really
+useful as module documentation.
+
+>>> from stdnum.bn import rocbn
+
+
+Tests for some corner cases.
+
+>>> rocbn.validate('P00084071')
+'P00084071'
+>>> rocbn.validate('RC00004866')
+'RC00004866'
+>>> rocbn.validate('RC/6953/2007')
+'RC69532007'
+>>> rocbn.validate('RFC/00000772')
+'RFC00000772'
+>>> rocbn.validate('12345')
+Traceback (most recent call last):
+    ...
+InvalidLength: ...
+>>> rocbn.validate('P1234567X')
+Traceback (most recent call last):
+    ...
+InvalidFormat: ...
+>>> rocbn.validate('RC1234567X')
+Traceback (most recent call last):
+    ...
+InvalidFormat: ...
+>>> rocbn.validate('RFC1234567X')
+Traceback (most recent call last):
+    ...
+InvalidFormat: ...
+>>> rocbn.validate('V12345678')
+Traceback (most recent call last):
+    ...
+InvalidFormat: ...
+>>> rocbn.validate('VV12345678')
+Traceback (most recent call last):
+    ...
+InvalidFormat: ...
+>>> rocbn.validate('VVV12345678')
+Traceback (most recent call last):
+    ...
+InvalidFormat: ...
+>>> rocbn.format('P00084071')
+'P00084071'
+>>> rocbn.format('RC/6953/2007')
+'RC69532007'
+>>> rocbn.format('RFC/00000772')
+'RFC00000772'
+
+
+These have been found online and should all be valid numbers.
+
+>>> numbers = '''
+...
+... P20008207
+... P00084071
+... P20006927
+... RC/6953/2007
+... RC/00006326
+... RC/00009742
+... RC00004866
+... RC00006420
+... RFC00000061
+... RFC/00000772
+...
+... '''
+>>> [x for x in numbers.splitlines() if x and not rocbn.is_valid(x)]
+[]
