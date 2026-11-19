@@ -1,0 +1,196 @@
+test_bj_ifu.doctest - more detailed doctests for stdnum.bj.ifu module
+
+Copyright (C) 2023 Leandro Regueiro
+
+This library is free software; you can redistribute it and/or
+modify it under the terms of the GNU Lesser General Public
+License as published by the Free Software Foundation; either
+version 2.1 of the License, or (at your option) any later version.
+
+This library is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+Lesser General Public License for more details.
+
+You should have received a copy of the GNU Lesser General Public
+License along with this library; if not, write to the Free Software
+Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
+02110-1301 USA
+
+
+This file contains more detailed doctests for the stdnum.bj.ifu module. It
+tries to test more corner cases and detailed functionality that is not really
+useful as module documentation.
+
+>>> from stdnum.bj import ifu
+
+
+Tests for some corner cases.
+
+>>> ifu.validate('3201910583176')
+'3201910583176'
+>>> ifu.validate('3201 30109 9116')
+'3201301099116'
+>>> ifu.validate('320-110-2073316')
+'3201102073316'
+>>> ifu.validate('12345')
+Traceback (most recent call last):
+    ...
+InvalidLength: ...
+>>> ifu.validate('VV34567890123')
+Traceback (most recent call last):
+    ...
+InvalidFormat: ...
+>>> ifu.validate('9200067890123')
+Traceback (most recent call last):
+    ...
+InvalidComponent: ...
+>>> ifu.validate('3999967890123')
+Traceback (most recent call last):
+    ...
+InvalidComponent: ...
+>>> ifu.format('3201 30109 9116')
+'3201301099116'
+
+
+These have been found online and should all be valid numbers.
+
+>>> numbers = '''
+...
+... 3201910650626
+... 3201910583176
+... 4201001686513
+... 3201 30109 9116
+... 3200700033415
+... 3200900261914
+... 3200800032118
+... 3200800032118
+... 3200800032118
+... 3200700034111
+... 3200800032118
+... 1201301488009
+... 3200900161518
+... 3201100806612
+... 3200901052914
+... 3200800777415
+... 3202011243136
+... 3201300602910
+... 3201910624299
+... 3200800555113
+... 3200800579315
+... 3200700024415
+... 3200700110113
+... 3200700092919
+... 3200700092919
+... 3201000393119
+... 3201810208081
+... 3201810468789
+... 1201510370202
+... 1201701326901
+... 3200801478417
+... 1200801282305
+... 1201700917809
+... 3200700044213
+... 3200800203617
+... 3200801478417
+... 3200800818719
+... 3200900360812
+... 3200801443912
+... 3201100075919
+... 3200900261914
+... 3202011243136
+... 3201910632079
+... 3200800667517
+... 3201500238418
+... 3201501125118
+... 3200800583113
+... 3201810302352
+... 1201301488009
+... 3200900161518
+... 3201100806612
+... 3200901052914
+... 3200800777415
+... 3202011243136
+... 3201300602910
+... 3201910624299
+... 3200800555113
+... 3200800579315
+... 3200700024415
+... 3200700110113
+... 3200700092919
+... 3201000393119
+... 3201810208081
+... 3201810468789
+... 1201510370202
+... 1201701326901
+... 3200801478417
+... 1200801282305
+... 1201700917809
+... 3200800203617
+... 3200800818719
+... 3200900261914
+... 3200900360812
+... 3200801443912
+... 3201100075919
+... 3201910632079
+... 3200800667517
+... 3201500238418
+... 3201501125118
+... 3200800583113
+... 3201810302352
+... 3201301077418
+... 1201201249906
+... 1201400877201
+... 3200800646619
+... 3201643198031
+... 3201007665114
+... 1201200548009
+... 1201642938909
+... 1201641325203
+... 3201100951210
+... 2201500672302
+... 3201701918418
+... 2201641943708
+... 2201300191201
+... 3201910336807
+... 3201710167035
+... 2201644099708
+... 1201201292100
+... 1201500706605
+... 1201001231403
+... 3201000909217
+... 1201642988403
+... 1201500703604
+... 2201405651202
+... 3200800565618
+... 3201910638526
+... 3200800074214
+... 3200700065718
+... 3201301099116
+... 3201810230787
+... 4201641583612
+... 3201810464026
+... 3 200 7 000 21213
+... 320-110-2073316
+... 1201642788000
+... 1201642565000
+... 1201641158203
+... 3200900819518
+... 3200900819113
+... 3200700076616
+... 3201200605910
+... 3200800583113
+... 3200700018516
+... 3200800696112
+... 3202113085279
+... 3201810397557
+... 3201642997218
+... 1201502253302
+... 1201200731706
+... 6 2020 1197 2710
+... 3201810336807
+... 3200700065718
+...
+... '''
+>>> [x for x in numbers.splitlines() if x and not ifu.is_valid(x)]
+[]
