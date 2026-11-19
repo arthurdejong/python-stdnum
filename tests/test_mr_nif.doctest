@@ -1,0 +1,199 @@
+test_mr_nif.doctest - more detailed doctests for stdnum.mr.nif module
+
+Copyright (C) 2023 Leandro Regueiro
+
+This library is free software; you can redistribute it and/or
+modify it under the terms of the GNU Lesser General Public
+License as published by the Free Software Foundation; either
+version 2.1 of the License, or (at your option) any later version.
+
+This library is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+Lesser General Public License for more details.
+
+You should have received a copy of the GNU Lesser General Public
+License along with this library; if not, write to the Free Software
+Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
+02110-1301 USA
+
+
+This file contains more detailed doctests for the stdnum.mr.nif module. It
+tries to test more corner cases and detailed functionality that is not really
+useful as module documentation.
+
+>>> from stdnum.mr import nif
+
+
+Tests for some corner cases.
+
+>>> nif.validate('20300059')
+'20300059'
+>>> nif.validate('70 401 906')
+'70401906'
+>>> nif.validate('12345')
+Traceback (most recent call last):
+    ...
+InvalidLength: ...
+>>> nif.validate('XX345678')
+Traceback (most recent call last):
+    ...
+InvalidFormat: ...
+>>> nif.format('70 401 906')
+'70401906'
+
+
+These have been found online and should all be valid numbers.
+
+>>> numbers = '''
+...
+... 20300059
+... 00409136
+... 90300075
+... 00455386
+... 00510669
+... 00510651
+... 00510677
+... 20300059
+... 00409136
+... 90300075
+... 00455386
+... 00510669
+... 00510651
+... 00510677
+... 20700455
+... 00042218
+... 11100448
+... 00520510
+... 10600166
+... 00066845
+... 30500075
+... 00117549
+... 70 401 906
+... 30600091
+... 11100778
+... 10701982
+... 20400034
+... 20705520
+... 00554352
+... 00550608
+... 01196641
+... 00060707
+... 00127456
+... 00407239
+... 00091769
+... 00055152
+... 10701354
+... 10701339
+... 10707336
+... 10713326
+... 10701495
+... 00194480
+... 00076299
+... 00516534
+... 10800042
+... 10706114
+... 00066845
+... 10709316
+... 30200208
+... 10709951
+... 30200174
+... 30700067
+... 30700113
+... 20600117
+... 10717012
+... 10707955
+... 20705397
+... 10702865
+... 20602626
+... 10703574
+... 10713896
+... 10713201
+... 21103616
+... 21100901
+... 10600158
+... 20901545
+... 10708862
+... 20703590
+... 11100075
+... 10713102
+... 10707476
+... 20600125
+... 20601099
+... 10706544
+... 10712070
+... 10600174
+... 20702154
+... 10718358
+... 10715883
+... 10700513
+... 10602709
+... 20602808
+... 10721188
+... 10703103
+... 20601206
+... 20600083
+... 20600760
+... 20704853
+... 10708987
+... 20701594
+... 10603400
+... 20704432
+... 20302865
+... 20600620
+... 10701776
+... 10704762
+... 10718820
+... 11101016
+... 20602782
+... 11108235
+... 30600323
+... 10700885
+... 20705470
+... 41100018
+... 10602410
+... 20602121
+... 11104234
+... 10718655
+... 40700018
+... 10720354
+... 21106429
+... 10600042
+... 20602477
+... 10718200
+... 11100935
+... 21100760
+... 20703400
+... 20704572
+... 10600620
+... 10701479
+... 20601081
+... 10721147
+... 10700604
+... 10601305
+... 10600166
+... 10723903
+... 10601933
+... 11107690
+... 11100182
+... 20602683
+... 20600141
+... 10700893
+... 10715974
+... 21101248
+... 20705181
+... 10701065
+... 20704176
+... 10600299
+... 20701560
+... 10715853
+... 11107518
+... 10722269
+... 10707708
+... 10900828
+... 10603079
+... 20704218
+...
+... '''
+>>> [x for x in numbers.splitlines() if x and not nif.is_valid(x)]
+[]
