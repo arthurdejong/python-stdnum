@@ -1,0 +1,148 @@
+test_in_ifsc.doctest - more detailed doctests for stdnum.in_.ifsc module
+
+Copyright (C) 2026 Yash Budhia
+
+This library is free software; you can redistribute it and/or
+modify it under the terms of the GNU Lesser General Public
+License as published by the Free Software Foundation; either
+version 2.1 of the License, or (at your option) any later version.
+
+This library is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+Lesser General Public License for more details.
+
+You should have received a copy of the GNU Lesser General Public
+License along with this library; if not, see <https://www.gnu.org/licenses/>.
+
+
+This file contains more detailed doctests for the stdnum.in_.ifsc module. It
+tries to cover more corner cases and detailed functionality that is not
+really useful as module documentation.
+
+>>> from stdnum.in_ import ifsc
+>>> from stdnum.exceptions import *
+
+These codes come from the openly maintained Razorpay IFSC dataset, which is
+derived from the list the RBI publishes, and should all be valid. They were
+picked to cover many different banks and both numeric and alphanumeric branch
+codes.
+
+>>> numbers = '''
+...
+... SBIN0000001
+... HDFC0000001
+... ICIC0000001
+... UTIB0000001
+... PUNB0000100
+... ABHY0065001
+... ADCC0000001
+... AIRP00000SC
+... AKJB0000001
+... ALLA0888888
+... AMCB0RTGS4S
+... ANDB0TRESUY
+... APBL0000001
+... APGB0000001
+... APGV0000001
+... APMC0000001
+... ASBL0000001
+... AUBL0000001
+... AUCB0000001
+... BACB0000001
+... BARB0BGGBXX
+... BARC0INBB01
+... BBKM0000001
+... BCBM0000001
+... BCEY0CHEN01
+... BDBL0000001
+... BKDN0RTGSSC
+... BKID000DCBL
+... BNPA0RTGSMI
+... BOFA0MM6205
+... BOTM0003611
+... CBIN0281102
+... CCBL0209003
+... CHAS0INBX01
+... CITI0RTGSMI
+... CIUB0000082
+... CLBL0000001
+... CNRB0RTGS01
+... COAS0000001
+... CORP0000920
+... COSB0000025
+... CRLY0000001
+... CRUB0000001
+... CSBK0000001
+... CSBX0CSB001
+... DBSS0IN0811
+... DCBL0000037
+... DEOB0000001
+... DEUT0000PBC
+... DLSC0000001
+... DLXB0000146
+... DMKJ0000001
+... DNSB0000001
+... DOHB0000001
+... EBIL0000001
+... ESFB0000001
+... ESMF0000001
+... FDRL0000379
+... FINO0000001
+... FSFB0000001
+...
+... '''
+>>> [x for x in numbers.splitlines() if x and not ifsc.is_valid(x)]
+[]
+
+
+The fifth character is reserved and must always be 0.
+
+>>> ifsc.validate('SBIN1000001')
+Traceback (most recent call last):
+    ...
+InvalidComponent: ...
+>>> ifsc.is_valid('SBINA000001')
+False
+
+
+The bank code is four letters and the branch code is six letters or digits.
+
+>>> ifsc.validate('SB1N0000001')
+Traceback (most recent call last):
+    ...
+InvalidFormat: ...
+>>> ifsc.validate('SBIN00000#1')
+Traceback (most recent call last):
+    ...
+InvalidFormat: ...
+
+
+The code is always exactly 11 characters long.
+
+>>> ifsc.validate('SBIN000001')
+Traceback (most recent call last):
+    ...
+InvalidLength: ...
+>>> ifsc.validate('SBIN00000012')
+Traceback (most recent call last):
+    ...
+InvalidLength: ...
+
+
+Lower case, surrounding whitespace and separators are normalised away.
+
+>>> ifsc.compact(' hdfc0cabblm ')
+'HDFC0CABBLM'
+>>> ifsc.validate('icic0000001')
+'ICIC0000001'
+>>> ifsc.validate('UTIB 0000001')
+'UTIB0000001'
+
+
+The code splits into a bank code and a branch code.
+
+>>> ifsc.info('UTIB0000001') == {'bank_code': 'UTIB', 'branch_code': '000001'}
+True
+>>> ifsc.info('HDFC0CABBLM')['branch_code']
+'CABBLM'
