@@ -21,4 +21,4 @@
 from __future__ import annotations
 
 # provide aliases
-from stdnum.il import hp as vat  # noqa: F401
+from stdnum.il import idnr as vat  # noqa: F401
