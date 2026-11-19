@@ -1,0 +1,63 @@
+test_zm_tpin.doctest - more detailed doctests for stdnum.zm.tpin module
+
+Copyright (C) 2023 Leandro Regueiro
+
+This library is free software; you can redistribute it and/or
+modify it under the terms of the GNU Lesser General Public
+License as published by the Free Software Foundation; either
+version 2.1 of the License, or (at your option) any later version.
+
+This library is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+Lesser General Public License for more details.
+
+You should have received a copy of the GNU Lesser General Public
+License along with this library; if not, write to the Free Software
+Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
+02110-1301 USA
+
+
+This file contains more detailed doctests for the stdnum.zm.tpin module. It
+tries to test more corner cases and detailed functionality that is not really
+useful as module documentation.
+
+>>> from stdnum.zm import tpin
+
+
+Tests for some corner cases.
+
+>>> tpin.validate('1001788854')
+'1001788854'
+>>> tpin.validate('12345')
+Traceback (most recent call last):
+    ...
+InvalidLength: ...
+>>> tpin.validate('VV34567890')
+Traceback (most recent call last):
+    ...
+InvalidFormat: ...
+>>> tpin.format('1001788854')
+'1001788854'
+
+
+These have been found online and should all be valid numbers.
+
+>>> numbers = '''
+...
+... 1001788854
+... 1002198166
+... 1001998819
+... 2991788603
+... 1002188228
+... 1006160651
+... 1002327663
+... 1002503851
+... 1003661603
+... 1001710408
+... 1002169843
+... 1001218594
+...
+... '''
+>>> [x for x in numbers.splitlines() if x and not tpin.is_valid(x)]
+[]
