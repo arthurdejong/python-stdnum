@@ -1,0 +1,28 @@
+>>> from stdnum.ru import snils
+>>> from stdnum.exceptions import *
+
+Checks a valid SNILS number and its formatting behavior:
+
+>>> snils.validate('148-481-255 85')
+'14848125585'
+>>> snils.format('14848125585')
+'148-481-255 85'
+>>> snils.compact(' 148 481 255 85 ')
+'14848125585'
+>>> snils.is_valid('148-481-255 85')
+True
+
+Invalid SNILS values raise the expected exceptions:
+
+>>> snils.validate('148-481-255')  # too short
+Traceback (most recent call last):
+    ...
+InvalidLength: ...
+>>> snils.validate('148-481-255 xx')  # invalid characters
+Traceback (most recent call last):
+    ...
+InvalidFormat: ...
+>>> snils.validate('148-481-255 00')  # invalid checksum
+Traceback (most recent call last):
+    ...
+InvalidChecksum: ...
