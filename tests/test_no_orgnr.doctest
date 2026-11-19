@@ -1,0 +1,71 @@
+test_no_orgnr.doctest - more detailed doctests for stdnum.no.orgnr module
+
+Copyright (C) 2026 M J Anthony
+
+This library is free software; you can redistribute it and/or
+modify it under the terms of the GNU Lesser General Public
+License as published by the Free Software Foundation; either
+version 2.1 of the License, or (at your option) any later version.
+
+This library is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+Lesser General Public License for more details.
+
+You should have received a copy of the GNU Lesser General Public
+License along with this library; if not, see <https://www.gnu.org/licenses/>.
+
+
+This file contains more detailed doctests for the stdnum.no.orgnr module. It
+tries to cover more corner cases and detailed functionality that is not
+really useful as module documentation.
+
+>>> from stdnum.no import orgnr
+
+
+These have been found online and should all be valid numbers.
+
+>>> numbers = '''
+...
+... 988 077 917
+... 965 920 358
+... 980 430 596
+... 998 772 680
+... 987 008 644
+... 917 313 008
+... 966 813 946
+... 982 930 057
+... 982 952 573
+... 987 989 297
+...
+... '''
+>>> [x for x in numbers.splitlines() if x and not orgnr.is_valid(x)]
+[]
+
+
+Norwegian organisation numbers always start with 8 or 9. Each of the
+following numbers has a valid modulus 11 check digit but an invalid first
+digit, so they must all be rejected.
+
+>>> numbers = '''
+...
+... 000 000 000
+... 100 000 008
+... 200 000 005
+... 300 000 002
+... 410 000 008
+... 500 000 007
+... 600 000 004
+... 700 000 001
+...
+... '''
+>>> [x for x in numbers.splitlines() if x and orgnr.is_valid(x)]
+[]
+
+
+Numbers that start with 8 or 9 with a correct check digit remain valid.
+
+>>> orgnr.validate('800 000 009')
+'800000009'
+>>> orgnr.validate('900 000 006')
+'900000006'
