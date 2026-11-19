@@ -59,7 +59,7 @@ def calc_check_digit(number: str) -> str:
     if len(number) == 13:
         return str(int(number[:-1]) % 11 % 10)
     else:
-        return str(int(number[:-1]) % 13)
+        return str(int(number[:-1]) % 13 % 10)
 
 
 def validate(number: str) -> str:
