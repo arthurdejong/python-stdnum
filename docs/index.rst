@@ -244,6 +244,7 @@ Available formats
    in_.gstin
    in_.pan
    in_.vid
+   ir.nid
    is_.kennitala
    is_.vsk
    isan
