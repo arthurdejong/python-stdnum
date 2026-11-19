@@ -17,3 +17,6 @@
 # License along with this library; if not, see <https://www.gnu.org/licenses/>.
 
 """Collection of Liechtenstein numbers."""
+
+# provide aliases
+from stdnum.li import peid as vat  # noqa: F401

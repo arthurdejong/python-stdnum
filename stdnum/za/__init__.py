@@ -17,3 +17,6 @@
 # License along with this library; if not, see <https://www.gnu.org/licenses/>.
 
 """Collection of South Africa numbers."""
+
+# provide aliases
+from stdnum.za import tin as vat  # noqa: F401
