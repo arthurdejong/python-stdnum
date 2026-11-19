@@ -1,0 +1,119 @@
+test_kz_iin.doctest - more detailed doctests for the stdnum.kz.iin module
+
+Copyright (C) 2026 Luca Sicurello
+
+This library is free software; you can redistribute it and/or
+modify it under the terms of the GNU Lesser General Public
+License as published by the Free Software Foundation; either
+version 2.1 of the License, or (at your option) any later version.
+
+This library is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+Lesser General Public License for more details.
+
+You should have received a copy of the GNU Lesser General Public
+License along with this library; if not, see <https://www.gnu.org/licenses/>.
+
+
+This file contains more detailed doctests for the stdnum.kz.iin module. It
+tries to validate a number of numbers that have been found online.
+
+>>> from stdnum.kz import iin
+>>> from stdnum.exceptions import *
+
+
+Tests for some corner cases.
+
+>>> iin.validate('921029 35085 1')
+'921029350851'
+>>> iin.is_valid('921029350851')
+True
+>>> iin.is_valid('921029350852')
+False
+>>> iin.validate('921029350852')
+Traceback (most recent call last):
+    ...
+InvalidChecksum: ...
+>>> iin.validate('921529350859') # wrong date
+Traceback (most recent call last):
+    ...
+InvalidComponent: ...
+>>> iin.validate('921029950850') # wrong gender code
+Traceback (most recent call last):
+    ...
+InvalidComponent: ...
+>>> iin.validate('921029351840') # wrong serial registration number
+Traceback (most recent call last):
+    ...
+InvalidComponent: ...
+>>> iin.validate('991231623804') # future date
+Traceback (most recent call last):
+    ...
+InvalidComponent: ...
+>>> iin.validate('123')
+Traceback (most recent call last):
+    ...
+InvalidLength: ...
+>>> iin.validate('92102935085A')
+Traceback (most recent call last):
+    ...
+InvalidFormat: ...
+>>> iin.get_gender('840621350384')
+'M'
+>>> iin.get_gender('850830402160')
+'F'
+>>> print(iin.get_gender('960206001028'))
+None
+>>> iin.get_birth_date('960206101024')
+datetime.date(1896, 2, 6)
+>>> iin.get_birth_date('960206001028')
+datetime.date(1996, 2, 6)
+>>> iin.get_birth_date('000206001029')
+datetime.date(2000, 2, 6)
+
+
+These have been found online and should all be valid numbers.
+
+>>> numbers = '''
+...
+... 790327250010
+... 660811300838
+... 750911301086
+... 780911400109
+... 821119301118
+... 840621350384
+... 841204301193
+... 850830402160
+... 870822400401
+... 871218302400
+... 901026350693
+... 910918301524
+... 921029350851
+... 940609350101
+... 950512300467
+... 960206301027
+... 960417300680
+... 970605350412
+... 970629300437
+... 980415451416
+... 980424301155
+... 990503301265
+... 000117551201
+... 000302501528
+... 000601500307
+... 001026550291
+... 010321501098
+... 011231601533
+... 020105500969
+... 020118551052
+... 030326651468
+... 040120651549
+... 040301501193
+... 040412500083
+... 050305501840
+... 050401650966
+...
+... '''
+>>> [x for x in numbers.splitlines() if x and not iin.is_valid(x)]
+[]
