@@ -158,6 +158,7 @@ def check_vies(
         r = requests.post(
             'https://ec.europa.eu/taxation_customs/vies/rest-api/check-vat-number',
             json={'countryCode': number[:2], 'vatNumber': number[2:]},
+            timeout=timeout, verify=verify,
         )
         r.raise_for_status()
         return r.json()  # type: ignore[no-any-return]
@@ -206,6 +207,7 @@ def check_vies_approx(
                 'requesterCountryCode': requester[:2],
                 'requesterVatNumber': requester[2:],
             },
+            timeout=timeout, verify=verify,
         )
         r.raise_for_status()
         return r.json()  # type: ignore[no-any-return]

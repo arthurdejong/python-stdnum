@@ -23,6 +23,7 @@
 
 import os
 import unittest
+from unittest.mock import Mock, patch
 
 from stdnum.eu import vat
 
@@ -47,3 +48,36 @@ class TestVies(unittest.TestCase):
         self.assertTrue(result['valid'])
         self.assertEqual(result['countryCode'], 'NL')
         self.assertEqual(result['vatNumber'], '004495445B01')
+
+
+class TestViesRestOptions(unittest.TestCase):
+    """Test the REST request options without contacting the VIES service."""
+
+    def test_check_vies_request_options(self) -> None:
+        """Forward timeout and CA configuration to the REST client."""
+        requests = Mock()
+        requests.post.return_value.json.return_value = {'valid': True}
+        with patch.dict('sys.modules', {'requests': requests}):
+            result = vat.check_vies('BE0428759497', timeout=2.5, verify='/tmp/ca.pem')
+        self.assertTrue(result['valid'])
+        requests.post.assert_called_once_with(
+            'https://ec.europa.eu/taxation_customs/vies/rest-api/check-vat-number',
+            json={'countryCode': 'BE', 'vatNumber': '0428759497'},
+            timeout=2.5, verify='/tmp/ca.pem')
+
+    def test_check_vies_approx_request_options(self) -> None:
+        """Forward timeout and TLS settings for approximate lookups."""
+        requests = Mock()
+        requests.post.return_value.json.return_value = {'valid': True}
+        with patch.dict('sys.modules', {'requests': requests}):
+            result = vat.check_vies_approx('BE0428759497', 'BE0428759497', timeout=7, verify=False)
+        self.assertTrue(result['valid'])
+        requests.post.assert_called_once_with(
+            'https://ec.europa.eu/taxation_customs/vies/rest-api/check-vat-number',
+            json={
+                'countryCode': 'BE',
+                'vatNumber': '0428759497',
+                'requesterCountryCode': 'BE',
+                'requesterVatNumber': '0428759497',
+            },
+            timeout=7, verify=False)
