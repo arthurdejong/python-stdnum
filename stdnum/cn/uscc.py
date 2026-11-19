@@ -30,15 +30,18 @@ letters I, O, Z, S, V). The number is comprised of several parts:
 The registering authority digit most often is a 9, which represents the State
 Administration for Industry and Commerce (SAIC) as the registering authority.
 
-The registered entity type indicates the type of business (or entity). The
-most common entity types in China are:
+The registered entity type must be interpreted together with the registering
+authority. Under authority 9 (market regulation), the second digit identifies
+these categories:
 
-* Wholly Foreign-Owned Enterprises (WFOE): 外商独资企业
-* Joint Ventures (JV): 合资
-* Representative Office: 代表处
-* State-Owned Enterprise (SOE): 国有企业
-* Private Enterprise: 民营企业
-* Individually-Owned: 个体户
+* 1: Enterprise (企业)
+* 2: Individually-owned business (个体工商户)
+* 3: Farmers' specialised cooperative (农民专业合作社)
+
+These categories do not distinguish foreign, state or private ownership.
+The prefix also need not reflect the current entity type: under Article 10
+of SAMR Order No. 112, an individually-owned business that converts to an
+enterprise through a change of registration retains its code.
 
 The registering region code, sometimes referred to as the "administrative
 division code", is a string of six numbers that indicates where the company
@@ -51,6 +54,8 @@ contain letters or digits.
 
 More information:
 
+* https://scjgj.beijing.gov.cn/zwxx/scjgdt/202407/t20240719_3753300.html
+* https://www.samr.gov.cn/zw/zfxxgk/fdzdgknr/fgs/art/2025/art_70644edcbd6349a09dbe2e32e725705d.html
 * https://zh.wikipedia.org/wiki/统一社会信用代码
 * https://zh.wikipedia.org/wiki/校验码
 * https://www.oecd.org/tax/automatic-exchange/crs-implementation-and-assistance/tax-identification-numbers/China-TIN.pdf
@@ -98,7 +103,8 @@ def calc_check_digit(number: str) -> str:
 def validate(number: str) -> str:
     """Check if the number is a valid USCC.
 
-    This checks the length, formatting and check digit.
+    This checks the length, formatting and check digit. It does not check
+    whether the number was issued or whether the entity is currently registered.
     """
     number = compact(number)
     if len(number) != 18:
