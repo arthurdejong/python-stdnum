@@ -55,7 +55,7 @@ from stdnum.util import clean, isdigits
 def compact(number: str) -> str:
     """Convert the number to the minimal representation. This strips the
     number of any valid separators and removes surrounding whitespace."""
-    number = clean(number, ' :')
+    number = clean(number, ' :').strip()
     if len(number) in (10, 12) and number[-5] not in '-+':
         number = '%s-%s' % (number[:-4], number[-4:])
     return number[:-5].replace('-', '').replace('+', '') + number[-5:]

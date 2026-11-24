@@ -48,7 +48,7 @@ def compact(number: str) -> str:
     This strips the number of any valid separators and removes surrounding
     whitespace.
     """
-    return clean(number, ' ')
+    return clean(number, ' ').strip()
 
 
 def calc_check_digit(number: str) -> str:

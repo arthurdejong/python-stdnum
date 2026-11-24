@@ -1,0 +1,44 @@
+test_compact_whitespace.doctest - test whitespace handling of compact()
+
+Copyright (C) 2011-2025 Arthur de Jong
+
+This library is free software; you can redistribute it and/or
+modify it under the terms of the GNU Lesser General Public
+License as published by the Free Software Foundation; either
+version 2.1 of the License, or (at your option) any later version.
+
+This library is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+Lesser General Public License for more details.
+
+You should have received a copy of the GNU Lesser General Public
+License along with this library; if not, see <https://www.gnu.org/licenses/>.
+
+
+This file contains tests to check that the compact() functions of the
+number modules remove surrounding whitespace of any kind (not just spaces)
+so values with a trailing newline or tab, as often found in pasted text or
+files, are still recognised as valid numbers.
+
+>>> import importlib
+>>> numbers = {
+...     'stdnum.at.vnr': '1237010180',
+...     'stdnum.az.voen': '5700281172',
+...     'stdnum.ch.esr': '361610000000000020190704093',
+...     'stdnum.dz.nif': '001316100750513',
+...     'stdnum.gh.tin': 'C0002147866',
+...     'stdnum.ma.ice': '002143491000017',
+...     'stdnum.me.pib': '02096064',
+...     'stdnum.no.fodselsnummer': '231140-38547',
+...     'stdnum.ru.ogrn': '1027100000311',
+...     'stdnum.se.personnummer': '8803200156',
+...     'stdnum.tn.mf': '1068309V',
+...     'stdnum.za.idnr': '8507085951081',
+... }
+>>> for name, number in sorted(numbers.items()):
+...     module = importlib.import_module(name)
+...     assert module.is_valid(number), name
+...     for value in ('%s\n' % number, ' \t%s\r\n' % number):
+...         if module.compact(value) != module.compact(number) or not module.is_valid(value):
+...             print(name, repr(value))

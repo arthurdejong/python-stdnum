@@ -82,7 +82,7 @@ def compact(number: str) -> str:
     This strips the number of any valid separators, removes surrounding
     whitespace.
     """
-    number = clean(number, ' /.-').upper()
+    number = clean(number, ' /.-').upper().strip()
     # Zero pad the numeric serial to length 7
     match = re.match(r'^(?P<serial>[0-9]+)(?P<rest>.*)$', number)
     if match:
