@@ -56,7 +56,7 @@ from stdnum.util import clean, isdigits
 def compact(number: str) -> str:
     """Convert the number to the minimal representation. This strips
     surrounding whitespace and separators."""
-    return clean(number, ' ').lstrip('0')
+    return clean(number, ' ').strip().lstrip('0')
 
 
 def calc_check_digit(number: str) -> str:

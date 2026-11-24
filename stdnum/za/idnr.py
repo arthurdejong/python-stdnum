@@ -62,7 +62,7 @@ def compact(number: str) -> str:
     This strips the number of any valid separators and removes surrounding
     whitespace.
     """
-    return clean(number, ' ')
+    return clean(number, ' ').strip()
 
 
 def get_birth_date(number: str) -> datetime.date:

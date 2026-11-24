@@ -44,7 +44,7 @@ from stdnum.util import clean, isdigits
 def compact(number: str) -> str:
     """Convert the number to the minimal representation. This strips the
     number of any valid separators and removes surrounding whitespace."""
-    return clean(number, ' ')
+    return clean(number, ' ').strip()
 
 
 def calc_check_digit(number: str) -> str:

@@ -70,7 +70,7 @@ def compact(number: str) -> str:
     This strips the number of any valid separators, removes surrounding
     whitespace.
     """
-    return clean(number, ' ')
+    return clean(number, ' ').strip()
 
 
 def validate(number: str) -> str:

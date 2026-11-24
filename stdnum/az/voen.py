@@ -55,7 +55,7 @@ def compact(number: str) -> str:
     This strips the number of any valid separators and removes surrounding
     whitespace.
     """
-    number = clean(number, ' ')
+    number = clean(number, ' ').strip()
     if len(number) == 9:
         number = '0' + number
     return number
